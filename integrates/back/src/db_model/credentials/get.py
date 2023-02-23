@@ -7,6 +7,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -24,15 +27,11 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_credentials(
     *, requests: Iterable[CredentialsRequest]
-) -> list[Optional[Credentials]]:
+) -> list[Credentials | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["credentials_metadata"],
@@ -55,11 +54,11 @@ async def _get_credentials(
     ]
 
 
-class CredentialsLoader(DataLoader[CredentialsRequest, Optional[Credentials]]):
+class CredentialsLoader(DataLoader[CredentialsRequest, Credentials | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[CredentialsRequest]
-    ) -> list[Optional[Credentials]]:
+    ) -> list[Credentials | None]:
         return await _get_credentials(requests=requests)
 
 

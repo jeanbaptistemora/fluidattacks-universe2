@@ -142,7 +142,6 @@ from starlette.requests import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -254,7 +253,7 @@ class Dataloaders(NamedTuple):
 
 
 def apply_context_attrs(
-    context: Request, loaders: Optional[Dataloaders] = None
+    context: Request, loaders: Dataloaders | None = None
 ) -> Request:
     setattr(context, "loaders", loaders if loaders else get_new_context())
     setattr(context, "store", defaultdict(lambda: None))

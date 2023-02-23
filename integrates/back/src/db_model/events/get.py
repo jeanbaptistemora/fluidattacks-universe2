@@ -16,6 +16,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -26,13 +29,9 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
-async def _get_event(*, event_id: str) -> Optional[Event]:
+async def _get_event(*, event_id: str) -> Event | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_metadata"],
         values={"id": event_id},
@@ -137,12 +136,12 @@ class EventsHistoricStateLoader(DataLoader[str, list[EventState]]):
         )
 
 
-class EventLoader(DataLoader[str, Optional[Event]]):
+class EventLoader(DataLoader[str, Event | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
         event_keys: Iterable[str],
-    ) -> list[Optional[Event]]:
+    ) -> list[Event | None]:
         return list(
             await collect(
                 tuple(_get_event(event_id=event_id) for event_id in event_keys)

@@ -38,16 +38,13 @@ from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
 import simplejson as json
-from typing import (
-    Optional,
-)
 
 
 async def update_evidence(
     *,
     event_id: str,
     group_name: str,
-    evidence_info: Optional[EventEvidence],
+    evidence_info: EventEvidence | None,
     evidence_id: EventEvidenceId,
 ) -> None:
     primary_key = keys.build_key(

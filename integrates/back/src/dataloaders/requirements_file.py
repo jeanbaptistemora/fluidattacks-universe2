@@ -5,12 +5,14 @@ from aioextensions import (
     collect,
 )
 import aiofiles
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_INTEGRATES_CRITERIA_REQUIREMENTS,
 )
 from typing import (
     Any,
-    Iterable,
 )
 import yaml
 

@@ -10,6 +10,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -19,9 +22,6 @@ from db_model.event_comments.utils import (
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
 )
 
 

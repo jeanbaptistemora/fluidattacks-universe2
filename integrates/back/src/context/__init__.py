@@ -1,7 +1,4 @@
 import os
-from typing import (
-    Optional,
-)
 
 try:
     CACHIX_AUTH_TOKEN = os.environ.get("CACHIX_AUTH_TOKEN")
@@ -84,12 +81,10 @@ try:
     FI_ZENDESK_EMAIL = os.environ["ZENDESK_EMAIL"]
     FI_ZENDESK_SUBDOMAIN = os.environ["ZENDESK_SUBDOMAIN"]
     FI_ZENDESK_TOKEN = os.environ["ZENDESK_TOKEN"]
-    LOG_LEVEL_CONSOLE: Optional[str] = os.environ.get("LOG_LEVEL_CONSOLE")
-    LOG_LEVEL_BUGSNAG: Optional[str] = os.environ.get("LOG_LEVEL_BUGSNAG")
-    LOG_LEVEL_WATCHTOWER: Optional[str] = os.environ.get(
-        "LOG_LEVEL_WATCHTOWER"
-    )
-    UNIVERSE_API_TOKEN: Optional[str] = os.environ.get("UNIVERSE_API_TOKEN")
+    LOG_LEVEL_CONSOLE: str | None = os.environ.get("LOG_LEVEL_CONSOLE")
+    LOG_LEVEL_BUGSNAG: str | None = os.environ.get("LOG_LEVEL_BUGSNAG")
+    LOG_LEVEL_WATCHTOWER: str | None = os.environ.get("LOG_LEVEL_WATCHTOWER")
+    UNIVERSE_API_TOKEN: str | None = os.environ.get("UNIVERSE_API_TOKEN")
     STARTDIR = os.environ["STARTDIR"]
 
     # not secrets but must be environment vars

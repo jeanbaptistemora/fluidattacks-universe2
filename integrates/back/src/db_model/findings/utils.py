@@ -6,6 +6,9 @@ from .enums import (
     FindingStatus,
     FindingVerificationStatus,
 )
+from collections.abc import (
+    Iterable,
+)
 from datetime import (
     datetime,
 )
@@ -35,11 +38,6 @@ from decimal import (
 )
 from dynamodb.types import (
     Item,
-)
-from typing import (
-    Iterable,
-    Optional,
-    Union,
 )
 
 
@@ -111,9 +109,7 @@ def format_finding(item: Item) -> Finding:
     )
 
     if item["cvss_version"] == FindingCvssVersion.V31.value:
-        severity: Union[
-            Finding20Severity, Finding31Severity
-        ] = Finding31Severity(
+        severity: Finding20Severity | Finding31Severity = Finding31Severity(
             **{
                 field: Decimal(item["severity"][field])
                 for field in Finding31Severity._fields
@@ -133,7 +129,7 @@ def format_finding(item: Item) -> Finding:
         }
     )
 
-    min_time_to_remediate: Optional[int] = None
+    min_time_to_remediate: int | None = None
     if "min_time_to_remediate" in item:
         min_time_to_remediate = int(item["min_time_to_remediate"])
 
@@ -410,9 +406,7 @@ def format_verification_item(verification: FindingVerification) -> Item:
     }
 
 
-def format_optional_state(
-    state_item: Optional[Item],
-) -> Optional[FindingState]:
+def format_optional_state(state_item: Item | None) -> FindingState | None:
     state = None
     if state_item is not None:
         state = format_state(state_item)
@@ -420,17 +414,15 @@ def format_optional_state(
 
 
 def format_optional_verification(
-    verification_item: Optional[Item],
-) -> Optional[FindingVerification]:
+    verification_item: Item | None,
+) -> FindingVerification | None:
     verification = None
     if verification_item is not None:
         verification = format_verification(verification_item)
     return verification
 
 
-def format_rejection(
-    rejection_item: Optional[Item],
-) -> Optional[DraftRejection]:
+def format_rejection(rejection_item: Item | None) -> DraftRejection | None:
     return (
         DraftRejection(
             other=rejection_item["other"],
@@ -449,9 +441,7 @@ def format_rejection(
     )
 
 
-def format_rejection_item(
-    rejection: Optional[DraftRejection],
-) -> Optional[Item]:
+def format_rejection_item(rejection: DraftRejection | None) -> Item | None:
     return (
         {
             "other": rejection.other,

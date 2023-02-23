@@ -36,11 +36,10 @@ from itertools import (
 )
 from typing import (
     Iterable,
-    Optional,
 )
 
 
-async def _get_finding_by_id(finding_id: str) -> Optional[Finding]:
+async def _get_finding_by_id(finding_id: str) -> Finding | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"id": finding_id},
@@ -200,11 +199,11 @@ class GroupFindingsLoader(DataLoader[str, list[Finding]]):
         ]
 
 
-class FindingLoader(DataLoader[str, Optional[Finding]]):
+class FindingLoader(DataLoader[str, Finding | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
-    ) -> list[Optional[Finding]]:
+    ) -> list[Finding | None]:
         return list(
             await collect(
                 tuple(_get_finding_by_id(find_id) for find_id in finding_ids)

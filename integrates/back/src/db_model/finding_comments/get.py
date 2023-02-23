@@ -11,6 +11,9 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -26,9 +29,6 @@ from db_model.finding_comments.utils import (
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
 )
 
 

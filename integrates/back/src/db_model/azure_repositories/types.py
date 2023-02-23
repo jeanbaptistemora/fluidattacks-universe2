@@ -13,7 +13,6 @@ from db_model.integration_repositories.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -44,9 +43,9 @@ class GitRepositoryCommit(NamedTuple):
 
 
 class CredentialsGitRepositoryResolver(NamedTuple):
-    credential: Optional[Credentials] = None
-    repository: Optional[GitRepository] = None
-    connection: Optional[OrganizationIntegrationRepositoryConnection] = None
+    credential: Credentials | None = None
+    repository: GitRepository | None = None
+    connection: OrganizationIntegrationRepositoryConnection | None = None
 
 
 class BasicRepoData(NamedTuple):

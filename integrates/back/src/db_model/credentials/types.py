@@ -6,8 +6,6 @@ from db_model.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
@@ -54,16 +52,16 @@ class CredentialsState(NamedTuple):
     name: str
     type: CredentialType
     is_pat: bool
-    secret: Union[
-        HttpsSecret,
-        HttpsPatSecret,
-        OauthAzureSecret,
-        OauthBitbucketSecret,
-        OauthGithubSecret,
-        OauthGitlabSecret,
-        SshSecret,
-    ]
-    azure_organization: Optional[str] = None
+    secret: (
+        HttpsSecret
+        | HttpsPatSecret
+        | OauthAzureSecret
+        | OauthBitbucketSecret
+        | OauthGithubSecret
+        | OauthGitlabSecret
+        | SshSecret
+    )
+    azure_organization: str | None = None
 
 
 class Credentials(NamedTuple):

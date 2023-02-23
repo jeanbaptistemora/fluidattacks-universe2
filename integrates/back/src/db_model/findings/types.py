@@ -20,8 +20,6 @@ from dynamodb.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
@@ -38,7 +36,7 @@ class FindingState(NamedTuple):
     modified_date: datetime
     source: Source
     status: FindingStateStatus
-    rejection: Optional[DraftRejection] = None
+    rejection: DraftRejection | None = None
     justification: StateRemovalJustification = (
         StateRemovalJustification.NO_JUSTIFICATION
     )
@@ -49,7 +47,7 @@ class FindingVerification(NamedTuple):
     modified_by: str
     modified_date: datetime
     status: FindingVerificationStatus
-    vulnerability_ids: Optional[set[str]] = None
+    vulnerability_ids: set[str] | None = None
 
 
 class FindingEvidence(NamedTuple):
@@ -59,14 +57,14 @@ class FindingEvidence(NamedTuple):
 
 
 class FindingEvidences(NamedTuple):
-    animation: Optional[FindingEvidence] = None
-    evidence1: Optional[FindingEvidence] = None
-    evidence2: Optional[FindingEvidence] = None
-    evidence3: Optional[FindingEvidence] = None
-    evidence4: Optional[FindingEvidence] = None
-    evidence5: Optional[FindingEvidence] = None
-    exploitation: Optional[FindingEvidence] = None
-    records: Optional[FindingEvidence] = None
+    animation: FindingEvidence | None = None
+    evidence1: FindingEvidence | None = None
+    evidence2: FindingEvidence | None = None
+    evidence3: FindingEvidence | None = None
+    evidence4: FindingEvidence | None = None
+    evidence5: FindingEvidence | None = None
+    exploitation: FindingEvidence | None = None
+    records: FindingEvidence | None = None
 
 
 class Finding20Severity(NamedTuple):
@@ -153,9 +151,9 @@ class FindingVerificationSummary(NamedTuple):
 
 class FindingUnreliableIndicators(NamedTuple):
     unreliable_closed_vulnerabilities: int = 0
-    unreliable_newest_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_open_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_vulnerability_report_date: Optional[datetime] = None
+    unreliable_newest_vulnerability_report_date: datetime | None = None
+    unreliable_oldest_open_vulnerability_report_date: datetime | None = None
+    unreliable_oldest_vulnerability_report_date: datetime | None = None
     unreliable_open_vulnerabilities: int = 0
     unreliable_status: FindingStatus = FindingStatus.SAFE
     unreliable_treatment_summary: FindingTreatmentSummary = (
@@ -173,23 +171,23 @@ class Finding(NamedTuple):
     id: str
     state: FindingState
     title: str
-    approval: Optional[FindingState] = None
+    approval: FindingState | None = None
     attack_vector_description: str = ""
-    creation: Optional[FindingState] = None
+    creation: FindingState | None = None
     description: str = ""
     evidences: FindingEvidences = FindingEvidences()
-    min_time_to_remediate: Optional[int] = None
+    min_time_to_remediate: int | None = None
     recommendation: str = ""
     requirements: str = ""
-    severity: Union[Finding20Severity, Finding31Severity] = Finding31Severity()
+    severity: Finding20Severity | Finding31Severity = Finding31Severity()
     sorts: FindingSorts = FindingSorts.NO
-    submission: Optional[FindingState] = None
+    submission: FindingState | None = None
     threat: str = ""
     unfulfilled_requirements: list[str] = []
     unreliable_indicators: FindingUnreliableIndicators = (
         FindingUnreliableIndicators()
     )
-    verification: Optional[FindingVerification] = None
+    verification: FindingVerification | None = None
 
 
 class FindingEdge(NamedTuple):
@@ -200,42 +198,40 @@ class FindingEdge(NamedTuple):
 class FindingsConnection(NamedTuple):
     edges: tuple[FindingEdge, ...]
     page_info: PageInfo
-    total: Optional[int] = None
+    total: int | None = None
 
 
 class FindingEvidenceToUpdate(NamedTuple):
-    description: Optional[str] = None
-    modified_date: Optional[datetime] = None
-    url: Optional[str] = None
+    description: str | None = None
+    modified_date: datetime | None = None
+    url: str | None = None
 
 
 class FindingMetadataToUpdate(NamedTuple):
-    attack_vector_description: Optional[str] = None
-    description: Optional[str] = None
-    evidences: Optional[FindingEvidences] = None
-    hacker_email: Optional[str] = None
-    min_time_to_remediate: Optional[int] = None
-    recommendation: Optional[str] = None
-    requirements: Optional[str] = None
-    severity: Optional[Union[Finding20Severity, Finding31Severity]] = None
-    sorts: Optional[FindingSorts] = None
-    threat: Optional[str] = None
-    title: Optional[str] = None
-    unfulfilled_requirements: Optional[list[str]] = None
+    attack_vector_description: str | None = None
+    description: str | None = None
+    evidences: FindingEvidences | None = None
+    hacker_email: str | None = None
+    min_time_to_remediate: int | None = None
+    recommendation: str | None = None
+    requirements: str | None = None
+    severity: Finding20Severity | Finding31Severity | None = None
+    sorts: FindingSorts | None = None
+    threat: str | None = None
+    title: str | None = None
+    unfulfilled_requirements: list[str] | None = None
 
 
 class FindingUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_closed_vulnerabilities: Optional[int] = None
-    unreliable_newest_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_open_vulnerability_report_date: Optional[datetime] = None
-    unreliable_oldest_vulnerability_report_date: Optional[datetime] = None
-    unreliable_open_vulnerabilities: Optional[int] = None
-    unreliable_status: Optional[FindingStatus] = None
-    unreliable_treatment_summary: Optional[FindingTreatmentSummary] = None
-    unreliable_verification_summary: Optional[
-        FindingVerificationSummary
-    ] = None
-    unreliable_where: Optional[str] = None
+    unreliable_closed_vulnerabilities: int | None = None
+    unreliable_newest_vulnerability_report_date: datetime | None = None
+    unreliable_oldest_open_vulnerability_report_date: datetime | None = None
+    unreliable_oldest_vulnerability_report_date: datetime | None = None
+    unreliable_open_vulnerabilities: int | None = None
+    unreliable_status: FindingStatus | None = None
+    unreliable_treatment_summary: FindingTreatmentSummary | None = None
+    unreliable_verification_summary: FindingVerificationSummary | None = None
+    unreliable_where: str | None = None
     clean_unreliable_newest_vulnerability_report_date: bool = False
     clean_unreliable_oldest_open_vulnerability_report_date: bool = False
     clean_unreliable_oldest_vulnerability_report_date: bool = False

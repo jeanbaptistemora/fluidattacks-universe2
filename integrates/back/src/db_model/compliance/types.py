@@ -3,7 +3,6 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -15,4 +14,4 @@ class ComplianceStandard(NamedTuple):
 
 
 class ComplianceUnreliableIndicators(NamedTuple):
-    standards: Optional[list[ComplianceStandard]] = None
+    standards: list[ComplianceStandard] | None = None

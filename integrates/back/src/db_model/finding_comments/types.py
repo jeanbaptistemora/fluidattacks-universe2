@@ -6,7 +6,6 @@ from db_model.finding_comments.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -18,7 +17,7 @@ class FindingComment(NamedTuple):
     finding_id: str
     id: str
     parent_id: str
-    full_name: Optional[str] = None
+    full_name: str | None = None
 
 
 class FindingCommentsRequest(NamedTuple):

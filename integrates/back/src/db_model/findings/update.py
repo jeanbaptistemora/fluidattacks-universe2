@@ -57,9 +57,6 @@ from enum import (
     Enum,
 )
 import simplejson as json
-from typing import (
-    Optional,
-)
 
 
 async def update_evidence(
@@ -365,7 +362,7 @@ async def update_unreliable_indicators(
 
 async def update_verification(
     *,
-    current_value: Optional[FindingVerification],
+    current_value: FindingVerification | None,
     group_name: str,
     finding_id: str,
     verification: FindingVerification,

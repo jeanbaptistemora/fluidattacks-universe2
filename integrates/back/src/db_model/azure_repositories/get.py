@@ -42,6 +42,9 @@ from azure.devops.v6_0.profile.models import (
 from azure.devops.v6_0.profile.profile_client import (
     ProfileClient,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_AZURE_OAUTH2_REPOSITORY_APP_ID,
     FI_BITBUCKET_OAUTH2_REPOSITORY_APP_ID,
@@ -88,11 +91,6 @@ from msrest.authentication import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Iterable,
-    Optional,
-    Union,
-)
 from urllib3.util.url import (
     parse_url,
 )
@@ -129,7 +127,7 @@ async def get_repositories(
 def _get_repositories(
     *, base_url: str, access_token: str, is_oauth: bool = False
 ) -> list[GitRepository]:
-    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+    credentials: BasicAuthentication | OAuthTokenAuthentication
     if is_oauth:
         credentials = OAuthTokenAuthentication(
             FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
@@ -394,7 +392,7 @@ def _get_repositories_commits(
     total: bool = False,
     is_oauth: bool = False,
 ) -> list[GitCommit]:
-    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+    credentials: BasicAuthentication | OAuthTokenAuthentication
     if is_oauth:
         credentials = OAuthTokenAuthentication(
             FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
@@ -427,10 +425,8 @@ def _get_repositories_commits(
 async def get_repositories_stats(
     *,
     repositories: tuple[CredentialsGitRepositoryCommit, ...],
-) -> tuple[Optional[GitRepositoryStats], ...]:
-    repositories_stats: tuple[
-        Optional[GitRepositoryStats], ...
-    ] = await collect(
+) -> tuple[GitRepositoryStats | None, ...]:
+    repositories_stats: tuple[GitRepositoryStats | None, ...] = await collect(
         tuple(
             in_thread(
                 _get_repositories_stats,
@@ -454,10 +450,8 @@ async def get_repositories_stats(
 async def get_oauth_repositories_stats(
     *,
     repositories: list[GitRepositoryCommit],
-) -> tuple[Optional[GitRepositoryStats], ...]:
-    repositories_stats: tuple[
-        Optional[GitRepositoryStats], ...
-    ] = await collect(
+) -> tuple[GitRepositoryStats | None, ...]:
+    repositories_stats: tuple[GitRepositoryStats | None, ...] = await collect(
         tuple(
             in_thread(
                 _get_repositories_stats,
@@ -482,8 +476,8 @@ def _get_repositories_stats(
     repository_id: str,
     project_name: str,
     is_oauth: bool = False,
-) -> Optional[GitRepositoryStats]:
-    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+) -> GitRepositoryStats | None:
+    credentials: BasicAuthentication | OAuthTokenAuthentication
     if is_oauth:
         credentials = OAuthTokenAuthentication(
             FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}

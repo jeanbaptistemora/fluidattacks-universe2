@@ -4,12 +4,12 @@ from __future__ import (
     annotations,
 )
 
-from decimal import (
-    Decimal,
-)
-from typing import (
+from collections.abc import (
     Iterable,
     Sequence,
+)
+from decimal import (
+    Decimal,
 )
 
 

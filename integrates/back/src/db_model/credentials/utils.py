@@ -21,23 +21,20 @@ from db_model.enums import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Union,
-)
 
 
 # pylint: disable=too-many-return-statements
 def format_secret(
     credential_type: CredentialType, item: Item
-) -> Union[
-    HttpsPatSecret,
-    HttpsSecret,
-    OauthAzureSecret,
-    OauthBitbucketSecret,
-    OauthGithubSecret,
-    OauthGitlabSecret,
-    SshSecret,
-]:
+) -> (
+    HttpsPatSecret
+    | HttpsSecret
+    | OauthAzureSecret
+    | OauthBitbucketSecret
+    | OauthGithubSecret
+    | OauthGitlabSecret
+    | SshSecret
+):
     if credential_type is CredentialType.HTTPS:
         if "token" in item:
             return HttpsPatSecret(token=item["token"])
