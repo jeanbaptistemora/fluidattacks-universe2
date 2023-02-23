@@ -6141,7 +6141,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
         file_name="typescript",
@@ -6149,5 +6149,5 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F052,
         developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )

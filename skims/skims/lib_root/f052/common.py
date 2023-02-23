@@ -37,7 +37,7 @@ def split_function_name(f_names: str) -> tuple[str, str]:
     return name_l[-2], name_l[-1]
 
 
-def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
+def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and evaluation.danger:
@@ -60,7 +60,7 @@ def is_insecure_encrypt(
 
 
 def get_eval_triggers(
-    graph: Graph, n_id: str, rules: Set[str], method: MethodsEnum
+    graph: Graph, n_id: NId, rules: Set[str], method: MethodsEnum
 ) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
@@ -283,8 +283,26 @@ def get_insec_auth_direct_import(graph: Graph) -> tuple[NId, ...]:
     return g.filter_nodes(graph, graph.nodes, match_predicate)
 
 
-def insec_msg_auth_mechanism(graph: Graph) -> Iterable[NId]:
+def get_insec_auth_crypto_lib(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
+    if (imported_name := get_default_alias(graph, "crypto")) or (
+        imported_name := get_namespace_alias(graph, "crypto")
+    ):
+        for n_id in g.matching_nodes(
+            graph,
+            label_type="PLACEHOLDER",
+            expression=f"{imported_name}.createHmac",
+        ):
+            if get_eval_danger(graph, n_id, method):
+                vuln_nodes.append(n_id)
+    return vuln_nodes
+
+
+def insec_msg_auth_mechanism(
+    graph: Graph, method: MethodsEnum
+) -> Iterable[NId]:
     return chain(
         get_insec_auth_default_import(graph),
         get_insec_auth_direct_import(graph),
+        get_insec_auth_crypto_lib(graph, method),
     )

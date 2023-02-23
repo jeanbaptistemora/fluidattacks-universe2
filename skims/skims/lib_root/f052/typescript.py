@@ -252,7 +252,7 @@ def typescript_insec_msg_auth_mechanism(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in insec_msg_auth_mechanism(graph):
+            for n_id in insec_msg_auth_mechanism(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
