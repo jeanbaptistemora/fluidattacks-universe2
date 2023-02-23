@@ -1,5 +1,275 @@
 locals {
   runners = {
+    airs-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["airs-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "airs" },
+      )
+    }
+    airs-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["airs-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "airs" },
+      )
+    }
+    common-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["common-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "common" },
+      )
+    }
+    common-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["common-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "common" },
+      )
+    }
+    docs-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["docs-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "docs" },
+      )
+    }
+    docs-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["docs-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "docs" },
+      )
+    }
+    integrates-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["integrates-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "integrates" },
+      )
+    }
+    integrates-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["integrates-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "integrates" },
+      )
+    }
+    melts-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["melts-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "melts" },
+      )
+    }
+    melts-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["melts-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "melts" },
+      )
+    }
+    observes-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["observes-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "observes" },
+      )
+    }
+    observes-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["observes-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "observes" },
+      )
+    }
+    reviews-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["reviews-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "reviews" },
+      )
+    }
+    reviews-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["reviews-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "reviews" },
+      )
+    }
+    skims-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["skims-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "skims" },
+      )
+    }
+    skims-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["skims-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "skims" },
+      )
+    }
+    sorts-small = {
+      replicas = 1
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["sorts-small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "sorts" },
+      )
+    }
+    sorts-large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["sorts-large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 0 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "sorts" },
+      )
+    }
     small = {
       replicas = 4
       runner = merge(
@@ -182,7 +452,7 @@ module "runners" {
   gitlab_runner_registration_config = {
     registration_token = var.gitlabRunnerToken
     tag_list           = join(",", each.value.runner.tags)
-    description        = "common-ci-${each.key}"
+    description        = "ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "86400"
@@ -195,7 +465,7 @@ module "runners" {
   runners_gitlab_url               = "https://gitlab.com"
   runners_executor                 = "docker+machine"
   runners_max_builds               = 30
-  runners_name                     = "common-ci-${each.key}"
+  runners_name                     = "ci-${each.key}"
   runners_output_limit             = 8192
   runners_privileged               = false
   runners_pull_policy              = "always"
@@ -238,10 +508,10 @@ module "runners" {
   }
 
   # Tags
-  environment = "common-ci-${each.key}"
+  environment = "ci-${each.key}"
   overrides = {
-    name_runner_agent_instance  = "common-ci-runner-${each.key}",
-    name_docker_machine_runners = "common-ci-worker-${each.key}",
+    name_runner_agent_instance  = "ci-runner-${each.key}",
+    name_docker_machine_runners = "ci-worker-${each.key}",
     name_sg                     = "",
     name_iam_objects            = "",
   }
