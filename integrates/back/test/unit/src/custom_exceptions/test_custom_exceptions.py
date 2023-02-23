@@ -4,7 +4,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     ErrorUploadingFileS3,
-    InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
     InvalidRange,
     InvalidSchema,
@@ -33,7 +32,6 @@ from decimal import (
     Decimal,
 )
 from groups.domain import (
-    validate_group_services_config_deco,
     validate_group_tags,
 )
 from mypy_boto3_dynamodb import (
@@ -98,25 +96,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-def test_validate_group_services_config_deco() -> None:
-    @validate_group_services_config_deco(
-        has_machine_field="has_machine",
-        has_squad_field="has_squad",
-        has_arm_field="has_arm",
-    )
-    def decorated_func(
-        has_machine: bool, has_squad: bool, has_arm: bool
-    ) -> str:
-        return str(has_machine and has_squad and has_arm)
-
-    assert decorated_func(has_machine=True, has_squad=True, has_arm=True)
-    assert decorated_func(has_machine=False, has_squad=False, has_arm=False)
-    with pytest.raises(InvalidGroupServicesConfig):
-        decorated_func(has_machine=True, has_squad=True, has_arm=False)
-    with pytest.raises(InvalidGroupServicesConfig):
-        decorated_func(has_machine=False, has_squad=True, has_arm=True)
 
 
 @mock.patch(

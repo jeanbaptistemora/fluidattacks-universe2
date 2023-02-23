@@ -53,6 +53,7 @@ from groups.domain import (
     set_pending_deletion_date,
     update_group,
     validate_group_services_config,
+    validate_group_services_config_deco,
     validate_group_tags,
 )
 import json
@@ -789,6 +790,37 @@ def test_validate_group_services_config(
         validate_group_services_config(
             has_machine=False, has_squad=True, has_arm=True
         )
+    assert (
+        str(invalid_group_service_machine.value)
+        == "Exception - Squad is only available when Machine is too"
+    )
+
+
+def test_validate_group_services_config_deco() -> None:
+    @validate_group_services_config_deco(
+        has_machine_field="has_machine",
+        has_squad_field="has_squad",
+        has_arm_field="has_arm",
+    )
+    def decorated_func(
+        has_machine: bool, has_squad: bool, has_arm: bool
+    ) -> str:
+        return str(has_machine and has_squad and has_arm)
+
+    assert decorated_func(has_machine=True, has_squad=True, has_arm=True)
+    assert decorated_func(has_machine=False, has_squad=False, has_arm=False)
+    with pytest.raises(
+        InvalidGroupServicesConfig
+    ) as invalid_group_service_asm:
+        decorated_func(has_machine=True, has_squad=True, has_arm=False)
+    assert (
+        str(invalid_group_service_asm.value)
+        == "Exception - Squad is only available when ASM is too"
+    )
+    with pytest.raises(
+        InvalidGroupServicesConfig
+    ) as invalid_group_service_machine:
+        decorated_func(has_machine=False, has_squad=True, has_arm=True)
     assert (
         str(invalid_group_service_machine.value)
         == "Exception - Squad is only available when Machine is too"
