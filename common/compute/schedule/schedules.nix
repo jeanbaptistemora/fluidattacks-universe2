@@ -168,6 +168,35 @@
       "management:type" = "product";
     };
   };
+  integrates_event_digest_notification = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.event_digest_notification.main"
+    ];
+
+    schedule_expression = "cron(0 11 ? * 2-6 *)";
+    size = "integrates_nano";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_event_digest_notification";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_groups_languages_distribution = {
     enabled = true;
     command = [
