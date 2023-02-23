@@ -484,7 +484,7 @@ def tfm_iam_excessive_role_policy(
     )
 
 
-def terraform_open_passrole(
+def tfm_open_passrole(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_OPEN_PASSROLE
@@ -513,7 +513,7 @@ def terraform_open_passrole(
     )
 
 
-def terraform_negative_statement(
+def tfm_negative_statement(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_NEGATIVE_STATEMENT
