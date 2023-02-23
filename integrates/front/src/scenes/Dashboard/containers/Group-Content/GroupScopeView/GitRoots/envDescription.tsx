@@ -7,12 +7,14 @@ import { formatDate } from "utils/formatHelpers";
 interface IDescriptionProps {
   repositoryUrls: string[];
   createdAt: Date | null;
+  createdBy: string | null;
   url: string;
 }
 
 const Description = ({
   repositoryUrls,
   createdAt,
+  createdBy,
   url,
 }: IDescriptionProps): JSX.Element => {
   const { t } = useTranslation();
@@ -21,18 +23,25 @@ const Description = ({
     <div>
       <h3>{t("group.scope.git.envUrl")}</h3>
       <Row>
-        <ul>
-          <a href={url} rel={"noreferrer"} target={"_blank"}>
-            {url}
-          </a>
+        <ul className={"list"}>
+          <li className={"pv1"}>
+            <a href={url} rel={"noreferrer"} target={"_blank"}>
+              {url}
+            </a>
+          </li>
+          <li className={"pv1"}>{`${t(
+            "group.scope.git.createdAt"
+          )} ${formatDate(createdAt as unknown as string)}`}</li>
+          {createdBy === null ? undefined : (
+            <li className={"pv1"}>{`${t(
+              "group.scope.git.createdBy"
+            )} ${createdBy}`}</li>
+          )}
         </ul>
-        <ul>{`${t("group.scope.git.createdAt")} ${formatDate(
-          createdAt as unknown as string
-        )}`}</ul>
       </Row>
       <h3>{t("group.scope.git.title")}</h3>
       <Row>
-        <ul>
+        <ul className={"list"}>
           {repositoryUrls.map(
             (_url): JSX.Element => (
               <li key={_url}>{_url}</li>
@@ -47,6 +56,7 @@ const Description = ({
 export const renderEnvDescription = (props: IDescriptionProps): JSX.Element => (
   <Description
     createdAt={props.createdAt}
+    createdBy={props.createdBy}
     repositoryUrls={props.repositoryUrls}
     url={props.url}
   />

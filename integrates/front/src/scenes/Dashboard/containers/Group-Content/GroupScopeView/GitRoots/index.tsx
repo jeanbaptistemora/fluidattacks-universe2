@@ -291,6 +291,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   function handleRowUrlClick(
     rowInfo: Row<{
       createdAt: Date | null;
+      createdBy: string | null;
       id: string;
       url: string;
       repositoryUrls: string[];
@@ -366,6 +367,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const envUrlsDataSet = useMemo(
     (): {
       createdAt: Date | null;
+      createdBy: string | null;
       id: string;
       url: string;
       repositoryUrls: string[];
@@ -387,6 +389,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
             envUrl
           ): {
             createdAt: Date | null;
+            createdBy: string | null;
             id: string;
             url: string;
             repositoryUrls: string[];
@@ -411,6 +414,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     (
       row: Row<{
         createdAt: Date | null;
+        createdBy: string | null;
         id: string;
         url: string;
         repositoryUrls: string[];
