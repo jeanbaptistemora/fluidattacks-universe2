@@ -72,10 +72,8 @@ async def mutate(
     if "type" not in credentials:
         raise InvalidParameter("type")
     if is_pat:
-        if "azure_organization" not in credentials:
-            raise InvalidParameter("azure_organization")
-        validation_utils.validate_space_field(
-            credentials["azure_organization"]
+        orgs_domain.verify_azure_org(
+            azure_organization=credentials.get("azure_organization")
         )
     if not is_pat and "azure_organization" in credentials:
         raise InvalidParameter("azure_organization")

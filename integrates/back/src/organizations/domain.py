@@ -1177,3 +1177,9 @@ def validate_vulnerability_grace_period(value: int) -> bool:
     if value < 0:
         raise InvalidVulnerabilityGracePeriod()
     return success
+
+
+@validate_space_field_deco("azure_organization")
+def verify_azure_org(azure_organization: str) -> None:
+    if not azure_organization:
+        raise InvalidParameter("azure_organization")
