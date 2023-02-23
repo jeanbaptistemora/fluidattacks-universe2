@@ -9,8 +9,9 @@ import { RootField } from "./RootField";
 import type { IFormValues, IHandleAdditionModalFormProps, Root } from "./types";
 import { getGitRootHost, getUrlRootHost, isGitRoot, isURLRoot } from "./utils";
 
+import { Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Col50 } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
