@@ -1,42 +1,4 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
- in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
-   1 | t java.io.File;
-   2 |
-   3 | c class Test {
-   4 | erride
-   5 | lic void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   6 | / some code
-   7 | esponse.setContentType(""text/html;charset=UTF-8"");
-   8 |
-   9 | / Vuln
-  10 | avax.servlet.http.Cookie[] theCookie = request.getCookies();
-  11 | tring param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
-  12 | tring fileName = org.owasp.benchmark.helpers.Utils.testfileDir + param;
-> 13 | ava.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(fileName));
-  14 |
-  15 |
-     ^ Col 5
-",java.java_unsafe_path_traversal
-F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
- in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
-   1 |
-   2 |
-   3 |
-   4 |
-   5 | equest request, HttpServletResponse response) throws ServletException, IOException {
-   6 |
-   7 | /html;charset=UTF-8"");
-   8 |
-   9 |
-  10 | heCookie = request.getCookies();
-  11 | coder.decode(theCookie.getValue(), ""UTF-8"");
-  12 | enchmark.helpers.Utils.testfileDir + param;
-> 13 |  new java.io.FileInputStream(new java.io.File(fileName));
-  14 |
-  15 |
-     ^ Col 33
-",java.java_unsafe_path_traversal
 F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_path_traversal.cs,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/c_sharp_path_traversal.cs,"
    2 | using System;
    3 | using System.Data.SqlClient;
@@ -61,6 +23,66 @@ F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_path_traversal.cs,16,
   22 | }
      ^ Col 0
 ",c_sharp.c_sharp_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
+   1 | t java.io.File;
+   2 |
+   3 | c class Test {
+   4 | erride
+   5 | lic void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   6 | / some code
+   7 | esponse.setContentType(""text/html;charset=UTF-8"");
+   8 |
+   9 | / Vuln
+  10 | avax.servlet.http.Cookie[] theCookie = request.getCookies();
+  11 | tring param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+  12 | tring fileName = org.owasp.benchmark.helpers.Utils.testfileDir + param;
+> 13 | ava.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(fileName));
+  14 |
+  15 |
+     ^ Col 5
+",java.java_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/java_path_traversal.java,"
+   1 |
+   2 |
+   3 |
+   4 |
+   5 | equest request, HttpServletResponse response) throws ServletException, IOException {
+   6 |
+   7 | /html;charset=UTF-8"");
+   8 |
+   9 |
+  10 | heCookie = request.getCookies();
+  11 | coder.decode(theCookie.getValue(), ""UTF-8"");
+  12 | enchmark.helpers.Utils.testfileDir + param;
+> 13 |  new java.io.FileInputStream(new java.io.File(fileName));
+  14 |
+  15 |
+     ^ Col 33
+",java.java_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/python_path_traversal.py,15,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/python_path_traversal.py,"
+   5 |     send_from_directory,
+   6 | )
+   7 | from typing import (
+   8 |     Any,
+   9 | )
+  10 |
+  11 |
+  12 | def unsafe_file() -> None:
+  13 |     file_at = request.args[""file""]
+  14 |     # Noncompliant
+> 15 |     send_file(""static/%s"" % file_at, as_attachment=True)
+  16 |
+  17 |
+  18 | def safe_file(file_param: Any) -> None:
+  19 |     file_at = request.args[""file""]
+  20 |     # Compliant: Using safe value
+  21 |     send_from_directory(""static"", file_at)
+  22 |     # Compliant: Not using user params
+  23 |     send_file(file_param, as_attachment=True)
+  24 |     # Compliant: Not sending as attachment
+  25 |     send_file(file_at, as_attachment=False)
+     ^ Col 0
+",python.python_io_path_traversal
 F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,"
    1 | using System;
    2 |

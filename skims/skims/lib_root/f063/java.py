@@ -125,7 +125,7 @@ def unsafe_path_traversal(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f011.csharp_xsl_transform_object",
+        desc_key="src.lib_path.f063_path_traversal.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

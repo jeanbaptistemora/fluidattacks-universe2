@@ -20,7 +20,7 @@ JS_TS_HTTP_INPUTS: set[str] = {
 
 PYTHON_INPUTS: set[str] = {
     "request.GET.get",
-    "request.args.get",
+    "request.args",
     "request.files",
 }
 

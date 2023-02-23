@@ -25,6 +25,9 @@ from symbolic_eval.f052.literal import (
 from symbolic_eval.f060.literal import (
     evaluate as evaluate_literal_f060,
 )
+from symbolic_eval.f063.literal import (
+    evaluate as evaluate_literal_f063,
+)
 from symbolic_eval.f083.literal import (
     evaluate as evaluate_literal_f083,
 )
@@ -88,6 +91,7 @@ FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F042: evaluate_literal_f042,
     FindingEnum.F052: evaluate_literal_f052,
     FindingEnum.F060: evaluate_literal_f060,
+    FindingEnum.F063: evaluate_literal_f063,
     FindingEnum.F083: evaluate_literal_f083,
     FindingEnum.F085: evaluate_literal_f085,
     FindingEnum.F091: evaluate_literal_f091,

@@ -22,7 +22,7 @@ from sast.query import (
 )
 
 
-def typescript_insecure_path_traversal(
+def ts_insecure_path_traversal(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_PATH_TRAVERSAL
@@ -46,7 +46,7 @@ def typescript_insecure_path_traversal(
     )
 
 
-def zip_slip_injection(
+def ts_zip_slip_injection(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_ZIP_SLIP

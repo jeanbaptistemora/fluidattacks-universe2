@@ -9,6 +9,9 @@ from symbolic_eval.f063.member_access.common import (
     insecure_path_traversal,
     zip_slip,
 )
+from symbolic_eval.f063.member_access.python import (
+    python_path_traversal,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -20,6 +23,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_UNSAFE_PATH_TRAVERSAL: cs_unsafe_path_traversal,
     MethodsEnum.JS_PATH_TRAVERSAL: insecure_path_traversal,
     MethodsEnum.JS_ZIP_SLIP: zip_slip,
+    MethodsEnum.PYTHON_IO_PATH_TRAVERSAL: python_path_traversal,
     MethodsEnum.TS_PATH_TRAVERSAL: insecure_path_traversal,
     MethodsEnum.TS_ZIP_SLIP: zip_slip,
 }

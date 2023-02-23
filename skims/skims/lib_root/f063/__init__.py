@@ -10,9 +10,12 @@ from lib_root.f063.javascript import (
     javascript_insecure_path_traversal as js_insecure_path_traversal,
     zip_slip_injection as js_zip_slip_injection,
 )
+from lib_root.f063.python import (
+    python_io_path_traversal,
+)
 from lib_root.f063.typescript import (
-    typescript_insecure_path_traversal,
-    zip_slip_injection as ts_zip_slip_injection,
+    ts_insecure_path_traversal,
+    ts_zip_slip_injection,
 )
 from model import (
     core_model,
@@ -27,6 +30,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_unsafe_path_traversal),
     (FINDING, js_insecure_path_traversal),
     (FINDING, js_zip_slip_injection),
+    (FINDING, python_io_path_traversal),
+    (FINDING, ts_insecure_path_traversal),
     (FINDING, ts_zip_slip_injection),
-    (FINDING, typescript_insecure_path_traversal),
 )

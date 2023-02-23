@@ -1549,6 +1549,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_IO_PATH_TRAVERSAL = MethodInfo(
+        file_name="python",
+        name="python_io_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
         file_name="java",
         name="csrf_protections_disabled",
