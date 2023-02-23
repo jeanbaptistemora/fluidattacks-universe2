@@ -11,6 +11,7 @@ from syntax_graph.syntax_readers.swift import (
     navigation_expression as swift_navigation_expression,
     navigation_suffix as swift_navigation_suffix,
     parameter as swift_parameter,
+    prefix_expression as swift_prefix_expression,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
     while_statement as swift_while_statement,
@@ -92,6 +93,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "parameter",
         },
         syntax_reader=swift_parameter.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "prefix_expression",
+        },
+        syntax_reader=swift_prefix_expression.reader,
     ),
     Dispatcher(
         applicable_types={
