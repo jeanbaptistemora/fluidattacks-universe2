@@ -93,12 +93,18 @@ progresses, regular meetings should be held to review actions. At the
 end of an engagement, "a debrief should be done where egos are left
 outside and people are honest about what needs improvement."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 For Carlos,
 it is false to say that
 new techniques and exploits need to be kept secret,
 even from clients,
 to avoid losing advantages in other engagements.
-[Red teaming](../../solutions/red-teaming/) is not simply about emulation
+Red teaming is not simply about emulation
 but also involves cultivating a relationship with the customer,
 where critical thinking can help manage potential risks
 and improve cybersecurity.

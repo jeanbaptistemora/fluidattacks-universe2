@@ -88,6 +88,13 @@ credit costing approximately $2.19. This is pretty cheap for the amount
 of information available; that’s why people say it’s "free data" in
 almost all the sources I checked.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 Typically, these stolen data sets are initially sold privately at high
 prices. Later, they are sold at lower costs, and, in the end, they are
 given for free by their owners mostly to gain reputation within the

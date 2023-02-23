@@ -138,6 +138,13 @@ or external product, the vulnerability handling process must be broken
 off. Of course, if other vendors are compromised, the issue should be
 prudently reported to them.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 It’s useful ISO’s emphasis on the continuous change in the
 exploitability of flaws resulting from advances in attack techniques.
 Another vital aspect to consider in verifications, usually when various

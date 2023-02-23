@@ -122,6 +122,12 @@ implications](https://www.secureworldexpo.com/industry-news/4-types-cloud-securi
 of such confusion is the misconfiguration vulnerability (which may also
 be related to a lack of training).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## What are these cloud security issues?
 
 A widely known case of misconfiguration was the [Capital One data

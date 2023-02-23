@@ -105,6 +105,13 @@ problems in this government’s systems (using the same technology) that
 have not been solved? Engaging questions, although I would like to keep
 focused on the vulnerability reporting issue at this point.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 As [Oakley for
 GlobeLiveMedia](https://globelivemedia.com/news/a-computer-error-by-the-colombian-foreign-ministry-made-the-visas-of-some-550000-foreigners-public/)
 said, some other people were also rejecting the publication by LSV. I

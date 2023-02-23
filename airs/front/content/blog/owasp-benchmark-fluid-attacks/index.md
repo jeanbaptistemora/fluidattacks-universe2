@@ -110,6 +110,12 @@ one; the farther away, the better. Be careful because it seems that some
 vendors may strive to display you 100% in TPR as if it were the sole
 relevant value when it comes to accuracy.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 This is where the Benchmark Accuracy Score comes in. It is essentially
 an individual score, a [Youden’s
 index](https://en.wikipedia.org/wiki/Youden%27s_J_statistic), that goes

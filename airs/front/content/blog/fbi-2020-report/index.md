@@ -102,6 +102,12 @@ personal emails, compromise of vendor emails, spoofed lawyer email
 accounts, requests for W-2 information, the targeting of the real estate
 sector, and fraudulent requests for large amounts of gift cards."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 On the positive side, the IC3’s Recovery Asset Team (RAT) operations in
 response to the BEC/EAC schemes are noteworthy. This team was founded
 three years ago to facilitate communication with financial institutions

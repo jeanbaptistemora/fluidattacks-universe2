@@ -94,6 +94,13 @@ Exchange on-premises servers and report their findings to CISA for
 further investigation," [said Osborne in
 ZDNet](https://www.zdnet.com/article/cisa-issues-emergency-directive-to-agencies-deal-with-microsoft-exchange-bugs-now/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 The next day, [CISA updated the
 alert](https://us-cert.cisa.gov/ncas/current-activity/2021/03/04/update-alert-mitigating-microsoft-exchange-server-vulnerabilities),
 reporting they were "aware of threat actors using open source tools to

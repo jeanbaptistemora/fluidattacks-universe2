@@ -111,6 +111,12 @@ Figure 2. [Victims](https://www.ic3.gov/Media/PDF/AnnualReport/2020_IC3Report.pd
     revealed in February 2020 that "9,688 smishing texts had been sent
     that used false information on the novel coronavirus."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 2. Downloading malware
 
     In smishing, victims and not scammers do the dirty work. This type

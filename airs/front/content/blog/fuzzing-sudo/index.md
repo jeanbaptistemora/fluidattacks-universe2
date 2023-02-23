@@ -130,6 +130,12 @@ This will work by converting all the expected `argv[]` array from
 standard input with parameters separated by a `\0` byte and terminating
 the array with a `\0\0`.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 We also need to disable the `sudo` password prompt; otherwise, the
 fuzzing will hang.
 

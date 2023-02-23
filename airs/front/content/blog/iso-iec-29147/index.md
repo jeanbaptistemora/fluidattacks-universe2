@@ -112,6 +112,13 @@ information confidentially to prevent attacks. It would also be great to
 give vendors enough time to fix the vulnerabilities before talking about
 them publicly.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ## Policies
 
 It is clear that vendors can adhere to existing vulnerability disclosure
