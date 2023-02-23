@@ -10678,7 +10678,57 @@ mocked_responses: dict[str, dict[str, Any]] = {
             policies=None,
             sprint_duration=2,
             sprint_start_date=datetime.fromisoformat("2022-06-06"),
-        )
+        ),
+        '["oneshottest"]': Group(
+            created_by="unknown",
+            created_date=datetime.fromisoformat("2019-01-20"),
+            description="oneshot testing",
+            language=GroupLanguage.EN,
+            name="oneshottest",
+            organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            state=GroupState(
+                has_machine=True,
+                has_squad=False,
+                managed=GroupManaged.NOT_MANAGED,
+                modified_by="unknown",
+                modified_date=datetime.fromisoformat("2019-01-20"),
+                status=GroupStateStatus.ACTIVE,
+                tier=GroupTier.ONESHOT,
+                type=GroupSubscriptionType.ONESHOT,
+                tags={
+                    "test-groups",
+                    "another-tag",
+                    "test-tag",
+                    "test-updates",
+                },
+                comments=None,
+                justification=None,
+                payment_id=None,
+                pending_deletion_date=None,
+                service=GroupService.BLACK,
+            ),
+            agent_token=None,
+            business_id="14441323",
+            business_name="Testing Company and Sons",
+            context=None,
+            disambiguation=None,
+            files=None,
+            policies=Policies(
+                modified_date=datetime.fromisoformat(
+                    "2021-11-22T20:07:57+00:00"
+                ),
+                modified_by="integratesmanager@gmail.com",
+                inactivity_period=None,
+                max_acceptance_days=90,
+                max_acceptance_severity=Decimal("3.9"),
+                max_number_acceptances=3,
+                min_acceptance_severity=Decimal("0"),
+                min_breaking_severity=Decimal("3.9"),
+                vulnerability_grace_period=10,
+            ),
+            sprint_duration=2,
+            sprint_start_date=datetime.fromisoformat("2023-02-20"),
+        ),
     },
     "vulnerabilities.domain.validations.get_group_max_acceptance_days": {
         '["kurome"]': 60,
@@ -10688,6 +10738,9 @@ mocked_responses: dict[str, dict[str, Any]] = {
     },
     "vulnerabilities.domain.validations.get_group_min_acceptance_severity": {
         '["kurome"]': Decimal("0.0"),
+    },
+    "vulnerabilities.domain.validations.get_group_max_number_acceptances": {
+        '["oneshottest"]': 3,
     },
 }
 

@@ -5,6 +5,7 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
+    InvalidNumberAcceptances,
     InvalidParameter,
     InvalidPath,
     InvalidPort,
@@ -25,7 +26,11 @@ from db_model.enums import (
     Source,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
     VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    VulnerabilityTreatment,
 )
 from decimal import (
     Decimal,
@@ -34,6 +39,9 @@ from freezegun import (
     freeze_time,
 )
 import pytest
+from typing import (
+    Iterable,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -41,6 +49,7 @@ from unittest.mock import (
 from vulnerabilities.domain.validations import (
     validate_acceptance_days,
     validate_acceptance_severity,
+    validate_number_acceptances,
     validate_path_deco,
     validate_source_deco,
     validate_updated_commit_deco,
@@ -178,6 +187,102 @@ async def test_validate_acceptance_severity(
             group_name,
             severity_to_raise_exception,
         )
+    assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
+
+
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "historic_treatment",
+        "historic_treatment_to_raise_exception",
+    ],
+    [
+        [
+            "oneshottest",
+            [
+                VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat("2020-01-01"),
+                    status=VulnerabilityTreatmentStatus.ACCEPTED,
+                    accepted_until=datetime.fromisoformat("2020-02-01"),
+                    justification="Justification to accept the finding",
+                    modified_by="unittest@fluidattacks.com",
+                ),
+                VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat("2020-02-01"),
+                    status=VulnerabilityTreatmentStatus.UNTREATED,
+                ),
+            ],
+            [
+                VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat("2020-01-01"),
+                    status=VulnerabilityTreatmentStatus.ACCEPTED,
+                    accepted_until=datetime.fromisoformat("2020-02-01"),
+                    justification="Justification to accept the finding",
+                    modified_by="unittest@fluidattacks.com",
+                ),
+                VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat("2020-01-01"),
+                    status=VulnerabilityTreatmentStatus.ACCEPTED,
+                    accepted_until=datetime.fromisoformat("2020-02-01"),
+                    justification="Justification to accept the finding",
+                    modified_by="unittest@fluidattacks.com",
+                ),
+                VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat("2020-01-01"),
+                    status=VulnerabilityTreatmentStatus.ACCEPTED,
+                    accepted_until=datetime.fromisoformat("2020-02-01"),
+                    justification="Justification to accept the finding",
+                    modified_by="unittest@fluidattacks.com",
+                ),
+            ],
+        ],
+    ],
+)
+@patch(
+    MODULE_AT_TEST + "get_group_max_number_acceptances", new_callable=AsyncMock
+)
+@patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
+async def test_validate_number_acceptances(
+    mock_dataloaders_group: AsyncMock,
+    mock_get_group_max_number_acceptances: AsyncMock,
+    group_name: str,
+    historic_treatment: Iterable[VulnerabilityTreatment],
+    historic_treatment_to_raise_exception: Iterable[VulnerabilityTreatment],
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_dataloaders_group.load,
+            mock_get_group_max_number_acceptances,
+        ],
+        [
+            "Dataloaders.group",
+            "get_group_max_number_acceptances",
+        ],
+        [[group_name], [group_name]],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+    await validate_number_acceptances(loaders, group_name, historic_treatment)
+    assert all(
+        mock_object.assert_called_once for mock_object in mocked_objects
+    )
+    with pytest.raises(
+        InvalidNumberAcceptances
+    ) as invalida_number_acceptances:
+        await validate_number_acceptances(
+            loaders, group_name, historic_treatment_to_raise_exception
+        )
+
+    assert str(invalida_number_acceptances.value) == (
+        "Exception - "
+        "Vulnerability has been accepted the maximum number of times "
+        "allowed by the defined policy"
+    )
     assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
 
 
