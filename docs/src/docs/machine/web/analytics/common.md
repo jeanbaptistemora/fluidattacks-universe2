@@ -46,7 +46,8 @@ within your system.
 
 ![Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/remediation_rate.png)
 
-The percentage of cvssf
+The percentage of
+[CVSSF](/about/glossary#cvssf)
 remediated (closed/total) in
 the different groups,
 organization (all groups in
@@ -75,7 +76,7 @@ from a security point of view:
 
 Remember that this graph has three different filters:
 
-- [CVSSF](/about/glossary#cvss)
+- [CVSSF](/about/glossary#cvssf)
   Exposure Level. (The graph that displays by default)
 - Vulnerability level, where it tells you the total vulnerabilities.
 - The data of the last 30, 90 days, or all.
@@ -97,7 +98,7 @@ within that system.
 This metric shows an integer,
 which refers to the vulnerabilities
 still in the reattacked state,
-waiting for validation by Fluid Attacks.
+waiting for validation by `Fluid Attacks'.`
 
 ## Days since last remediation
 
@@ -193,7 +194,8 @@ types of vulnerabilities,
 it will be possible to filter by
 30,
 60,
-90 and 180 days how the CVSSF
+90 and 180 days how the
+[CVSSF](/about/glossary#cvssf)
 of these has varied,
 showing whether the exposure
 has increased or decreased.
@@ -258,9 +260,13 @@ Remember that this graph has six different filters:
 This section shows the average time your organization,
 group,
 or portfolio takes to fix vulnerabilities.
-These times are weighted by exposure to risk (CVSSF)
+These times are weighted by exposure to risk
+[(CVSSF)](/about/glossary#cvssf)
 and days with non-treated,
 which refers to non permanently accepted treatment vulnerabilities.
+Also you can filter by the data of the last 30,
+90 days,
+or all.
 You can compare your numbers to those of the best,
 the average,
 and the worst organizations.
@@ -276,7 +282,7 @@ One of the main dilemmas organizations face
 every day is which vulnerability they
 should close first.
 To address this, we at `Fluid Attacks` designed
-a metric called the [CVSSF](/about/faq/#severity-vs-vulnerabilities)
+a metric called the [CVSSF](/about/glossary#cvssf)
 to help you make better decisions.
 
 This new metric recognizes that closing 10
@@ -287,7 +293,7 @@ Additionally, it helps calculate the level
 of exposure of a system.
 
 Thanks to the new graph based on the
-[CVSSF](/about/faq/#severity-vs-vulnerabilities),
+[CVSSF](/about/glossary#cvssf),
 you will be able to know which vulnerabilities
 to attack and remediate first to reduce the
 level of exposure of your system.
@@ -308,7 +314,7 @@ reported to this date.
 This section shows the **percentage** of closed,
 accepted and open vulnerabilities over time,
 based on our standard
-[CVSSF](/about/glossary#cvss)
+[CVSSF](/about/glossary#cvssf)
 and total Vulnerabilities.
 
 ## Exposure by type
@@ -317,7 +323,8 @@ and total Vulnerabilities.
 
 This section shows what vulnerability types are open according to:
 
-- Exposure severity level the our CVSSF metric.
+- Exposure severity level the our
+  [CVSSF](/about/glossary#cvssf) metric.
 - Number of Vulnerabilities.
 - According to what type Code,
   infra and app.
@@ -340,7 +347,7 @@ remediation of security findings.
 Vulnerabilities can be grouped according
 to their assigned treatment:
 
-- **Not defined:**
+- **Untreated:**
   New vulnerabilities go here until you
   generate an action plan and assign it
   to a developer.
@@ -456,8 +463,8 @@ name of the registered files.
 In this chart,
 you will be able to compare
 your risk exposure levels
-(CVSSF) results with other
-organizations,
+[(CVSSF)](/about/glossary#cvssf)
+results with other organizations,
 groups or portfolios (the best,
 the average,
 and the worst).
