@@ -59,3 +59,43 @@ async def test_add_finding_access_denied(
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    ["email", "description", "recommendation", "min_time_to_remediate"],
+    [
+        [
+            "admin@gmail.com",
+            "This is an attack vector",
+            "Solve this finding",
+            0,
+        ],
+        [
+            "admin@gmail.com",
+            "This is an attack vector",
+            "Solve this finding",
+            -1,
+        ],
+    ],
+)
+async def test_add_finding_min_time_to_remediate_fail(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    min_time_to_remediate: int,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        min_time_to_remediate=min_time_to_remediate,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Min time to remediate should be a positive number"
+    )

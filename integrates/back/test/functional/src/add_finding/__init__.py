@@ -11,7 +11,11 @@ from typing import (
 
 
 async def get_result(
-    *, user: str, description: str, recommendation: str
+    *,
+    user: str,
+    description: str,
+    recommendation: str,
+    min_time_to_remediate: int = 18,
 ) -> dict[str, Any]:
     query: str = f"""
         mutation {{
@@ -25,7 +29,7 @@ async def get_result(
                 confidentialityImpact: 1.0
                 exploitability: 1.0
                 integrityImpact: 1.0
-                minTimeToRemediate: 18
+                minTimeToRemediate: {min_time_to_remediate}
                 privilegesRequired: 1.0
                 recommendation: "{recommendation}"
                 remediationLevel: 1.0
