@@ -8070,6 +8070,7 @@
     - pci.2_3_1
     - pci.9_2_3
     - siglite.SL_148
+    - capec.700
   metadata: {}
 "254":
   en:
@@ -8160,6 +8161,7 @@
     - pci.9_2_2
     - sig.I_3_2_5_1
     - sig.N_1_11
+    - capec.700
   metadata: {}
 "257":
   en:
@@ -8285,6 +8287,7 @@
     - siglite.SL_88
     - sig.D_9_2
     - sig.N_1_7
+    - capec.700
   metadata: {}
 "260":
   en:

@@ -352,6 +352,9 @@ capec:
     "698":
       title: Install Malicious Extension
       link: https://capec.mitre.org/data/definitions/698.html
+    "700":
+      title: Network Boundary Bridging
+      link: https://capec.mitre.org/data/definitions/700.html
   metadata: {}
 cis:
   title: CIS
