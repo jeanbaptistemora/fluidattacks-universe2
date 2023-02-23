@@ -21,9 +21,9 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
       "AES128-GCM-SHA256",
       "ECDHE-RSA-AES256-GCM-SHA384",
       "AES256-GCM-SHA384",
-      "TLS_AES_256_GCM_SHA384",
-      "TLS_CHACHA20_POLY1305_SHA256",
-      "TLS_AES_128_GCM_SHA256",
+      "AEAD-AES256-GCM-SHA384",
+      "AEAD-CHACHA20-POLY1305-SHA256",
+      "AEAD-AES128-GCM-SHA256",
     ]
     cname_flattening            = "flatten_at_root"
     development_mode            = "off"
