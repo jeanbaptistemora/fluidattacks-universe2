@@ -8,9 +8,6 @@ Execution Time:    2022-04-18 at 21:28:34 UTC
 Finalization Time: 2022-04-18 at 21:51:53 UTC
 """
 
-from aioextensions import (
-    run,
-)
 import csv
 import logging
 import logging.config
@@ -36,7 +33,7 @@ VERIFICATION_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_verification"
 ZERO_RISK_TABLE: str = f"{SCHEMA_NAME}.vulnerabilities_zero_risk"
 
 
-async def _remove_vulns_from_table(
+def _remove_vulns_from_table(
     *,
     table: str,
     vuln_ids: list[str],
@@ -56,7 +53,7 @@ async def _remove_vulns_from_table(
     )
 
 
-async def main() -> None:
+def main() -> None:
     with open("0205_data.csv", mode="r", encoding="utf8") as in_file:
         reader = csv.reader(in_file)
         vuln_ids = [rows[0] for rows in reader if rows[0] != "uuid str"]
@@ -73,7 +70,7 @@ async def main() -> None:
         METADATA_TABLE,
     ]
     for table in vuln_tables:
-        await _remove_vulns_from_table(
+        _remove_vulns_from_table(
             table=table,
             vuln_ids=vuln_ids,
         )
@@ -87,7 +84,7 @@ if __name__ == "__main__":
     execution_time = time.strftime(
         "Execution Time:    %Y-%m-%d at %H:%M:%S UTC"
     )
-    run(main())
+    main()
     finalization_time = time.strftime(
         "Finalization Time: %Y-%m-%d at %H:%M:%S UTC"
     )
