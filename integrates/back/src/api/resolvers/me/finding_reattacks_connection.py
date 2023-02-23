@@ -20,6 +20,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access.domain import (
+    get_stakeholder_groups_names,
+)
 from more_itertools import (
     flatten,
 )
@@ -37,10 +40,11 @@ from typing import (
 @ME.field("findingReattacksConnection")
 @require_login
 async def resolve(
-    _parent: dict[str, Any],
+    parent: dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> FindingsConnection:
+    user_email = str(parent["user_email"])
     not_zero_requested = {
         "unreliable_indicators.unreliable_verification_summary.requested": 0
     }
@@ -69,6 +73,10 @@ async def resolve(
         [format_finding(result) for result in results.items],
     )
 
+    stakeholder_groups = await get_stakeholder_groups_names(
+        loaders, user_email, True
+    )
+
     return FindingsConnection(
         edges=tuple(
             FindingEdge(
@@ -76,6 +84,7 @@ async def resolve(
                 node=finding,
             )
             for finding in findings_filtered
+            if finding.group_name in stakeholder_groups
         ),
         page_info=results.page_info,
         total=results.total,
