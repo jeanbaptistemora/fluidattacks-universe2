@@ -1,3 +1,8 @@
+from aws.iam.structure import (
+    is_action_permissive,
+    is_public_principal,
+    is_resource_permissive,
+)
 from collections.abc import (
     Iterator,
 )
@@ -8,7 +13,6 @@ import json
 from lib_root.f031.utils import (
     _iam_user_missing_role_based_security,
     action_has_full_access_to_ssm,
-    is_public_principal,
     is_s3_action_writeable,
 )
 from lib_root.utilities.terraform import (
@@ -74,9 +78,7 @@ def _bucket_policy_allows_public_access_in_jsonencode(
             _, principal_val, _ = get_attribute(graph, c_id, "Principal")
             actions, _, action_id = get_attribute(graph, c_id, "Action")
             if actions:
-                action_list = get_list_from_node(
-                    graph, graph.nodes[action_id]["value_id"]
-                )
+                action_list = get_list_from_node(graph, action_id)
                 if (
                     effect_val == "Allow"
                     and is_public_principal(principal_val)
@@ -93,9 +95,7 @@ def _bucket_policy_allows_public_access_policy_resource(
         action, _, action_id = get_attribute(graph, stmt, "actions")
         principal = get_principals(graph, stmt)
         if action:
-            action_list = get_list_from_node(
-                graph, graph.nodes[action_id]["value_id"]
-            )
+            action_list = get_list_from_node(graph, action_id)
             if (
                 (effect_val == "Allow" or effect is None)
                 and is_public_principal(principal)
@@ -152,9 +152,7 @@ def _iam_has_full_access_to_ssm_in_jsonencode(
             _, effect_val, _ = get_attribute(graph, c_id, "Effect")
             actions, _, action_id = get_attribute(graph, c_id, "Action")
             if actions:
-                action_list = get_list_from_node(
-                    graph, graph.nodes[action_id]["value_id"]
-                )
+                action_list = get_list_from_node(graph, action_id)
                 if effect_val == "Allow" and action_has_full_access_to_ssm(
                     action_list
                 ):
@@ -168,9 +166,7 @@ def _iam_has_full_access_to_ssm_policy_resource(
         effect, effect_val, _ = get_attribute(graph, stmt, "effect")
         action, _, action_id = get_attribute(graph, stmt, "actions")
         if action:
-            action_list = get_list_from_node(
-                graph, graph.nodes[action_id]["value_id"]
-            )
+            action_list = get_list_from_node(graph, action_id)
             if (
                 effect_val == "Allow" or effect is None
             ) and action_has_full_access_to_ssm(action_list):
@@ -205,6 +201,109 @@ def _iam_has_full_access_to_ssm(graph: Graph, nid: NId) -> Iterator[NId]:
                 yield from _iam_has_full_access_to_ssm_in_jsonencode(
                     graph, value_id
                 )
+
+
+def _negative_statement_in_jsonencode(graph: Graph, nid: NId) -> Iterator[NId]:
+    child_id = graph.nodes[nid]["arguments_id"]
+    statements, _, stmt_id = get_attribute(graph, child_id, "Statement")
+    if statements:
+        value_id = graph.nodes[stmt_id]["value_id"]
+        for c_id in adj_ast(graph, value_id, label_type="Object"):
+            _, effect_val, _ = get_attribute(graph, c_id, "Effect")
+            if effect_val == "Allow":
+                actions, _, action_id = get_attribute(graph, c_id, "NotAction")
+                resources, _, resources_id = get_attribute(
+                    graph, c_id, "NotResource"
+                )
+                action_list = get_list_from_node(graph, action_id)
+                resources_list = get_list_from_node(graph, resources_id)
+                if (
+                    actions and not any(map(is_action_permissive, action_list))
+                ) or (
+                    resources
+                    and not any(map(is_resource_permissive, resources_list))
+                ):
+                    yield c_id
+
+
+def _negative_statement_policy_resource(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    for stmt in iter_statements_from_policy_document(graph, nid):
+        effect, effect_val, _ = get_attribute(graph, stmt, "effect")
+        if effect_val == "Allow" or effect is None:
+            actions, _, action_id = get_attribute(graph, stmt, "not_actions")
+            resources, _, resources_id = get_attribute(
+                graph, stmt, "not_resources"
+            )
+            action_list = get_list_from_node(graph, action_id)
+            resources_list = get_list_from_node(graph, resources_id)
+            if (
+                actions and not any(map(is_action_permissive, action_list))
+            ) or (
+                resources
+                and not any(map(is_resource_permissive, resources_list))
+            ):
+                yield stmt
+
+
+def _aux_negative_statement(attr_val: str, attr_id: NId) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        if effect == "Allow":
+            actions = stmt.get("NotAction")
+            resource = stmt.get("NotResource")
+            if (actions and not any(map(is_action_permissive, actions))) or (
+                resource and not any(map(is_resource_permissive, resource))
+            ):
+                yield attr_id
+
+
+def _negative_statement(graph: Graph, nid: NId) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_iam_policy_document":
+        yield from _negative_statement_policy_resource(graph, nid)
+    else:
+        attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
+        if attr:
+            value_id = graph.nodes[attr_id]["value_id"]
+            if graph.nodes[value_id]["label_type"] == "Literal":
+                yield from _aux_negative_statement(attr_val, attr_id)
+            elif (
+                graph.nodes[value_id]["label_type"] == "MethodInvocation"
+                and graph.nodes[value_id]["expression"] == "jsonencode"
+            ):
+                yield from _negative_statement_in_jsonencode(graph, value_id)
+
+
+def terraform_negative_statement(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_NEGATIVE_STATEMENT
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_iam_group_policy"),
+                iterate_resource(graph, "aws_iam_policy"),
+                iterate_resource(graph, "aws_iam_role_policy"),
+                iterate_resource(graph, "aws_iam_user_policy"),
+                iterate_resource(graph, "aws_iam_policy_document"),
+            ):
+                for report in _negative_statement(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f031_aws.negative_statement",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_iam_has_full_access_to_ssm(

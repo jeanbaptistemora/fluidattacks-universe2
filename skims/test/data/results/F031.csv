@@ -287,7 +287,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.j
   58 | }
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf","
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf","
   23 |       }
   24 |     ]
   25 |   }
@@ -304,11 +304,59 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf,33
   36 |       {
   37 |         ""Effect"": ""Allow"",
   38 |         ""NotAction"": ""*"",
-  39 |         ""NotResource"": ""*""
-  40 |       },
-  41 |       {
-  42 |         ""Effect"": ""Allow"",
-  43 |         ""NotAction"": ""*"",
+  39 |         ""NotResource"": ""something""
+  40 |       }
+  41 |     ]
+  42 |   }
+  43 |   EOF
+     ^ Col 0
+",terraform.terraform_negative_statement
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf,47,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf","
+  37 |         ""Effect"": ""Allow"",
+  38 |         ""NotAction"": ""*"",
+  39 |         ""NotResource"": ""something""
+  40 |       }
+  41 |     ]
+  42 |   }
+  43 |   EOF
+  44 | }
+  45 |
+  46 | resource ""aws_iam_policy_document"" ""example"" {
+> 47 |   statement {
+  48 |     not_actions   = ""*""
+  49 |     not_resources = ""something""
+  50 |   }
+  51 | }
+  52 |
+  53 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+  54 |   name = ""vuln_role_1""
+  55 |
+  56 |   policy = jsonencode({
+  57 |     Version = ""2012-10-17""
+     ^ Col 0
+",terraform.terraform_negative_statement
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf,59,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_root/f031/hcl2_negative_statement.tf","
+  47 |   statement {
+  48 |     not_actions   = ""*""
+  49 |     not_resources = ""something""
+  50 |   }
+  51 | }
+  52 |
+  53 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+  54 |   name = ""vuln_role_1""
+  55 |
+  56 |   policy = jsonencode({
+  57 |     Version = ""2012-10-17""
+  58 |     Statement = [
+> 59 |       {
+  60 |         NotAction   = [""*""],
+  61 |         Effect      = ""Allow""
+  62 |         Principal   = ""*""
+  63 |         NotResource = [""something"", ]
+  64 |       }
+  65 |     ]
+  66 |   })
+  67 | }
      ^ Col 0
 ",terraform.terraform_negative_statement
 F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),/Statement/3/NotResource: iam:bucket,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements","

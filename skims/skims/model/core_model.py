@@ -3272,7 +3272,7 @@ class MethodsEnum(Enum):
     TFM_NEGATIVE_STATEMENT = MethodInfo(
         file_name="terraform",
         name="terraform_negative_statement",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

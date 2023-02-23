@@ -36,24 +36,32 @@ resource "aws_iam_role_policy" "test_policy" {
       {
         "Effect": "Allow",
         "NotAction": "*",
-        "NotResource": "*"
-      },
-      {
-        "Effect": "Allow",
-        "NotAction": "*",
-        "NotResource": "something"
-      },
-      {
-        "Effect": "Allow",
-        "NotAction": "s3:ListBucket",
-        "NotResource": "*"
-      },
-      {
-        "Effect": "Allow",
-        "NotAction": "s3:ListBucket",
         "NotResource": "something"
       }
     ]
   }
   EOF
+}
+
+resource "aws_iam_policy_document" "example" {
+  statement {
+    not_actions   = "*"
+    not_resources = "something"
+  }
+}
+
+resource "aws_iam_role_policy" "vuln_role_1" {
+  name = "vuln_role_1"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        NotAction   = ["*"],
+        Effect      = "Allow"
+        Principal   = "*"
+        NotResource = ["something", ]
+      }
+    ]
+  })
 }

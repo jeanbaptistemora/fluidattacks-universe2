@@ -7,7 +7,6 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from lib_path.f031.utils import (
-    negative_statement_iterate_vulnerabilities,
     open_passrole_iterate_vulnerabilities,
 )
 from metaloaders.model import (
@@ -106,24 +105,6 @@ def _tfm_iam_role_excessive_privilege(
             actions, resources, managed_policies_iterator, role_iterator
         ):
             yield stmt
-
-
-def terraform_negative_statement(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f031_aws.negative_statement",
-        iterator=get_cloud_iterator(
-            negative_statement_iterate_vulnerabilities(
-                statements_iterator=terraform_iterate_iam_policy_documents(
-                    model=model,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_NEGATIVE_STATEMENT,
-    )
 
 
 def terraform_open_passrole(
