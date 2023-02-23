@@ -40,7 +40,6 @@ from db_model import (
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
-    ToeLinesMetadataToUpdate,
 )
 from decorators import (
     retry_on_exceptions,
@@ -96,7 +95,6 @@ async def update_toe_lines(
             sorts_risk_level=sorts_risk_level,
             sorts_risk_level_date=sorts_risk_level_date,
         ),
-        metadata=ToeLinesMetadataToUpdate(),
     )
 
 

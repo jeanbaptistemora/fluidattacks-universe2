@@ -18,7 +18,6 @@ from db_model import (
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
-    ToeLinesMetadataToUpdate,
 )
 import logging
 import logging.config
@@ -52,12 +51,12 @@ async def process_group(group_name: str) -> None:
                     attacked_lines=toe_lines.state.loc,
                     modified_date=datetime_utils.get_utc_now(),
                 ),
-                metadata=ToeLinesMetadataToUpdate(),
             )
             for toe_lines in group_toe_lines
             if (
                 toe_lines.state.attacked_at is not None
-                and toe_lines.state.attacked_at > toe_lines.modified_date
+                and toe_lines.state.attacked_at
+                > toe_lines.state.last_commit_date
                 and toe_lines.state.attacked_lines == 0
             )
         )
@@ -81,10 +80,10 @@ async def process_group(group_name: str) -> None:
                 new_state=toe_lines.state._replace(
                     modified_date=datetime_utils.get_utc_now()
                 ),
-                metadata=ToeLinesMetadataToUpdate(),
             )
             for toe_lines in group_toe_lines
-            if toe_lines.state.modified_date == toe_lines.modified_date
+            if toe_lines.state.modified_date
+            == toe_lines.state.last_commit_date
         )
     )
 

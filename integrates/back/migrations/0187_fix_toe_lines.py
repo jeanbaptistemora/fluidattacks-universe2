@@ -28,7 +28,6 @@ from db_model import (
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
-    ToeLinesMetadataToUpdate,
 )
 from decorators import (
     retry_on_exceptions,
@@ -69,7 +68,6 @@ async def process_group_lines(
                 modified_by="machine@fluidattacks.com",
                 modified_date=datetime_utils.get_utc_now(),
             ),
-            metadata=ToeLinesMetadataToUpdate(),
         )
 
 

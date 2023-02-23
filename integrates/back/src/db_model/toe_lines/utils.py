@@ -2,7 +2,6 @@ from .types import (
     SortsSuggestion,
     ToeLines,
     ToeLinesEdge,
-    ToeLinesMetadataToUpdate,
     ToeLinesState,
 )
 from datetime import (
@@ -171,16 +170,3 @@ def format_toe_lines_item(
             gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         }
     return toe_lines_item
-
-
-def format_toe_lines_state_item(
-    state_item: Item, metadata: ToeLinesMetadataToUpdate
-) -> Item:
-    if metadata.clean_attacked_at:
-        state_item["attacked_at"] = None
-    if metadata.clean_be_present_until:
-        state_item["be_present_until"] = None
-    if metadata.clean_first_attack_at:
-        state_item["first_attack_at"] = None
-
-    return state_item

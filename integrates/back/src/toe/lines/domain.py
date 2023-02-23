@@ -20,7 +20,6 @@ from db_model.roots.types import (
 )
 from db_model.toe_lines.types import (
     ToeLines,
-    ToeLinesMetadataToUpdate,
     ToeLinesState,
 )
 from newutils import (
@@ -287,6 +286,9 @@ async def update(
         if attributes.be_present is None
         else _get_optional_be_present_until(attributes.be_present)
     )
+    clean_be_present_until = (
+        attributes.be_present is not None and be_present_until is None
+    )
     current_be_present = (
         current_value.state.be_present
         if attributes.be_present is None
@@ -348,13 +350,9 @@ async def update(
         if attributes.sorts_suggestions is not None
         else current_value.state.sorts_suggestions,
     )
-    metadata = ToeLinesMetadataToUpdate(
-        modified_date=attributes.last_commit_date,
-        clean_be_present_until=attributes.be_present is not None
-        and be_present_until is None,
-    )
+    if clean_be_present_until:
+        new_state = new_state._replace(be_present_until=None)
     await toe_lines_model.update_state(
         current_value=current_value,
         new_state=new_state,
-        metadata=metadata,
     )

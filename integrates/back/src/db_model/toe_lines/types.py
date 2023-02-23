@@ -55,13 +55,6 @@ class ToeLinesConnection(NamedTuple):
     total: int | None = None
 
 
-class ToeLinesMetadataToUpdate(NamedTuple):
-    modified_date: datetime | None = None
-    clean_attacked_at: bool = False
-    clean_be_present_until: bool = False
-    clean_first_attack_at: bool = False
-
-
 class ToeLinesRequest(NamedTuple):
     filename: str
     group_name: str

@@ -3,12 +3,10 @@ from .constants import (
 )
 from .types import (
     ToeLines,
-    ToeLinesMetadataToUpdate,
     ToeLinesState,
 )
 from .utils import (
     format_toe_lines_item,
-    format_toe_lines_state_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -40,7 +38,6 @@ async def update_state(
     *,
     current_value: ToeLines,
     new_state: ToeLinesState,
-    metadata: ToeLinesMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
@@ -55,10 +52,7 @@ async def update_state(
     base_item = {
         "modified_date": get_as_utc_iso_format(new_state.last_commit_date)
     }
-    new_state_item: Item = format_toe_lines_state_item(
-        state_item=json.loads(json.dumps(new_state, default=serialize)),
-        metadata=metadata,
-    )
+    new_state_item: Item = json.loads(json.dumps(new_state, default=serialize))
     metadata_item = base_item | {"state": new_state_item}
 
     condition_expression = Attr(key_structure.partition_key).exists() & Attr(
