@@ -145,6 +145,12 @@ Let’s see it in action:
 As you can see, we were able to execute the instructions on our
 shellcode that we placed on the stack, as expected.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## Enabling DEP
 
 On modern Windows versions, the NX bit of the CPU can be leveraged by

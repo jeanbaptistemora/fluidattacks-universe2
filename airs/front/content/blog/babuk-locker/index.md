@@ -119,6 +119,12 @@ for his part,
 talks about *only two* forms of Babuk injection:
 email spam and trojans.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 When the threat actors launch Babuk Locker,
 they can employ "a command-line argument
 to control how the ransomware should encrypt network shares

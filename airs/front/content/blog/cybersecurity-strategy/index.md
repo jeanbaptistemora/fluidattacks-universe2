@@ -124,6 +124,12 @@ between cybersecurity and strategic thought. The company’s ability to
 stay in business is left in the background, as IT is salient. That comes
 later when it is too late.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 Another consequence of the usual framing is inertia, a well-known
 behavioral tendency. As the authors state in the paper, *“the cognitive
 tendency is to carry on with the same strategic priorities, interpreting

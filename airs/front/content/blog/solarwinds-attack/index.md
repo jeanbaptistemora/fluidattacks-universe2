@@ -118,6 +118,12 @@ that hackers were even able to see, but 'not modify,' part of their
 source code. Well, this occurrence certainly gave us plenty to ponder
 over.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 [By **December
 24**](https://www.businessinsider.com/solarwinds-hack-explained-government-agencies-cyber-security-2020-12),
 the media mentioned prominent victims in three groups: (1) US agencies,

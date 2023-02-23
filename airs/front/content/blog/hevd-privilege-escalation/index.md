@@ -229,6 +229,12 @@ mov edx, dword [eax+0x140]              ; EDX now points to cmd.exe PID
 Now we need to traverse the `ActiveProcessLinks` list to find the
 `_EPROCESS` structure for the `cmd.exe` process:
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ``` x86asm
 pushad                                  ; Save current registers
 mov eax, dword [fs:0x124]               ; EAX now points to _KTHREAD

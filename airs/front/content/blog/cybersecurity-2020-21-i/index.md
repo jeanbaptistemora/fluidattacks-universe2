@@ -126,6 +126,12 @@ Additionally,
 about **90%** of companies currently make use of some cloud service,
 as reported by [Cyvolve](https://www.cyvolve.com/resources/content-library/reports/state-of-cybersecurity-report-2020/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 This accelerated digital transformation,
 especially for complex systems,
 obviously meant chaos and high risks.

@@ -104,6 +104,12 @@ practicing by yourself. Of course, to avoid problems with the law, keep
 in mind that it’s prudent to exploit only systems that are either your
 own or have explicit permission for this type of activity.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 From an organization standpoint, one of Marcus’s phrase is quite
 remarkable: "I believe that everyone in information technology and
 software engineering should know how to build, secure and hack anything

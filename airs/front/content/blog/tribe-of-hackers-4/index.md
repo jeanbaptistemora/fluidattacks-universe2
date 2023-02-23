@@ -110,10 +110,16 @@ to some reluctant or nontechnical clients
 (reflecting no need for security),
 use some assessment as a demo,
 and prove to them that
-[red teaming](../../solutions/red-teaming/) is really necessary nowadays
+red teaming is really necessary nowadays
 if they want to *guarantee quality* in their systems
 not only for them
 but also for their customers or users.
+
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
 
 A well-established red team should possess a clear as a day
 understanding of each of its members' particular skills. As Tinker says,

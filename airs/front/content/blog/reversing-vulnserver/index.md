@@ -229,6 +229,13 @@ That means that, as `*dest` is located at `ebp-0x48`, if we want to
 overflow the `KSTET` command, we must inject `72 - len('KSTET ') = 66`
 or more bytes to start overflowing the stack:
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 **Reversed Function2 stack frame.**
 
 ``` text

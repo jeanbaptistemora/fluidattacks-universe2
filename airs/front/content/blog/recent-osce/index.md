@@ -67,6 +67,12 @@ requirements to fulfill at that time to become part of the company?**
    experience I had acquired (in Linux, security, and hacking) by
    studying on my own was enough to get me into `Fluid Attacks`.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 **What kind of skills and knowledge do you think a person should possess
 to achieve this OSCE certification?**
 

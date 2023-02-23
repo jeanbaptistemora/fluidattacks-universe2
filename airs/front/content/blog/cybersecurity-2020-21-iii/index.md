@@ -136,8 +136,7 @@ and apply it from the beginning.
 This methodology belongs to the [DevSecOps](../devsecops-concept/)
 approach.
 There,
-[security testing](../../solutions/security-testing/)
-must be [continuous](../../services/continuous-hacking/)
+security testing must be [continuous](../../services/continuous-hacking/)
 —covering the whole software development lifecycle (SDLC)—,
 and ensures significant savings in time and money.
 Then,
@@ -152,6 +151,12 @@ And these issues may not be immediately remediated
 and may require considerable time,
 effort and money
 due to their quantity and complexity.
+
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
 
 ### Secure hosting in the cloud
 

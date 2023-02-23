@@ -151,6 +151,12 @@ virtual machine with a Windows 10 1703 (Creators Update) instance.
 It’s recommended to disable Windows Update service to avoid messing with
 our lab results.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 With the target machine up an running, it’s time to load `HEVD` in the
 system. This is done by copying the `osrloaderv30.zip` and
 `HEVD.3.00.zip` files to this target OS and uncompressed them. Then, we

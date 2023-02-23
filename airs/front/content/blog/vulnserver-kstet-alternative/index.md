@@ -302,6 +302,12 @@ Great\! However, as you can see, we landed on a 20 bytes buffer where we
 put the `C` chars, but we have 66 bytes above on the buffer of the `A`
 chars.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 With a short jump backward, we can easily jump to that place:
 
 <div class="imgblock">

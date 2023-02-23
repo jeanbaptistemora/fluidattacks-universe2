@@ -190,6 +190,13 @@ are basically functions that will interact with other layers of the OS
 hardware device. In `HEVD`, those routines are functions happening at
 kernel-level with several vulnerabilities.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 Each routine is identified by an `IOCTL` (I/O control) code.
 
 The driver will accept calls to that routines using `IRP` (I/O Request

@@ -103,6 +103,13 @@ team is *always* capable of repelling any attack is dangerous. Ask
 yourself, what’s your point of reference? To whom you compare your
 skills and processes?
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 Consider some of the figures put together at Hosting Tribunal
 ([here](https://hostingtribunal.com/blog/hacking-statistics/#gref) and
 [here](https://hostingtribunal.com/blog/cybersecurity-statistics/)):

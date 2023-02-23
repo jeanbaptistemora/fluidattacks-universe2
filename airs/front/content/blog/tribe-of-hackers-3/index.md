@@ -92,6 +92,12 @@ means of communication. Georgia looks for individuals who, when they
 recognize they lack some skill in a particular area, do their best to
 get the corresponding knowledge.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ## For those already sweating blood on red teams
 
 When Carey and Jin ask Georgia about rules of engagement (arrangement to

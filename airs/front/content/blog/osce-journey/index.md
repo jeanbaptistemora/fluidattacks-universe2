@@ -90,6 +90,13 @@ the module objectives was an opportunity to learn new things.
 When the lab time was about to expire, I was able to set up my own test
 lab. It consisted of Windows XP SP3 and Windows Vista Business machines.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 ## Self-study
 
 My lab time was scheduled to end on the 8th of June, and the `OSCE` exam

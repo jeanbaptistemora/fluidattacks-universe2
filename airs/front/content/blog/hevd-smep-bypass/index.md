@@ -237,6 +237,12 @@ because `HEVD` is executing at `ring-0` and after overwriting `EIP`, it
 was trying to run the instructions in our shellcode which was allocated
 at `ring-3`.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 Technically, `SMEP` is nothing but a bit in a CPU control register,
 specifically the 20th bit of the `CR4` control register:
 

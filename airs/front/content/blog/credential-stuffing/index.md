@@ -123,6 +123,13 @@ the credential stuffing tool usually incorporates lists of proxies
 that simulate requests from several sites on the Internet,
 thus ensuring anonymity and non-stop automation.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 Even with proxies,
 large numbers of login requests
 in short periods can draw attention

@@ -161,6 +161,12 @@ automation is useful
 for identifying, investigating, triaging, prioritizing
 and remediating vulnerabilities and threats.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 Still,
 the trouble lies in assuming that
 machines' work,

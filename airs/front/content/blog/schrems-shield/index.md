@@ -86,6 +86,12 @@ this 'shield,' according to
 for not providing any concrete protection against indiscriminate access
 to personal data for national security purposes."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 It was then that Schrems appeared again and gave rise to a new legal
 case (the sequel?), *Schrems II*. Here, he was challenging the operation
 of data transfer agreements (Standard Contractual Clauses,

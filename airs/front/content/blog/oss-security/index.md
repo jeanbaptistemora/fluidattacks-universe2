@@ -79,6 +79,12 @@ to their **OSS**. They have their ["secret
 sauce"](https://www.ycombinator.com/library/56-why-the-best-companies-and-developers-give-away-almost-everything-they-do)
 located elsewhere, and here’s where `Fluid Attacks` comes in.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ## Fluid Attacks is safe, out of the cave
 
 <div class="imgblock">

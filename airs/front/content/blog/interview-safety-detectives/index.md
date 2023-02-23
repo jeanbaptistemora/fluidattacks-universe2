@@ -37,5 +37,12 @@ The recent and sudden transformations in the modes of working
 and the tools used in the COVID-19 pandemic
 are factors of extraordinary importance for him.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 To read the interview,
 please click [here](https://www.safetydetectives.com/blog/interview-mauricio-gomez-fluid-attacks/)\!

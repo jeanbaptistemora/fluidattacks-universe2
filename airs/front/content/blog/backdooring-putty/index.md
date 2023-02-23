@@ -379,6 +379,12 @@ hopefully help to disguise this reverse shell a little.
 
 We can now insert those bytes on our code cave.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 Here we can see the addresses on where the `pushad/pushfd` instructions
 were injected:
 

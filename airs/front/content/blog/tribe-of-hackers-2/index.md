@@ -99,6 +99,12 @@ university degree is not required in our company to apply for this job
 either. But as Ben says, for both groups, "you’ll want some combination
 of computer science and information technology knowledge."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 According to Ben, learning the necessary basic skills (e.g.,
 manipulation of infrastructure) working in computer network defense
 positions will facilitate your transition to a job within a red team.
