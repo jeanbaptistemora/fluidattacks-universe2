@@ -16,7 +16,7 @@
     - m . /deployContainerImage/forcesDev
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -36,7 +36,7 @@
     - m . /deployContainerImage/forcesProd
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -57,7 +57,7 @@
     - m . /deployTerraform/integratesInfra
   stage: deploy-infra
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -87,7 +87,7 @@
     - m . /integrates/back/authz-matrix
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -112,7 +112,7 @@
     - m . /integrates/back/deploy/dev
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -136,7 +136,7 @@
     - m . /integrates/back/deploy/prod
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -158,7 +158,7 @@
     - m . /integrates/back/lint/charts
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -180,7 +180,7 @@
     - m . /integrates/back/lint/schema
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -202,7 +202,7 @@
     - m . /integrates/back/lint/schema/deprecations
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -230,7 +230,7 @@
     - m . /integrates/back/test/functional 'abandoned_trial_notification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -259,7 +259,7 @@
     - m . /integrates/back/test/functional 'accept_legal'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -288,7 +288,7 @@
     - m . /integrates/back/test/functional 'acknowledge_concurrent_session'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -317,7 +317,7 @@
     - m . /integrates/back/test/functional 'activate_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -346,7 +346,7 @@
     - m . /integrates/back/test/functional 'add_credentials'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -375,7 +375,7 @@
     - m . /integrates/back/test/functional 'add_credit_card_payment_method'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -404,7 +404,7 @@
     - m . /integrates/back/test/functional 'add_draft'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -433,7 +433,7 @@
     - m . /integrates/back/test/functional 'add_enrollment'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -462,7 +462,7 @@
     - m . /integrates/back/test/functional 'add_event'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -491,7 +491,7 @@
     - m . /integrates/back/test/functional 'add_event_consult'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -520,7 +520,7 @@
     - m . /integrates/back/test/functional 'add_files'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -549,7 +549,7 @@
     - m . /integrates/back/test/functional 'add_files_to_db'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -578,7 +578,7 @@
     - m . /integrates/back/test/functional 'add_finding'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -607,7 +607,7 @@
     - m . /integrates/back/test/functional 'add_finding_consult'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -636,7 +636,7 @@
     - m . /integrates/back/test/functional 'add_forces_execution'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -665,7 +665,7 @@
     - m . /integrates/back/test/functional 'add_git_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -694,7 +694,7 @@
     - m . /integrates/back/test/functional 'add_group'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -723,7 +723,7 @@
     - m . /integrates/back/test/functional 'add_group_consult'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -752,7 +752,7 @@
     - m . /integrates/back/test/functional 'add_group_tags'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -781,7 +781,7 @@
     - m . /integrates/back/test/functional 'add_ip_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -810,7 +810,7 @@
     - m . /integrates/back/test/functional 'add_organization'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -839,7 +839,7 @@
     - m . /integrates/back/test/functional 'add_organization_finding_policy'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -868,7 +868,7 @@
     - m . /integrates/back/test/functional 'add_stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -897,7 +897,7 @@
     - m . /integrates/back/test/functional 'add_toe_input'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -926,7 +926,7 @@
     - m . /integrates/back/test/functional 'add_toe_lines'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -955,7 +955,7 @@
     - m . /integrates/back/test/functional 'add_toe_port'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -984,7 +984,7 @@
     - m . /integrates/back/test/functional 'add_url_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1013,7 +1013,7 @@
     - m . /integrates/back/test/functional 'approve_draft'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1042,7 +1042,7 @@
     - m . /integrates/back/test/functional 'batch'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1071,7 +1071,7 @@
     - m . /integrates/back/test/functional 'batch_dispatch'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1100,7 +1100,7 @@
     - m . /integrates/back/test/functional 'compliance'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1129,7 +1129,7 @@
     - m . /integrates/back/test/functional 'confirm_vulnerabilities'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1158,7 +1158,7 @@
     - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1187,7 +1187,7 @@
     - m . /integrates/back/test/functional 'consulting_digest_notification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1216,7 +1216,7 @@
     - m . /integrates/back/test/functional 'deactivate_organization_finding_policy'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1245,7 +1245,7 @@
     - m . /integrates/back/test/functional 'deactivate_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1274,7 +1274,7 @@
     - m . /integrates/back/test/functional 'download_event_file'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1303,7 +1303,7 @@
     - m . /integrates/back/test/functional 'download_file'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1332,7 +1332,7 @@
     - m . /integrates/back/test/functional 'download_vulnerability_file'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1361,7 +1361,7 @@
     - m . /integrates/back/test/functional 'event'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1390,7 +1390,7 @@
     - m . /integrates/back/test/functional 'events'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1419,7 +1419,7 @@
     - m . /integrates/back/test/functional 'expire_free_trial'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1448,7 +1448,7 @@
     - m . /integrates/back/test/functional 'finding'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1477,7 +1477,7 @@
     - m . /integrates/back/test/functional 'forces_executions'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1506,7 +1506,7 @@
     - m . /integrates/back/test/functional 'get_organization_finding_policy'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1535,7 +1535,7 @@
     - m . /integrates/back/test/functional 'grant_stakeholder_access'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1564,7 +1564,7 @@
     - m . /integrates/back/test/functional 'grant_stakeholder_organization_access'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1593,7 +1593,7 @@
     - m . /integrates/back/test/functional 'group'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1622,7 +1622,7 @@
     - m . /integrates/back/test/functional 'groups_languages_distribution'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1651,7 +1651,7 @@
     - m . /integrates/back/test/functional 'groups_with_forces'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1680,7 +1680,7 @@
     - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptance'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1709,7 +1709,7 @@
     - m . /integrates/back/test/functional 'invalidate_access_token'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1738,7 +1738,7 @@
     - m . /integrates/back/test/functional 'machine_queue_all'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1767,7 +1767,7 @@
     - m . /integrates/back/test/functional 'me'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1796,7 +1796,7 @@
     - m . /integrates/back/test/functional 'move_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1825,7 +1825,7 @@
     - m . /integrates/back/test/functional 'organization'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1854,7 +1854,7 @@
     - m . /integrates/back/test/functional 'organization_finding_policy_acceptance'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1883,7 +1883,7 @@
     - m . /integrates/back/test/functional 'organization_id'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1912,7 +1912,7 @@
     - m . /integrates/back/test/functional 'organization_vulnerabilities'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1941,7 +1941,7 @@
     - m . /integrates/back/test/functional 'refresh_toe_inputs'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1970,7 +1970,7 @@
     - m . /integrates/back/test/functional 'refresh_toe_lines'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1999,7 +1999,7 @@
     - m . /integrates/back/test/functional 'refresh_toe_ports'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2028,7 +2028,7 @@
     - m . /integrates/back/test/functional 'reject_draft'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2057,7 +2057,7 @@
     - m . /integrates/back/test/functional 'reject_event_solution'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2086,7 +2086,7 @@
     - m . /integrates/back/test/functional 'reject_vulnerabilities'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2115,7 +2115,7 @@
     - m . /integrates/back/test/functional 'reject_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2144,7 +2144,7 @@
     - m . /integrates/back/test/functional 'remove_credentials'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2173,7 +2173,7 @@
     - m . /integrates/back/test/functional 'remove_event_evidence'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2202,7 +2202,7 @@
     - m . /integrates/back/test/functional 'remove_evidence'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2231,7 +2231,7 @@
     - m . /integrates/back/test/functional 'remove_files'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2260,7 +2260,7 @@
     - m . /integrates/back/test/functional 'remove_finding'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2289,7 +2289,7 @@
     - m . /integrates/back/test/functional 'remove_group'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2318,7 +2318,7 @@
     - m . /integrates/back/test/functional 'remove_group_tag'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2347,7 +2347,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2376,7 +2376,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder_access'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2405,7 +2405,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder_organization_access'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2434,7 +2434,7 @@
     - m . /integrates/back/test/functional 'remove_tags'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2463,7 +2463,7 @@
     - m . /integrates/back/test/functional 'remove_toe_port'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2492,7 +2492,7 @@
     - m . /integrates/back/test/functional 'remove_vulnerability'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2521,7 +2521,7 @@
     - m . /integrates/back/test/functional 'report'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2550,7 +2550,7 @@
     - m . /integrates/back/test/functional 'report_machine'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2579,7 +2579,7 @@
     - m . /integrates/back/test/functional 'request_event_verification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2608,7 +2608,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_hold'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2637,7 +2637,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_verification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2666,7 +2666,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2695,7 +2695,7 @@
     - m . /integrates/back/test/functional 'requeue_actions'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2724,7 +2724,7 @@
     - m . /integrates/back/test/functional 'resources'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2753,7 +2753,7 @@
     - m . /integrates/back/test/functional 'send_trial_engagement_notification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2782,7 +2782,7 @@
     - m . /integrates/back/test/functional 'solve_event'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2811,7 +2811,7 @@
     - m . /integrates/back/test/functional 'stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2840,7 +2840,7 @@
     - m . /integrates/back/test/functional 'submit_draft'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2869,7 +2869,7 @@
     - m . /integrates/back/test/functional 'submit_organization_finding_policy'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2898,7 +2898,7 @@
     - m . /integrates/back/test/functional 'subscribe_to_entity_report'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2927,7 +2927,7 @@
     - m . /integrates/back/test/functional 'sync_git_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2956,7 +2956,7 @@
     - m . /integrates/back/test/functional 'tag'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2985,7 +2985,7 @@
     - m . /integrates/back/test/functional 'toe_inputs'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3014,7 +3014,7 @@
     - m . /integrates/back/test/functional 'toe_lines'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3043,7 +3043,7 @@
     - m . /integrates/back/test/functional 'toe_ports'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3072,7 +3072,7 @@
     - m . /integrates/back/test/functional 'treatment_alert_notification'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3101,7 +3101,7 @@
     - m . /integrates/back/test/functional 'unfulfilled_standard_report_url'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3130,7 +3130,7 @@
     - m . /integrates/back/test/functional 'unsubscribe_from_group'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3159,7 +3159,7 @@
     - m . /integrates/back/test/functional 'update_access_token'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3188,7 +3188,7 @@
     - m . /integrates/back/test/functional 'update_compliance'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3217,7 +3217,7 @@
     - m . /integrates/back/test/functional 'update_credentials'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3246,7 +3246,7 @@
     - m . /integrates/back/test/functional 'update_description'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3275,7 +3275,7 @@
     - m . /integrates/back/test/functional 'update_event'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3304,7 +3304,7 @@
     - m . /integrates/back/test/functional 'update_event_evidence'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3333,7 +3333,7 @@
     - m . /integrates/back/test/functional 'update_event_solving_reason'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3362,7 +3362,7 @@
     - m . /integrates/back/test/functional 'update_evidence'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3391,7 +3391,7 @@
     - m . /integrates/back/test/functional 'update_evidence_description'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3420,7 +3420,7 @@
     - m . /integrates/back/test/functional 'update_forces_access_token'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3449,7 +3449,7 @@
     - m . /integrates/back/test/functional 'update_git_environments'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3478,7 +3478,7 @@
     - m . /integrates/back/test/functional 'update_git_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3507,7 +3507,7 @@
     - m . /integrates/back/test/functional 'update_group'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3536,7 +3536,7 @@
     - m . /integrates/back/test/functional 'update_group_access_info'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3565,7 +3565,7 @@
     - m . /integrates/back/test/functional 'update_group_disambiguation'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3594,7 +3594,7 @@
     - m . /integrates/back/test/functional 'update_group_info'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3623,7 +3623,7 @@
     - m . /integrates/back/test/functional 'update_group_managed'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3652,7 +3652,7 @@
     - m . /integrates/back/test/functional 'update_group_policies'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3681,7 +3681,7 @@
     - m . /integrates/back/test/functional 'update_group_stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3710,7 +3710,7 @@
     - m . /integrates/back/test/functional 'update_ip_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3739,7 +3739,7 @@
     - m . /integrates/back/test/functional 'update_notification_preferences'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3768,7 +3768,7 @@
     - m . /integrates/back/test/functional 'update_organization_policies'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3797,7 +3797,7 @@
     - m . /integrates/back/test/functional 'update_organization_stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3826,7 +3826,7 @@
     - m . /integrates/back/test/functional 'update_root_cloning_status'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3855,7 +3855,7 @@
     - m . /integrates/back/test/functional 'update_severity'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3884,7 +3884,7 @@
     - m . /integrates/back/test/functional 'update_stakeholder_phone'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3913,7 +3913,7 @@
     - m . /integrates/back/test/functional 'update_toe_input'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3942,7 +3942,7 @@
     - m . /integrates/back/test/functional 'update_toe_lines_attacked_lines'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3971,7 +3971,7 @@
     - m . /integrates/back/test/functional 'update_toe_lines_sorts'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4000,7 +4000,7 @@
     - m . /integrates/back/test/functional 'update_toe_port'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4029,7 +4029,7 @@
     - m . /integrates/back/test/functional 'update_toe_vulnerabilities'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4058,7 +4058,7 @@
     - m . /integrates/back/test/functional 'update_tours'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4087,7 +4087,7 @@
     - m . /integrates/back/test/functional 'update_url_root'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4116,7 +4116,7 @@
     - m . /integrates/back/test/functional 'update_vulnerabilities_treatment'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4145,7 +4145,7 @@
     - m . /integrates/back/test/functional 'update_vulnerability_description'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4174,7 +4174,7 @@
     - m . /integrates/back/test/functional 'update_vulnerability_treatment'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4203,7 +4203,7 @@
     - m . /integrates/back/test/functional 'upload_file'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4232,7 +4232,7 @@
     - m . /integrates/back/test/functional 'validate_git_access'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4261,7 +4261,7 @@
     - m . /integrates/back/test/functional 'verify_stakeholder'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4290,7 +4290,7 @@
     - m . /integrates/back/test/functional 'verify_vulnerabilities_request'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4319,7 +4319,7 @@
     - m . /integrates/back/test/functional 'vulnerability'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4343,7 +4343,7 @@
     - m . /integrates/back/test/load
   stage: post-deploy
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4371,7 +4371,7 @@
     - m . /integrates/back/test/unit 'changes_db'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4400,7 +4400,7 @@
     - m . /integrates/back/test/unit 'not_changes_db'
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4432,7 +4432,7 @@
     - m . /integrates/charts/documents 'dev' '7' 'gitlab'
   stage: analytics
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4460,7 +4460,7 @@
     - m . /integrates/charts/documents 'prod' '30' 'gitlab'
   stage: analytics
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4479,7 +4479,7 @@
     - m . /integrates/charts/snapshots 'prod'
   stage: analytics
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4519,7 +4519,7 @@
     - m . /integrates/coverage
   stage: external
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4587,7 +4587,7 @@
     - m . /integrates/coverage/combine '1'
   stage: external
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4655,7 +4655,7 @@
     - m . /integrates/coverage/combine '2'
   stage: external
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4723,7 +4723,7 @@
     - m . /integrates/coverage/combine '3'
   stage: external
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4773,7 +4773,7 @@
     - m . /integrates/coverage/combine '4'
   stage: external
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4793,7 +4793,7 @@
     - m . /integrates/forces/test
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4816,7 +4816,7 @@
     - m . /integrates/front/deploy/dev
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4837,7 +4837,7 @@
     - m . /integrates/front/deploy/prod
   stage: deploy-app
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4859,7 +4859,7 @@
     - m . /integrates/front/lint
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4880,7 +4880,7 @@
     - m . /integrates/front/test
   stage: test-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4902,7 +4902,7 @@
     - m . /integrates/secrets/lint
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4925,7 +4925,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'daily'
   stage: subscriptions
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4949,7 +4949,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'hourly'
   stage: subscriptions
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4973,7 +4973,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'monthly'
   stage: subscriptions
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4997,7 +4997,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'weekly'
   stage: subscriptions
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5023,7 +5023,7 @@
     - m . /integrates/web/e2e
   stage: post-deploy
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5047,7 +5047,7 @@
     - m . /integrates/web/forces
   stage: post-deploy
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5069,7 +5069,7 @@
     - m . /lintPython/dirOfModules/integrates/analytics
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5091,7 +5091,7 @@
     - m . /lintPython/dirOfModules/integrates/api
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5113,7 +5113,7 @@
     - m . /lintPython/dirOfModules/integrates/app
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5135,7 +5135,7 @@
     - m . /lintPython/dirOfModules/integrates/authz
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5157,7 +5157,7 @@
     - m . /lintPython/dirOfModules/integrates/azure_repositories
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5179,7 +5179,7 @@
     - m . /lintPython/dirOfModules/integrates/batch
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5201,7 +5201,7 @@
     - m . /lintPython/dirOfModules/integrates/batch_dispatch
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5223,7 +5223,7 @@
     - m . /lintPython/dirOfModules/integrates/billing
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5245,7 +5245,7 @@
     - m . /lintPython/dirOfModules/integrates/cli
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5267,7 +5267,7 @@
     - m . /lintPython/dirOfModules/integrates/context
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5289,7 +5289,7 @@
     - m . /lintPython/dirOfModules/integrates/custom_exceptions
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5311,7 +5311,7 @@
     - m . /lintPython/dirOfModules/integrates/dataloaders
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5333,7 +5333,7 @@
     - m . /lintPython/dirOfModules/integrates/db_model
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5355,7 +5355,7 @@
     - m . /lintPython/dirOfModules/integrates/decorators
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5377,7 +5377,7 @@
     - m . /lintPython/dirOfModules/integrates/dynamodb
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5399,7 +5399,7 @@
     - m . /lintPython/dirOfModules/integrates/event_comments
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5421,7 +5421,7 @@
     - m . /lintPython/dirOfModules/integrates/events
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5443,7 +5443,7 @@
     - m . /lintPython/dirOfModules/integrates/finding_comments
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5465,7 +5465,7 @@
     - m . /lintPython/dirOfModules/integrates/findings
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5487,7 +5487,7 @@
     - m . /lintPython/dirOfModules/integrates/forces
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5509,7 +5509,7 @@
     - m . /lintPython/dirOfModules/integrates/group_access
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5531,7 +5531,7 @@
     - m . /lintPython/dirOfModules/integrates/group_comments
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5553,7 +5553,7 @@
     - m . /lintPython/dirOfModules/integrates/groups
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5575,7 +5575,7 @@
     - m . /lintPython/dirOfModules/integrates/machine
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5597,7 +5597,7 @@
     - m . /lintPython/dirOfModules/integrates/mailer
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5619,7 +5619,7 @@
     - m . /lintPython/dirOfModules/integrates/newutils
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5641,7 +5641,7 @@
     - m . /lintPython/dirOfModules/integrates/notifications
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5663,7 +5663,7 @@
     - m . /lintPython/dirOfModules/integrates/oauth
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5685,7 +5685,7 @@
     - m . /lintPython/dirOfModules/integrates/organization_access
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5707,7 +5707,7 @@
     - m . /lintPython/dirOfModules/integrates/organizations
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5729,7 +5729,7 @@
     - m . /lintPython/dirOfModules/integrates/organizations_finding_policies
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5751,7 +5751,7 @@
     - m . /lintPython/dirOfModules/integrates/remove_stakeholder
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5773,7 +5773,7 @@
     - m . /lintPython/dirOfModules/integrates/reports
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5795,7 +5795,7 @@
     - m . /lintPython/dirOfModules/integrates/roots
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5817,7 +5817,7 @@
     - m . /lintPython/dirOfModules/integrates/s3
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5839,7 +5839,7 @@
     - m . /lintPython/dirOfModules/integrates/schedulers
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5861,7 +5861,7 @@
     - m . /lintPython/dirOfModules/integrates/search
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5883,7 +5883,7 @@
     - m . /lintPython/dirOfModules/integrates/server
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5905,7 +5905,7 @@
     - m . /lintPython/dirOfModules/integrates/sessions
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5927,7 +5927,7 @@
     - m . /lintPython/dirOfModules/integrates/settings
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5949,7 +5949,7 @@
     - m . /lintPython/dirOfModules/integrates/sms
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5971,7 +5971,7 @@
     - m . /lintPython/dirOfModules/integrates/stakeholders
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -5993,7 +5993,7 @@
     - m . /lintPython/dirOfModules/integrates/subscriptions
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6015,7 +6015,7 @@
     - m . /lintPython/dirOfModules/integrates/tags
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6037,7 +6037,7 @@
     - m . /lintPython/dirOfModules/integrates/telemetry
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6059,7 +6059,7 @@
     - m . /lintPython/dirOfModules/integrates/toe
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6081,7 +6081,7 @@
     - m . /lintPython/dirOfModules/integrates/trials
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6103,7 +6103,7 @@
     - m . /lintPython/dirOfModules/integrates/unreliable_indicators
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6125,7 +6125,7 @@
     - m . /lintPython/dirOfModules/integrates/verify
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6147,7 +6147,7 @@
     - m . /lintPython/dirOfModules/integrates/vulnerabilities
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6169,7 +6169,7 @@
     - m . /lintPython/dirOfModules/integrates/vulnerability_files
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6191,7 +6191,7 @@
     - m . /lintPython/dirOfModules/integratesBackChartsGenerators
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6213,7 +6213,7 @@
     - m . /lintPython/dirOfModules/streams
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6235,7 +6235,7 @@
     - m . /lintPython/imports/integrates
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6257,7 +6257,7 @@
     - m . /lintPython/module/forces
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6279,7 +6279,7 @@
     - m . /lintPython/module/forcesTests
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6301,7 +6301,7 @@
     - m . /lintPython/module/integratesBackCharts
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6323,7 +6323,7 @@
     - m . /lintPython/module/integratesBackChartsCollector
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6345,7 +6345,7 @@
     - m . /lintPython/module/integratesBackDeployPermissionsMatrix
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6367,7 +6367,7 @@
     - m . /lintPython/module/integratesBackMigrations
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6389,7 +6389,7 @@
     - m . /lintPython/module/integratesBackTest
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6411,7 +6411,7 @@
     - m . /lintPython/module/integratesBackTestE2e
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6433,7 +6433,7 @@
     - m . /lintPython/module/integratesJobsCloneRoots
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6455,7 +6455,7 @@
     - m . /lintPython/module/integratesJobsExecuteMachine
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6477,7 +6477,7 @@
     - m . /lintTerraform/integratesInfra
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6499,7 +6499,7 @@
     - m . /pipelineOnGitlab/integrates
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6521,7 +6521,7 @@
     - m . /securePythonWithBandit/integratesBack
   stage: lint-code
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -6543,7 +6543,7 @@
     - m . /testTerraform/integratesInfra
   stage: test-infra
   tags:
-    - small
+    - integrates-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

@@ -71,54 +71,54 @@
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;
     stage = "deploy-app";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabDeployAppDevInterested = {
     rules = gitlabDeployEphemeralRule;
     stage = "deploy-app";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabDeployAppProdResourceGroup = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-app";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabDeployForcesProd = {
     rules = gitlabOnlyProd;
     stage = "deploy-app";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabDeployInfra = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-infra";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabExternal = {
     rules = gitlabOnlyDevAndProd;
     stage = "external";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabPostDeployDev = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabTestDevAndProd = {
     rules = gitlabOnlyDevAndProd;
     stage = "test-code";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["small"];
+    tags = ["integrates-small"];
   };
   lib = inputs.nixpkgs.lib;
 in {
@@ -260,7 +260,7 @@ in {
               // {
                 parallel = 7;
                 rules = gitlabOnlyDev;
-                tags = ["small"];
+                tags = ["integrates-small"];
                 variables = {
                   MAKES_NON_ROOT = 1;
                 };
@@ -282,7 +282,7 @@ in {
                   )
                   (gitlabCi.rules.always)
                 ];
-                tags = ["small"];
+                tags = ["integrates-small"];
               };
           }
           {
@@ -297,7 +297,7 @@ in {
               ];
               needs = ["/integrates/charts/documents__prod__30__gitlab"];
               stage = "analytics";
-              tags = ["small"];
+              tags = ["integrates-small"];
               variables = {
                 MAKES_NON_ROOT = 1;
               };
@@ -425,7 +425,7 @@ in {
               retry = 2;
               rules = gitlabOnlyDev;
               stage = "subscriptions";
-              tags = ["small"];
+              tags = ["integrates-small"];
               variables = {
                 MAKES_NON_ROOT = 1;
               };
