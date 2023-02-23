@@ -13,6 +13,11 @@ class ImguiOpencvDemo(ConanFile):
                "opencv/2.4.13.7",\
                "poco/1.10.1"
 
+    tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+
+    def build_requirements(self):
+        self.tool_requires("tool_win/0.1@user/stable")
+
     generators = "cmake"
 
     def build(self):
