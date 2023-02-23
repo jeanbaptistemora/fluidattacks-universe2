@@ -9,8 +9,9 @@ import { ModifiedDateField } from "./ModifiedDateField";
 import { RootField } from "./RootField";
 import type { IFormValues, IHandleAdditionModalFormProps } from "./types";
 
+import { Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100, Row } from "styles/styledComponents";
+import { Col100 } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
