@@ -1,3 +1,4 @@
+# pylint: disable=too-many-arguments
 from . import (
     get_result,
 )
@@ -19,6 +20,11 @@ from typing import (
     ["email", "description", "recommendation"],
     [
         ["admin@gmail.com", "This is an attack vector", "Solve this finding"],
+        [
+            "admin@gmail.com",
+            "This is an attack vector 2",
+            "Solve this finding 2",
+        ],
     ],
 )
 async def test_add_finding(
@@ -154,19 +160,19 @@ async def test_add_finding_requirements_in_criteria(
     [
         [
             "admin@gmail.com",
-            "unfulfilled_requirements",
+            "invalid_title",
             "Solve this finding",
             "F001. Test",
         ],
         [
             "admin@gmail.com",
-            "unfulfilled_requirements",
+            "invalid_title",
             "Solve this finding",
             "Test",
         ],
         [
             "admin@gmail.com",
-            "unfulfilled_requirements",
+            "invalid_title",
             "Solve this finding",
             "001",
         ],
@@ -190,4 +196,47 @@ async def test_add_finding_invalid_title(
     assert (
         result["errors"][0]["message"]
         == "Exception - The inserted Draft/Finding title is invalid"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "description",
+        "recommendation",
+        "title",
+        "unfulfilled_requirements",
+    ],
+    [
+        [
+            "admin@gmail.com",
+            "duplicated_recommendation",
+            "Updated recommendation",
+            "001. SQL injection - C Sharp SQL API",
+            ["169"],
+        ],
+    ],
+)
+async def test_add_finding_duplicated_recommendation(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    title: str,
+    unfulfilled_requirements: list[str],
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        title=title,
+        unfulfilled_requirements=unfulfilled_requirements,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Finding with the same recommendation already exists"
     )
