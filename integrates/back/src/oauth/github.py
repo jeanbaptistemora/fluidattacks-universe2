@@ -10,9 +10,6 @@ import logging.config
 from settings import (
     LOGGING,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -29,10 +26,7 @@ GITHUB_ARGS = dict(
 )
 
 
-async def get_access_token(
-    *,
-    code: str,
-) -> Optional[str]:
+async def get_access_token(*, code: str) -> str | None:
     request_parameters: dict[str, str] = dict(
         client_id=FI_GITHUB_OAUTH2_APP_ID,
         client_secret=FI_GITHUB_OAUTH2_SECRET,

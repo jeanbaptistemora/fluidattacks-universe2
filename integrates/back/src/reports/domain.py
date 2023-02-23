@@ -29,9 +29,6 @@ from newutils.reports import (
     sign_url,
     upload_report,
 )
-from typing import (
-    Optional,
-)
 
 
 async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
@@ -42,16 +39,16 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
     treatments: set[VulnerabilityTreatmentStatus],
     states: set[VulnerabilityStateStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
-) -> Optional[str]:
+) -> str | None:
     loaders: Dataloaders = get_new_context()
     group_findings = await loaders.group_findings.load(group_name)
     findings_ord = tuple(
@@ -118,7 +115,7 @@ async def get_signed_unfulfilled_standard_report_url(
     group_name: str,
     stakeholder_email: str,
     seconds: float = 300,
-    unfulfilled_standards: Optional[set[str]] = None,
+    unfulfilled_standards: set[str] | None = None,
 ) -> str:
     filename = await unfulfilled_standards_report.generate_pdf_file(
         loaders=loaders,

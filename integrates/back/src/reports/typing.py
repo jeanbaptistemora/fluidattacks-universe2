@@ -5,11 +5,7 @@ from enum import (
     Enum,
 )
 from typing import (
-    Dict,
-    List,
     NamedTuple,
-    Tuple,
-    Union,
 )
 from vulnerabilities.types import (
     GroupedVulnerabilitiesInfo,
@@ -24,11 +20,11 @@ class ColumnConfig(NamedTuple):
 
 class GenericHeader(Enum):
     @classmethod
-    def labels(cls) -> List[str]:
+    def labels(cls) -> list[str]:
         return [member.value.label for member in cls]
 
     @classmethod
-    def widths(cls) -> List[int]:
+    def widths(cls) -> list[int]:
         return [member.value.width for member in cls]
 
 
@@ -157,10 +153,10 @@ class PdfFindingInfo(NamedTuple):
     attack_vector_description: str
     closed_vulnerabilities: int
     description: str
-    evidence_set: List[Dict[str, str]]
-    grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
-    grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
-    grouped_ports_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    evidence_set: list[dict[str, str]]
+    grouped_inputs_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_lines_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
     open_vulnerabilities: int
     recommendation: str
     requirements: str
@@ -195,16 +191,16 @@ class UnfulfilledStandardInfo(NamedTuple):
 
 class WordlistItem(NamedTuple):
     key: str
-    label: Union[str, List[str]]
+    label: str | list[str]
 
 
 class Wordlist(Enum):
     @classmethod
-    def keys(cls) -> List[str]:
+    def keys(cls) -> list[str]:
         return [member.value.key for member in cls]
 
     @classmethod
-    def labels(cls) -> List[str]:
+    def labels(cls) -> list[str]:
         return [member.value.label for member in cls]
 
 

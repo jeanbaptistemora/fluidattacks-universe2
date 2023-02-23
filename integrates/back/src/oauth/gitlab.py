@@ -20,7 +20,6 @@ import json
 import pytz
 from typing import (
     Any,
-    Optional,
 )
 
 GITLAB_AUTHZ_URL = "https://gitlab.com/oauth/authorize"
@@ -41,7 +40,7 @@ async def get_refresh_token(
     code: str,
     redirect_uri: str,
     code_verifier: str,
-) -> Optional[dict]:
+) -> dict | None:
     request_parameters: dict[str, str] = dict(
         client_id=FI_GITLAB_OAUTH2_APP_ID,
         client_secret=FI_GITLAB_OAUTH2_SECRET,
@@ -75,11 +74,7 @@ async def get_refresh_token(
     return None
 
 
-async def get_token(
-    *,
-    credential: Credentials,
-    loaders: Any,
-) -> Optional[str]:
+async def get_token(*, credential: Credentials, loaders: Any) -> str | None:
     if not isinstance(credential.state.secret, OauthGitlabSecret):
         return None
 

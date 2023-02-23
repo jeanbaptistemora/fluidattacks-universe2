@@ -46,8 +46,6 @@ from starlette.datastructures import (
 from typing import (
     Any,
     cast,
-    Optional,
-    Union,
 )
 
 
@@ -108,7 +106,7 @@ async def delete_group(
     requester_email: str,
     reason: str,
     comments: str,
-    attempt: Optional[bool] = False,
+    attempt: bool | None = False,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
@@ -255,7 +253,7 @@ async def new_group(
     service: str,
     subscription: str,
 ) -> bool:
-    translations: dict[Union[str, bool], str] = {
+    translations: dict[str | bool, str] = {
         "continuous": "Continuous Hacking",
         "oneshot": "One-Shot Hacking",
         True: "Active",
@@ -478,8 +476,8 @@ async def request_other_payment_methods(
     city: str,
     country: str,
     efactura_email: str,
-    rut: Optional[UploadFile],
-    tax_id: Optional[UploadFile],
+    rut: UploadFile | None,
+    tax_id: UploadFile | None,
     user_email: str,
 ) -> None:
     attachments = tuple(

@@ -35,7 +35,6 @@ from settings.logger import (
 )
 import subprocess  # nosec
 from typing import (
-    Optional,
     TypedDict,
 )
 import uuid
@@ -75,7 +74,7 @@ class StandardReportCreator(CreatorPdf):
         group_name: str,
         lang: str,
         loaders: Dataloaders,
-        selected_unfulfilled_standards: Optional[set[str]] = None,
+        selected_unfulfilled_standards: set[str] | None = None,
     ) -> None:
         """Fetch information and fill out the context."""
         group: Group = await loaders.group.load(group_name)
@@ -152,7 +151,7 @@ class StandardReportCreator(CreatorPdf):
         loaders: Dataloaders,
         group_name: str,
         lang: str,
-        unfulfilled_standards: Optional[set[str]] = None,
+        unfulfilled_standards: set[str] | None = None,
     ) -> None:
         """Create the template to render and apply the context."""
         await self.fill_context(

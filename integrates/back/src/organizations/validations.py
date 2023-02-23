@@ -13,10 +13,6 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
 )
-from typing import (
-    Type,
-    Union,
-)
 
 
 async def validate_credentials_name_in_organization(
@@ -38,12 +34,12 @@ async def validate_credentials_oauth(
     loaders: Dataloaders,
     organization_id: str,
     user_email: str,
-    secret_type: Union[
-        Type[OauthAzureSecret],
-        Type[OauthBitbucketSecret],
-        Type[OauthGithubSecret],
-        Type[OauthGitlabSecret],
-    ],
+    secret_type: (
+        type[OauthAzureSecret]
+        | type[OauthBitbucketSecret]
+        | type[OauthGithubSecret]
+        | type[OauthGitlabSecret]
+    ),
 ) -> None:
     org_credentials = await loaders.organization_credentials.load(
         organization_id

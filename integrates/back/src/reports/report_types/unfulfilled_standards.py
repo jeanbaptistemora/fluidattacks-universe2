@@ -15,9 +15,6 @@ from settings import (
 from tempfile import (
     TemporaryDirectory,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -30,7 +27,7 @@ async def generate_pdf_file(
     loaders: Dataloaders,
     group_name: str,
     stakeholder_email: str,
-    unfulfilled_standards: Optional[set[str]] = None,
+    unfulfilled_standards: set[str] | None = None,
 ) -> str:
     # The standard file is only available in English
     lang = "en"

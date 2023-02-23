@@ -36,7 +36,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from urllib.parse import (
     urlencode,
@@ -62,7 +61,7 @@ async def get_bitbucket_refresh_token(
     code: str,
     subject: str,
     redirect_uri: str,
-) -> Optional[dict]:
+) -> dict | None:
     params = {"subject": subject}
     url = f"{redirect_uri}?{urlencode(params)}"
     request_parameters: dict[str, str] = dict(
@@ -109,7 +108,7 @@ async def get_bitbucket_token(
     *,
     credential: Credentials,
     loaders: Any,
-) -> Optional[str]:
+) -> str | None:
     if not isinstance(credential.state.secret, OauthBitbucketSecret):
         return None
 

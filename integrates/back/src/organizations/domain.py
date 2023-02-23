@@ -11,6 +11,9 @@ from authz.validations import (
     validate_role_fluid_reqs_deco,
 )
 import bugsnag
+from collections.abc import (
+    AsyncIterator,
+)
 from context import (
     BASE_URL,
 )
@@ -161,8 +164,6 @@ from trials import (
 )
 from typing import (
     Any,
-    AsyncIterator,
-    Union,
 )
 import uuid
 
@@ -195,7 +196,7 @@ async def add_credentials(
     modified_by: str,
 ) -> str:
     if attributes.type is CredentialType.SSH:
-        secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = SshSecret(
+        secret: HttpsSecret | HttpsPatSecret | SshSecret = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(attributes.key or "")
         )
     elif attributes.token is not None:
@@ -874,15 +875,15 @@ async def update_credentials(
         )
 
     force_update_owner = False
-    secret: Union[
-        HttpsSecret,
-        HttpsPatSecret,
-        OauthAzureSecret,
-        OauthBitbucketSecret,
-        OauthGithubSecret,
-        OauthGitlabSecret,
-        SshSecret,
-    ]
+    secret: (
+        HttpsSecret
+        | HttpsPatSecret
+        | OauthAzureSecret
+        | OauthBitbucketSecret
+        | OauthGithubSecret
+        | OauthGitlabSecret
+        | SshSecret
+    )
     if (
         credentials_type is CredentialType.HTTPS
         and attributes.token is not None

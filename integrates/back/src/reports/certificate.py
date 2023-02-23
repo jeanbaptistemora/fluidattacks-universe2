@@ -46,9 +46,7 @@ from settings.logger import (
 import subprocess  # nosec
 import tempfile
 from typing import (
-    Optional,
     TypedDict,
-    Union,
     ValuesView,
 )
 import uuid
@@ -65,7 +63,7 @@ CertContext = TypedDict(
         "business": str,
         "business_number": str,
         "solution": str,
-        "remediation_table": ValuesView[list[Union[float, int, str]]],
+        "remediation_table": ValuesView[list[float | int | str]],
         "start_day": str,
         "start_month": str,
         "start_year": str,
@@ -118,14 +116,14 @@ def _set_percentage(total_vulns: int, closed_vulns: int) -> str:
 
 def make_remediation_table(
     context_findings: tuple[CertFindingInfo, ...], words: dict[str, str]
-) -> ValuesView[list[Union[float, int, str]]]:
+) -> ValuesView[list[float | int | str]]:
     critical, high, medium, low = (
         words["vuln_c"],
         words["vuln_h"],
         words["vuln_m"],
         words["vuln_l"],
     )
-    remediation_dict: dict[str, list[Union[float, int, str]]] = {
+    remediation_dict: dict[str, list[float | int | str]] = {
         #   Severity | Quantity | Total vulns | Closed vulns | Remediation %
         critical: [critical, 0, 0, 0, "N/A"],
         high: [high, 0, 0, 0, "N/A"],
@@ -201,9 +199,9 @@ class CertificateCreator(CreatorPdf):
         )
         remediation_table = make_remediation_table(context_findings, words)
         group: Group = await loaders.group.load(group_name)
-        oldest_vuln_date: Optional[
-            datetime
-        ] = await groups_domain.get_oldest_finding_date(loaders, group_name)
+        oldest_vuln_date: (
+            datetime | None
+        ) = await groups_domain.get_oldest_finding_date(loaders, group_name)
         start_date: datetime = (
             min(group.created_date, oldest_vuln_date)
             if oldest_vuln_date

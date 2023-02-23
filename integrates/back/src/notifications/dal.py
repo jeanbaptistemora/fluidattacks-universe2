@@ -1,3 +1,6 @@
+from collections.abc import (
+    Generator,
+)
 from context import (
     FI_ZENDESK_EMAIL,
     FI_ZENDESK_SUBDOMAIN,
@@ -11,10 +14,6 @@ from settings import (
 )
 from starlette.datastructures import (
     UploadFile,
-)
-from typing import (
-    Generator,
-    Optional,
 )
 from zenpy import (
     Zenpy,
@@ -41,7 +40,7 @@ def create_ticket(
     subject: str,
     description: str,
     requester_email: str,
-    attachments: Optional[tuple[UploadFile, ...]] = None,
+    attachments: tuple[UploadFile, ...] | None = None,
 ) -> bool:
     success: bool = False
     try:

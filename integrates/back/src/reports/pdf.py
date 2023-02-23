@@ -65,13 +65,6 @@ from settings import (
 import subprocess  # nosec
 import sys
 import time
-from typing import (
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
-)
 from typing_extensions import (
     TypedDict,
 )
@@ -90,8 +83,8 @@ LOGGER = logging.getLogger(__name__)
 VulnTable = TypedDict(
     "VulnTable",
     {
-        "resume": List[List[Union[float, int, str]]],
-        "top": List[List[Union[int, str]]],
+        "resume": list[list[float | int | str]],
+        "top": list[list[int | str]],
     },
 )
 Context = TypedDict(
@@ -105,14 +98,14 @@ Context = TypedDict(
         "version": str,
         "revdate": str,
         "simpledate": str,
-        "fluid_tpl": Dict[str, str],
+        "fluid_tpl": dict[str, str],
         "main_pie_filename": str,
         "main_tables": VulnTable,
-        "findings": Tuple[PdfFindingInfo, ...],
-        "git_root": Tuple[GitRootState, ...],
-        "environment_urls": Tuple[str, ...],
-        "ip_root": Tuple[IPRootState, ...],
-        "url_root": Tuple[URLRootState],
+        "findings": tuple[PdfFindingInfo, ...],
+        "git_root": tuple[GitRootState, ...],
+        "environment_urls": tuple[str, ...],
+        "ip_root": tuple[IPRootState, ...],
+        "url_root": tuple[URLRootState],
         "root_address": str,
         "root_branch": str,
         "root_environment_title": str,
@@ -124,7 +117,7 @@ Context = TypedDict(
         "root_state": str,
         "root_url_title": str,
         "root_url": str,
-        "accessVector": Optional[str],
+        "accessVector": str | None,
         "finding_summary_background": str,
         "finding_summary_pdf": str,
         "finding_summary_title_pdf": str,
@@ -189,7 +182,7 @@ def _format_url(root_url: RootEnvironmentUrl) -> str:
     return url
 
 
-async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
+async def _get_urls(loaders: Dataloaders, root_id: str) -> tuple[str, ...]:
     urls = await loaders.root_environment_urls.load((root_id))
 
     return tuple(_format_url(url) for url in urls)
@@ -221,8 +214,8 @@ async def format_scope(loaders: Dataloaders, group_name: str) -> dict:
 async def format_finding(
     loaders: Dataloaders,
     finding: Finding,
-    evidence_set: List[Dict[str, str]],
-    words: Dict[str, str],
+    evidence_set: list[dict[str, str]],
+    words: dict[str, str],
 ) -> PdfFindingInfo:
     """Generate the pdf findings info."""
     grouped_vulnerabilities_info = (
@@ -241,7 +234,7 @@ async def format_finding(
     finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulnerabilities = await finding_vulns_loader.load(finding.id)
     treatments = vulns_domain.get_treatments_count(tuple(vulnerabilities))
-    formated_treatments: List[str] = []
+    formated_treatments: list[str] = []
     if treatments.accepted > 0:
         formated_treatments.append(
             f'{words["treat_status_asu"]}: {treatments.accepted}'
@@ -292,7 +285,7 @@ async def format_finding(
     )
 
 
-def get_access_vector(finding: Finding) -> Optional[str]:
+def get_access_vector(finding: Finding) -> str | None:
     """Get metrics based on cvss version."""
     if isinstance(finding.severity, Finding31Severity):
         severity = get_severity(
@@ -305,9 +298,9 @@ def get_access_vector(finding: Finding) -> Optional[str]:
     return severity
 
 
-def get_severity(metric: str, metric_value: Decimal) -> Optional[str]:
+def get_severity(metric: str, metric_value: Decimal) -> str | None:
     """Extract number of CSSV metrics."""
-    description: Optional[str] = ""
+    description: str | None = ""
     metrics = {
         "access_vector": {
             Decimal("0.395"): "Local",
@@ -379,7 +372,7 @@ def get_percentage(number_of_findings: int, total_findings: int) -> float:
 
 
 def make_vuln_table(
-    context_findings: Tuple[PdfFindingInfo, ...], words: Dict[str, str]
+    context_findings: tuple[PdfFindingInfo, ...], words: dict[str, str]
 ) -> VulnTable:
     """Label findings percent quantity."""
     number_of_findings: int = len(
@@ -390,14 +383,14 @@ def make_vuln_table(
             and Decimal("0.0") <= finding.severity_score <= Decimal("10.0")
         ]
     )
-    vuln_table: List[List[Union[float, int, str]]] = [
+    vuln_table: list[list[float | int | str]] = [
         [words["vuln_c"], 0, 0, 0],
         [words["vuln_h"], 0, 0, 0],
         [words["vuln_m"], 0, 0, 0],
         [words["vuln_l"], 0, 0, 0],
         ["Total", number_of_findings, "100.00%", 0],
     ]
-    top_table: List[List[Union[int, str]]] = []
+    top_table: list[list[int | str]] = []
     ttl_vulns, top = 0, 1
     for finding in context_findings:
         crit_as_text = words["crit_l"]
@@ -464,7 +457,7 @@ class CreatorPdf:
     """Class to generate reports in PDF."""
 
     command: str = ""
-    context: Optional[Context] = None
+    context: Context | None = None
     doctype: str = "executive"
     font_dir: str = "/resources/fonts"
     lang: str = "en"
@@ -475,7 +468,7 @@ class CreatorPdf:
     style_dir: str = "/resources/themes"
     images_dir: str = "/resources/themes"
     tpl_dir: str = "/tpls/"
-    wordlist: Dict[str, Dict[str, str]] = {}
+    wordlist: dict[str, dict[str, str]] = {}
 
     def __init__(  # pylint: disable=too-many-arguments
         self, lang: str, doctype: str, tempdir: str, group: str, user: str
@@ -530,8 +523,8 @@ class CreatorPdf:
 
     async def fill_group(  # noqa pylint: disable=too-many-arguments,too-many-locals
         self,
-        findings: Tuple[Finding, ...],
-        finding_evidences_set: Dict[str, List[Dict[str, str]]],
+        findings: tuple[Finding, ...],
+        finding_evidences_set: dict[str, list[dict[str, str]]],
         group: str,
         description: str,
         user: str,
@@ -667,7 +660,7 @@ class CreatorPdf:
             zip(PDFWordlistEs.keys(), PDFWordlistEs.labels())
         )
 
-    def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
+    def make_content(self, words: dict[str, str]) -> dict[str, str]:
         """Create context with the titles of the document."""
         base_img = "image::../templates/pdf/{name}_{lang}.png[align=center]"
         base_adoc = "include::../templates/pdf/{name}_{lang}.adoc[]"
@@ -682,9 +675,9 @@ class CreatorPdf:
 
     def make_pie_finding(
         self,
-        context_findings: Tuple[PdfFindingInfo, ...],
+        context_findings: tuple[PdfFindingInfo, ...],
         group: str,
-        words: Dict[str, str],
+        words: dict[str, str],
     ) -> str:
         """Create the findings graph."""
         figure(1, figsize=(6, 6))
@@ -758,8 +751,8 @@ class CreatorPdf:
 
     async def tech(  # noqa
         self,
-        findings: Tuple[Finding, ...],
-        finding_evidences_set: Dict[str, List[Dict[str, str]]],
+        findings: tuple[Finding, ...],
+        finding_evidences_set: dict[str, list[dict[str, str]]],
         description: str,
         loaders: Dataloaders,
     ) -> None:

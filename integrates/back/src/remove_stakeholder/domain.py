@@ -62,7 +62,6 @@ from stakeholders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 mail_confirm_deletion = retry_on_exceptions(
@@ -151,7 +150,7 @@ async def get_confirm_deletion(
     *,
     loaders: Dataloaders,
     email: str,
-) -> Optional[GroupAccess]:
+) -> GroupAccess | None:
     if await group_access_domain.exists(loaders, "confirm_deletion", email):
         confirm_deletion = await loaders.group_access.load(
             GroupAccessRequest(group_name="confirm_deletion", email=email)

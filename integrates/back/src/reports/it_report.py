@@ -90,10 +90,6 @@ from settings.logger import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -147,14 +143,14 @@ class ITReport:
         states: set[VulnerabilityStateStatus],
         treatments: set[VulnerabilityTreatmentStatus],
         verifications: set[VulnerabilityVerificationStatus],
-        closing_date: Optional[datetime],
+        closing_date: datetime | None,
         finding_title: str,
-        age: Optional[int],
-        min_severity: Optional[Decimal],
-        max_severity: Optional[Decimal],
-        last_report: Optional[int],
-        min_release_date: Optional[datetime],
-        max_release_date: Optional[datetime],
+        age: int | None,
+        min_severity: Decimal | None,
+        max_severity: Decimal | None,
+        last_report: int | None,
+        min_release_date: datetime | None,
+        max_release_date: datetime | None,
         location: str,
         loaders: Dataloaders,
         generate_raw_data: bool = False,
@@ -171,7 +167,7 @@ class ITReport:
         self.raw_data: list[list[Any]] = []
         self.workbook: Workbook
 
-        self.row_values: List[Union[str, int, float, datetime]] = [
+        self.row_values: list[str | int | float | datetime] = [
             EMPTY for _ in range(len(self.vulnerability) + 1)
         ]
         self.generate_raw_data = generate_raw_data
@@ -499,7 +495,7 @@ class ITReport:
 
         return description
 
-    def get_row_range(self, row: int) -> List[str]:
+    def get_row_range(self, row: int) -> list[str]:
         # AX is the 51th column
         if self.generate_raw_data:
             return [f"A{row}", f"AZ{row}"]
@@ -635,7 +631,7 @@ class ITReport:
     @staticmethod
     def get_first_treatment(
         treatments: tuple[VulnerabilityTreatment, ...]
-    ) -> Optional[VulnerabilityTreatment]:
+    ) -> VulnerabilityTreatment | None:
 
         return next(
             (
@@ -775,7 +771,7 @@ class ITReport:
     def _get_reattack_requester(
         vuln: Vulnerability,
         historic_verification: tuple[FindingVerification, ...],
-    ) -> Optional[str]:
+    ) -> str | None:
         reversed_historic_verification = tuple(reversed(historic_verification))
         for verification in reversed_historic_verification:
             if (
@@ -867,13 +863,13 @@ class ITReport:
     def set_vuln_temporal_data(self, vuln: Vulnerability) -> None:
         vuln_date = vuln.created_date
         limit_date = datetime_utils.get_utc_now()
-        vuln_close_date: Union[str, datetime] = EMPTY
+        vuln_close_date: str | datetime = EMPTY
         if vuln.state.status == VulnerabilityStateStatus.SAFE:
             limit_date = vuln_close_date = vuln.state.modified_date
         vuln_age_days = int((limit_date - vuln_date).days)
         external_bts = vuln.bug_tracking_system_url or EMPTY
 
-        vuln_temporal_data: Dict[str, Union[str, int, float, datetime]] = {
+        vuln_temporal_data: dict[str, str | int | float | datetime] = {
             "Report Moment": vuln_date,
             "Age in days": vuln_age_days,
             "Close Moment": vuln_close_date,

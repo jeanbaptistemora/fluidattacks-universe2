@@ -18,9 +18,6 @@ from db_model.enums import (
 from db_model.organizations.types import (
     Organization,
 )
-from typing import (
-    Union,
-)
 
 
 def format_credentials_ssh_key(ssh_key: str) -> str:
@@ -38,7 +35,7 @@ def format_credentials_ssh_key(ssh_key: str) -> str:
 
 def format_credentials_secret_type(
     item: dict[str, str]
-) -> Union[HttpsSecret, HttpsPatSecret, SshSecret]:
+) -> HttpsSecret | HttpsPatSecret | SshSecret:
     credential_type = CredentialType(item["type"])
     if credential_type is CredentialType.HTTPS:
         if item.get("token"):

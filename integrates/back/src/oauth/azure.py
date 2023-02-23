@@ -35,7 +35,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +56,7 @@ async def get_azure_refresh_token(
     *,
     code: str,
     redirect_uri: str,
-) -> Optional[dict]:
+) -> dict | None:
     request_parameters: dict[str, str] = dict(
         client_assertion_type=(
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
@@ -102,7 +101,7 @@ async def get_azure_token(
     *,
     credential: Credentials,
     loaders: Any,
-) -> Optional[str]:
+) -> str | None:
     if not isinstance(credential.state.secret, OauthAzureSecret):
         return None
 

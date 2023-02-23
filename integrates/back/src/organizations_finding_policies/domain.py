@@ -39,9 +39,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from typing import (
-    Optional,
-)
 from uuid import (
     uuid4,
 )
@@ -60,7 +57,7 @@ async def get_finding_policy_by_name(
     loaders: Dataloaders,
     finding_name: str,
     organization_name: str,
-) -> Optional[OrgFindingPolicy]:
+) -> OrgFindingPolicy | None:
     org_finding_policies = await loaders.organization_finding_policies.load(
         organization_name
     )
@@ -116,9 +113,9 @@ async def handle_finding_policy_acceptance(
     organization_name: str,
     status: PolicyStateStatus,
 ) -> None:
-    finding_policy: Optional[
-        OrgFindingPolicy
-    ] = await loaders.organization_finding_policy.load(
+    finding_policy: (
+        OrgFindingPolicy | None
+    ) = await loaders.organization_finding_policy.load(
         OrgFindingPolicyRequest(
             organization_name=organization_name,
             policy_id=finding_policy_id,
@@ -147,9 +144,9 @@ async def submit_finding_policy(
     finding_policy_id: str,
     organization_name: str,
 ) -> None:
-    finding_policy: Optional[
-        OrgFindingPolicy
-    ] = await loaders.organization_finding_policy.load(
+    finding_policy: (
+        OrgFindingPolicy | None
+    ) = await loaders.organization_finding_policy.load(
         OrgFindingPolicyRequest(
             organization_name=organization_name,
             policy_id=finding_policy_id,
@@ -181,9 +178,9 @@ async def deactivate_finding_policy(
     finding_policy_id: str,
     organization_name: str,
 ) -> None:
-    finding_policy: Optional[
-        OrgFindingPolicy
-    ] = await loaders.organization_finding_policy.load(
+    finding_policy: (
+        OrgFindingPolicy | None
+    ) = await loaders.organization_finding_policy.load(
         OrgFindingPolicyRequest(
             organization_name=organization_name,
             policy_id=finding_policy_id,

@@ -50,9 +50,6 @@ from settings import (
 from tempfile import (
     TemporaryDirectory,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -200,14 +197,14 @@ async def generate_xls_file(  # NOSONAR # pylint: disable=too-many-locals
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
 ) -> str:
     it_report = ITReport(

@@ -24,11 +24,6 @@ from s3.operations import (
 )
 import subprocess  # nosec
 import tempfile
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 from uuid import (
     uuid4,
 )
@@ -38,9 +33,9 @@ async def _append_evidences(
     *,
     directory: str,
     group: str,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
 ) -> None:
-    target_folders: Dict[str, str] = {
+    target_folders: dict[str, str] = {
         "": "evidences",
         ".csv": "compromised-records",
         ".gif": "evidences",
@@ -89,7 +84,7 @@ async def _append_pdf_report(
     *,
     loaders: Dataloaders,
     directory: str,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group: str,
     group_description: str,
     requester_email: str,
@@ -113,7 +108,7 @@ async def _append_xls_report(
     *,
     loaders: Dataloaders,
     directory: str,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group_name: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
@@ -143,7 +138,7 @@ async def _append_xls_report(
             file.write(report.read())
 
 
-def _get_zip_file(*, source_contents: List[str]) -> str:
+def _get_zip_file(*, source_contents: list[str]) -> str:
     # If there are no source contents the current working directory is assumed
     #   by default.
     # We don't want to leave the sandbox at any point
@@ -169,7 +164,7 @@ def _get_zip_file(*, source_contents: List[str]) -> str:
     return target
 
 
-def _get_directory_contents(directory: str) -> List[str]:
+def _get_directory_contents(directory: str) -> list[str]:
     return [
         absolute
         for relative in os.listdir(directory)
@@ -185,7 +180,7 @@ def _get_directory_contents(directory: str) -> List[str]:
 async def generate(
     *,
     loaders: Dataloaders,
-    findings_ord: Tuple[Finding, ...],
+    findings_ord: tuple[Finding, ...],
     group: str,
     group_description: str,
     requester_email: str,

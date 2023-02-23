@@ -3,27 +3,26 @@ from db_model.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class CredentialAttributesToAdd(NamedTuple):
     name: str
-    key: Optional[str]
-    token: Optional[str]
+    key: str | None
+    token: str | None
     type: CredentialType
-    user: Optional[str]
-    password: Optional[str]
-    is_pat: Optional[bool] = False
-    azure_organization: Optional[str] = None
+    user: str | None
+    password: str | None
+    is_pat: bool | None = False
+    azure_organization: str | None = None
 
 
 class CredentialAttributesToUpdate(NamedTuple):
-    name: Optional[str]
-    key: Optional[str]
-    token: Optional[str]
-    type: Optional[CredentialType]
-    user: Optional[str]
-    password: Optional[str]
-    is_pat: Optional[bool] = False
-    azure_organization: Optional[str] = None
+    name: str | None
+    key: str | None
+    token: str | None
+    type: CredentialType | None
+    user: str | None
+    password: str | None
+    is_pat: bool | None = False
+    azure_organization: str | None = None
