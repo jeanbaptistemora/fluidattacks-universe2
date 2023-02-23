@@ -8,7 +8,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -38,7 +38,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -68,7 +68,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -98,7 +98,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 8 }
       )
       tags = merge(
         local.config.small.tags,
@@ -158,7 +158,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -218,7 +218,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -248,7 +248,7 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 0 }
+        { idle-count = 4 }
       )
       tags = merge(
         local.config.small.tags,
@@ -278,7 +278,10 @@ locals {
       )
       workers = merge(
         local.config.small.workers,
-        { idle-count = 32 }
+        {
+          idle-count = 32
+          limit      = 1000
+        }
       )
       tags = merge(
         local.config.small.tags,
@@ -293,7 +296,10 @@ locals {
       )
       workers = merge(
         local.config.large.workers,
-        { idle-count = 8 }
+        {
+          idle-count = 8
+          limit      = 1000
+        }
       )
       tags = merge(
         local.config.large.tags,
@@ -325,7 +331,7 @@ locals {
         ami        = "ami-07dc2dd8e0efbc46a"
         user-data  = local.user-data.ephemeral-disk
         monitoring = false
-        limit      = 1000
+        limit      = 500
 
         idle-count = 0
         idle-time  = 1800
@@ -362,7 +368,7 @@ locals {
         ami        = "ami-07dc2dd8e0efbc46a"
         user-data  = local.user-data.ephemeral-disk
         monitoring = false
-        limit      = 1000
+        limit      = 500
 
         idle-count = 0
         idle-time  = 1800
