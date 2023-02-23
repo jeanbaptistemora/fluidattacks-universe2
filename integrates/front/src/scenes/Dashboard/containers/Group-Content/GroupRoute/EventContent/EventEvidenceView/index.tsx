@@ -22,6 +22,7 @@ import type {
 } from "./types";
 
 import { Button } from "components/Button";
+import { Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
@@ -31,7 +32,7 @@ import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
 } from "scenes/Dashboard/containers/Group-Content/GroupRoute/EventContent/EventEvidenceView/queries";
-import { ButtonToolbarRow, Row } from "styles/styledComponents";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
