@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F236,lines,namespace/skims/test/data/lib_root/f236/angular.json,13,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
+F236,lines,namespace/skims/test/data/lib_root/f236/angular.json,15,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
  in namespace/skims/test/data/lib_root/f236/angular.json","
    1 | {
    2 |     ""build"":{
@@ -8,18 +8,20 @@ F236,lines,namespace/skims/test/data/lib_root/f236/angular.json,13,200,skims,236
    5 |         ""configurations"":{
    6 |             ""config_1"": [""activate"", ""write""],
    7 |             ""config_2"": false,
-   8 |             ""development"":{
+   8 |             ""development"": {
    9 |                 ""buildOptimizer"": false,
-  10 |                 ""optimization"": false,
-  11 |                 ""vendorChunk"": true,
-  12 |                 ""extractLicenses"": false,
-> 13 |                 ""sourceMap"": true,
-  14 |                 ""namedChunks"": true
-  15 |             }
-  16 |         }
-  17 |
-  18 |     }
-  19 | }
+  10 |                 ""sourceMap"": true,
+  11 |                 ""namedChunks"": true
+  12 |             },
+  13 |             ""production"": {
+  14 |                 ""buildOptimizer"": false,
+> 15 |                 ""sourceMap"": true,
+  16 |                 ""namedChunks"": true
+  17 |             }
+  18 |         }
+  19 |
+  20 |     }
+  21 | }
      ^ Col 0
 ",tsconfig.tsconfig_sourcemap_enabled
 F236,lines,namespace/skims/test/data/lib_root/f236/serv_launch.json,17,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.

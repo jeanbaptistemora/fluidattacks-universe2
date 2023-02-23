@@ -29,10 +29,10 @@ def _sourcemap_enabled(
 ) -> bool:
     if key_pair == "sourceMap" and value.lower() == "true":
         tsconfig_correct_parents = ["compilerOptions"]
-        angular_correct_parents = ["development", "configurations", "build"]
+        angular_vuln_parents_path = ["production", "configurations", "build"]
         if is_parent(graph, nid, tsconfig_correct_parents):
             return True
-        if is_parent(graph, nid, angular_correct_parents):
+        if is_parent(graph, nid, angular_vuln_parents_path):
             return True
     if key_pair == "sourceMaps" and value.lower() == "true":
         serverless_correct_parents = ["configurations"]
@@ -48,7 +48,9 @@ def tsconfig_sourcemap_enabled(
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JSON):
-            if shard.syntax_graph is None:
+            if shard.syntax_graph is None or shard.path.endswith(
+                "tsconfig.spec.json"
+            ):
                 continue
             graph = shard.syntax_graph
 

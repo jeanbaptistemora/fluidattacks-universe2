@@ -5,11 +5,13 @@
         "configurations":{
             "config_1": ["activate", "write"],
             "config_2": false,
-            "development":{
+            "development": {
                 "buildOptimizer": false,
-                "optimization": false,
-                "vendorChunk": true,
-                "extractLicenses": false,
+                "sourceMap": true,
+                "namedChunks": true
+            },
+            "production": {
+                "buildOptimizer": false,
                 "sourceMap": true,
                 "namedChunks": true
             }

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./**/*.ts"
+  ],
+  "typeAcquisition": {
+    "enable": false
+  }
+}
