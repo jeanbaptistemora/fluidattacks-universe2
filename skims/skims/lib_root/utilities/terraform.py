@@ -9,6 +9,9 @@ from ipaddress import (
     IPv4Network,
     IPv6Network,
 )
+from itertools import (
+    chain,
+)
 from model.graph_model import (
     Graph,
     NId,
@@ -137,6 +140,25 @@ def iterate_resource(graph: Graph, expected_resource: str) -> Iterator[NId]:
         name = graph.nodes[nid].get("name")
         if name and name == expected_resource:
             yield nid
+
+
+def iterate_iam_role(graph: Graph) -> Iterator[tuple[str, str]]:
+    for role in iterate_resource(graph, "aws_iam_role"):
+        res_name = graph.nodes[role]["tf_reference"].split(".")[1]
+        _, name, _ = get_attribute(graph, role, "name")
+        yield name, res_name
+
+
+def iterate_managed_policy_arns(graph: Graph) -> Iterator[str]:
+    for nid in chain(
+        iterate_resource(graph, "aws_iam_group_policy_attachment"),
+        iterate_resource(graph, "aws_iam_policy_attachment"),
+        iterate_resource(graph, "aws_iam_role_policy_attachment"),
+        iterate_resource(graph, "aws_iam_user_policy_attachment"),
+    ):
+        for attr_id in adj_ast(graph, nid, label_type="Pair"):
+            _, value = get_key_value(graph, attr_id)
+            yield value
 
 
 def list_has_string(graph: Graph, nid: NId, value: str) -> bool:

@@ -67,11 +67,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if graph.nodes[child_id]["label_type"] == "template_expr":
         template = match_ast_d(args.ast_graph, child_id, "quoted_template")
         if not template:
-            template = match_ast_d(
-                args.ast_graph, child_id, "template_literal", 2
+            template_text = node_to_str(graph, child_id)
+            start_json = template_text.index("{")
+            end_json = template_text[::-1].index("}")
+            return build_string_literal_node(
+                args, template_text[start_json:-end_json]
             )
-            template_text = node_to_str(graph, str(template))
-            return build_string_literal_node(args, template_text)
 
     literal_text = node_to_str(graph, args.n_id)
     if literal_text[0] == '"':

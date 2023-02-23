@@ -1032,7 +1032,7 @@ F031,inputs,arn:aws:s3:::bucket-018de572ae43404d8 (namespace),/Grants/0/Permissi
   48 |         ""inlinePolicy1""
      ^ Col 0
 ",aws.public_buckets
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,"
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,"
   15 |     }
   16 |   ]
   17 | }
@@ -1054,6 +1054,54 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy
   33 |       ""Effect"": ""Allow"",
   34 |       ""Resource"": ""*""
   35 |     },
+     ^ Col 0
+",terraform.tfm_iam_excessive_role_policy
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,58,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,"
+  48 | }
+  49 | EOF
+  50 | }
+  51 |
+  52 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+  53 |   name = ""vuln_role_1""
+  54 |
+  55 |   policy = jsonencode({
+  56 |     Version = ""2012-10-17""
+  57 |     Statement = [
+> 58 |       {
+  59 |         Action = [
+  60 |           ""iam:Attach*""
+  61 |         ],
+  62 |         Effect   = ""Allow""
+  63 |         Resource = ""arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*test_role*""
+  64 |       },
+  65 |     ]
+  66 |   })
+  67 | }
+  68 |
+     ^ Col 0
+",terraform.tfm_iam_excessive_role_policy
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,70,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy.tf,"
+  60 |           ""iam:Attach*""
+  61 |         ],
+  62 |         Effect   = ""Allow""
+  63 |         Resource = ""arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*test_role*""
+  64 |       },
+  65 |     ]
+  66 |   })
+  67 | }
+  68 |
+  69 | data ""aws_iam_policy_document"" ""example"" {
+> 70 |   statement {
+  71 |     actions = [
+  72 |       ""iam:Attach*""
+  73 |     ]
+  74 |
+  75 |     resources = [
+  76 |       ""arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*test_role*"",
+  77 |     ]
+  78 |   }
+  79 | }
+  80 |
      ^ Col 0
 ",terraform.tfm_iam_excessive_role_policy
 F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"

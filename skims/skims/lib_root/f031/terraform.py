@@ -12,6 +12,7 @@ from itertools import (
 import json
 from lib_root.f031.utils import (
     _iam_user_missing_role_based_security,
+    action_has_attach_role,
     action_has_full_access_to_ssm,
     is_s3_action_writeable,
     match_iam_passrole,
@@ -21,6 +22,8 @@ from lib_root.utilities.terraform import (
     get_list_from_node,
     get_principals,
     iter_statements_from_policy_document,
+    iterate_iam_role,
+    iterate_managed_policy_arns,
     iterate_resource,
 )
 from model.core_model import (
@@ -351,6 +354,134 @@ def _open_passrole(graph: Graph, nid: NId) -> Iterator[NId]:
                 and graph.nodes[value_id]["expression"] == "jsonencode"
             ):
                 yield from _open_passrole_in_jsonencode(graph, value_id)
+
+
+def _iam_excessive_role_policy_in_jsonencode(
+    graph: Graph,
+    nid: NId,
+    managed_policies: Iterator[str],
+    roles: Iterator[tuple[str, str]],
+) -> Iterator[NId]:
+    child_id = graph.nodes[nid]["arguments_id"]
+    statements, _, stmt_id = get_attribute(graph, child_id, "Statement")
+    if statements:
+        value_id = graph.nodes[stmt_id]["value_id"]
+        for c_id in adj_ast(graph, value_id, label_type="Object"):
+            _, effect_val, _ = get_attribute(graph, c_id, "Effect")
+            if effect_val == "Allow":
+                _, _, action_id = get_attribute(graph, c_id, "Action")
+                _, _, resources_id = get_attribute(graph, c_id, "Resource")
+                action_list = get_list_from_node(graph, action_id)
+                resources_list = get_list_from_node(graph, resources_id)
+                if action_has_attach_role(
+                    action_list,
+                    resources_list,
+                    managed_policies,
+                    roles,
+                ):
+                    yield c_id
+
+
+def _iam_excessive_role_policy_policy_resource(
+    graph: Graph,
+    nid: NId,
+    managed_policies: Iterator[str],
+    roles: Iterator[tuple[str, str]],
+) -> Iterator[NId]:
+    for stmt in iter_statements_from_policy_document(graph, nid):
+        effect, effect_val, _ = get_attribute(graph, stmt, "effect")
+        if effect_val == "Allow" or effect is None:
+            _, _, action_id = get_attribute(graph, stmt, "actions")
+            _, _, resources_id = get_attribute(graph, stmt, "resources")
+            action_list = get_list_from_node(graph, action_id)
+            resources_list = get_list_from_node(graph, resources_id)
+            if action_has_attach_role(
+                action_list,
+                resources_list,
+                managed_policies,
+                roles,
+            ):
+                yield stmt
+
+
+def _aux_iam_excessive_role_policy(
+    attr_val: str,
+    attr_id: NId,
+    managed_policies: Iterator[str],
+    roles: Iterator[tuple[str, str]],
+) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        if effect == "Allow":
+            actions = stmt.get("Action", [])
+            resource = stmt.get("Resource", [])
+            if action_has_attach_role(
+                actions, resource, managed_policies, roles
+            ):
+                yield attr_id
+
+
+def _iam_excessive_role_policy(
+    graph: Graph,
+    nid: NId,
+    managed_policies: Iterator[str],
+    roles: Iterator[tuple[str, str]],
+) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_iam_policy_document":
+        yield from _iam_excessive_role_policy_policy_resource(
+            graph, nid, managed_policies, roles
+        )
+    else:
+        attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
+        if attr:
+            value_id = graph.nodes[attr_id]["value_id"]
+            if graph.nodes[value_id]["label_type"] == "Literal":
+                yield from _aux_iam_excessive_role_policy(
+                    attr_val, attr_id, managed_policies, roles
+                )
+            elif (
+                graph.nodes[value_id]["label_type"] == "MethodInvocation"
+                and graph.nodes[value_id]["expression"] == "jsonencode"
+            ):
+                yield from _iam_excessive_role_policy_in_jsonencode(
+                    graph, value_id, managed_policies, roles
+                )
+
+
+def tfm_iam_excessive_role_policy(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_IAM_EXCESSIVE_ROLE_POLICY
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_iam_group_policy"),
+                iterate_resource(graph, "aws_iam_policy"),
+                iterate_resource(graph, "aws_iam_role_policy"),
+                iterate_resource(graph, "aws_iam_user_policy"),
+                iterate_resource(graph, "aws_iam_policy_document"),
+            ):
+                for report in _iam_excessive_role_policy(
+                    graph,
+                    nid,
+                    iterate_managed_policy_arns(graph),
+                    iterate_iam_role(graph),
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f031.iam_excessive_role_policy",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def terraform_open_passrole(

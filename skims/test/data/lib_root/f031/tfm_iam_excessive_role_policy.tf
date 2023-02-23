@@ -49,6 +49,35 @@ resource "aws_iam_policy" "test_policy" {
 EOF
 }
 
+resource "aws_iam_role_policy" "vuln_role_1" {
+  name = "vuln_role_1"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "iam:Attach*"
+        ],
+        Effect   = "Allow"
+        Resource = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*test_role*"
+      },
+    ]
+  })
+}
+
+data "aws_iam_policy_document" "example" {
+  statement {
+    actions = [
+      "iam:Attach*"
+    ]
+
+    resources = [
+      "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*test_role*",
+    ]
+  }
+}
+
 resource "aws_iam_role_policy_attachment" "test-attach" {
   role       = aws_iam_role.role.name
   policy_arn = aws_iam_policy.test_policy.arn

@@ -14,6 +14,7 @@ from model.graph_model import (
     Graph,
     NId,
 )
+import re
 
 
 def match_iam_passrole(action: str) -> bool:
@@ -73,5 +74,59 @@ def is_s3_action_writeable(actions: list | str) -> bool:
     ]
     for action in actions_list:
         if any(action.startswith(f"s3:{atw}") for atw in action_start_with):
+            return True
+    return False
+
+
+def check_resource_name(
+    managed_policies_iterator: Iterator[str],
+    name_resource: str,
+) -> bool:
+    if any(
+        policy.startswith("aws_iam_role")
+        and policy.split(".")[1] == name_resource
+        for policy in managed_policies_iterator
+    ):
+        return True
+    return False
+
+
+def check_role_name(
+    managed_policies_iterator: Iterator[str],
+    role_iterator: Iterator[tuple[str, str]],
+    name_role: str,
+) -> bool:
+    if any(
+        (res_name := attr[1])
+        and check_resource_name(managed_policies_iterator, res_name)
+        and (role_name := attr[0])
+        and role_name in name_role
+        for attr in role_iterator
+    ):
+        return True
+    return False
+
+
+def action_has_attach_role(
+    actions: str | list,
+    resources: str | list,
+    managed_policies_iterator: Iterator[str],
+    role_iterator: Iterator[tuple[str, str]],
+) -> bool:
+    actions_list = actions if isinstance(actions, list) else [actions]
+    resource_list = resources if isinstance(resources, list) else [resources]
+    for action in actions_list:
+        if action == "iam:Attach*" and any(
+            re.split("::", res)[0].startswith("arn:aws:iam")
+            and re.search(r"\$?[A-Za-z0-9_./{}]:role/", res)
+            and (
+                check_role_name(
+                    managed_policies_iterator,
+                    role_iterator,
+                    re.split(":role/", res)[1],
+                )
+            )
+            for res in resource_list
+        ):
             return True
     return False
