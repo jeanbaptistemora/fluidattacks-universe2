@@ -15,9 +15,11 @@ async def get_result(
     user: str,
     description: str,
     recommendation: str,
+    attack_vector_description: str = "This is an attack vector",
     min_time_to_remediate: int = 18,
     severity: float = 1.0,
     title: str = "366. Inappropriate coding practices - Transparency Conflict",
+    threat: str = "Attacker",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
@@ -25,7 +27,7 @@ async def get_result(
             addFinding(
                 attackVector: {severity}
                 attackComplexity: {severity}
-                attackVectorDescription: "This is an attack vector"
+                attackVectorDescription: "{attack_vector_description}"
                 availabilityImpact: {severity}
                 description: "{description}"
                 groupName: "group1"
@@ -38,7 +40,7 @@ async def get_result(
                 remediationLevel: {severity}
                 reportConfidence: {severity}
                 severityScope: {severity}
-                threat: "Attacker"
+                threat: "{threat}"
                 title: "{title}"
                 unfulfilledRequirements: $unfulfilledRequirements
                 userInteraction: {severity}
