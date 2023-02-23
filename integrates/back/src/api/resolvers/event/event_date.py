@@ -13,7 +13,7 @@ from newutils.datetime import (
 
 
 @EVENT.field("eventDate")
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

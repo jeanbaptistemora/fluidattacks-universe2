@@ -13,7 +13,7 @@ from newutils import (
 
 
 @EVENT.field("closingDate")
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

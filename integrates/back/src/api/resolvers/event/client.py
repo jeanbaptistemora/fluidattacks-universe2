@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @EVENT.field("client")
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
