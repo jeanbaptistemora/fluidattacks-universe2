@@ -49,17 +49,21 @@ resource "helm_release" "datadog" {
   values = [
     yamlencode(
       {
-        datadog = {
-          dogstatsd = {
-            port = 8135
-          }
-          otlp = {
-            receiver = {
-              protocols = {
-                grpc = {
-                  enabled  = true
-                  endpoint = "0.0.0.0:4327"
-                }
+        agents = {
+          affinity = {
+            nodeAffinity = {
+              requiredDuringSchedulingIgnoredDuringExecution = {
+                nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key      = "worker_group"
+                        operator = "In"
+                        values   = ["prod_integrates"]
+                      }
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -79,6 +83,21 @@ resource "helm_release" "datadog" {
                     ]
                   }
                 ]
+              }
+            }
+          }
+        }
+        datadog = {
+          dogstatsd = {
+            port = 8135
+          }
+          otlp = {
+            receiver = {
+              protocols = {
+                grpc = {
+                  enabled  = true
+                  endpoint = "0.0.0.0:4327"
+                }
               }
             }
           }
