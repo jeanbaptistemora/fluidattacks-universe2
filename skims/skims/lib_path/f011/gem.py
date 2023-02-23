@@ -42,12 +42,12 @@ def gem_gemfile(  # NOSONAR
             if line == end_line:
                 line_group = False
                 end_line = ""
-        elif match_group := re.search(NOT_PROD_GROUP, line):
+        elif match_group := NOT_PROD_GROUP.search(line):
             line_group = True
             blank = match_group.group(1)
             end_line = f"{blank}end"
-        elif matched := re.search(GEMFILE_DEP, line):
-            if re.search(NOT_PROD_DEP, line):
+        elif matched := GEMFILE_DEP.search(line):
+            if NOT_PROD_DEP.search(line):
                 continue
             line = GemfileParser.preprocess(matched.group("gem"))
             line = line[3:]
@@ -63,7 +63,7 @@ def gem_gemfile_lock(content: str, path: str) -> Iterator[DependencyType]:
         if line.startswith("GEM"):
             line_gem = True
         elif line_gem:
-            if matched := re.match(GEM_LOCK_DEP, line):
+            if matched := GEM_LOCK_DEP.match(line):
                 pkg_name = matched.group("gem")
                 pkg_version = matched.group("version")
                 yield format_pkg_dep(

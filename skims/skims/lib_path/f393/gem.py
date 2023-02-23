@@ -37,19 +37,19 @@ def gem_gemfile_dev(content: str, path: str) -> Iterator[DependencyType]:
             if line == end_line:
                 line_group = False
                 end_line = ""
-            elif matched := re.search(GEMFILE_DEP, line):
+            elif matched := GEMFILE_DEP.search(line):
                 line = GemfileParser.preprocess(matched.group("gem"))
                 line = line[3:]
                 product, version = parse_line(line, gem_file=True)
                 yield format_pkg_dep(
                     product, version, line_number, line_number
                 )
-        elif match_group := re.search(NOT_PROD_GROUP, line):
+        elif match_group := NOT_PROD_GROUP.search(line):
             line_group = True
             blank = match_group.group(1)
             end_line = f"{blank}end"
-        elif matched := re.search(GEMFILE_DEP, line):
-            if not re.search(NOT_PROD_DEP, line):
+        elif matched := GEMFILE_DEP.search(line):
+            if not NOT_PROD_DEP.search(line):
                 continue
             line = GemfileParser.preprocess(matched.group("gem"))
             line = line[3:]
