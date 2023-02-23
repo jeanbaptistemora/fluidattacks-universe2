@@ -283,3 +283,49 @@ async def test_add_finding_duplicated_description(
         result["errors"][0]["message"]
         == "Exception - Finding with the same description already exists"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    ["email", "description", "recommendation", "severity"],
+    [
+        [
+            "admin@gmail.com",
+            "invalid_severity",
+            "Solve this finding",
+            10.01,
+        ],
+        [
+            "admin@gmail.com",
+            "invalid_severity",
+            "Solve this finding",
+            -1,
+        ],
+        [
+            "admin@gmail.com",
+            "invalid_severity",
+            "Solve this finding",
+            -0.01,
+        ],
+    ],
+)
+async def test_add_finding_invalid_severity(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    severity: float,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        severity=severity,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Invalid, severity update values out of range"
+    )

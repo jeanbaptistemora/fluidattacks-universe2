@@ -16,31 +16,32 @@ async def get_result(
     description: str,
     recommendation: str,
     min_time_to_remediate: int = 18,
+    severity: float = 1.0,
     title: str = "366. Inappropriate coding practices - Transparency Conflict",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
         mutation AddFinding($unfulfilledRequirements: [String!]!){{
             addFinding(
-                attackVector: 1.0
-                attackComplexity: 1.0
+                attackVector: {severity}
+                attackComplexity: {severity}
                 attackVectorDescription: "This is an attack vector"
-                availabilityImpact: 1.0
+                availabilityImpact: {severity}
                 description: "{description}"
                 groupName: "group1"
-                confidentialityImpact: 1.0
-                exploitability: 1.0
-                integrityImpact: 1.0
+                confidentialityImpact: {severity}
+                exploitability: {severity}
+                integrityImpact: {severity}
                 minTimeToRemediate: {min_time_to_remediate}
-                privilegesRequired: 1.0
+                privilegesRequired: {severity}
                 recommendation: "{recommendation}"
-                remediationLevel: 1.0
-                reportConfidence: 1.0
-                severityScope: 1.0
+                remediationLevel: {severity}
+                reportConfidence: {severity}
+                severityScope: {severity}
                 threat: "Attacker"
                 title: "{title}"
                 unfulfilledRequirements: $unfulfilledRequirements
-                userInteraction: 1.0
+                userInteraction: {severity}
             ) {{
                 success
             }}
