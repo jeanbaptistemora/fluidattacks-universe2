@@ -40,9 +40,6 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
 )
-from git.cmd import (
-    Git,
-)
 from git.exc import (
     GitError,
 )
@@ -65,6 +62,9 @@ from settings import (
     LOGGING,
 )
 import tempfile
+from typing import (
+    Optional,
+)
 from vulnerabilities.domain import (
     get_vulnerabilities,
 )
@@ -89,7 +89,7 @@ async def _get_vulnerabilities_to_rebase(
 ) -> tuple[Vulnerability, ...]:
     findings = await loaders.group_findings.load(group_name)
     findings_vulns = await loaders.finding_vulnerabilities.load_many(
-        [find.id for find in findings]
+        [find.id for find in findings if "117." not in find.title]
     )
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         vuln
@@ -107,7 +107,8 @@ def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
     states: tuple[VulnerabilityState, ...],
-) -> git_utils.RebaseResult | None:
+) -> Optional[git_utils.RebaseResult]:
+
     try:
         if (
             states[0].commit
@@ -288,23 +289,12 @@ async def rebase(*, item: BatchProcessing) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             os.chdir(tmpdir)
             repo_path = f"{tmpdir}/{git_root.state.nickname}"
-            Git().execute(
-                [
-                    "git",
-                    "config",
-                    "--global",
-                    "--add",
-                    "safe.directory",
-                    repo_path,
-                ]
-            )
             downloaded = await download_repo(group_name, git_root, tmpdir)
             if downloaded:
                 repo = Repo(
                     repo_path,
                     search_parent_directories=True,
                 )
-                repo.git.reset("--hard", "HEAD")
                 os.chdir(repo_path)
                 await rebase_root(loaders, group_name, repo, git_root)
                 await delete_action(

@@ -1,5 +1,8 @@
 import aioboto3
 import aiohttp
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     ErrorUploadingFileS3,
 )
@@ -9,6 +12,16 @@ from db_model.roots.get import (
 )
 from db_model.roots.types import (
     GitRoot,
+)
+from git import (
+    GitError,
+    InvalidGitRepositoryError,
+)
+from git.cmd import (
+    Git,
+)
+from git.repo.base import (
+    Repo,
 )
 import logging
 from newutils.files import (
@@ -117,12 +130,82 @@ async def download_repo(
     if not download_url:
         LOGGER.error("can not find download url")
         return False
+    repo_path = f"{path_to_extract}/{git_root.state.nickname}"
     with tempfile.TemporaryDirectory() as tmpdir:
         tar_path = f"{tmpdir}/{git_root.state.nickname}.tar.gz"
         urlretrieve(download_url, tar_path)  # nosec
         with tarfile.open(tar_path, "r:gz") as tar_handler:
             tar_handler.extractall(path_to_extract, numeric_owner=True)
-            _delete_out_of_scope_files(
-                git_root.state.gitignore, f"{tmpdir}/{git_root.state.nickname}"
+        if not os.path.exists(repo_path):
+            LOGGER.error(
+                "No such repository path",
+                extra={
+                    "extra": {
+                        "group_name": group_name,
+                        "repository": git_root.state.nickname,
+                    }
+                },
             )
-            return True
+            return False
+
+        with suppress(GitError):
+            Git().execute(
+                [
+                    "git",
+                    "config",
+                    "--global",
+                    "--add",
+                    "safe.directory",
+                    repo_path,
+                ]
+            )
+        try:
+            repo = Repo(git_root.state.nickname)
+        except InvalidGitRepositoryError:
+            LOGGER.error(
+                "Invalid repository",
+                extra={
+                    "extra": {
+                        "group_name": group_name,
+                        "repository": git_root.state.nickname,
+                    }
+                },
+            )
+            return False
+
+        try:
+            repo.git.reset("--hard", "HEAD")
+        except GitError as exc:
+            LOGGER.error(
+                "Error expanding repository",
+                extra={
+                    "extra": {
+                        "exception": str(exc),
+                        "group_name": git_root.group_name,
+                        "root_id": git_root.id,
+                        "root_nickname": git_root.state.nickname,
+                    }
+                },
+            )
+            return False
+
+        try:
+            repo_branch = getattr(repo.heads, git_root.state.branch)
+            repo_branch.checkout()
+        except AttributeError:
+            LOGGER.error(
+                "Branch not found",
+                extra={
+                    "extra": {
+                        "branch": git_root.state.branch,
+                        "group_name": group_name,
+                        "repository": git_root.state.nickname,
+                    }
+                },
+            )
+            return False
+        _delete_out_of_scope_files(
+            git_root.state.gitignore,
+            f"{path_to_extract}/{git_root.state.nickname}",
+        )
+        return True
