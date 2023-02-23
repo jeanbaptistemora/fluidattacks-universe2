@@ -11,7 +11,7 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -26,6 +26,7 @@ import {
   formatPercentage,
   formatRootId,
   formatToeLines,
+  unformatFilterValues,
 } from "./utils";
 
 import type { IFilter } from "components/Filter";
@@ -571,6 +572,21 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const [filters, setFilters] =
     useState<IFilter<IToeLinesData>[]>(tableFilters);
+
+  useEffect((): void => {
+    const filterToSearch = filters.reduce(
+      (prev, curr): Record<string, string> => {
+        const currentValue = unformatFilterValues(curr);
+
+        return {
+          ...prev,
+          ...currentValue,
+        };
+      },
+      {}
+    );
+    void refetch(filterToSearch);
+  }, [filters, refetch]);
 
   const filteredToeLines = useFilters(toeLines, filters);
 
