@@ -7,6 +7,7 @@ from itertools import (
 )
 from lib_root.utilities.javascript import (
     get_default_alias,
+    get_named_alias,
     get_namespace_alias,
 )
 from model.core_model import (
@@ -283,18 +284,54 @@ def get_insec_auth_direct_import(graph: Graph) -> tuple[NId, ...]:
     return g.filter_nodes(graph, graph.nodes, match_predicate)
 
 
-def get_insec_auth_crypto_lib(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
-    if (imported_name := get_default_alias(graph, "crypto")) or (
-        imported_name := get_namespace_alias(graph, "crypto")
+def get_first_arg_eval(
+    graph: Graph, n_id: NId, method: MethodsEnum
+) -> NId | None:
+    if (
+        (args_n_id := graph.nodes[n_id].get("arguments_id"))
+        and (first_arg_n_id := next(iter(g.adj_ast(graph, args_n_id)), None))
+        and get_eval_danger(graph, first_arg_n_id, method)
     ):
-        for n_id in g.matching_nodes(
-            graph,
-            label_type="PLACEHOLDER",
-            expression=f"{imported_name}.createHmac",
-        ):
-            if get_eval_danger(graph, n_id, method):
-                vuln_nodes.append(n_id)
+        return first_arg_n_id
+    return None
+
+
+def get_insec_auth_crypto_lib_named(
+    graph: Graph, method: MethodsEnum
+) -> list[NId]:
+    def match_predicate(node: dict[str, str]) -> bool:
+        return bool(
+            (imported_name := get_named_alias(graph, "crypto", "createHmac"))
+            and (node.get("label_type") == "MethodInvocation")
+            and (node.get("expression") == imported_name)
+        )
+
+    vuln_nodes: list[NId] = []
+    nodes = graph.nodes
+
+    for n_id in g.filter_nodes(graph, nodes, match_predicate):
+        if vuln_n_id := get_first_arg_eval(graph, n_id, method):
+            vuln_nodes.append(vuln_n_id)
+    return vuln_nodes
+
+
+def get_insec_auth_crypto_lib(graph: Graph, method: MethodsEnum) -> list[NId]:
+    def match_predicate(node: dict[str, str]) -> bool:
+        return bool(
+            (
+                (imported_name := get_default_alias(graph, "crypto"))
+                or (imported_name := get_namespace_alias(graph, "crypto"))
+            )
+            and (node.get("label_type") == "MethodInvocation")
+            and (node.get("expression") == f"{imported_name}.createHmac")
+        )
+
+    vuln_nodes: list[NId] = []
+    nodes = graph.nodes
+
+    for n_id in g.filter_nodes(graph, nodes, match_predicate):
+        if vuln_n_id := get_first_arg_eval(graph, n_id, method):
+            vuln_nodes.append(vuln_n_id)
     return vuln_nodes
 
 
@@ -305,4 +342,5 @@ def insec_msg_auth_mechanism(
         get_insec_auth_default_import(graph),
         get_insec_auth_direct_import(graph),
         get_insec_auth_crypto_lib(graph, method),
+        get_insec_auth_crypto_lib_named(graph, method),
     )
