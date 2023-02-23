@@ -6,7 +6,8 @@ import type { ConfigurableValidator } from "revalidate";
 import type { IComponentFieldProps } from "./types";
 
 import { Input } from "components/Input";
-import { FormGroup, Row } from "styles/styledComponents";
+import { Row } from "components/Layout";
+import { FormGroup } from "styles/styledComponents";
 import {
   composeValidators,
   validPath,
