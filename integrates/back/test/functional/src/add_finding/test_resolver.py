@@ -145,3 +145,49 @@ async def test_add_finding_requirements_in_criteria(
         result["errors"][0]["message"]
         == "Exception - The requirement is not valid in the vulnerability"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    ["email", "description", "recommendation", "title"],
+    [
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            "F001. Test",
+        ],
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            "Test",
+        ],
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            "001",
+        ],
+    ],
+)
+async def test_add_finding_invalid_title(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    title: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        title=title,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - The inserted Draft/Finding title is invalid"
+    )

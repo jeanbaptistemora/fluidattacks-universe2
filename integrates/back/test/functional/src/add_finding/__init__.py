@@ -16,6 +16,7 @@ async def get_result(
     description: str,
     recommendation: str,
     min_time_to_remediate: int = 18,
+    title: str = "366. Inappropriate coding practices - Transparency Conflict",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
@@ -37,8 +38,7 @@ async def get_result(
                 reportConfidence: 1.0
                 severityScope: 1.0
                 threat: "Attacker"
-                title:
-                "366. Inappropriate coding practices - Transparency Conflict"
+                title: "{title}"
                 unfulfilledRequirements: $unfulfilledRequirements
                 userInteraction: 1.0
             ) {{
