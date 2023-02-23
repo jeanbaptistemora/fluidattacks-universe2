@@ -273,6 +273,12 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
+    updated_credentials_owner=dict(
+        email_preferences=Notification.ROOT_UPDATE,
+        exclude_trial=True,
+        only_fluid_staff=False,
+        roles=dict(group={}, org={"customer_manager", "user_manager"}),
+    ),
     updated_group_info=dict(
         email_preferences=Notification.GROUP_INFORMATION,
         exclude_trial=True,
