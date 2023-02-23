@@ -1,4 +1,3 @@
----
 .makes4: &makes4
   image: ghcr.io/fluidattacks/makes:22.11
   needs: []
@@ -11,7 +10,7 @@
 .docs_commit_pattern: &docs_commit_pattern $CI_COMMIT_TITLE =~ /^(all|docs)/
 
 .docs_in_dev_branch: &docs_in_dev_branch
-  tags: [small]
+  tags: [docs-small]
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
@@ -24,7 +23,7 @@
     - if: *docs_commit_pattern
 
 .docs_in_prod_branch: &docs_in_prod_branch
-  tags: [small]
+  tags: [docs-small]
   resource_group: ${CI_JOB_NAME}
   rules:
     - if: $CI_COMMIT_BRANCH != "trunk"
