@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 import _ from "lodash";
 
 import type {
