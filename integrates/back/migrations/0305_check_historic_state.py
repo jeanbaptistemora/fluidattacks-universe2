@@ -82,7 +82,7 @@ async def _get_historic_state(*, root_id: str) -> tuple[Any, ...]:
     return tuple(response.items)
 
 
-async def process_root_ip(root: Root, historic: tuple[Any, ...]) -> None:
+def process_root_ip(root: Root, historic: tuple[Any, ...]) -> None:
     for index, state in enumerate(historic):
         try:
             format_ip_state(state)
@@ -101,7 +101,7 @@ async def process_root_ip(root: Root, historic: tuple[Any, ...]) -> None:
             )
 
 
-async def process_root_url(root: Root, historic: tuple[Any, ...]) -> None:
+def process_root_url(root: Root, historic: tuple[Any, ...]) -> None:
     for index, state in enumerate(historic):
         try:
             format_url_state(state)
@@ -142,10 +142,10 @@ async def process_root(*, root: Root) -> None:  # noqa: MC0001
                 )
 
     if isinstance(root, IPRoot):
-        await process_root_ip(root, historic)
+        process_root_ip(root, historic)
 
     if isinstance(root, URLRoot):
-        await process_root_url(root, historic)
+        process_root_url(root, historic)
 
 
 async def _process_group(*, loaders: Dataloaders, group_name: str) -> None:

@@ -78,7 +78,7 @@ def adjust_historic_dates(
     return has_historic_changed, tuple(new_historic)
 
 
-async def get_oldest_vulnerability_report_date(
+def get_oldest_vulnerability_report_date(
     vulns: tuple[Vulnerability, ...],
 ) -> datetime:
     report_dates = vulns_utils.get_report_dates(vulns)
@@ -111,7 +111,7 @@ async def process_finding(
     has_report_date_changed = False
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding.id)
     if vulns:
-        vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
+        vulns_oldest_report_date = get_oldest_vulnerability_report_date(
             tuple(vulns)
         )
         finding_approval_date = finding.approval.modified_date
