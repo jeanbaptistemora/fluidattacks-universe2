@@ -4,7 +4,7 @@ import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useCallback } from "react";
+import React, { Fragment, useCallback, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingOverlay from "react-loading-overlay-ts";
 import { useHistory } from "react-router-dom";
@@ -23,6 +23,8 @@ import { Tooltip } from "components/Tooltip";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { msgSuccess } from "utils/notifications";
 import {
   alphaNumeric,
@@ -58,6 +60,10 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
 
   const { push } = useHistory();
 
+  const user: Required<IAuthContext> = useContext(
+    authContext as React.Context<Required<IAuthContext>>
+  );
+
   const handleMutationResult = (result: {
     addGroup: { success: boolean };
   }): void => {
@@ -81,10 +87,15 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
 
   const finishTour = useCallback((): void => {
     void updateTours({
-      variables: { newGroup: true, newRiskExposure: true, newRoot: false },
+      variables: {
+        newGroup: true,
+        newRiskExposure: user.tours.newRiskExposure,
+        newRoot: user.tours.newRoot,
+        welcome: user.tours.welcome,
+      },
     });
     onClose();
-  }, [onClose, updateTours]);
+  }, [onClose, updateTours, user.tours]);
 
   const handleSubmit = useCallback(
     async (values: {
