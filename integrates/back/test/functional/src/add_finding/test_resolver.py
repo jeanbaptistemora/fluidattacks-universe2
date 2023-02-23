@@ -68,19 +68,19 @@ async def test_add_finding_access_denied(
     [
         [
             "admin@gmail.com",
-            "This is an attack vector",
+            "min_time_to_remediate",
             "Solve this finding",
             0,
         ],
         [
             "admin@gmail.com",
-            "This is an attack vector",
+            "min_time_to_remediate",
             "Solve this finding",
             -1,
         ],
     ],
 )
-async def test_add_finding_min_time_to_remediate_fail(
+async def test_add_finding_positive_min_time_to_remediate(
     populate: bool,
     email: str,
     description: str,
@@ -98,4 +98,50 @@ async def test_add_finding_min_time_to_remediate_fail(
     assert (
         result["errors"][0]["message"]
         == "Exception - Min time to remediate should be a positive number"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    ["email", "description", "recommendation", "unfulfilled_requirements"],
+    [
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            ["-21"],
+        ],
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            [""],
+        ],
+        [
+            "admin@gmail.com",
+            "unfulfilled_requirements",
+            "Solve this finding",
+            ["158", "21212121"],
+        ],
+    ],
+)
+async def test_add_finding_requirements_in_criteria(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    unfulfilled_requirements: list[str],
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        unfulfilled_requirements=unfulfilled_requirements,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - The requirement is not valid in the vulnerability"
     )

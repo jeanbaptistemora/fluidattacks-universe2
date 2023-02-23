@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=import-error,dangerous-default-value
 from back.test.functional.src.utils import (
     get_graphql_result,
 )
@@ -16,9 +16,10 @@ async def get_result(
     description: str,
     recommendation: str,
     min_time_to_remediate: int = 18,
+    unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
-        mutation {{
+        mutation AddFinding($unfulfilledRequirements: [String!]!){{
             addFinding(
                 attackVector: 1.0
                 attackComplexity: 1.0
@@ -38,14 +39,17 @@ async def get_result(
                 threat: "Attacker"
                 title:
                 "366. Inappropriate coding practices - Transparency Conflict"
-                unfulfilledRequirements: ["158"]
+                unfulfilledRequirements: $unfulfilledRequirements
                 userInteraction: 1.0
             ) {{
                 success
             }}
         }}
     """
-    data: dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {"unfulfilledRequirements": unfulfilled_requirements},
+    }
     return await get_graphql_result(
         data,
         stakeholder=user,
