@@ -1,5 +1,6 @@
 from syntax_graph.syntax_readers.swift import (
     assignment as swift_assignment,
+    call_expression as swift_call_expresion,
     class_body as swift_class_body,
     class_declaration as swift_class_declaration,
     comment as swift_comment,
@@ -25,6 +26,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "assignment",
         },
         syntax_reader=swift_assignment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "call_expression",
+        },
+        syntax_reader=swift_call_expresion.reader,
     ),
     Dispatcher(
         applicable_types={
