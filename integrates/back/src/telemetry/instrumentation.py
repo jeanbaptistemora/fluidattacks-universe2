@@ -1,6 +1,5 @@
 from context import (
     FI_ENVIRONMENT,
-    FI_NEW_RELIC_LICENSE_KEY,
 )
 from grpc import (
     Compression,
@@ -17,6 +16,9 @@ from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
 )
 from opentelemetry.instrumentation.aiohttp_client import (
     AioHttpClientInstrumentor,
+)
+from opentelemetry.instrumentation.botocore import (
+    BotocoreInstrumentor,
 )
 from opentelemetry.instrumentation.httpx import (
     HTTPXClientInstrumentor,
@@ -59,10 +61,6 @@ from starlette.applications import (
 from telemetry.aiobotocore import (
     AioBotocoreInstrumentor,
 )
-from typing import (
-    Any,
-    cast,
-)
 
 
 def initialize() -> None:
@@ -79,23 +77,12 @@ def initialize() -> None:
             SERVICE_NAME: "integrates",
         }
     )
-    span_exporter = OTLPSpanExporter(
-        compression=Compression.Gzip,
-        endpoint="https://otlp.nr-data.net:4318/v1/traces",
-        headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
-    )
-    span_processor = BatchSpanProcessor(
-        max_queue_size=8192,
-        span_exporter=span_exporter,
-    )
+    span_exporter = OTLPSpanExporter(compression=Compression.Gzip)
+    span_processor = BatchSpanProcessor(span_exporter)
     tracer_provider = TracerProvider(resource=resource)
     tracer_provider.add_span_processor(span_processor)
 
-    metric_exporter = OTLPMetricExporter(
-        compression=Compression.Gzip,
-        endpoint="https://otlp.nr-data.net:4318/v1/metrics",
-        headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
-    )
+    metric_exporter = OTLPMetricExporter(compression=Compression.Gzip)
     metric_reader = PeriodicExportingMetricReader(metric_exporter)
     meter_provider = MeterProvider(
         metric_readers=[metric_reader],
@@ -111,6 +98,7 @@ def instrument(app: Starlette) -> None:
     """Initializes the OpenTelemetry instrumentation"""
     AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()
+    BotocoreInstrumentor().instrument()
     HTTPXClientInstrumentor().instrument()
     Jinja2Instrumentor().instrument()
     RequestsInstrumentor().instrument()

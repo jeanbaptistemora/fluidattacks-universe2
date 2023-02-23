@@ -49,6 +49,8 @@ function serve {
       )
     elif test "${env}" == 'prod'; then
       config+=(
+        # The host:port of the statsd server
+        --statsd-host "${HOST_IP}:8125"
         # The number of worker processes for handling requests
         --workers "${workers}"
       )
@@ -69,7 +71,7 @@ function serve {
     && pushd integrates/back/src \
     && kill_port "${PORT}" \
     && { hypercorn "${config[@]}" 'app.app:APP' & } \
-    && wait_port 10 "${HOST}:${PORT}" \
+    && wait_port 20 "${HOST}:${PORT}" \
     && done_port "${HOST}" 28001 \
     && info Back is ready \
     && wait \
