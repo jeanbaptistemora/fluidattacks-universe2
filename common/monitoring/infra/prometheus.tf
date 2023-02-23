@@ -284,6 +284,7 @@ resource "kubernetes_manifest" "adot_collector" {
                     - source_labels: [__meta_kubernetes_pod_node_name]
                       action: replace
                       target_label: instance
+          statsd:
 
         exporters:
           datadog:
@@ -299,7 +300,7 @@ resource "kubernetes_manifest" "adot_collector" {
           extensions: [sigv4auth]
           pipelines:
             metrics:
-              receivers: [hostmetrics, otlp, prometheus]
+              receivers: [hostmetrics, otlp, prometheus, statsd]
               processors: [k8sattributes, batch]
               exporters: [datadog, prometheusremotewrite]
             traces:

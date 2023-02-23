@@ -45,29 +45,25 @@ resource "helm_release" "datadog" {
   atomic          = true
   cleanup_on_fail = true
 
+  // https://github.com/DataDog/helm-charts/blob/main/charts/datadog/values.yaml
   values = [
     yamlencode(
       {
-        agents = {
-          affinity = {
-            nodeAffinity = {
-              requiredDuringSchedulingIgnoredDuringExecution = {
-                nodeSelectorTerms = [
-                  {
-                    matchExpressions = [
-                      {
-                        key      = "worker-group"
-                        operator = "In"
-                        values   = ["prod-integrates"]
-                      }
-                    ]
-                  }
-                ]
+        datadog = {
+          dogstatsd = {
+            port = 8135
+          }
+          otlp = {
+            receiver = {
+              protocols = {
+                grpc = {
+                  enabled  = true
+                  endpoint = "0.0.0.0:4327"
+                }
               }
-
             }
           }
-        },
+        }
         clusterAgent = {
           affinity = {
             nodeAffinity = {
@@ -76,15 +72,14 @@ resource "helm_release" "datadog" {
                   {
                     matchExpressions = [
                       {
-                        key      = "worker-group"
+                        key      = "worker_group"
                         operator = "In"
-                        values   = ["prod-integrates"]
+                        values   = ["prod_integrates"]
                       }
                     ]
                   }
                 ]
               }
-
             }
           }
         }
