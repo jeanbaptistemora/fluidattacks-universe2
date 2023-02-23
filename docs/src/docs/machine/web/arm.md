@@ -379,7 +379,7 @@ to define:
   Minimum CVSS 3.1 score from which agent breaks
   the build for open vulnerabilities.
 
-### Azure Credentials (Out of Scope)
+### Out of Scope
 
 This section refers to repositories that
 are not yet associated with any group on
