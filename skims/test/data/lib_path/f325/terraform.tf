@@ -76,3 +76,21 @@ resource "aws_iam_role_policy" "vuln_role_policy_1" {
   }
   EOF
 }
+
+resource "aws_iam_role_policy" "vuln_role_1" {
+  name = "vuln_role_1"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "codecommit:Update*",
+        ],
+        Effect    = "Allow"
+        Principal = "*"
+        Resource  = "*"
+      },
+    ]
+  })
+}

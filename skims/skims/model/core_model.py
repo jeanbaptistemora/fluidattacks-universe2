@@ -5201,7 +5201,7 @@ class MethodsEnum(Enum):
     TFM_IAM_WILDCARD_WRITE = MethodInfo(
         file_name="terraform",
         name="tfm_iam_has_wildcard_resource_on_write_action",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

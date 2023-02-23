@@ -1647,6 +1647,31 @@ F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,64,250,skims,325
   74 |       }
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,86,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/terraform.tf","
+  76 |   }
+  77 |   EOF
+  78 | }
+  79 |
+  80 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+  81 |   name = ""vuln_role_1""
+  82 |
+  83 |   policy = jsonencode({
+  84 |     Version = ""2012-10-17""
+  85 |     Statement = [
+> 86 |       {
+  87 |         Action = [
+  88 |           ""codecommit:Update*"",
+  89 |         ],
+  90 |         Effect    = ""Allow""
+  91 |         Principal = ""*""
+  92 |         Resource  = ""*""
+  93 |       },
+  94 |     ]
+  95 |   })
+  96 | }
+     ^ Col 0
+",terraform.tfm_iam_has_wildcard_resource_on_write_action
 F325,inputs,arn:aws:iam::123456789012:policy/myPolicy (namespace),"Write actions are allowed on all resources
 ",250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
 ","
