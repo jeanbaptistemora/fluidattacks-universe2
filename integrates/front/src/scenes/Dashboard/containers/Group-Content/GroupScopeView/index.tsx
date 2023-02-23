@@ -5,16 +5,20 @@ import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { GitRoots } from "./GitRoots";
-import { GroupSettingsView } from "./GroupSettingsView";
-import { IPRoots } from "./IPRoots";
-import { GET_ROOTS } from "./queries";
-import type { Root } from "./types";
-import { URLRoots } from "./URLRoots";
-import { isGitRoot, isIPRoot, isURLRoot, mapInactiveStatus } from "./utils";
-
 import { Card } from "components/Card";
 import { Text } from "components/Text";
+import { GitRoots } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GitRoots";
+import { GroupSettingsView } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView";
+import { IPRoots } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/IPRoots";
+import { GET_ROOTS } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/queries";
+import type { Root } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/types";
+import { URLRoots } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/URLRoots";
+import {
+  isGitRoot,
+  isIPRoot,
+  isURLRoot,
+  mapInactiveStatus,
+} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/utils";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
 

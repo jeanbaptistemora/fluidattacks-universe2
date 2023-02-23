@@ -6,15 +6,14 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GroupScopeView } from "scenes/Dashboard/containers/Group-Content/GroupScopeView";
 import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
   DEACTIVATE_ROOT,
   GET_ROOTS,
   UPDATE_GIT_ROOT,
-} from "./queries";
-
-import { GroupScopeView } from ".";
+} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/queries";
 import { getCache } from "utils/apollo";
 import { authContext } from "utils/auth";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
@@ -131,7 +130,7 @@ describe("GroupScopeView", (): void => {
     });
   });
 
-  it("should add git roots", async (): Promise<void> => {
+  it("should add git roots with token credentials", async (): Promise<void> => {
     expect.hasAssertions();
 
     const initialQueryMock: MockedResponse = {
@@ -371,6 +370,222 @@ describe("GroupScopeView", (): void => {
 
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
       numberOfRejectionCheckbox - 1
+    );
+
+    await userEvent.click(screen.getByText(btnConfirm));
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
+        [
+          // Url
+          "https://gitlab.com/fluidattacks/universe",
+          // Branch
+          "master",
+          // State
+          "Active",
+          // Cloning status
+          "Unknown",
+          // HealthCheck
+          "group.scope.git.healthCheck.no",
+        ].join("")
+      );
+    });
+  });
+
+  it("should add git roots with ssh credentials", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const initialQueryMock: MockedResponse = {
+      request: {
+        query: GET_ROOTS,
+        variables: { groupName: "unittesting" },
+      },
+      result: {
+        data: {
+          group: {
+            __typename: "Group",
+            name: "unittesting",
+            roots: [],
+          },
+        },
+      },
+    };
+    const mutationMock: MockedResponse = {
+      request: {
+        query: ADD_GIT_ROOT,
+        variables: {
+          branch: "master",
+          credentials: {
+            azureOrganization: undefined,
+            isPat: false,
+            key: "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KdGVzdAotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0=",
+            name: "credential name",
+            password: "",
+            token: "",
+            type: "SSH",
+            user: "",
+          },
+          environment: "production",
+          gitignore: [],
+          groupName: "unittesting",
+          includesHealthCheck: false,
+          nickname: "",
+          url: "https://gitlab.com/fluidattacks/universe",
+          useVpn: false,
+        },
+      },
+      result: {
+        data: { addGitRoot: { __typename: "SimplePayload", success: true } },
+      },
+    };
+    const finalQueryMock: MockedResponse = {
+      request: {
+        query: GET_ROOTS,
+        variables: { groupName: "unittesting" },
+      },
+      result: {
+        data: {
+          group: {
+            __typename: "Group",
+            name: "unittesting",
+            roots: [
+              {
+                __typename: "GitRoot",
+                branch: "master",
+                cloningStatus: {
+                  __typename: "GitRootCloningStatus",
+                  message: "root created",
+                  status: "UNKNOWN",
+                },
+                createdAt: "2022-02-10T14:58:10+00:00",
+                createdBy: "testuser1@test.test",
+                credentials: {
+                  __typename: "Credentials",
+                  id: "",
+                  name: "",
+                  type: "",
+                },
+                environment: "production",
+                gitEnvironmentUrls: [],
+                gitignore: [],
+                id: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
+                includesHealthCheck: false,
+                lastEditedAt: "2022-10-21T15:58:31+00:00",
+                lastEditedBy: "testuser2@test.test",
+                nickname: "universe",
+                state: "ACTIVE",
+                url: "https://gitlab.com/fluidattacks/universe",
+                useVpn: false,
+              },
+            ],
+          },
+        },
+      },
+    };
+
+    render(
+      <authContext.Provider
+        value={{
+          tours: {
+            newGroup: true,
+            newRiskExposure: true,
+            newRoot: true,
+            welcome: true,
+          },
+          userEmail: "",
+          userName: "",
+        }}
+      >
+        <authzGroupContext.Provider
+          value={new PureAbility([{ action: "has_service_white" }])}
+        >
+          <authzPermissionsContext.Provider
+            value={
+              new PureAbility([
+                { action: "api_mutations_add_git_root_mutate" },
+                { action: "api_mutations_add_secret_mutate" },
+                { action: "api_mutations_update_git_root_mutate" },
+              ])
+            }
+          >
+            <MemoryRouter
+              initialEntries={["/orgs/okada/groups/unittesting/scope"]}
+            >
+              <MockedProvider
+                cache={getCache()}
+                mocks={[initialQueryMock, mutationMock, finalQueryMock]}
+              >
+                <Route
+                  component={GroupScopeView}
+                  path={"/orgs/:organizationName/groups/:groupName/scope"}
+                />
+              </MockedProvider>
+            </MemoryRouter>
+          </authzPermissionsContext.Provider>
+        </authzGroupContext.Provider>
+      </authContext.Provider>
+    );
+
+    await expect(
+      screen.findByText("group.scope.common.add")
+    ).resolves.toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("group.scope.common.add"));
+
+    expect(screen.queryByRole("textbox", { name: "url" })).toBeInTheDocument();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
+
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "url" }),
+      "https://gitlab.com/fluidattacks/universe"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "branch" }),
+      "master"
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "environment" }),
+      "production"
+    );
+
+    expect(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" })
+    ).toHaveValue("");
+
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.typeCredential" }),
+      ["SSH"]
+    );
+
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.key" })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.password" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.user" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.token" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: "credentials.azureOrganization" })
+    ).not.toBeInTheDocument();
+
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "credentials.name" })
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "credentials.name" }),
+      "credential name"
+    );
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: "credentials.key" })
+    );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "credentials.key" }),
+      "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----"
     );
 
     await userEvent.click(screen.getByText(btnConfirm));
