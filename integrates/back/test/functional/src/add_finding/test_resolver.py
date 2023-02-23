@@ -240,3 +240,46 @@ async def test_add_finding_duplicated_recommendation(
         result["errors"][0]["message"]
         == "Exception - Finding with the same recommendation already exists"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "description",
+        "recommendation",
+        "title",
+        "unfulfilled_requirements",
+    ],
+    [
+        [
+            "admin@gmail.com",
+            "I just have updated the description",
+            "duplicated_description",
+            "001. SQL injection - C Sharp SQL API",
+            ["169"],
+        ],
+    ],
+)
+async def test_add_finding_duplicated_description(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    title: str,
+    unfulfilled_requirements: list[str],
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        title=title,
+        unfulfilled_requirements=unfulfilled_requirements,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Finding with the same description already exists"
+    )
