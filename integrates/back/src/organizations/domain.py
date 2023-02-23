@@ -117,6 +117,7 @@ import logging
 import logging.config
 from mailer import (
     groups as groups_mail,
+    organizations as orgs_mail,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -736,6 +737,14 @@ async def reassign_stakeholder_credentials(
             for credentials in user_credentials
         )
     )
+    schedule(
+        send_mail_reassigned_credentials_owner(
+            loaders=loaders,
+            organization_id=organization_id,
+            owner_email=email,
+            owner_role=current_owner_role,
+        )
+    )
     LOGGER.info(
         "Credentials owner reassigned",
         extra={
@@ -1088,6 +1097,39 @@ async def send_mail_policies(
         in ["customer_manager", "user_manager"]
     ]
     await groups_mail.send_mail_updated_policies(
+        loaders=loaders,
+        email_to=stakeholders_emails,
+        context=email_context,
+    )
+
+
+async def send_mail_reassigned_credentials_owner(
+    *,
+    loaders: Dataloaders,
+    organization_id: str,
+    owner_email: str,
+    owner_role: str,
+) -> None:
+    organization = await get_organization(loaders, organization_id)
+    email_context: dict[str, Any] = {
+        "user_email": owner_email,
+        "user_role": owner_role,
+        "organization_name": organization.name,
+        "credentials_link": f"{BASE_URL}/orgs/{organization.name}/credentials",
+    }
+    org_stakeholders = await get_stakeholders(loaders, organization_id)
+    stakeholders_emails = [
+        stakeholder.email
+        for stakeholder in org_stakeholders
+        if await get_stakeholder_role(
+            loaders,
+            stakeholder.email,
+            stakeholder.is_registered,
+            organization_id,
+        )
+        in ["customer_manager", "user_manager"]
+    ]
+    await orgs_mail.send_mail_updated_policies(
         loaders=loaders,
         email_to=stakeholders_emails,
         context=email_context,
