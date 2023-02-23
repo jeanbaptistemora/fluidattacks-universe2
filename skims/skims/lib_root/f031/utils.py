@@ -1,3 +1,9 @@
+from aws.iam.structure import (
+    is_resource_permissive,
+)
+from aws.iam.utils import (
+    match_pattern,
+)
 from collections.abc import (
     Iterator,
 )
@@ -8,6 +14,23 @@ from model.graph_model import (
     Graph,
     NId,
 )
+
+
+def match_iam_passrole(action: str) -> bool:
+    return match_pattern(action, "iam:PassRole")
+
+
+def aux_open_passrole_iterate_vulnerabilities(
+    resources: list, actions: list
+) -> bool:
+    if all(
+        (
+            any(map(match_iam_passrole, actions)),
+            any(map(is_resource_permissive, resources)),
+        )
+    ):
+        return True
+    return False
 
 
 def _iam_user_missing_role_based_security(

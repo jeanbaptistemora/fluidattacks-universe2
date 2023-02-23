@@ -14,6 +14,7 @@ from lib_root.f031.utils import (
     _iam_user_missing_role_based_security,
     action_has_full_access_to_ssm,
     is_s3_action_writeable,
+    match_iam_passrole,
 )
 from lib_root.utilities.terraform import (
     get_attribute,
@@ -275,6 +276,110 @@ def _negative_statement(graph: Graph, nid: NId) -> Iterator[NId]:
                 and graph.nodes[value_id]["expression"] == "jsonencode"
             ):
                 yield from _negative_statement_in_jsonencode(graph, value_id)
+
+
+def _open_passrole_in_jsonencode(graph: Graph, nid: NId) -> Iterator[NId]:
+    child_id = graph.nodes[nid]["arguments_id"]
+    statements, _, stmt_id = get_attribute(graph, child_id, "Statement")
+    if statements:
+        value_id = graph.nodes[stmt_id]["value_id"]
+        for c_id in adj_ast(graph, value_id, label_type="Object"):
+            _, effect_val, _ = get_attribute(graph, c_id, "Effect")
+            if effect_val == "Allow":
+                _, _, action_id = get_attribute(graph, c_id, "Action")
+                _, _, resources_id = get_attribute(graph, c_id, "Resource")
+                action_list = get_list_from_node(graph, action_id)
+                resources_list = get_list_from_node(graph, resources_id)
+                if all(
+                    (
+                        any(map(match_iam_passrole, action_list)),
+                        any(map(is_resource_permissive, resources_list)),
+                    )
+                ):
+                    yield c_id
+
+
+def _open_passrole_policy_resource(graph: Graph, nid: NId) -> Iterator[NId]:
+    for stmt in iter_statements_from_policy_document(graph, nid):
+        effect, effect_val, _ = get_attribute(graph, stmt, "effect")
+        if effect_val == "Allow" or effect is None:
+            _, _, action_id = get_attribute(graph, stmt, "actions")
+            _, _, resources_id = get_attribute(graph, stmt, "resources")
+            action_list = get_list_from_node(graph, action_id)
+            resources_list = get_list_from_node(graph, resources_id)
+            if all(
+                (
+                    any(map(match_iam_passrole, action_list)),
+                    any(map(is_resource_permissive, resources_list)),
+                )
+            ):
+                yield stmt
+
+
+def _aux_open_passrole(attr_val: str, attr_id: NId) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        if effect == "Allow":
+            actions = stmt.get("Action", [])
+            resource = stmt.get("Resource", [])
+            if isinstance(actions, str):
+                actions = [actions]
+            if isinstance(resource, str):
+                resource = [resource]
+            if all(
+                (
+                    any(map(match_iam_passrole, actions)),
+                    any(map(is_resource_permissive, resource)),
+                )
+            ):
+                yield attr_id
+
+
+def _open_passrole(graph: Graph, nid: NId) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_iam_policy_document":
+        yield from _open_passrole_policy_resource(graph, nid)
+    else:
+        attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
+        if attr:
+            value_id = graph.nodes[attr_id]["value_id"]
+            if graph.nodes[value_id]["label_type"] == "Literal":
+                yield from _aux_open_passrole(attr_val, attr_id)
+            elif (
+                graph.nodes[value_id]["label_type"] == "MethodInvocation"
+                and graph.nodes[value_id]["expression"] == "jsonencode"
+            ):
+                yield from _open_passrole_in_jsonencode(graph, value_id)
+
+
+def terraform_open_passrole(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_OPEN_PASSROLE
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_iam_group_policy"),
+                iterate_resource(graph, "aws_iam_policy"),
+                iterate_resource(graph, "aws_iam_role_policy"),
+                iterate_resource(graph, "aws_iam_user_policy"),
+                iterate_resource(graph, "aws_iam_policy_document"),
+            ):
+                for report in _open_passrole(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f031_aws.open_passrole",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def terraform_negative_statement(

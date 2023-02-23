@@ -3,9 +3,6 @@ from aws.iam.structure import (
     is_public_principal,
     is_resource_permissive,
 )
-from aws.iam.utils import (
-    match_pattern,
-)
 from aws.model import (
     AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
@@ -13,9 +10,6 @@ from aws.model import (
 )
 from collections.abc import (
     Iterator,
-)
-from lark import (
-    Tree,
 )
 from metaloaders.model import (
     Node,
@@ -63,60 +57,6 @@ def bucket_policy_allows_public_access_iterate_vulnerabilities(
             if isinstance(stmt, Node):
                 yield stmt.inner["Principal"]
             else:
-                yield stmt
-
-
-def match_iam_passrole(action: str) -> bool:
-    return match_pattern(action, "iam:PassRole")
-
-
-def get_node_open_pass_vulns(
-    stmt: Node,
-) -> Iterator[AWSIamPolicyStatement | Node]:
-    actions = stmt.inner.get("Action")
-    resources = stmt.inner.get("Resource")
-    has_permissive_resources = any(map(is_resource_permissive, resources.raw))
-    is_iam_passrole = any(map(match_iam_passrole, actions.raw))
-
-    if has_permissive_resources and is_iam_passrole:
-        yield from (
-            resource
-            for resource in resources.data
-            if is_resource_permissive(resource.raw)
-        )
-        yield from (
-            action for action in actions.data if match_iam_passrole(action.raw)
-        )
-
-
-def aux_open_passrole_iterate_vulnerabilities(
-    resources: list, actions: list
-) -> bool:
-    if not isinstance(resources, Tree) and all(
-        (
-            any(map(match_iam_passrole, actions)),
-            any(map(is_resource_permissive, resources)),
-        )
-    ):
-        return True
-    return False
-
-
-def open_passrole_iterate_vulnerabilities(
-    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
-) -> Iterator[AWSIamPolicyStatement | Node]:
-    for stmt in statements_iterator:
-        stmt_raw = (
-            stmt.raw
-            if (isinstance(stmt, Node) and hasattr(stmt, "raw"))
-            else stmt.data
-        )
-        if stmt_raw.get("Effect", "") == "Allow":
-            actions = stmt_raw.get("Action", [])
-            resources = stmt_raw.get("Resource", [])
-            if isinstance(stmt, Node) and actions and resources:
-                yield from get_node_open_pass_vulns(stmt)
-            elif aux_open_passrole_iterate_vulnerabilities(resources, actions):
                 yield stmt
 
 

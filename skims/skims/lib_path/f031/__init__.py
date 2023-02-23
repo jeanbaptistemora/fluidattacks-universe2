@@ -14,7 +14,6 @@ from lib_path.f031.cloudformation import (
     cfn_negative_statement,
 )
 from lib_path.f031.terraform import (
-    terraform_open_passrole,
     tfm_iam_excessive_role_policy,
 )
 from model.core_model import (
@@ -95,18 +94,6 @@ def run_tfm_iam_excessive_role_policy(
 
 
 @SHIELD_BLOCKING
-def run_terraform_open_passrole(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    # cfn_nag F38 IAM role should not allow * resource with PassRole action
-    #             on its permissions policy
-    # cfn_nag F39 IAM policy should not allow * resource with PassRole action
-    # cfn_nag F40 IAM managed policy should not allow a * resource with
-    #             PassRole action
-    return terraform_open_passrole(content=content, path=path, model=model)
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -139,10 +126,7 @@ def analyze(
             *results,
             *(
                 fun(content, path, model)
-                for fun in (
-                    run_tfm_iam_excessive_role_policy,
-                    run_terraform_open_passrole,
-                )
+                for fun in (run_tfm_iam_excessive_role_policy,)
             ),
         )
 
