@@ -1101,6 +1101,9 @@ const redirectMap = new Map([
   ["/services/comparative/", "https://fluidattacks.com/services/continuous-hacking/"],
   ["/blog/amsi-bypass-python/amsibypass.py/", "https://fluidattacks.com/blog/amsi-bypass-python/amsibypass.py"],
   ["/blog/netscan-exploit/exploit.py/", "https://fluidattacks.com/blog/netscan-exploit/exploit.py"],
+  ["/blog/offensive-hyperv-directx-1/sample1.c/", "https://fluidattacks.com/blog/offensive-hyperv-directx-1/sample1.c"],
+  ["/blog/quantitative-python/events-redux.csv/", "https://fluidattacks.com/blog/quantitative-python/events-redux.csv"],
+  ["/blog/quantitative-python/quant.ipynb/", "https://fluidattacks.com/blog/quantitative-python/quant.ipynb"],
 ]);
 
 addEventListener('fetch', event => {
