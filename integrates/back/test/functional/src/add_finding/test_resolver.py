@@ -408,3 +408,64 @@ async def test_add_finding_invalid_length(
         result["errors"][0]["message"]
         == "Exception - Invalid field length in form"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "description",
+        "recommendation",
+        "attack_vector_description",
+        "threat",
+    ],
+    [
+        [
+            "admin@gmail.com",
+            "  ",
+            "recommendation",
+            "attack_vector_description",
+            "threat",
+        ],
+        [
+            "admin@gmail.com",
+            "description",
+            " ",
+            "attack_vector_description",
+            "threat",
+        ],
+        [
+            "admin@gmail.com",
+            "description",
+            "recommendation",
+            "  ",
+            "threat",
+        ],
+        [
+            "admin@gmail.com",
+            "description",
+            "recommendation",
+            "attack_vector_description",
+            " ",
+        ],
+    ],
+)
+async def test_add_finding_invalid_empty(
+    populate: bool,
+    email: str,
+    description: str,
+    recommendation: str,
+    attack_vector_description: str,
+    threat: str,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        recommendation=recommendation,
+        attack_vector_description=attack_vector_description,
+        threat=threat,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Exception - Invalid characters"
