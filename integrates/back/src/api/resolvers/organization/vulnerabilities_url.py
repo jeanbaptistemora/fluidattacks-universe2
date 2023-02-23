@@ -34,9 +34,6 @@ from sessions import (
 from stakeholders.utils import (
     get_international_format_phone_number,
 )
-from typing import (
-    Optional,
-)
 from verify.operations import (
     check_verification,
 )
@@ -51,7 +48,7 @@ from verify.operations import (
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    verification_code: Optional[str] = None,
+    verification_code: str | None = None,
     **_kwargs: None,
 ) -> str:
     logs_utils.cloudwatch_log(

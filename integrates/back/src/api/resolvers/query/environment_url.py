@@ -20,7 +20,6 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -32,7 +31,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, url_id: str, **kwargs: Any
-) -> Optional[RootEnvironmentUrl]:
+) -> RootEnvironmentUrl | None:
     url = await get_git_environment_url_by_id(url_id=url_id)
 
     if url:

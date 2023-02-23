@@ -25,12 +25,10 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
-    Union,
 )
 
-Resource = dict[str, Optional[str]]
-Resources = dict[str, Union[str, Optional[list[Resource]]]]
+Resource = dict[str, str | None]
+Resources = dict[str, str | list[Resource] | None]
 
 
 def _format_group_files(group_files: list[GroupFile]) -> list[Resource]:

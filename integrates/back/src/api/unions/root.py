@@ -11,9 +11,6 @@ from graphql.type.definition import (
     GraphQLAbstractType,
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 ROOT = UnionType("Root")
 
@@ -23,7 +20,7 @@ def resolve_root_type(
     result: Root,
     _info: GraphQLResolveInfo,
     _return_type: GraphQLAbstractType,
-) -> Optional[str]:
+) -> str | None:
     if isinstance(result, GitRoot):
         return "GitRoot"
     if isinstance(result, IPRoot):

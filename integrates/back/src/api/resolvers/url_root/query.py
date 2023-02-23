@@ -7,11 +7,8 @@ from db_model.roots.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @URL_ROOT.field("query")
-def resolve(parent: URLRoot, _info: GraphQLResolveInfo) -> Optional[str]:
+def resolve(parent: URLRoot, _info: GraphQLResolveInfo) -> str | None:
     return parent.state.query

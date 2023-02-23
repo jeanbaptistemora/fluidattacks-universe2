@@ -7,9 +7,6 @@ from db_model.stakeholders.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @STAKEHOLDER.field("email")
@@ -17,7 +14,7 @@ async def resolve(
     parent: Stakeholder,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     if isinstance(parent, dict):
         email = parent["email"]
     else:

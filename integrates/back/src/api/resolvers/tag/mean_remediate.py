@@ -10,9 +10,6 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @TAG.field("meanRemediate")
@@ -20,6 +17,6 @@ async def resolve(
     parent: Portfolio,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Decimal]:
+) -> Decimal | None:
     mean_remediate = parent.unreliable_indicators.mean_remediate
     return mean_remediate

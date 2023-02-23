@@ -10,16 +10,13 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Optional,
-)
 
 
 @ORGANIZATION_INTEGRATION_REPOSITORIES.field("lastCommitDate")
 async def resolve(
     parent: OrganizationIntegrationRepository,
     _info: GraphQLResolveInfo,
-) -> Optional[str]:
+) -> str | None:
 
     return (
         datetime_utils.get_as_str(parent.last_commit_date)

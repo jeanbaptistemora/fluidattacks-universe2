@@ -13,14 +13,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @TOE_PORT.field("attackedAt")
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[datetime]:
+) -> datetime | None:
     return parent.state.attacked_at

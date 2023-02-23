@@ -18,9 +18,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @QUERY.field("organizationId")
@@ -31,7 +28,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Optional[Organization]:
+) -> Organization | None:
     loaders: Dataloaders = info.context.loaders
     organization_name: str = kwargs["organization_name"]
 

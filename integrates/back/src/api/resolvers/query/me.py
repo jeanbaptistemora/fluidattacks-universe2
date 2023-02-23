@@ -18,7 +18,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -27,9 +26,9 @@ from typing import (
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     caller_origin: str = kwargs.get("caller_origin", "API")
-    user_data: Dict[str, Any] = await sessions_domain.get_jwt_content(
+    user_data: dict[str, Any] = await sessions_domain.get_jwt_content(
         info.context
     )
     exp: str = datetime_utils.get_as_utc_iso_format(

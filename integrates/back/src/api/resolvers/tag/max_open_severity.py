@@ -10,9 +10,6 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @TAG.field("maxOpenSeverity")
@@ -20,6 +17,6 @@ async def resolve(
     parent: Portfolio,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Decimal]:
+) -> Decimal | None:
     max_open_severity = parent.unreliable_indicators.max_open_severity
     return max_open_severity

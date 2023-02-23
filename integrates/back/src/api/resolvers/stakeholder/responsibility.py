@@ -26,9 +26,6 @@ from newutils.group_access import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Optional,
-)
 
 
 @STAKEHOLDER.field("responsibility")
@@ -36,7 +33,7 @@ async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     request_store = sessions_domain.get_request_store(info.context)
     entity = request_store.get("entity")
     loaders: Dataloaders = info.context.loaders

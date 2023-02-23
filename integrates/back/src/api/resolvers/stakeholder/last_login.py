@@ -10,9 +10,6 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Optional,
-)
 
 
 @STAKEHOLDER.field("lastLogin")
@@ -20,7 +17,7 @@ async def resolve(
     parent: Stakeholder,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     return (
         datetime_utils.get_as_str(parent.last_login_date)
         if parent.last_login_date

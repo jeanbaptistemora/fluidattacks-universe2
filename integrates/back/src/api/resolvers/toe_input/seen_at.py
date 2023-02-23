@@ -10,13 +10,10 @@ from db_model.toe_inputs.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @TOE_INPUT.field("seenAt")
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[datetime]:
+) -> datetime | None:
     return parent.state.seen_at

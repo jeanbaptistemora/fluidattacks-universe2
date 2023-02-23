@@ -79,8 +79,6 @@ from stakeholders.utils import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 from verify import (
     operations as verify_operations,
@@ -105,7 +103,7 @@ def _filter_unique_report(
     new_treatments: set[VulnerabilityTreatmentStatus],
     new_states: set[VulnerabilityStateStatus],
     new_verifications: set[VulnerabilityVerificationStatus],
-    new_closing_date: Optional[datetime],
+    new_closing_date: datetime | None,
     new_finding_title: str,
 ) -> bool:
     additional_info: dict[str, Any] = json.loads(old_additional_info)
@@ -139,14 +137,14 @@ async def _get_url_group_report(
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
     verification_code: str,
 ) -> bool:
@@ -222,7 +220,7 @@ async def _get_url_group_report(
     return success
 
 
-def _validate_closing_date(*, closing_date: Optional[datetime]) -> None:
+def _validate_closing_date(*, closing_date: datetime | None) -> None:
     if closing_date is None:
         return
     tzn = pytz.timezone(TIME_ZONE)
@@ -231,7 +229,7 @@ def _validate_closing_date(*, closing_date: Optional[datetime]) -> None:
         raise InvalidDate()
 
 
-def _validate_days(field: Optional[int]) -> None:
+def _validate_days(field: int | None) -> None:
     if field and (MIN_VALUE > field or field > MAX_VALUE):
         raise InvalidReportFilter(
             f"Age value must be between {MIN_VALUE} and {MAX_VALUE}"
@@ -239,25 +237,25 @@ def _validate_days(field: Optional[int]) -> None:
 
 
 def _validate_min_severity(**kwargs: Any) -> None:
-    min_severity: Optional[Decimal] = kwargs.get("min_severity", None)
+    min_severity: Decimal | None = kwargs.get("min_severity", None)
     if min_severity is not None:
         validate_min_acceptance_severity(Decimal(min_severity))
 
 
 def _validate_max_severity(**kwargs: Any) -> None:
-    max_severity: Optional[Decimal] = kwargs.get("max_severity", None)
+    max_severity: Decimal | None = kwargs.get("max_severity", None)
     if max_severity is not None:
         validate_max_acceptance_severity(Decimal(max_severity))
 
 
-def _get_severity_value(field: Optional[float]) -> Optional[Decimal]:
+def _get_severity_value(field: float | None) -> Decimal | None:
     if field is not None:
         return Decimal(field).quantize(Decimal("0.1"))
     return None
 
 
 async def _get_finding_title(
-    loaders: Dataloaders, finding_title: Optional[str]
+    loaders: Dataloaders, finding_title: str | None
 ) -> str:
     if finding_title:
         await is_valid_finding_title(loaders, finding_title)
@@ -274,7 +272,7 @@ async def resolve(  # pylint: disable=too-many-locals
     group_name: str,
     verification_code: str,
     **kwargs: Any,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
@@ -335,7 +333,7 @@ async def resolve(  # pylint: disable=too-many-locals
         if kwargs.get("verifications")
         else set()
     )
-    closing_date: Optional[datetime] = kwargs.get("closing_date", None)
+    closing_date: datetime | None = kwargs.get("closing_date", None)
     finding_title: str = await _get_finding_title(
         loaders, kwargs.get("finding_title")
     )
@@ -353,10 +351,10 @@ async def resolve(  # pylint: disable=too-many-locals
             ]
         ):
             verifications = set()
-    min_severity: Optional[Decimal] = _get_severity_value(
+    min_severity: Decimal | None = _get_severity_value(
         kwargs.get("min_severity")
     )
-    max_severity: Optional[Decimal] = _get_severity_value(
+    max_severity: Decimal | None = _get_severity_value(
         kwargs.get("max_severity")
     )
     _validate_closing_date(closing_date=kwargs.get("min_release_date", None))

@@ -9,7 +9,6 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -17,5 +16,5 @@ from typing import (
 @require_login
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **_kwargs: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     return {}

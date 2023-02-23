@@ -40,9 +40,6 @@ from newutils.organization_access import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Optional,
-)
 
 
 @STAKEHOLDER.field("role")
@@ -50,7 +47,7 @@ async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     loaders: Dataloaders = info.context.loaders
     stakeholder_role: str = ""
     request_store = sessions_domain.get_request_store(info.context)

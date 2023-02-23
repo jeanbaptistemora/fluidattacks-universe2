@@ -4,8 +4,5 @@ from .root import (
 from ariadne import (
     UnionType,
 )
-from typing import (
-    Tuple,
-)
 
-UNIONS: Tuple[UnionType, ...] = (ROOT,)
+UNIONS: tuple[UnionType, ...] = (ROOT,)

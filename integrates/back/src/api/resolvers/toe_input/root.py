@@ -14,9 +14,6 @@ from db_model.toe_inputs.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @TOE_INPUT.field("root")
@@ -24,7 +21,7 @@ async def resolve(
     parent: ToeInput,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Root]:
+) -> Root | None:
     loaders: Dataloaders = info.context.loaders
     if parent.state.unreliable_root_id:
         root = await loaders.root.load(
