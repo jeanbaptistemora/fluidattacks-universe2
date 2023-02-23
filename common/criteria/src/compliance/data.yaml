@@ -346,6 +346,12 @@ capec:
     "695":
       title: Repo Jacking
       link: https://capec.mitre.org/data/definitions/695.html
+    "697":
+      title: DHCP Spoofing
+      link: https://capec.mitre.org/data/definitions/697.html
+    "698":
+      title: Install Malicious Extension
+      link: https://capec.mitre.org/data/definitions/698.html
   metadata: {}
 cis:
   title: CIS

@@ -1499,6 +1499,7 @@
     - capec.130
     - capec.151
     - capec.161
+    - capec.697
     - cis.4_1
     - cis.4_2
     - cis.13_10
@@ -8445,6 +8446,7 @@
     - capec.692
     - capec.693
     - capec.695
+    - capec.698
     - cis.2_1
     - cis.7_4
     - cis.16_4
@@ -8920,6 +8922,7 @@
     - capec.442
     - capec.549
     - capec.676
+    - capec.697
     - cis.4_4
     - cis.10_6
     - cis.13_4
