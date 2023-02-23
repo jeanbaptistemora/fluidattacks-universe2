@@ -17,9 +17,6 @@ from charts.generators.pie_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -51,9 +48,7 @@ Treatment = NamedTuple(
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Treatment:
     loaders = get_new_context()
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
@@ -76,7 +71,7 @@ async def get_data_one_group(group: str) -> Treatment:
         )
         for vulnerability in vulnerabilities
         if vulnerability.treatment
-        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        and vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
     )
     treatment: Counter[VulnerabilityTreatmentStatus] = sum(
         treatments, Counter()
@@ -88,7 +83,7 @@ async def get_data_one_group(group: str) -> Treatment:
         ],
         accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
         inProgress=treatment[VulnerabilityTreatmentStatus.IN_PROGRESS],
-        undefined=treatment[VulnerabilityTreatmentStatus.NEW],
+        undefined=treatment[VulnerabilityTreatmentStatus.UNTREATED],
     )
 
 
@@ -99,11 +94,11 @@ async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
 
     return Treatment(
         acceptedUndefined=sum(
-            [group.acceptedUndefined for group in groups_data]
+            group.acceptedUndefined for group in groups_data
         ),
-        accepted=sum([group.accepted for group in groups_data]),
-        inProgress=sum([group.inProgress for group in groups_data]),
-        undefined=sum([group.undefined for group in groups_data]),
+        accepted=sum(group.accepted for group in groups_data),
+        inProgress=sum(group.inProgress for group in groups_data),
+        undefined=sum(group.undefined for group in groups_data),
     )
 
 
@@ -112,7 +107,7 @@ def format_data(data: Treatment) -> dict:
         "acceptedUndefined": "Permanently accepted",
         "accepted": "Temporarily accepted",
         "inProgress": "In progress",
-        "undefined": "Not defined",
+        "undefined": "Untreated",
     }
 
     return {
@@ -126,7 +121,7 @@ def format_data(data: Treatment) -> dict:
                 "Permanently accepted": TREATMENT.more_passive,
                 "Temporarily accepted": TREATMENT.passive,
                 "In progress": TREATMENT.neutral,
-                "Not defined": TREATMENT.more_agressive,
+                "Untreated": TREATMENT.more_agressive,
             },
         },
         "legend": {

@@ -23,7 +23,7 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -33,9 +33,6 @@ from charts.generators.stacked_bar_chart.utils import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -82,26 +79,22 @@ class GroupBenchmarking(NamedTuple):
 
 @alru_cache(maxsize=None, typed=True)
 async def get_group_data(
-    *, group: str, loaders: Dataloaders
+    group: str, loaders: Dataloaders
 ) -> GroupBenchmarking:
     finding_severity: dict[str, Decimal] = {}
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_severity.update(
         {
             finding.id: get_severity_score(finding.severity)
             for finding in group_findings
         }
     )
-
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         chain.from_iterable(
             await collect(
                 tuple(
-                    loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-                        chuncked_findings
-                    )
+                    finding_vulns_loader.load_many_chained(chuncked_findings)
                     for chuncked_findings in chunked(
                         [finding.id for finding in group_findings], 8
                     )
@@ -116,8 +109,9 @@ async def get_group_data(
         tuple(
             _get_historic_verification(loaders, vulnerability)
             for vulnerability in vulnerabilities
+            if vulnerability.verification
         ),
-        workers=16,
+        workers=4,
     )
 
     number_of_reattacks = sum(
@@ -131,7 +125,7 @@ async def get_group_data(
             finding_severity[str(vulnerability.finding_id)]
         )
         counter.update({"total": severity})
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE:
             if vulnerability.treatment and vulnerability.treatment.status in {
                 VulnerabilityTreatmentStatus.ACCEPTED,
                 VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
@@ -157,7 +151,7 @@ async def get_data_one_organization(
             get_group_data(group=group.lower(), loaders=loaders)
             for group in groups
         ),
-        workers=16,
+        workers=8,
     )
 
     counter: Counter[str] = sum(
@@ -489,7 +483,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             )
             for organization in organizations
         ),
-        workers=32,
+        workers=8,
     )
 
     all_portfolios_data: tuple[
@@ -503,7 +497,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             )
             for portfolios in portfolios
         ),
-        workers=32,
+        workers=8,
     )
 
     best_cvssf = get_best_organization(

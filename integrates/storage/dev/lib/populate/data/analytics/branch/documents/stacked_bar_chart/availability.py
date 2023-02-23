@@ -168,8 +168,8 @@ def format_data(
             "Available",
         ],
         values=[
-            [group.non_available for group in complete_data],
-            [group.available for group in complete_data],
+            [Decimal(group.non_available) for group in complete_data],
+            [Decimal(group.available) for group in complete_data],
         ],
         categories=[group.name for group in data],
         header="Group name",

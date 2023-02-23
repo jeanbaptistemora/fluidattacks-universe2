@@ -5,7 +5,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data_over_time,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -33,6 +33,9 @@ from datetime import (
 )
 from db_model.groups.types import (
     GroupUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
 )
 
 
@@ -70,7 +73,7 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
 async def get_many_groups_document(
     groups: tuple[str, ...],
     days: int,
-) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
+) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
     group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, days) for group in groups), workers=32
     )
@@ -91,7 +94,7 @@ async def generate_all() -> None:
                 group, days
             )
             document = format_risk_document(
-                data_document=get_current_time_range([group_document]),
+                data_document=get_current_time_range(tuple([group_document])),
                 y_label=y_label,
             )
             json_dump(

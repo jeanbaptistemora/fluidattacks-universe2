@@ -39,11 +39,9 @@ from pandas import (
 from typing import (
     Any,
     Callable,
-    Dict,
     List,
     NamedTuple,
-    Set,
-    Tuple,
+    Union,
 )
 
 # Constants
@@ -90,11 +88,11 @@ EXPOSED_OVER_TIME: List[str] = [
 GroupDocumentData = NamedTuple(
     "GroupDocumentData",
     [
-        ("accepted", float),
-        ("closed", float),
-        ("opened", float),
+        ("accepted", Decimal),
+        ("closed", Decimal),
+        ("opened", Decimal),
         ("date", datetime),
-        ("total", float),
+        ("total", Decimal),
     ],
 )
 
@@ -108,12 +106,12 @@ class TimeRangeType(str, Enum):
 
 
 class RiskOverTime(NamedTuple):
-    monthly: Dict[str, Dict[datetime, float]]
-    quarterly: Dict[str, Dict[datetime, float]]
-    semesterly: Dict[str, Dict[datetime, float]]
+    monthly: dict[str, dict[datetime, Decimal]]
+    quarterly: dict[str, dict[datetime, Decimal]]
+    semesterly: dict[str, dict[datetime, Decimal]]
     time_range: TimeRangeType
-    weekly: Dict[str, Dict[datetime, float]]
-    yearly: Dict[str, Dict[datetime, float]]
+    weekly: dict[str, dict[datetime, Decimal]]
+    yearly: dict[str, dict[datetime, Decimal]]
 
 
 class AssignedFormatted(NamedTuple):
@@ -174,7 +172,7 @@ def translate_date_last(date_str: str) -> datetime:
 
 def format_risk_document(
     data_document: tuple[
-        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+        tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType
     ],
     y_label: str,
 ) -> dict[str, Any]:
@@ -285,13 +283,13 @@ def format_risk_document(
 
 def format_distribution_document(
     data_document: tuple[
-        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+        tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType
     ],
     y_label: str,
 ) -> dict[str, Any]:
     all_documents, time_range = data_document
     document = all_documents[0]
-    percentage_values: List[Tuple[Dict[str, str], ...]] = [
+    percentage_values: list[tuple[dict[str, str], ...]] = [
         format_severity(
             {
                 name: Decimal(document[name][date]).quantize(Decimal("0.1"))
@@ -419,10 +417,10 @@ def format_distribution_document(
 
 def sum_over_time_many_groups(
     all_group_documents: tuple[
-        tuple[dict[str, dict[datetime, float]], ...], TimeRangeType
+        tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType
     ],
     documents_names: List[str],
-) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
+) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
     group_documents = all_group_documents[0]
     all_dates: List[datetime] = sorted(
         set(
@@ -443,16 +441,18 @@ def sum_over_time_many_groups(
                         last_date
                     ]
                 else:
-                    group_document[name][date] = 0
+                    group_document[name][date] = Decimal("0")
 
     return (
         tuple(
             [
                 {
                     name: {
-                        date: sum(
-                            group_document[name].get(date, 0)
-                            for group_document in group_documents
+                        date: Decimal(
+                            sum(
+                                group_document[name].get(date, Decimal("0"))
+                                for group_document in group_documents
+                            )
                         )
                         for date in all_dates
                     }
@@ -501,12 +501,15 @@ def get_quarter(data_date: datetime) -> datetime:
 
 def get_risk_over_rangetime(
     *,
-    group_data: Dict[str, Dict[datetime, float]],
+    group_data: dict[str, dict[datetime, Decimal]],
     get_time: Callable[[datetime], datetime],
-) -> Dict[str, Dict[datetime, float]]:
+) -> dict[str, dict[datetime, Decimal]]:
 
     return {
-        "date": {get_time(key): 0 for key, _ in group_data["date"].items()},
+        "date": {
+            get_time(key): Decimal("0")
+            for key, _ in group_data["date"].items()
+        },
         "Closed": {
             get_time(key): value for key, value in group_data["Closed"].items()
         },
@@ -523,15 +526,15 @@ def get_risk_over_rangetime(
 
 def get_data_risk_over_time_group(
     *,
-    over_time_weekly: List[List[Dict[str, float]]],
-    over_time_monthly: List[List[Dict[str, float]]],
-    over_time_yearly: List[List[Dict[str, float]]],
+    over_time_weekly: list[list[dict[str, Union[str, Decimal]]]],
+    over_time_monthly: list[list[dict[str, Union[str, Decimal]]]],
+    over_time_yearly: list[list[dict[str, Union[str, Decimal]]]],
     weekly_data_size: int,
     limited_days: bool,
 ) -> RiskOverTime:
-    data: List[GroupDocumentData] = []
-    data_monthly: List[GroupDocumentData] = []
-    data_yearly: List[GroupDocumentData] = []
+    data: list[GroupDocumentData] = []
+    data_monthly: list[GroupDocumentData] = []
+    data_yearly: list[GroupDocumentData] = []
     if over_time_weekly:
         for accepted, closed, opened in zip(
             over_time_weekly[2],
@@ -540,11 +543,13 @@ def get_data_risk_over_time_group(
         ):
             data.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
                     date=translate_date(str(accepted["x"])),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=Decimal(opened["y"])
+                    + Decimal(closed["y"])
+                    + Decimal(accepted["y"]),
                 )
             )
 
@@ -556,11 +561,13 @@ def get_data_risk_over_time_group(
         ):
             data_monthly.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
                     date=get_min_date_unformatted(str(accepted["x"])),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=Decimal(opened["y"])
+                    + Decimal(closed["y"])
+                    + Decimal(accepted["y"]),
                 )
             )
 
@@ -572,16 +579,18 @@ def get_data_risk_over_time_group(
         ):
             data_yearly.append(
                 GroupDocumentData(
-                    accepted=accepted["y"],
-                    closed=closed["y"],
-                    opened=opened["y"],
+                    accepted=Decimal(accepted["y"]),
+                    closed=Decimal(closed["y"]),
+                    opened=Decimal(opened["y"]),
                     date=get_min_date_formatted(str(accepted["x"])),
-                    total=opened["y"] + closed["y"] + accepted["y"],
+                    total=Decimal(opened["y"])
+                    + Decimal(closed["y"])
+                    + Decimal(accepted["y"]),
                 )
             )
 
-    monthly: Dict[str, Dict[datetime, float]] = {
-        "date": {datum.date: 0 for datum in data_monthly},
+    monthly: dict[str, dict[datetime, Decimal]] = {
+        "date": {datum.date: Decimal("0") for datum in data_monthly},
         "Closed": {datum.date: datum.closed for datum in data_monthly},
         "Accepted": {datum.date: datum.accepted for datum in data_monthly},
         "Reported": {
@@ -589,8 +598,8 @@ def get_data_risk_over_time_group(
             for datum in data_monthly
         },
     }
-    yearly: Dict[str, Dict[datetime, float]] = {
-        "date": {datum.date: 0 for datum in data_yearly},
+    yearly: dict[str, dict[datetime, Decimal]] = {
+        "date": {datum.date: Decimal("0") for datum in data_yearly},
         "Closed": {datum.date: datum.closed for datum in data_yearly},
         "Accepted": {datum.date: datum.accepted for datum in data_yearly},
         "Reported": {
@@ -620,7 +629,7 @@ def get_data_risk_over_time_group(
         quarterly=quarterly,
         semesterly=semesterly,
         weekly={
-            "date": {datum.date: 0 for datum in data},
+            "date": {datum.date: Decimal("0") for datum in data},
             "Closed": {datum.date: datum.closed for datum in data},
             "Accepted": {datum.date: datum.accepted for datum in data},
             "Reported": {
@@ -692,7 +701,7 @@ def get_percentage(values: List[Decimal]) -> List[Decimal]:
     return round_percentage(percentages, values, len(percentages) - 1)
 
 
-def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
+def format_severity(values: dict[str, Decimal]) -> tuple[dict[str, str], ...]:
     if not values:
         max_percentage_values = dict(
             Closed="",
@@ -733,8 +742,8 @@ def format_severity(values: Dict[str, Decimal]) -> Tuple[Dict[str, str], ...]:
 
 def get_current_time_range(
     group_documents: tuple[RiskOverTime, ...]
-) -> tuple[tuple[dict[str, dict[datetime, float]], ...], TimeRangeType]:
-    time_range: Set[TimeRangeType] = {
+) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
+    time_range: set[TimeRangeType] = {
         group.time_range for group in group_documents
     }
 
@@ -773,12 +782,15 @@ def get_current_time_range(
 
 def get_distribution_over_rangetime(
     *,
-    group_data: Dict[str, Dict[datetime, float]],
+    group_data: dict[str, dict[datetime, Decimal]],
     get_time: Callable[[datetime], datetime],
-) -> Dict[str, Dict[datetime, float]]:
+) -> dict[str, dict[datetime, Decimal]]:
 
     return {
-        "date": {get_time(key): 0 for key, _ in group_data["date"].items()},
+        "date": {
+            get_time(key): Decimal("0")
+            for key, _ in group_data["date"].items()
+        },
         "Closed": {
             get_time(key): value for key, value in group_data["Closed"].items()
         },
@@ -813,8 +825,8 @@ def get_min_date_formatted(date_str: str) -> datetime:
 
 
 def format_stacked_percentages(
-    *, values: Dict[str, Decimal]
-) -> Tuple[Dict[str, str], ...]:
+    *, values: dict[str, Decimal]
+) -> tuple[dict[str, str], ...]:
     if not values:
         max_percentage_values = {
             "Closed": "",

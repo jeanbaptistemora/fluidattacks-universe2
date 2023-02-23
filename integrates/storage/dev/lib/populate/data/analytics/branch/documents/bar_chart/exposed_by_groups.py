@@ -25,9 +25,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -49,9 +46,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_cvssf: dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
@@ -66,7 +61,7 @@ async def get_data_one_group(
 
     counter: Counter[str] = Counter()
     for vulnerability in vulnerabilities:
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE:
             counter.update(
                 {
                     "open": Decimal(
@@ -104,7 +99,7 @@ def format_data(
         group for group in all_data[:LIMIT] if group.value > Decimal("0.0")
     ]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Open exposure"]
@@ -159,7 +154,7 @@ def format_data(
         keepToltipColor=True,
     )
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[utils.format_cvssf(group.value) for group in all_data],
         categories=[group.group_name for group in all_data],
     )

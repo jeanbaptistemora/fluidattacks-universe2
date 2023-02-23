@@ -14,16 +14,10 @@ from charts.generators.common.utils import (
 from charts.generators.gauge.forces_builds_risk import (
     format_csv_data,
 )
-from db_model.forces.types import (
-    ForcesExecution,
-)
 
 
 async def generate_one(group: str) -> dict:
-    executions: tuple[
-        ForcesExecution, ...
-    ] = await get_all_time_forces_executions(group)
-
+    executions = await get_all_time_forces_executions(group)
     executions_in_strict_mode = tuple(
         execution
         for execution in executions

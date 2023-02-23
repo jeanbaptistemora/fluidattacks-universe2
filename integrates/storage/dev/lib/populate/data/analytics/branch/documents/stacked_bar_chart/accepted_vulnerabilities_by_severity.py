@@ -12,7 +12,7 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
 )
-from charts.generators.stacked_bar_chart import (  # type: ignore
+from charts.generators.stacked_bar_chart import (
     format_csv_data,
 )
 from charts.generators.stacked_bar_chart.utils import (
@@ -28,15 +28,9 @@ from charts.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from decimal import (
     Decimal,
@@ -62,11 +56,8 @@ def get_severity_level(severity: Decimal) -> str:
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group.lower()
-    )
+    loaders = get_new_context()
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_severity_levels = [
         get_severity_level(
@@ -75,12 +66,12 @@ async def get_data_one_group(group: str) -> Counter[str]:
         for finding in group_findings
     ]
 
-    finding_vulns_loader = context.finding_vulnerabilities_released_nzr
+    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     finding_vulns = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
     for severity, vulns in zip(finding_severity_levels, finding_vulns):
         for vuln in vulns:
-            if vuln.state.status == VulnerabilityStateStatus.OPEN:
+            if vuln.state.status == VulnerabilityStateStatus.VULNERABLE:
                 severity_counter.update([f"{severity}_open"])
                 if vuln.treatment and vuln.treatment.status in {
                     VulnerabilityTreatmentStatus.ACCEPTED,

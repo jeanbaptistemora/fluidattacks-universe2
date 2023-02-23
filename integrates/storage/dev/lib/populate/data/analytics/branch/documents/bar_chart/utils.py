@@ -29,9 +29,6 @@ from dataloaders import (
 from datetime import (
     date as datetype,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -46,7 +43,6 @@ from findings.domain.core import (
     get_finding_open_age,
 )
 from newutils.datetime import (
-    get_date_from_iso_str,
     get_now_minus_delta,
 )
 from newutils.validations import (
@@ -59,32 +55,29 @@ from statistics import (
     mean,
 )
 from typing import (
-    Any,
     Awaitable,
     Callable,
     Counter,
-    Dict,
-    List,
     NamedTuple,
     Optional,
     Tuple,
 )
 
-ORGANIZATION_CATEGORIES: List[str] = [
+ORGANIZATION_CATEGORIES: list[str] = [
     "My organization",
     "Best organization",
     "Average organization",
     "Worst organization",
 ]
 
-GROUP_CATEGORIES: List[str] = [
+GROUP_CATEGORIES: list[str] = [
     "My group",
     "Best group",
     "Average group",
     "Worst group",
 ]
 
-PORTFOLIO_CATEGORIES: List[str] = [
+PORTFOLIO_CATEGORIES: list[str] = [
     "My portfolio",
     "Best portfolio",
     "Average portfolio",
@@ -131,15 +124,15 @@ def get_vulnerability_reattacks_date(
         1
         for verification in historic_verification
         if verification.status == VulnerabilityVerificationStatus.REQUESTED
-        and get_date_from_iso_str(verification.modified_date) > min_date
+        and verification.modified_date.date() > min_date
     )
 
 
 def format_mttr_data(
-    data: Tuple[Decimal, Decimal, Decimal, Decimal],
-    categories: List[str],
+    data: tuple[Decimal, Decimal, Decimal, Decimal],
+    categories: list[str],
     y_label: str = "Days",
-) -> Dict[str, Any]:
+) -> dict:
 
     max_value: Decimal = list(
         sorted(
@@ -240,7 +233,7 @@ def get_valid_subjects(
     ]
 
 
-def get_mean_organizations(*, organizations: List[Benchmarking]) -> Decimal:
+def get_mean_organizations(*, organizations: list[Benchmarking]) -> Decimal:
     return (
         Decimal(
             mean([organization.mttr for organization in organizations])
@@ -250,9 +243,9 @@ def get_mean_organizations(*, organizations: List[Benchmarking]) -> Decimal:
     )
 
 
-def get_best_mttr(*, subjects: List[Benchmarking]) -> Decimal:
+def get_best_mttr(*, subjects: list[Benchmarking]) -> Decimal:
     return (
-        Decimal(min([subject.mttr for subject in subjects])).to_integral_exact(
+        Decimal(min(subject.mttr for subject in subjects)).to_integral_exact(
             rounding=ROUND_CEILING
         )
         if subjects
@@ -261,7 +254,7 @@ def get_best_mttr(*, subjects: List[Benchmarking]) -> Decimal:
 
 
 def get_worst_mttr(
-    *, subjects: List[Benchmarking], oldest_open_age: Decimal
+    *, subjects: list[Benchmarking], oldest_open_age: Decimal
 ) -> Decimal:
     valid_subjects = [
         subject for subject in subjects if subject.mttr != Decimal("Infinity")
@@ -269,14 +262,14 @@ def get_worst_mttr(
 
     return (
         Decimal(
-            max([subject.mttr for subject in valid_subjects])
+            max(subject.mttr for subject in valid_subjects)
         ).to_integral_exact(rounding=ROUND_CEILING)
         if valid_subjects
         else oldest_open_age
     )
 
 
-def format_value(data: List[Tuple[str, int]]) -> Decimal:
+def format_value(data: list[Tuple[str, int]]) -> Decimal:
     if data:
         return Decimal(data[0][1]) if data[0][1] else Decimal("1.0")
     return Decimal("1.0")
@@ -387,9 +380,7 @@ def format_vulnerabilities_by_data(
 
 async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group.lower()
-    )
+    group_findings = await group_findings_loader.load(group.lower())
     findings_open_age = await collect(
         tuple(
             get_finding_open_age(loaders, finding.id)
@@ -471,14 +462,14 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     y_label: str = "Days",
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    list_days: List[int] = [30, 90]
-    dates: List[datetype] = [
+    list_days: list[int] = [30, 90]
+    dates: list[datetype] = [
         get_now_minus_delta(days=list_days[0]).date(),
         get_now_minus_delta(days=list_days[1]).date(),
     ]
-    organizations: List[Tuple[str, Tuple[str, ...]]] = []
-    portfolios: List[Tuple[str, Tuple[str, ...]]] = []
-    group_names: List[str] = list(
+    organizations: list[Tuple[str, Tuple[str, ...]]] = []
+    portfolios: list[Tuple[str, Tuple[str, ...]]] = []
+    group_names: list[str] = list(
         sorted(
             await orgs_domain.get_all_active_group_names(loaders),
             reverse=True,
@@ -609,7 +600,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    best_mttr: Dict[str, Decimal] = {
+    best_mttr: dict[str, Decimal] = {
         "best_mttr": get_best_mttr(
             subjects=[
                 organization
@@ -633,7 +624,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    worst_organazation_mttr: Dict[str, Decimal] = {
+    worst_organazation_mttr: dict[str, Decimal] = {
         "worst_organazation_mttr": get_worst_mttr(
             subjects=[
                 organization
@@ -660,7 +651,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    best_group_mttr: Dict[str, Decimal] = {
+    best_group_mttr: dict[str, Decimal] = {
         "best_group_mttr": get_best_mttr(
             subjects=[group for group in all_groups_data if group.is_valid]
         ),
@@ -672,7 +663,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    worst_group_mttr: Dict[str, Decimal] = {
+    worst_group_mttr: dict[str, Decimal] = {
         "worst_group_mttr": get_worst_mttr(
             subjects=[group for group in all_groups_data if group.is_valid],
             oldest_open_age=oldest_open_age,
@@ -687,7 +678,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    best_portfolio_mttr: Dict[str, Decimal] = {
+    best_portfolio_mttr: dict[str, Decimal] = {
         "best_portfolio_mttr": get_best_mttr(
             subjects=[
                 portfolio
@@ -711,7 +702,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    worst_portfolio_mttr: Dict[str, Decimal] = {
+    worst_portfolio_mttr: dict[str, Decimal] = {
         "worst_portfolio_mttr": get_worst_mttr(
             subjects=[
                 portfolio
@@ -738,17 +729,17 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    _all_groups_data: Dict[str, Tuple[Benchmarking, ...]] = {
+    _all_groups_data: dict[str, Tuple[Benchmarking, ...]] = {
         "all_groups_data": all_groups_data,
         "all_groups_data_30": all_groups_data_30,
         "all_groups_data_90": all_groups_data_90,
     }
-    _all_organizations_data: Dict[str, Tuple[Benchmarking, ...]] = {
+    _all_organizations_data: dict[str, Tuple[Benchmarking, ...]] = {
         "all_organizations_data": all_organizations_data,
         "all_organizations_data_30": all_organizations_data_30,
         "all_organizations_data_90": all_organizations_data_90,
     }
-    _all_portfolios_data: Dict[str, Tuple[Benchmarking, ...]] = {
+    _all_portfolios_data: dict[str, Tuple[Benchmarking, ...]] = {
         "all_portfolios_data": all_portfolios_data,
         "all_portfolios_data_30": all_portfolios_data_30,
         "all_portfolios_data_90": all_portfolios_data_90,
@@ -915,7 +906,7 @@ async def generate_all_top_vulnerabilities(
     *,
     get_data_one_group: Callable[[str, Dataloaders], Awaitable[Counter[str]]],
     get_data_many_groups: Callable[
-        [List[str], Dataloaders], Awaitable[Counter[str]]
+        [list[str], Dataloaders], Awaitable[Counter[str]]
     ],
     format_data: Callable[[Counter[str]], tuple[dict, CsvData]],
 ) -> None:

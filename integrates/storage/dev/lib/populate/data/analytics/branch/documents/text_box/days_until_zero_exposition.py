@@ -12,9 +12,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -22,16 +19,11 @@ from decimal import (
     Decimal,
     ROUND_CEILING,
 )
-from typing import (
-    Any,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     findings_ids: tuple[str, ...] = tuple(
         finding.id for finding in group_findings
     )
@@ -44,7 +36,10 @@ async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
     counter: Decimal = Decimal("0.0")
     for finding, vulnerabilities in zip(group_findings, finding_vulns):
         for vulnerability in vulnerabilities:
-            if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
+            if (
+                vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
+            ):
                 if finding.min_time_to_remediate:
                     counter += Decimal(finding.min_time_to_remediate)
                 else:
@@ -67,7 +62,7 @@ async def get_data_many_groups(
     return Decimal(sum(group for group in groups_data))
 
 
-def format_data(days: Decimal) -> dict[str, Any]:
+def format_data(days: Decimal) -> dict:
 
     return {
         "fontSizeRatio": 0.5,

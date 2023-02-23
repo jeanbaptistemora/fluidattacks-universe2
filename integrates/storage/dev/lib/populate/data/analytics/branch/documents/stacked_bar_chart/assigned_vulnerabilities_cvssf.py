@@ -24,9 +24,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -52,9 +49,7 @@ async def get_data_one_group(
     assigned: dict[str, list[tuple[Vulnerability, Decimal]]] = defaultdict(
         list
     )
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]
@@ -108,30 +103,31 @@ def format_assigned(
     for vulnerability, cvssf in vulnerabilities:
         status.update({vulnerability.state.status: cvssf})
         if (
-            vulnerability.state.status == VulnerabilityStateStatus.OPEN
-            and vulnerability.treatment.status  # type: ignore
+            vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
+            and vulnerability.treatment
+            and vulnerability.treatment.status
             in {
                 VulnerabilityTreatmentStatus.ACCEPTED,
                 VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
             }
         ):
-            treatment.update(
-                {vulnerability.treatment.status: cvssf}  # type: ignore
-            )
+            treatment.update({vulnerability.treatment.status: cvssf})
 
     remaining_open: Decimal = Decimal(
-        status[VulnerabilityStateStatus.OPEN]
+        status[VulnerabilityStateStatus.VULNERABLE]
         - treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
         - treatment[VulnerabilityTreatmentStatus.ACCEPTED]
     )
 
     return AssignedFormatted(
-        accepted=treatment[VulnerabilityTreatmentStatus.ACCEPTED],
-        accepted_undefined=treatment[
-            VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        ],
-        closed_vulnerabilities=status[VulnerabilityStateStatus.CLOSED],
-        open_vulnerabilities=status[VulnerabilityStateStatus.OPEN],
+        accepted=Decimal(treatment[VulnerabilityTreatmentStatus.ACCEPTED]),
+        accepted_undefined=Decimal(
+            treatment[VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED]
+        ),
+        closed_vulnerabilities=Decimal(status[VulnerabilityStateStatus.SAFE]),
+        open_vulnerabilities=Decimal(
+            status[VulnerabilityStateStatus.VULNERABLE]
+        ),
         remaining_open_vulnerabilities=remaining_open
         if remaining_open > Decimal("0.0")
         else Decimal("0.0"),

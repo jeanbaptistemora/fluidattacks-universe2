@@ -30,14 +30,11 @@ from datetime import (
     datetime,
     timezone,
 )
-from db_model.findings.types import (
-    Finding,
+from db_model import (
+    utils as db_model_utils,
 )
 from db_model.groups.types import (
     Group,
-)
-from db_model.utils import (
-    get_min_iso_date,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -58,9 +55,6 @@ from findings.domain.core import (
 from more_itertools import (
     chunked,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from newutils.validations import (
     validate_sanitized_csv_input,
 )
@@ -69,6 +63,7 @@ from pandas import (
     DatetimeIndex,
 )
 from typing import (
+    Iterable,
     NamedTuple,
     Optional,
 )
@@ -81,14 +76,16 @@ class FormatSprint(NamedTuple):
 
 
 def get_last_sprint_start_date(
-    *, sprint_start_date: str, sprint_length: int
+    *, sprint_start_date: Optional[datetime], sprint_length: int
 ) -> datetime:
-    end_date: datetime = get_min_iso_date(datetime.now()).astimezone(
-        tz=timezone.utc
-    )
-    start_date: datetime = datetime_utils.get_datetime_from_iso_str(
-        sprint_start_date
+    end_date: datetime = db_model_utils.get_min_iso_date(
+        datetime.now()
     ).astimezone(tz=timezone.utc)
+    start_date: datetime = (
+        sprint_start_date.astimezone(tz=timezone.utc)
+        if sprint_start_date
+        else db_model_utils.get_first_day_iso_date()
+    )
 
     sprint_dates: DatetimeIndex = date_range(
         start=start_date.isoformat(),
@@ -124,12 +121,7 @@ def get_current_sprint_state(
     state: VulnerabilityState,
     sprint_start_date: datetime,
 ) -> Optional[VulnerabilityState]:
-    if (
-        datetime_utils.get_datetime_from_iso_str(
-            state.modified_date
-        ).timestamp()
-        >= sprint_start_date.timestamp()
-    ):
+    if state.modified_date.timestamp() >= sprint_start_date.timestamp():
         return state
 
     return None
@@ -139,12 +131,7 @@ def get_last_state(
     state: VulnerabilityState,
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
-    if (
-        datetime_utils.get_datetime_from_iso_str(
-            state.modified_date
-        ).timestamp()
-        <= last_day.timestamp()
-    ):
+    if state.modified_date.timestamp() <= last_day.timestamp():
         return state
 
     return None
@@ -155,7 +142,7 @@ def had_state_by_then(
     last_day: datetime,
     findings_cvssf: dict[str, Decimal],
     state: VulnerabilityStateStatus,
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Iterable[Vulnerability],
     sprint: bool = False,
 ) -> Decimal:
     lasts_valid_states: tuple[Optional[VulnerabilityState], ...]
@@ -192,7 +179,7 @@ async def get_totals_by_week(
     open_vulnerabilities = sum(
         had_state_by_then(
             last_day=last_day,
-            state=VulnerabilityStateStatus.OPEN,
+            state=VulnerabilityStateStatus.VULNERABLE,
             vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,
@@ -203,7 +190,7 @@ async def get_totals_by_week(
     closed_vulnerabilities = sum(
         had_state_by_then(
             last_day=last_day,
-            state=VulnerabilityStateStatus.CLOSED,
+            state=VulnerabilityStateStatus.SAFE,
             vulnerabilities=tuple(chunked_vulnerabilities),
             findings_cvssf=findings_cvssf,
             sprint=sprint,
@@ -225,9 +212,7 @@ async def generate_one(
         sprint_start_date=group.sprint_start_date,
         sprint_length=group.sprint_duration,
     )
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     findings_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings

@@ -27,15 +27,11 @@ except KeyError as exe:
 
 async def get_all_time_forces_executions(
     group_name: str,
-) -> tuple[ForcesExecution, ...]:
+) -> list[ForcesExecution]:
     loaders = get_new_context()
-    executions: tuple[
-        ForcesExecution, ...
-    ] = await loaders.group_forces_executions.load(
+    return await loaders.group_forces_executions.load(
         GroupForcesExecutionsRequest(group_name=group_name)
     )
-
-    return executions
 
 
 def get_finding_name(item: list[str]) -> str:

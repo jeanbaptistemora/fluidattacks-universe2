@@ -17,9 +17,6 @@ from charts.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from itertools import (
     chain,
 )
@@ -41,15 +38,12 @@ GroupsTags = NamedTuple(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> GroupsTags:
-    context = get_new_context()
-    group_findings_loader = context.group_findings
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group.lower()
-    )
+    loaders = get_new_context()
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
 
     vulnerabilities = (
-        await context.finding_vulnerabilities_released_nzr.load_many_chained(
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             finding_ids
         )
     )

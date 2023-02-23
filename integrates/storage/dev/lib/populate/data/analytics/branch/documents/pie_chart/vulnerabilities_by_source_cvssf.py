@@ -17,9 +17,6 @@ from charts.generators.pie_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
@@ -39,9 +36,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
-        group.lower()
-    )
+    group_findings = await context.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_cvssf: Dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))

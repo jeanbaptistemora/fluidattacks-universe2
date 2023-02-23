@@ -32,8 +32,7 @@ from db_model.groups.types import (
     Group,
 )
 from newutils.datetime import (
-    get_date_from_iso_str,
-    get_now,
+    get_utc_now,
 )
 from operator import (
     attrgetter,
@@ -53,10 +52,10 @@ class EventsAvailability(NamedTuple):
 async def get_data_one_group(
     *, group_name: str, loaders: Dataloaders
 ) -> EventsAvailability:
-    current_date: date = get_now().date()
+    current_date: date = get_utc_now().date()
     group: Group = await loaders.group.load(group_name)
-    creation_date = get_date_from_iso_str(group.created_date)
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
+    creation_date = group.created_date.date()
+    events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     sorted_events: tuple[Event, ...] = tuple(
@@ -64,11 +63,11 @@ async def get_data_one_group(
     )
     group_days: int = (current_date - creation_date).days
     events_dates: tuple[tuple[date, date], ...] = tuple(
-        (get_date_from_iso_str(event.event_date), current_date)
+        (event.event_date.date(), current_date)
         if event.state.status != EventStateStatus.SOLVED
         else (
-            get_date_from_iso_str(event.event_date),
-            get_date_from_iso_str(event.state.modified_date),
+            event.event_date.date(),
+            event.state.modified_date.date(),
         )
         for event in sorted_events
     )
@@ -86,7 +85,7 @@ async def get_data_one_group(
         open_range.append((start, stop))
 
     open_event_days: int = sum(
-        [(range[1] - range[0]).days for range in open_range]
+        (range[1] - range[0]).days for range in open_range
     )
 
     return EventsAvailability(

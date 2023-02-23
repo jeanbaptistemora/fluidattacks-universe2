@@ -21,7 +21,14 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.types import (
+    GroupTreatmentSummary,
     GroupUnreliableIndicators,
+)
+from decimal import (
+    Decimal,
+)
+from typing import (
+    Optional,
 )
 
 
@@ -33,10 +40,12 @@ async def get_data_group(
     indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group_name)
     )
-    total_treatment = indicators.treatment_summary
+    total_treatment: Optional[
+        GroupTreatmentSummary
+    ] = indicators.treatment_summary
     return PortfoliosGroupsInfo(
         group_name=group_name,
-        value=total_treatment.new if total_treatment else 0,
+        value=Decimal(total_treatment.untreated if total_treatment else 0),
     )
 
 
@@ -49,10 +58,12 @@ async def get_data_groups(
         workers=32,
     )
     accepted_undefined_vulnerabilities = sum(
-        [group.value for group in groups_data]
+        group.value for group in groups_data
     )
 
-    return slice_groups(groups_data, accepted_undefined_vulnerabilities)
+    return slice_groups(
+        groups_data, Decimal(accepted_undefined_vulnerabilities)
+    )
 
 
 async def generate_all() -> None:

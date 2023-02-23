@@ -30,7 +30,9 @@ async def generate_one(
     )
 
     return (
-        indicators.treatment_summary.new if indicators.treatment_summary else 0
+        indicators.treatment_summary.untreated
+        if indicators.treatment_summary
+        else 0
     )
 
 

@@ -19,6 +19,7 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootEnvironmentUrl,
 )
 from organizations import (
     domain as orgs_domain,
@@ -60,13 +61,17 @@ def format_data(data: Resources) -> dict:
     }
 
 
-def format_resources(roots: list[GitRoot]) -> Resources:
+async def format_resources(
+    loaders: Dataloaders, roots: list[GitRoot]
+) -> Resources:
+    root_urls: list[
+        list[RootEnvironmentUrl]
+    ] = await loaders.root_environment_urls.load_many(
+        [root.id for root in roots]
+    )
+
     return Resources(
-        environments=[
-            env_url
-            for root in roots
-            for env_url in root.state.environment_urls
-        ],
+        environments=list({url.url for urls in root_urls for url in urls}),
         repositories=roots,
     )
 
@@ -78,15 +83,15 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         sorted(await orgs_domain.get_all_active_group_names(loaders))
     )
     async for group in utils.iterate_groups():
-        group_roots = await loaders.group_roots.load(group)
         document = format_data(
-            data=format_resources(
+            data=await format_resources(
+                loaders,
                 [
                     root
-                    for root in group_roots
+                    for root in await loaders.group_roots.load(group)
                     if isinstance(root, GitRoot)
                     and root.state.status == RootStatus.ACTIVE
-                ]
+                ],
             ),
         )
         utils.json_dump(
@@ -106,13 +111,15 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 if isinstance(root, GitRoot)
                 and root.state.status == RootStatus.ACTIVE
             ]
-            for group_roots in await loaders.group_roots.load_many(org_groups)
+            for group_roots in await loaders.group_roots.load_many(
+                list(org_groups)
+            )
         ]
         org_roots = [
             root for group_roots in grouped_roots for root in group_roots
         ]
 
-        document = format_data(data=format_resources(org_roots))
+        document = format_data(data=await format_resources(loaders, org_roots))
         utils.json_dump(
             document=document,
             entity="organization",
@@ -130,13 +137,13 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 and root.state.status == RootStatus.ACTIVE
             ]
             for group_roots in await loaders.group_roots.load_many(
-                valid_org_groups
+                list(valid_org_groups)
             )
         ]
 
         for group_name, group_roots in zip(valid_org_groups, grouped_roots):
             document = format_data(
-                data=format_resources(group_roots),
+                data=await format_resources(loaders, group_roots),
             )
             utils.json_dump(
                 document=document,
@@ -164,7 +171,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 for group_roots in grouped_portfolios_roots
                 for root in group_roots
             ]
-            document = format_data(data=format_resources(portfolio_roots))
+            document = format_data(
+                data=await format_resources(loaders, portfolio_roots)
+            )
             utils.json_dump(
                 document=document,
                 entity="portfolio",

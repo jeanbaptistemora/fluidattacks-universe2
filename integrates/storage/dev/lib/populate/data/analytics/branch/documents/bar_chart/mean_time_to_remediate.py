@@ -60,7 +60,9 @@ async def get_data_one_group(
 
 
 async def get_data_many_groups(
-    groups: list[str], loaders: Dataloaders, min_date: Optional[date] = None
+    groups: tuple[str, ...],
+    loaders: Dataloaders,
+    min_date: Optional[date] = None,
 ) -> Remediate:
     groups_data: tuple[Remediate, ...] = await collect(
         tuple(

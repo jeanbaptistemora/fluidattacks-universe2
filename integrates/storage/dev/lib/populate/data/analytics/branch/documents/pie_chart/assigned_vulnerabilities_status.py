@@ -21,9 +21,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -36,9 +33,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> Counter[VulnerabilityStateStatus]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]
@@ -73,8 +68,8 @@ def format_data(*, data: Counter[VulnerabilityStateStatus]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open", data[VulnerabilityStateStatus.OPEN]],
-                ["Closed", data[VulnerabilityStateStatus.CLOSED]],
+                ["Open", data[VulnerabilityStateStatus.VULNERABLE]],
+                ["Closed", data[VulnerabilityStateStatus.SAFE]],
             ],
             type="pie",
             colors=dict(

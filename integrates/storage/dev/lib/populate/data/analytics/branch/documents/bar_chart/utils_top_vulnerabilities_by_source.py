@@ -25,9 +25,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -53,9 +50,7 @@ def format_max_value(data: list[tuple[str, Decimal]]) -> Decimal:
 async def get_data_one_group(
     group: str, loaders: Dataloaders, source: VulnerabilityType
 ) -> Counter[str]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in findings]
     findings_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many(
@@ -72,7 +67,7 @@ async def get_data_one_group(
             findings, findings_vulns, findings_cvssf
         )
         for vulnerability in vulnerabilities
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+        if vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
         and vulnerability.type == source
     ]
 

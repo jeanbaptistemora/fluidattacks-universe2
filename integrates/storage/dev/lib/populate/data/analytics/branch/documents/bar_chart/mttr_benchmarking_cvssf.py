@@ -2,8 +2,21 @@ from aioextensions import (
     collect,
     run,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
 from async_lru import (
     alru_cache,
+)
+from botocore.exceptions import (
+    ClientError,
+    ConnectTimeoutError,
+    HTTPClientError,
+    ReadTimeoutError,
 )
 from charts.generators.bar_chart.utils import (
     Benchmarking,
@@ -11,14 +24,14 @@ from charts.generators.bar_chart.utils import (
     get_vulnerability_reattacks,
     get_vulnerability_reattacks_date,
 )
+from custom_exceptions import (
+    UnavailabilityError as CustomUnavailabilityError,
+)
 from dataloaders import (
     Dataloaders,
 )
 from datetime import (
     date as datetype,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -26,6 +39,12 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from groups.domain import (
     get_mean_remediate_severity_cvssf,
@@ -35,6 +54,22 @@ from typing import (
 )
 
 
+@retry_on_exceptions(
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        ClientPayloadError,
+        ConnectionResetError,
+        ConnectTimeoutError,
+        CustomUnavailabilityError,
+        HTTPClientError,
+        ReadTimeoutError,
+        ServerTimeoutError,
+        UnavailabilityError,
+    ),
+    sleep_seconds=40,
+    max_attempts=5,
+)
 async def _get_historic_verification(
     loaders: Dataloaders, vulnerability: Vulnerability
 ) -> tuple[VulnerabilityVerification, ...]:
@@ -49,9 +84,7 @@ async def _get_historic_verification(
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype] = None
 ) -> Benchmarking:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )

@@ -25,9 +25,6 @@ from charts.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -45,9 +42,7 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many(
@@ -59,7 +54,8 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
             f"{finding.id}/{finding.title}"
             for finding, vulnerabilities in zip(group_findings, finding_vulns)
             for vulnerability in vulnerabilities
-            if vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            if vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
         ]
     )
 
@@ -83,12 +79,12 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         key=lambda x: get_finding_name([x[0]]),
     ):
-        merged_data.append([axis, sum([value for _, value in columns])])
+        merged_data.append([axis, sum(value for _, value in columns)])
 
     merged_data = sorted(merged_data, key=lambda x: x[1], reverse=True)
     limited_merged_data = merged_data[:LIMIT]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 [
@@ -119,6 +115,7 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
                 ],
                 type="category",
                 tick=dict(
+                    multiline=False,
                     outer=False,
                     rotate=0,
                 ),
@@ -132,13 +129,13 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
         ),
         barChartYTickFormat=True,
         maxValue=format_max_value(
-            [(key, Decimal(value)) for key, value in limited_merged_data]
+            [(str(key), Decimal(value)) for key, value in limited_merged_data]
         ),
     )
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
-        values=[value for _, value in merged_data],
-        categories=[group for group, _ in merged_data],
+        header_value=str(json_data["data"]["columns"][0][0]),
+        values=[Decimal(value) for _, value in merged_data],
+        categories=[str(group) for group, _ in merged_data],
         header_title="Type",
     )
 

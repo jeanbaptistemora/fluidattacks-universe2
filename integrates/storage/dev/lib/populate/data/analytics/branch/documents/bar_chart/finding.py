@@ -24,9 +24,6 @@ from charts.generators.pie_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decimal import (
     Decimal,
 )
@@ -38,14 +35,12 @@ from operator import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    group_findings: tuple[Finding, ...] = await context.group_findings.load(
-        group.lower()
-    )
+    group_findings = await context.group_findings.load(group.lower())
     findings_found = len(group_findings)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
-        value=findings_found,
+        value=Decimal(findings_found),
     )
 
 
@@ -64,7 +59,7 @@ def format_data(
         group for group in all_data[:LIMIT] if group.value > Decimal("0.0")
     ]
 
-    json_data = dict(
+    json_data: dict = dict(
         data=dict(
             columns=[
                 ["Types of Vulnerabilities"] + [group.value for group in data],
@@ -95,11 +90,13 @@ def format_data(
             ),
         ),
         barChartYTickFormat=True,
-        maxValue=format_max_value(data),
+        maxValue=format_max_value(
+            [(group.group_name, group.value) for group in data]
+        ),
     )
 
     csv_data = format_data_csv(
-        header_value=json_data["data"]["columns"][0][0],
+        header_value=str(json_data["data"]["columns"][0][0]),
         values=[group.value for group in all_data],
         categories=[group.group_name for group in all_data],
     )

@@ -5,7 +5,7 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts.generators.bar_chart import (  # type: ignore
+from charts.generators.bar_chart import (
     format_csv_data,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
@@ -73,8 +73,8 @@ from typing import (
 class GroupInformation(NamedTuple):
     categories: dict[str, str]
     cvssf: dict[str, Decimal]
-    finding_vulnerabilities: tuple[tuple[Vulnerability, ...], ...]
-    findings: tuple[Finding, ...]
+    finding_vulnerabilities: list[list[Vulnerability]]
+    findings: list[Finding]
 
 
 def get_categories() -> dict[str, str]:
@@ -102,7 +102,7 @@ async def get_data_vulnerabilities(
     group: str,
     loaders: Dataloaders,
 ) -> GroupInformation:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = await loaders.group_findings.load(group)
     finding_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings
@@ -123,7 +123,7 @@ async def get_data_vulnerabilities(
     return GroupInformation(
         categories=finding_category,
         cvssf=finding_cvssf,
-        finding_vulnerabilities=tuple(vulnerabilities),
+        finding_vulnerabilities=vulnerabilities,
         findings=findings,
     )
 
@@ -145,14 +145,14 @@ async def get_data_one_group(
         {
             f"{data.categories[finding.id]}/open": had_state_by_then(
                 last_day=last_day,
-                state=VulnerabilityStateStatus.OPEN,
+                state=VulnerabilityStateStatus.VULNERABLE,
                 vulnerabilities=vulnerabilities,
                 findings_cvssf=data.cvssf,
                 sprint=True,
             ).quantize(Decimal("0.001")),
             f"{data.categories[finding.id]}/closed": had_state_by_then(
                 last_day=last_day,
-                state=VulnerabilityStateStatus.CLOSED,
+                state=VulnerabilityStateStatus.SAFE,
                 vulnerabilities=vulnerabilities,
                 findings_cvssf=data.cvssf,
                 sprint=True,

@@ -29,9 +29,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -40,7 +37,6 @@ from decimal import (
     Decimal,
 )
 from newutils.datetime import (
-    get_datetime_from_iso_str,
     get_now_minus_delta,
 )
 import re
@@ -61,9 +57,7 @@ def format_where(where: str) -> str:
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, date_minus_delta: datetime
 ) -> Counter[str]:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]
@@ -74,10 +68,10 @@ async def get_data_one_group(
         tuple(
             format_where(vulnerability.state.where)
             for vulnerability in vulnerabilities
-            if get_datetime_from_iso_str(vulnerability.created_date)
-            > date_minus_delta
+            if vulnerability.created_date > date_minus_delta
             and vulnerability.type == VulnerabilityType.LINES
-            and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+            and vulnerability.state.status
+            == VulnerabilityStateStatus.VULNERABLE
         )
     )
 
@@ -159,7 +153,7 @@ def format_data(*, counters: Counter[str]) -> tuple[dict, CsvData]:
     )
     csv_data = format_data_csv(
         header_value="Number of vulnerabilities",
-        values=[value for _, value in merged_data],
+        values=[Decimal(value) for _, value in merged_data],
         categories=[name for name, _ in merged_data],
         header_title="File path",
     )

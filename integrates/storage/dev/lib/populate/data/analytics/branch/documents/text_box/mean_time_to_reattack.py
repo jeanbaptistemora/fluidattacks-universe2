@@ -20,9 +20,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
-)
-from db_model.findings.types import (
-    Finding,
+    timezone,
 )
 from db_model.groups.types import (
     Group,
@@ -42,7 +40,6 @@ from decimal import (
     ROUND_CEILING,
 )
 from newutils.datetime import (
-    get_datetime_from_iso_str,
     get_minus_delta,
     get_now,
     get_plus_delta,
@@ -74,9 +71,7 @@ def _get_in_between_state(
     for index, state in enumerate(reverse_historic_state):
         if (
             state.status == VulnerabilityStateStatus.SAFE
-            and before_limit
-            <= get_datetime_from_iso_str(state.modified_date)
-            <= after_limit
+            and before_limit <= state.modified_date <= after_limit
         ):
             return _get_next_open(
                 reverse_historic_state[len(historic_state) - index :]
@@ -89,8 +84,10 @@ def get_diff(*, start: Optional[datetime], end: datetime) -> int:
     if start is None:
         return 0
 
-    diff = end - start
-    return diff.days if end > start else 0
+    end_utc = end.astimezone(tz=timezone.utc)
+    start_utc = start.astimezone(tz=timezone.utc)
+    diff = end_utc - start_utc
+    return diff.days if end_utc > start_utc else 0
 
 
 def is_requested(
@@ -139,15 +136,13 @@ async def _get_mean_time_to_reattack(
     for vulnerability, historic_verification, historic_state in zip(
         filtered_vulnerabilities, historic_verifications, historic_states
     ):
-        start: Optional[datetime] = get_datetime_from_iso_str(
-            vulnerability.created_date
-        )
+        start: Optional[datetime] = vulnerability.created_date
         for verification in historic_verification:
             if is_requested(verification, start):
                 number_of_reattacks += 1
                 number_of_days += get_diff(
                     start=start,
-                    end=get_datetime_from_iso_str(verification.modified_date),
+                    end=verification.modified_date,
                 )
                 start = None
             if is_on_hold(verification, start):
@@ -155,8 +150,8 @@ async def _get_mean_time_to_reattack(
                 number_of_reattacks -= 1
             if is_verifying(verification, start):
                 start = _get_in_between_state(
-                    historic_state,
-                    get_datetime_from_iso_str(verification.modified_date),
+                    tuple(historic_state),
+                    verification.modified_date,
                 )
 
         if start is not None:
@@ -173,7 +168,7 @@ async def _get_mean_time_to_reattack(
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     group_: Group = await loaders.group.load(group)
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = await loaders.group_findings.load(group)
 
     if not group_.state.has_squad:
         return Decimal("Infinity")
@@ -209,25 +204,17 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     sum_of_days: Decimal = (
         Decimal(
             sum(
-                [
-                    get_diff(
-                        start=get_datetime_from_iso_str(
-                            vulnerability.created_date
-                        ),
-                        end=current_date,
-                    )
-                    if vulnerability.state.status
-                    == VulnerabilityStateStatus.VULNERABLE
-                    else get_diff(
-                        start=get_datetime_from_iso_str(
-                            vulnerability.created_date
-                        ),
-                        end=get_datetime_from_iso_str(
-                            vulnerability.state.modified_date
-                        ),
-                    )
-                    for vulnerability in filtered_non_reattack_vulnerabilities
-                ]
+                get_diff(
+                    start=vulnerability.created_date,
+                    end=current_date,
+                )
+                if vulnerability.state.status
+                == VulnerabilityStateStatus.VULNERABLE
+                else get_diff(
+                    start=vulnerability.created_date,
+                    end=vulnerability.state.modified_date,
+                )
+                for vulnerability in filtered_non_reattack_vulnerabilities
             )
             / len(filtered_non_reattack_vulnerabilities)
         )

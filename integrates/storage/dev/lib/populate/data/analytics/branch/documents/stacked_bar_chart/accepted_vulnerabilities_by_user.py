@@ -25,9 +25,6 @@ from charts.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus as AcceptanceStatus,
     VulnerabilityStateStatus as StateStatus,
@@ -49,9 +46,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings: tuple[Finding, ...] = await context.group_findings.load(
-        group.lower()
-    )
+    group_findings = await context.group_findings.load(group.lower())
 
     vulnerabilities = (
         await context.finding_vulnerabilities_released_nzr.load_many_chained(
@@ -61,27 +56,25 @@ async def get_data_one_group(group: str) -> Counter[str]:
 
     temporarily = Counter(
         [
-            f"{vuln.treatment.modified_by}/"  # type: ignore
-            f"{TreatmentStatus.ACCEPTED}"
+            f"{vuln.treatment.modified_by}/{TreatmentStatus.ACCEPTED}"
             for vuln in vulnerabilities
-            if vuln.treatment.status  # type: ignore
-            == TreatmentStatus.ACCEPTED
-            and vuln.state.status == StateStatus.OPEN
+            if vuln.treatment
+            and vuln.treatment.status == TreatmentStatus.ACCEPTED
+            and vuln.state.status == StateStatus.VULNERABLE
         ]
     )
     permanently = Counter(
         [
             (
-                f"{vuln.treatment.modified_by}"  # type: ignore
+                f"{vuln.treatment.modified_by}"
                 "/"
                 f"{TreatmentStatus.ACCEPTED_UNDEFINED}"
             )
             for vuln in vulnerabilities
-            if vuln.treatment.status  # type: ignore
-            == TreatmentStatus.ACCEPTED_UNDEFINED
-            and vuln.treatment.acceptance_status  # type: ignore
-            == AcceptanceStatus.APPROVED
-            and vuln.state.status == StateStatus.OPEN
+            if vuln.treatment
+            and vuln.treatment.status == TreatmentStatus.ACCEPTED_UNDEFINED
+            and vuln.treatment.acceptance_status == AcceptanceStatus.APPROVED
+            and vuln.state.status == StateStatus.VULNERABLE
         ]
     )
 
@@ -188,7 +181,7 @@ def format_vulnerabilities_by_data(
             "Temporarily accepted",
         ],
         values=[
-            [counters[f"{user}/{key}"] for user, _ in all_data]
+            [Decimal(counters[f"{user}/{key}"]) for user, _ in all_data]
             for key, _ in translations.items()
         ],
         categories=[key for key, _ in all_data],
