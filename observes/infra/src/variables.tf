@@ -19,3 +19,7 @@ data "aws_subnet" "main" {
     values = [each.key]
   }
 }
+
+data "aws_iam_role" "observes_redshift" {
+  name = "observes_redshift"
+}
