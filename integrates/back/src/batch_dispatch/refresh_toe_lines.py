@@ -8,6 +8,9 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     RepeatedToeLines,
     ToeLinesAlreadyUpdated,
@@ -293,16 +296,17 @@ async def refresh_active_root_repo_toe_lines(
             }
         },
     )
-    Git().execute(
-        [
-            "git",
-            "config",
-            "--global",
-            "--add",
-            "safe.directory",
-            f"{os.getcwd()}/{root_repo.state.nickname}",
-        ]
-    )
+    with suppress(GitCommandError):
+        Git().execute(
+            [
+                "git",
+                "config",
+                "--global",
+                "--add",
+                "safe.directory",
+                f"{os.getcwd()}/{root_repo.state.nickname}",
+            ]
+        )
     try:
         repo = Repo(root_repo.state.nickname)
     except InvalidGitRepositoryError:
