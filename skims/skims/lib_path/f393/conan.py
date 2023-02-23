@@ -12,6 +12,10 @@ from model.core_model import (
 )
 import re
 
+SELF_TOOL_DEPS: re.Pattern[str] = re.compile(
+    r'\s+self\.tool_requires\("(?P<pkg>[^"]+)"[^\)]*\)'
+)
+
 
 def get_dep_info(dep_line: str) -> tuple[str, str]:
     product, version = dep_line.lstrip().split("@")[0].split("/")
@@ -45,14 +49,9 @@ def conan_conanfile_txt_dev(
 def conan_conanfile_py_dev(
     content: str, path: str
 ) -> Iterator[DependencyType]:
-    line_deps: bool = False
     for line_number, line in enumerate(content.splitlines(), 1):
-        if re.search(r"/s+tool_requires", line):
-            line_deps = True
-        elif line_deps:
-            if not line:
-                break
-            pkg_name, pkg_version = get_dep_info(line)
+        if matched := SELF_TOOL_DEPS.search(line):
+            pkg_name, pkg_version = get_dep_info(matched.group("pkg"))
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
