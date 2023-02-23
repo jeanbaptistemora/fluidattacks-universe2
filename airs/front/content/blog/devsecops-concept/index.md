@@ -38,7 +38,7 @@ just what the meaning of DevSecOps is.
 In this blog post,
 we will give you all the basics about this methodology.
 After reading it,
-be sure to check out the others in our [DevSecOps blog series](/../tags/devsecops/).
+be sure to check out the others in our [DevSecOps blog series](https://fluidattacks.com/blog/tags/devsecops/).
 
 ## DevOps vs DevSecOps
 

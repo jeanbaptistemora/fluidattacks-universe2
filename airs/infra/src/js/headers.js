@@ -1100,6 +1100,7 @@ const redirectMap = new Map([
   ["/services/one-shot-hacking/", "https://fluidattacks.com/services/continuous-hacking/"],
   ["/services/comparative/", "https://fluidattacks.com/services/continuous-hacking/"],
   ["/blog/amsi-bypass-python/amsibypass.py/", "https://fluidattacks.com/blog/amsi-bypass-python/amsibypass.py"],
+  ["/blog/netscan-exploit/exploit.py/", "https://fluidattacks.com/blog/netscan-exploit/exploit.py"],
 ]);
 
 addEventListener('fetch', event => {
