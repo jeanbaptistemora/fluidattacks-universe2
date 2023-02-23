@@ -34,13 +34,11 @@ import logging
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
-from mailer import (
-    utils as mailer_utils,
-)
 from mailer.groups import (
     send_mail_treatment_alert,
 )
 from mailer.utils import (
+    get_group_emails_by_notification,
     get_organization_name,
 )
 from newutils import (
@@ -166,7 +164,7 @@ async def send_temporal_treatment_report() -> None:
 
     groups_stakeholders_email: tuple[list[str], ...] = await collect(
         [
-            mailer_utils.get_group_emails_by_notification(
+            get_group_emails_by_notification(
                 loaders=loaders,
                 group_name=group_name,
                 notification="vulnerabilities_expiring",

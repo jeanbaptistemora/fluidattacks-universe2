@@ -33,6 +33,7 @@ pytestmark = [
             [
                 Notification.FILE_UPDATE,
                 Notification.GROUP_INFORMATION,
+                Notification.NEW_COMMENT,
                 Notification.PORTFOLIO_UPDATE,
                 Notification.ROOT_UPDATE,
                 Notification.SERVICE_UPDATE,

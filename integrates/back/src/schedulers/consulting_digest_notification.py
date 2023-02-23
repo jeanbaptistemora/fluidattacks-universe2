@@ -15,9 +15,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.event_comments.types import (
     EventComment,
 )
@@ -41,9 +38,6 @@ from db_model.group_comments.types import (
 from decorators import (
     retry_on_exceptions,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 import logging
 import logging.config
 from mailchimp_transactional.api_client import (
@@ -53,6 +47,7 @@ from mailer.groups import (
     send_mail_consulting_digest,
 )
 from mailer.utils import (
+    get_group_emails_by_notification,
     get_organization_name,
 )
 from newutils import (
@@ -259,26 +254,15 @@ async def send_comment_digest() -> None:
             for group_name in groups_names
         ]
     )
-    groups_stakeholders = list(
-        await collect(
-            [
-                group_access_domain.get_group_stakeholders(
-                    loaders,
-                    group_name,
-                )
-                for group_name in groups_names
-            ]
-        )
-    )
-
-    group_stakeholders_email = tuple(
-        tuple(
-            stakeholder.email
-            for stakeholder in group_stakeholders
-            if Notification.NEW_COMMENT
-            in stakeholder.state.notifications_preferences.email
-        )
-        for group_stakeholders in groups_stakeholders
+    groups_stakeholders_email: tuple[list[str], ...] = await collect(
+        [
+            get_group_emails_by_notification(
+                loaders=loaders,
+                group_name=group_name,
+                notification="consulting_digest",
+            )
+            for group_name in groups_names
+        ]
     )
     groups_comments = await collect(
         [group_comments(loaders, group_name) for group_name in groups_names]
@@ -309,14 +293,14 @@ async def send_comment_digest() -> None:
             [
                 {
                     "org_name": org_name,
-                    "email_to": email_to,
+                    "email_to": tuple(email_to),
                     "group_comments": group,
                     "event_comments": event,
                     "finding_comments": finding,
                 }
                 for org_name, email_to, group, event, finding in zip(
                     groups_org_names,
-                    group_stakeholders_email,
+                    groups_stakeholders_email,
                     groups_comments,
                     events_comments,
                     findings_comments,

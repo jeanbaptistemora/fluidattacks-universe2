@@ -44,10 +44,25 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     consulting_digest=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=True,
+        email_preferences=Notification.NEW_COMMENT,
+        exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={
+                "admin",
+                "architect",
+                "customer_manager",
+                "hacker",
+                "reattacker",
+                "resourcer",
+                "reviewer",
+                "service_forces",
+                "user",
+                "user_manager",
+                "vulnerability_manager",
+            },
+            org={},
+        ),
     ),
     contact_sales=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -150,7 +165,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     new_comment=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.NEW_COMMENT,
         exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
