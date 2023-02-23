@@ -17,7 +17,6 @@ from decimal import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -56,7 +55,7 @@ def filter_deleted_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
 
 async def get_group_max_acceptance_days(
     *, loaders: Any, group: Group
-) -> Optional[int]:
+) -> int | None:
     if group.policies:
         return group.policies.max_acceptance_days
 
@@ -68,7 +67,7 @@ async def get_group_max_acceptance_days(
 
 async def get_group_max_number_acceptances(
     *, loaders: Any, group: Group
-) -> Optional[int]:
+) -> int | None:
     if group.policies:
         return group.policies.max_number_acceptances
 

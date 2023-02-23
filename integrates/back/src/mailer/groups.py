@@ -40,7 +40,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -494,7 +493,7 @@ async def send_mail_deactivated_root(
     group_name: str,
     last_clone_date_msg: str,
     last_root_state: str,
-    other: Optional[str],
+    other: str | None,
     reason: str,
     root_age: int,
     root_nickname: str,
@@ -544,7 +543,7 @@ async def send_mail_file_report(
     file_description: str,
     report_date: date,
     email_to: list[str],
-    uploaded_date: Optional[date] = None,
+    uploaded_date: date | None = None,
 ) -> None:
     state_format: str = "added" if is_added else "deleted"
     user_role = await authz.get_group_level_role(
@@ -580,7 +579,7 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     email_to: list[str],
     group_name: str,
-    last_successful_clone: Optional[GitRootCloning],
+    last_successful_clone: GitRootCloning | None,
     root_creation_date: datetime,
     root_nickname: str,
     root_id: str,
@@ -751,8 +750,8 @@ async def send_mail_environment_report(
     urls_added: list[str],
     urls_deleted: list[str],
     modified_date: datetime,
-    other: Optional[str],
-    reason: Optional[str],
+    other: str | None,
+    reason: str | None,
 ) -> None:
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
@@ -783,7 +782,7 @@ async def send_mail_environment_report(
     )
 
 
-def weeks_format(val: Optional[int]) -> str:
+def weeks_format(val: int | None) -> str:
     return f"{val} {'week' if val == 1 else 'weeks'}"
 
 

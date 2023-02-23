@@ -1,5 +1,10 @@
 # pylint: disable=too-many-lines
 import bleach
+from collections.abc import (
+    Callable,
+    Iterable,
+    Sized,
+)
 from custom_exceptions import (
     CustomBaseException,
     DuplicateDraftFound,
@@ -44,17 +49,8 @@ from newutils import (
 import re
 from typing import (
     Any,
-    Callable,
     cast,
-    Dict,
-    Iterable,
-    List,
     NamedTuple,
-    Optional,
-    Set,
-    Sized,
-    Tuple,
-    Type,
     TypeVar,
 )
 
@@ -130,7 +126,7 @@ def check_all_attr(obj: object, regex: str, ex: CustomBaseException) -> None:
 
 
 def check_all_list(
-    list_to_check: List[str], regex: str, ex: CustomBaseException
+    list_to_check: list[str], regex: str, ex: CustomBaseException
 ) -> None:
     for val in list_to_check:
         if val:
@@ -138,7 +134,7 @@ def check_all_list(
 
 
 def check_fields(
-    fields: Iterable[str], kwargs: Dict, ex: CustomBaseException
+    fields: Iterable[str], kwargs: dict, ex: CustomBaseException
 ) -> None:
     allowed_chars = (
         r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@&_$#=¡!¿"
@@ -178,9 +174,9 @@ def validate_fields_deco(fields: Iterable[str]) -> Callable:
     return wrapper
 
 
-def validate_url(url: Optional[str]) -> None:
+def validate_url(url: str | None) -> None:
     clean_url: str = url if url is not None else ""
-    encoded_chars_whitelist: List[str] = ["%20"]
+    encoded_chars_whitelist: list[str] = ["%20"]
     for encoded_char in encoded_chars_whitelist:
         clean_url = clean_url.replace(encoded_char, "")
 
@@ -192,12 +188,9 @@ def validate_url(url: Optional[str]) -> None:
         )
 
 
-def check_url(
-    url: Optional[str],
-    ex: CustomBaseException,
-) -> None:
+def check_url(url: str | None, ex: CustomBaseException) -> None:
     clean_url: str = url if url is not None else ""
-    encoded_chars_whitelist: List[str] = ["%20"]
+    encoded_chars_whitelist: list[str] = ["%20"]
     for encoded_char in encoded_chars_whitelist:
         clean_url = clean_url.replace(encoded_char, "")
 
@@ -294,7 +287,7 @@ def validate_file_name_deco(field: str) -> Callable:
 
 
 def validate_file_exists(
-    file_name: str, group_files: Optional[list[GroupFile]]
+    file_name: str, group_files: list[GroupFile] | None
 ) -> None:
     """Verify that file name is not already in group files."""
     if group_files:
@@ -378,7 +371,7 @@ def validate_field_length_deco(
             field_content = get_attr_value(
                 field=field, kwargs=kwargs, obj_type=str
             )
-            if isinstance(field_content, List):
+            if isinstance(field_content, list):
                 for val in field_content:
                     check_field_length(
                         val, limit, is_greater_than_limit, InvalidFieldLength()
@@ -622,7 +615,7 @@ def validate_markdown_deco(text_field: str) -> Callable:
 
 
 def validate_missing_severity_field_names(
-    field_names: Set[str], css_version: str
+    field_names: set[str], css_version: str
 ) -> None:
     if css_version == FindingCvssVersion.V20.value:
         missing_field_names = {
@@ -813,7 +806,7 @@ def validate_finding_title_change_policy(
     return True
 
 
-def get_attr_value(field: str, kwargs: dict, obj_type: Type[T]) -> T:
+def get_attr_value(field: str, kwargs: dict, obj_type: type[T]) -> T:
     if "." not in field:
         return cast(T, kwargs.get(field))
     obj_name, obj_attr = field.split(".", 1)
@@ -878,7 +871,7 @@ def validate_finding_title_change_policy_deco(
 
 
 def validate_no_duplicate_drafts(
-    new_title: str, drafts: Tuple[Finding, ...], findings: Tuple[Finding, ...]
+    new_title: str, drafts: tuple[Finding, ...], findings: tuple[Finding, ...]
 ) -> bool:
     """Checks for new draft proposals that are already present in the group,
     returning `True` if there are no duplicates"""
@@ -921,9 +914,7 @@ def validate_no_duplicate_drafts_deco(
     return wrapper
 
 
-def check_and_set_min_time_to_remediate(
-    mttr: Optional[str],
-) -> Optional[int]:
+def check_and_set_min_time_to_remediate(mttr: str | None) -> int | None:
     """Makes sure that min_time_to_remediate is either None or a positive
     number and returns it as a Decimal"""
     try:
@@ -940,7 +931,7 @@ def validate_sanitized_csv_input(*fields: str) -> None:
     """Checks for the presence of any character that could be interpreted as
     the start of a formula by a spreadsheet editor according to
     https://owasp.org/www-community/attacks/CSV_Injection"""
-    forbidden_characters: Tuple[str, ...] = (
+    forbidden_characters: tuple[str, ...] = (
         "-",
         "=",
         "+",
@@ -950,7 +941,7 @@ def validate_sanitized_csv_input(*fields: str) -> None:
         "\n",
         "\\",
     )
-    separators: Tuple[str, ...] = ('"', "'", ",", ";")
+    separators: tuple[str, ...] = ('"', "'", ",", ";")
     fields_union = [field.split() for field in fields]
     fields_flat = list(itertools.chain(*fields_union))
     for field in fields_flat:
@@ -959,7 +950,7 @@ def validate_sanitized_csv_input(*fields: str) -> None:
             if re.match(re.escape(character), field):
                 raise UnsanitizedInputFound()
             # check for field separator and quotes
-            char_locations: List[int] = [
+            char_locations: list[int] = [
                 match.start()
                 for match in re.finditer((re.escape(character)), field)
             ]
@@ -971,7 +962,7 @@ def validate_sanitized_csv_input(*fields: str) -> None:
                     raise UnsanitizedInputFound()
 
 
-def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
+def validate_sanitized_csv_input_deco(field_names: list[str]) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> None:
@@ -979,7 +970,7 @@ def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
             interpreted as the start of a formula by a spreadsheet editor
             according to
             https://owasp.org/www-community/attacks/CSV_Injection"""
-            forbidden_characters: Tuple[str, ...] = (
+            forbidden_characters: tuple[str, ...] = (
                 "-",
                 "=",
                 "+",
@@ -989,7 +980,7 @@ def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
                 "\n",
                 "\\",
             )
-            separators: Tuple[str, ...] = ('"', "'", ",", ";")
+            separators: tuple[str, ...] = ('"', "'", ",", ";")
             fields_to_validate = [
                 str(kwargs.get(field))
                 if "." not in field
@@ -1008,7 +999,7 @@ def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
                     if re.match(re.escape(character), field):
                         raise UnsanitizedInputFound()
                     # check for field separator and quotes
-                    char_locations: List[int] = [
+                    char_locations: list[int] = [
                         match.start()
                         for match in re.finditer((re.escape(character)), field)
                     ]

@@ -29,7 +29,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -40,9 +39,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_id: str,
     event_type: str,
     description: str,
-    root_id: Optional[str],
-    reason: Optional[str] = None,
-    other: Optional[str] = None,
+    root_id: str | None,
+    reason: str | None = None,
+    other: str | None = None,
     is_closed: bool = False,
     reminder_notification: bool = False,
     report_date: date,
@@ -97,7 +96,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         if root_id
         else None
     )
-    root_url: Optional[str] = (
+    root_url: str | None = (
         root.state.url if root and isinstance(root, GitRoot) else None
     )
 

@@ -7,15 +7,12 @@ from newutils.deprecations.types import (
 from operator import (
     attrgetter,
 )
-from typing import (
-    Optional,
-)
 
 
 def filter_api_deprecation_list(
     deprecations: list[ApiDeprecation],
     end: datetime,
-    start: Optional[datetime],
+    start: datetime | None,
 ) -> list[ApiDeprecation]:
     """Filters API deprecations between the start and end dates (inclusive)"""
     filtered_deprs: list[ApiDeprecation] = []
@@ -38,7 +35,7 @@ def filter_api_deprecation_list(
 def filter_api_deprecation_dict(
     depr_dict: dict[str, list[ApiDeprecation]],
     end: datetime,
-    start: Optional[datetime],
+    start: datetime | None,
 ) -> dict[str, list[ApiDeprecation]]:
     """Filters API deprecation dicts between the start and end dates
     (inclusive)"""

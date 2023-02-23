@@ -8,15 +8,11 @@ from dynamodb.types import (
     Table,
 )
 import json
-from typing import (
-    Dict,
-    Optional,
-)
 
 
 def get_cursor(
-    index: Optional[Index],
-    item: Optional[Item],
+    index: Index | None,
+    item: Item | None,
     table: Table,
 ) -> str:
     cursor_obj = None
@@ -39,8 +35,8 @@ def get_cursor(
 
 
 def get_key_from_cursor(
-    cursor: str, index: Optional[Index], table: Table
-) -> Dict[str, str]:
+    cursor: str, index: Index | None, table: Table
+) -> dict[str, str]:
     cursor_obj = json.loads(base64.decodebytes(cursor.encode()))
     key = {
         table.primary_key.partition_key: cursor_obj[

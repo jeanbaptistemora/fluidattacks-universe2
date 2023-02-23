@@ -47,7 +47,6 @@ from simplejson.errors import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -76,7 +75,7 @@ async def get_recipient_first_name(
     loaders: Dataloaders,
     email: str,
     is_access_granted: bool = False,
-) -> Optional[str]:
+) -> str | None:
     first_name = email.split("@")[0]
     stakeholder = await loaders.stakeholder.load(email)
     is_constant: bool = email.lower() in {
@@ -108,7 +107,7 @@ async def get_recipients(
     *,
     loaders: Dataloaders,
     email_to: str,
-    email_cc: Optional[list[str]],
+    email_cc: list[str] | None,
     first_name: str,
     is_access_granted: bool,
 ) -> list[dict[str, Any]]:
@@ -130,7 +129,7 @@ async def send_mail_async(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     email_to: str,
-    email_cc: Optional[list[str]] = None,
+    email_cc: list[str] | None = None,
     context: dict[str, Any],
     tags: list[str],
     subject: str,
@@ -198,10 +197,10 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
     email_to: list[str],
     subject: str,
     template_name: str,
-    context: Optional[dict[str, Any]] = None,
-    email_cc: Optional[list[str]] = None,
+    context: dict[str, Any] | None = None,
+    email_cc: list[str] | None = None,
     is_access_granted: bool = False,
-    tags: Optional[list[str]] = None,
+    tags: list[str] | None = None,
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",") if FI_TEST_PROJECTS else []
     context = context if context else {}

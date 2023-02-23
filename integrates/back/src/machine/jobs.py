@@ -56,12 +56,7 @@ from settings.logger import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
-    Union,
 )
 
 
@@ -72,8 +67,8 @@ def _json_load(path: str) -> Any:
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
-FINDINGS: Dict[str, Dict[str, Dict[str, str]]] = _json_load(
+QUEUES: dict[str, dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
+FINDINGS: dict[str, dict[str, dict[str, str]]] = _json_load(
     os.environ["MACHINE_FINDINGS"]
 )
 
@@ -96,7 +91,7 @@ def get_queue_for_finding(finding_code: str, urgent: bool = False) -> str:
     raise NotImplementedError(f"{finding_code} does not belong to a queue")
 
 
-def get_finding_code_from_title(finding_title: str) -> Optional[str]:
+def get_finding_code_from_title(finding_title: str) -> str | None:
     for finding_code in FINDINGS:
         for locale in FINDINGS[finding_code]:
             if finding_title == FINDINGS[finding_code][locale]["title"]:
@@ -105,11 +100,11 @@ def get_finding_code_from_title(finding_title: str) -> Optional[str]:
 
 
 def _get_job_execution_time(
-    job_execution_time: Optional[datetime],
+    job_execution_time: datetime | None,
     action_time: str,
-    batch_jobs_dict: Dict[str, Any],
+    batch_jobs_dict: dict[str, Any],
     job_execution: RootMachineExecution,
-) -> Optional[int]:
+) -> int | None:
     if job_execution_time:
         return int(job_execution_time.timestamp() * 1000)
     if job_execution.status:
@@ -122,9 +117,9 @@ def _get_job_execution_time(
 async def list_(
     *,
     finding_code: str,
-    group_roots: Dict[str, str],
-) -> List[Job]:
-    jobs_from_db: Tuple[RootMachineExecution, ...] = tuple(
+    group_roots: dict[str, str],
+) -> list[Job]:
+    jobs_from_db: tuple[RootMachineExecution, ...] = tuple(
         execution
         for execution in collapse(
             (
@@ -201,11 +196,11 @@ async def _queue_sync_git_roots(
     loaders: Dataloaders,
     user_email: str,
     group_name: str,
-    roots: Optional[Tuple[GitRoot, ...]] = None,
+    roots: tuple[GitRoot, ...] | None = None,
     check_existing_jobs: bool = True,
     force: bool = False,
     queue_with_vpn: bool = False,
-) -> Optional[PutActionResult]:
+) -> PutActionResult | None:
 
     from roots import (  # pylint: disable=import-outside-toplevel
         domain as roots_domain,
@@ -238,20 +233,20 @@ async def _queue_sync_git_roots(
 async def queue_job_new(  # pylint: disable=too-many-arguments
     group_name: str,
     dataloaders: Dataloaders,
-    finding_codes: Union[Tuple[str, ...], List[str]],
+    finding_codes: tuple[str, ...] | list[str],
     queue: SkimsBatchQueue = SkimsBatchQueue.SMALL,
-    roots: Optional[Union[Tuple[str, ...], List[str]]] = None,
+    roots: tuple[str, ...] | list[str] | None = None,
     clone_before: bool = False,
     **kwargs: Any,
-) -> Optional[PutActionResult]:
-    queue_result: Optional[PutActionResult] = None
+) -> PutActionResult | None:
+    queue_result: PutActionResult | None = None
     group: Group = await dataloaders.group.load(group_name)
     if (
         group.state.has_machine
         and group.state.managed != GroupManaged.UNDER_REVIEW
     ):
         group_roots = await dataloaders.group_roots.load(group_name)
-        group_git_roots: List[GitRoot] = [
+        group_git_roots: list[GitRoot] = [
             root
             for root in group_roots
             if isinstance(root, GitRoot)

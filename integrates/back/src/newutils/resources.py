@@ -4,9 +4,6 @@ from newutils import (
 from s3 import (
     operations as s3_ops,
 )
-from typing import (
-    Dict,
-)
 
 
 async def download_file(file_info: str, group_name: str) -> str:
@@ -21,7 +18,7 @@ async def download_file(file_info: str, group_name: str) -> str:
 @validations.validate_file_name_deco("file_info")
 async def upload_file(
     file_info: str, group_name: str
-) -> Dict[str, Dict[str, str]]:
+) -> dict[str, dict[str, str]]:
     group_name = group_name.lower()
     file_url = f"resources/{group_name}/{file_info}"
     return await s3_ops.sing_upload_url(

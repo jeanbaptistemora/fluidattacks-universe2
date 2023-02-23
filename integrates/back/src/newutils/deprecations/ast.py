@@ -27,10 +27,6 @@ from newutils.deprecations.types import (
 from re import (
     search,
 )
-from typing import (
-    Optional,
-    Union,
-)
 
 
 def get_due_date(definition: str, field: str, reason: str) -> datetime:
@@ -49,7 +45,7 @@ def get_due_date(definition: str, field: str, reason: str) -> datetime:
     )
 
 
-def _get_deprecation_reason(directives: list[DirectiveNode]) -> Optional[str]:
+def _get_deprecation_reason(directives: list[DirectiveNode]) -> str | None:
     return next(
         (
             directive.arguments[0].value.value  # type: ignore
@@ -61,7 +57,7 @@ def _get_deprecation_reason(directives: list[DirectiveNode]) -> Optional[str]:
 
 
 def _search_directives(
-    definition: Union[TypeDefinitionNode, DirectiveDefinitionNode],
+    definition: TypeDefinitionNode | DirectiveDefinitionNode,
     deprecations: dict[str, list[ApiDeprecation]],
     has_arguments: bool,
 ) -> dict[str, list[ApiDeprecation]]:
@@ -145,7 +141,7 @@ def _parse_schema_deprecations(
 
 
 def get_deprecations_by_period(
-    sdl_content: str, end: datetime, start: Optional[datetime]
+    sdl_content: str, end: datetime, start: datetime | None
 ) -> dict[str, list[ApiDeprecation]]:
     """
     Gets the deprecations found in the schema within a time period

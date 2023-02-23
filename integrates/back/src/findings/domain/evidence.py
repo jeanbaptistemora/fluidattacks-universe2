@@ -58,7 +58,6 @@ from starlette.datastructures import (
 )
 from typing import (
     cast,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -116,7 +115,7 @@ async def remove_evidence(
     loaders: Dataloaders, evidence_id: str, finding_id: str
 ) -> None:
     finding = await get_finding(loaders, finding_id)
-    evidence: Optional[FindingEvidence] = getattr(
+    evidence: FindingEvidence | None = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
     if not evidence:
@@ -182,8 +181,8 @@ async def update_evidence(  # pylint: disable = too-many-arguments
     finding_id: str,
     evidence_id: str,
     file_object: UploadFile,
-    description: Optional[str] = None,
-    validate_name: Optional[bool] = False,
+    description: str | None = None,
+    validate_name: bool | None = False,
 ) -> None:
     finding = await get_finding(loaders, finding_id)
     await validate_evidence(
@@ -212,7 +211,7 @@ async def update_evidence(  # pylint: disable = too-many-arguments
     await findings_storage.save_evidence(
         file_object, f"{finding.group_name}/{finding.id}/{filename}"
     )
-    evidence: Optional[FindingEvidence] = getattr(
+    evidence: FindingEvidence | None = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
     if evidence:
@@ -254,7 +253,7 @@ async def update_evidence_description(
     loaders: Dataloaders, finding_id: str, evidence_id: str, description: str
 ) -> None:
     finding = await get_finding(loaders, finding_id)
-    evidence: Optional[FindingEvidence] = getattr(
+    evidence: FindingEvidence | None = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
     if not evidence:
@@ -276,7 +275,7 @@ async def validate_evidence(
     file: UploadFile,
     loaders: Dataloaders,
     finding: Finding,
-    validate_name: Optional[bool] = False,
+    validate_name: bool | None = False,
 ) -> bool:
     mib = 1048576
     success = False

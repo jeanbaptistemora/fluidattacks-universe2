@@ -23,7 +23,6 @@ from mailer.utils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -85,9 +84,9 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     finding_id: str,
     finding_title: str,
     group_name: str,
-    justification: Optional[str],
+    justification: str | None,
     managers_email: list[str],
-    modified_by: Optional[str],
+    modified_by: str | None,
     modified_date: datetime,
     location: str,
     email_to: list[str],

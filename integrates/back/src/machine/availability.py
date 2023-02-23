@@ -23,7 +23,6 @@ from newutils.env import (
 import os
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -32,7 +31,7 @@ def _json_load(path: str) -> Any:
         return json.load(file)
 
 
-QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
+QUEUES: dict[str, dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 
 
 class AvailabilityEnum(str, Enum):
@@ -80,7 +79,7 @@ def operation_can_be_executed(context: Any, finding_title: str) -> bool:
     return True
 
 
-def get_available_queues() -> Dict[str, Dict[str, str]]:
+def get_available_queues() -> dict[str, dict[str, str]]:
     return {
         queue: data
         for queue, data in QUEUES.items()

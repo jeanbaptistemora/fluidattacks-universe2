@@ -4,11 +4,10 @@ from boto3.dynamodb.conditions import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
-def get_filter_expression(filters: dict[str, Any]) -> Optional[ConditionBase]:
+def get_filter_expression(filters: dict[str, Any]) -> ConditionBase | None:
     """Returns a filter expression from a key-value input"""
     filter_expression = None
 

@@ -35,7 +35,6 @@ from starlette.datastructures import (
 import tempfile
 from typing import (
     Any,
-    Union,
 )
 
 
@@ -49,7 +48,7 @@ async def save_log_execution(file_object: object, file_name: str) -> None:
 async def add_forces_execution(
     *,
     group_name: str,
-    log: Union[UploadFile, None] = None,
+    log: UploadFile | None = None,
     **execution_attributes: Any,
 ) -> None:
     orgs_domain.validate_min_breaking_severity(

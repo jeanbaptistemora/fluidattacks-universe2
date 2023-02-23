@@ -130,8 +130,6 @@ from time import (
 )
 from typing import (
     Any,
-    Optional,
-    Union,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -198,11 +196,11 @@ async def add_event(
     loaders: Dataloaders,
     hacker_email: str,
     group_name: str,
-    file: Optional[UploadFile] = None,
-    image: Optional[UploadFile] = None,
+    file: UploadFile | None = None,
+    image: UploadFile | None = None,
     **kwargs: Any,
 ) -> str:
-    root_id: Optional[str] = kwargs.get("root_id")
+    root_id: str | None = kwargs.get("root_id")
     group: Group = await loaders.group.load(group_name)
     organization = await get_organization(loaders, group.organization_id)
     if root_id:
@@ -317,7 +315,7 @@ async def get_evidence_link(
 
 async def get_solving_state(
     loaders: Dataloaders, event_id: str
-) -> Optional[EventState]:
+) -> EventState | None:
     historic_states = await loaders.event_historic_state.load(event_id)
     for state in sorted(
         historic_states,
@@ -331,7 +329,7 @@ async def get_solving_state(
 
 async def get_solving_date(
     loaders: Dataloaders, event_id: str
-) -> Optional[datetime]:
+) -> datetime | None:
     """Returns the date of the last closing state."""
     last_closing_state = await get_solving_state(loaders, event_id)
 
@@ -393,7 +391,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     event_id: str,
     hacker_email: str,
     reason: EventSolutionReason,
-    other: Optional[str],
+    other: str | None,
 ) -> tuple[dict[str, set[str]], dict[str, list[str]]]:
     """Solves an Event, can either return two empty dicts or
     the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
@@ -638,7 +636,7 @@ async def update_event(
 async def replace_different_format(
     *, event: Event, evidence_id: EventEvidenceId, extension: str
 ) -> None:
-    evidence: Optional[EventEvidence] = getattr(
+    evidence: EventEvidence | None = getattr(
         event.evidences, str(evidence_id.value).lower()
     )
     if evidence:
@@ -723,13 +721,13 @@ async def update_solving_reason(
     event_id: str,
     stakeholder_email: str,
     reason: EventSolutionReason,
-    other: Optional[str],
+    other: str | None,
 ) -> None:
     event = await get_event(loaders, event_id)
     group_name = event.group_name
     if reason == EventSolutionReason.OTHER and not other:
         raise InvalidParameter("other")
-    other_reason: Optional[str] = (
+    other_reason: str | None = (
         other if reason == EventSolutionReason.OTHER else None
     )
 
@@ -801,7 +799,7 @@ async def request_vulnerabilities_hold(
     user_info: dict[str, str],
     vulnerability_ids: set[str],
 ) -> None:
-    vulnerabilities: Union[tuple[Vulnerability, ...], list[Vulnerability]]
+    vulnerabilities: tuple[Vulnerability, ...] | list[Vulnerability]
     justification: str = (
         f"These reattacks have been put on hold because of Event #{event_id}"
     )

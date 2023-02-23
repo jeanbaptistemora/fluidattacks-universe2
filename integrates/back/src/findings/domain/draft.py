@@ -62,7 +62,6 @@ from newutils.validations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 import uuid
 from vulnerabilities import (
@@ -195,7 +194,7 @@ async def reject_draft(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
     reasons: set[DraftRejectionReason],
-    other: Optional[str],
+    other: str | None,
     reviewer_email: str,
     source: Source,
 ) -> DraftRejection:

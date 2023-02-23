@@ -34,15 +34,12 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
 )
 import yaml
 
 
 async def append_records_to_file(
-    records: List[Dict[str, str]], new_file: UploadFile
+    records: list[dict[str, str]], new_file: UploadFile
 ) -> UploadFile:
     header = records[0].keys()
     values = [list(v) for v in [record.values() for record in records]]
@@ -74,7 +71,7 @@ async def append_records_to_file(
     return uploaded_file
 
 
-async def get_vulns_file() -> Dict:
+async def get_vulns_file() -> dict:
     """Parses the vulns info yaml from the repo into a dictionary."""
     async with aiofiles.open(
         FI_INTEGRATES_CRITERIA_VULNERABILITIES, encoding="utf-8"
@@ -82,7 +79,7 @@ async def get_vulns_file() -> Dict:
         return yaml.safe_load(await handler.read())
 
 
-async def get_requirements_file() -> Dict[str, Any]:
+async def get_requirements_file() -> dict[str, Any]:
     """Parses the requirements info yaml from the repo into a dictionary."""
     async with aiofiles.open(
         FI_INTEGRATES_CRITERIA_REQUIREMENTS, encoding="utf-8"
@@ -91,7 +88,7 @@ async def get_requirements_file() -> Dict[str, Any]:
 
 
 async def is_valid_finding_title(
-    loaders: Dataloaders, title: str, vulns_info: Optional[Dict] = None
+    loaders: Dataloaders, title: str, vulns_info: dict | None = None
 ) -> bool:
     """
     Validates that new Draft and Finding titles conform to the standard
@@ -141,8 +138,8 @@ def get_updated_evidence_date(
 
 
 def format_evidence(
-    finding: Finding, evidence: Optional[FindingEvidence]
-) -> Dict[str, Optional[str]]:
+    finding: Finding, evidence: FindingEvidence | None
+) -> dict[str, str | None]:
     return (
         {
             "date": None,
@@ -162,7 +159,7 @@ def format_evidence(
 
 def get_formatted_evidence(
     parent: Finding,
-) -> Dict[str, Dict[str, Optional[str]]]:
+) -> dict[str, dict[str, str | None]]:
     return {
         "animation": format_evidence(parent, parent.evidences.animation),
         "evidence_1": format_evidence(parent, parent.evidences.evidence1),

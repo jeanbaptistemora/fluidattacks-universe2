@@ -3,10 +3,9 @@ from db_model.enums import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
-MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
+MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
     abandoned_trial=dict(
         email_preferences=Notification.GROUP_INFORMATION,
         exclude_trial=False,

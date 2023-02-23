@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from custom_exceptions import (
     InvalidParameter,
 )
@@ -10,7 +13,6 @@ from newutils.validations import (
 )
 from typing import (
     Any,
-    Callable,
 )
 
 

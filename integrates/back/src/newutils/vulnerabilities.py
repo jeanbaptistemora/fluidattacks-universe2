@@ -2,6 +2,12 @@
 from . import (
     datetime as datetime_utils,
 )
+from collections import (
+    Counter,
+)
+from collections.abc import (
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -92,11 +98,7 @@ import re
 from typing import (
     Any,
     cast,
-    Counter,
-    Iterable,
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
@@ -261,8 +263,8 @@ def _format_tool_item(
 
 async def format_vulnerabilities(
     group_name: str, loaders: Any, vulnerabilities: Iterable[Vulnerability]
-) -> dict[str, list[dict[str, Union[str, Item]]]]:
-    finding: dict[str, list[dict[str, Union[str, Item]]]] = {
+) -> dict[str, list[dict[str, str | Item]]]:
+    finding: dict[str, list[dict[str, str | Item]]] = {
         "ports": [],
         "lines": [],
         "inputs": [],
@@ -324,8 +326,8 @@ def format_where(
 
 def get_opening_date(
     vuln: Vulnerability,
-    min_date: Optional[datetype] = None,
-) -> Optional[datetype]:
+    min_date: datetype | None = None,
+) -> datetype | None:
     opening_date: datetype = vuln.created_date.date()
     if min_date and min_date > opening_date:
         return None
@@ -334,9 +336,9 @@ def get_opening_date(
 
 def get_closing_date(
     vulnerability: Vulnerability,
-    min_date: Optional[datetype] = None,
-) -> Optional[datetype]:
-    closing_date: Optional[datetype] = None
+    min_date: datetype | None = None,
+) -> datetype | None:
+    closing_date: datetype | None = None
     if vulnerability.state.status == VulnerabilityStateStatus.SAFE:
         closing_date = vulnerability.state.modified_date.date()
         if min_date and min_date > closing_date:
@@ -348,12 +350,12 @@ def get_closing_date(
 def get_mean_remediate_vulnerabilities_cvssf(
     vulns: tuple[Vulnerability, ...],
     finding_cvssf: dict[str, Decimal],
-    min_date: Optional[datetype] = None,
+    min_date: datetype | None = None,
 ) -> Decimal:
     total_days: Decimal = Decimal("0.0")
     open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
     filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
-    closed_vuln_dates: list[tuple[Optional[datetype], Decimal]] = [
+    closed_vuln_dates: list[tuple[datetype | None, Decimal]] = [
         (
             get_closing_date(vuln, min_date),
             finding_cvssf[vuln.finding_id],
@@ -392,7 +394,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 def get_mean_remediate_vulnerabilities(
     vulns: tuple[Vulnerability, ...],
-    min_date: Optional[datetype] = None,
+    min_date: datetype | None = None,
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
     total_vuln = 0
@@ -833,7 +835,7 @@ def format_vulnerability_treatment_item(
     return item
 
 
-def get_advisories(where: str) -> Optional[str]:
+def get_advisories(where: str) -> str | None:
     result = re.search(r"(?P<name>(\(.*\))?(\s+\[.*\]))", where)
     if result:
         return result.group("name")
@@ -852,7 +854,7 @@ def get_missing_dependency(where: str) -> str:
     return ""
 
 
-def ignore_advisories(where: Optional[str]) -> str:
+def ignore_advisories(where: str | None) -> str:
     if where is not None:
         where = re.sub(r"(\s+\(.*\))?(\s+\[.*\])?", "", where)
     return str(where)
@@ -871,9 +873,9 @@ async def validate_vulnerability_in_toe_lines(
     where: str,
     index: int,
     raises: bool = True,
-) -> Optional[ToeLines]:
+) -> ToeLines | None:
     if vulnerability.root_id:
-        toe_lines: Optional[ToeLines] = await loaders.toe_lines.load(
+        toe_lines: ToeLines | None = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=where,
                 group_name=vulnerability.group_name,
@@ -903,7 +905,7 @@ async def validate_vulnerability_in_toe_inputs(
     where: str,
     index: int,
     raises: bool = True,
-) -> Optional[ToeInput]:
+) -> ToeInput | None:
     if vulnerability.root_id:
         specific = html.unescape(vulnerability.state.specific)
         if match_specific := re.match(
@@ -911,7 +913,7 @@ async def validate_vulnerability_in_toe_inputs(
         ):
             specific = match_specific.groupdict()["specific"]
 
-        toe_input: Optional[ToeInput] = await loaders.toe_input.load(
+        toe_input: ToeInput | None = await loaders.toe_input.load(
             ToeInputRequest(
                 component=where,
                 entry_point="" if is_machine_vuln(vulnerability) else specific,
@@ -938,9 +940,9 @@ async def validate_vulnerability_in_toe_ports(
     where: str,
     index: int,
     raises: bool = True,
-) -> Optional[ToePort]:
+) -> ToePort | None:
     if vulnerability.root_id:
-        toe_port: Optional[ToePort] = await loaders.toe_port.load(
+        toe_port: ToePort | None = await loaders.toe_port.load(
             ToePortRequest(
                 address=where,
                 port=vulnerability.state.specific,
@@ -965,14 +967,14 @@ async def validate_vulnerability_in_toe(
     vulnerability: Vulnerability,
     index: int,
     raises: bool = True,
-) -> Optional[Vulnerability]:
+) -> Vulnerability | None:
     where = html.unescape(vulnerability.state.where)
     # There are cases, like SCA vulns, where the `where` attribute
     # has additional information `filename (package) [CVE]`
     where = ignore_advisories(where)
-    toe_lines: Optional[ToeLines] = None
-    toe_input: Optional[ToeInput] = None
-    toe_port: Optional[ToePort] = None
+    toe_lines: ToeLines | None = None
+    toe_input: ToeInput | None = None
+    toe_port: ToePort | None = None
 
     if vulnerability.type == VulnerabilityType.LINES:
         toe_lines = await validate_vulnerability_in_toe_lines(

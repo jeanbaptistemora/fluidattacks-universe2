@@ -9,24 +9,23 @@ from db_model.findings.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class FindingDescriptionToUpdate(NamedTuple):
-    attack_vector_description: Optional[str] = None
-    description: Optional[str] = None
-    recommendation: Optional[str] = None
-    sorts: Optional[FindingSorts] = None
-    threat: Optional[str] = None
-    title: Optional[str] = None
+    attack_vector_description: str | None = None
+    description: str | None = None
+    recommendation: str | None = None
+    sorts: FindingSorts | None = None
+    threat: str | None = None
+    title: str | None = None
 
 
 class FindingDraftToAdd(NamedTuple):
     attack_vector_description: str
     description: str
     hacker_email: str
-    min_time_to_remediate: Optional[int]
+    min_time_to_remediate: int | None
     recommendation: str
     requirements: str
     severity: Finding31Severity
@@ -37,7 +36,7 @@ class FindingDraftToAdd(NamedTuple):
 class FindingAttributesToAdd(NamedTuple):
     attack_vector_description: str
     description: str
-    min_time_to_remediate: Optional[int]
+    min_time_to_remediate: int | None
     recommendation: str
     severity: Finding31Severity
     source: Source

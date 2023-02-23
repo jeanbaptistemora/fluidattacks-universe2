@@ -19,8 +19,6 @@ from dynamodb.resource import (
 import logging
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
 )
 
@@ -47,7 +45,7 @@ async def delete_item(table: str, delete_attrs: DynamoDelete) -> bool:
     return success
 
 
-async def put_item(table: str, item: Dict[str, Any]) -> bool:
+async def put_item(table: str, item: dict[str, Any]) -> bool:
     success: bool = False
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)
@@ -56,8 +54,8 @@ async def put_item(table: str, item: Dict[str, Any]) -> bool:
     return success
 
 
-async def query(table: str, query_attrs: dict[str, Any]) -> List[Any]:
-    response_items: List[Any]
+async def query(table: str, query_attrs: dict[str, Any]) -> list[Any]:
+    response_items: list[Any]
     try:
         dynamodb_resource = await get_resource()
         dynamo_table = await dynamodb_resource.Table(table)
@@ -77,8 +75,8 @@ async def query(table: str, query_attrs: dict[str, Any]) -> List[Any]:
     return response_items
 
 
-async def get_item(table: str, query_attrs: dict[str, Any]) -> Dict[str, Any]:
-    response_items: Dict[str, Any]
+async def get_item(table: str, query_attrs: dict[str, Any]) -> dict[str, Any]:
+    response_items: dict[str, Any]
     try:
         dynamodb_resource = await get_resource()
         dynamo_table = await dynamodb_resource.Table(table)
@@ -89,8 +87,8 @@ async def get_item(table: str, query_attrs: dict[str, Any]) -> Dict[str, Any]:
     return response_items
 
 
-async def scan(table: str, scan_attrs: dict[str, Any]) -> List[Any]:
-    response_items: List[Any]
+async def scan(table: str, scan_attrs: dict[str, Any]) -> list[Any]:
+    response_items: list[Any]
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)
     response = await dynamo_table.scan(**scan_attrs)
@@ -119,7 +117,7 @@ def serialize(object_: Any) -> Any:
     return object_
 
 
-async def update_item(table: str, update_attrs: Dict[str, Any]) -> bool:
+async def update_item(table: str, update_attrs: dict[str, Any]) -> bool:
     success: bool = False
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)

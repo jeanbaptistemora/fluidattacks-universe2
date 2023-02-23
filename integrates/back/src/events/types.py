@@ -4,11 +4,10 @@ from db_model.events.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class EventAttributesToUpdate(NamedTuple):
-    event_type: Optional[EventType] = None
-    other_solving_reason: Optional[str] = None
-    solving_reason: Optional[EventSolutionReason] = None
+    event_type: EventType | None = None
+    other_solving_reason: str | None = None
+    solving_reason: EventSolutionReason | None = None

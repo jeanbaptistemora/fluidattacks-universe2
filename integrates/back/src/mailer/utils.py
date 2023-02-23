@@ -17,9 +17,6 @@ from group_access.domain import (
 from mailer.preferences import (
     MAIL_PREFERENCES,
 )
-from typing import (
-    Optional,
-)
 
 
 async def get_available_notifications(
@@ -75,7 +72,7 @@ async def get_org_rol(loaders: Dataloaders, email: str, org_id: str) -> str:
 
 async def get_organization_country(
     loaders: Dataloaders, group_name: str
-) -> Optional[str]:
+) -> str | None:
     group: Group = await loaders.group.load(group_name)
     organization = await loaders.organization.load(group.organization_id)
     if not organization:

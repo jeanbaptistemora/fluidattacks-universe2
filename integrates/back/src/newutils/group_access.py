@@ -4,13 +4,10 @@ from db_model.group_access.enums import (
 from db_model.group_access.types import (
     GroupInvitation,
 )
-from typing import (
-    Optional,
-)
 
 
 def format_invitation_state(
-    invitation: Optional[GroupInvitation], is_registered: bool
+    invitation: GroupInvitation | None, is_registered: bool
 ) -> GroupInvitiationState:
     if invitation and not invitation.is_used:
         return GroupInvitiationState.PENDING

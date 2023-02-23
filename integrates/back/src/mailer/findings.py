@@ -58,7 +58,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -333,7 +332,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     state: MailVulnerabilityReportState = (
         MailVulnerabilityReportState.REPORTED
     ),
-    remaining_exposure: Optional[int] = None,
+    remaining_exposure: int | None = None,
 ) -> None:
     group_findings = await loaders.group_findings.load(group_name)
     org_name = await get_organization_name(loaders, group_name)
@@ -415,7 +414,7 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
     finding: Finding,
     stakeholder_email: str,
     rejection_reasons: set[VulnerabilityStateReason],
-    other_reason: Optional[str],
+    other_reason: str | None,
     vulnerabilities_properties: dict[str, dict[str, dict[str, str]]],
     severity_score: Decimal,
     severity_level: str,

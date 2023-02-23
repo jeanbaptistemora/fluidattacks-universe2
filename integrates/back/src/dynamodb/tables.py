@@ -6,12 +6,10 @@ from dynamodb.types import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 
-def _load_facets(facets: Tuple[Dict[str, Any], ...]) -> Dict[str, Facet]:
+def _load_facets(facets: tuple[dict[str, Any], ...]) -> dict[str, Facet]:
     return {
         facet["FacetName"]: Facet(
             attrs=tuple(facet.get("NonKeyAttributes", [])),
@@ -22,14 +20,14 @@ def _load_facets(facets: Tuple[Dict[str, Any], ...]) -> Dict[str, Facet]:
     }
 
 
-def _get_key(key_attrs: Dict[str, Any]) -> PrimaryKey:
+def _get_key(key_attrs: dict[str, Any]) -> PrimaryKey:
     return PrimaryKey(
         partition_key=key_attrs["PartitionKey"]["AttributeName"],
         sort_key=key_attrs["SortKey"]["AttributeName"],
     )
 
 
-def _load_indexes(indexes: Tuple[Dict[str, Any], ...]) -> Dict[str, Index]:
+def _load_indexes(indexes: tuple[dict[str, Any], ...]) -> dict[str, Index]:
     return {
         index["IndexName"]: Index(
             name=index["IndexName"],
@@ -39,8 +37,8 @@ def _load_indexes(indexes: Tuple[Dict[str, Any], ...]) -> Dict[str, Index]:
     }
 
 
-def load_tables(model: Dict[str, Any]) -> Tuple[Table, ...]:
-    tables: Tuple[Dict[str, Any], ...] = model["DataModel"]
+def load_tables(model: dict[str, Any]) -> tuple[Table, ...]:
+    tables: tuple[dict[str, Any], ...] = model["DataModel"]
 
     return tuple(
         Table(

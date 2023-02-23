@@ -7,6 +7,9 @@ import authz
 from botocore.exceptions import (
     ClientError,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_ENVIRONMENT,
 )
@@ -117,10 +120,7 @@ from time import (
 )
 from typing import (
     Any,
-    Iterable,
-    Optional,
     TypedDict,
-    Union,
 )
 import uuid
 from vulnerabilities import (
@@ -403,7 +403,7 @@ async def get_finding_open_age(loaders: Dataloaders, finding_id: str) -> int:
 async def get_last_closed_vulnerability_info(
     loaders: Dataloaders,
     findings: tuple[Finding, ...],
-) -> tuple[int, Optional[Vulnerability]]:
+) -> tuple[int, Vulnerability | None]:
     """Get days since the last closed vulnerability and its metadata."""
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
@@ -421,7 +421,7 @@ async def get_last_closed_vulnerability_info(
         current_date, date_index = max(
             (v, i) for i, v in enumerate(closing_vuln_dates) if v is not None
         )
-        last_closed_vuln: Optional[Vulnerability] = closed_vulns[date_index]
+        last_closed_vuln: Vulnerability | None = closed_vulns[date_index]
         last_closed_days = (
             datetime_utils.get_now().date() - current_date
         ).days
@@ -433,7 +433,7 @@ async def get_last_closed_vulnerability_info(
 
 async def get_max_open_severity(
     loaders: Dataloaders, findings: tuple[Finding, ...]
-) -> tuple[Decimal, Optional[Finding]]:
+) -> tuple[Decimal, Finding | None]:
     open_vulns = await collect(
         get_open_vulnerabilities(loaders, finding.id) for finding in findings
     )
@@ -451,7 +451,7 @@ async def get_max_open_severity(
             (v, i) for i, v in enumerate(total_severity)
         )
         max_severity = Decimal(severity).quantize(Decimal("0.1"))
-        max_severity_finding: Optional[Finding] = open_findings[severity_index]
+        max_severity_finding: Finding | None = open_findings[severity_index]
     else:
         max_severity = Decimal(0).quantize(Decimal("0.1"))
         max_severity_finding = None
@@ -461,7 +461,7 @@ async def get_max_open_severity(
 async def get_newest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
-) -> Optional[datetime]:
+) -> datetime | None:
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     report_dates = vulns_utils.get_report_dates(
         vulns_utils.filter_released_vulns(tuple(vulns))
@@ -501,7 +501,7 @@ async def get_pending_verification_findings(
     )
 
 
-def get_report_days(report_date: Optional[datetime]) -> int:
+def get_report_days(report_date: datetime | None) -> int:
     """Gets amount of days from a report date."""
     return (
         (datetime_utils.get_utc_now() - report_date).days if report_date else 0
@@ -520,7 +520,7 @@ def get_severity_level(severity: Decimal) -> str:
 
 
 def get_severity_score(
-    severity: Union[Finding20Severity, Finding31Severity]
+    severity: Finding20Severity | Finding31Severity,
 ) -> Decimal:
     if isinstance(severity, Finding31Severity):
         base_score = cvss_utils.get_cvss3_basescore(severity)
@@ -595,7 +595,7 @@ async def get_verification_summary(
 
 
 async def _get_wheres(
-    loaders: Dataloaders, finding_id: str, limit: Optional[int] = None
+    loaders: Dataloaders, finding_id: str, limit: int | None = None
 ) -> list[str]:
     finding_vulns = await loaders.finding_vulnerabilities_released_nzr.load(
         finding_id
@@ -616,9 +616,9 @@ async def get_where(loaders: Dataloaders, finding_id: str) -> str:
 
 async def has_access_to_finding(
     loaders: Dataloaders, email: str, finding_id: str
-) -> Optional[bool]:
+) -> bool | None:
     """Verify if the user has access to a finding submission."""
-    finding: Optional[Finding] = await loaders.finding.load(finding_id)
+    finding: Finding | None = await loaders.finding.load(finding_id)
     if finding:
         return await authz.has_access_to_group(
             loaders, email, finding.group_name
@@ -905,10 +905,10 @@ async def update_description(
 async def update_severity(
     loaders: Dataloaders,
     finding_id: str,
-    severity: Union[Finding20Severity, Finding31Severity],
+    severity: Finding20Severity | Finding31Severity,
 ) -> None:
     finding = await get_finding(loaders, finding_id)
-    updated_severity: Union[Finding20Severity, Finding31Severity]
+    updated_severity: Finding20Severity | Finding31Severity
     if isinstance(severity, Finding31Severity):
         privileges = cvss_utils.calculate_privileges(
             float(severity.privileges_required),
@@ -958,11 +958,11 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
     finding_id: str,
     open_vulnerabilities: Iterable[Vulnerability],
     closed_vulnerabilities: Iterable[Vulnerability],
-    commit_hash: Optional[str] = None,
+    commit_hash: str | None = None,
     comment_type: CommentType = CommentType.COMMENT,
     email: str = "machine@fluidttacks.com",
     full_name: str = "Machine Services",
-    observations: Optional[str] = None,
+    observations: str | None = None,
 ) -> None:
     justification = (
         datetime.now(tz=timezone.utc)
@@ -1003,7 +1003,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
         finding_id,
     )
     if open_vulnerabilities or closed_vulnerabilities:
-        closed_properties: Optional[VulnsProperties] = None
+        closed_properties: VulnsProperties | None = None
         if closed_vulnerabilities:
             finding = await get_finding(loaders, finding_id)
             if finding.state.status == FindingStateStatus.APPROVED:
@@ -1056,7 +1056,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
 @validations.validate_fields_deco(["justification"])
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     *,
-    context: Optional[Any] = None,
+    context: Any | None = None,
     finding_id: str,
     user_info: dict[str, str],
     justification: str,
@@ -1064,7 +1064,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     closed_vulns_ids: list[str],
     vulns_to_close_from_file: list[Vulnerability],
     loaders: Dataloaders,
-    is_reattack_open: Optional[bool] = None,
+    is_reattack_open: bool | None = None,
     is_closing_event: bool = False,
 ) -> None:
     # All vulns must be open before verifying them
@@ -1148,7 +1148,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 async def get_oldest_no_treatment(
     loaders: Dataloaders,
     findings: tuple[Finding, ...],
-) -> Optional[dict[str, Union[int, str]]]:
+) -> dict[str, int | str] | None:
     """Get the finding with oldest "no treatment" vulnerability."""
     vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
@@ -1184,7 +1184,7 @@ async def get_oldest_no_treatment(
 async def get_oldest_open_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
-) -> Optional[datetime]:
+) -> datetime | None:
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     report_dates = vulns_utils.get_report_dates(open_vulns)
@@ -1195,7 +1195,7 @@ async def get_oldest_open_vulnerability_report_date(
 async def get_oldest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
-) -> Optional[datetime]:
+) -> datetime | None:
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     report_dates = vulns_utils.get_report_dates(
         vulns_utils.filter_released_vulns(tuple(vulns))

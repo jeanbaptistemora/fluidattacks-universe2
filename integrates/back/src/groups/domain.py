@@ -22,6 +22,10 @@ import bugsnag
 from collections import (
     Counter,
 )
+from collections.abc import (
+    Awaitable,
+    Callable,
+)
 from context import (
     BASE_URL,
     FI_ENVIRONMENT,
@@ -173,10 +177,6 @@ from trials import (
 )
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    Optional,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -295,7 +295,7 @@ async def reject_register_for_group_invitation(
 def validate_group_services_config_deco(
     has_machine_field: str,
     has_squad_field: str,
-    has_arm_field: Union[str, bool],
+    has_arm_field: str | bool,
 ) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -611,7 +611,7 @@ async def update_group(
     has_machine: bool,
     has_squad: bool,
     justification: GroupStateJustification,
-    service: Optional[GroupService],
+    service: GroupService | None,
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
 ) -> None:
@@ -831,7 +831,7 @@ async def get_mean_remediate_severity_cvssf(
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
-    min_date: Optional[date] = None,
+    min_date: date | None = None,
 ) -> Decimal:
     group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
@@ -864,7 +864,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
-    min_date: Optional[date] = None,
+    min_date: date | None = None,
 ) -> Decimal:
     group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
@@ -905,7 +905,7 @@ async def get_mean_remediate_severity(
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
-    min_date: Optional[date] = None,
+    min_date: date | None = None,
 ) -> Decimal:
     """Get mean time to remediate."""
     group_findings = await loaders.group_findings.load(group_name.lower())
@@ -932,7 +932,7 @@ async def get_mean_remediate_non_treated_severity(
     group_name: str,
     min_severity: Decimal,
     max_severity: Decimal,
-    min_date: Optional[date] = None,
+    min_date: date | None = None,
 ) -> Decimal:
     group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
@@ -1193,7 +1193,7 @@ async def remove_file(
     if not group.files:
         raise ErrorUpdatingGroup.new()
 
-    file_to_remove: Optional[GroupFile] = next(
+    file_to_remove: GroupFile | None = next(
         (file for file in group.files if file.file_name == file_name), None
     )
     if not file_to_remove:
@@ -1237,7 +1237,7 @@ async def send_mail_file_report(
     file_description: str,
     is_added: bool = False,
     modified_date: date,
-    uploaded_date: Optional[date] = None,
+    uploaded_date: date | None = None,
 ) -> None:
     stakeholders_email = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
@@ -1554,13 +1554,13 @@ async def send_mail_unsubscribed(
 )
 def assign_metadata(
     *,
-    business_id: Optional[Any],
-    business_name: Optional[Any],
+    business_id: Any | None,
+    business_name: Any | None,
     description: str,
     language: str,
     sprint_start_date: Any,
-    sprint_duration: Optional[Any],
-    tzn: Optional[Any],
+    sprint_duration: Any | None,
+    tzn: Any | None,
 ) -> GroupMetadataToUpdate:
     return GroupMetadataToUpdate(
         business_id=business_id,
@@ -1927,7 +1927,7 @@ async def get_treatment_summary(
 
 async def get_oldest_finding_date(
     loaders: Dataloaders, group_name: str
-) -> Optional[datetime]:
+) -> datetime | None:
     findings = await loaders.group_findings.load(group_name)
     findings_indicators = [
         finding.unreliable_indicators for finding in findings

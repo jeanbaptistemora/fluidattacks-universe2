@@ -4,6 +4,9 @@ from aioextensions import (
 from binaryornot.check import (
     is_binary,
 )
+from collections.abc import (
+    Iterator,
+)
 import magic
 import os
 from pathspec.patterns.gitwildmatch import (
@@ -15,23 +18,18 @@ from starlette.concurrency import (
 from starlette.datastructures import (
     UploadFile,
 )
-from typing import (
-    Iterator,
-    List,
-    Optional,
-)
 from wcmatch import (
     glob as w_glob,
 )
 
 
-def assert_file_mime(filename: str, allowed_mimes: List[str]) -> bool:
+def assert_file_mime(filename: str, allowed_mimes: list[str]) -> bool:
     mime_type = magic.from_file(filename, mime=True)
     return mime_type in allowed_mimes
 
 
 async def assert_uploaded_file_mime(
-    file_instance: UploadFile, allowed_mimes: List[str]
+    file_instance: UploadFile, allowed_mimes: list[str]
 ) -> bool:
     mime_type = await get_uploaded_file_mime(file_instance)
     return mime_type in allowed_mimes
@@ -90,8 +88,8 @@ def _path_in_pattern(path: str, pattern: str) -> bool:
 
 def path_is_include(
     path: str,
-    include_patterns: Optional[List[str]] = None,
-    exclude_patterns: Optional[List[str]] = None,
+    include_patterns: list[str] | None = None,
+    exclude_patterns: list[str] | None = None,
 ) -> bool:
     is_include = False
     if not include_patterns and not exclude_patterns:
@@ -130,7 +128,7 @@ def iter_rel_paths(starting_path: str) -> Iterator[str]:
     )
 
 
-def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
+def match_file(patterns: list[GitWildMatchPattern], file: str) -> bool:
     matches = []
     for pattern in patterns:
         if pattern.include is not None:

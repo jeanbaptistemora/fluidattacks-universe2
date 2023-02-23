@@ -38,10 +38,6 @@ from more_itertools import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
 )
 
 
@@ -54,13 +50,13 @@ def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
 def _build_query_args(
     *,
     condition_expression: ConditionBase,
-    facets: Tuple[Facet, ...],
-    filter_expression: Optional[ConditionBase],
-    index: Optional[Index],
-    limit: Optional[int],
-    start_key: Optional[Dict[str, str]],
+    facets: tuple[Facet, ...],
+    filter_expression: ConditionBase | None,
+    index: Index | None,
+    limit: int | None,
+    start_key: dict[str, str] | None,
     table: Table,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
     attrs = {
         table.primary_key.partition_key,
@@ -84,7 +80,7 @@ def _build_query_args(
     return _exclude_none(args=args)
 
 
-def _parse_floats(*, args: Dict[str, Any]) -> Dict[str, Any]:
+def _parse_floats(*, args: dict[str, Any]) -> dict[str, Any]:
     """
     Converts floats into Decimal.
     Needed as floats are currently unsupported by DynamoDB
@@ -99,7 +95,7 @@ def _parse_floats(*, args: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
+def _exclude_none(*, args: dict[str, Any]) -> dict[str, Any]:
     return {
         key: _exclude_none(args=value) if isinstance(value, dict) else value
         for key, value in args.items()
@@ -108,12 +104,12 @@ def _exclude_none(*, args: Dict[str, Any]) -> Dict[str, Any]:
 
 
 async def batch_delete_item(
-    *, keys: Tuple[PrimaryKey, ...], table: Table
+    *, keys: tuple[PrimaryKey, ...], table: Table
 ) -> None:
     key_structure = table.primary_key
     table_resource = await get_table_resource(table)
 
-    async def _delete_chunk(chunk_keys: List[PrimaryKey]) -> None:
+    async def _delete_chunk(chunk_keys: list[PrimaryKey]) -> None:
         async with table_resource.batch_writer() as batch_writer:
             await collect(
                 tuple(
@@ -137,13 +133,13 @@ async def batch_delete_item(
 
 
 async def batch_get_item(
-    *, keys: Tuple[PrimaryKey, ...], table: Table
-) -> Tuple[Item, ...]:
+    *, keys: tuple[PrimaryKey, ...], table: Table
+) -> tuple[Item, ...]:
     key_structure = table.primary_key
-    items: List[Item] = []
+    items: list[Item] = []
     resource = await get_resource()
 
-    async def _get_chunk(chunk_keys: List[PrimaryKey]) -> Tuple[Item, ...]:
+    async def _get_chunk(chunk_keys: list[PrimaryKey]) -> tuple[Item, ...]:
         response = await resource.batch_get_item(
             RequestItems={
                 table.name: {
@@ -177,7 +173,7 @@ async def batch_get_item(
     return tuple(items)
 
 
-async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
+async def batch_put_item(*, items: tuple[Item, ...], table: Table) -> None:
     table_resource = await get_table_resource(table)
 
     async with table_resource.batch_writer() as batch_writer:
@@ -196,7 +192,7 @@ async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
 
 async def delete_item(
     *,
-    condition_expression: Optional[ConditionBase] = None,
+    condition_expression: ConditionBase | None = None,
     key: PrimaryKey,
     table: Table,
 ) -> None:
@@ -217,8 +213,8 @@ async def delete_item(
 
 
 def _build_get_item_args(
-    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
-) -> Dict[str, Any]:
+    *, facets: tuple[Facet, ...], key: PrimaryKey, table: Table
+) -> dict[str, Any]:
     facet_attrs = tuple({attr for facet in facets for attr in facet.attrs})
     attrs = {
         table.primary_key.partition_key,
@@ -238,9 +234,9 @@ def _build_get_item_args(
 
 
 async def get_item(
-    *, facets: Tuple[Facet, ...], key: PrimaryKey, table: Table
-) -> Optional[Item]:
-    item: Optional[Item] = None
+    *, facets: tuple[Facet, ...], key: PrimaryKey, table: Table
+) -> Item | None:
+    item: Item | None = None
     table_resource = await get_table_resource(table)
     get_item_args = _build_get_item_args(key=key, facets=facets, table=table)
 
@@ -255,7 +251,7 @@ async def get_item(
 
 async def put_item(
     *,
-    condition_expression: Optional[ConditionBase] = None,
+    condition_expression: ConditionBase | None = None,
     facet: Facet,
     item: Item,
     table: Table,
@@ -275,12 +271,12 @@ async def put_item(
 
 async def query(  # pylint: disable=too-many-locals
     *,
-    after: Optional[str] = None,
+    after: str | None = None,
     condition_expression: ConditionBase,
-    facets: Tuple[Facet, ...],
-    filter_expression: Optional[ConditionBase] = None,
-    index: Optional[Index] = None,
-    limit: Optional[int] = None,
+    facets: tuple[Facet, ...],
+    filter_expression: ConditionBase | None = None,
+    index: Index | None = None,
+    limit: int | None = None,
     paginate: bool = False,
     table: Table,
 ) -> QueryResponse:
@@ -301,7 +297,7 @@ async def query(  # pylint: disable=too-many-locals
 
     try:
         response = await table_resource.query(**query_args)
-        items: List[Item] = response.get("Items", [])
+        items: list[Item] = response.get("Items", [])
         if paginate:
             cursor = get_cursor(
                 index, items[-1] if items else start_key, table
@@ -331,7 +327,7 @@ def _format_map_attrs(attr: str) -> str:
 
 async def update_item(
     *,
-    condition_expression: Optional[ConditionBase] = None,
+    condition_expression: ConditionBase | None = None,
     item: Item,
     key: PrimaryKey,
     table: Table,
@@ -359,7 +355,7 @@ async def update_item(
         if value is None
     )
     table_resource = await get_table_resource(table)
-    base_args: Dict[str, Any] = {
+    base_args: dict[str, Any] = {
         "ConditionExpression": condition_expression,
         "ExpressionAttributeNames": attr_names,
         "Key": {

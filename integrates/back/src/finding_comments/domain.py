@@ -43,7 +43,6 @@ from mailer.enums import (
 )
 from typing import (
     Any,
-    Optional,
     TypedDict,
 )
 
@@ -134,7 +133,7 @@ async def add(
     loaders: Dataloaders,
     comment_data: FindingComment,
     notify: bool = False,
-    closed_properties: Optional[VulnsProperties] = None,
+    closed_properties: VulnsProperties | None = None,
 ) -> None:
     await finding_comments_model.add(finding_comment=comment_data)
     if notify:

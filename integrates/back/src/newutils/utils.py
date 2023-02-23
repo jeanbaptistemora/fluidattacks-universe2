@@ -11,14 +11,11 @@ from db_model.findings.types import (
 import re
 from typing import (
     Any,
-    Dict,
     KeysView,
-    List,
-    Tuple,
 )
 
 
-def camel_case_list_dict(elements: List[Dict]) -> List[Dict]:
+def camel_case_list_dict(elements: list[dict]) -> list[dict]:
     """Convert a the keys of a list of dicts to camelcase."""
     return [
         {snakecase_to_camelcase(k): element[k] for k in element}
@@ -57,10 +54,10 @@ async def filter_findings(
 
 
 def list_to_dict(
-    keys: List[object], values: List[object]
-) -> Dict[object, object]:
+    keys: list[object], values: list[object]
+) -> dict[object, object]:
     """Merge two lists into a {key: value} dictionary"""
-    dct: Dict[object, object] = collections.OrderedDict()
+    dct: dict[object, object] = collections.OrderedDict()
     index = 0
 
     if len(keys) < len(values):
@@ -91,7 +88,7 @@ def snakecase_to_camelcase(str_value: str) -> str:
     return re.sub("_.", lambda x: x.group()[1].upper(), str_value)
 
 
-def replace_all(text: str, dic: Dict[str, str]) -> str:
+def replace_all(text: str, dic: dict[str, str]) -> str:
     for i, j in list(dic.items()):
         text = text.replace(i, j)
     return text
@@ -101,8 +98,8 @@ def replace_all(text: str, dic: Dict[str, str]) -> str:
 
 
 def clean_up_kwargs(
-    kwargs: Dict, keys_to_remove: Tuple = ("group_name", "project_name")
-) -> Dict:
+    kwargs: dict, keys_to_remove: tuple = ("group_name", "project_name")
+) -> dict:
     """Removes the specified keys to avoid **args duplication in helper methods
     that receive dicts"""
     for key in keys_to_remove:
@@ -111,10 +108,10 @@ def clean_up_kwargs(
 
 
 def duplicate_dict_keys(
-    dictionary: Dict,
+    dictionary: dict,
     first_key: str,
     second_key: str,
-) -> Dict:
+) -> dict:
     """Checks which of these keys exist in the dict and copies its value on
     the other key, if none exist, raises an error"""
     keys: KeysView = dictionary.keys()
@@ -126,7 +123,7 @@ def duplicate_dict_keys(
 
 
 def get_key_or_fallback(
-    kwargs: Dict,
+    kwargs: dict,
     current_key: str = "group_name",
     old_key: str = "project_name",
     fallback: Any = None,
@@ -138,7 +135,7 @@ def get_key_or_fallback(
 
 
 def get_present_key(
-    kwargs: Dict,
+    kwargs: dict,
     current_key: str = "group_name",
     old_key: str = "project_name",
 ) -> str:

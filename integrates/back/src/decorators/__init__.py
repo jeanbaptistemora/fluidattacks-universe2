@@ -7,6 +7,9 @@ from asyncio import (
     sleep,
 )
 import authz
+from collections.abc import (
+    Callable,
+)
 import contextlib
 from custom_exceptions import (
     ExpiredToken,
@@ -69,13 +72,7 @@ from settings import (
 import time
 from typing import (
     Any,
-    Callable,
     cast,
-    Dict,
-    Optional,
-    Set,
-    Tuple,
-    Type,
     TypeVar,
 )
 
@@ -109,17 +106,15 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 @validations.validate_finding_id_deco("identifier")
 async def _resolve_from_finding_id(
     *, context: Any, identifier: str
-) -> Optional[str]:
+) -> str | None:
     finding_loader = context.loaders.finding
-    finding: Optional[Finding] = await finding_loader.load(identifier)
+    finding: Finding | None = await finding_loader.load(identifier)
     if finding:
         return finding.group_name
     raise FindingNotFound()
 
 
-async def _resolve_from_vuln_id(
-    context: Any, identifier: str
-) -> Optional[str]:
+async def _resolve_from_vuln_id(context: Any, identifier: str) -> str | None:
     loaders = context.loaders
     vulnerability: Vulnerability = await loaders.vulnerability.load(identifier)
     group_name = await _resolve_from_finding_id(
@@ -203,7 +198,7 @@ def concurrent_decorators(
     return decorator
 
 
-def delete_kwargs(attributes: Set[str]) -> Callable[[TVar], TVar]:
+def delete_kwargs(attributes: set[str]) -> Callable[[TVar], TVar]:
     """Decorator to delete function's kwargs.
     Useful to perform api migration.
     """
@@ -364,7 +359,7 @@ def enforce_owner(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
+def rename_kwargs(mapping: dict[str, str]) -> Callable[[TVar], TVar]:
     """Decorator to rename function's kwargs.
     Useful to perform breaking changes,
     with backwards compatibility.
@@ -373,7 +368,7 @@ def rename_kwargs(mapping: Dict[str, str]) -> Callable[[TVar], TVar]:
     def wrapped(func: TVar) -> TVar:
         _func = cast(Callable[..., Any], func)
 
-        def rename(kwargs: Dict[str, Any]) -> Dict[str, Any]:
+        def rename(kwargs: dict[str, Any]) -> dict[str, Any]:
             return {mapping.get(key, key): val for key, val in kwargs.items()}
 
         if asyncio.iscoroutinefunction(_func):
@@ -582,7 +577,7 @@ def require_organization_access(func: TVar) -> TVar:
         user_data = await sessions_domain.get_jwt_content(context)
         user_email = user_data["user_email"]
         loaders = context.loaders
-        organization: Optional[Organization] = await loaders.organization.load(
+        organization: Organization | None = await loaders.organization.load(
             organization_identifier
         )
         if not organization:
@@ -609,7 +604,7 @@ def require_organization_access(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-async def _resolve_group_name_args(context: Any, args: Any) -> Optional[str]:
+async def _resolve_group_name_args(context: Any, args: Any) -> str | None:
     group_name_extractor = {
         Vulnerability: lambda x: x.group_name,
         Group: lambda x: x.name,
@@ -628,9 +623,7 @@ async def _resolve_group_name_args(context: Any, args: Any) -> Optional[str]:
 
 
 # pylint: disable=too-many-return-statements
-async def _resolve_group_name_kwargs(
-    context: Any, kwargs: Any
-) -> Optional[str]:
+async def _resolve_group_name_kwargs(context: Any, kwargs: Any) -> str | None:
     if "group_name" in kwargs or "project_name" in kwargs:
         return get_key_or_fallback(kwargs)
     if "finding_id" in kwargs:
@@ -675,7 +668,7 @@ async def resolve_group_name(
 
 def retry_on_exceptions(
     *,
-    exceptions: Tuple[Type[Exception], ...],
+    exceptions: tuple[type[Exception], ...],
     max_attempts: int = 5,
     sleep_seconds: float = 0,
 ) -> Callable[[TVar], TVar]:

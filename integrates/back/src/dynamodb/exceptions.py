@@ -8,9 +8,6 @@ from settings import (
     LOGGING,
 )
 import sys
-from typing import (
-    Optional,
-)
 
 # Constants
 logging.config.dictConfig(LOGGING)
@@ -37,7 +34,7 @@ class ValidationException(DynamoDbBaseException):
 
 def handle_error(*, error: ClientError) -> None:
     code: str = error.response["Error"]["Code"]
-    custom_exception: Optional[Exception] = getattr(
+    custom_exception: Exception | None = getattr(
         sys.modules[__name__], code, None
     )
 
