@@ -8,12 +8,14 @@ from syntax_graph.syntax_readers.swift import (
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
     if_statement as swift_if_statement,
+    import_statement as swift_import_statement,
     navigation_expression as swift_navigation_expression,
     navigation_suffix as swift_navigation_suffix,
     parameter as swift_parameter,
     prefix_expression as swift_prefix_expression,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
+    try_expression as swift_try_expression,
     while_statement as swift_while_statement,
 )
 from syntax_graph.types import (
@@ -78,6 +80,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "import_declaration",
+        },
+        syntax_reader=swift_import_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "navigation_expression",
         },
         syntax_reader=swift_navigation_expression.reader,
@@ -111,6 +119,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "source_file",
         },
         syntax_reader=swift_source_file.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "try_expression",
+        },
+        syntax_reader=swift_try_expression.reader,
     ),
     Dispatcher(
         applicable_types={
