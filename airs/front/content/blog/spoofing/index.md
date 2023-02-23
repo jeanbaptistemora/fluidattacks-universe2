@@ -110,6 +110,13 @@ of the desired domain. Furthermore, that replica is usually updated
 according to the original website changes, making it challenging to
 identify the farce.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ### Email-Phone-SMS combo
 
 This combo may be the one that requires minor work from the criminals'

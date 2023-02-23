@@ -92,6 +92,13 @@ the exam preparation different from other exams you have taken?**
 
 1. My best preparation was my experience doing pentesting in `Fluid Attacks`.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 **That means you did not prepare yourself with the course given by
 INE?** **(Considering that INE [“is the premier provider of Technical
 Training for the IT industry](https://ine.com/pages/about-us)” and owner
@@ -161,5 +168,5 @@ Hacking](../../solutions/ethical-hacking/) skills.
 
 If you want to [know more about the
 certifications](../certificates-comparison-i/) that the members of our
-[Red Team](../../solutions/red-teaming/) have obtained, you can follow
+Red Team have obtained, you can follow
 this [link](../../certifications/).

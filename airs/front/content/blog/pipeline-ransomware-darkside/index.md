@@ -156,6 +156,13 @@ cases](https://www.zdnet.com/article/darkside-the-ransomware-group-responsible-f
 In this sense, their main attack is not so different from the typical
 ransomware attack.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 DarkSide gets data from their victims' servers, encrypts them, uploads
 them to their leak-website (which can only be accessed by search engines
 that allow you to enter the [deep web](../dark-web/) as Tor), and then

@@ -64,6 +64,12 @@ program should be executed. In some cases, criminal developers add [a
 real-time dashboard](https://cutt.ly/ZnkhQh6) that shows what is going
 on with the victim.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 To "sell" their service, criminals must appeal to the credibility they
 inspire in their potential customers. Thus,
 [**reputation**](https://cutt.ly/nnkUXle) becomes a key element within

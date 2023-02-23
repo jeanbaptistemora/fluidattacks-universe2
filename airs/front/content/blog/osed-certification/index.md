@@ -108,6 +108,12 @@ documentation.**
    sleep because the day is very long and the time you have scheduled
    is enough to perform the exercises and get rest.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 **The exam [asks you to be
 familiar](https://www.offensive-security.com/exp301-osed/) with
 debuggers (ImmunityDBG, [OllyDBG](../reversing-mortals/)), basic

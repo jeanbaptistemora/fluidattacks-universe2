@@ -98,6 +98,12 @@ they don’t need for longer than they
 need](https://youtu.be/ilLEdbfzw-I)." This strengthens the company’s
 security and reduces storage costs, as there is less data to store.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 Along with these commitments, [the company must](../../compliance/gdpr/)
 (a) identify personal data and evaluate their access permission, (b)
 corroborate that they are asking for explicit consent to use others

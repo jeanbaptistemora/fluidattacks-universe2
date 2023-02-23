@@ -108,6 +108,12 @@ infecting the systems of their victims with the virus that "[encrypts
 files after infection and discards a ransom request
 message](https://cutt.ly/XnE9rVV)."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 REvil affiliates often apply "[mass-spread attacks using exploit-kits
 and
 phishing-campaigns](https://www.infradata.com/resources/what-is-revil-ransomware/)"

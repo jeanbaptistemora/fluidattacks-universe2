@@ -126,6 +126,12 @@ of that equipment is often cumbersome.
 This is why it is common for that service to be outsourced.
 Thus, DCs are usually managed by specialized companies.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## iCloud
 
 By outsourcing the DCs,

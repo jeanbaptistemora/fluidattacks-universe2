@@ -132,6 +132,13 @@ execution](https://www.ieee-security.org/TC/SP2019/SP19-Slides-pdfs/Paul_Kocher_
 In fact, the CPU was opening a vulnerability on its own: a **fault
 attack** hardware was built-in.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ## Branch Predictor and Out-of-bounds
 
 One way to change instructions is by taking advantage of **Branch
