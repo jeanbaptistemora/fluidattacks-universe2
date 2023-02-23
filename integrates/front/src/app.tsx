@@ -1,3 +1,4 @@
+import { datadogRum } from "@datadog/browser-rum";
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import "@fontsource/roboto";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -24,6 +25,7 @@ import {
   userLevelPermissions,
 } from "utils/authz/config";
 import { BugsnagErrorBoundary } from "utils/bugsnagErrorBoundary";
+import { CI_COMMIT_SHORT_SHA } from "utils/ctx";
 import { getEnvironment } from "utils/environment";
 import type { IFeaturePreviewContext } from "utils/featurePreview";
 import { featurePreviewContext } from "utils/featurePreview";
@@ -116,7 +118,28 @@ if (module.hot) {
 }
 
 mixpanel.init("7a7ceb75ff1eed29f976310933d1cc3e");
-if (getEnvironment() !== "production") {
+
+const environment = getEnvironment();
+
+if (environment === "production") {
+  datadogRum.init({
+    allowedTracingUrls: [
+      {
+        match: window.location.origin,
+        propagatorTypes: ["tracecontext"],
+      },
+    ],
+    applicationId: "a84672b1-d59e-4902-b174-e156175139b8",
+    clientToken: "pub90824b70bbf9f5264c166fa21526fae2",
+    defaultPrivacyLevel: "mask-user-input",
+    env: environment,
+    service: "arm",
+    trackLongTasks: true,
+    trackResources: true,
+    trackUserInteractions: true,
+    version: CI_COMMIT_SHORT_SHA,
+  });
+} else {
   mixpanel.disable();
 }
 
