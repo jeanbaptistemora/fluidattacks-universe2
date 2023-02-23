@@ -29,9 +29,6 @@ class ToeInput(NamedTuple):
     group_name: str
     state: ToeInputState
 
-    def get_hash(self) -> int:
-        return hash((self.group_name, self.component, self.entry_point))
-
 
 class ToeInputEdge(NamedTuple):
     node: ToeInput

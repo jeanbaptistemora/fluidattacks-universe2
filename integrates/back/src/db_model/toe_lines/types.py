@@ -43,9 +43,6 @@ class ToeLines(NamedTuple):
     state: ToeLinesState
     seen_first_time_by: str | None = None
 
-    def get_hash(self) -> int:
-        return hash((self.group_name, self.root_id, self.filename))
-
 
 class ToeLinesEdge(NamedTuple):
     node: ToeLines

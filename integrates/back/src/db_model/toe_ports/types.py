@@ -29,9 +29,6 @@ class ToePort(NamedTuple):
     seen_at: datetime | None
     seen_first_time_by: str | None
 
-    def get_hash(self) -> int:
-        return hash((self.group_name, self.address, self.port))
-
 
 class ToePortEdge(NamedTuple):
     node: ToePort
