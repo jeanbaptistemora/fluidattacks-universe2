@@ -400,7 +400,11 @@ def rebase(
     new_rev = result[0].split(" ")[0]
     new_line = int(result[0].split(" ")[1])
     new_path = next(
-        (row.split(" ")[1] for row in result if row.startswith("filename ")),
+        (
+            row.split(" ", maxsplit=1)[1]
+            for row in result
+            if row.startswith("filename ")
+        ),
         path,
     )
 
