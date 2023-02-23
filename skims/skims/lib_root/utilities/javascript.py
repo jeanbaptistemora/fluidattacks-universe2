@@ -99,15 +99,19 @@ def get_default_alias(graph: Graph, module_name: str) -> str | None:
 def get_named_alias(
     graph: Graph, module_name: str, element_name: str
 ) -> str | None:
-    if named_import_n_ids := g.matching_nodes(
-        graph,
-        label_type="Import",
-        expression='"' + module_name + '"',
-        import_type="named_import",
-        identifier=element_name,
+    def predicate_matcher(node: dict[str, str]) -> bool:
+        return bool(
+            (node.get("label_type") == "Import")
+            and (n_exp := node.get("expression"))
+            and (n_exp[1:-1] == module_name)
+            and (node.get("import_type") == "named_import")
+            and (node.get("identifier") == element_name)
+        )
+
+    if n_id := next(
+        iter(g.filter_nodes(graph, graph.nodes, predicate_matcher)), None
     ):
-        for n_id in named_import_n_ids:
-            if alias := graph.nodes[n_id].get("label_alias"):
-                return alias
+        if alias := graph.nodes[n_id].get("label_alias"):
+            return alias
         return element_name
     return None
