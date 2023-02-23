@@ -13,7 +13,7 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
   favicon:
-    "https://res.cloudinary.com/fluid-attacks/image/upload/v1622211888/docs/favicon_be6154.ico",
+    "https://res.cloudinary.com/fluid-attacks/image/upload/v1677159785/docs/favicon-2023.png",
 
   presets: [
     [
