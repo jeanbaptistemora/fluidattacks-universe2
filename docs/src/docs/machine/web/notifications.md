@@ -269,6 +269,33 @@ new selected values.
 
 ![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1664796913/docs/web/notifications/policies_update.png)
 
+### Update credentials owner
+
+If your organization role is
+**user manager** or
+**customer manager** on our Attacks
+Resistance Management platform,
+you will receive emails
+when any organization credentials
+have been reassign to another owner.
+
+This change occurs as a result of a
+stakeholder's organization access
+being revoked, either due to inactivity
+or due to a manual removal by another
+stakeholder. All his/her credentials
+will be reassign automatically to other
+stakeholders, so no interruption
+occurs to related tasks as repositories
+cloning.
+
+The message will include the
+name of the organization whose
+credentials were changed and
+the previous owner name and role.
+
+![Update Credentials Owner](https://res.cloudinary.com/fluid-attacks/image/upload/v1664796913/docs/web/notifications/update_credentials_owner.png)
+
 ### Treatment report
 
 If you are a user manager
