@@ -2951,6 +2951,76 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,36
   46 | Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
      ^ Col 8
 ",java.java_insecure_pass
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_es6_imp.js,10,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_es6_imp.js,"
+   1 | import { createHmac as hmacAlias } from ""crypto"";
+   2 |
+   3 | const secret = ""GfG"";
+   4 |
+   5 | // Lines 6 and 10 should be marked
+   6 | let hash = hmacAlias(""sha256"", secret)
+   7 |   .update(""This is a test in a chain"")
+   8 |   .digest(""hex"");
+   9 |
+> 10 | hash = hmacAlias(""sha1"", secret).update(""This is a test in a chain"");
+  11 |
+  12 | // Next following lines are safe:
+  13 | let hash1 = createHmac(""sha256"", secret)
+  14 |   .update(""This is a test in a chain"")
+  15 |   .digest(""hex"");
+  16 |
+  17 | hash1 = crypto.createHmac(""sha1"", secret);
+     ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_es6_imp.js,6,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_es6_imp.js,"
+   1 | import { createHmac as hmacAlias } from ""crypto"";
+   2 |
+   3 | const secret = ""GfG"";
+   4 |
+   5 | // Lines 6 and 10 should be marked
+>  6 | let hash = hmacAlias(""sha256"", secret)
+   7 |   .update(""This is a test in a chain"")
+   8 |   .digest(""hex"");
+   9 |
+  10 | hash = hmacAlias(""sha1"", secret).update(""This is a test in a chain"");
+  11 |
+  12 | // Next following lines are safe:
+  13 | let hash1 = createHmac(""sha256"", secret)
+  14 |   .update(""This is a test in a chain"")
+  15 |   .digest(""hex"");
+  16 |
+  17 | hash1 = crypto.createHmac(""sha1"", secret);
+     ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_req.js,7,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_req.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | const secret = ""GfG"";
+   4 |
+   5 | // Both following lines should be marked
+   6 | const hash = crypto.createHmac(""sha256"", secret);
+>  7 | hash = crypto.createHmac(""sha1"", secret);
+   8 |
+   9 | // Next following lines are safe:
+  10 | const hash1 = crypto.createHmac(""sha512"", secret);
+  11 | hash1 = crypto.otherMethod(""sha1"", secret);
+  12 | hash1 = cryptoSafe.createHmac(""sha1"", secret);
+     ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_req.js,6,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_crypto_req.js,"
+   1 | nst crypto = require(""crypto"");
+   2 |
+   3 | nst secret = ""GfG"";
+   4 |
+   5 |  Both following lines should be marked
+>  6 | nst hash = crypto.createHmac(""sha256"", secret);
+   7 | sh = crypto.createHmac(""sha1"", secret);
+   8 |
+   9 |  Next following lines are safe:
+  10 | nst hash1 = crypto.createHmac(""sha512"", secret);
+  11 | sh1 = crypto.otherMethod(""sha1"", secret);
+  12 | sh1 = cryptoSafe.createHmac(""sha1"", secret);
+     ^ Col 2
+",javascript.javascript_insec_msg_auth_mechanism
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,9,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,"
   1 | const hmacSHA1 = require(""crypto-js/hmac-sha1"");
   2 | const hmacSHA256 = require(""crypto-js/hmac-sha256"");
@@ -3011,6 +3081,76 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_auth_algorithm.js
   15 | const hmacSHA = CryptoJSAlias.Hmac(message, key);
      ^ Col 0
 ",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_es6_imp.ts,10,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_es6_imp.ts,"
+   1 | import { createHmac } from ""crypto"";
+   2 |
+   3 | const secret = ""GfG"";
+   4 |
+   5 | // Lines 6 and 10 should be marked
+   6 | let hash = createHmac(""sha256"", secret)
+   7 |   .update(""This is a test in a chain"")
+   8 |   .digest(""hex"");
+   9 |
+> 10 | hash = createHmac(""sha1"", secret).update(""This is a test in a chain"").digest(""hex"");
+  11 |
+  12 | // Next following lines are safe:
+  13 | let hash1 = createHmac(""sha512"", secret)
+  14 |   .update(""This is a test in a chain"")
+  15 |   .digest(""hex"");
+  16 |
+  17 | hash1 = crypto.createHmac(""sha1"", secret);
+     ^ Col 0
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_es6_imp.ts,6,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_es6_imp.ts,"
+   1 | import { createHmac } from ""crypto"";
+   2 |
+   3 | const secret = ""GfG"";
+   4 |
+   5 | // Lines 6 and 10 should be marked
+>  6 | let hash = createHmac(""sha256"", secret)
+   7 |   .update(""This is a test in a chain"")
+   8 |   .digest(""hex"");
+   9 |
+  10 | hash = createHmac(""sha1"", secret).update(""This is a test in a chain"").digest(""hex"");
+  11 |
+  12 | // Next following lines are safe:
+  13 | let hash1 = createHmac(""sha512"", secret)
+  14 |   .update(""This is a test in a chain"")
+  15 |   .digest(""hex"");
+  16 |
+  17 | hash1 = crypto.createHmac(""sha1"", secret);
+     ^ Col 0
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_req.ts,7,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_req.ts,"
+   1 | mport *  as cryptoAlias from ""crypto""
+   2 |
+   3 | onst secret = ""GfG"";
+   4 |
+   5 | / Both following lines should be marked
+   6 | et hash = cryptoAlias.createHmac(""sha256"", secret);
+>  7 | ash = cryptoAlias.createHmac(""sha1"", secret);
+   8 |
+   9 | / Next following lines are safe:
+  10 | ar hash1 = cryptoAlias.createHmac(""sha512"", secret);
+  11 | ash1 = cryptoAlias.otherMethod(""sha1"", secret);
+  12 | ash1 = cryptoSafe.createHmac(""sha1"", secret);
+     ^ Col 1
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_req.ts,6,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_crypto_req.ts,"
+   1 | t *  as cryptoAlias from ""crypto""
+   2 |
+   3 |  secret = ""GfG"";
+   4 |
+   5 | th following lines should be marked
+>  6 | ash = cryptoAlias.createHmac(""sha256"", secret);
+   7 | = cryptoAlias.createHmac(""sha1"", secret);
+   8 |
+   9 | xt following lines are safe:
+  10 | ash1 = cryptoAlias.createHmac(""sha512"", secret);
+  11 |  = cryptoAlias.otherMethod(""sha1"", secret);
+  12 |  = cryptoSafe.createHmac(""sha1"", secret);
+     ^ Col 5
+",typescript.typescript_insec_msg_auth_mechanism
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,9,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,"
   1 |  'crypto-js/hmac-sha1';
   2 | om 'crypto-js/hmac-sha256';

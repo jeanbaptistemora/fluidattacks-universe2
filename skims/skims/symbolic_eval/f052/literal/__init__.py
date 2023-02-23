@@ -8,6 +8,7 @@ from symbolic_eval.f052.literal.c_sharp import (
 )
 from symbolic_eval.f052.literal.common import (
     insecure_create_cipher,
+    insecure_sign_mechanism,
 )
 from symbolic_eval.f052.literal.java import (
     java_evaluate_cipher,
@@ -61,6 +62,8 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_INSECURE_HASH: insecure_hash,
     MethodsEnum.JS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
     MethodsEnum.TS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
+    MethodsEnum.JS_INSEC_MSG_AUTH_MECHANISM: insecure_sign_mechanism,
+    MethodsEnum.TS_INSEC_MSG_AUTH_MECHANISM: insecure_sign_mechanism,
 }
 
 
