@@ -175,12 +175,12 @@ export const AddPaymentMethod: React.FC<IAddMethodPaymentProps> = ({
           <option value={""}>{""}</option>
           <option value={"CREDIT_CARD"}>
             {t(
-              "organization.tabs.billing.paymentMethods.add.paymentType.creditCard"
+              "organization.tabs.billing.paymentMethods.paymentType.creditCard"
             )}
           </option>
           <option value={"OTHER"}>
             {t(
-              "organization.tabs.billing.paymentMethods.add.paymentType.otherMethod"
+              "organization.tabs.billing.paymentMethods.paymentType.otherMethod"
             )}
           </option>
         </FormikSelect>

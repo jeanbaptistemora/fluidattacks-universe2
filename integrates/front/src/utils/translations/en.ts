@@ -1895,10 +1895,6 @@ export const enTranslations: ResourceKey = {
               state: "State",
               taxId: "TaxId",
             },
-            paymentType: {
-              creditCard: "Credit card",
-              otherMethod: "Other",
-            },
             success: {
               body: "Payment method successfully added",
               title: "Success",
@@ -1906,6 +1902,10 @@ export const enTranslations: ResourceKey = {
             title: "Add payment method",
           },
           defaultPaymentMethod: "(Default)",
+          paymentType: {
+            creditCard: "Credit card",
+            otherMethod: "Other",
+          },
           remove: {
             button: "Remove",
             errors: {
