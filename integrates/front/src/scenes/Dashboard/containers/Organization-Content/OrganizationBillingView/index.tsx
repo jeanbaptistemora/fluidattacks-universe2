@@ -12,7 +12,6 @@ import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/Organizati
 import type {
   IGetOrganizationBilling,
   IGroupAttr,
-  IOrganizationAuthorAttr,
   IPaymentMethodAttr,
 } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/types";
 import { Logger } from "utils/logger";
@@ -53,8 +52,6 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
       },
     }
   );
-  const authors: IOrganizationAuthorAttr[] =
-    data === undefined ? [] : data.organization.billing.authors;
   const costsTotal: number =
     data === undefined ? 0 : data.organization.billing.costsTotal;
   const groups: IGroupAttr[] =
@@ -91,7 +88,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
         onUpdate={refetch}
         paymentMethods={paymentMethods}
       />
-      <OrganizationAuthors authors={authors} />
+      <OrganizationAuthors organizationId={organizationId} />
       <OrganizationPaymentMethods
         onUpdate={refetch}
         organizationId={organizationId}

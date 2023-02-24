@@ -1814,6 +1814,9 @@ export const enTranslations: ResourceKey = {
             activeGroups: "Active groups",
             authorName: "Author name",
           },
+          label:
+            "Below you'll find the authors that have contributed " +
+            "to your organization in the selected month.",
           title: "Authors",
         },
         groups: {

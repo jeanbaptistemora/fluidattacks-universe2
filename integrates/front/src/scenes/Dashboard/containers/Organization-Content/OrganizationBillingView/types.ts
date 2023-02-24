@@ -5,16 +5,6 @@ interface IGroupBilling {
   numberAuthors: number;
 }
 
-interface IOrganizationActiveGroupAttr {
-  name: string;
-  tier: string;
-}
-
-interface IOrganizationAuthorAttr {
-  actor: string;
-  activeGroups: IOrganizationActiveGroupAttr[];
-}
-
 interface IPaymentMethodAttr {
   id: string;
   brand: string;
@@ -33,7 +23,6 @@ interface IPaymentMethodAttr {
 }
 
 interface IOrganizationBilling {
-  authors: IOrganizationAuthorAttr[];
   costsAuthors: number;
   costsBase: number;
   costsTotal: number;
@@ -86,7 +75,5 @@ export type {
   IGetOrganizationBilling,
   IGroupAttr,
   IPaymentMethodAttr,
-  IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
-  IOrganizationActiveGroupAttr,
 };
