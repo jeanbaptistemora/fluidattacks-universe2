@@ -72,6 +72,10 @@ from utils.encodings import (
             "syntax_python",
         ),
         (
+            ("skims/test/data/graphs/syntax/syntax_cfg.swift",),
+            "syntax_swift",
+        ),
+        (
             ("skims/test/data/graphs/syntax/syntax_cfg.ts",),
             "syntax_typescript",
         ),

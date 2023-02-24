@@ -1,0 +1,2459 @@
+{
+  "context": {},
+  "shards": [
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "119": {
+              "label_ast": "AST",
+              "label_index": "12"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_index": "13"
+            },
+            "133": {
+              "label_ast": "AST",
+              "label_index": "14"
+            },
+            "134": {
+              "label_ast": "AST",
+              "label_index": "15"
+            },
+            "14": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "142": {
+              "label_ast": "AST",
+              "label_index": "16"
+            },
+            "143": {
+              "label_ast": "AST",
+              "label_index": "17"
+            },
+            "165": {
+              "label_ast": "AST",
+              "label_index": "18"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_index": "7"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "8"
+            },
+            "45": {
+              "label_ast": "AST",
+              "label_index": "9"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_index": "10"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_index": "11"
+            }
+          },
+          "10": {
+            "11": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "12": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "100": {
+            "101": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "102": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "102": {
+            "103": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "104": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "105": {
+            "106": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "107": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "108": {
+            "109": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "109": {
+            "110": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "111": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "113": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "114": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "118": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "111": {
+            "112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "116": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "117": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "12": {
+            "13": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "120": {
+            "121": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "122": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "124": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "125": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "122": {
+            "123": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "125": {
+            "126": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "127": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "127": {
+            "128": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "128": {
+            "129": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "130": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "132": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "130": {
+            "131": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "134": {
+            "135": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "136": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "138": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "139": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "136": {
+            "137": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "139": {
+            "140": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "141": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "16": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "143": {
+            "144": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "145": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "147": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "148": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "145": {
+            "146": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "148": {
+            "149": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "150": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "150": {
+            "151": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "152": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "152": {
+            "153": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "153": {
+            "154": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "155": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "159": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "160": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "164": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "155": {
+            "156": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "157": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "158": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "16": {
+            "17": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "162": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "163": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "18": {
+            "19": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "20": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "20": {
+            "21": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "22": {
+            "23": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "24": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "26": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "24": {
+            "25": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "29": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "29": {
+            "30": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "30": {
+            "31": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "32": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "32": {
+            "33": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "36": {
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "40": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "41": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "4": {
+            "5": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "41": {
+            "42": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "43": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "45": {
+            "46": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "47": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "49": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "47": {
+            "48": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "50": {
+            "51": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "52": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "52": {
+            "53": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "54": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "54": {
+            "55": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "82": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "83": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "6"
+            }
+          },
+          "57": {
+            "58": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "59": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "60": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "6": {
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "8": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "64": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "67": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "67": {
+            "68": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "68": {
+            "69": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "70": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "74": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "75": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "70": {
+            "71": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "72": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "73": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "78": {
+            "79": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "80": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "8": {
+            "9": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "86": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "86": {
+            "87": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "88": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "91": {
+            "92": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "93": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "95": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "96": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "93": {
+            "94": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "96": {
+            "97": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "98": {
+            "108": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "99": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "source_file"
+          },
+          "10": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_type": "import_declaration"
+          },
+          "100": {
+            "label_c": 21,
+            "label_field_suffix": "102",
+            "label_field_target": "101",
+            "label_l": 20,
+            "label_type": "navigation_expression"
+          },
+          "101": {
+            "label_c": 21,
+            "label_l": 20,
+            "label_text": "AES",
+            "label_type": "simple_identifier"
+          },
+          "102": {
+            "label_c": 24,
+            "label_field_suffix": "104",
+            "label_l": 20,
+            "label_type": "navigation_suffix"
+          },
+          "103": {
+            "label_c": 24,
+            "label_l": 20,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "104": {
+            "label_c": 25,
+            "label_l": 20,
+            "label_text": "GCM",
+            "label_type": "simple_identifier"
+          },
+          "105": {
+            "label_c": 28,
+            "label_field_suffix": "107",
+            "label_l": 20,
+            "label_type": "navigation_suffix"
+          },
+          "106": {
+            "label_c": 28,
+            "label_l": 20,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "107": {
+            "label_c": 29,
+            "label_l": 20,
+            "label_text": "seal",
+            "label_type": "simple_identifier"
+          },
+          "108": {
+            "label_c": 33,
+            "label_l": 20,
+            "label_type": "call_suffix"
+          },
+          "109": {
+            "label_c": 33,
+            "label_l": 20,
+            "label_type": "value_arguments"
+          },
+          "11": {
+            "label_c": 1,
+            "label_l": 3,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "110": {
+            "label_c": 33,
+            "label_l": 20,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "111": {
+            "label_c": 34,
+            "label_field_value": "112",
+            "label_l": 20,
+            "label_type": "value_argument"
+          },
+          "112": {
+            "label_c": 34,
+            "label_l": 20,
+            "label_text": "input",
+            "label_type": "simple_identifier"
+          },
+          "113": {
+            "label_c": 39,
+            "label_l": 20,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "114": {
+            "label_c": 41,
+            "label_field_name": "115",
+            "label_field_value": "117",
+            "label_l": 20,
+            "label_type": "value_argument"
+          },
+          "115": {
+            "label_c": 41,
+            "label_l": 20,
+            "label_text": "using",
+            "label_type": "simple_identifier"
+          },
+          "116": {
+            "label_c": 46,
+            "label_l": 20,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "117": {
+            "label_c": 48,
+            "label_l": 20,
+            "label_text": "key",
+            "label_type": "simple_identifier"
+          },
+          "118": {
+            "label_c": 51,
+            "label_l": 20,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "119": {
+            "label_c": 53,
+            "label_l": 20,
+            "label_text": "// Compliant",
+            "label_type": "comment"
+          },
+          "12": {
+            "label_c": 8,
+            "label_l": 3,
+            "label_type": "identifier"
+          },
+          "120": {
+            "label_c": 1,
+            "label_field_mutability": "121",
+            "label_field_name": "122",
+            "label_field_value": "125",
+            "label_l": 22,
+            "label_type": "property_declaration"
+          },
+          "121": {
+            "label_c": 1,
+            "label_l": 22,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "122": {
+            "label_c": 5,
+            "label_field_bound_identifier": "123",
+            "label_l": 22,
+            "label_type": "pattern"
+          },
+          "123": {
+            "label_c": 5,
+            "label_l": 22,
+            "label_text": "algorithm",
+            "label_type": "simple_identifier"
+          },
+          "124": {
+            "label_c": 15,
+            "label_l": 22,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "125": {
+            "label_c": 17,
+            "label_l": 22,
+            "label_type": "call_expression"
+          },
+          "126": {
+            "label_c": 17,
+            "label_l": 22,
+            "label_text": "CCAlgorithm",
+            "label_type": "simple_identifier"
+          },
+          "127": {
+            "label_c": 28,
+            "label_l": 22,
+            "label_type": "call_suffix"
+          },
+          "128": {
+            "label_c": 28,
+            "label_l": 22,
+            "label_type": "value_arguments"
+          },
+          "129": {
+            "label_c": 28,
+            "label_l": 22,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "13": {
+            "label_c": 8,
+            "label_l": 3,
+            "label_text": "CryptoSwift",
+            "label_type": "simple_identifier"
+          },
+          "130": {
+            "label_c": 29,
+            "label_field_value": "131",
+            "label_l": 22,
+            "label_type": "value_argument"
+          },
+          "131": {
+            "label_c": 29,
+            "label_l": 22,
+            "label_text": "kCCAlgorithmAES",
+            "label_type": "simple_identifier"
+          },
+          "132": {
+            "label_c": 44,
+            "label_l": 22,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "133": {
+            "label_c": 46,
+            "label_l": 22,
+            "label_text": "// Compliant",
+            "label_type": "comment"
+          },
+          "134": {
+            "label_c": 1,
+            "label_field_mutability": "135",
+            "label_field_name": "136",
+            "label_field_value": "139",
+            "label_l": 24,
+            "label_type": "property_declaration"
+          },
+          "135": {
+            "label_c": 1,
+            "label_l": 24,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "136": {
+            "label_c": 5,
+            "label_field_bound_identifier": "137",
+            "label_l": 24,
+            "label_type": "pattern"
+          },
+          "137": {
+            "label_c": 5,
+            "label_l": 24,
+            "label_text": "algorithm",
+            "label_type": "simple_identifier"
+          },
+          "138": {
+            "label_c": 15,
+            "label_l": 24,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "139": {
+            "label_c": 17,
+            "label_field_operation": "140",
+            "label_field_target": "141",
+            "label_l": 24,
+            "label_type": "prefix_expression"
+          },
+          "14": {
+            "label_c": 1,
+            "label_l": 5,
+            "label_type": "import_declaration"
+          },
+          "140": {
+            "label_c": 17,
+            "label_l": 24,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "141": {
+            "label_c": 18,
+            "label_l": 24,
+            "label_text": "aes",
+            "label_type": "simple_identifier"
+          },
+          "142": {
+            "label_c": 22,
+            "label_l": 24,
+            "label_text": "// Compliant",
+            "label_type": "comment"
+          },
+          "143": {
+            "label_c": 1,
+            "label_field_mutability": "144",
+            "label_field_name": "145",
+            "label_field_value": "148",
+            "label_l": 27,
+            "label_type": "property_declaration"
+          },
+          "144": {
+            "label_c": 1,
+            "label_l": 27,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "145": {
+            "label_c": 5,
+            "label_field_bound_identifier": "146",
+            "label_l": 27,
+            "label_type": "pattern"
+          },
+          "146": {
+            "label_c": 5,
+            "label_l": 27,
+            "label_text": "aes",
+            "label_type": "simple_identifier"
+          },
+          "147": {
+            "label_c": 9,
+            "label_l": 27,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "148": {
+            "label_c": 11,
+            "label_field_expr": "150",
+            "label_l": 27,
+            "label_type": "try_expression"
+          },
+          "149": {
+            "label_c": 11,
+            "label_l": 27,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "15": {
+            "label_c": 1,
+            "label_l": 5,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "150": {
+            "label_c": 15,
+            "label_l": 27,
+            "label_type": "call_expression"
+          },
+          "151": {
+            "label_c": 15,
+            "label_l": 27,
+            "label_text": "AES",
+            "label_type": "simple_identifier"
+          },
+          "152": {
+            "label_c": 18,
+            "label_l": 27,
+            "label_type": "call_suffix"
+          },
+          "153": {
+            "label_c": 18,
+            "label_l": 27,
+            "label_type": "value_arguments"
+          },
+          "154": {
+            "label_c": 18,
+            "label_l": 27,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "155": {
+            "label_c": 19,
+            "label_field_name": "156",
+            "label_field_value": "158",
+            "label_l": 27,
+            "label_type": "value_argument"
+          },
+          "156": {
+            "label_c": 19,
+            "label_l": 27,
+            "label_text": "key",
+            "label_type": "simple_identifier"
+          },
+          "157": {
+            "label_c": 22,
+            "label_l": 27,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "158": {
+            "label_c": 24,
+            "label_l": 27,
+            "label_text": "key",
+            "label_type": "simple_identifier"
+          },
+          "159": {
+            "label_c": 27,
+            "label_l": 27,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "16": {
+            "label_c": 8,
+            "label_l": 5,
+            "label_type": "identifier"
+          },
+          "160": {
+            "label_c": 29,
+            "label_field_name": "161",
+            "label_field_value": "163",
+            "label_l": 27,
+            "label_type": "value_argument"
+          },
+          "161": {
+            "label_c": 29,
+            "label_l": 27,
+            "label_text": "iv",
+            "label_type": "simple_identifier"
+          },
+          "162": {
+            "label_c": 31,
+            "label_l": 27,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "163": {
+            "label_c": 33,
+            "label_l": 27,
+            "label_text": "iv",
+            "label_type": "simple_identifier"
+          },
+          "164": {
+            "label_c": 35,
+            "label_l": 27,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "165": {
+            "label_c": 37,
+            "label_l": 27,
+            "label_text": "// Compliant",
+            "label_type": "comment"
+          },
+          "17": {
+            "label_c": 8,
+            "label_l": 5,
+            "label_text": "Crypto",
+            "label_type": "simple_identifier"
+          },
+          "18": {
+            "label_c": 1,
+            "label_l": 6,
+            "label_type": "import_declaration"
+          },
+          "19": {
+            "label_c": 1,
+            "label_l": 6,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "import_declaration"
+          },
+          "20": {
+            "label_c": 8,
+            "label_l": 6,
+            "label_type": "identifier"
+          },
+          "21": {
+            "label_c": 8,
+            "label_l": 6,
+            "label_text": "IDZSwiftCommonCrypto",
+            "label_type": "simple_identifier"
+          },
+          "22": {
+            "label_c": 1,
+            "label_field_mutability": "23",
+            "label_field_name": "24",
+            "label_field_value": "27",
+            "label_l": 9,
+            "label_type": "property_declaration"
+          },
+          "23": {
+            "label_c": 1,
+            "label_l": 9,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "24": {
+            "label_c": 5,
+            "label_field_bound_identifier": "25",
+            "label_l": 9,
+            "label_type": "pattern"
+          },
+          "25": {
+            "label_c": 5,
+            "label_l": 9,
+            "label_text": "algorithm",
+            "label_type": "simple_identifier"
+          },
+          "26": {
+            "label_c": 15,
+            "label_l": 9,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "27": {
+            "label_c": 17,
+            "label_l": 9,
+            "label_type": "call_expression"
+          },
+          "28": {
+            "label_c": 17,
+            "label_l": 9,
+            "label_text": "CCAlgorithm",
+            "label_type": "simple_identifier"
+          },
+          "29": {
+            "label_c": 28,
+            "label_l": 9,
+            "label_type": "call_suffix"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "30": {
+            "label_c": 28,
+            "label_l": 9,
+            "label_type": "value_arguments"
+          },
+          "31": {
+            "label_c": 28,
+            "label_l": 9,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "32": {
+            "label_c": 29,
+            "label_field_value": "33",
+            "label_l": 9,
+            "label_type": "value_argument"
+          },
+          "33": {
+            "label_c": 29,
+            "label_l": 9,
+            "label_text": "kCCAlgorithmDES",
+            "label_type": "simple_identifier"
+          },
+          "34": {
+            "label_c": 44,
+            "label_l": 9,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "35": {
+            "label_c": 46,
+            "label_l": 9,
+            "label_text": "// Noncompliant: 64 bits block size",
+            "label_type": "comment"
+          },
+          "36": {
+            "label_c": 1,
+            "label_field_mutability": "37",
+            "label_field_name": "38",
+            "label_field_value": "41",
+            "label_l": 11,
+            "label_type": "property_declaration"
+          },
+          "37": {
+            "label_c": 1,
+            "label_l": 11,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "38": {
+            "label_c": 5,
+            "label_field_bound_identifier": "39",
+            "label_l": 11,
+            "label_type": "pattern"
+          },
+          "39": {
+            "label_c": 5,
+            "label_l": 11,
+            "label_text": "algorithm",
+            "label_type": "simple_identifier"
+          },
+          "4": {
+            "label_c": 8,
+            "label_l": 1,
+            "label_type": "identifier"
+          },
+          "40": {
+            "label_c": 15,
+            "label_l": 11,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "41": {
+            "label_c": 17,
+            "label_field_operation": "42",
+            "label_field_target": "43",
+            "label_l": 11,
+            "label_type": "prefix_expression"
+          },
+          "42": {
+            "label_c": 17,
+            "label_l": 11,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "43": {
+            "label_c": 18,
+            "label_l": 11,
+            "label_text": "des",
+            "label_type": "simple_identifier"
+          },
+          "44": {
+            "label_c": 22,
+            "label_l": 11,
+            "label_text": "// Noncompliant: 64 bits block size",
+            "label_type": "comment"
+          },
+          "45": {
+            "label_c": 1,
+            "label_field_mutability": "46",
+            "label_field_name": "47",
+            "label_field_value": "50",
+            "label_l": 13,
+            "label_type": "property_declaration"
+          },
+          "46": {
+            "label_c": 1,
+            "label_l": 13,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "47": {
+            "label_c": 5,
+            "label_field_bound_identifier": "48",
+            "label_l": 13,
+            "label_type": "pattern"
+          },
+          "48": {
+            "label_c": 5,
+            "label_l": 13,
+            "label_text": "blowfish",
+            "label_type": "simple_identifier"
+          },
+          "49": {
+            "label_c": 14,
+            "label_l": 13,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "5": {
+            "label_c": 8,
+            "label_l": 1,
+            "label_text": "CommonCrypto",
+            "label_type": "simple_identifier"
+          },
+          "50": {
+            "label_c": 16,
+            "label_field_expr": "52",
+            "label_l": 13,
+            "label_type": "try_expression"
+          },
+          "51": {
+            "label_c": 16,
+            "label_l": 13,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "52": {
+            "label_c": 20,
+            "label_l": 13,
+            "label_type": "call_expression"
+          },
+          "53": {
+            "label_c": 20,
+            "label_l": 13,
+            "label_text": "Blowfish",
+            "label_type": "simple_identifier"
+          },
+          "54": {
+            "label_c": 28,
+            "label_l": 13,
+            "label_type": "call_suffix"
+          },
+          "55": {
+            "label_c": 28,
+            "label_l": 13,
+            "label_type": "value_arguments"
+          },
+          "56": {
+            "label_c": 28,
+            "label_l": 13,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "57": {
+            "label_c": 29,
+            "label_field_name": "58",
+            "label_field_value": "60",
+            "label_l": 13,
+            "label_type": "value_argument"
+          },
+          "58": {
+            "label_c": 29,
+            "label_l": 13,
+            "label_text": "key",
+            "label_type": "simple_identifier"
+          },
+          "59": {
+            "label_c": 32,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "6": {
+            "label_c": 1,
+            "label_l": 2,
+            "label_type": "import_declaration"
+          },
+          "60": {
+            "label_c": 34,
+            "label_l": 13,
+            "label_text": "key",
+            "label_type": "simple_identifier"
+          },
+          "61": {
+            "label_c": 37,
+            "label_l": 13,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "62": {
+            "label_c": 39,
+            "label_field_name": "63",
+            "label_field_value": "65",
+            "label_l": 13,
+            "label_type": "value_argument"
+          },
+          "63": {
+            "label_c": 39,
+            "label_l": 13,
+            "label_text": "blockMode",
+            "label_type": "simple_identifier"
+          },
+          "64": {
+            "label_c": 48,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "65": {
+            "label_c": 50,
+            "label_l": 13,
+            "label_type": "call_expression"
+          },
+          "66": {
+            "label_c": 50,
+            "label_l": 13,
+            "label_text": "GCM",
+            "label_type": "simple_identifier"
+          },
+          "67": {
+            "label_c": 53,
+            "label_l": 13,
+            "label_type": "call_suffix"
+          },
+          "68": {
+            "label_c": 53,
+            "label_l": 13,
+            "label_type": "value_arguments"
+          },
+          "69": {
+            "label_c": 53,
+            "label_l": 13,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "7": {
+            "label_c": 1,
+            "label_l": 2,
+            "label_text": "import",
+            "label_type": "import"
+          },
+          "70": {
+            "label_c": 54,
+            "label_field_name": "71",
+            "label_field_value": "73",
+            "label_l": 13,
+            "label_type": "value_argument"
+          },
+          "71": {
+            "label_c": 54,
+            "label_l": 13,
+            "label_text": "iv",
+            "label_type": "simple_identifier"
+          },
+          "72": {
+            "label_c": 56,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "73": {
+            "label_c": 58,
+            "label_l": 13,
+            "label_text": "iv",
+            "label_type": "simple_identifier"
+          },
+          "74": {
+            "label_c": 60,
+            "label_l": 13,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "75": {
+            "label_c": 62,
+            "label_field_name": "76",
+            "label_field_value": "78",
+            "label_l": 13,
+            "label_type": "value_argument"
+          },
+          "76": {
+            "label_c": 62,
+            "label_l": 13,
+            "label_text": "mode",
+            "label_type": "simple_identifier"
+          },
+          "77": {
+            "label_c": 66,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "78": {
+            "label_c": 68,
+            "label_field_operation": "79",
+            "label_field_target": "80",
+            "label_l": 13,
+            "label_type": "prefix_expression"
+          },
+          "79": {
+            "label_c": 68,
+            "label_l": 13,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "8": {
+            "label_c": 8,
+            "label_l": 2,
+            "label_type": "identifier"
+          },
+          "80": {
+            "label_c": 69,
+            "label_l": 13,
+            "label_text": "combined",
+            "label_type": "simple_identifier"
+          },
+          "81": {
+            "label_c": 77,
+            "label_l": 13,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "82": {
+            "label_c": 78,
+            "label_l": 13,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "83": {
+            "label_c": 80,
+            "label_field_name": "84",
+            "label_field_value": "86",
+            "label_l": 13,
+            "label_type": "value_argument"
+          },
+          "84": {
+            "label_c": 80,
+            "label_l": 13,
+            "label_text": "padding",
+            "label_type": "simple_identifier"
+          },
+          "85": {
+            "label_c": 87,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "86": {
+            "label_c": 89,
+            "label_field_operation": "87",
+            "label_field_target": "88",
+            "label_l": 13,
+            "label_type": "prefix_expression"
+          },
+          "87": {
+            "label_c": 89,
+            "label_l": 13,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "88": {
+            "label_c": 90,
+            "label_l": 13,
+            "label_text": "pkcs7",
+            "label_type": "simple_identifier"
+          },
+          "89": {
+            "label_c": 95,
+            "label_l": 13,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "9": {
+            "label_c": 8,
+            "label_l": 2,
+            "label_text": "IDZSwiftCommonCrypto",
+            "label_type": "simple_identifier"
+          },
+          "90": {
+            "label_c": 2,
+            "label_l": 14,
+            "label_text": "// Noncompliant: 64 bits block size",
+            "label_type": "comment"
+          },
+          "91": {
+            "label_c": 1,
+            "label_field_mutability": "92",
+            "label_field_name": "93",
+            "label_field_value": "96",
+            "label_l": 20,
+            "label_type": "property_declaration"
+          },
+          "92": {
+            "label_c": 1,
+            "label_l": 20,
+            "label_text": "let",
+            "label_type": "let"
+          },
+          "93": {
+            "label_c": 5,
+            "label_field_bound_identifier": "94",
+            "label_l": 20,
+            "label_type": "pattern"
+          },
+          "94": {
+            "label_c": 5,
+            "label_l": 20,
+            "label_text": "sealedBox",
+            "label_type": "simple_identifier"
+          },
+          "95": {
+            "label_c": 15,
+            "label_l": 20,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "96": {
+            "label_c": 17,
+            "label_field_expr": "98",
+            "label_l": 20,
+            "label_type": "try_expression"
+          },
+          "97": {
+            "label_c": 17,
+            "label_l": 20,
+            "label_text": "try",
+            "label_type": "try"
+          },
+          "98": {
+            "label_c": 21,
+            "label_l": 20,
+            "label_type": "call_expression"
+          },
+          "99": {
+            "label_c": 21,
+            "label_field_suffix": "105",
+            "label_field_target": "100",
+            "label_l": 20,
+            "label_type": "navigation_expression"
+          }
+        }
+      },
+      "metadata": {
+        "language": "swift"
+      },
+      "path": "skims/test/data/graphs/syntax/syntax_cfg.swift",
+      "syntax": {},
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "10": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "119": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "133": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "134": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "14": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "142": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "143": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "165": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "2": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "45": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "109": {
+            "111": {
+              "label_ast": "AST"
+            },
+            "114": {
+              "label_ast": "AST"
+            }
+          },
+          "111": {
+            "112": {
+              "label_ast": "AST"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST"
+            },
+            "117": {
+              "label_ast": "AST"
+            }
+          },
+          "120": {
+            "125": {
+              "label_ast": "AST"
+            }
+          },
+          "125": {
+            "126": {
+              "label_ast": "AST"
+            },
+            "128": {
+              "label_ast": "AST"
+            }
+          },
+          "128": {
+            "130": {
+              "label_ast": "AST"
+            }
+          },
+          "130": {
+            "131": {
+              "label_ast": "AST"
+            }
+          },
+          "134": {
+            "139": {
+              "label_ast": "AST"
+            }
+          },
+          "139": {
+            "141": {
+              "label_ast": "AST"
+            }
+          },
+          "143": {
+            "148": {
+              "label_ast": "AST"
+            }
+          },
+          "148": {
+            "150": {
+              "label_ast": "AST"
+            }
+          },
+          "150": {
+            "151": {
+              "label_ast": "AST"
+            },
+            "153": {
+              "label_ast": "AST"
+            }
+          },
+          "153": {
+            "155": {
+              "label_ast": "AST"
+            },
+            "160": {
+              "label_ast": "AST"
+            }
+          },
+          "155": {
+            "156": {
+              "label_ast": "AST"
+            },
+            "158": {
+              "label_ast": "AST"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST"
+            },
+            "163": {
+              "label_ast": "AST"
+            }
+          },
+          "22": {
+            "27": {
+              "label_ast": "AST"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST"
+            },
+            "30": {
+              "label_ast": "AST"
+            }
+          },
+          "30": {
+            "32": {
+              "label_ast": "AST"
+            }
+          },
+          "32": {
+            "33": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "41": {
+              "label_ast": "AST"
+            }
+          },
+          "41": {
+            "43": {
+              "label_ast": "AST"
+            }
+          },
+          "45": {
+            "50": {
+              "label_ast": "AST"
+            }
+          },
+          "50": {
+            "52": {
+              "label_ast": "AST"
+            }
+          },
+          "52": {
+            "53": {
+              "label_ast": "AST"
+            },
+            "55": {
+              "label_ast": "AST"
+            }
+          },
+          "55": {
+            "57": {
+              "label_ast": "AST"
+            },
+            "62": {
+              "label_ast": "AST"
+            },
+            "83": {
+              "label_ast": "AST"
+            }
+          },
+          "57": {
+            "58": {
+              "label_ast": "AST"
+            },
+            "60": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST"
+            },
+            "65": {
+              "label_ast": "AST"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST"
+            },
+            "68": {
+              "label_ast": "AST"
+            }
+          },
+          "68": {
+            "70": {
+              "label_ast": "AST"
+            },
+            "75": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "71": {
+              "label_ast": "AST"
+            },
+            "73": {
+              "label_ast": "AST"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST"
+            },
+            "78": {
+              "label_ast": "AST"
+            }
+          },
+          "78": {
+            "80": {
+              "label_ast": "AST"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST"
+            },
+            "86": {
+              "label_ast": "AST"
+            }
+          },
+          "86": {
+            "88": {
+              "label_ast": "AST"
+            }
+          },
+          "91": {
+            "96": {
+              "label_ast": "AST"
+            }
+          },
+          "96": {
+            "98": {
+              "label_ast": "AST"
+            }
+          },
+          "98": {
+            "109": {
+              "label_ast": "AST"
+            },
+            "99": {
+              "label_ast": "AST"
+            }
+          },
+          "99": {
+            "107": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "10": {
+            "expression": "CryptoSwift",
+            "label_type": "Import"
+          },
+          "107": {
+            "label_type": "SymbolLookup",
+            "symbol": "seal"
+          },
+          "109": {
+            "label_type": "ArgumentList"
+          },
+          "111": {
+            "label_type": "Argument"
+          },
+          "112": {
+            "label_type": "SymbolLookup",
+            "symbol": "input"
+          },
+          "114": {
+            "label_type": "NamedArgument",
+            "value_id": "117",
+            "variable_id": "115"
+          },
+          "115": {
+            "label_type": "SymbolLookup",
+            "symbol": "using"
+          },
+          "117": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "119": {
+            "comment": "// Compliant",
+            "label_type": "Comment"
+          },
+          "120": {
+            "label_type": "VariableDeclaration",
+            "value_id": "125",
+            "variable": "122"
+          },
+          "125": {
+            "arguments_id": "128",
+            "expression": "CCAlgorithm",
+            "expression_id": "126",
+            "label_type": "MethodInvocation"
+          },
+          "126": {
+            "label_type": "SymbolLookup",
+            "symbol": "CCAlgorithm"
+          },
+          "128": {
+            "label_type": "ArgumentList"
+          },
+          "130": {
+            "label_type": "Argument"
+          },
+          "131": {
+            "label_type": "SymbolLookup",
+            "symbol": "kCCAlgorithmAES"
+          },
+          "133": {
+            "comment": "// Compliant",
+            "label_type": "Comment"
+          },
+          "134": {
+            "label_type": "VariableDeclaration",
+            "value_id": "139",
+            "variable": "136"
+          },
+          "139": {
+            "expression_id": "141",
+            "label_type": "PrefixOperation",
+            "prefix": "."
+          },
+          "14": {
+            "expression": "Crypto",
+            "label_type": "Import"
+          },
+          "141": {
+            "label_type": "SymbolLookup",
+            "symbol": "aes"
+          },
+          "142": {
+            "comment": "// Compliant",
+            "label_type": "Comment"
+          },
+          "143": {
+            "label_type": "VariableDeclaration",
+            "value_id": "148",
+            "variable": "145"
+          },
+          "148": {
+            "block_id": "150",
+            "label_type": "TryStatement"
+          },
+          "150": {
+            "arguments_id": "153",
+            "expression": "AES",
+            "expression_id": "151",
+            "label_type": "MethodInvocation"
+          },
+          "151": {
+            "label_type": "SymbolLookup",
+            "symbol": "AES"
+          },
+          "153": {
+            "label_type": "ArgumentList"
+          },
+          "155": {
+            "label_type": "NamedArgument",
+            "value_id": "158",
+            "variable_id": "156"
+          },
+          "156": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "158": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "160": {
+            "label_type": "NamedArgument",
+            "value_id": "163",
+            "variable_id": "161"
+          },
+          "161": {
+            "label_type": "SymbolLookup",
+            "symbol": "iv"
+          },
+          "163": {
+            "label_type": "SymbolLookup",
+            "symbol": "iv"
+          },
+          "165": {
+            "comment": "// Compliant",
+            "label_type": "Comment"
+          },
+          "18": {
+            "expression": "IDZSwiftCommonCrypto",
+            "label_type": "Import"
+          },
+          "2": {
+            "expression": "CommonCrypto",
+            "label_type": "Import"
+          },
+          "22": {
+            "label_type": "VariableDeclaration",
+            "value_id": "27",
+            "variable": "24"
+          },
+          "27": {
+            "arguments_id": "30",
+            "expression": "CCAlgorithm",
+            "expression_id": "28",
+            "label_type": "MethodInvocation"
+          },
+          "28": {
+            "label_type": "SymbolLookup",
+            "symbol": "CCAlgorithm"
+          },
+          "30": {
+            "label_type": "ArgumentList"
+          },
+          "32": {
+            "label_type": "Argument"
+          },
+          "33": {
+            "label_type": "SymbolLookup",
+            "symbol": "kCCAlgorithmDES"
+          },
+          "35": {
+            "comment": "// Noncompliant: 64 bits block size",
+            "label_type": "Comment"
+          },
+          "36": {
+            "label_type": "VariableDeclaration",
+            "value_id": "41",
+            "variable": "38"
+          },
+          "41": {
+            "expression_id": "43",
+            "label_type": "PrefixOperation",
+            "prefix": "."
+          },
+          "43": {
+            "label_type": "SymbolLookup",
+            "symbol": "des"
+          },
+          "44": {
+            "comment": "// Noncompliant: 64 bits block size",
+            "label_type": "Comment"
+          },
+          "45": {
+            "label_type": "VariableDeclaration",
+            "value_id": "50",
+            "variable": "47"
+          },
+          "50": {
+            "block_id": "52",
+            "label_type": "TryStatement"
+          },
+          "52": {
+            "arguments_id": "55",
+            "expression": "Blowfish",
+            "expression_id": "53",
+            "label_type": "MethodInvocation"
+          },
+          "53": {
+            "label_type": "SymbolLookup",
+            "symbol": "Blowfish"
+          },
+          "55": {
+            "label_type": "ArgumentList"
+          },
+          "57": {
+            "label_type": "NamedArgument",
+            "value_id": "60",
+            "variable_id": "58"
+          },
+          "58": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "6": {
+            "expression": "IDZSwiftCommonCrypto",
+            "label_type": "Import"
+          },
+          "60": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "62": {
+            "label_type": "NamedArgument",
+            "value_id": "65",
+            "variable_id": "63"
+          },
+          "63": {
+            "label_type": "SymbolLookup",
+            "symbol": "blockMode"
+          },
+          "65": {
+            "arguments_id": "68",
+            "expression": "GCM",
+            "expression_id": "66",
+            "label_type": "MethodInvocation"
+          },
+          "66": {
+            "label_type": "SymbolLookup",
+            "symbol": "GCM"
+          },
+          "68": {
+            "label_type": "ArgumentList"
+          },
+          "70": {
+            "label_type": "NamedArgument",
+            "value_id": "73",
+            "variable_id": "71"
+          },
+          "71": {
+            "label_type": "SymbolLookup",
+            "symbol": "iv"
+          },
+          "73": {
+            "label_type": "SymbolLookup",
+            "symbol": "iv"
+          },
+          "75": {
+            "label_type": "NamedArgument",
+            "value_id": "78",
+            "variable_id": "76"
+          },
+          "76": {
+            "label_type": "SymbolLookup",
+            "symbol": "mode"
+          },
+          "78": {
+            "expression_id": "80",
+            "label_type": "PrefixOperation",
+            "prefix": "."
+          },
+          "80": {
+            "label_type": "SymbolLookup",
+            "symbol": "combined"
+          },
+          "83": {
+            "label_type": "NamedArgument",
+            "value_id": "86",
+            "variable_id": "84"
+          },
+          "84": {
+            "label_type": "SymbolLookup",
+            "symbol": "padding"
+          },
+          "86": {
+            "expression_id": "88",
+            "label_type": "PrefixOperation",
+            "prefix": "."
+          },
+          "88": {
+            "label_type": "SymbolLookup",
+            "symbol": "pkcs7"
+          },
+          "90": {
+            "comment": "// Noncompliant: 64 bits block size",
+            "label_type": "Comment"
+          },
+          "91": {
+            "label_type": "VariableDeclaration",
+            "value_id": "96",
+            "variable": "93"
+          },
+          "96": {
+            "block_id": "98",
+            "label_type": "TryStatement"
+          },
+          "98": {
+            "arguments_id": "109",
+            "expression": "AES.GCM.seal",
+            "expression_id": "99",
+            "label_type": "MethodInvocation"
+          },
+          "99": {
+            "expression": ".seal",
+            "expression_id": "105",
+            "label_type": "MemberAccess",
+            "member": "AES.GCM"
+          }
+        }
+      }
+    }
+  ],
+  "shards_by_language_class": {},
+  "shards_by_path": {
+    "skims/test/data/graphs/syntax/syntax_cfg.swift": 0
+  }
+}
