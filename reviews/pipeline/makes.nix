@@ -14,7 +14,7 @@
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["small"];
+    tags = ["reviews-small"];
   };
 in {
   pipelines = {
