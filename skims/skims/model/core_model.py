@@ -2460,6 +2460,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EKS_INSECURE_INBOUND_TRAFFIC = MethodInfo(
+        file_name="aws",
+        name="eks_allows_insecure_inbound_traffic",
+        module="dast",
+        finding=FindingEnum.F070,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_HAS_PUBLIC_INSTANCES = MethodInfo(
         file_name="aws",
         name="has_public_instances",
