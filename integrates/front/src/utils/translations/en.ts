@@ -394,6 +394,18 @@ export const enTranslations: ResourceKey = {
         "https://example.com/user/repo.git\n" +
         "git@github.com:user/repo.git",
     },
+    welcome: {
+      modal: {
+        button: "Go to the ARM platform",
+        subtitle:
+          "You will receive a notification by email " +
+          "when we find the first vulnerability. in the meantime, " +
+          "explore the ARM platform and learn about its main features",
+        title:
+          "Welcome to the Attack Resistance Management (ARM) platform: " +
+          "We are now scanning your application!",
+      },
+    },
   },
   comments: {
     editorPlaceholder: "Add your comment here",
