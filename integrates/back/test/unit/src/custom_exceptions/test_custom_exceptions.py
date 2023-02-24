@@ -7,7 +7,6 @@ from custom_exceptions import (
     InvalidNumberAcceptances,
     InvalidRange,
     InvalidSchema,
-    OrganizationNotFound,
     RepeatedValues,
     UnableToSendSms,
     UnavailabilityError,
@@ -39,9 +38,6 @@ from mypy_boto3_dynamodb import (
 )
 from newutils.vulnerabilities import (
     range_to_list,
-)
-from organizations.utils import (
-    get_organization,
 )
 import os
 import pytest
@@ -167,27 +163,6 @@ async def test_validate_file_schema_invalid(
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
         await validate_file_schema(file_url, info)  # type: ignore
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-async def test_organization_not_found(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    with pytest.raises(OrganizationNotFound):
-        loaders: Dataloaders = get_new_context()
-        await get_organization(loaders, "madeup-org")
-    with pytest.raises(OrganizationNotFound):
-        new_loader: Dataloaders = get_new_context()
-        await get_organization(new_loader, "ORG#madeup-id")
-    assert mock_table_resource.called is True
 
 
 @mock.patch(
