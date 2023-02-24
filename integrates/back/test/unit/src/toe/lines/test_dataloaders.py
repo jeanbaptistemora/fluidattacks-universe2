@@ -38,7 +38,6 @@ async def test_get() -> None:
     assert toe_lines == ToeLines(
         filename="test/test#.config",
         group_name="unittesting",
-        modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         state=ToeLinesState(
             attacked_at=datetime.fromisoformat("2021-02-20T05:00:00+00:00"),
@@ -88,7 +87,6 @@ async def test_get() -> None:
     assert toe_lines == ToeLines(
         filename="test2/test.sh",
         group_name="unittesting",
-        modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
         state=ToeLinesState(
             attacked_at=datetime.fromisoformat("2021-01-20T05:00:00+00:00"),
@@ -137,9 +135,6 @@ async def test_get_by_group() -> None:
                 node=ToeLines(
                     filename="path/to/file3.ext",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-15T15:41:04+00:00"
-                    ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                     seen_first_time_by=None,
                     state=ToeLinesState(
@@ -197,9 +192,6 @@ async def test_get_by_group() -> None:
                 node=ToeLines(
                     filename="test/test#.config",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-15T15:41:04+00:00"
-                    ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                     state=ToeLinesState(
                         attacked_at=datetime.fromisoformat(
@@ -252,9 +244,6 @@ async def test_get_by_group() -> None:
                 node=ToeLines(
                     filename="test2/test.sh",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-16T15:41:04+00:00"
-                    ),
                     root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                     state=ToeLinesState(
                         attacked_at=datetime.fromisoformat(
@@ -318,9 +307,6 @@ async def test_get_by_root() -> None:
                 node=ToeLines(
                     filename="path/to/file3.ext",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-15T15:41:04+00:00"
-                    ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                     seen_first_time_by=None,
                     state=ToeLinesState(
@@ -378,9 +364,6 @@ async def test_get_by_root() -> None:
                 node=ToeLines(
                     filename="test/test#.config",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-15T15:41:04+00:00"
-                    ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                     state=ToeLinesState(
                         attacked_at=datetime.fromisoformat(
@@ -443,9 +426,6 @@ async def test_get_by_root() -> None:
                 node=ToeLines(
                     filename="test2/test.sh",
                     group_name="unittesting",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-16T15:41:04+00:00"
-                    ),
                     root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                     state=ToeLinesState(
                         attacked_at=datetime.fromisoformat(

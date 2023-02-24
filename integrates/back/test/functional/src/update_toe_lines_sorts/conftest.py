@@ -108,9 +108,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="test/test#.config",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(

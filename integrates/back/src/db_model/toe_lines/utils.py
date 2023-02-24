@@ -38,9 +38,6 @@ def format_toe_lines(item: Item) -> ToeLines:
     return ToeLines(
         filename=item["filename"],
         group_name=item["group_name"],
-        modified_date=datetime.fromisoformat(
-            state_item.get("last_commit_date", item.get("modified_date"))
-        ),
         root_id=item["root_id"],
         seen_first_time_by=item.get("seen_first_time_by"),
         state=ToeLinesState(

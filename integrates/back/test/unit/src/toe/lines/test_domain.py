@@ -68,7 +68,6 @@ async def test_add() -> None:
         == ToeLines(
             filename="test/new.new",
             group_name="unittesting",
-            modified_date=datetime.fromisoformat("2017-08-01T05:00:00+00:00"),
             root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             state=ToeLinesState(
                 attacked_at=datetime.fromisoformat(
@@ -145,7 +144,6 @@ async def test_update() -> None:
         == ToeLines(
             filename="test/new.new",
             group_name="unittesting",
-            modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
             root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
             state=ToeLinesState(
                 attacked_at=datetime.fromisoformat(

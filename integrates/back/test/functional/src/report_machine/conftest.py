@@ -610,9 +610,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="nickname/back/src/model/user/index.js",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=None,
@@ -642,9 +639,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="back/src/index.js",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -678,9 +672,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="skims/test/data/lib_path/f011/requirements.txt",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -714,9 +705,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="front/index.html",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -750,9 +738,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="skims/test/data/lib_path/f011/build.gradle",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -786,9 +771,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="MyJar.jar",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -822,9 +804,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="MyJar.class",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -858,9 +837,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="java_has_print_statements.java",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -894,9 +870,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="package.json",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(

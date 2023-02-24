@@ -844,9 +844,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="README.md",
                 group_name="unittesting",
-                modified_date=datetime.fromisoformat(
-                    "2022-09-05T00:45:11+00:00"
-                ),
                 root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
                 state=ToeLinesState(
                     attacked_at=None,

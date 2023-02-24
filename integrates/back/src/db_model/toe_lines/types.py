@@ -38,7 +38,6 @@ class ToeLinesState(NamedTuple):
 class ToeLines(NamedTuple):
     filename: str
     group_name: str
-    modified_date: datetime
     root_id: str
     state: ToeLinesState
     seen_first_time_by: str | None = None

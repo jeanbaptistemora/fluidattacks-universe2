@@ -112,7 +112,6 @@ def _assign_toe_lines(
     return ToeLines(
         filename=filename,
         group_name=group_name,
-        modified_date=attributes.last_commit_date,
         root_id=root.id,
         seen_first_time_by=attributes.seen_first_time_by,
         state=ToeLinesState(

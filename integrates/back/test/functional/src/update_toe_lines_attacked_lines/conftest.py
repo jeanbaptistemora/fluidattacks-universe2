@@ -143,9 +143,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="test/test#.config",
                 group_name="group1",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
                 root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                 state=ToeLinesState(
                     attacked_at=None,
@@ -175,9 +172,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="test2/test.sh",
                 group_name="group2",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
@@ -211,9 +205,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ToeLines(
                 filename="test3/test.config",
                 group_name="group3",
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
                 root_id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",
                 state=ToeLinesState(
                     attacked_at=datetime.fromisoformat(
