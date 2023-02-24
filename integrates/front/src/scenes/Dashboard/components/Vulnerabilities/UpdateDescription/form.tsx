@@ -47,7 +47,7 @@ import { TreatmentField } from "./TreatmentField";
 import { GET_FINDING_HEADER } from "../../../containers/Finding-Content/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../../Navbar/Tasks/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateVulnerabilityForm,
@@ -78,7 +78,6 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Con
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
-import { Col100, Col50 } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import {
@@ -461,13 +460,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         {areSelectedClosedVulnerabilities ? undefined : (
           <Fragment>
             <div className={"flex flex-wrap pt3"}>
-              <Col50>
+              <Col>
                 <TreatmentField
                   isTreatmentPristine={isTreatmentPristine}
                   lastTreatment={lastTreatment}
                 />
-              </Col50>
-              <Col50>
+              </Col>
+              <Col>
                 <AssignedField
                   isAcceptedSelected={isAcceptedSelected}
                   isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
@@ -475,36 +474,36 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   lastTreatment={lastTreatment}
                   userEmails={userEmails}
                 />
-              </Col50>
+              </Col>
             </div>
             <Row>
-              <Col50>
+              <Col>
                 <AcceptanceUserField
                   isAcceptedSelected={isAcceptedSelected}
                   isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
                   isInProgressSelected={isInProgressSelected}
                   lastTreatment={lastTreatment}
                 />
-              </Col50>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <JustificationField
                   isTreatmentPristine={isTreatmentPristine}
                   lastTreatment={lastTreatment}
                 />
-              </Col100>
+              </Col>
             </Row>
             <Row>
-              <Col50>
+              <Col>
                 <AcceptanceDateField
                   isAcceptedSelected={isAcceptedSelected}
                   lastTreatment={lastTreatment}
                 />
-              </Col50>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <ExternalBtsField
                   hasNewVulnSelected={hasNewVulns}
                   isAcceptedSelected={isAcceptedSelected}
@@ -512,12 +511,12 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   isInProgressSelected={isInProgressSelected}
                   vulnerabilities={vulnerabilities}
                 />
-              </Col100>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <TagField handleDeletion={handleDeletion} />
-              </Col100>
+              </Col>
             </Row>
             {(isAcceptedSelected ||
               isAcceptedUndefinedSelected ||
@@ -530,7 +529,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
               </div>
             ) : undefined}
             <Row>
-              <Col50>
+              <Col>
                 <SeverityField
                   hasNewVulnSelected={hasNewVulns}
                   isAcceptedSelected={isAcceptedSelected}
@@ -538,14 +537,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                   isInProgressSelected={isInProgressSelected}
                   level={groupVulnLevel(vulnerabilities)}
                 />
-              </Col50>
+              </Col>
             </Row>
           </Fragment>
         )}
         <Row>
-          <Col100>
+          <Col>
             <SourceField />
-          </Col100>
+          </Col>
         </Row>
       </Form>
       {treatmentChangeAlert(isTreatmentPristine)}
