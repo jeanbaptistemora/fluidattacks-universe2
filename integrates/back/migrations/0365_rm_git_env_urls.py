@@ -1,6 +1,11 @@
 # pylint: disable=invalid-name
 """
 Remove git_environment_urls from root state
+
+Execution Time:    2023-02-24 at 03:23:47 UTC
+Finalization Time: 2023-02-24 at 04:03:38 UTC
+Execution Time:    2023-02-24 at 04:09:48 UTC
+Finalization Time: 2023-02-24 at 04:26:37 UTC
 """
 from aioextensions import (
     run,
@@ -118,7 +123,6 @@ async def _process_historic_root_state(
                 )
             ),
         )
-        return
 
     item = {"git_environment_urls": None}
     LOGGER_CONSOLE.info(
@@ -173,7 +177,6 @@ async def _process_root_state(
                 )
             ),
         )
-        return
 
     root_item = {"state.git_environment_urls": None}
     LOGGER_CONSOLE.info(
