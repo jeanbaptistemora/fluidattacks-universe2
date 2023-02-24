@@ -446,7 +446,7 @@ export const enTranslations: ResourceKey = {
     closedVuln: "A closed vulnerability cannot be removed",
     notSuccess: "Vulnerability could not be eliminated",
     reportingError: "Error while reporting",
-    title: "Delete Vulnerability",
+    title: "Delete vulnerability",
   },
   forms: {
     closing: "Closure",
@@ -684,6 +684,13 @@ export const enTranslations: ResourceKey = {
       },
     },
     findings: {
+      addModal: {
+        hint: {
+          description: "Hint: Description",
+          empty: "Not available",
+        },
+        title: "Add vulnerability",
+      },
       boolean: {
         False: "No",
         True: "Yes",
@@ -714,7 +721,7 @@ export const enTranslations: ResourceKey = {
           label: "Justification",
           notRequired: "Vulnerability not required",
         },
-        title: "Delete Vulnerability",
+        title: "Delete vulnerability",
       },
       description: {
         exploitable: "Exploitable:",

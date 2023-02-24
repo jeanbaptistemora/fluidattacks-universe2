@@ -14,7 +14,7 @@ import type {
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, {
@@ -34,6 +34,7 @@ import { locationsFormatter } from "./formatters/locationsFormatter";
 import { severityFormatter } from "./formatters/severityFormatter";
 import { GET_GROUP_VULNERABILITIES, GET_ROOTS } from "./queries";
 import type {
+  IFindingSuggestionData,
   IGroupVulnerabilities,
   IRoot,
   IVulnerabilitiesResume,
@@ -43,6 +44,7 @@ import {
   formatFindings,
   formatState,
   getAreAllMutationValid,
+  getFindingSuggestions,
   getResults,
   getRiskExposure,
   handleRemoveFindingsError,
@@ -72,9 +74,14 @@ import type {
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/types";
 import { vulnerabilitiesContext } from "scenes/Dashboard/group/context";
 import type { IVulnerabilitiesContext } from "scenes/Dashboard/group/types";
-import { ControlLabel, FormGroup } from "styles/styledComponents";
+import {
+  ControlLabel,
+  FormGroup,
+  HintFieldText,
+} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -92,6 +99,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
+  const [isAddFindingModalOpen, setIsAddFindingModalOpen] = useState(false);
+  const [suggestions, setSuggestions] = useState<
+    IFindingSuggestionData[] | undefined
+  >(undefined);
   const [filters, setFilters] = useState<IFilter<IFindingAttr>[]>([
     {
       id: "lastVulnerability",
@@ -215,8 +226,26 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "tblFindings-sortingState",
     []
   );
-  const openAddFindingModal: () => void = useCallback((): void => {
-    // OpenAddFindingModal
+  const openAddFindingModal: () => void =
+    useCallback(async (): Promise<void> => {
+      setIsAddFindingModalOpen(true);
+      if (_.isUndefined(suggestions)) {
+        const findingSuggestions: IFindingSuggestionData[] =
+          await getFindingSuggestions().catch(
+            (error: Error): IFindingSuggestionData[] => {
+              Logger.error(
+                "An error occurred getting finding suggestions",
+                error
+              );
+
+              return [];
+            }
+          );
+        setSuggestions(findingSuggestions);
+      }
+    }, [suggestions]);
+  const closeAddFindingModal: () => void = useCallback((): void => {
+    setIsAddFindingModalOpen(false);
   }, []);
   const openReportsModal: () => void = useCallback((): void => {
     setIsReportsModalOpen(true);
@@ -501,6 +530,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     _.sortBy(typesArray, (arr): string => arr[0])
   );
 
+  const handleAdd = useCallback((): void => {
+    // HandleAdd
+  }, []);
+
   const [removeFinding, { loading: deleting }] = useMutation(
     REMOVE_FINDING_MUTATION,
     {
@@ -564,6 +597,29 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const handleRowExpand = useCallback((row: Row<IFindingAttr>): JSX.Element => {
     return renderDescription(row.original);
   }, []);
+
+  const getFindingDescription: (findingName: string) => string = (
+    findingName: string
+  ): string => {
+    const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
+      suggestions
+    )
+      ? []
+      : suggestions.filter(
+          (suggestion: IFindingSuggestionData): boolean =>
+            `${suggestion.code}. ${suggestion.title}` === findingName
+        );
+
+    if (
+      _.isUndefined(matchingSuggestion) ||
+      !matchingSuggestion.description ||
+      matchingSuggestion.description.includes("__empty__")
+    ) {
+      return t("group.findings.addModal.hint.empty");
+    }
+
+    return matchingSuggestion.description;
+  };
 
   return (
     <React.StrictMode>
@@ -659,6 +715,57 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         typesOptions={Object.keys(typesOptions)}
         userRole={data?.group.userRole ?? "user"}
       />
+      <Modal
+        onClose={closeAddFindingModal}
+        open={isAddFindingModalOpen}
+        title={t("group.findings.addModal.title")}
+      >
+        <Formik
+          enableReinitialize={true}
+          initialValues={{ title: "" }}
+          name={"addFinding"}
+          onSubmit={handleAdd}
+        >
+          {({ dirty, isValid, values }): JSX.Element => (
+            <Form>
+              <Field
+                alignField={"horizontal"}
+                component={FormikAutocompleteText}
+                focus={true}
+                id={"title"}
+                name={"title"}
+                renderAsEditable={true}
+                suggestions={
+                  _.isUndefined(suggestions)
+                    ? []
+                    : _.sortBy(
+                        suggestions.map(
+                          (suggestion: IFindingSuggestionData): string =>
+                            `${suggestion.code}. ${suggestion.title}`
+                        )
+                      )
+                }
+                type={"text"}
+              />
+              {dirty && isValid ? (
+                <React.Fragment>
+                  <hr />
+                  <HintFieldText>
+                    {t("group.findings.addModal.hint.description")}
+                  </HintFieldText>
+                  <HintFieldText>
+                    {getFindingDescription(values.title)}
+                  </HintFieldText>
+                </React.Fragment>
+              ) : undefined}
+              <ModalConfirm
+                disabled={!dirty || !isValid}
+                onCancel={closeAddFindingModal}
+              />
+            </Form>
+          )}
+        </Formik>
+      </Modal>
       <Modal
         onClose={closeDeleteModal}
         open={isDeleteModalOpen}
