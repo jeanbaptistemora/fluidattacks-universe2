@@ -4,7 +4,7 @@ type ForcesExecutions {
   executions: [ForcesExecution!]
   "List of Forces executions paginated within the provided time period"
   executionsConnections(
-     "The cursor for the forward pagination"
+    "The cursor for the forward pagination"
     after: String
     "The maximum amount of executions to return"
     first: Int

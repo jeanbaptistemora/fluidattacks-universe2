@@ -1,12 +1,6 @@
 from .schema import (
     FORCES_EXECUTION,
 )
-from db_model.forces.types import (
-    ForcesExecution,
-)
-from decimal import (
-    Decimal,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -17,12 +11,12 @@ from typing import (
 
 @FORCES_EXECUTION.field("severityThreshold")
 def resolve(
-    parent: dict[str, Any] | ForcesExecution,
+    parent: dict[str, Any],
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> float | Decimal:
-    if isinstance(parent, dict):
-        if parent.get("severity_threshold"):
-            return float(str(parent["severity_threshold"]))
-        return 0.0
-    return parent.severity_threshold if parent.severity_threshold else 0.0
+) -> float:
+    return (
+        float(str(parent["severity_threshold"]))
+        if parent.get("severity_threshold")
+        else float(0.0)
+    )

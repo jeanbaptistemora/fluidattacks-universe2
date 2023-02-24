@@ -1,9 +1,6 @@
 from .schema import (
     FORCES_EXECUTION,
 )
-from db_model.forces.types import (
-    ForcesExecution,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -14,12 +11,10 @@ from typing import (
 
 @FORCES_EXECUTION.field("gracePeriod")
 def resolve(
-    parent: dict[str, Any] | ForcesExecution,
+    parent: dict[str, Any],
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> int:
-    if isinstance(parent, dict):
-        if parent.get("grace_period"):
-            return int(str(parent["grace_period"]))
-        return 0
-    return parent.grace_period if parent.grace_period else 0
+    return (
+        int(str(parent["grace_period"])) if parent.get("grace_period") else 0
+    )
