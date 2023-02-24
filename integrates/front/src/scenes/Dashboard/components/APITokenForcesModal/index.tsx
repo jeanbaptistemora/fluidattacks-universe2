@@ -5,13 +5,12 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { TextArea } from "components/Input";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   useGetAPIToken,
   useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
-import { Col100 } from "styles/styledComponents";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IAPITokenForcesModalProps {
@@ -71,7 +70,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
       >
         <Form>
           <Row>
-            <Col100>
+            <Col>
               <TextArea
                 disabled={true}
                 label={t("updateForcesToken.accessToken")}
@@ -92,7 +91,7 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
               >
                 {t("updateForcesToken.revealToken")}
               </Button>
-            </Col100>
+            </Col>
           </Row>
           <ModalConfirm
             disabled={!getTokenCalled || getTokenLoading}
