@@ -1,4 +1,3 @@
----
 /lintPython/module/melts:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -17,7 +16,7 @@
     - m . /lintPython/module/melts
   stage: lint-code
   tags:
-    - small
+    - melts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -39,7 +38,7 @@
     - m . /lintPython/module/meltsTest
   stage: lint-code
   tags:
-    - small
+    - melts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -64,7 +63,7 @@
       name: localstack/localstack
   stage: test-code
   tags:
-    - large
+    - melts-large
   variables:
     GIT_DEPTH: 1
     HOSTNAME_EXTERNAL: localstack
