@@ -5,6 +5,11 @@ from aiobotocore import (
 from botocore.exceptions import (
     ClientError,
 )
+from collections.abc import (
+    Callable,
+    Coroutine,
+    Mapping,
+)
 from opentelemetry import (
     context,
     trace,
@@ -25,12 +30,7 @@ from opentelemetry.semconv.trace import (
 )
 from typing import (
     Any,
-    Callable,
     cast,
-    Coroutine,
-    Dict,
-    Mapping,
-    Tuple,
 )
 from wrapt import (
     wrap_function_wrapper,
@@ -79,7 +79,7 @@ class AioBotocoreInstrumentor(BotocoreInstrumentor):
             return await original_func(*args, **kwargs)
 
         call_context = _determine_call_context(
-            instance, cast(Tuple[str, Dict[str, Any]], args)
+            instance, cast(tuple[str, dict[str, Any]], args)
         )
         if call_context is None:
             return await original_func(*args, **kwargs)

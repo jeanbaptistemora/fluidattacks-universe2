@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from custom_exceptions import (
     CustomBaseException,
     InvalidFieldLength,
@@ -12,7 +15,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Callable,
 )
 
 

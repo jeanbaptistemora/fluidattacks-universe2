@@ -19,7 +19,6 @@ from twilio.rest import (
 )
 from typing import (
     Any,
-    List,
 )
 
 # Initialize Twilio client
@@ -46,7 +45,7 @@ async def send_sms_notification(
 
 async def send_sms_notifications(
     *,
-    phone_numbers: List[str],
+    phone_numbers: list[str],
     context: dict[str, Any],
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",")

@@ -61,7 +61,6 @@ from settings import (
 from typing import (
     Any,
     cast,
-    Optional,
 )
 from unreliable_indicators.enums import (
     Entity,
@@ -134,9 +133,7 @@ async def update_events_unreliable_indicators(
     )
 
 
-def _format_unreliable_status(
-    status: Optional[str],
-) -> Optional[FindingStatus]:
+def _format_unreliable_status(status: str | None) -> FindingStatus | None:
     unreliable_status = None
     if status:
         unreliable_status = FindingStatus[status.upper()]
@@ -144,8 +141,8 @@ def _format_unreliable_status(
 
 
 def _format_unreliable_treatment_summary(
-    treatment_summary: Optional[Treatments],
-) -> Optional[FindingTreatmentSummary]:
+    treatment_summary: Treatments | None,
+) -> FindingTreatmentSummary | None:
     unreliable_treatment_summary = None
     if treatment_summary:
         unreliable_treatment_summary = FindingTreatmentSummary(
@@ -158,8 +155,8 @@ def _format_unreliable_treatment_summary(
 
 
 def _format_unreliable_verification_summary(
-    verification_summary: Optional[Verifications],
-) -> Optional[FindingVerificationSummary]:
+    verification_summary: Verifications | None,
+) -> FindingVerificationSummary | None:
     unreliable_verification_summary = None
     if verification_summary:
         unreliable_verification_summary = FindingVerificationSummary(

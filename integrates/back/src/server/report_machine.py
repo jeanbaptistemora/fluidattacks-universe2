@@ -154,7 +154,6 @@ from toe.inputs.types import (
 from typing import (
     Any,
     NamedTuple,
-    Optional,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -215,7 +214,7 @@ class SignalHandler:  # pylint: disable=too-few-public-methods
 
 async def get_config(
     execution_id: str,
-    config_path: Optional[str] = None,
+    config_path: str | None = None,
 ) -> dict[str, Any]:
     # config_path is useful to test this flow locally
     if config_path is not None:
@@ -240,8 +239,8 @@ async def get_config(
 )
 async def get_sarif_log(
     execution_id: str,
-    sarif_path: Optional[str] = None,
-) -> Optional[dict[str, Any]]:
+    sarif_path: str | None = None,
+) -> dict[str, Any] | None:
     # sarif_path is useful to test this flow locally
     if sarif_path is not None:
         with open(sarif_path, "rb") as sarif_file:
@@ -559,7 +558,7 @@ def _get_vulns_with_reattack(  # NOSONAR
 
 
 def _get_input_url(
-    vuln: dict[str, Any], repo_nickname: Optional[str] = None
+    vuln: dict[str, Any], repo_nickname: str | None = None
 ) -> str:
     url: str
     if vuln["properties"].get("has_redirect", False):
@@ -624,8 +623,8 @@ def _build_vulnerabilities_stream_from_sarif(
 def _build_vulnerabilities_stream_from_integrates(
     vulnerabilities: tuple[Vulnerability, ...],
     git_root: GitRoot,
-    state: Optional[str] = None,
-    commit: Optional[str] = None,
+    state: str | None = None,
+    commit: str | None = None,
 ) -> dict[str, Any]:
     state = state or "closed"
     return {
@@ -768,7 +767,7 @@ async def persist_vulnerabilities(
     finding: Finding,
     stream: dict[str, Any],
     organization_name: str,
-) -> Optional[set[str]]:
+) -> set[str] | None:
     finding_policy = await policies_domain.get_finding_policy_by_name(
         loaders=loaders,
         organization_name=organization_name,
@@ -1015,9 +1014,9 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     sarif_log: dict[str, Any],
     execution_config: dict[str, Any],
     organization_name: str,
-    finding: Optional[Finding] = None,
+    finding: Finding | None = None,
     auto_approve: bool = False,
-) -> Optional[MachineFindingResult]:
+) -> MachineFindingResult | None:
     sarif_vulns = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
@@ -1145,9 +1144,9 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 async def get_current_execution(
     root_id: str,
     batch_job_id: str,
-    findings_executed: Optional[list[MachineFindingResult]] = None,
-    commit: Optional[str] = None,
-) -> Optional[RootMachineExecution]:
+    findings_executed: list[MachineFindingResult] | None = None,
+    commit: str | None = None,
+) -> RootMachineExecution | None:
 
     result = await get_machine_executions_by_job_id(
         job_id=batch_job_id, root_id=root_id
@@ -1171,10 +1170,10 @@ async def get_current_execution(
 
 async def process_execution(
     execution_id: str,
-    criteria_vulns: Optional[dict[str, Any]] = None,
-    criteria_reqs: Optional[dict[str, Any]] = None,
-    config_path: Optional[str] = None,
-    sarif_path: Optional[str] = None,
+    criteria_vulns: dict[str, Any] | None = None,
+    criteria_reqs: dict[str, Any] | None = None,
+    config_path: str | None = None,
+    sarif_path: str | None = None,
 ) -> bool:
     # pylint: disable=too-many-locals
     criteria_vulns = criteria_vulns or await get_vulns_file()
@@ -1220,7 +1219,7 @@ async def process_execution(
     }
 
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
-    rules_finding: tuple[tuple[str, Optional[Finding]], ...] = ()
+    rules_finding: tuple[tuple[str, Finding | None], ...] = ()
     for criteria_vuln_id in rules_id:
         for finding in group_findings:
             if finding.title.startswith(f"{criteria_vuln_id}."):

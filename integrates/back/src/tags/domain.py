@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
 )
 import authz
+from collections.abc import (
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -22,9 +25,6 @@ from organization_access import (
 )
 from organizations import (
     utils as orgs_utils,
-)
-from typing import (
-    Iterable,
 )
 
 

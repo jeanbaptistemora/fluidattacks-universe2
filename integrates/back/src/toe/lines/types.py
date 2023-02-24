@@ -6,7 +6,6 @@ from db_model.toe_lines.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -15,32 +14,32 @@ class ToeLinesAttributesToAdd(NamedTuple):
     loc: int
     last_commit: str
     last_commit_date: datetime
-    attacked_at: Optional[datetime] = None
+    attacked_at: datetime | None = None
     attacked_by: str = ""
     attacked_lines: int = 0
     comments: str = ""
     be_present: bool = True
-    be_present_until: Optional[datetime] = None
-    first_attack_at: Optional[datetime] = None
-    has_vulnerabilities: Optional[bool] = None
-    seen_at: Optional[datetime] = None
-    seen_first_time_by: Optional[str] = None
+    be_present_until: datetime | None = None
+    first_attack_at: datetime | None = None
+    has_vulnerabilities: bool | None = None
+    seen_at: datetime | None = None
+    seen_first_time_by: str | None = None
     sorts_risk_level: int = -1
 
 
 class ToeLinesAttributesToUpdate(NamedTuple):
-    attacked_at: Optional[datetime] = None
-    attacked_by: Optional[str] = None
-    attacked_lines: Optional[int] = None
-    be_present: Optional[bool] = None
-    comments: Optional[str] = None
-    last_author: Optional[str] = None
-    first_attack_at: Optional[datetime] = None
-    has_vulnerabilities: Optional[bool] = None
-    loc: Optional[int] = None
-    last_commit: Optional[str] = None
-    last_commit_date: Optional[datetime] = None
-    seen_at: Optional[datetime] = None
-    sorts_risk_level: Optional[int] = None
-    sorts_risk_level_date: Optional[datetime] = None
-    sorts_suggestions: Optional[list[SortsSuggestion]] = None
+    attacked_at: datetime | None = None
+    attacked_by: str | None = None
+    attacked_lines: int | None = None
+    be_present: bool | None = None
+    comments: str | None = None
+    last_author: str | None = None
+    first_attack_at: datetime | None = None
+    has_vulnerabilities: bool | None = None
+    loc: int | None = None
+    last_commit: str | None = None
+    last_commit_date: datetime | None = None
+    seen_at: datetime | None = None
+    sorts_risk_level: int | None = None
+    sorts_risk_level_date: datetime | None = None
+    sorts_suggestions: list[SortsSuggestion] | None = None

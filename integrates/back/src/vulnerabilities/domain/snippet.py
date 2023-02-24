@@ -44,10 +44,6 @@ from settings.logger import (
     LOGGING,
 )
 import tempfile
-from typing import (
-    Optional,
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -56,7 +52,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def snippet_already_exists(
-    vulnerability_id: str, vulnerability_modified_date: Union[str, datetime]
+    vulnerability_id: str, vulnerability_modified_date: str | datetime
 ) -> bool:
     modified_date = (
         vulnerability_modified_date
@@ -113,7 +109,7 @@ async def set_snippet(
 
 def generate_snippet(
     vulnerability_state: VulnerabilityState, repo: Repo
-) -> Optional[Snippet]:
+) -> Snippet | None:
     current_commit = vulnerability_state.commit or "HEAD"
     with suppress(GitCommandError, ValueError):
         content = repo.git.show(
@@ -133,8 +129,8 @@ def generate_snippet(
 
 async def get_snippet(
     vulnerability_id: str,
-    vulnerability_modified_date: Union[str, datetime],
-) -> Optional[str]:
+    vulnerability_modified_date: str | datetime,
+) -> str | None:
     modified_date = (
         vulnerability_modified_date
         if isinstance(vulnerability_modified_date, str)

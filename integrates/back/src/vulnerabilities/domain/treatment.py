@@ -55,9 +55,6 @@ from newutils import (
 from stakeholders.domain import (
     get_stakeholder,
 )
-from typing import (
-    Optional,
-)
 from vulnerabilities.domain.core import (
     get_vulnerability,
     should_send_update_treatment,
@@ -103,7 +100,7 @@ async def add_vulnerability_treatment(
 
 def get_treatment_change(
     vulnerability: Vulnerability, min_date: datetime
-) -> Optional[tuple[str, Vulnerability]]:
+) -> tuple[str, Vulnerability] | None:
     if vulnerability.treatment is not None:
         last_treatment_date = vulnerability.treatment.modified_date
         if last_treatment_date > min_date:
@@ -309,14 +306,14 @@ async def send_treatment_change_mail(
 async def send_treatment_report_mail(
     *,
     loaders: Dataloaders,
-    modified_by: Optional[str],
-    justification: Optional[str],
+    modified_by: str | None,
+    justification: str | None,
     vulnerability_id: str,
     is_approved: bool = False,
 ) -> None:
-    old_vuln_values: Optional[
-        Vulnerability
-    ] = await loaders.vulnerability.load(vulnerability_id)
+    old_vuln_values: Vulnerability | None = await loaders.vulnerability.load(
+        vulnerability_id
+    )
     if old_vuln_values:
         finding = await get_finding(loaders, old_vuln_values.finding_id)
         users_email = await mailer_utils.get_group_emails_by_notification(

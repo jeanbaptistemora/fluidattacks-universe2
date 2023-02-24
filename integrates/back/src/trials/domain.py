@@ -20,9 +20,6 @@ from db_model.trials.types import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Optional,
-)
 
 FREE_TRIAL_DAYS = 21
 
@@ -74,7 +71,7 @@ async def update_metadata(
 async def in_trial(
     loaders: Dataloaders,
     user_email: str,
-    organization: Optional[Organization] = None,
+    organization: Organization | None = None,
 ) -> bool:
     stakeholder, trial = await gather(
         loaders.stakeholder.load(user_email),

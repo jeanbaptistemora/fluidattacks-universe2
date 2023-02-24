@@ -3,6 +3,12 @@ from aioextensions import (
     collect,
     schedule,
 )
+from collections import (
+    Counter,
+)
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     InvalidParameter,
     InvalidRemovalVulnState,
@@ -101,10 +107,6 @@ from time import (
 from typing import (
     Any,
     cast,
-    Counter,
-    Iterable,
-    Optional,
-    Union,
 )
 from vulnerabilities.domain.utils import (
     get_finding,
@@ -243,7 +245,7 @@ async def _remove_tag(
     vulnerability: Vulnerability,
     tag_to_remove: str,
 ) -> None:
-    tags: Optional[list[str]] = vulnerability.tags
+    tags: list[str] | None = vulnerability.tags
     if tags and tag_to_remove in tags:
         tags.remove(tag_to_remove)
         await vulns_model.update_metadata(
@@ -326,9 +328,7 @@ async def get_by_finding_and_vuln_ids(
     return filtered_vulns
 
 
-async def get_closing_date(
-    vulnerability: Vulnerability,
-) -> Optional[datetime]:
+async def get_closing_date(vulnerability: Vulnerability) -> datetime | None:
     """Get the closing date in ISO8601 UTC format."""
     current_closing_date = (
         vulnerability.unreliable_indicators.unreliable_closing_date
@@ -584,7 +584,7 @@ async def reject_vulnerabilities(
     finding_id: str,
     modified_by: str,
     reasons: set[VulnerabilityStateReason],
-    other_reason: Optional[str],
+    other_reason: str | None,
 ) -> None:
     if VulnerabilityStateReason.OTHER not in reasons and other_reason:
         InvalidParameter("justification")
@@ -751,7 +751,7 @@ async def request_vulnerabilities_zero_risk(
 
 
 def get_updated_manager_mail_content(
-    vulnerabilities: dict[str, list[dict[str, Union[str, ToolItem]]]]
+    vulnerabilities: dict[str, list[dict[str, str | ToolItem]]]
 ) -> str:
     mail_content = ""
     for vuln_type in ["ports", "lines", "inputs"]:
@@ -873,9 +873,9 @@ async def update_metadata(
     loaders: Dataloaders,
     vulnerability_id: str,
     finding_id: str,
-    bug_tracking_system_url: Optional[str],
-    custom_severity: Optional[int],
-    tags_to_append: Optional[list[str]],
+    bug_tracking_system_url: str | None,
+    custom_severity: int | None,
+    tags_to_append: list[str] | None,
 ) -> None:
     vulnerability = await get_vulnerability(loaders, vulnerability_id)
     all_tags = []
@@ -901,7 +901,7 @@ async def update_metadata_and_state(
     vulnerability: Vulnerability,
     new_metadata: VulnerabilityMetadataToUpdate,
     new_state: VulnerabilityState,
-    finding_policy: Optional[OrgFindingPolicy] = None,
+    finding_policy: OrgFindingPolicy | None = None,
 ) -> str:
     """Update vulnerability metadata and historics."""
     if (
@@ -984,7 +984,7 @@ async def verify(
     modified_date: datetime,
     closed_vulns_ids: list[str],
     vulns_to_close_from_file: list[Vulnerability],
-    context: Optional[Any] = None,
+    context: Any | None = None,
 ) -> None:
     list_closed_vulns = await get_vulnerabilities(
         loaders, sorted(closed_vulns_ids), clear_loader=True
@@ -1090,7 +1090,7 @@ async def close_by_exclusion(
 async def get_reattack_requester(
     loaders: Dataloaders,
     vuln: Vulnerability,
-) -> Optional[str]:
+) -> str | None:
     historic_verification = await loaders.finding_historic_verification.load(
         vuln.finding_id
     )
@@ -1109,7 +1109,7 @@ async def get_reattack_requester(
 async def get_last_requested_reattack_date(
     loaders: Dataloaders,
     vuln: Vulnerability,
-) -> Optional[datetime]:
+) -> datetime | None:
     if not vuln.verification:
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
@@ -1130,7 +1130,7 @@ async def get_last_requested_reattack_date(
 async def get_last_reattack_date(
     loaders: Dataloaders,
     vuln: Vulnerability,
-) -> Optional[datetime]:
+) -> datetime | None:
     if not vuln.verification:
         return None
     if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
@@ -1239,7 +1239,7 @@ async def update_description(  # noqa: MC0001 # NOSONAR
 @validate_updated_commit_deco("vulnerability.type", "description.commit")
 def validate_and_get_updated_commit(
     vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
-) -> Optional[str]:
+) -> str | None:
     return (
         description.commit
         if description.commit is not None

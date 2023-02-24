@@ -3,7 +3,6 @@ from db_model.stakeholders.types import (
 )
 from typing import (
     NamedTuple,
-    Union,
 )
 
 
@@ -13,6 +12,6 @@ class Phone(NamedTuple):
 
 
 def get_international_format_phone_number(
-    mobile: Union[Phone, StakeholderPhone]
+    mobile: Phone | StakeholderPhone,
 ) -> str:
     return f"+{mobile.calling_country_code}{mobile.national_number}"

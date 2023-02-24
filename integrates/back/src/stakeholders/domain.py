@@ -100,7 +100,6 @@ from stakeholders.validations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from verify import (
     operations as verify_operations,
@@ -495,12 +494,12 @@ async def verify(
     *,
     loaders: Dataloaders,
     email: str,
-    new_phone: Optional[StakeholderPhone],
-    verification_code: Optional[str],
+    new_phone: StakeholderPhone | None,
+    verification_code: str | None,
 ) -> None:
     """Start a verification process using OTP"""
     stakeholder = await get_stakeholder(loaders, email)
-    stakeholder_phone: Optional[StakeholderPhone] = stakeholder.phone
+    stakeholder_phone: StakeholderPhone | None = stakeholder.phone
     phone_to_verify = stakeholder_phone if new_phone is None else new_phone
 
     if not phone_to_verify:

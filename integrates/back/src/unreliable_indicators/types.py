@@ -1,9 +1,6 @@
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
-    Set,
 )
 from unreliable_indicators.enums import (
     EntityAttr,
@@ -12,5 +9,5 @@ from unreliable_indicators.enums import (
 
 
 class EntityToUpdate(NamedTuple):
-    entity_ids: Dict[EntityId, List[Any]]
-    attributes_to_update: Set[EntityAttr]
+    entity_ids: dict[EntityId, list[Any]]
+    attributes_to_update: set[EntityAttr]

@@ -72,8 +72,6 @@ from starlette.responses import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -84,7 +82,7 @@ LOGGER = logging.getLogger(__name__)
 
 def encode_token(
     expiration_time: int,
-    payload: Dict[str, Any],
+    payload: dict[str, Any],
     subject: str,
     api: bool = False,
 ) -> str:
@@ -114,7 +112,7 @@ def encode_token(
     return jwt_object.serialize()
 
 
-def decode_token(token: str) -> Dict[str, Any]:
+def decode_token(token: str) -> dict[str, Any]:
     """Decodes a jwt token and returns its decrypted payload"""
     jwt_token = JWT(jwt=token)
     secret = sessions_utils.get_secret(jwt_token)
@@ -132,7 +130,7 @@ def decode_token(token: str) -> Dict[str, Any]:
     return dict(decoded_payload, **default_claims)
 
 
-async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
+async def get_jwt_content(context: Any) -> dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
     store = get_request_store(context)
 
@@ -215,7 +213,7 @@ def set_token_in_response(response: HTMLResponse, token: str) -> HTMLResponse:
     return response
 
 
-async def remove_session_token(content: Dict[str, Any], email: str) -> None:
+async def remove_session_token(content: dict[str, Any], email: str) -> None:
     """Revoke session token attribute"""
     await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
@@ -228,7 +226,7 @@ async def remove_session_token(content: Dict[str, Any], email: str) -> None:
     )
 
 
-async def verify_session_token(content: Dict[str, Any], email: str) -> None:
+async def verify_session_token(content: dict[str, Any], email: str) -> None:
     loaders: Dataloaders = get_new_context()
     stakeholder = await loaders.stakeholder.load(email)
     if not stakeholder:
@@ -273,7 +271,7 @@ async def _has_valid_access_token(
 
 
 async def verify_jti(
-    loaders: Dataloaders, email: str, context: Dict[str, str], jti: str
+    loaders: Dataloaders, email: str, context: dict[str, str], jti: str
 ) -> None:
     if not await _has_valid_access_token(loaders, email, context, jti):
         raise InvalidAuthorization()
@@ -296,7 +294,7 @@ async def create_session_web(request: Request, email: str) -> None:
     )
 
 
-async def get_session_key(email: str) -> Optional[str]:
+async def get_session_key(email: str) -> str | None:
     loaders: Dataloaders = get_new_context()
     stakeholder = await loaders.stakeholder.load(email)
     session_key = stakeholder.session_key if stakeholder else None

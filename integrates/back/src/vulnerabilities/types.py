@@ -9,12 +9,11 @@ from db_model.vulnerabilities.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class GroupedVulnerabilitiesInfo(NamedTuple):
-    commit_hash: Optional[str]
+    commit_hash: str | None
     specific: str
     where: str
 
@@ -40,15 +39,15 @@ class Verifications(NamedTuple):
 
 
 class VulnerabilityDescriptionToUpdate(NamedTuple):
-    commit: Optional[str] = None
-    source: Optional[Source] = None
-    where: Optional[str] = None
-    specific: Optional[str] = None
+    commit: str | None = None
+    source: Source | None = None
+    where: str | None = None
+    specific: str | None = None
 
 
 class VulnerabilityTreatmentToUpdate(NamedTuple):
-    accepted_until: Optional[datetime]
-    assigned: Optional[str]
+    accepted_until: datetime | None
+    assigned: str | None
     justification: str
     status: VulnerabilityTreatmentStatus
 

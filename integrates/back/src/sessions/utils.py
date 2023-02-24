@@ -46,7 +46,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -60,7 +59,7 @@ SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
 
 
-def decode_jwe(payload: str) -> Dict[str, Any]:
+def decode_jwe(payload: str) -> dict[str, Any]:
     """Decodes a jwe token and returns its decrypted payload"""
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
     jwe_token = JWE()
@@ -95,7 +94,7 @@ def get_secret(jwt_token: JWT) -> str:
     return FI_JWT_SECRET
 
 
-def calculate_hash_token() -> Dict[str, str]:
+def calculate_hash_token() -> dict[str, str]:
     jti_token = secrets.token_bytes(NUMBER_OF_BYTES)
     salt = secrets.token_bytes(NUMBER_OF_BYTES)
     backend = default_backend()
@@ -139,7 +138,7 @@ def validate_hash_token(
     return resp
 
 
-def is_api_token(user_data: Dict[str, Any]) -> bool:
+def is_api_token(user_data: dict[str, Any]) -> bool:
     return user_data.get("sub") == (
         "api_token" if "sub" in user_data else "jti" in user_data
     )
@@ -152,7 +151,7 @@ def is_valid_expiration_time(expiration_time: float) -> bool:
     return now < exp < (now + timedelta(weeks=MAX_API_AGE_WEEKS))
 
 
-def validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
+def validate_expiration_time(payload: dict[str, Any]) -> dict[str, Any]:
     if "exp" not in payload:
         return payload
 
@@ -169,7 +168,7 @@ def validate_expiration_time(payload: Dict[str, Any]) -> Dict[str, Any]:
     return payload
 
 
-def format_user_access_info(user: Dict[str, str]) -> UserAccessInfo:
+def format_user_access_info(user: dict[str, str]) -> UserAccessInfo:
     return UserAccessInfo(
         first_name=user.get("given_name", ""),
         last_name=user.get("family_name", ""),

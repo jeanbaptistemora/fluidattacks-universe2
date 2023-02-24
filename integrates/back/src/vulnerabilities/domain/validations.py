@@ -1,6 +1,10 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -58,8 +62,6 @@ from string import (
 )
 from typing import (
     Any,
-    Callable,
-    Iterable,
 )
 from urllib.parse import (
     urlparse,

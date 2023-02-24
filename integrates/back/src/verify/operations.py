@@ -23,9 +23,6 @@ from twilio.base.exceptions import (
 from twilio.rest import (
     Client,
 )
-from typing import (
-    Optional,
-)
 
 # Initialize Twilio client
 client = Client(FI_TWILIO_ACCOUNT_SID, FI_TWILIO_AUTH_TOKEN)
@@ -64,9 +61,7 @@ async def start_verification(
         raise CouldNotStartStakeholderVerification() from exc
 
 
-async def check_verification(
-    *, phone_number: Optional[str], code: str
-) -> None:
+async def check_verification(*, phone_number: str | None, code: str) -> None:
     if FI_ENVIRONMENT == "development":
         return None
     if not phone_number:

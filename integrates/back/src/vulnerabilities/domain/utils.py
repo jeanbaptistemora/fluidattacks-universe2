@@ -33,9 +33,6 @@ from newutils.vulnerabilities import (
     get_missing_dependency,
     ignore_advisories,
 )
-from typing import (
-    Optional,
-)
 
 
 async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:
@@ -47,7 +44,7 @@ async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:
 
 
 def get_hash(
-    specific: str, type_: str, where: str, root_id: Optional[str] = None
+    specific: str, type_: str, where: str, root_id: str | None = None
 ) -> int:
     # Return a unique identifier according to the business rules
     items: tuple[str, ...] = (specific, type_, where)

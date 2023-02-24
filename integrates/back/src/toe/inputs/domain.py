@@ -43,14 +43,9 @@ from toe.inputs.types import (
 from toe.utils import (
     get_has_vulnerabilities,
 )
-from typing import (
-    Optional,
-)
 
 
-def _get_optional_be_present_until(
-    be_present: bool,
-) -> Optional[datetime]:
+def _get_optional_be_present_until(be_present: bool) -> datetime | None:
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
