@@ -77,10 +77,12 @@ def initialize() -> None:
             SERVICE_NAME: "integrates",
         }
     )
+
     span_exporter = OTLPSpanExporter(compression=Compression.Gzip)
     span_processor = BatchSpanProcessor(span_exporter)
     tracer_provider = TracerProvider(resource=resource)
     tracer_provider.add_span_processor(span_processor)
+    trace.set_tracer_provider(tracer_provider)
 
     metric_exporter = OTLPMetricExporter(compression=Compression.Gzip)
     metric_reader = PeriodicExportingMetricReader(metric_exporter)
@@ -88,10 +90,7 @@ def initialize() -> None:
         metric_readers=[metric_reader],
         resource=resource,
     )
-
-    if FI_ENVIRONMENT == "production":
-        trace.set_tracer_provider(tracer_provider)
-        metrics.set_meter_provider(meter_provider)
+    metrics.set_meter_provider(meter_provider)
 
 
 def instrument(app: Starlette) -> None:

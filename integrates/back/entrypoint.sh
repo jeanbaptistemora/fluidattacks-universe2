@@ -44,13 +44,15 @@ function serve {
       )
     elif test "${env}" == 'eph'; then
       config+=(
+        # The host:port of the statsd server
+        --statsd-host "${HOST_IP}:8135"
         # The number of worker processes for handling requests
         --workers "${workers}"
       )
     elif test "${env}" == 'prod'; then
       config+=(
         # The host:port of the statsd server
-        --statsd-host "${HOST_IP}:8125"
+        --statsd-host "${HOST_IP}:8135"
         # The number of worker processes for handling requests
         --workers "${workers}"
       )
