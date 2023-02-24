@@ -113,6 +113,27 @@ MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
+    events_digest=dict(
+        email_preferences=Notification.EVENT_REPORT,
+        exclude_trial=False,
+        only_fluid_staff=False,
+        roles=dict(
+            group={
+                "admin",
+                "architect",
+                "customer_manager",
+                "hacker",
+                "reattacker",
+                "resourcer",
+                "reviewer",
+                "service_forces",
+                "user",
+                "user_manager",
+                "vulnerability_manager",
+            },
+            org={},
+        ),
+    ),
     file_report=dict(
         email_preferences=Notification.FILE_UPDATE,
         exclude_trial=True,

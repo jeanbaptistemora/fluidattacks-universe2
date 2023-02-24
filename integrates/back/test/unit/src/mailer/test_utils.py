@@ -31,6 +31,7 @@ pytestmark = [
         [
             "customer_manager@fluidattacks.com",
             [
+                Notification.EVENT_REPORT,
                 Notification.FILE_UPDATE,
                 Notification.GROUP_INFORMATION,
                 Notification.NEW_COMMENT,
