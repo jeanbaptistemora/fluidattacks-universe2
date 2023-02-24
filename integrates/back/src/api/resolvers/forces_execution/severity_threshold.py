@@ -16,7 +16,7 @@ from typing import (
 
 
 @FORCES_EXECUTION.field("severityThreshold")
-async def resolve(
+def resolve(
     parent: dict[str, Any] | ForcesExecution,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @EVENT.field("evidenceDate")
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

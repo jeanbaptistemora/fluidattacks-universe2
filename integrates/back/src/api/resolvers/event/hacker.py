@@ -14,7 +14,7 @@ from graphql.type.definition import (
 
 @EVENT.field("hacker")
 @enforce_group_level_auth_async
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

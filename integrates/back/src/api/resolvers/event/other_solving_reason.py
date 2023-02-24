@@ -14,7 +14,7 @@ from graphql import (
 
 
 @EVENT.field("otherSolvingReason")
-async def resolve(
+def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

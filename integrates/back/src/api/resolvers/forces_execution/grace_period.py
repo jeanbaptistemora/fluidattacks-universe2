@@ -13,7 +13,7 @@ from typing import (
 
 
 @FORCES_EXECUTION.field("gracePeriod")
-async def resolve(
+def resolve(
     parent: dict[str, Any] | ForcesExecution,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
