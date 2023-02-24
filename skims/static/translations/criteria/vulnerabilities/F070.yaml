@@ -5,3 +5,6 @@ src.lib_path.f070.elb2_uses_insecure_security_policy:
 src.lib_path.f070.elb2_target_group_insecure_port:
   en: Port property must have a secure value (443)
   es: La propiedad Port debe tener un valor seguro (443)
+src.lib_path.f070.eks_allows_insecure_inbound_traffic:
+  en: EKS security groups allow access on ports other than TCP port 443.
+  es: Grupos de seguridad de EKS permiten acceso en puertos distintos al 443

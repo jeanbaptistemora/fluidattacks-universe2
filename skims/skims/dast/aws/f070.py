@@ -160,10 +160,94 @@ async def target_group_insecure_port(
     return vulns
 
 
+async def eks_allows_insecure_inbound_traffic(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="eks", function="list_clusters"
+    )
+    model = core_model.MethodsEnum.AWS_EKS_INSECURE_INBOUND_TRAFFIC
+    clusters = response.get("clusters", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if clusters:
+        for cluster in clusters:
+            locations: list[Location] = []
+            describe_cluster: dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="eks",
+                function="describe_cluster",
+                parameters={
+                    "name": str(cluster),
+                },
+            )
+            cluster_description = describe_cluster.get("cluster", [])
+
+            security_groups_ids = cluster_description["resourcesVpcConfig"][
+                "securityGroupIds"
+            ]
+            describe_security_groups: dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="ec2",
+                function="describe_security_groups",
+                parameters={
+                    "GroupIds": security_groups_ids,
+                },
+            )
+            security_groups = (
+                describe_security_groups.get("SecurityGroups", [])
+                if response
+                else []
+            )
+            if security_groups:
+                for group in security_groups:
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/IpPermissions/{index_ip}/FromPort",
+                                    f"/IpPermissions/{index_ip}/ToPort",
+                                ),
+                                arn=(
+                                    f"arn:aws:ec2::{group['OwnerId']}:"
+                                    f"security-group/{group['GroupId']}"
+                                ),
+                                values=(
+                                    ip_permission.get("FromPort"),
+                                    ip_permission.get("ToPort"),
+                                ),
+                                description=(
+                                    "lib_path.f070."
+                                    "eks_allows_insecure_inbound_traffic"
+                                ),
+                            )
+                            for index_ip, ip_permission in enumerate(
+                                group["IpPermissions"]
+                            )
+                            if not (
+                                ip_permission["FromPort"] == 443
+                                and ip_permission["FromPort"]
+                                == ip_permission["ToPort"]
+                            )
+                        ],
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=model,
+                            aws_response=group,
+                        ),
+                    )
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     target_group_insecure_port,
     uses_insecure_security_policy,
+    eks_allows_insecure_inbound_traffic,
 )
