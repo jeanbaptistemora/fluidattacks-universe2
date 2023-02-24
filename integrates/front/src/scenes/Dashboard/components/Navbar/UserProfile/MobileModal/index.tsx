@@ -25,10 +25,9 @@ import type {
 } from "./types";
 import { VerificationCodeField } from "./VerificationCodeField";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/queries";
-import { Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
@@ -270,9 +269,9 @@ const MobileModal: React.FC<IMobileModalProps> = (
         >
           <Form id={"addPhone"}>
             <Row>
-              <Col100>
+              <Col>
                 <PhoneField autoFocus={true} />
-              </Col100>
+              </Col>
             </Row>
             <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
               <ModalConfirm
@@ -295,13 +294,13 @@ const MobileModal: React.FC<IMobileModalProps> = (
         >
           <Form id={"verifyAdditionCode"}>
             <Row>
-              <Col100>
+              <Col>
                 <PhoneField disabled={true} />
-              </Col100>
+              </Col>
             </Row>
-            <Col100>
+            <Col>
               <VerificationCodeField name={"newVerificationCode"} />
-            </Col100>
+            </Col>
             <ModalConfirm
               onCancel={onClose}
               txtConfirm={t("profile.mobileModal.verify")}
@@ -330,24 +329,24 @@ const MobileModal: React.FC<IMobileModalProps> = (
         >
           <Form id={"editPhone"}>
             <Row>
-              <Col100>
+              <Col>
                 <PhoneField disabled={true} />
-              </Col100>
+              </Col>
             </Row>
             {isOpenEdit && isCodeInCurrentMobile ? (
               <React.Fragment>
                 <Row>
-                  <Col100>
+                  <Col>
                     <VerificationCodeField />
-                  </Col100>
+                  </Col>
                 </Row>
                 <Row>
-                  <Col100>
+                  <Col>
                     <PhoneField
                       label={"profile.mobileModal.fields.newPhoneNumber"}
                       name={"newPhone"}
                     />
-                  </Col100>
+                  </Col>
                 </Row>
               </React.Fragment>
             ) : undefined}
@@ -390,28 +389,28 @@ const MobileModal: React.FC<IMobileModalProps> = (
         >
           <Form id={"verifyEditionCode"}>
             <Row>
-              <Col100>
+              <Col>
                 <PhoneField disabled={true} />
-              </Col100>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <VerificationCodeField disabled={true} />
-              </Col100>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <PhoneField
                   disabled={true}
                   label={"profile.mobileModal.fields.newPhoneNumber"}
                   name={"newPhone"}
                 />
-              </Col100>
+              </Col>
             </Row>
             <Row>
-              <Col100>
+              <Col>
                 <VerificationCodeField name={"newVerificationCode"} />
-              </Col100>
+              </Col>
             </Row>
             <ModalConfirm
               onCancel={onClose}
