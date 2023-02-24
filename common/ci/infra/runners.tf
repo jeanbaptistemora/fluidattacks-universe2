@@ -270,52 +270,17 @@ locals {
         { "management:product" = "sorts" },
       )
     }
-    small = {
-      replicas = 4
-      runner = merge(
-        local.config.small.runner,
-        { tags = ["small"] },
-      )
-      workers = merge(
-        local.config.small.workers,
-        {
-          idle-count = 32
-          limit      = 1000
-        }
-      )
-      tags = merge(
-        local.config.small.tags,
-        { "management:product" = "common" },
-      )
-    }
-    large = {
-      replicas = 1
-      runner = merge(
-        local.config.large.runner,
-        { tags = ["large"] },
-      )
-      workers = merge(
-        local.config.large.workers,
-        {
-          idle-count = 8
-          limit      = 1000
-        }
-      )
-      tags = merge(
-        local.config.large.tags,
-        { "management:product" = "common" },
-      )
-    }
   }
   config = {
     small = {
       replicas = 0
       runner = {
-        instance   = "m5a.large"
-        version    = "15.9.1"
-        ami        = "ami-08a127d31bb7fa804"
-        monitoring = true
-        user-data  = ""
+        instance       = "m5a.large"
+        version        = "15.9.1"
+        ami            = "ami-08a127d31bb7fa804"
+        monitoring     = true
+        check-interval = 3
+        user-data      = ""
 
         disk-size      = 15
         disk-type      = "gp3"
@@ -348,11 +313,12 @@ locals {
     large = {
       replicas = 0
       runner = {
-        instance   = "m5a.large"
-        version    = "15.9.1"
-        ami        = "ami-08a127d31bb7fa804"
-        monitoring = true
-        user-data  = ""
+        instance       = "m5a.large"
+        version        = "15.9.1"
+        ami            = "ami-08a127d31bb7fa804"
+        monitoring     = true
+        check-interval = 3
+        user-data      = ""
 
         disk-size      = 15
         disk-type      = "gp3"
@@ -440,6 +406,7 @@ module "runners" {
   gitlab_runner_version             = each.value.runner.version
   runner_instance_enable_monitoring = each.value.runner.monitoring
   runner_instance_ebs_optimized     = each.value.runner.disk-optimized
+  runners_check_interval            = each.value.runner.check-interval
   userdata_pre_install              = each.value.runner.user-data
   docker_machine_version            = each.value.runner.docker-machine-version
   docker_machine_options = concat(
