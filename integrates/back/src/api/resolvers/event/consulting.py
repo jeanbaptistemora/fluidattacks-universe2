@@ -7,6 +7,9 @@ from dataloaders import (
 from db_model.events.types import (
     Event,
 )
+from decorators import (
+    require_squad,
+)
 from event_comments import (
     domain as event_comments_domain,
 )
@@ -25,6 +28,7 @@ from typing import (
 
 
 @EVENT.field("consulting")
+@require_squad
 async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,
@@ -35,7 +39,10 @@ async def resolve(
         info.context
     )
     event_coments = await event_comments_domain.get_comments(
-        loaders, parent.group_name, parent.id, user_data["user_email"]
+        loaders,
+        parent.group_name,
+        parent.id,
+        user_data["user_email"],
     )
 
     return [
