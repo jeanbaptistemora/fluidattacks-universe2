@@ -13,6 +13,9 @@ from model.core_model import (
 import re
 
 CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
+SELF_REQUIRES: re.Pattern[str] = re.compile(
+    r'\s+self\.requires\("(?P<pkg>[^"]+)"[^\)]*\)'
+)
 
 
 def get_dep_info(dep_line: str) -> tuple[str, str]:
@@ -43,11 +46,16 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
 def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
     line_deps: bool = False
     for line_number, line in enumerate(content.splitlines(), 1):
-        if CONANFILE_PY_DEP.search(line):
+        if matched := SELF_REQUIRES.search(line):
+            pkg_name, pkg_version = get_dep_info(matched.group("pkg"))
+            yield format_pkg_dep(
+                pkg_name, pkg_version, line_number, line_number
+            )
+        elif CONANFILE_PY_DEP.search(line):
             line_deps = True
         elif line_deps:
             if not line:
-                break
+                line_deps = False
             if matched := re.search(r'"(.*)"', line):
                 line = matched.group(1)
                 pkg_name, pkg_version = get_dep_info(line)
