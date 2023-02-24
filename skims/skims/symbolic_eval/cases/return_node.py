@@ -1,13 +1,18 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f358.return_statement import (
+    evaluate as evaluate_return_f358,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
 
-FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
+    FindingEnum.F358: evaluate_return_f358,
+}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
