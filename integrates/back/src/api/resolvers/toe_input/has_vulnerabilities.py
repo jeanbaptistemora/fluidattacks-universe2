@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @TOE_INPUT.field("hasVulnerabilities")
-async def resolve(
+def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool | None:
     return parent.state.has_vulnerabilities

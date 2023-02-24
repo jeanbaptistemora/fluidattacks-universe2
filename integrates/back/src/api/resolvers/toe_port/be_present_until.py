@@ -17,7 +17,7 @@ from graphql.type.definition import (
 
 @TOE_PORT.field("bePresentUntil")
 @enforce_group_level_auth_async
-async def resolve(
+def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime | None:
     return parent.state.be_present_until
