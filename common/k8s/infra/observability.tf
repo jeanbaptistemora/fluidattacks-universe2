@@ -89,7 +89,8 @@ resource "helm_release" "datadog" {
         }
         datadog = {
           dogstatsd = {
-            port = 8135
+            nonLocalTraffic = true
+            port            = 8135
           }
           otlp = {
             receiver = {
