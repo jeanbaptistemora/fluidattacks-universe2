@@ -20,6 +20,6 @@ data "aws_subnet" "main" {
   }
 }
 
-data "aws_iam_role" "observes_redshift" {
-  name = "observes_redshift"
+data "aws_iam_role" "observes_redshift_cluster" {
+  name = "observes_redshift_cluster"
 }

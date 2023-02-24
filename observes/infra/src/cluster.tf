@@ -130,7 +130,7 @@ resource "aws_redshift_cluster" "main" {
 
   preferred_maintenance_window        = "sun:04:00-sun:05:00"
   automated_snapshot_retention_period = 7
-  iam_roles                           = [data.aws_iam_role.observes_redshift.arn]
+  iam_roles                           = [data.aws_iam_role.observes_redshift_cluster.arn]
 
   tags = {
     "Name"               = "observes"
