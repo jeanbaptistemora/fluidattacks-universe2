@@ -9,6 +9,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.events.types import (
+    Event,
     GroupEventsRequest,
 )
 import logging
@@ -23,11 +24,20 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from typing import (
+    TypedDict,
+)
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+class EventsDataType(TypedDict):
+    org_name: str
+    email_to: tuple[str, ...]
+    events: tuple[Event, ...]
 
 
 async def send_event_digest() -> None:
@@ -65,13 +75,31 @@ async def send_event_digest() -> None:
             for group_name in groups_names
         ]
     )
+    groups_data: dict[str, EventsDataType] = dict(
+        zip(
+            groups_names,
+            [
+                {
+                    "org_name": org_name,
+                    "email_to": tuple(email_to),
+                    "events": tuple(event),
+                }
+                for org_name, email_to, event in zip(
+                    groups_org_names, groups_stakeholders_email, groups_events
+                )
+            ],
+        )
+    )
+    groups_data = {
+        group_name: data
+        for (group_name, data) in groups_data.items()
+        if (data["email_to"] and (data["events"]))
+    }
     LOGGER.info(
-        "Groups events have been obtained",
+        "Events by have been obtained",
         extra={
             "extra": {
-                "groups_events": groups_events,
-                "groups_org_names": groups_org_names,
-                "groups_stakeholders_email": groups_stakeholders_email,
+                "groups_data": groups_data,
             }
         },
     )
