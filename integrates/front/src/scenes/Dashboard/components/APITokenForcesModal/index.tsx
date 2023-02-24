@@ -5,12 +5,13 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { TextArea } from "components/Input";
+import { Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   useGetAPIToken,
   useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
-import { Col100, Row } from "styles/styledComponents";
+import { Col100 } from "styles/styledComponents";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IAPITokenForcesModalProps {
