@@ -12,15 +12,15 @@ from db_model.enums import (
 from db_model.findings.enums import (
     FindingSorts,
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerification,
@@ -803,14 +803,14 @@ findings: dict[str, tuple[Finding, ...]] = {
             unfulfilled_requirements=["029", "174"],
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=1,
-                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2019-01-15T16:04:14+00:00"
+                unreliable_newest_vulnerability_report_date=(
+                    datetime.fromisoformat("2019-01-15T16:04:14+00:00")
                 ),
-                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2019-01-15T15:43:39+00:00"
+                unreliable_oldest_open_vulnerability_report_date=(
+                    datetime.fromisoformat("2019-01-15T15:43:39+00:00")
                 ),
-                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2019-01-15T15:43:39+00:00"
+                unreliable_oldest_vulnerability_report_date=(
+                    datetime.fromisoformat("2019-01-15T15:43:39+00:00")
                 ),
                 unreliable_open_vulnerabilities=1,
                 unreliable_status=FindingStatus.VULNERABLE,
@@ -990,14 +990,14 @@ findings: dict[str, tuple[Finding, ...]] = {
             unfulfilled_requirements=["266"],
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=0,
-                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2020-01-03T17:46:10+00:00"
+                unreliable_newest_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
                 ),
-                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2020-01-03T17:46:10+00:00"
+                unreliable_oldest_open_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
                 ),
-                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                    "2020-01-03T17:46:10+00:00"
+                unreliable_oldest_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
                 ),
                 unreliable_open_vulnerabilities=1,
                 unreliable_status=FindingStatus.VULNERABLE,
