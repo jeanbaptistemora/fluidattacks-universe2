@@ -22,7 +22,7 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
   missedAuthors,
   missedRepositories,
   organizationName,
-}: IOrganizationGroupOverviewProps): JSX.Element => {
+}): JSX.Element => {
   const { t } = useTranslation();
 
   return (

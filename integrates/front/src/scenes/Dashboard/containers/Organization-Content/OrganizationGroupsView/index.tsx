@@ -1,15 +1,13 @@
 import { useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
-import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { StrictMode, useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { getTrialTip } from "./utils";
+import { formatGroupData, getTrialTip } from "./utils";
 
 import { Button } from "components/Button";
 import type { IFilter } from "components/Filter";
@@ -32,7 +30,7 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
-  props: IOrganizationGroupsProps
+  props
 ): JSX.Element => {
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
@@ -59,13 +57,13 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const { data, refetch: refetchGroups } = useQuery<IGetOrganizationGroups>(
     GET_ORGANIZATION_GROUPS,
     {
-      onCompleted: (paramData: IGetOrganizationGroups): void => {
+      onCompleted: (paramData): void => {
         if (_.isEmpty(paramData.organization.groups)) {
           Logger.warning("Empty groups", document.location.pathname);
         }
       },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
           msgError(t("groupAlerts.errorTextsad"));
           Logger.warning(
             "An error occurred loading organization groups",
@@ -80,7 +78,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   );
 
   // State management
-  const closeNewGroupModal: () => void = useCallback((): void => {
+  const closeNewGroupModal = useCallback((): void => {
     if (enableTour) {
       user.setUser({
         tours: {
@@ -97,64 +95,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     setIsGroupModalOpen(false);
     void refetchGroups();
   }, [enableTour, refetchGroups, user]);
-
-  // Auxiliary functions
-  const formatGroupData: (groupData: IGroupData[]) => IGroupData[] = (
-    groupData: IGroupData[]
-  ): IGroupData[] =>
-    groupData.map((group: IGroupData): IGroupData => {
-      const description: string = _.capitalize(group.description);
-      const subscription: string = _.capitalize(group.subscription);
-
-      function getPlan(): string {
-        if (subscription === "Oneshot") {
-          return subscription;
-        } else if (group.hasSquad) {
-          return "Squad";
-        }
-
-        return "Machine";
-      }
-
-      const plan = getPlan();
-      const vulnerabilities: string = group.openFindings
-        ? t("organization.tabs.groups.vulnerabilities.open", {
-            openFindings: group.openFindings,
-          })
-        : t("organization.tabs.groups.vulnerabilities.inProcess");
-
-      function getEventFormat(): string {
-        if (_.isUndefined(group.events) || _.isEmpty(group.events)) {
-          return "None";
-        } else if (
-          group.events.filter((event): boolean =>
-            event.eventStatus.includes("CREATED")
-          ).length > 0
-        ) {
-          return `${
-            group.events.filter((event): boolean =>
-              event.eventStatus.includes("CREATED")
-            ).length
-          } need(s) attention`;
-        }
-
-        return "None";
-      }
-
-      const eventFormat: string = getEventFormat();
-      const status: string = t(
-        `organization.tabs.groups.status.${_.camelCase(group.managed)}`
-      );
-
-      return {
-        ...group,
-        description,
-        eventFormat,
-        plan,
-        status,
-        vulnerabilities,
-      };
-    });
 
   const tableHeaders: ColumnDef<IGroupData>[] = [
     {
@@ -228,9 +168,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
   ];
 
-  const dataset: IGroupData[] = data
-    ? formatGroupData(data.organization.groups)
-    : [];
+  const dataset = data ? formatGroupData(data.organization.groups) : [];
 
   const [filters, setFilters] = useState<IFilter<IGroupData>[]>([
     {

@@ -148,11 +148,11 @@ describe("Organization groups view", (): void => {
     );
     expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshottest");
     expect(screen.getAllByRole("row")[2].textContent).toContain(
-      "tabs.groups.status"
+      "OneshottestSubscribedOneshot1 types foundOne-shot type test groupuserModal.roles.userManagerNone"
     );
     expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshot");
     expect(screen.getAllByRole("row")[2].textContent).toContain(
-      "tabs.groups.vulnerabilities.open"
+      "OneshottestSubscribedOneshot1 types foundOne-shot type test groupuserModal.roles.userManagerNone"
     );
     expect(screen.getAllByRole("row")[2].textContent).toContain(
       "One-shot type test group"
@@ -163,11 +163,11 @@ describe("Organization groups view", (): void => {
 
     expect(screen.getAllByRole("row")[3].textContent).toContain("Pendinggroup");
     expect(screen.getAllByRole("row")[3].textContent).toContain(
-      "tabs.groups.status"
+      "PendinggroupSubscribedMachine2 types foundContinuous group for deletionuserModal.roles.customerManagerNone"
     );
     expect(screen.getAllByRole("row")[3].textContent).toContain("Machine");
     expect(screen.getAllByRole("row")[3].textContent).toContain(
-      "tabs.groups.vulnerabilities.open"
+      "PendinggroupSubscribedMachine2 types foundContinuous group for deletionuserModal.roles.customerManagerNone"
     );
     expect(screen.getAllByRole("row")[3].textContent).toContain(
       "Continuous group for deletion"

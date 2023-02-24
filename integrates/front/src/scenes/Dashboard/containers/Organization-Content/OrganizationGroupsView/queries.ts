@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
-import type { DocumentNode } from "graphql";
 
-export const GET_ORGANIZATION_GROUPS: DocumentNode = gql`
+export const GET_ORGANIZATION_GROUPS = gql`
   query GetOrganizationGroups($organizationId: String!) {
     organization(organizationId: $organizationId) {
       coveredAuthors
