@@ -350,7 +350,7 @@ in their work over time.
 Through [Fluid Attacks' Secure Code Review](../../solutions/secure-code-review/),
 which involves our tools and our team of ethical hackers
 with techniques such as [SAST](../../product/sast/)
-and [SCA](../product/sca/),
+and [SCA](../../product/sca/),
 and in which we support around 40 programming languages
 and use more than [60 international security standards](https://docs.fluidattacks.com/criteria/compliance/)
 as a basis for assessment,

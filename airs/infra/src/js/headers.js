@@ -1107,6 +1107,7 @@ const redirectMap = new Map([
   ["/blog/quantitative-python/quant.py/", "https://fluidattacks.com/blog/quantitative-python/quant.py"],
   ["/blog/quantitative-python/events.csv/", "https://fluidattacks.com/blog/quantitative-python/events.csv"],
   ["/blog/quickzip-exploit/exploit.py/", "https://fluidattacks.com/blog/quickzip-exploit/exploit.py"],
+  ["/blog/vulnserver-gmon/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gmon/exploit.py"],
 ]);
 
 addEventListener('fetch', event => {

@@ -303,7 +303,7 @@ manage and prioritize the vulnerabilities to be remediated.
 To complement the work of SCA scans,
 we have automated [SAST](../../product/sast/)
 and [DAST](../../product/dast/)
-and [manual penetration testing](../solutions/penetration-testing/).
+and [manual penetration testing](../../solutions/penetration-testing/).
 Some time ago,
 we published here a post
 where you can know the differences between [SAST, DAST and SCA](../differences-between-sast-sca-dast/).
