@@ -38,7 +38,9 @@ def format_toe_lines(item: Item) -> ToeLines:
     return ToeLines(
         filename=item["filename"],
         group_name=item["group_name"],
-        modified_date=datetime.fromisoformat(item["modified_date"]),
+        modified_date=datetime.fromisoformat(
+            state_item.get("last_commit_date", item.get("modified_date"))
+        ),
         root_id=item["root_id"],
         seen_first_time_by=item.get("seen_first_time_by"),
         state=ToeLinesState(
@@ -62,7 +64,9 @@ def format_toe_lines(item: Item) -> ToeLines:
             has_vulnerabilities=state_item.get("has_vulnerabilities"),
             last_author=state_item["last_author"],
             last_commit=state_item["last_commit"],
-            last_commit_date=datetime.fromisoformat(item["modified_date"]),
+            last_commit_date=datetime.fromisoformat(
+                state_item.get("last_commit_date", item.get("modified_date"))
+            ),
             loc=int(state_item["loc"]),
             modified_by=state_item["modified_by"],
             modified_date=datetime.fromisoformat(state_item["modified_date"]),
@@ -116,9 +120,6 @@ def format_toe_lines_item(
         key_structure.sort_key: primary_key.sort_key,
         "filename": toe_lines.filename,
         "group_name": toe_lines.group_name,
-        "modified_date": get_as_utc_iso_format(
-            toe_lines.state.last_commit_date
-        ),
         "root_id": toe_lines.root_id,
         "seen_first_time_by": toe_lines.seen_first_time_by,
         "state": {

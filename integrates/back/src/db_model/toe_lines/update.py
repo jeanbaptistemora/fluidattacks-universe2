@@ -49,11 +49,7 @@ async def update_state(
             "root_id": current_value.root_id,
         },
     )
-    base_item = {
-        "modified_date": get_as_utc_iso_format(new_state.last_commit_date)
-    }
     new_state_item: Item = json.loads(json.dumps(new_state, default=serialize))
-    metadata_item = base_item | {"state": new_state_item}
 
     condition_expression = Attr(key_structure.partition_key).exists() & Attr(
         "state.modified_date"
@@ -69,7 +65,10 @@ async def update_state(
         },
     )
     gsi_2_index = TABLE.indexes["gsi_2"]
-    metadata_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
+    metadata_item = {
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+        "state": new_state_item,
+    }
     try:
         await operations.update_item(
             condition_expression=condition_expression,
@@ -89,15 +88,11 @@ async def update_state(
             "iso8601utc": get_as_utc_iso_format(new_state.modified_date),
         },
     )
-    historic_item = (
-        format_toe_lines_item(
-            primary_key=historic_key,
-            key_structure=key_structure,
-            toe_lines=current_value,
-        )
-        | base_item
-        | {"state": new_state_item}
-    )
+    historic_item = format_toe_lines_item(
+        primary_key=historic_key,
+        key_structure=key_structure,
+        toe_lines=current_value,
+    ) | {"state": new_state_item}
     await operations.put_item(
         facet=TABLE.facets["toe_lines_historic_metadata"],
         condition_expression=Attr(key_structure.sort_key).not_exists(),

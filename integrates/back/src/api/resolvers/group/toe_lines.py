@@ -17,6 +17,7 @@ from db_model.toe_lines.utils import (
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
+    rename_kwargs,
     validate_connection,
 )
 from graphql.type.definition import (
@@ -32,6 +33,12 @@ from typing import (
 
 @GROUP.field("toeLines")
 @convert_kwargs_to_snake_case
+@rename_kwargs(
+    {
+        "from_modified_date": "from_last_commit_date",
+        "to_modified_date": "to_last_commit_date",
+    }
+)
 @concurrent_decorators(
     enforce_group_level_auth_async,
     validate_connection,
@@ -135,12 +142,12 @@ def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
 def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
 
     from_to_filters: dict[str, Any] = {
-        "common": {"modified_date"},
         "state": [
             "seen_at",
             "first_attack_at",
             "attacked_at",
             "be_present_until",
+            "last_commit_date",
         ],
     }
 
