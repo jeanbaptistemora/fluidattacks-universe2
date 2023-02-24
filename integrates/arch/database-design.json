@@ -23850,6 +23850,9 @@
                   "last_commit": {
                     "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
                   },
+                  "last_commit_date": {
+                    "S": "2020-11-15T15:41:04+00:00"
+                  },
                   "last_author": {
                     "S": "user@gmail.com"
                   },
@@ -23905,39 +23908,6 @@
                     ]
                   }
                 }
-              },
-              "loc": {
-                "N": "180"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "083. XML injection (XXE)"
-                      },
-                      "probability": {
-                        "N": "90"
-                      }
-                    }
-                  },
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "033. Password change without identity check"
-                      },
-                      "probability": {
-                        "N": "50"
-                      }
-                    }
-                  }
-                ]
-              },
-              "sorts_risk_level": {
-                "N": "80"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-02-20T05:00:00+00:00"
               }
             },
             {
@@ -23982,6 +23952,9 @@
                   "last_commit": {
                     "S": "e17059d1e17059d1e17059d1e17059d1e17059d1"
                   },
+                  "last_commit_date": {
+                    "S": "2020-11-15T15:41:04+00:00"
+                  },
                   "last_author": {
                     "S": "user@gmail.com"
                   },
@@ -24037,39 +24010,6 @@
                     ]
                   }
                 }
-              },
-              "loc": {
-                "N": "350"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "083. XML injection (XXE)"
-                      },
-                      "probability": {
-                        "N": "90"
-                      }
-                    }
-                  },
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "033. Password change without identity check"
-                      },
-                      "probability": {
-                        "N": "50"
-                      }
-                    }
-                  }
-                ]
-              },
-              "sorts_risk_level": {
-                "N": "80"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-03-30T05:00:00+00:00"
               }
             },
             {
@@ -24113,6 +24053,9 @@
                   },
                   "last_commit": {
                     "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
+                  },
+                  "last_commit_date": {
+                    "S": "2020-11-16T15:41:04+00:00"
                   },
                   "last_author": {
                     "S": "user@gmail.com"
@@ -24162,45 +24105,18 @@
                     ]
                   }
                 }
-              },
-              "loc": {
-                "N": "172"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "027. Insecure file upload"
-                      },
-                      "probability": {
-                        "N": "100"
-                      }
-                    }
-                  }
-                ]
-              },
-              "sorts_risk_level": {
-                "N": "0"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-04-10T05:00:00+00:00"
               }
             }
           ],
           "NonKeyAttributes": [
             "modified_date",
-            "loc",
             "seen_first_time_by",
-            "sorts_risk_level",
             "group_name",
             "filename",
             "root_id",
             "pk_2",
             "sk_2",
-            "state",
-            "sorts_suggestions",
-            "sorts_risk_level_date"
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
