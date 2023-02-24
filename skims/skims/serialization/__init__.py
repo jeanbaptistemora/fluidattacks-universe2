@@ -16,11 +16,6 @@ from model import (
 from parse_common.types import (
     ListToken,
 )
-from parse_hcl2.tokens import (
-    Attribute as HCL2Attribute,
-    Block as HCL2Block,
-    Json as HCL2Json,
-)
 import safe_pickle
 from safe_pickle import (
     dump,
@@ -124,9 +119,6 @@ def _side_effects() -> None:
         core_model.SkimsVulnerabilityMetadata,
         core_model.Vulnerability,
         cvss3_model.Score,
-        HCL2Attribute,
-        HCL2Block,
-        HCL2Json,
         graph_model.GraphDB,
         graph_model.GraphShardCacheable,
         graph_model.GraphShard,
