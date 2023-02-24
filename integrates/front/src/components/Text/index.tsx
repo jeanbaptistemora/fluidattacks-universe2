@@ -14,6 +14,7 @@ interface ITextProps {
   fontSize?: string;
   hoverBright?: Nums1To9 | 0;
   hoverTone?: TColor;
+  lineHeight?: string;
   mb?: Nums1To7 | 0;
   ml?: Nums1To7 | 0;
   mr?: Nums1To7 | 0;
@@ -108,12 +109,14 @@ const Text = styled.p.attrs(
     ws = "pre-line",
     hoverBright = bright,
     hoverTone = tone,
+    lineHeight = "normal",
   }): string => `
     color: #${colors[tone][bright]};
     display: ${disp};
     font-style: ${styles[fs]};
     font-size: ${fontSize};
     font-weight: ${fw * 100};
+    line-height: ${lineHeight};
     text-align: ${ta};
     text-decoration: ${decor.map((el): string => decors[el]).join(" ")};
     transition: all 0.3s ease;

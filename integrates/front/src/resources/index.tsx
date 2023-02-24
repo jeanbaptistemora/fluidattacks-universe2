@@ -6,6 +6,7 @@ import loginGoogleLogo from "./loginGoogleLogo.png";
 import loginLogo from "./loginLogo.png";
 import loginMicrosoftLogo from "./loginMicrosoftLogo.png";
 import loginNewFeat from "./loginNewFeat.png";
+import radar from "./radar.json";
 import redLoader from "./redLoader.json";
 import lotScan from "./scan.json";
 import searchingFindings from "./searchingFindings.png";
@@ -24,6 +25,7 @@ export {
   loginGoogleLogo,
   loginMicrosoftLogo,
   loginBitBucketLogo,
+  radar,
   redLoader,
   searchingFindings,
   signUpBGR,

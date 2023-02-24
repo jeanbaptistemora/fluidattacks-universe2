@@ -18,7 +18,7 @@ interface IModalProps {
   minWidth?: number;
   onClose?: () => void;
   open: boolean;
-  title: ReactNode | string;
+  title?: ReactNode | string;
 }
 
 const Modal: FC<IModalProps> = ({
@@ -47,16 +47,18 @@ const Modal: FC<IModalProps> = ({
     ? createPortal(
         <ContainerModal id={id}>
           <Dialog>
-            <Header>
-              <Text fw={7} mr={2} size={"medium"}>
-                {title}
-              </Text>
-              {onClose ? (
-                <Button id={"modal-close"} onClick={onClose} size={"sm"}>
-                  <FontAwesomeIcon icon={faClose} />
-                </Button>
-              ) : undefined}
-            </Header>
+            {title === undefined ? undefined : (
+              <Header>
+                <Text fw={7} mr={2} size={"medium"}>
+                  {title}
+                </Text>
+                {onClose ? (
+                  <Button id={"modal-close"} onClick={onClose} size={"sm"}>
+                    <FontAwesomeIcon icon={faClose} />
+                  </Button>
+                ) : undefined}
+              </Header>
+            )}
             <Container
               maxWidth={maxWidth}
               minWidth={`${minWidth}px`}
