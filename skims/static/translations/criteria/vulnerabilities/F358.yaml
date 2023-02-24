@@ -1,0 +1,8 @@
+---
+lib_root.f358.csharp_cert_validation_disabled:
+  en:
+    The function assigned to ServicePointManager.ServerCertificateValidationCallback
+    always returns True.
+  es:
+    La función asignada a ServicePointManager.ServerCertificateValidationCallback
+    Siempre retorna True.

@@ -1007,6 +1007,14 @@
       "title": "354. Insecure file upload - Files Limit"
     }
   },
+  "F358": {
+    "EN": {
+      "title": "358. Insecure service configuration - DocumentBuilderFactory"
+    },
+    "ES": {
+      "title": "358. Insecure service configuration - DocumentBuilderFactory"
+    }
+  },
   "F363": {
     "EN": {
       "title": "363. Weak credential policy - Password strength"

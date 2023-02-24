@@ -1038,6 +1038,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[40, 41],
     )
+    F358: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F358",
+        cwe=295,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[158],
+    )
     F363: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F363",
@@ -6164,6 +6171,14 @@ class MethodsEnum(Enum):
         name="typescript_insec_msg_auth_mechanism",
         module="lib_root",
         finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    CS_CERT_VALIDATION_DISABLED = MethodInfo(
+        file_name="csharp",
+        name="csharp_cert_validation_disabled",
+        module="lib_root",
+        finding=FindingEnum.F358,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
