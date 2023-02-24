@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f107.member_access.c_sharp import (
     cs_ldap_injection,
 )
+from symbolic_eval.f107.member_access.python import (
+    python_ldap_injection,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -12,6 +15,7 @@ from symbolic_eval.types import (
 
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_LDAP_INJECTION: cs_ldap_injection,
+    MethodsEnum.PYTHON_LDAP_INJECTION: python_ldap_injection,
 }
 
 

@@ -4373,6 +4373,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_LDAP_INJECTION = MethodInfo(
+        file_name="python",
+        name="python_ldap_injection",
+        module="lib_root",
+        finding=FindingEnum.F107,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_is_not_inside_a_db_subnet_group",

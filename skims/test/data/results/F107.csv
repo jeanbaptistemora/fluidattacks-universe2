@@ -36,3 +36,27 @@ F107,lines,namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,14,9
   18 |
      ^ Col 14
 ",java.java_ldap_injection
+F107,lines,namespace/skims/test/data/lib_root/f107/python_ldap_injection.py,16,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/python_ldap_injection.py,"
+   6 | import ldap.filter
+   7 |
+   8 |
+   9 | def unsafe_ldap() -> None:
+  10 |     dn = request.args[""dn""]
+  11 |     username = request.args[""username""]
+  12 |
+  13 |     search_filter = ""(&(objectClass=*)(uid="" + username + ""))""
+  14 |     ldap_connection = ldap.initialize(""ldap://127.0.0.1:389"")
+  15 |     # Noncompliant
+> 16 |     ldap_connection.search_s(dn, ldap.SCOPE_SUBTREE, search_filter)
+  17 |
+  18 |
+  19 | def safe_ldap() -> None:
+  20 |     # Escape distinguished names special characters
+  21 |     dn = ""dc=%s"" % ldap.dn.escape_dn_chars(request.args[""dc""])
+  22 |     # Escape search filters special characters
+  23 |     username = ldap.filter.escape_filter_chars(request.args[""username""])
+  24 |
+  25 |     search_filter = ""(&(objectClass=*)(uid="" + username + ""))""
+  26 |     ldap_connection = ldap.initialize(""ldap://127.0.0.1:389"")
+     ^ Col 0
+",python.python_ldap_injection
