@@ -14,7 +14,7 @@ from typing import (
 
 @QUERY.field("billing")
 @require_login
-async def resolve(
+def resolve(
     _parent: None, _info: GraphQLResolveInfo, **_kwargs: str
 ) -> dict[str, Any]:
     return {}
