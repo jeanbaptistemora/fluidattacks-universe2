@@ -93,19 +93,29 @@ async def mutate(  # pylint: disable=too-many-arguments
                 ),
                 recommendation=recommendation,
                 severity=Finding31Severity(
-                    attack_complexity=Decimal(kwargs["attack_complexity"]),
-                    attack_vector=Decimal(kwargs["attack_vector"]),
-                    availability_impact=Decimal(kwargs["availability_impact"]),
-                    confidentiality_impact=Decimal(
-                        kwargs["confidentiality_impact"]
+                    attack_complexity=Decimal(
+                        str(kwargs["attack_complexity"])
                     ),
-                    exploitability=Decimal(kwargs["exploitability"]),
-                    integrity_impact=Decimal(kwargs["integrity_impact"]),
-                    privileges_required=Decimal(kwargs["privileges_required"]),
-                    remediation_level=Decimal(kwargs["remediation_level"]),
-                    report_confidence=Decimal(kwargs["report_confidence"]),
-                    severity_scope=Decimal(kwargs["severity_scope"]),
-                    user_interaction=Decimal(kwargs["user_interaction"]),
+                    attack_vector=Decimal(str(kwargs["attack_vector"])),
+                    availability_impact=Decimal(
+                        str(kwargs["availability_impact"])
+                    ),
+                    confidentiality_impact=Decimal(
+                        str(kwargs["confidentiality_impact"])
+                    ),
+                    exploitability=Decimal(str(kwargs["exploitability"])),
+                    integrity_impact=Decimal(str(kwargs["integrity_impact"])),
+                    privileges_required=Decimal(
+                        str(kwargs["privileges_required"])
+                    ),
+                    remediation_level=Decimal(
+                        str(kwargs["remediation_level"])
+                    ),
+                    report_confidence=Decimal(
+                        str(kwargs["report_confidence"])
+                    ),
+                    severity_scope=Decimal(str(kwargs["severity_scope"])),
+                    user_interaction=Decimal(str(kwargs["user_interaction"])),
                 ),
                 source=requests_utils.get_source_new(info.context),
                 threat=threat,
