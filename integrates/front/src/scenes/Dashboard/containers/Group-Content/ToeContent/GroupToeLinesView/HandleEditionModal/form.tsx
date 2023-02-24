@@ -5,9 +5,8 @@ import { AttackedLinesField } from "./AttackedLinesField";
 import { CommentsField } from "./CommentsField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100, Col50 } from "styles/styledComponents";
 
 const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   props: IHandleEditionModalFormProps
@@ -19,14 +18,14 @@ const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   return (
     <Form id={"updateToeLinesAttackedLines"}>
       <Row>
-        <Col50>
+        <Col>
           <AttackedLinesField selectedToeLinesDatas={selectedToeLinesDatas} />
-        </Col50>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <CommentsField />
-        </Col100>
+        </Col>
       </Row>
       <ModalConfirm onCancel={handleCloseModal} onConfirm={submitForm} />
     </Form>
