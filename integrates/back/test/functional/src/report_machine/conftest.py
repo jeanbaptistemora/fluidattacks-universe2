@@ -11,15 +11,15 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
@@ -237,14 +237,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence5",  # noqa: E501 pylint: disable=line-too-long
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                            "evidence5",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         records=FindingEvidence(
                             description="records",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-records",  # noqa: E501 pylint: disable=line-too-long
+                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                            "records",
                             modified_date=datetime.fromisoformat(
                                 "2111-11-19T13:37:10+00:00"
                             ),
@@ -360,7 +362,8 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-4629a805-7ce5-4cd1-a39a-4579ec6fd985-evidence5",  # noqa: E501 pylint: disable=line-too-long
+                            url="group1-4629a805-7ce5-4cd1-a39a-4579ec6fd985-"
+                            "evidence5",
                             modified_date=datetime.fromisoformat(
                                 "2022-10-19T05:00:05+00:00"
                             ),

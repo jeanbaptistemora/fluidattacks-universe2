@@ -10,15 +10,15 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
