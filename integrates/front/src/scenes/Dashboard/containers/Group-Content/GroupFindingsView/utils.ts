@@ -1,19 +1,107 @@
 import type { ExecutionResult } from "graphql";
+import yaml from "js-yaml";
 import _ from "lodash";
 
-import type { IRemoveFindingResultAttr } from "../../Finding-Content/types";
-import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type {
   IFindingAttr,
+  IFindingSuggestionData,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,
   IVulnerabilitiesResume,
-} from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/types";
+  IVulnerabilityCriteriaData,
+} from "./types";
+
+import type { IRemoveFindingResultAttr } from "../../Finding-Content/types";
+import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 type RemoveFindingResult = ExecutionResult<IRemoveFindingResultAttr>;
+
+const ATTACK_COMPLEXITY_OPTIONS: Record<string, string> = {
+  H: "0.44",
+  L: "0.77",
+};
+/*
+ * P: physical
+ * L: local
+ * A: adjacent
+ * N: network
+ */
+const ATTACK_VECTOR_OPTIONS: Record<string, string> = {
+  A: "0.62",
+  L: "0.55",
+  N: "0.85",
+  P: "0.2",
+};
+const AVAILABILITY_IMPACT_OPTIONS: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+const CONFIDENTIAL_IMPACT_OPTIONS: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+/*
+ * U: unproven
+ * P: proof of concept
+ * F: functional
+ * H: high
+ */
+const EXPLOTABILITY_OPTIONS: Record<string, string> = {
+  F: "0.97",
+  H: "1",
+  P: "0.94",
+  U: "0.91",
+};
+const INTEGRITY_IMPACT_OPTIONS: Record<string, string> = {
+  H: "0.56",
+  L: "0.22",
+  N: "0",
+};
+const SEVERITY_SCOPE_OPTIONS: Record<string, string> = {
+  C: "1",
+  U: "0",
+};
+const PRIVILEGES_REQUIRED_SCOPE: Record<string, string> = {
+  H: "0.5",
+  L: "0.68",
+  N: "0.85",
+};
+const PRIVILEGES_REQUIRED_NO_SCOPE: Record<string, string> = {
+  H: "0.27",
+  L: "0.62",
+  N: "0.85",
+};
+/*
+ * O: official fix
+ * T: temporary fix
+ * W: workaround
+ * U: unavailable
+ */
+const REMEDIATION_LEVEL_OPTIONS: Record<string, string> = {
+  O: "0.95",
+  T: "0.96",
+  U: "1",
+  W: "0.97",
+};
+/*
+ * U: unknown
+ * R: reasonable
+ * C: confirmed
+ */
+const REPORT_CONFIDENCE_OPTIONS: Record<string, string> = {
+  C: "1",
+  R: "0.96",
+  U: "0.92",
+};
+const USER_INTERACTIONS_OPTIONS: Record<string, string> = {
+  N: "0.85",
+  R: "0.62",
+};
 
 function filterAssigned(
   rows: IFindingAttr[],
@@ -248,6 +336,146 @@ const getRiskExposure = (
   return 4 ** (severityScore - 4) / groupCVSSF;
 };
 
+// Empty fields in criteria's data.yaml are filled with "__empty__" or "X"
+function validateNotEmpty(field: string | undefined): string {
+  if (!_.isNil(field) && field !== "__empty__" && field !== "X") {
+    return field;
+  }
+
+  return "";
+}
+
+function getPrivilegesRequired(
+  severityScope: string,
+  privilegesRequired: string
+): string {
+  if (severityScope === SEVERITY_SCOPE_OPTIONS.C) {
+    return PRIVILEGES_REQUIRED_SCOPE[privilegesRequired];
+  }
+
+  return PRIVILEGES_REQUIRED_NO_SCOPE[privilegesRequired];
+}
+
+async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
+  const baseUrl: string =
+    "https://gitlab.com/api/v4/projects/20741933/repository/files";
+  const branchRef: string = "trunk";
+  const vulnsFileId: string =
+    "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+  const vulnsResponseFile: Response = await fetch(
+    `${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`
+  );
+  const vulnsData = yaml.load(await vulnsResponseFile.text()) as Record<
+    string,
+    IVulnerabilityCriteriaData
+  >;
+
+  return Object.keys(vulnsData).map((key: string): IFindingSuggestionData => {
+    const attackVectorRaw = validateNotEmpty(
+      vulnsData[key].score.base.attack_vector
+    );
+    const attackVector =
+      attackVectorRaw in ATTACK_VECTOR_OPTIONS
+        ? ATTACK_VECTOR_OPTIONS[attackVectorRaw]
+        : "0";
+    const attackComplexityRaw = validateNotEmpty(
+      vulnsData[key].score.base.attack_complexity
+    );
+    const attackComplexity =
+      attackComplexityRaw in ATTACK_COMPLEXITY_OPTIONS
+        ? ATTACK_COMPLEXITY_OPTIONS[attackComplexityRaw]
+        : "0";
+    const availabilityRaw = validateNotEmpty(
+      vulnsData[key].score.base.availability
+    );
+    const availabilityImpact =
+      availabilityRaw in AVAILABILITY_IMPACT_OPTIONS
+        ? AVAILABILITY_IMPACT_OPTIONS[availabilityRaw]
+        : "0";
+    const confidentialityRaw = validateNotEmpty(
+      vulnsData[key].score.base.confidentiality
+    );
+    const confidentialityImpact =
+      confidentialityRaw in CONFIDENTIAL_IMPACT_OPTIONS
+        ? CONFIDENTIAL_IMPACT_OPTIONS[confidentialityRaw]
+        : "0";
+    const exploitabilityRaw = validateNotEmpty(
+      vulnsData[key].score.temporal.exploit_code_maturity
+    );
+    const exploitability =
+      exploitabilityRaw in EXPLOTABILITY_OPTIONS
+        ? EXPLOTABILITY_OPTIONS[exploitabilityRaw]
+        : "0";
+    const integrityRaw = validateNotEmpty(vulnsData[key].score.base.integrity);
+    const integrityImpact =
+      integrityRaw in INTEGRITY_IMPACT_OPTIONS
+        ? INTEGRITY_IMPACT_OPTIONS[integrityRaw]
+        : "0";
+    const scopeRaw = validateNotEmpty(vulnsData[key].score.base.scope);
+    const severityScope =
+      scopeRaw in SEVERITY_SCOPE_OPTIONS
+        ? SEVERITY_SCOPE_OPTIONS[scopeRaw]
+        : "0";
+    const privilegesRequiredRaw = validateNotEmpty(
+      vulnsData[key].score.base.privileges_required
+    );
+    const privilegesRequired =
+      privilegesRequiredRaw in PRIVILEGES_REQUIRED_SCOPE
+        ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
+        : "0";
+    const minTimeToRemediateRaw = validateNotEmpty(
+      vulnsData[key].remediation_time
+    );
+    const minTimeToRemediate = minTimeToRemediateRaw
+      ? minTimeToRemediateRaw
+      : null;
+    const remediationLevelRaw = validateNotEmpty(
+      vulnsData[key].score.temporal.remediation_level
+    );
+    const remediationLevel =
+      remediationLevelRaw in REMEDIATION_LEVEL_OPTIONS
+        ? REMEDIATION_LEVEL_OPTIONS[remediationLevelRaw]
+        : "0";
+    const reportConfidenceRaw = validateNotEmpty(
+      vulnsData[key].score.temporal.report_confidence
+    );
+    const reportConfidence =
+      reportConfidenceRaw in REPORT_CONFIDENCE_OPTIONS
+        ? REPORT_CONFIDENCE_OPTIONS[reportConfidenceRaw]
+        : "0";
+    const userInteractionRaw = validateNotEmpty(
+      vulnsData[key].score.base.user_interaction
+    );
+    const userInteraction =
+      userInteractionRaw in USER_INTERACTIONS_OPTIONS
+        ? USER_INTERACTIONS_OPTIONS[userInteractionRaw]
+        : "0";
+    const { requirements } = vulnsData[key];
+
+    return {
+      attackComplexity,
+      attackVector,
+      attackVectorDescription: validateNotEmpty(vulnsData[key].en.impact),
+      availabilityImpact,
+      code: key,
+      confidentialityImpact,
+      description: validateNotEmpty(vulnsData[key].en.description),
+      exploitability,
+      integrityImpact,
+      minTimeToRemediate,
+      privilegesRequired,
+      recommendation: validateNotEmpty(vulnsData[key].en.recommendation),
+      remediationLevel,
+      reportConfidence,
+      severityScope,
+      threat: validateNotEmpty(vulnsData[key].en.threat),
+      title: validateNotEmpty(vulnsData[key].en.title),
+      unfulfilledRequirements: requirements,
+      userInteraction,
+    };
+  });
+}
+
 export {
   filterAssigned,
   formatFindings,
@@ -257,6 +485,7 @@ export {
   formatReattack,
   getAreAllMutationValid,
   getFindingsIndex,
+  getFindingSuggestions,
   getResults,
   getRiskExposure,
   handleRemoveFindingsError,

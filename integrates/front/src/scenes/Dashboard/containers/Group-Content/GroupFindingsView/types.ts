@@ -85,14 +85,73 @@ interface IRoot {
   state: "ACTIVE" | "INACTIVE";
 }
 
+interface IFindingSuggestionData {
+  attackComplexity: string;
+  attackVector: string;
+  attackVectorDescription: string;
+  availabilityImpact: string;
+  code: string;
+  confidentialityImpact: string;
+  description: string;
+  exploitability: string;
+  integrityImpact: string;
+  privilegesRequired: string;
+  recommendation: string;
+  minTimeToRemediate: string | null;
+  remediationLevel: string;
+  reportConfidence: string;
+  severityScope: string;
+  threat: string;
+  title: string;
+  unfulfilledRequirements: string[];
+  userInteraction: string;
+}
+
+interface IVulnerabilityLanguage {
+  title: string;
+  description: string;
+  impact: string;
+  recommendation: string;
+  threat: string;
+}
+
+interface IVulnerabilityScore {
+  base: {
+    attack_vector: string;
+    attack_complexity: string;
+    privileges_required: string;
+    user_interaction: string;
+    scope: string;
+    confidentiality: string;
+    integrity: string;
+    availability: string;
+  };
+  temporal: {
+    exploit_code_maturity: string;
+    remediation_level: string;
+    report_confidence: string;
+  };
+}
+
+interface IVulnerabilityCriteriaData {
+  en: IVulnerabilityLanguage;
+  es: IVulnerabilityLanguage;
+  score: IVulnerabilityScore;
+  remediation_time: string;
+  requirements: string[];
+  metadata: Record<string, unknown>;
+}
+
 export type {
   IRoot,
   IGroupFindingsAttr,
   IGroupVulnerabilities,
   IFindingAttr,
+  IFindingSuggestionData,
   ILocationsInfoAttr,
   ITreatmentSummaryAttr,
   IVerificationSummaryAttr,
   IVulnerability,
   IVulnerabilitiesResume,
+  IVulnerabilityCriteriaData,
 };
