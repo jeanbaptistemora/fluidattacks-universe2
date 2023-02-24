@@ -14,7 +14,7 @@ from graphql.type.definition import (
 
 @TOE_PORT.field("seenFirstTimeBy")
 @enforce_group_level_auth_async
-def resolve(
+async def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str | None:
     return parent.seen_first_time_by

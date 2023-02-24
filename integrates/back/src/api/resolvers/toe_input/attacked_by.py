@@ -14,7 +14,7 @@ from graphql.type.definition import (
 
 @TOE_INPUT.field("attackedBy")
 @enforce_group_level_auth_async
-def resolve(
+async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     return parent.state.attacked_by
