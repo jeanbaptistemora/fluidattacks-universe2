@@ -1108,6 +1108,13 @@ const redirectMap = new Map([
   ["/blog/quantitative-python/events.csv/", "https://fluidattacks.com/blog/quantitative-python/events.csv"],
   ["/blog/quickzip-exploit/exploit.py/", "https://fluidattacks.com/blog/quickzip-exploit/exploit.py"],
   ["/blog/vulnserver-gmon/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gmon/exploit.py"],
+  ["/blog/vulnserver-gter-no-egghunter/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gter-no-egghunter/exploit.py"],
+  ["/blog/vulnserver-gter/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gter/exploit.py"],
+  ["/blog/vulnserver-kstet-alternative/exploit.py/", "https://fluidattacks.com/blog/vulnserver-kstet-alternative/exploit.py"],
+  ["/blog/vulnserver-kstet/exploit.py/", "https://fluidattacks.com/blog/vulnserver-kstet/exploit.py"],
+  ["/blog/vulnserver-lter-seh/exploit.py/", "https://fluidattacks.com/blog/vulnserver-lter-seh/exploit.py"],
+  ["/blog/vulnserver-trun-rop/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun-rop/exploit.py"],
+  ["/blog/vulnserver-trun/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun/exploit.py"],
 ]);
 
 addEventListener('fetch', event => {
