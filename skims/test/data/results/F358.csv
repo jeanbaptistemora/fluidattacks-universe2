@@ -1,0 +1,37 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F358,lines,namespace/skims/test/data/lib_root/f358/cs_cert_val_disabled_i.cs,7,295,skims,358. Insecure service configuration - DocumentBuilderFactory,The function assigned to ServicePointManager.ServerCertificateValidationCallback always returns True. in namespace/skims/test/data/lib_root/f358/cs_cert_val_disabled_i.cs,"
+  1 |
+  2 |
+  3 |
+  4 |
+  5 |
+  6 |
+> 7 | ificateValidationCallback += (sender, cert, chain, error) => { return true; };
+  8 |
+  9 |
+    ^ Col 38
+",csharp.csharp_cert_validation_disabled
+F358,lines,namespace/skims/test/data/lib_root/f358/cs_cert_val_disabled_ii.cs,9,295,skims,358. Insecure service configuration - DocumentBuilderFactory,The function assigned to ServicePointManager.ServerCertificateValidationCallback always returns True. in namespace/skims/test/data/lib_root/f358/cs_cert_val_disabled_ii.cs,"
+   1 |
+   2 |
+   3 | 9Certificates;
+   4 |
+   5 |
+   6 |
+   7 |
+   8 |
+>  9 | ificateValidationCallback += SelfSignedForLocalhost;
+  10 |
+  11 |
+  12 | ocalhost(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+  13 |
+  14 | cyErrors.None)
+  15 |
+  16 |
+  17 |
+  18 |
+  19 |
+  20 |
+  21 |
+     ^ Col 38
+",csharp.csharp_cert_validation_disabled
