@@ -97,7 +97,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
           <Container pb={3} ph={3}>
             <AirsLink href={link}>
               <Button display={btnDisplay} variant={btnVariant}>
-                <Text color={"inherit"}>{btnText}</Text>
+                {btnText}
               </Button>
             </AirsLink>
           </Container>
@@ -144,7 +144,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
         <Container pb={3} ph={3}>
           <AirsLink href={link}>
             <Button display={btnDisplay} variant={btnVariant}>
-              <Text color={"inherit"}>{btnText}</Text>
+              {btnText}
             </Button>
           </AirsLink>
         </Container>

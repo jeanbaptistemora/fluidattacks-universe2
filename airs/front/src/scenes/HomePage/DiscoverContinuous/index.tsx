@@ -5,7 +5,7 @@ import { Button } from "../../../components/Button";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
 import { SimpleCard } from "../../../components/SimpleCard";
-import { Text, Title } from "../../../components/Typography";
+import { Title } from "../../../components/Typography";
 import { translate } from "../../../utils/translations/translate";
 
 const DiscoverContinuous: React.FC = (): JSX.Element => {
@@ -87,9 +87,7 @@ const DiscoverContinuous: React.FC = (): JSX.Element => {
         <Container display={"flex"} justify={"center"} maxWidth={"900px"}>
           <AirsLink href={"/services/continuous-hacking/"}>
             <Button size={"md"} variant={"primary"}>
-              <Text color={"inherit"}>
-                {translate.t("home.discoverContinuous.button")}
-              </Text>
+              {translate.t("home.discoverContinuous.button")}
             </Button>
           </AirsLink>
         </Container>

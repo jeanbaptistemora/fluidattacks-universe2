@@ -13,7 +13,7 @@ const getSize = (): IWindowSize => {
 
 // Get window size reacting to changes
 const useWindowSize = (): IWindowSize => {
-  const [size, setSize] = useState({ height: 0, width: 0 });
+  const [size, setSize] = useState({ height: 0, width: 1366 });
 
   useEffect((): (() => void) => {
     const handleResize = (): void => {

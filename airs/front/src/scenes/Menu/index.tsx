@@ -18,7 +18,6 @@ import { AirsLink } from "../../components/AirsLink";
 import { Button } from "../../components/Button";
 import { CloudImage } from "../../components/CloudImage";
 import { Container } from "../../components/Container";
-import { Text } from "../../components/Typography";
 import {
   NavbarInnerContainer,
   NavbarList,
@@ -108,18 +107,18 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              <Text color={"#535365"}>{"Service"}</Text>
+              {"Service"}
             </Button>
             <Button
               onClick={handleClickButton("platform")}
               size={"md"}
               variant={"ghost"}
             >
-              <Text color={"#535365"}>{"Platform"}</Text>
+              {"Platform"}
             </Button>
             <AirsLink href={"/plans/"}>
               <Button size={"md"} variant={"ghost"}>
-                <Text color={"#535365"}>{"Plans"}</Text>
+                {"Plans"}
               </Button>
             </AirsLink>
             <Button
@@ -127,11 +126,11 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              <Text color={"#535365"}>{"Resources"}</Text>
+              {"Resources"}
             </Button>
             <AirsLink href={"/advisories/"}>
               <Button size={"md"} variant={"ghost"}>
-                <Text color={"#535365"}>{"Advisories"}</Text>
+                {"Advisories"}
               </Button>
             </AirsLink>
             <Button
@@ -139,7 +138,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              <Text color={"#535365"}>{"Company"}</Text>
+              {"Company"}
             </Button>
           </Container>
           <Container
@@ -150,21 +149,19 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             wrap={"nowrap"}
           >
             <AirsLink href={"/contact-us/"}>
-              <Button variant={"secondary"}>
-                <Text color={"#ffffff"}>{"Contact now"}</Text>
-              </Button>
+              <Button variant={"secondary"}>{"Contact now"}</Button>
             </AirsLink>
             <Container maxWidth={"142px"} ml={2} mr={2}>
               <AirsLink href={"https://app.fluidattacks.com/SignUp"}>
                 <Button onClick={matomoFreeTrialEvent} variant={"primary"}>
-                  <Text color={"#ffffff"}>{"Start free trial"}</Text>
+                  {"Start free trial"}
                 </Button>
               </AirsLink>
             </Container>
             <AirsLink href={"https://app.fluidattacks.com/"}>
               <Button variant={"ghost"}>
                 <BsFillPersonFill />
-                <Text color={"#535365"}>{"Log in"}</Text>
+                {"Log in"}
               </Button>
             </AirsLink>
           </Container>

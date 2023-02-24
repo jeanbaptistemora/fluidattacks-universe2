@@ -10,17 +10,17 @@ import type {
 
 const sizes: Record<TSize, ISize> = {
   lg: {
-    fontSize: 4,
+    fontSize: 20,
     ph: 24,
     pv: 10,
   },
   md: {
-    fontSize: 5,
+    fontSize: 16,
     ph: 16,
     pv: 10,
   },
   sm: {
-    fontSize: 7,
+    fontSize: 12,
     ph: 16,
     pv: 10,
   },
@@ -93,8 +93,7 @@ const variants: Record<TVariant, IVariant> = {
 };
 
 const StyledButton = styled.button.attrs<IStyledButtonProps>(
-  ({ size = "md", type = "button" }): Partial<IStyledButtonProps> => ({
-    className: `f${sizes[size].fontSize}`,
+  ({ type = "button" }): Partial<IStyledButtonProps> => ({
     type,
   })
 )<IStyledButtonProps>`
@@ -104,7 +103,7 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     size = "md",
     variant = "ghost",
   }): string => {
-    const { ph, pv } = sizes[size];
+    const { fontSize, ph, pv } = sizes[size];
     const {
       bgColor,
       bgColorHover,
@@ -121,6 +120,7 @@ const StyledButton = styled.button.attrs<IStyledButtonProps>(
     border-radius: ${borderRadius}px;
     color: ${color};
     display: ${display};
+    font-size: ${fontSize}px;
     font-weight: 400;
     padding: ${pv}px ${ph}px;
     text-align: start;
