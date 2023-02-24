@@ -86,25 +86,25 @@ interface IRoot {
 }
 
 interface IFindingSuggestionData {
-  attackComplexity: string;
-  attackVector: string;
+  attackComplexity: number;
+  attackVector: number;
   attackVectorDescription: string;
-  availabilityImpact: string;
+  availabilityImpact: number;
   code: string;
-  confidentialityImpact: string;
+  confidentialityImpact: number;
   description: string;
-  exploitability: string;
-  integrityImpact: string;
-  privilegesRequired: string;
+  exploitability: number;
+  integrityImpact: number;
+  privilegesRequired: number;
   recommendation: string;
-  minTimeToRemediate: string | null;
-  remediationLevel: string;
-  reportConfidence: string;
-  severityScope: string;
+  minTimeToRemediate: number | null;
+  remediationLevel: number;
+  reportConfidence: number;
+  severityScope: number;
   threat: string;
   title: string;
   unfulfilledRequirements: string[];
-  userInteraction: string;
+  userInteraction: number;
 }
 
 interface IVulnerabilityLanguage {
@@ -142,7 +142,14 @@ interface IVulnerabilityCriteriaData {
   metadata: Record<string, unknown>;
 }
 
+interface IAddFindingMutationResult {
+  addFinding: {
+    success: boolean;
+  };
+}
+
 export type {
+  IAddFindingMutationResult,
   IRoot,
   IGroupFindingsAttr,
   IGroupVulnerabilities,

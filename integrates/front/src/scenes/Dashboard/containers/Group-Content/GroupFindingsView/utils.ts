@@ -19,9 +19,9 @@ import { translate } from "utils/translations/translate";
 
 type RemoveFindingResult = ExecutionResult<IRemoveFindingResultAttr>;
 
-const ATTACK_COMPLEXITY_OPTIONS: Record<string, string> = {
-  H: "0.44",
-  L: "0.77",
+const ATTACK_COMPLEXITY_OPTIONS: Record<string, number> = {
+  H: 0.44,
+  L: 0.77,
 };
 /*
  * P: physical
@@ -29,21 +29,21 @@ const ATTACK_COMPLEXITY_OPTIONS: Record<string, string> = {
  * A: adjacent
  * N: network
  */
-const ATTACK_VECTOR_OPTIONS: Record<string, string> = {
-  A: "0.62",
-  L: "0.55",
-  N: "0.85",
-  P: "0.2",
+const ATTACK_VECTOR_OPTIONS: Record<string, number> = {
+  A: 0.62,
+  L: 0.55,
+  N: 0.85,
+  P: 0.2,
 };
-const AVAILABILITY_IMPACT_OPTIONS: Record<string, string> = {
-  H: "0.56",
-  L: "0.22",
-  N: "0",
+const AVAILABILITY_IMPACT_OPTIONS: Record<string, number> = {
+  H: 0.56,
+  L: 0.22,
+  N: 0,
 };
-const CONFIDENTIAL_IMPACT_OPTIONS: Record<string, string> = {
-  H: "0.56",
-  L: "0.22",
-  N: "0",
+const CONFIDENTIAL_IMPACT_OPTIONS: Record<string, number> = {
+  H: 0.56,
+  L: 0.22,
+  N: 0,
 };
 /*
  * U: unproven
@@ -51,30 +51,30 @@ const CONFIDENTIAL_IMPACT_OPTIONS: Record<string, string> = {
  * F: functional
  * H: high
  */
-const EXPLOTABILITY_OPTIONS: Record<string, string> = {
-  F: "0.97",
-  H: "1",
-  P: "0.94",
-  U: "0.91",
+const EXPLOTABILITY_OPTIONS: Record<string, number> = {
+  F: 0.97,
+  H: 1,
+  P: 0.94,
+  U: 0.91,
 };
-const INTEGRITY_IMPACT_OPTIONS: Record<string, string> = {
-  H: "0.56",
-  L: "0.22",
-  N: "0",
+const INTEGRITY_IMPACT_OPTIONS: Record<string, number> = {
+  H: 0.56,
+  L: 0.22,
+  N: 0,
 };
-const SEVERITY_SCOPE_OPTIONS: Record<string, string> = {
-  C: "1",
-  U: "0",
+const SEVERITY_SCOPE_OPTIONS: Record<string, number> = {
+  C: 1,
+  U: 0,
 };
-const PRIVILEGES_REQUIRED_SCOPE: Record<string, string> = {
-  H: "0.5",
-  L: "0.68",
-  N: "0.85",
+const PRIVILEGES_REQUIRED_SCOPE: Record<string, number> = {
+  H: 0.5,
+  L: 0.68,
+  N: 0.85,
 };
-const PRIVILEGES_REQUIRED_NO_SCOPE: Record<string, string> = {
-  H: "0.27",
-  L: "0.62",
-  N: "0.85",
+const PRIVILEGES_REQUIRED_NO_SCOPE: Record<string, number> = {
+  H: 0.27,
+  L: 0.62,
+  N: 0.85,
 };
 /*
  * O: official fix
@@ -82,25 +82,25 @@ const PRIVILEGES_REQUIRED_NO_SCOPE: Record<string, string> = {
  * W: workaround
  * U: unavailable
  */
-const REMEDIATION_LEVEL_OPTIONS: Record<string, string> = {
-  O: "0.95",
-  T: "0.96",
-  U: "1",
-  W: "0.97",
+const REMEDIATION_LEVEL_OPTIONS: Record<string, number> = {
+  O: 0.95,
+  T: 0.96,
+  U: 1,
+  W: 0.97,
 };
 /*
  * U: unknown
  * R: reasonable
  * C: confirmed
  */
-const REPORT_CONFIDENCE_OPTIONS: Record<string, string> = {
-  C: "1",
-  R: "0.96",
-  U: "0.92",
+const REPORT_CONFIDENCE_OPTIONS: Record<string, number> = {
+  C: 1,
+  R: 0.96,
+  U: 0.92,
 };
-const USER_INTERACTIONS_OPTIONS: Record<string, string> = {
-  N: "0.85",
-  R: "0.62",
+const USER_INTERACTIONS_OPTIONS: Record<string, number> = {
+  N: 0.85,
+  R: 0.62,
 };
 
 function filterAssigned(
@@ -346,9 +346,9 @@ function validateNotEmpty(field: string | undefined): string {
 }
 
 function getPrivilegesRequired(
-  severityScope: string,
+  severityScope: number,
   privilegesRequired: string
-): string {
+): number {
   if (severityScope === SEVERITY_SCOPE_OPTIONS.C) {
     return PRIVILEGES_REQUIRED_SCOPE[privilegesRequired];
   }
@@ -377,57 +377,55 @@ async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
     const attackVector =
       attackVectorRaw in ATTACK_VECTOR_OPTIONS
         ? ATTACK_VECTOR_OPTIONS[attackVectorRaw]
-        : "0";
+        : 0;
     const attackComplexityRaw = validateNotEmpty(
       vulnsData[key].score.base.attack_complexity
     );
     const attackComplexity =
       attackComplexityRaw in ATTACK_COMPLEXITY_OPTIONS
         ? ATTACK_COMPLEXITY_OPTIONS[attackComplexityRaw]
-        : "0";
+        : 0;
     const availabilityRaw = validateNotEmpty(
       vulnsData[key].score.base.availability
     );
     const availabilityImpact =
       availabilityRaw in AVAILABILITY_IMPACT_OPTIONS
         ? AVAILABILITY_IMPACT_OPTIONS[availabilityRaw]
-        : "0";
+        : 0;
     const confidentialityRaw = validateNotEmpty(
       vulnsData[key].score.base.confidentiality
     );
     const confidentialityImpact =
       confidentialityRaw in CONFIDENTIAL_IMPACT_OPTIONS
         ? CONFIDENTIAL_IMPACT_OPTIONS[confidentialityRaw]
-        : "0";
+        : 0;
     const exploitabilityRaw = validateNotEmpty(
       vulnsData[key].score.temporal.exploit_code_maturity
     );
     const exploitability =
       exploitabilityRaw in EXPLOTABILITY_OPTIONS
         ? EXPLOTABILITY_OPTIONS[exploitabilityRaw]
-        : "0";
+        : 0;
     const integrityRaw = validateNotEmpty(vulnsData[key].score.base.integrity);
     const integrityImpact =
       integrityRaw in INTEGRITY_IMPACT_OPTIONS
         ? INTEGRITY_IMPACT_OPTIONS[integrityRaw]
-        : "0";
+        : 0;
     const scopeRaw = validateNotEmpty(vulnsData[key].score.base.scope);
     const severityScope =
-      scopeRaw in SEVERITY_SCOPE_OPTIONS
-        ? SEVERITY_SCOPE_OPTIONS[scopeRaw]
-        : "0";
+      scopeRaw in SEVERITY_SCOPE_OPTIONS ? SEVERITY_SCOPE_OPTIONS[scopeRaw] : 0;
     const privilegesRequiredRaw = validateNotEmpty(
       vulnsData[key].score.base.privileges_required
     );
     const privilegesRequired =
       privilegesRequiredRaw in PRIVILEGES_REQUIRED_SCOPE
         ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
-        : "0";
+        : 0;
     const minTimeToRemediateRaw = validateNotEmpty(
       vulnsData[key].remediation_time
     );
     const minTimeToRemediate = minTimeToRemediateRaw
-      ? minTimeToRemediateRaw
+      ? _.parseInt(minTimeToRemediateRaw)
       : null;
     const remediationLevelRaw = validateNotEmpty(
       vulnsData[key].score.temporal.remediation_level
@@ -435,21 +433,21 @@ async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
     const remediationLevel =
       remediationLevelRaw in REMEDIATION_LEVEL_OPTIONS
         ? REMEDIATION_LEVEL_OPTIONS[remediationLevelRaw]
-        : "0";
+        : 0;
     const reportConfidenceRaw = validateNotEmpty(
       vulnsData[key].score.temporal.report_confidence
     );
     const reportConfidence =
       reportConfidenceRaw in REPORT_CONFIDENCE_OPTIONS
         ? REPORT_CONFIDENCE_OPTIONS[reportConfidenceRaw]
-        : "0";
+        : 0;
     const userInteractionRaw = validateNotEmpty(
       vulnsData[key].score.base.user_interaction
     );
     const userInteraction =
       userInteractionRaw in USER_INTERACTIONS_OPTIONS
         ? USER_INTERACTIONS_OPTIONS[userInteractionRaw]
-        : "0";
+        : 0;
     const { requirements } = vulnsData[key];
 
     return {

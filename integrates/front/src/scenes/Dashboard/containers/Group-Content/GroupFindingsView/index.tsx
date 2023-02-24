@@ -32,8 +32,13 @@ import { renderDescription } from "./description";
 import { assigneesFormatter } from "./formatters/assigneesFormatter";
 import { locationsFormatter } from "./formatters/locationsFormatter";
 import { severityFormatter } from "./formatters/severityFormatter";
-import { GET_GROUP_VULNERABILITIES, GET_ROOTS } from "./queries";
+import {
+  ADD_FINDING_MUTATION,
+  GET_GROUP_VULNERABILITIES,
+  GET_ROOTS,
+} from "./queries";
 import type {
+  IAddFindingMutationResult,
   IFindingSuggestionData,
   IGroupVulnerabilities,
   IRoot,
@@ -532,9 +537,51 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     _.sortBy(typesArray, (arr): string => arr[0])
   );
 
-  const handleAdd = useCallback((): void => {
-    // HandleAdd
-  }, []);
+  const [addFinding, { loading: addingFinding }] = useMutation<
+    IAddFindingMutationResult,
+    Omit<IFindingSuggestionData, "code"> | { groupName: string }
+  >(ADD_FINDING_MUTATION, {
+    onCompleted: async (result: IAddFindingMutationResult): Promise<void> => {
+      if (result.addFinding.success) {
+        msgSuccess(
+          t("group.findings.addModal.alerts.addedFinding"),
+          t("groupAlerts.titleSuccess")
+        );
+        await refetch();
+        setIsAddFindingModalOpen(false);
+      }
+    },
+    onError: (errors: ApolloError): void => {
+      errors.graphQLErrors.forEach((error: GraphQLError): void => {
+        if (error.message) {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred adding finding", error);
+        }
+      });
+    },
+  });
+
+  const handleAdd = useCallback(
+    async ({ title }: { title: string }): Promise<void> => {
+      const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
+        suggestions
+      )
+        ? []
+        : suggestions.filter(
+            (suggestion: IFindingSuggestionData): boolean =>
+              `${suggestion.code}. ${suggestion.title}` === title
+          );
+      const draftData = _.omit(matchingSuggestion, ["code"]);
+      await addFinding({
+        variables: {
+          ...draftData,
+          groupName,
+          title,
+        },
+      });
+    },
+    [addFinding, groupName, suggestions]
+  );
 
   const [removeFinding, { loading: deleting }] = useMutation(
     REMOVE_FINDING_MUTATION,
@@ -761,7 +808,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 </React.Fragment>
               ) : undefined}
               <ModalConfirm
-                disabled={!dirty || !isValid}
+                disabled={!dirty || !isValid || addingFinding}
                 onCancel={closeAddFindingModal}
               />
             </Form>

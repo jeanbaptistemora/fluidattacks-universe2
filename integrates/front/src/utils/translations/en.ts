@@ -685,6 +685,9 @@ export const enTranslations: ResourceKey = {
     },
     findings: {
       addModal: {
+        alerts: {
+          addedFinding: "The vulnerability has been added",
+        },
         hint: {
           description: "Hint: Description",
           empty: "Not available",

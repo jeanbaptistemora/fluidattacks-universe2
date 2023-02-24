@@ -1,6 +1,54 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const ADD_FINDING_MUTATION: DocumentNode = gql`
+  mutation AddFindingMutation(
+    $attackComplexity: Float!
+    $attackVector: Float!
+    $attackVectorDescription: String!
+    $availabilityImpact: Float!
+    $confidentialityImpact: Float!
+    $description: String!
+    $exploitability: Float!
+    $groupName: String!
+    $integrityImpact: Float!
+    $privilegesRequired: Float!
+    $recommendation: String!
+    $minTimeToRemediate: Int
+    $remediationLevel: Float!
+    $reportConfidence: Float!
+    $severityScope: Float!
+    $threat: String!
+    $title: String!
+    $unfulfilledRequirements: [String!]!
+    $userInteraction: Float!
+  ) {
+    addFinding(
+      attackComplexity: $attackComplexity
+      attackVector: $attackVector
+      attackVectorDescription: $attackVectorDescription
+      availabilityImpact: $availabilityImpact
+      confidentialityImpact: $confidentialityImpact
+      description: $description
+      exploitability: $exploitability
+      groupName: $groupName
+      integrityImpact: $integrityImpact
+      privilegesRequired: $privilegesRequired
+      recommendation: $recommendation
+      minTimeToRemediate: $minTimeToRemediate
+      remediationLevel: $remediationLevel
+      reportConfidence: $reportConfidence
+      severityScope: $severityScope
+      threat: $threat
+      title: $title
+      unfulfilledRequirements: $unfulfilledRequirements
+      userInteraction: $userInteraction
+    ) {
+      success
+    }
+  }
+`;
+
 const GET_FINDINGS: DocumentNode = gql`
   query GetFindingsQuery($groupName: String!) {
     group(groupName: $groupName) {
@@ -137,6 +185,7 @@ const GET_ROOTS: DocumentNode = gql`
 `;
 
 export {
+  ADD_FINDING_MUTATION,
   GET_FINDINGS,
   GET_GROUP_VULNERABILITIES,
   REQUEST_GROUP_REPORT,
