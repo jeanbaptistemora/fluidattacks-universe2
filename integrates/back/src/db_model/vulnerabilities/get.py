@@ -56,7 +56,7 @@ from itertools import (
     chain,
 )
 from typing import (
-    Any,
+    Self,
 )
 
 
@@ -335,7 +335,7 @@ class FindingVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
         super().__init__()
         self.dataloader = dataloader
 
-    def clear(self, key: str) -> Any:
+    def clear(self, key: str) -> Self:  # type: ignore
         self.dataloader.clear(key)
         return super().clear(key)
 
@@ -390,7 +390,7 @@ class FindingVulnerabilitiesNonDeletedLoader(
         super().__init__()
         self.dataloader = dataloader
 
-    def clear(self, key: str) -> Any:
+    def clear(self, key: str) -> Self:  # type: ignore
         self.dataloader.clear(key)
         return super().clear(key)
 
