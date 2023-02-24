@@ -157,7 +157,7 @@
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
-    expire_in: 1 week
+    expire_in: 1 day
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
     paths:
       - skims/.coverage*
@@ -176,51 +176,6 @@
     - /testPython/skims@benchmark_weakrand
     - /testPython/skims@benchmark_xpathi
     - /testPython/skims@benchmark_xss
-    - /testPython/skims@graph_generation
-    - /testPython/skims@instance_references
-    - /testPython/skims@lib_apk
-    - /testPython/skims@lib_http
-    - /testPython/skims@lib_http_2
-    - /testPython/skims@lib_ssl
-    - /testPython/skims@nist_c_sharp_f001
-    - /testPython/skims@nist_c_sharp_f004
-    - /testPython/skims@nist_c_sharp_f008
-    - /testPython/skims@nist_c_sharp_f021
-    - /testPython/skims@nist_c_sharp_f052
-    - /testPython/skims@nist_c_sharp_f063
-    - /testPython/skims@nist_c_sharp_f107
-    - /testPython/skims@sarif_report
-    - /testPython/skims@unittesting
-    - /testPython/skims@vulnerableapp
-    - /testPython/skims@vulnerable_js_app
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /skims/coverage/combine '1'
-  stage: post-deploy
-  tags:
-    - skims-small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/skims/coverage/combine__2:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs:
     - /testPython/skims@f001
     - /testPython/skims@f004
     - /testPython/skims@f005
@@ -250,6 +205,34 @@
     - /testPython/skims@f063
     - /testPython/skims@f065
     - /testPython/skims@f066
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /skims/coverage/combine '1'
+  stage: post-deploy
+  tags:
+    - skims-small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/skims/coverage/combine__2:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs:
     - /testPython/skims@f070
     - /testPython/skims@f073
     - /testPython/skims@f075
@@ -264,34 +247,6 @@
     - /testPython/skims@f097
     - /testPython/skims@f098
     - /testPython/skims@f099
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /skims/coverage/combine '2'
-  stage: post-deploy
-  tags:
-    - skims-small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/skims/coverage/combine__3:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs:
     - /testPython/skims@f100
     - /testPython/skims@f101
     - /testPython/skims@f107
@@ -318,6 +273,34 @@
     - /testPython/skims@f188
     - /testPython/skims@f200
     - /testPython/skims@f203
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /skims/coverage/combine '2'
+  stage: post-deploy
+  tags:
+    - skims-small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/skims/coverage/combine__3:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs:
     - /testPython/skims@f211
     - /testPython/skims@f234
     - /testPython/skims@f236
@@ -335,6 +318,29 @@
     - /testPython/skims@f280
     - /testPython/skims@f281
     - /testPython/skims@f297
+    - /testPython/skims@f300
+    - /testPython/skims@f309
+    - /testPython/skims@f320
+    - /testPython/skims@f325
+    - /testPython/skims@f332
+    - /testPython/skims@f333
+    - /testPython/skims@f338
+    - /testPython/skims@f335
+    - /testPython/skims@f343
+    - /testPython/skims@f344
+    - /testPython/skims@f346
+    - /testPython/skims@f350
+    - /testPython/skims@f353
+    - /testPython/skims@f354
+    - /testPython/skims@f358
+    - /testPython/skims@f363
+    - /testPython/skims@f366
+    - /testPython/skims@f368
+    - /testPython/skims@f371
+    - /testPython/skims@f372
+    - /testPython/skims@f379
+    - /testPython/skims@f380
+    - /testPython/skims@f381
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -355,7 +361,7 @@
   after_script:
     - cp ~/.makes/provenance-* .
   artifacts:
-    expire_in: 1 week
+    expire_in: 1 day
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
     paths:
       - skims/.coverage*
@@ -363,28 +369,6 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /testPython/skims@f300
-    - /testPython/skims@f309
-    - /testPython/skims@f320
-    - /testPython/skims@f325
-    - /testPython/skims@f332
-    - /testPython/skims@f333
-    - /testPython/skims@f335
-    - /testPython/skims@f338
-    - /testPython/skims@f343
-    - /testPython/skims@f344
-    - /testPython/skims@f346
-    - /testPython/skims@f350
-    - /testPython/skims@f353
-    - /testPython/skims@f354
-    - /testPython/skims@f363
-    - /testPython/skims@f366
-    - /testPython/skims@f368
-    - /testPython/skims@f371
-    - /testPython/skims@f372
-    - /testPython/skims@f379
-    - /testPython/skims@f380
-    - /testPython/skims@f381
     - /testPython/skims@f393
     - /testPython/skims@f394
     - /testPython/skims@f396
@@ -405,6 +389,23 @@
     - /testPython/skims@f426
     - /testPython/skims@f427
     - /testPython/skims@f428
+    - /testPython/skims@graph_generation
+    - /testPython/skims@instance_references
+    - /testPython/skims@lib_apk
+    - /testPython/skims@lib_http
+    - /testPython/skims@lib_http_2
+    - /testPython/skims@lib_ssl
+    - /testPython/skims@nist_c_sharp_f001
+    - /testPython/skims@nist_c_sharp_f004
+    - /testPython/skims@nist_c_sharp_f008
+    - /testPython/skims@nist_c_sharp_f021
+    - /testPython/skims@nist_c_sharp_f052
+    - /testPython/skims@nist_c_sharp_f063
+    - /testPython/skims@nist_c_sharp_f107
+    - /testPython/skims@sarif_report
+    - /testPython/skims@unittesting
+    - /testPython/skims@vulnerableapp
+    - /testPython/skims@vulnerable_js_app
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -755,8 +756,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f004:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -783,8 +784,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f005:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -811,8 +812,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f007:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -839,8 +840,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f008:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -867,8 +868,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f009:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -895,8 +896,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f011:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -923,8 +924,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f012:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -951,8 +952,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f015:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -979,8 +980,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f016:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1007,8 +1008,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f017:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1035,8 +1036,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f021:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1063,8 +1064,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f022:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1091,8 +1092,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f024:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -1119,8 +1120,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f031:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -3555,8 +3556,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@f363:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4367,8 +4368,8 @@
   tags:
     - skims-small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@instance_references:
   after_script:
     - cp ~/.makes/provenance-* .

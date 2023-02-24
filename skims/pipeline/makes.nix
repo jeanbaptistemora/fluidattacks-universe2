@@ -1,12 +1,24 @@
 {
   gitlabCi,
   inputs,
+  lib,
   ...
 }: let
   gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
   gitlabBranchTrunk = gitlabCi.rules.branch "trunk";
-
+  gitlabJobDependencies = 40;
   gitlabTitleMatchingSkims = gitlabCi.rules.titleMatching "^(all|skims)";
+  skimsTests =
+    builtins.map (test: [test])
+    inputs.skimsTestPythonCategoriesCI;
+  functionalCoverageCombine = (
+    builtins.genList
+    (x: [(builtins.toString (x + 1))])
+    (
+      builtins.ceil
+      ((builtins.length skimsTests) / (gitlabJobDependencies * 1.0))
+    )
+  );
 
   gitlabOnlyTrunk = [
     gitlabBranchTrunk
@@ -98,16 +110,60 @@ in {
               };
           })
           inputs.skimsTestPythonCategoriesCI)
+        ++ (builtins.map
+          (args: {
+            inherit args;
+            output = "/skims/coverage/combine";
+            gitlabExtra =
+              gitlabTest
+              // {
+                after_script = ["cp ~/.makes/provenance-* ."];
+                artifacts = {
+                  paths = [
+                    "skims/.coverage*"
+                    "provenance-*"
+                  ];
+                  expire_in = "1 day";
+                  name = "coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA";
+                };
+                needs = (
+                  builtins.map
+                  (test: "/testPython/skims@${test}")
+                  (
+                    lib.lists.sublist
+                    (
+                      (
+                        (
+                          lib.strings.toInt
+                          (builtins.elemAt args 0)
+                        )
+                        - 1
+                      )
+                      * gitlabJobDependencies
+                    )
+                    gitlabJobDependencies
+                    inputs.skimsTestPythonCategoriesCI
+                  )
+                );
+                stage = "post-deploy";
+              };
+          })
+          functionalCoverageCombine)
         ++ [
           {
             output = "/skims/coverage";
             gitlabExtra =
               gitlabTest
               // {
-                needs =
+                needs = (
                   builtins.map
-                  (category: "/testPython/skims@${category}")
-                  inputs.skimsTestPythonCategoriesCI;
+                  (test: "/skims/coverage/combine__${
+                    builtins.elemAt
+                    test
+                    0
+                  }")
+                  functionalCoverageCombine
+                );
                 stage = "post-deploy";
               };
           }
