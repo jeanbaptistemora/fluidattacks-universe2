@@ -9,7 +9,6 @@ from custom_exceptions import (
     InvalidSchema,
     UnableToSendSms,
     UnavailabilityError,
-    VulnNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -60,7 +59,6 @@ from unittest.mock import (
 )
 import uuid
 from vulnerabilities.domain import (
-    send_treatment_report_mail,
     validate_accepted_treatment_change,
 )
 from vulnerability_files.domain import (
@@ -221,47 +219,3 @@ async def test_exception_unavailability_error(
                 bad_bucket_name,
             )
     assert mock_s3_client.called is True
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@pytest.mark.parametrize(
-    [
-        "modified_by",
-        "justification",
-        "vulnerability_id",
-        "is_approved",
-    ],
-    [
-        [
-            "vulnmanager@gmail.com",
-            "test",
-            "be09edb7-cd5c-47ed-bee4-97c645acdce9",
-            False,
-        ],
-    ],
-)
-async def test_send_treatment_report_mail_fail(
-    # pylint: disable=too-many-arguments
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-    modified_by: str,
-    justification: str,
-    vulnerability_id: str,
-    is_approved: bool,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    with pytest.raises(VulnNotFound):
-        await send_treatment_report_mail(
-            loaders=get_new_context(),
-            modified_by=modified_by,
-            justification=justification,
-            vulnerability_id=vulnerability_id,
-            is_approved=is_approved,
-        )
-    assert mock_table_resource.called is True

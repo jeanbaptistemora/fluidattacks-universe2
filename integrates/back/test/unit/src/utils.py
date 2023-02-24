@@ -190,7 +190,6 @@ mocked_paths: dict[str, str] = {
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_domain.add_access": "group_access.domain.add_access",
-    "group_access_domain.get_managers": "group_access.domain.get_managers",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_access_model.remove": "db_model.group_access.remove",
     "group_comments_model.add": "db_model.group_comments.add",
@@ -10341,17 +10340,6 @@ mocked_responses: dict[str, dict[str, Any]] = {
             "integratesuser@gmail.com",
         ]
     },
-    "group_access.domain.get_managers": {
-        '["unittesting", 2]': [
-            "continuoushack2@gmail.com",
-            "continuoushacking@gmail.com",
-        ],
-        '["unittesting", 3]': [
-            "continuoushack2@gmail.com",
-            "continuoushacking@gmail.com",
-            "integratesuser@gmail.com",
-        ],
-    },
     "group_access.domain.group_access_model.update_metadata": {
         '["integratesuser@gmail.com", "unittesting", '
         '[["2023-02-14 00:43:18+00:00"], null, null, null, null, '
@@ -10705,6 +10693,20 @@ mocked_responses: dict[str, dict[str, Any]] = {
     },
     "vulnerabilities.domain.mask_vulnerability": {
         '["unittest@fluidattacks.com", "457497316"]': None,
+    },
+    "vulnerabilities.domain.treatment.Dataloaders.vulnerability": {
+        '["be09edb7-cd5c-47ed-bee4-97c645acdce9"]': None,
+    },
+    "vulnerabilities.domain.treatment.group_access_domain.get_managers": {
+        '["unittesting", 2]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+        ],
+        '["unittesting", 3]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "integratesuser@gmail.com",
+        ],
     },
     "vulnerabilities.domain.validations.Dataloaders.group": {
         '["kurome"]': Group(
