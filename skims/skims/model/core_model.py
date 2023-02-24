@@ -3296,7 +3296,7 @@ class MethodsEnum(Enum):
     TFM_PERMISSIVE_POLICY = MethodInfo(
         file_name="terraform",
         name="terraform_permissive_policy",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

@@ -4,6 +4,7 @@ from lib_root.f325.conf_files import (
 from lib_root.f325.terraform import (
     tfm_iam_has_wildcard_resource_on_write_action,
     tfm_kms_key_has_master_keys_exposed_to_everyone,
+    tfm_permissive_policy,
 )
 from model import (
     core_model,
@@ -15,4 +16,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, json_principal_wildcard),
     (FINDING, tfm_iam_has_wildcard_resource_on_write_action),
     (FINDING, tfm_kms_key_has_master_keys_exposed_to_everyone),
+    (FINDING, tfm_permissive_policy),
 )
