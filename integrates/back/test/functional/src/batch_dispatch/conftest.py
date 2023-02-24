@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from collections.abc import (
+    Iterator,
+)
 from datetime import (
     datetime,
 )
@@ -71,7 +74,6 @@ from shutil import (
 import tempfile
 from typing import (
     Any,
-    Iterator,
 )
 
 

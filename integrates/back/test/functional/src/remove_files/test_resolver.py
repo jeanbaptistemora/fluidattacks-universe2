@@ -15,7 +15,6 @@ from db_model.groups.types import (
 import pytest
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -52,7 +51,7 @@ async def test_remove_files(populate: bool, email: str) -> None:
     loaders.group.clear(group_name)
     group_updated: Group = await loaders.group.load(group_name)
     assert len(group_updated.files) == 3  # type: ignore
-    file_removed: Optional[GroupFile] = next(
+    file_removed: GroupFile | None = next(
         (
             file
             for file in group_updated.files  # type: ignore

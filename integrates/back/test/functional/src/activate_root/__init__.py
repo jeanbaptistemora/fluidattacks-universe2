@@ -7,13 +7,12 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result(
     *, email: str, group_name: str, identifier: str
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             activateRoot(groupName: "{group_name}", id: "{identifier}") {{

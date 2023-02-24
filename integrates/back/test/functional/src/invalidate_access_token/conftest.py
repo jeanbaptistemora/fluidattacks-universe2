@@ -10,13 +10,12 @@ import pytest
 import pytest_asyncio
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.resolver_test_group("invalidate_access_token")
 @pytest_asyncio.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
         "stakeholders": [
             Stakeholder(

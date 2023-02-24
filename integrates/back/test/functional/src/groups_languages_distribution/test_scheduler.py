@@ -17,7 +17,6 @@ from schedulers.groups_languages_distribution import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from unittest import (
     mock,
@@ -27,7 +26,7 @@ from unittest import (
 def clone_test_repository(
     tmpdir: str,
     group_name: str,
-    optional_repo_nickname: Optional[str],  # pylint: disable=unused-argument
+    optional_repo_nickname: str | None,  # pylint: disable=unused-argument
 ) -> Any:
     fusion_path: str = os.path.join(
         tmpdir, "groups", group_name, "fusion", "nickname1"

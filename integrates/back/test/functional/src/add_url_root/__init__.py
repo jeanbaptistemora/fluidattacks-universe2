@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -17,7 +16,7 @@ async def get_result(
     group: str,
     nickname: str,
     url: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     mutation: str = f"""
       mutation {{
         addUrlRoot(
@@ -30,7 +29,7 @@ async def get_result(
         }}
       }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": mutation,
     }
     return await get_graphql_result(

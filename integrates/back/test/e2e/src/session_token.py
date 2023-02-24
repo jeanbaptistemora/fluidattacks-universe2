@@ -18,7 +18,6 @@ from jwcrypto.jwt import (
 import secrets
 from typing import (
     Any,
-    Dict,
 )
 
 # Constants
@@ -31,7 +30,7 @@ SCRYPT_R = 8  # block size
 SCRYPT_P = 1  # parallelization
 
 
-def calculate_hash_token() -> Dict[str, str]:
+def calculate_hash_token() -> dict[str, str]:
     jti_token = secrets.token_bytes(NUMBER_OF_BYTES)
     salt = secrets.token_bytes(NUMBER_OF_BYTES)
     backend = default_backend()
@@ -55,7 +54,7 @@ def encode_token(
     expiration_time: int,
     jwt_encryption_key: str,
     jwt_secret: str,
-    payload: Dict[str, Any],
+    payload: dict[str, Any],
     subject: str,
 ) -> str:
     """Encrypts the payload into a jwe token and returns its encoded version"""

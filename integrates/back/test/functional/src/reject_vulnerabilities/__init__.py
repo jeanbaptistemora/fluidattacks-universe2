@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -17,7 +16,7 @@ async def get_result(
     finding: str,
     vulnerability: str,
     reasons: list[str],
-    other_reason: Optional[str],
+    other_reason: str | None,
 ) -> dict[str, Any]:
     query: str = """
             mutation RejectVulnerabilities(

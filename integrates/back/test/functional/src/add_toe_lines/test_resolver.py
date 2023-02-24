@@ -7,7 +7,6 @@ from freezegun import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -30,7 +29,7 @@ async def test_add_toe_lines(
     root_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         filename=filename,
         group_name="group1",
         root_id=root_id,
@@ -69,7 +68,7 @@ async def test_add_toe_lines_fail_git_root(
     root_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         filename=filename,
         group_name="group1",
         root_id=root_id,
@@ -104,7 +103,7 @@ async def test_add_toe_lines_fail_last_author(
     root_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         filename=filename,
         group_name="group1",
         root_id=root_id,
@@ -140,7 +139,7 @@ async def test_add_toe_lines_fail_last_commit(
     root_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         filename=filename,
         group_name="group1",
         root_id=root_id,
@@ -177,7 +176,7 @@ async def test_add_toe_lines_fail_modified_date(
     root_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         filename=filename,
         group_name="group1",
         root_id=root_id,

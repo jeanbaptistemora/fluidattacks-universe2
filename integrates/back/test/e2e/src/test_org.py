@@ -8,12 +8,9 @@ from selenium.common.exceptions import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
-from typing import (
-    List,
-)
 import utils
 
-EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
+EXPECTED_MANY_GROUPS_CHARTS: list[str] = [
     "Remediation rate benchmark",
     "Mean time to remediate (MTTR) benchmark",
     "Exposure over time",

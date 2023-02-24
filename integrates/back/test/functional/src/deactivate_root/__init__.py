@@ -7,8 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 
 
@@ -18,8 +16,8 @@ async def get_result(
     group_name: str,
     identifier: str,
     reason: str,
-    other: Optional[str],
-) -> Dict[str, Any]:
+    other: str | None,
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             deactivateRoot(

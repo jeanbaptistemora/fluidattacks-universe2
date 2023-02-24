@@ -7,7 +7,6 @@ from custom_exceptions import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -22,7 +21,7 @@ from typing import (
 )
 async def test_add_draft(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     if email == "admin@gmail.com":
@@ -47,7 +46,7 @@ async def test_add_draft(populate: bool, email: str) -> None:
 )
 async def test_add_draft_has_rejected(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" in result
@@ -64,7 +63,7 @@ async def test_add_draft_has_rejected(populate: bool, email: str) -> None:
 )
 async def test_add_draft_fail(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" in result

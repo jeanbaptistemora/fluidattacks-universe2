@@ -8,7 +8,6 @@ from dataloaders import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -38,7 +37,7 @@ async def test_invalidate_access_token(
     assert stakeholder
     assert stakeholder.access_token is not None
     assert stakeholder.access_token.iat == iat
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result

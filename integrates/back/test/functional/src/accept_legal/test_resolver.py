@@ -8,7 +8,6 @@ from dataloaders import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -37,7 +36,7 @@ async def test_accept_legal(
     assert populate
     assert stakeholder
     assert stakeholder.legal_remember == remember
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     new_loaders: Dataloaders = get_new_context()

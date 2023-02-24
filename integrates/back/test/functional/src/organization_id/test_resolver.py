@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -21,7 +20,7 @@ async def test_get_organization_id(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest"
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result(user=email, org=org_name)
+    result: dict[str, Any] = await get_result(user=email, org=org_name)
     assert "errors" not in result
     assert result["data"]["organizationId"]["id"] == org_id
 
@@ -40,7 +39,7 @@ async def test_get_organization_id(populate: bool, email: str) -> None:
 async def test_get_organization_id_fail(populate: bool, email: str) -> None:
     assert populate
     org_name: str = "orgtest2"
-    result: Dict[str, Any] = await get_result(user=email, org=org_name)
+    result: dict[str, Any] = await get_result(user=email, org=org_name)
     assert "errors" in result
     assert (
         result["errors"][0]["message"]

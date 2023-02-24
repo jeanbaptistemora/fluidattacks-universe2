@@ -4,8 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -27,7 +25,7 @@ from typing import (
 )
 async def test_get_events(populate: bool, email: str) -> None:
     assert populate
-    expected: List[Dict[str, str]] = [
+    expected: list[dict[str, str]] = [
         {
             "id": "418900971",
             "groupName": "group1",
@@ -42,7 +40,7 @@ async def test_get_events(populate: bool, email: str) -> None:
         },
     ]
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(user=email, group=group_name)
+    result: dict[str, Any] = await get_result(user=email, group=group_name)
     assert "errors" not in result
     assert "events" in result["data"]
     assert result["data"]["events"] == expected

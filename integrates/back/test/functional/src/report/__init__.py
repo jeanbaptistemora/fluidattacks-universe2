@@ -16,8 +16,6 @@ import os
 import subprocess
 from typing import (
     Any,
-    List,
-    Optional,
 )
 
 
@@ -40,7 +38,7 @@ async def run(*, entity: str, additional_info: str, subject: str) -> int:
     batch_action = await get_batch_job(
         entity=entity, additional_info=additional_info, subject=subject
     )
-    cmd_args: List[str] = [
+    cmd_args: list[str] = [
         "test",
         batch_action.key,
     ]
@@ -182,10 +180,10 @@ async def get_result_closing_date(
     treatments: list[str],
     states: list[str],
     verifications: list[str],
-    closing_date: Optional[str],
+    closing_date: str | None,
     finding_title: str,
-    min_severity: Optional[float],
-    max_severity: Optional[float],
+    min_severity: float | None,
+    max_severity: float | None,
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(

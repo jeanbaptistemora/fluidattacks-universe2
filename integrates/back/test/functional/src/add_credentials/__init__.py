@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     user: str,
     organization_id: str,
     credentials: dict,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation AddCredentialsMutation(
             $organizationId: ID!, $credentials: CredentialsInput!
@@ -29,7 +28,7 @@ async def get_result(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "organizationId": organization_id,

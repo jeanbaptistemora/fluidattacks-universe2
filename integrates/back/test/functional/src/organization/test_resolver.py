@@ -74,7 +74,6 @@ from schedulers.update_organization_repositories import (
 import shutil
 from typing import (
     Any,
-    Optional,
 )
 from unittest import (
     mock,
@@ -304,7 +303,7 @@ async def get_azure_token(
     *,
     credential: Credentials,
     loaders: Dataloaders,
-) -> Optional[str]:
+) -> str | None:
     if not isinstance(credential.state.secret, OauthAzureSecret):
         return None
     new_state = CredentialsState(
@@ -337,7 +336,7 @@ async def get_token(
     *,
     credential: Credentials,
     loaders: Dataloaders,
-) -> Optional[str]:
+) -> str | None:
     if not isinstance(credential.state.secret, OauthGitlabSecret):
         return None
     new_state = CredentialsState(
@@ -1092,7 +1091,7 @@ async def test_get_organization_default_values(
     ),
 )
 async def test_get_org_vulnerabilities_url(
-    populate: bool, email: str, verification_code: Optional[str]
+    populate: bool, email: str, verification_code: str | None
 ) -> None:
     assert populate
     org_id: str = "ORG#8a7c8089-92df-49ec-8c8b-ee83e4ff3256"
@@ -1122,7 +1121,7 @@ async def test_get_org_vulnerabilities_url(
     (("admin@gmail.com", None),),
 )
 async def test_get_org_vulnerabilities_url_api(
-    populate: bool, email: str, verification_code: Optional[str]
+    populate: bool, email: str, verification_code: str | None
 ) -> None:
     assert populate
     org_id: str = "ORG#8a7c8089-92df-49ec-8c8b-ee83e4ff3256"

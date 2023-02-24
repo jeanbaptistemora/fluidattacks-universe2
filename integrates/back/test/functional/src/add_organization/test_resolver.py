@@ -9,7 +9,6 @@ from custom_exceptions import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -18,7 +17,7 @@ from typing import (
 async def test_admin(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user="admin@fluidattacks.com", org=org_name
     )
     assert "errors" not in result
@@ -40,7 +39,7 @@ async def test_admin(populate: bool) -> None:
 async def test_analyst(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user="hacker@fluidattacks.com", org=org_name
     )
     assert "errors" in result
@@ -72,7 +71,7 @@ async def test_add_organization_invalid_name_fail(
 async def test_personal(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user="hacker@gmail.com", org=org_name
     )
     assert "errors" in result

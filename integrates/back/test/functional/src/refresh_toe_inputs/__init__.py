@@ -22,7 +22,6 @@ from dataloaders import (
 import sys
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -58,7 +57,7 @@ async def query_get(
     *,
     user: str,
     group_name: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""{{
         group(groupName: "{group_name}"){{
             toeInputs {{
@@ -101,7 +100,7 @@ async def query_get(
         }}
       }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

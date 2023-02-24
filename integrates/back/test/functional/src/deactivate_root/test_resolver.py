@@ -2,9 +2,6 @@ from . import (
     get_result,
 )
 import pytest
-from typing import (
-    Optional,
-)
 
 
 @pytest.mark.asyncio
@@ -39,7 +36,7 @@ async def test_deactivate_root(
     group_name: str,
     root_id: str,
     reason: str,
-    other: Optional[str],
+    other: str | None,
 ) -> None:
     assert populate
     result = await get_result(

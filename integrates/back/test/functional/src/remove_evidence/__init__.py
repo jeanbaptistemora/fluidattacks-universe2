@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,8 +15,8 @@ async def get_result(
     user: str,
     finding: str,
     evidence: str,
-) -> Dict[str, Any]:
-    variables: Dict[str, str] = {"evidenceId": evidence, "findingId": finding}
+) -> dict[str, Any]:
+    variables: dict[str, str] = {"evidenceId": evidence, "findingId": finding}
     query: str = """
         mutation removeEvidenceMutation(
             $evidenceId: EvidenceType!, $findingId: String!
@@ -38,7 +37,7 @@ async def get_result(
             }
         }
     """
-    data: Dict[str, Any] = {"query": query, "variables": variables}
+    data: dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,

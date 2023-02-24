@@ -9,9 +9,6 @@ from selenium.webdriver.remote.webdriver import (
 from selenium.webdriver.support.select import (
     Select,
 )
-from typing import (
-    Tuple,
-)
 import utils
 
 
@@ -114,7 +111,7 @@ def test_group_analytics(
     jwt_secret: str,
     jwt_encryption_key: str,
 ) -> None:
-    expected_charts: Tuple[str, ...] = tuple(
+    expected_charts: tuple[str, ...] = tuple(
         (
             "Mean time to remediate (MTTR) benchmark",
             "Exposure over time",

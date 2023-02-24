@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -18,7 +17,7 @@ from typing import (
 )
 async def test_remove_evidence(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding="3c475384-834c-47b0-ac71-a41a022e401c",
         evidence="EVIDENCE1",
@@ -39,7 +38,7 @@ async def test_remove_evidence(populate: bool, email: str) -> None:
 )
 async def test_remove_evidence_fail_1(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding="3c475384-834c-47b0-ac71-a41a022e401c",
         evidence="EVIDENCE1",
@@ -62,7 +61,7 @@ async def test_remove_evidence_fail_1(populate: bool, email: str) -> None:
 )
 async def test_remove_evidence_fail_2(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding="3c475384-834c-47b0-ac71-a41a022e401c",
         evidence="EVIDENCE1",

@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -34,7 +33,7 @@ async def test_add_toe_input(
     assert populate
     group_name: str = "group1"
     entry_point: str = ""
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
         group_name=group_name,
@@ -72,7 +71,7 @@ async def test_add_toe_input_fail(
     assert populate
     group_name: str = "group1"
     entry_point: str = ""
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
         group_name=group_name,
@@ -107,7 +106,7 @@ async def test_add_toe_input_fail_2(
     assert populate
     group_name: str = "group1"
     entry_point: str = ""
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
         group_name=group_name,
@@ -139,7 +138,7 @@ async def test_add_toe_input_fail_3(
     assert populate
     group_name: str = "group1"
     entry_point: str = ""
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         component=component,
         entry_point=entry_point,
         group_name=group_name,

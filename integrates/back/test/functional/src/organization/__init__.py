@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -89,8 +88,8 @@ async def get_vulnerabilities_url(
     *,
     user: str,
     org_id: str,
-    verification_code: Optional[str] = None,
-    session_jwt: Optional[str] = None,
+    verification_code: str | None = None,
+    session_jwt: str | None = None,
 ) -> dict[str, Any]:
     query: str = """
         query GetOrgVulnerabilitiesUrl(

@@ -7,7 +7,6 @@ from dataloaders import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -17,7 +16,7 @@ async def test_admin(populate: bool) -> None:
     assert populate
     email = "new_user_test@gmai.com"
     role = "USER"
-    result: Dict[str, Any] = await get_result(email=email, role=role)
+    result: dict[str, Any] = await get_result(email=email, role=role)
     assert "errors" not in result
     assert "addStakeholder" in result["data"]
     assert "success" in result["data"]["addStakeholder"]

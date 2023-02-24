@@ -7,8 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 
 
@@ -17,8 +15,8 @@ async def get_result(
     user: str,
     finding_id: str,
     reasons: str,
-    other: Optional[str] = None,
-) -> Dict[str, Any]:
+    other: str | None = None,
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             rejectDraft(
@@ -30,7 +28,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

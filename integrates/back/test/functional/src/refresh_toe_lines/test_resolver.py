@@ -12,7 +12,6 @@ from freezegun import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -30,7 +29,7 @@ async def test_refresh_toe_lines(
 ) -> None:
     assert populate
     group_name = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, group_name=group_name, monkeypatch=monkeypatch
     )
     await asyncio.sleep(8)
@@ -79,7 +78,7 @@ async def test_refresh_toe_lines_fail(
 ) -> None:
     assert populate
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, group_name="group1", monkeypatch=monkeypatch
     )
     assert "errors" in result

@@ -1,4 +1,7 @@
 # pylint: disable=import-error, useless-suppression
+from collections.abc import (
+    Iterator,
+)
 from model import (
     Credentials,
 )
@@ -12,9 +15,6 @@ from selenium.webdriver.firefox.options import (
 )
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
-)
-from typing import (
-    Iterable,
 )
 
 
@@ -84,7 +84,7 @@ def driver(
     path_geckodriver: str,  # pylint: disable=redefined-outer-name
     path_firefox: str,  # pylint: disable=redefined-outer-name
     is_ci: bool,  # pylint: disable=redefined-outer-name
-) -> Iterable[WebDriver]:
+) -> Iterator[WebDriver]:
     options = Options()
     options.binary_location = path_firefox
     options.headless = is_ci

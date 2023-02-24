@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -26,7 +25,7 @@ async def test_reject_draft_fail(
     populate: bool, email: str, finding_id: str, reasons: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding_id=finding_id,
         reasons=reasons,
@@ -60,7 +59,7 @@ async def test_reject_draft(
     reasons: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding_id=finding_id,
         reasons=reasons,
