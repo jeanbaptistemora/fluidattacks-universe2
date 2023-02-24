@@ -326,6 +326,12 @@ stack pointer (`ESP = ESP - 4`) and every `POP` instruction will pop
 exactly 4 bytes off of the stack, increasing the stack pointer (`ESP =
 ESP + 4`).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 With that in mind, and knowing that we need to remove 8 bytes of the
 stack to then return to `0104EBA8` which has a pointer to our controlled
 buffer, we need to find an address that contains a sequence of these

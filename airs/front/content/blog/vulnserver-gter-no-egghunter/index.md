@@ -332,6 +332,12 @@ arwin - win32 address resolution program - by steve hanna - v.01
 CreateProcessA is located at 0x7c80236b in kernel32
 ```
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 In Assembler, the call to `CreateProcessA()` will look like this:
 
 **CreateProcessA() in Assembler.**

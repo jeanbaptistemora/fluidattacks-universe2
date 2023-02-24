@@ -92,13 +92,6 @@ client-server interactions, the authors analyzed the risks created when
 `OmniBallot` is used in each of the three modes mentioned above. Before
 we talk about that, let’s state the possible attackers or adversaries:
 
-<cta-banner
-  buttontxt="Read more"
-  link="/solutions/vulnerability-management/"
-  title="Get started with Fluid Attacks' Vulnerability Management solution
-  right now"
-/>
-
 First, adversaries may have access to the voter’s device. These
 attackers could be system administrators, abusive partners, or remote
 attackers that control certain malware, and could modify `HTTP` or
@@ -113,6 +106,13 @@ as Google Analytics, AngularJS, reCAPTCHA, and Fingerprint JS. Also,
 customers load some libraries from Amazon, Cloudflare, and Google, where
 there could also be malicious subjects willing to modify the
 `OmniBallot` platform.
+
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
 
 So, what could these attackers end up doing in the different ways
 `OmniBallot` works?

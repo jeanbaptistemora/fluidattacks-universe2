@@ -218,6 +218,13 @@ DOWNLOADED: 9224 - FOUND: 4
 As we can see, there is an admin site to which we do not have access,
 and a normal site to search for products.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 ## SSRF attacks
 
 Given that we have access to the search products site, then we can make

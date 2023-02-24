@@ -229,6 +229,12 @@ with socket.create_connection((HOST, PORT)) as fd:
     fd.sendall(PAYLOAD)
 ```
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 In this updated exploit, we will send a buffer of 2003 `A`, then a
 single 4 byte string of `B` (whose hex representation is `42`) and fill
 the rest of our 5000 buffer with `C`. If the offset is correct, `EIP`

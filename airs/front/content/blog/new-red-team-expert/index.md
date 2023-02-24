@@ -71,6 +71,12 @@ about his experience.
     better to do the lab and know what you’ll be dealing with, unless
     you already have a lot of experience.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 Before we continue with Daniel, let’s summarize something shared about
 the Advanced Red Team Lab on the [Pentester Academy
 website](https://www.pentesteracademy.com/redteamlab). In short, this

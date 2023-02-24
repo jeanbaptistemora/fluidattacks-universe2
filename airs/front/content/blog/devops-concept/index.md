@@ -165,6 +165,12 @@ Let's extend the information about this,
 mostly from what [Freddy Yumba](https://medium.com/@freddyyumba/contrasting-the-waterfall-model-agile-lean-and-devops-a95cd9acf58)
 shares.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 Waterfall is a traditional linear plan-driven approach
 to software development.
 So,

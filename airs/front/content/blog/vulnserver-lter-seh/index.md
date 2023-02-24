@@ -675,6 +675,12 @@ To accomplish the first point, we need to do the following:
 3. `ADD` that offset to `ESP`, so it effectively points to the new
     location.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 Let’s do that:
 
 <div class="imgblock">

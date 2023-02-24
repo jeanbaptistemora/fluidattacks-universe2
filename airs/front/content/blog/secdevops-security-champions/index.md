@@ -98,6 +98,12 @@ processes. "What tools are essential for our business?" This is a
 question you can answer with the help of your developers with security
 expertise (Security Champions?).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ### 5. Look at security from technical and business perspectives
 
 What is highly recommended in approaches such as SecDevOps is the

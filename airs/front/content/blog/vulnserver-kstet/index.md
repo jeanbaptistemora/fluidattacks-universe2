@@ -359,6 +359,13 @@ At that time, the resultant shellcode was 128 bytes. We need to reuse
 something more in order to fit our stage-1 shellcode in less than 70
 bytes of buffer.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 Let’s check a simplified structure of a TCP server and client
 interaction:
 
