@@ -44,12 +44,12 @@ def is_danger_yaml_loader(
     graph: Graph, n_ids: list[NId], method: MethodsEnum
 ) -> bool:
     for _id in n_ids:
-        if graph.nodes[_id]["label_type"] != "NamedArgument":
+        n_attrs = graph.nodes[_id]
+        if n_attrs["label_type"] != "NamedArgument":
             continue
-        var_id = graph.nodes[_id]["variable_id"]
-        if graph.nodes[var_id]["symbol"] != "Loader":
+        if n_attrs["argument_name"] != "Loader":
             continue
-        val_id = graph.nodes[_id]["value_id"]
+        val_id = n_attrs["value_id"]
         return get_eval_danger(graph, val_id, {"dangerloader"}, method)
 
     return False

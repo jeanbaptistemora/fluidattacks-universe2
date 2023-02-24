@@ -11006,17 +11006,11 @@
             }
           },
           "1010": {
-            "1011": {
-              "label_ast": "AST"
-            },
             "1013": {
               "label_ast": "AST"
             }
           },
           "1015": {
-            "1016": {
-              "label_ast": "AST"
-            },
             "1018": {
               "label_ast": "AST"
             }
@@ -12365,9 +12359,6 @@
             }
           },
           "721": {
-            "722": {
-              "label_ast": "AST"
-            },
             "724": {
               "label_ast": "AST"
             }
@@ -12913,13 +12904,9 @@
             "value_type": "number"
           },
           "1010": {
+            "argument_name": "keyword_only_arg",
             "label_type": "NamedArgument",
-            "value_id": "1013",
-            "variable_id": "1011"
-          },
-          "1011": {
-            "label_type": "SymbolLookup",
-            "symbol": "keyword_only_arg"
+            "value_id": "1013"
           },
           "1013": {
             "label_type": "Literal",
@@ -12927,13 +12914,9 @@
             "value_type": "number"
           },
           "1015": {
+            "argument_name": "another_key",
             "label_type": "NamedArgument",
-            "value_id": "1018",
-            "variable_id": "1016"
-          },
-          "1016": {
-            "label_type": "SymbolLookup",
-            "symbol": "another_key"
+            "value_id": "1018"
           },
           "1018": {
             "label_type": "Literal",
@@ -14281,13 +14264,9 @@
             "symbol": "path"
           },
           "721": {
+            "argument_name": "encoding",
             "label_type": "NamedArgument",
-            "value_id": "724",
-            "variable_id": "722"
-          },
-          "722": {
-            "label_type": "SymbolLookup",
-            "symbol": "encoding"
+            "value_id": "724"
           },
           "724": {
             "label_type": "Literal",

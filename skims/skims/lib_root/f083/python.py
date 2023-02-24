@@ -30,8 +30,7 @@ def get_eval_danger(
     graph: Graph, n_ids: list[NId], method: MethodsEnum
 ) -> bool:
     for _id in n_ids:
-        var_id = graph.nodes[_id]["variable_id"]
-        if graph.nodes[var_id]["symbol"] != "resolve_entities":
+        if graph.nodes[_id]["argument_name"] != "resolve_entities":
             continue
         val_id = graph.nodes[_id]["value_id"]
         for path in get_backward_paths(graph, val_id):
