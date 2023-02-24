@@ -25,14 +25,13 @@ import pytest
 import pytest_asyncio
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.resolver_test_group("toe_inputs")
 @pytest_asyncio.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "roots": [
             {
                 "root": GitRoot(

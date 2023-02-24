@@ -7,12 +7,11 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
 async def get_result(
-    *, user: str, event_id: str, reason: str, other: Optional[str]
+    *, user: str, event_id: str, reason: str, other: str | None
 ) -> dict[str, Any]:
     query: str = f"""
         mutation  UpdateEventSolvingReasonMutation(

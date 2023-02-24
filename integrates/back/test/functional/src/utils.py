@@ -33,7 +33,6 @@ from remove_stakeholder.domain import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -96,8 +95,8 @@ async def get_batch_job(*, action_name: str, entity: str) -> BatchProcessing:
 async def get_graphql_result(
     data: dict[str, Any],
     stakeholder: str,
-    session_jwt: Optional[str] = None,
-    context: Optional[Dataloaders] = None,
+    session_jwt: str | None = None,
+    context: Dataloaders | None = None,
 ) -> dict[str, Any]:
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)

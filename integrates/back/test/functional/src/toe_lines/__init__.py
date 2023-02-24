@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -108,7 +107,7 @@ async def get_result(
     *,
     user: str,
     group_name: str,
-    variables: Optional[dict[str, Any]] = None,
+    variables: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {

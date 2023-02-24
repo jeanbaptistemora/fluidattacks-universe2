@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -23,7 +22,7 @@ async def test_update_evidence_description(populate: bool, email: str) -> None:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         description=description,
         finding_id=finding_id,
@@ -53,7 +52,7 @@ async def test_update_evidence_description_fail(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     description: str = "this is a test description"
     evidence_name: str = "EVIDENCE1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         description=description,
         finding_id=finding_id,

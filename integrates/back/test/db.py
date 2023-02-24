@@ -13,6 +13,9 @@ from batch.enums import (
     Action,
     Product,
 )
+from collections.abc import (
+    Awaitable,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -109,7 +112,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Awaitable,
 )
 
 

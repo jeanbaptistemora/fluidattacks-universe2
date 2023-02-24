@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -15,7 +14,7 @@ async def get_result(
     *,
     user: str,
     group_name: str,
-    unfulfilled_standards: Optional[list[str]] = None,
+    unfulfilled_standards: list[str] | None = None,
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(

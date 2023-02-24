@@ -6,13 +6,12 @@ import pytest
 import pytest_asyncio
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.resolver_test_group("requeue_actions")
 @pytest_asyncio.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
         "actions": (
             {

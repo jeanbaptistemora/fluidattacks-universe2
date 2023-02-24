@@ -5,7 +5,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -40,7 +39,7 @@ async def test_update_toe_input(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         be_present=be_present,
         component=component,
         entry_point=entry_point,
@@ -77,7 +76,7 @@ async def test_update_toe_input_fail_3(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         be_present=be_present,
         component=component,
         entry_point=entry_point,

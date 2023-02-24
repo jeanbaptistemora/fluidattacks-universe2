@@ -11,7 +11,6 @@ from db_model.events.enums import (
 import pytest
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -57,7 +56,7 @@ async def test_update_event_solving_reason(
     email: str,
     event_id: str,
     reason: str,
-    other: Optional[str],
+    other: str | None,
 ) -> None:
     assert populate
     loaders = get_new_context()
@@ -99,7 +98,7 @@ async def test_update_event_solving_reason_fail(
     email: str,
     event_id: str,
     reason: str,
-    other: Optional[str],
+    other: str | None,
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(

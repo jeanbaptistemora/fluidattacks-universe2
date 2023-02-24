@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -52,7 +51,7 @@ async def test_get_unfulfilled_standard_report_url(
 )
 @pytest.mark.resolver_test_group("unfulfilled_standard_report_url")
 async def test_get_filtered_unfulfilled_standard_report_url(
-    populate: bool, email: str, unfulfilled_standards: Optional[list[str]]
+    populate: bool, email: str, unfulfilled_standards: list[str] | None
 ) -> None:
     assert populate
     group_name: str = "group1"
@@ -73,7 +72,7 @@ async def test_get_filtered_unfulfilled_standard_report_url(
 )
 @pytest.mark.resolver_test_group("unfulfilled_standard_report_url")
 async def test_invalid_unfulfilled_standards(
-    populate: bool, email: str, unfulfilled_standards: Optional[list[str]]
+    populate: bool, email: str, unfulfilled_standards: list[str] | None
 ) -> None:
     assert populate
     group_name: str = "group1"
@@ -98,7 +97,7 @@ async def test_invalid_unfulfilled_standards(
 )
 @pytest.mark.resolver_test_group("unfulfilled_standard_report_url")
 async def test_invalid_standard_id(
-    populate: bool, email: str, unfulfilled_standards: Optional[list[str]]
+    populate: bool, email: str, unfulfilled_standards: list[str] | None
 ) -> None:
     assert populate
     group_name: str = "group1"

@@ -9,7 +9,6 @@ from freezegun import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -26,7 +25,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -76,7 +75,7 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name="group2",
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
@@ -141,7 +140,7 @@ async def test_update_toe_lines_attacked_lines_access_denied(
     assert populate
     assert populate
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
@@ -168,7 +167,7 @@ async def test_update_toe_lines_attacked_lines_invalid_attacked_lines(
     assert populate
     assert populate
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group_name="group3",
         root_id="86e9b0a8-b6be-4b3f-8006-a9a060f69e81",

@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,7 +14,7 @@ async def get_result(
     *,
     user: str,
     expiration_time: int,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             updateAccessToken(expirationTime: {expiration_time}) {{
@@ -24,7 +23,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

@@ -8,7 +8,6 @@ from dataloaders import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -31,10 +30,10 @@ from typing import (
 async def test_update_tours(
     populate: bool,
     email: str,
-    tours: Dict[str, bool],
+    tours: dict[str, bool],
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         tours=tours,
     )

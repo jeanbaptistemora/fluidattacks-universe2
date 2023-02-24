@@ -7,14 +7,13 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result(
     *,
     user: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     attack_vector_description: str = "This is an updated attack vector"
     records: str = "Clave plana"
@@ -103,7 +102,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

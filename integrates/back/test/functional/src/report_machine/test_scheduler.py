@@ -30,9 +30,6 @@ import pytest
 from server.report_machine import (
     process_execution,
 )
-from typing import (
-    Optional,
-)
 from unittest import (
     mock,
 )
@@ -69,7 +66,7 @@ async def test_persist_result(populate: bool) -> None:
             group_findings = await loaders.group_drafts_and_findings.load(
                 "group1"
             )
-            finding_001: Optional[Finding] = next(
+            finding_001: Finding | None = next(
                 (
                     finding
                     for finding in group_findings
@@ -162,7 +159,7 @@ async def test_report_f120(populate: bool) -> None:
             group_findings = await loaders.group_drafts_and_findings.load(
                 "group1"
             )
-            finding_f120: Optional[Finding] = next(
+            finding_f120: Finding | None = next(
                 (
                     finding
                     for finding in group_findings
@@ -268,7 +265,7 @@ async def test_duplicated_reports(populate: bool) -> None:
 
         loaders = get_new_context()
         group_findings = await loaders.group_drafts_and_findings.load("group1")
-        finding_011: Optional[Finding] = next(
+        finding_011: Finding | None = next(
             (finding for finding in group_findings if "011" in finding.title),
             None,
         )
@@ -347,7 +344,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
 
         loaders = get_new_context()
         group_findings = await loaders.group_drafts_and_findings.load("group1")
-        finding_011: Optional[Finding] = next(
+        finding_011: Finding | None = next(
             (finding for finding in group_findings if "011" in finding.title),
             None,
         )
@@ -414,13 +411,13 @@ async def test_approval(populate: bool) -> None:
     ):
         loaders = get_new_context()
         findings = await loaders.group_drafts_and_findings.load("group1")
-        f_117: Optional[Finding] = next(
+        f_117: Finding | None = next(
             (fin for fin in findings if fin.title.startswith("117")), None
         )
-        f_011: Optional[Finding] = next(
+        f_011: Finding | None = next(
             (fin for fin in findings if fin.title.startswith("011")), None
         )
-        f_237: Optional[Finding] = next(
+        f_237: Finding | None = next(
             (fin for fin in findings if fin.title.startswith("237")), None
         )
         assert f_117 is not None
@@ -498,7 +495,7 @@ async def test_report_inputs(populate: bool) -> None:
     ):
         loaders = get_new_context()
         findings = await loaders.group_drafts_and_findings.load("group1")
-        f_128: Optional[Finding] = next(
+        f_128: Finding | None = next(
             (fin for fin in findings if fin.title.startswith("128")), None
         )
         assert f_128 is None
@@ -558,7 +555,7 @@ async def test_has_redirect_url_report(populate: bool) -> None:
 
         loaders = get_new_context()
         group_findings = await loaders.group_drafts_and_findings.load("group1")
-        finding_043: Optional[Finding] = next(
+        finding_043: Finding | None = next(
             (finding for finding in group_findings if "043" in finding.title),
             None,
         )

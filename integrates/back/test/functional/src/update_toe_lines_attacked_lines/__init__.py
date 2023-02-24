@@ -7,21 +7,19 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 
 
 async def get_result(
     *,
     user: str,
-    attacked_lines: Optional[int],
+    attacked_lines: int | None,
     group_name: str,
     comments: str,
     filename: str,
     root_id: str,
-) -> Dict[str, Any]:
-    variables: Dict[str, Any] = {
+) -> dict[str, Any]:
+    variables: dict[str, Any] = {
         "comments": comments,
         "filename": filename,
         "groupName": group_name,
@@ -48,7 +46,7 @@ async def get_result(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": variables,
     }
@@ -63,7 +61,7 @@ async def query_get(
     *,
     user: str,
     group_name: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""{{
         group(groupName: "{group_name}"){{
             name
@@ -99,7 +97,7 @@ async def query_get(
         }}
     }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

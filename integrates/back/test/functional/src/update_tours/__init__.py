@@ -7,11 +7,10 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
-async def get_result(*, user: str, tours: dict[str, bool]) -> Dict[str, Any]:
+async def get_result(*, user: str, tours: dict[str, bool]) -> dict[str, Any]:
     query: str = f"""
     mutation {{
     updateTours(tours:
@@ -24,7 +23,7 @@ async def get_result(*, user: str, tours: dict[str, bool]) -> Dict[str, Any]:
       success
         }}
     }}"""
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

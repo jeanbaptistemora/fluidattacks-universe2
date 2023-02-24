@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -23,11 +22,11 @@ from typing import (
 async def test_verify_stakeholder(
     populate: bool,
     email: str,
-    new_phone: Dict[str, str],
+    new_phone: dict[str, str],
     verification_code: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         new_phone=new_phone,
         verification_code=verification_code,

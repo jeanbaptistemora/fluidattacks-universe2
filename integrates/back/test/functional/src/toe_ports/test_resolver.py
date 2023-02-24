@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -23,7 +22,7 @@ from typing import (
 )
 async def test_get_toe_ports(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
+    result: dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["data"]["group"]["toePorts"] == {
         "edges": [
             {
@@ -111,5 +110,5 @@ async def test_get_toe_ports(populate: bool, email: str) -> None:
 )
 async def test_get_toe_ports_error(populate: bool, email: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, group_name="group1")
+    result: dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["errors"][0]["message"] == "Access denied"

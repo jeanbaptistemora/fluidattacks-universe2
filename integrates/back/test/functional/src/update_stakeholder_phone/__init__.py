@@ -7,16 +7,15 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result(
     *,
     user: str,
-    new_phone: Dict[str, str],
+    new_phone: dict[str, str],
     verification_code: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
     mutation UpdateStakeholderPhoneMutation(
         $newPhone: PhoneInput!
@@ -29,11 +28,11 @@ async def get_result(
             success
         }
     }"""
-    variables: Dict[str, Any] = {
+    variables: dict[str, Any] = {
         "newPhone": new_phone,
         "verificationCode": verification_code,
     }
-    data: Dict[str, Any] = {"query": query, "variables": variables}
+    data: dict[str, Any] = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,

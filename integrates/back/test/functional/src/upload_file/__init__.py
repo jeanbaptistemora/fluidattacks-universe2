@@ -11,7 +11,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -89,8 +88,8 @@ async def get_group_vulnerabilities(
     *,
     user: str,
     group_name: str,
-    state_status: Optional[str] = None,
-    treatment_status: Optional[str] = None,
+    state_status: str | None = None,
+    treatment_status: str | None = None,
 ) -> dict:
     query: str = """
         query GetGroupVulnerabilities(

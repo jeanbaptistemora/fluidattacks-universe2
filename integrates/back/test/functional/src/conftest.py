@@ -2,6 +2,10 @@ import asyncio
 from asyncio import (
     AbstractEventLoop,
 )
+from collections.abc import (
+    AsyncGenerator,
+    Generator,
+)
 from datetime import (
     datetime,
 )
@@ -42,8 +46,6 @@ import os
 import pytest
 from typing import (
     Any,
-    AsyncGenerator,
-    Generator,
 )
 
 # Constants

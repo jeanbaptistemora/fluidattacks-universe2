@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,7 +14,7 @@ async def get_result(
     *,
     user: str,
     draft: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             updateSeverity (
@@ -65,7 +64,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, str] = {"query": query}
+    data: dict[str, str] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

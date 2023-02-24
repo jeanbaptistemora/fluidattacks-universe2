@@ -4,8 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -27,7 +25,7 @@ from typing import (
 )
 async def test_resources(populate: bool, email: str) -> None:
     assert populate
-    files: List[Dict[str, str]] = [
+    files: list[dict[str, str]] = [
         {
             "description": "Test",
             "fileName": "test.zip",
@@ -53,7 +51,7 @@ async def test_resources(populate: bool, email: str) -> None:
             "uploadDate": "2019-08-06 14:28:00",
         },
     ]
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group="group1",
     )
