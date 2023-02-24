@@ -277,20 +277,20 @@ async def add_git_root(  # pylint: disable=too-many-locals
     group: Group = await loaders.group.load(group_name)
     url: str = roots_utils.format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
-    nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
+    loaders.group_roots.clear(group_name)
+    nickname: str = _assign_nickname(
+        nickname="",
+        new_nickname=_format_root_nickname(kwargs.get("nickname", ""), url),
+        roots=await loaders.group_roots.load(group_name),
+    )
     use_vpn: bool = kwargs.get("use_vpn", False)
 
-    loaders.group_roots.clear(group_name)
     if not (
         validations.is_valid_url(url)
         and _is_allowed(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
-    )
-
     includes_health_check = kwargs["includes_health_check"]
     service_enforcer = authz.get_group_service_attributes_enforcer(group)
     if includes_health_check and not service_enforcer("has_squad"):
@@ -449,7 +449,12 @@ async def add_url_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> str:
     group_name = str(kwargs["group_name"]).lower()
-    nickname: str = str(kwargs["nickname"])
+    loaders.group_roots.clear(group_name)
+    nickname: str = _assign_nickname(
+        nickname="",
+        new_nickname=kwargs["nickname"],
+        roots=await loaders.group_roots.load(group_name),
+    )
     url: str = str(kwargs["url"])
 
     try:
@@ -501,12 +506,6 @@ async def add_url_root(  # pylint: disable=too-many-locals
         )
     ):
         raise RepeatedRoot()
-
-    loaders.group_roots.clear(group_name)
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
-    )
 
     modified_date = datetime_utils.get_utc_now()
     root = URLRoot(
