@@ -36,6 +36,7 @@ function main {
     update_evidence
     update_git_root
     update_group
+    refresh_toe_lines
   )
 
   : \

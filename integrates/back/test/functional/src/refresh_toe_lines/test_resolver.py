@@ -6,8 +6,8 @@ from _pytest.monkeypatch import (
     MonkeyPatch,
 )
 import asyncio
-from freezegun import (
-    freeze_time,
+from datetime import (
+    datetime,
 )
 import pytest
 from typing import (
@@ -23,7 +23,6 @@ from typing import (
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-11-10T20:35:20.372236+00:00")
 async def test_refresh_toe_lines(
     populate: bool, email: str, monkeypatch: MonkeyPatch
 ) -> None:
@@ -52,7 +51,21 @@ async def test_refresh_toe_lines(
     )
     assert lines[0]["node"]["loc"] == 3
     assert lines[0]["node"]["modifiedDate"] == "2021-11-11T17:41:46+00:00"
-    assert lines[0]["node"]["seenAt"] == "2021-11-10T20:35:20.372236+00:00"
+    seen_at = datetime.fromisoformat(lines[0]["node"]["seenAt"])
+    now = datetime.utcnow()
+    assert (
+        seen_at.year,
+        seen_at.month,
+        seen_at.day,
+        seen_at.hour,
+        seen_at.minute,
+    ) == (
+        now.year,
+        now.month,
+        now.day,
+        now.hour,
+        now.minute,
+    )
     assert lines[0]["node"]["sortsRiskLevel"] == -1
 
 

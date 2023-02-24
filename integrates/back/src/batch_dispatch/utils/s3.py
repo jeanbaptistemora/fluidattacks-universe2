@@ -29,6 +29,9 @@ from newutils.files import (
     match_file,
 )
 import os
+from os import (
+    path,
+)
 import pathspec
 from settings.logger import (
     LOGGING,
@@ -50,11 +53,11 @@ SESSION = aioboto3.Session()
 def create_git_root_tar_file(
     root_nickname: str, repo_path: str, output_path: str | None = None
 ) -> bool:
-    git_dir = os.path.normpath(f"{repo_path}/.git")
+    git_dir = path.normpath(f"{repo_path}/.git")
     with tarfile.open(
         output_path or f"{root_nickname}.tar.gz", "w:gz"
     ) as tar_handler:
-        if os.path.exists(git_dir):
+        if path.exists(git_dir):
             tar_handler.add(
                 git_dir, arcname=f"{root_nickname}/.git", recursive=True
             )
@@ -80,7 +83,7 @@ async def upload_cloned_repo_to_s3_tar(
         return False
 
     response = await get_upload_url_post(group_name, nickname)
-    object_name = f"{group_name}/{nickname}.tar.gz"
+    object_name = path.join(group_name, f"{nickname}.tar.gz")
     with open(zip_output_path, "rb") as object_file:
         data = aiohttp.FormData()
         for key, value in response["fields"].items():
@@ -109,14 +112,14 @@ def _delete_out_of_scope_files(git_ignore: list[str], repo_path: str) -> bool:
     # Get the expected repo name from the URL
     spec_ignore = pathspec.PathSpec.from_lines("gitwildmatch", git_ignore)
     # Compute what files should be deleted according to the scope rules
-    for path in iter_rel_paths(repo_path):
-        if match_file(spec_ignore.patterns, path):
-            if path.startswith(".git/"):
+    for file_path in iter_rel_paths(repo_path):
+        if match_file(spec_ignore.patterns, file_path):
+            if file_path.startswith(".git/"):
                 continue
-            path_to_delete = os.path.join(repo_path, path)
-            if os.path.isfile(path_to_delete):
+            path_to_delete = path.join(repo_path, file_path)
+            if path.isfile(path_to_delete):
                 os.unlink(path_to_delete)
-            elif os.path.isdir(path_to_delete):
+            elif path.isdir(path_to_delete):
                 shutil.rmtree(path_to_delete)
     return True
 
@@ -130,13 +133,13 @@ async def download_repo(
     if not download_url:
         LOGGER.error("can not find download url")
         return False
-    repo_path = f"{path_to_extract}/{git_root.state.nickname}"
+    repo_path = path.join(path_to_extract, git_root.state.nickname)
     with tempfile.TemporaryDirectory() as tmpdir:
-        tar_path = f"{tmpdir}/{git_root.state.nickname}.tar.gz"
+        tar_path = path.join(tmpdir, f"{git_root.state.nickname}.tar.gz")
         urlretrieve(download_url, tar_path)  # nosec
         with tarfile.open(tar_path, "r:gz") as tar_handler:
             tar_handler.extractall(path_to_extract, numeric_owner=True)
-        if not os.path.exists(repo_path):
+        if not path.exists(repo_path):
             LOGGER.error(
                 "No such repository path",
                 extra={
@@ -160,7 +163,7 @@ async def download_repo(
                 ]
             )
         try:
-            repo = Repo(git_root.state.nickname)
+            repo = Repo(repo_path)
         except InvalidGitRepositoryError:
             LOGGER.error(
                 "Invalid repository",
@@ -206,6 +209,6 @@ async def download_repo(
             return False
         _delete_out_of_scope_files(
             git_root.state.gitignore,
-            f"{path_to_extract}/{git_root.state.nickname}",
+            path.join(path_to_extract, git_root.state.nickname),
         )
         return True

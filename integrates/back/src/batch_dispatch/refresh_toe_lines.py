@@ -8,8 +8,8 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
-from contextlib import (
-    suppress,
+from batch_dispatch.utils.s3 import (
+    download_repo,
 )
 from custom_exceptions import (
     RepeatedToeLines,
@@ -35,13 +35,8 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
-from git.cmd import (
-    Git,
-)
 from git.exc import (
     GitCommandError,
-    InvalidGitRepositoryError,
-    NoSuchPathError,
 )
 from git.objects.blob import (
     Blob,
@@ -56,6 +51,12 @@ from newutils import (
     files as files_utils,
 )
 import os
+from os import (
+    path,
+)
+from roots.domain import (
+    get_root_id_by_nickname,
+)
 from settings import (
     LOGGING,
 )
@@ -113,12 +114,12 @@ async def get_present_filenames(repo: Repo, repo_nickname: str) -> set[str]:
         str(tree.path) for tree in trees if isinstance(tree, Blob)
     )
     file_exists = await collect(
-        in_thread(os.path.exists, f"{repo_nickname}/{filename}")
+        in_thread(os.path.exists, path.join(str(repo.working_dir), filename))
         for filename in included_head_filenames
     )
 
     file_islink = await collect(
-        in_thread(os.path.islink, f"{repo_nickname}/{filename}")
+        in_thread(os.path.islink, path.join(str(repo.working_dir), filename))
         for filename in included_head_filenames
     )
 
@@ -152,7 +153,7 @@ async def get_present_toe_lines_to_add(
     )
     last_locs = await collect(
         tuple(
-            files_get_lines_count(f"{repo_nickname}/{filename}")
+            files_get_lines_count(path.join(str(repo.working_dir), filename))
             for filename in non_db_filenames
         ),
         workers=1024,
@@ -206,7 +207,7 @@ async def get_present_toe_lines_to_update(
     )
     last_locs = await collect(
         tuple(
-            files_get_lines_count(f"{repo_nickname}/{filename}")
+            files_get_lines_count(path.join(str(repo.working_dir), filename))
             for filename in db_filenames
         ),
         workers=1024,
@@ -278,93 +279,41 @@ def get_non_present_toe_lines_to_update(
 
 
 async def refresh_active_root_repo_toe_lines(
-    loaders: Dataloaders,
-    group_name: str,
-    root_repo: GitRoot,
+    loaders: Dataloaders, git_root: GitRoot, repo: Repo
 ) -> None:
     LOGGER.info(
         "Refreshing toe lines",
         extra={
             "extra": {
-                "repo_nickname": root_repo.state.nickname,
+                "repo_nickname": git_root.state.nickname,
             }
         },
     )
-    with suppress(GitCommandError):
-        Git().execute(
-            [
-                "git",
-                "config",
-                "--global",
-                "--add",
-                "safe.directory",
-                f"{os.getcwd()}/{root_repo.state.nickname}",
-            ]
-        )
-    try:
-        repo = Repo(root_repo.state.nickname)
-    except InvalidGitRepositoryError:
-        LOGGER.error(
-            "Invalid repository",
-            extra={
-                "extra": {
-                    "group_name": group_name,
-                    "repository": root_repo.state.nickname,
-                }
-            },
-        )
-        return
-    except NoSuchPathError:
-        LOGGER.error(
-            "No such repository path",
-            extra={
-                "extra": {
-                    "group_name": group_name,
-                    "repository": root_repo.state.nickname,
-                }
-            },
-        )
-        return
-
-    await git_utils.disable_quotepath(f"{root_repo.state.nickname}/.git")
-    try:
-        repo_branch = getattr(repo.heads, root_repo.state.branch)
-        repo_branch.checkout()
-    except AttributeError:
-        LOGGER.error(
-            "Branch not found",
-            extra={
-                "extra": {
-                    "branch": root_repo.state.branch,
-                    "group_name": group_name,
-                    "repository": root_repo.state.nickname,
-                }
-            },
-        )
-        present_filenames = set()
-    else:
-        present_filenames = await get_present_filenames(
-            repo, root_repo.state.nickname
-        )
+    await git_utils.disable_quotepath(str(repo.working_dir))
+    present_filenames = await get_present_filenames(
+        repo, git_root.state.nickname
+    )
 
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in await loaders.root_toe_lines.load_nodes(
-            RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+            RootToeLinesRequest(
+                group_name=git_root.group_name, root_id=git_root.id
+            )
         )
     }
     present_toe_lines_to_add = await get_present_toe_lines_to_add(
         present_filenames,
         repo,
-        root_repo.state.nickname,
+        git_root.state.nickname,
         repo_toe_lines,
     )
     await collect(
         tuple(
             toe_lines_add(
                 loaders,
-                group_name,
-                root_repo.id,
+                git_root.group_name,
+                git_root.id,
                 filename,
                 toe_lines_to_add,
                 is_moving_toe_lines=True,
@@ -375,7 +324,7 @@ async def refresh_active_root_repo_toe_lines(
     present_toe_lines_to_update = await get_present_toe_lines_to_update(
         present_filenames,
         repo,
-        root_repo.state.nickname,
+        git_root.state.nickname,
         repo_toe_lines,
     )
     await collect(
@@ -386,7 +335,7 @@ async def refresh_active_root_repo_toe_lines(
     )
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
         present_filenames,
-        root_repo.state.nickname,
+        git_root.state.nickname,
         repo_toe_lines,
     )
     await collect(
@@ -401,33 +350,35 @@ async def refresh_active_root_repo_toe_lines(
         "Finish refreshing toe lines",
         extra={
             "extra": {
-                "repo_nickname": root_repo.state.nickname,
+                "repo_nickname": git_root.state.nickname,
             }
         },
     )
 
 
 async def refresh_inactive_root_repo_toe_lines(
-    loaders: Dataloaders, group_name: str, root_repo: GitRoot
+    loaders: Dataloaders, git_root: GitRoot
 ) -> None:
     LOGGER.info(
         "Refreshing inactive toe lines",
         extra={
             "extra": {
-                "repo_nickname": root_repo.state.nickname,
+                "repo_nickname": git_root.state.nickname,
             }
         },
     )
     repo_toe_lines = {
         toe_lines.filename: toe_lines
         for toe_lines in await loaders.root_toe_lines.load_nodes(
-            RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
+            RootToeLinesRequest(
+                group_name=git_root.group_name, root_id=git_root.id
+            )
         )
     }
     present_filenames: set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
         present_filenames,
-        root_repo.state.nickname,
+        git_root.state.nickname,
         repo_toe_lines,
     )
     await collect(
@@ -442,7 +393,7 @@ async def refresh_inactive_root_repo_toe_lines(
         "Finish refreshing inactive toe lines",
         extra={
             "extra": {
-                "repo_nickname": root_repo.state.nickname,
+                "repo_nickname": git_root.state.nickname,
             }
         },
     )
@@ -456,66 +407,36 @@ async def refresh_inactive_root_repo_toe_lines(
     max_attempts=3,
 )
 async def refresh_root_repo_toe_lines(
-    group_name: str, optional_repo_nickname: str | None
+    loaders: Dataloaders, git_root: GitRoot, repo: Repo
 ) -> None:
-    loaders = get_new_context()
-    roots = await loaders.group_roots.load(group_name)
-    # There are roots with the same nickname
-    # then it is going to take the last modified root
-    sorted_roots = sorted(
-        roots,
-        key=lambda root: root.state.modified_date,
-    )
-    active_root_repos = {
-        root.state.nickname: root
-        for root in sorted_roots
-        if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
-    }
-    # Deactivate all the toe lines for all the inactive roots
-    # with the same nickname
-    inactive_root_repos = tuple(
-        root
-        for root in sorted_roots
-        if isinstance(root, GitRoot)
-        and root.state.status == RootStatus.INACTIVE
-    )
-    active_root_repos_to_proccess = tuple(
-        root_repo
-        for root_repo in active_root_repos.values()
-        if not optional_repo_nickname
-        or root_repo.state.nickname == optional_repo_nickname
-    )
-    for root_repo in active_root_repos_to_proccess:
-        await refresh_active_root_repo_toe_lines(
-            loaders, group_name, root_repo
-        )
-    inactive_root_repos_to_proccess = tuple(
-        root_repo
-        for root_repo in inactive_root_repos
-        if not optional_repo_nickname
-        or (
-            root_repo.state.nickname == optional_repo_nickname
-            and optional_repo_nickname not in active_root_repos
-        )
-    )
-    for root_repo in inactive_root_repos_to_proccess:
-        await refresh_inactive_root_repo_toe_lines(
-            loaders, group_name, root_repo
-        )
+    if git_root.state.status == RootStatus.ACTIVE:
+        await refresh_active_root_repo_toe_lines(loaders, git_root, repo)
+    elif git_root.state.status == RootStatus.INACTIVE:
+        await refresh_inactive_root_repo_toe_lines(loaders, git_root)
 
 
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    optional_repo_nickname: str | None = (
+    repo_nickname: str | None = (
         None if item.additional_info == "*" else item.additional_info
     )
-
-    with tempfile.TemporaryDirectory() as tmpdir:
-        os.chdir(tmpdir)
-        git_utils.pull_repositories(tmpdir, group_name, optional_repo_nickname)
-        group_path = tmpdir + f"/groups/{group_name}"
-        os.chdir(f"{group_path}/fusion")
-        await refresh_root_repo_toe_lines(group_name, optional_repo_nickname)
+    loaders = get_new_context()
+    roots = [
+        root
+        for root in await loaders.group_roots.load(group_name)
+        if isinstance(root, GitRoot)
+    ]
+    if repo_nickname:
+        root_id = get_root_id_by_nickname(repo_nickname, roots, True)
+        roots = [root for root in roots if root.id == root_id]
+    for git_root in roots:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            repo_path = path.join(tmpdir, git_root.state.nickname)
+            downloaded = await download_repo(group_name, git_root, tmpdir)
+            if not downloaded:
+                continue
+            repo = Repo(repo_path)
+            await refresh_root_repo_toe_lines(loaders, git_root, repo)
 
     await delete_action(
         action_name=item.action_name,

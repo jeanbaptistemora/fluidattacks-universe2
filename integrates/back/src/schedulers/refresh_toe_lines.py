@@ -54,4 +54,4 @@ async def main() -> None:
         )
         for group_name, execution in zip(group_names, results)
     ]
-    await collect(futures_rebase)
+    await collect(futures_rebase, workers=30)
