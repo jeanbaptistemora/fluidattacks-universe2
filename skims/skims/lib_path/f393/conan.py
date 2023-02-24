@@ -15,6 +15,7 @@ import re
 SELF_TOOL_DEPS: re.Pattern[str] = re.compile(
     r'\s+self\.tool_requires\("(?P<pkg>[^"]+)"[^\)]*\)'
 )
+TOOL_DEPS: re.Pattern[str] = re.compile(r'"([^"]+)"[,\s]*')
 
 
 def get_dep_info(dep_line: str) -> tuple[str, str]:
@@ -44,6 +45,15 @@ def conan_conanfile_txt_dev(
             )
 
 
+def get_tools_deps(line: str, line_number: int) -> Iterator[DependencyType]:
+    if matched := TOOL_DEPS.findall(line):
+        for match in matched:
+            pkg_name, pkg_version = get_dep_info(match)
+            yield format_pkg_dep(
+                pkg_name, pkg_version, line_number, line_number
+            )
+
+
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.CONAN, MethodsEnum.CONAN_CONANFILE_PY_DEV)
 def conan_conanfile_py_dev(
@@ -55,6 +65,9 @@ def conan_conanfile_py_dev(
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
+        if re.search(r"\s+tool_requires[\s=]+", line):
+            for dep in get_tools_deps(line, line_number):
+                yield dep
 
 
 # pylint: disable=unused-argument
