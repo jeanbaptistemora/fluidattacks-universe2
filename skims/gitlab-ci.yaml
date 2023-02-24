@@ -15,7 +15,7 @@
     - m . /deployTerraform/skims
   stage: deploy-infra
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -37,7 +37,7 @@
     - m . /lintPython/dirOfModules/skims
   stage: lint-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -59,7 +59,7 @@
     - m . /lintPython/imports/skims
   stage: lint-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -81,7 +81,7 @@
     - m . /lintPython/module/skimsTest
   stage: lint-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -103,7 +103,7 @@
     - m . /lintTerraform/skims
   stage: lint-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -125,7 +125,7 @@
     - m . /securePythonWithBandit/skims
   stage: lint-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -149,7 +149,7 @@
     - m . /skims/coverage
   stage: post-deploy
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -205,7 +205,7 @@
     - m . /skims/coverage/combine '1'
   stage: post-deploy
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -276,7 +276,7 @@
     - m . /skims/coverage/combine '2'
   stage: post-deploy
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -347,7 +347,7 @@
     - m . /skims/coverage/combine '3'
   stage: post-deploy
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -417,7 +417,7 @@
     - m . /skims/coverage/combine '4'
   stage: post-deploy
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -445,7 +445,7 @@
     - m . /testPython/skims@benchmark_cmdi
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -473,7 +473,7 @@
     - m . /testPython/skims@benchmark_crypto
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -501,7 +501,7 @@
     - m . /testPython/skims@benchmark_hash
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -529,7 +529,7 @@
     - m . /testPython/skims@benchmark_ldapi
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -557,7 +557,7 @@
     - m . /testPython/skims@benchmark_pathtraver
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -585,7 +585,7 @@
     - m . /testPython/skims@benchmark_securecookie
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -613,7 +613,7 @@
     - m . /testPython/skims@benchmark_sqli
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -641,7 +641,7 @@
     - m . /testPython/skims@benchmark_trustbound
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -669,7 +669,7 @@
     - m . /testPython/skims@benchmark_weakrand
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -697,7 +697,7 @@
     - m . /testPython/skims@benchmark_xpathi
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -725,7 +725,7 @@
     - m . /testPython/skims@benchmark_xss
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -753,7 +753,7 @@
     - m . /testPython/skims@f001
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -781,7 +781,7 @@
     - m . /testPython/skims@f004
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -809,7 +809,7 @@
     - m . /testPython/skims@f005
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -837,7 +837,7 @@
     - m . /testPython/skims@f007
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -865,7 +865,7 @@
     - m . /testPython/skims@f008
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -893,7 +893,7 @@
     - m . /testPython/skims@f009
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -921,7 +921,7 @@
     - m . /testPython/skims@f011
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -949,7 +949,7 @@
     - m . /testPython/skims@f012
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -977,7 +977,7 @@
     - m . /testPython/skims@f015
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1005,7 +1005,7 @@
     - m . /testPython/skims@f016
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1033,7 +1033,7 @@
     - m . /testPython/skims@f017
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1061,7 +1061,7 @@
     - m . /testPython/skims@f021
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1089,7 +1089,7 @@
     - m . /testPython/skims@f022
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1117,7 +1117,7 @@
     - m . /testPython/skims@f024
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -1145,7 +1145,7 @@
     - m . /testPython/skims@f031
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1173,7 +1173,7 @@
     - m . /testPython/skims@f034
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1201,7 +1201,7 @@
     - m . /testPython/skims@f035
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1229,7 +1229,7 @@
     - m . /testPython/skims@f037
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1257,7 +1257,7 @@
     - m . /testPython/skims@f042
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1285,7 +1285,7 @@
     - m . /testPython/skims@f044
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1313,7 +1313,7 @@
     - m . /testPython/skims@f052
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1341,7 +1341,7 @@
     - m . /testPython/skims@f055
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1369,7 +1369,7 @@
     - m . /testPython/skims@f056
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1397,7 +1397,7 @@
     - m . /testPython/skims@f058
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1425,7 +1425,7 @@
     - m . /testPython/skims@f059
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1453,7 +1453,7 @@
     - m . /testPython/skims@f060
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1481,7 +1481,7 @@
     - m . /testPython/skims@f063
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1509,7 +1509,7 @@
     - m . /testPython/skims@f065
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1537,7 +1537,7 @@
     - m . /testPython/skims@f066
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1565,7 +1565,7 @@
     - m . /testPython/skims@f070
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1593,7 +1593,7 @@
     - m . /testPython/skims@f073
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1621,7 +1621,7 @@
     - m . /testPython/skims@f075
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1649,7 +1649,7 @@
     - m . /testPython/skims@f079
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1677,7 +1677,7 @@
     - m . /testPython/skims@f081
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1705,7 +1705,7 @@
     - m . /testPython/skims@f083
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1733,7 +1733,7 @@
     - m . /testPython/skims@f085
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1761,7 +1761,7 @@
     - m . /testPython/skims@f086
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1789,7 +1789,7 @@
     - m . /testPython/skims@f089
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1817,7 +1817,7 @@
     - m . /testPython/skims@f091
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1845,7 +1845,7 @@
     - m . /testPython/skims@f096
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1873,7 +1873,7 @@
     - m . /testPython/skims@f097
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1901,7 +1901,7 @@
     - m . /testPython/skims@f098
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1929,7 +1929,7 @@
     - m . /testPython/skims@f099
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1957,7 +1957,7 @@
     - m . /testPython/skims@f100
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1985,7 +1985,7 @@
     - m . /testPython/skims@f101
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2013,7 +2013,7 @@
     - m . /testPython/skims@f107
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2041,7 +2041,7 @@
     - m . /testPython/skims@f109
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2069,7 +2069,7 @@
     - m . /testPython/skims@f112
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2097,7 +2097,7 @@
     - m . /testPython/skims@f117
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2125,7 +2125,7 @@
     - m . /testPython/skims@f120
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2153,7 +2153,7 @@
     - m . /testPython/skims@f127
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2181,7 +2181,7 @@
     - m . /testPython/skims@f128
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2209,7 +2209,7 @@
     - m . /testPython/skims@f134
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2237,7 +2237,7 @@
     - m . /testPython/skims@f135
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2265,7 +2265,7 @@
     - m . /testPython/skims@f143
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2293,7 +2293,7 @@
     - m . /testPython/skims@f148
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2321,7 +2321,7 @@
     - m . /testPython/skims@f149
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2349,7 +2349,7 @@
     - m . /testPython/skims@f152
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2377,7 +2377,7 @@
     - m . /testPython/skims@f153
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2405,7 +2405,7 @@
     - m . /testPython/skims@f157
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2433,7 +2433,7 @@
     - m . /testPython/skims@f160
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2461,7 +2461,7 @@
     - m . /testPython/skims@f164
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2489,7 +2489,7 @@
     - m . /testPython/skims@f165
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2517,7 +2517,7 @@
     - m . /testPython/skims@f176
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2545,7 +2545,7 @@
     - m . /testPython/skims@f177
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2573,7 +2573,7 @@
     - m . /testPython/skims@f183
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2601,7 +2601,7 @@
     - m . /testPython/skims@f188
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2629,7 +2629,7 @@
     - m . /testPython/skims@f200
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2657,7 +2657,7 @@
     - m . /testPython/skims@f203
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2685,7 +2685,7 @@
     - m . /testPython/skims@f211
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2713,7 +2713,7 @@
     - m . /testPython/skims@f234
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2741,7 +2741,7 @@
     - m . /testPython/skims@f236
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2769,7 +2769,7 @@
     - m . /testPython/skims@f237
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2797,7 +2797,7 @@
     - m . /testPython/skims@f239
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2825,7 +2825,7 @@
     - m . /testPython/skims@f246
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2853,7 +2853,7 @@
     - m . /testPython/skims@f250
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2881,7 +2881,7 @@
     - m . /testPython/skims@f256
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2909,7 +2909,7 @@
     - m . /testPython/skims@f257
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2937,7 +2937,7 @@
     - m . /testPython/skims@f258
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2965,7 +2965,7 @@
     - m . /testPython/skims@f259
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2993,7 +2993,7 @@
     - m . /testPython/skims@f266
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3021,7 +3021,7 @@
     - m . /testPython/skims@f267
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3049,7 +3049,7 @@
     - m . /testPython/skims@f277
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3077,7 +3077,7 @@
     - m . /testPython/skims@f280
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3105,7 +3105,7 @@
     - m . /testPython/skims@f281
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3133,7 +3133,7 @@
     - m . /testPython/skims@f297
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3161,7 +3161,7 @@
     - m . /testPython/skims@f300
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3189,7 +3189,7 @@
     - m . /testPython/skims@f309
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3217,7 +3217,7 @@
     - m . /testPython/skims@f320
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3245,7 +3245,7 @@
     - m . /testPython/skims@f325
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3273,7 +3273,7 @@
     - m . /testPython/skims@f332
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3301,7 +3301,7 @@
     - m . /testPython/skims@f333
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3329,7 +3329,7 @@
     - m . /testPython/skims@f335
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3357,7 +3357,7 @@
     - m . /testPython/skims@f338
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3385,7 +3385,7 @@
     - m . /testPython/skims@f343
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3413,7 +3413,7 @@
     - m . /testPython/skims@f344
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3441,7 +3441,7 @@
     - m . /testPython/skims@f346
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3469,7 +3469,7 @@
     - m . /testPython/skims@f350
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3497,7 +3497,7 @@
     - m . /testPython/skims@f353
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3525,7 +3525,7 @@
     - m . /testPython/skims@f354
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3553,7 +3553,7 @@
     - m . /testPython/skims@f358
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -3581,7 +3581,7 @@
     - m . /testPython/skims@f363
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3609,7 +3609,7 @@
     - m . /testPython/skims@f366
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3637,7 +3637,7 @@
     - m . /testPython/skims@f368
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3665,7 +3665,7 @@
     - m . /testPython/skims@f371
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3693,7 +3693,7 @@
     - m . /testPython/skims@f372
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3721,7 +3721,7 @@
     - m . /testPython/skims@f379
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3749,7 +3749,7 @@
     - m . /testPython/skims@f380
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3777,7 +3777,7 @@
     - m . /testPython/skims@f381
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3805,7 +3805,7 @@
     - m . /testPython/skims@f393
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3833,7 +3833,7 @@
     - m . /testPython/skims@f394
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3861,7 +3861,7 @@
     - m . /testPython/skims@f396
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3889,7 +3889,7 @@
     - m . /testPython/skims@f400
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3917,7 +3917,7 @@
     - m . /testPython/skims@f401
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3945,7 +3945,7 @@
     - m . /testPython/skims@f402
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3973,7 +3973,7 @@
     - m . /testPython/skims@f403
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4001,7 +4001,7 @@
     - m . /testPython/skims@f405
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4029,7 +4029,7 @@
     - m . /testPython/skims@f406
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4057,7 +4057,7 @@
     - m . /testPython/skims@f407
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4085,7 +4085,7 @@
     - m . /testPython/skims@f408
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4113,7 +4113,7 @@
     - m . /testPython/skims@f412
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4141,7 +4141,7 @@
     - m . /testPython/skims@f413
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4169,7 +4169,7 @@
     - m . /testPython/skims@f414
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4197,7 +4197,7 @@
     - m . /testPython/skims@f416
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4225,7 +4225,7 @@
     - m . /testPython/skims@f418
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4253,7 +4253,7 @@
     - m . /testPython/skims@f423
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4281,7 +4281,7 @@
     - m . /testPython/skims@f426
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4309,7 +4309,7 @@
     - m . /testPython/skims@f427
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4337,7 +4337,7 @@
     - m . /testPython/skims@f428
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4365,7 +4365,7 @@
     - m . /testPython/skims@graph_generation
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -4393,7 +4393,7 @@
     - m . /testPython/skims@instance_references
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4421,7 +4421,7 @@
     - m . /testPython/skims@lib_apk
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4449,7 +4449,7 @@
     - m . /testPython/skims@lib_http
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4477,7 +4477,7 @@
     - m . /testPython/skims@lib_http_2
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4505,7 +4505,7 @@
     - m . /testPython/skims@lib_ssl
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4533,7 +4533,7 @@
     - m . /testPython/skims@nist_c_sharp_f001
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4561,7 +4561,7 @@
     - m . /testPython/skims@nist_c_sharp_f004
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4589,7 +4589,7 @@
     - m . /testPython/skims@nist_c_sharp_f008
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4617,7 +4617,7 @@
     - m . /testPython/skims@nist_c_sharp_f021
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4645,7 +4645,7 @@
     - m . /testPython/skims@nist_c_sharp_f052
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4673,7 +4673,7 @@
     - m . /testPython/skims@nist_c_sharp_f063
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4701,7 +4701,7 @@
     - m . /testPython/skims@nist_c_sharp_f107
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4729,7 +4729,7 @@
     - m . /testPython/skims@sarif_report
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4757,7 +4757,7 @@
     - m . /testPython/skims@unittesting
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -4785,7 +4785,7 @@
     - m . /testPython/skims@vulnerable_js_app
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4813,7 +4813,7 @@
     - m . /testPython/skims@vulnerableapp
   stage: test-code
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4835,7 +4835,7 @@
     - m . /testTerraform/skims
   stage: test-infra
   tags:
-    - small
+    - skims-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

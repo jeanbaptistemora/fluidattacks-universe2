@@ -32,22 +32,22 @@
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyTrunk;
     stage = "deploy-infra";
-    tags = ["small"];
+    tags = ["skims-small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["small"];
+    tags = ["skims-small"];
   };
   gitlabTest = {
     rules = gitlabOnlyDevAndTrunk;
     stage = "test-code";
-    tags = ["small"];
+    tags = ["skims-small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["small"];
+    tags = ["skims-small"];
   };
 in {
   pipelines = {
