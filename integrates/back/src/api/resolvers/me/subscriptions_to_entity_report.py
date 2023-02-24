@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-async def _format_subscriptions(
+def _format_subscriptions(
     subscriptions: list[Subscription],
 ) -> list[dict[str, str]]:
     return [
@@ -35,4 +35,4 @@ async def resolve(
     loaders = info.context.loaders
     subscriptions = await loaders.stakeholder_subscriptions.load(email)
 
-    return await _format_subscriptions(subscriptions)
+    return _format_subscriptions(subscriptions)

@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @INTEGRATION_REPOSITORIES.field("defaultBranch")
-async def resolve(
+def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
