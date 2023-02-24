@@ -3,7 +3,11 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faArrowRight, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faPlus,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import type {
   ColumnDef,
   Row,
@@ -210,6 +214,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     "tblFindings-sortingState",
     []
   );
+  const openAddFindingModal: () => void = useCallback((): void => {
+    // OpenAddFindingModal
+  }, []);
   const openReportsModal: () => void = useCallback((): void => {
     setIsReportsModalOpen(true);
   }, []);
@@ -575,6 +582,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           expandedRow={handleRowExpand}
           extraButtons={
             <React.Fragment>
+              <Can I={"api_mutations_add_finding_mutate"}>
+                <Tooltip
+                  id={"group.findings.buttons.add.tooltip.id"}
+                  tip={t("group.findings.buttons.add.tooltip")}
+                >
+                  <Button
+                    icon={faPlus}
+                    id={"addFinding"}
+                    onClick={openAddFindingModal}
+                  >
+                    {t("group.findings.buttons.add.text")}
+                  </Button>
+                </Tooltip>
+              </Can>
               <Can do={"api_mutations_remove_finding_mutate"}>
                 <Tooltip
                   id={"searchFindings.delete.btn.tooltip"}

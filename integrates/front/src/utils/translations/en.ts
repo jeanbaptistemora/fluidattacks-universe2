@@ -688,6 +688,12 @@ export const enTranslations: ResourceKey = {
         False: "No",
         True: "Yes",
       },
+      buttons: {
+        add: {
+          text: "Add",
+          tooltip: "Add vulnerability",
+        },
+      },
       closingPercentage: "Remediation %",
       description: {
         exploitable: "Exploitable:",
