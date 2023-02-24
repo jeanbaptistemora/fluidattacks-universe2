@@ -1,8 +1,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.parameter_list import (
-    build_parameter_list_node,
+from syntax_graph.syntax_nodes.argument_list import (
+    build_argument_list_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -16,7 +16,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     _, *c_ids, _ = adj_ast(graph, args.n_id)
 
-    return build_parameter_list_node(
+    return build_argument_list_node(
         args,
         c_ids=(
             _id

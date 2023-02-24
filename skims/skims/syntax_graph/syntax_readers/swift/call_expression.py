@@ -1,8 +1,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.call_expression import (
-    build_call_expression,
+from syntax_graph.syntax_nodes.method_invocation import (
+    build_method_invocation_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -18,12 +18,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
     expr_id = g.adj_ast(graph, args.n_id)[0]
     expr = node_to_str(graph, expr_id)
 
-    suffix_id = g.match_ast_group_d(
-        args.ast_graph, args.n_id, "value_argument", depth=3
+    suffix_id = g.match_ast_d(
+        args.ast_graph, args.n_id, "value_arguments", depth=2
     )
-    args_id = None
-    if suffix_id:
-        args_id = [
-            graph.nodes[suff].get("label_field_value") for suff in suffix_id
-        ]
-    return build_call_expression(args, expr, expr_id, args_id, None)
+
+    return build_method_invocation_node(args, expr, expr_id, suffix_id, None)

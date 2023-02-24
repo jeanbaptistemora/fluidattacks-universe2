@@ -16,6 +16,8 @@ from syntax_graph.syntax_readers.swift import (
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
     try_expression as swift_try_expression,
+    value_argument as swift_value_argument,
+    value_arguments as swift_argument_list,
     while_statement as swift_while_statement,
 )
 from syntax_graph.types import (
@@ -29,6 +31,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "assignment",
         },
         syntax_reader=swift_assignment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "value_arguments",
+        },
+        syntax_reader=swift_argument_list.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -125,6 +133,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "try_expression",
         },
         syntax_reader=swift_try_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "value_argument",
+        },
+        syntax_reader=swift_value_argument.reader,
     ),
     Dispatcher(
         applicable_types={
