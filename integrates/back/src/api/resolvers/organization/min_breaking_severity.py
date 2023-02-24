@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @ORGANIZATION.field("minBreakingSeverity")
-async def resolve(
+def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

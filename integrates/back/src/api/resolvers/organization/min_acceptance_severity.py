@@ -16,7 +16,7 @@ from graphql.type.definition import (
 
 
 @ORGANIZATION.field("minAcceptanceSeverity")
-async def resolve(
+def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
