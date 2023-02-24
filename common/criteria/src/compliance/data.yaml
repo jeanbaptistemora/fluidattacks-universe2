@@ -355,6 +355,9 @@ capec:
     "700":
       title: Network Boundary Bridging
       link: https://capec.mitre.org/data/definitions/700.html
+    "701":
+      title: Network Boundary Bridging
+      link: https://capec.mitre.org/data/definitions/701.html
   metadata: {}
 cis:
   title: CIS

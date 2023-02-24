@@ -8450,6 +8450,7 @@
     - capec.693
     - capec.695
     - capec.698
+    - capec.701
     - cis.2_1
     - cis.7_4
     - cis.16_4
@@ -8776,6 +8777,7 @@
     - capec.212
     - capec.677
     - capec.678
+    - capec.701
     - cis.9_4
     - cwe.78
     - cwe.98
