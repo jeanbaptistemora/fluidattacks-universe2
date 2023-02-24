@@ -4,10 +4,10 @@ from collections.abc import (
 )
 from itertools import (
     accumulate,
-    chain,
+    chain as join_chain,
 )
 import json
-import os
+import os as operatingsys
 
 FIELDS_BY_LANGUAGE: dict[str, tuple[str, ...]] = {}
 
@@ -69,7 +69,7 @@ def comprehensions() -> None:
     try:
         my_numbers = [1, 2, 3]
         accumulate(my_numbers)
-        chain(my_numbers)
+        join_chain(my_numbers)
         print(my_numbers[10])
     except IndexError as err:
         if str(err) == "Error":
@@ -94,7 +94,7 @@ def get_fields_by_language() -> None:
             continue
         if not lang.startswith("s"):
             break
-        path: str = os.path.join(TREE_SITTER_PARSERS, f"{lang}-fields.json")
+        path: str = operatingsys.path.join(TREE_SITTER_PARSERS, f"{lang}.json")
         with open(path, encoding="utf-8") as file:
             FIELDS_BY_LANGUAGE[lang] = json.load(file)
 
