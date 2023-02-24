@@ -10,6 +10,9 @@ from dataloaders import (
     get_new_context,
 )
 import pytest
+from typing import (
+    Any,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -57,6 +60,86 @@ async def test_get_managers_by_size(
         get_new_context(), group_name, list_size
     )
     assert list_size == len(email_managers)
+    assert all(mock_object.called is True for mock_object in mocked_objects)
+
+
+@pytest.mark.parametrize(
+    [
+        "modified_by",
+        "justification",
+        "vulnerability_id",
+        "is_approved",
+    ],
+    [
+        [
+            "vulnmanager@gmail.com",
+            "test",
+            "15375781-31f2-4953-ac77-f31134225747",
+            False,
+        ],
+    ],
+)
+@patch(
+    MODULE_AT_TEST + "vulns_mailer.send_mail_treatment_report",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "get_managers_by_size", new_callable=AsyncMock)
+@patch(
+    MODULE_AT_TEST + "mailer_utils.get_group_emails_by_notification",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "get_finding", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "Dataloaders.vulnerability", new_callable=AsyncMock)
+async def test_send_treatment_report_mail(
+    # pylint: disable=too-many-arguments
+    mock_dataloaders_vulnerability: AsyncMock,
+    mock_get_finding: AsyncMock,
+    mock_mailer_utils_get_group_emails_by_notification: AsyncMock,
+    mock_get_managers_by_size: AsyncMock,
+    mock_vulns_mailer_send_mail_treatment_report: AsyncMock,
+    modified_by: str,
+    justification: str,
+    vulnerability_id: str,
+    is_approved: bool,
+) -> None:
+    mocked_objects, mocked_paths = [
+        [
+            mock_dataloaders_vulnerability.load,
+            mock_get_finding,
+            mock_mailer_utils_get_group_emails_by_notification,
+            mock_get_managers_by_size,
+            mock_vulns_mailer_send_mail_treatment_report,
+        ],
+        [
+            "Dataloaders.vulnerability",
+            "get_finding",
+            "mailer_utils.get_group_emails_by_notification",
+            "get_managers_by_size",
+            "vulns_mailer.send_mail_treatment_report",
+        ],
+    ]
+    mocks_args: list[list[Any]] = [
+        [vulnerability_id],
+        [vulnerability_id],
+        [vulnerability_id],
+        [vulnerability_id],
+        [vulnerability_id, justification, modified_by, is_approved],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+
+    await send_treatment_report_mail(
+        loaders=loaders,
+        modified_by=modified_by,
+        justification=justification,
+        vulnerability_id=vulnerability_id,
+        is_approved=is_approved,
+    )
     assert all(mock_object.called is True for mock_object in mocked_objects)
 
 

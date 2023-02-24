@@ -10696,6 +10696,264 @@ mocked_responses: dict[str, dict[str, Any]] = {
     },
     "vulnerabilities.domain.treatment.Dataloaders.vulnerability": {
         '["be09edb7-cd5c-47ed-bee4-97c645acdce9"]': None,
+        '["15375781-31f2-4953-ac77-f31134225747"]': Vulnerability(
+            created_by="unittest@fluidattacks.com",
+            created_date=datetime.fromisoformat("2019-09-13T13:17:41+00:00"),
+            finding_id="436992569",
+            group_name="unittesting",
+            hacker_email="unittest@fluidattacks.com",
+            id="15375781-31f2-4953-ac77-f31134225747",
+            state=VulnerabilityState(
+                modified_by="unittest@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-09-13T13:17:41+00:00"
+                ),
+                source=Source.ASM,
+                specific="333",
+                status=VulnerabilityStateStatus.VULNERABLE,
+                where="192.168.100.101",
+                commit=None,
+                reasons=None,
+                other_reason=None,
+                tool=VulnerabilityTool(
+                    name="tool-2",
+                    impact=VulnerabilityToolImpact.INDIRECT,
+                ),
+                snippet=None,
+            ),
+            type=VulnerabilityType.PORTS,
+            bug_tracking_system_url=None,
+            custom_severity=None,
+            developer=None,
+            event_id=None,
+            hash=None,
+            root_id=None,
+            skims_method=None,
+            skims_technique=None,
+            stream=None,
+            tags=None,
+            treatment=VulnerabilityTreatment(
+                modified_date=datetime.fromisoformat(
+                    "2019-09-13T13:17:41+00:00"
+                ),
+                status=VulnerabilityTreatmentStatus.UNTREATED,
+                acceptance_status=None,
+                accepted_until=None,
+                justification=None,
+                assigned=None,
+                modified_by=None,
+            ),
+            unreliable_indicators=VulnerabilityUnreliableIndicators(
+                unreliable_closing_date=None,
+                unreliable_source=Source.ASM,
+                unreliable_efficacy=Decimal("0"),
+                unreliable_last_reattack_date=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                unreliable_last_reattack_requester="integratesuser@gmail.com",
+                unreliable_last_requested_reattack_date=datetime.fromisoformat(
+                    "2020-02-18T15:41:04+00:00"
+                ),
+                unreliable_reattack_cycles=1,
+                unreliable_treatment_changes=0,
+            ),
+            verification=VulnerabilityVerification(
+                modified_date=datetime.fromisoformat(
+                    "2020-02-19T15:41:04+00:00"
+                ),
+                status=VulnerabilityVerificationStatus.VERIFIED,
+                event_id=None,
+            ),
+            zero_risk=None,
+        ),
+    },
+    "vulnerabilities.domain.treatment.get_managers_by_size": {
+        '["15375781-31f2-4953-ac77-f31134225747"]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "integratesuser@gmail.com",
+        ],
+    },
+    "vulnerabilities.domain.treatment.get_finding": {
+        '["15375781-31f2-4953-ac77-f31134225747"]': Finding(
+            hacker_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            id="436992569",
+            state=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-04-08T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            title="038. Business information leak",
+            approval=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-04-08T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            attack_vector_description="Attack vector",
+            creation=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-04-08T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.CREATED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            description="Se obtiene información de negocio, como: "
+            "lista de usuarios, información estratégica, "
+            "información de empleados, información de clientes, "
+            "información de proveedores",
+            evidences=FindingEvidences(
+                animation=FindingEvidence(
+                    description="Animation descriptions",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-animation.webm",
+                ),
+                evidence1=FindingEvidence(
+                    description="Comm1",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-evidence_route_1.png",
+                ),
+                evidence2=FindingEvidence(
+                    description="Comm2",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-evidence_route_2.jpg",
+                ),
+                evidence3=FindingEvidence(
+                    description="Comm3",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-evidence_route_3.png",
+                ),
+                evidence4=FindingEvidence(
+                    description="Comm4",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-evidence_route_4.png",
+                ),
+                evidence5=FindingEvidence(
+                    description="Comm5",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-evidence_route_5.png",
+                ),
+                exploitation=FindingEvidence(
+                    description="Exploitation description",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-08T05:00:00+00:00"
+                    ),
+                    url="unittesting-436992569-exploitation.png",
+                ),
+                records=None,
+            ),
+            min_time_to_remediate=18,
+            recommendation="De acuerdo a la clasificación de la "
+            "información encontrada, establecer los controles "
+            "necesarios para que la información sea accesible sólo a "
+            "las personas indicadas.",
+            requirements="REQ.0176. El sistema debe restringir el "
+            "acceso a objetos del sistema que tengan contenido "
+            "sensible. Sólo permitirá su acceso a usuarios "
+            "autorizados.",
+            severity=Finding31Severity(
+                attack_complexity=Decimal("0.44"),
+                attack_vector=Decimal("0.62"),
+                availability_impact=Decimal("0.22"),
+                availability_requirement=Decimal("1.5"),
+                confidentiality_impact=Decimal("0"),
+                confidentiality_requirement=Decimal("1.5"),
+                exploitability=Decimal("0.97"),
+                integrity_impact=Decimal("0"),
+                integrity_requirement=Decimal("0.5"),
+                modified_attack_complexity=Decimal("0.77"),
+                modified_attack_vector=Decimal("0.85"),
+                modified_availability_impact=Decimal("0"),
+                modified_confidentiality_impact=Decimal("0"),
+                modified_integrity_impact=Decimal("0"),
+                modified_privileges_required=Decimal("0.85"),
+                modified_user_interaction=Decimal("0.85"),
+                modified_severity_scope=Decimal("0"),
+                privileges_required=Decimal("0.85"),
+                remediation_level=Decimal("0.97"),
+                report_confidence=Decimal("0.96"),
+                severity_scope=Decimal("1"),
+                user_interaction=Decimal("0.62"),
+            ),
+            sorts=FindingSorts.NO,
+            submission=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-04-08T05:00:00+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.SUBMITTED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            threat="Risk.",
+            unreliable_indicators=FindingUnreliableIndicators(
+                unreliable_closed_vulnerabilities=4,
+                unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                    "2019-09-16T21:01:24+00:00"
+                ),
+                unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                    "2019-08-30T14:30:13+00:00"
+                ),
+                unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                    "2019-08-30T14:30:13+00:00"
+                ),
+                unreliable_open_vulnerabilities=24,
+                unreliable_status=FindingStatus.VULNERABLE,
+                unreliable_treatment_summary=FindingTreatmentSummary(
+                    accepted=0,
+                    accepted_undefined=0,
+                    in_progress=0,
+                    untreated=24,
+                ),
+                unreliable_verification_summary=FindingVerificationSummary(
+                    requested=1,
+                    on_hold=2,
+                    verified=1,
+                ),
+                unreliable_where="192.168.1.10, 192.168.1.12, "
+                "192.168.1.13, 192.168.1.14, 192.168.1.15, "
+                "192.168.1.16, 192.168.1.17, 192.168.1.2, 192.168.1.3,"
+                " 192.168.1.4, 192.168.1.5, 192.168.1.6, 192.168.1.7, "
+                "192.168.1.8, 192.168.1.9, 192.168.100.101, "
+                "192.168.100.104, 192.168.100.105, 192.168.100.108, "
+                "192.168.100.111",
+            ),
+            verification=FindingVerification(
+                comment_id="1558048727111",
+                modified_by="integrateshacker@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-02-21T15:41:04+00:00"
+                ),
+                status=FindingVerificationStatus.VERIFIED,
+                vulnerability_ids={"15375781-31f2-4953-ac77-f31134225747"},
+            ),
+        ),
     },
     "vulnerabilities.domain.treatment.group_access_domain.get_managers": {
         '["unittesting", 2]': [
@@ -10707,6 +10965,19 @@ mocked_responses: dict[str, dict[str, Any]] = {
             "continuoushacking@gmail.com",
             "integratesuser@gmail.com",
         ],
+    },
+    "vulnerabilities.domain.treatment.mailer_utils.get_group_emails_by_notification": {  # noqa: E501 pylint: disable=line-too-long
+        '["15375781-31f2-4953-ac77-f31134225747"]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "customer_manager@fluidattacks.com",
+            "integratesresourcer@fluidattacks.com",
+            "integratesuser@gmail.com",
+            "unittest2@fluidattacks.com",
+        ],
+    },
+    "vulnerabilities.domain.treatment.vulns_mailer.send_mail_treatment_report": {  # noqa: E501 pylint: disable=line-too-long
+        '["15375781-31f2-4953-ac77-f31134225747", "test", "vulnmanager@gmail.com", false]': None,  # noqa: E501 pylint: disable=line-too-long
     },
     "vulnerabilities.domain.validations.Dataloaders.group": {
         '["kurome"]': Group(
