@@ -10,6 +10,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
 
@@ -20,6 +21,7 @@ import { DashboardContainer, DashboardContent } from "./styles";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
+import { UPDATE_TOURS } from "components/Tour/queries";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { GroupRoute } from "scenes/Dashboard/containers/Group-Content/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
@@ -45,6 +47,7 @@ import { translate } from "utils/translations/translate";
 import { initializeDelighted } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
   const groupRegex: string = ":groupName([a-zA-Z0-9]+)";
   const tagRegex: string = ":tagName([a-zA-Z0-9-_ ]+)";
@@ -76,7 +79,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
 
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
 
-  useQuery<IUser>(GET_USER, {
+  const { loading } = useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({
         tours: {
@@ -113,6 +116,28 @@ export const Dashboard: React.FC = (): JSX.Element => {
       });
     },
   });
+
+  const [updateTours] = useMutation(UPDATE_TOURS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred fetching tours", error);
+      });
+    },
+  });
+
+  useEffect((): void => {
+    if (!loading) {
+      void updateTours({
+        variables: {
+          newGroup: user.tours.newGroup,
+          newRiskExposure: user.tours.newRiskExposure,
+          newRoot: user.tours.newRoot,
+          welcome: user.tours.welcome,
+        },
+      });
+    }
+  }, [loading, updateTours, user.tours]);
 
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {

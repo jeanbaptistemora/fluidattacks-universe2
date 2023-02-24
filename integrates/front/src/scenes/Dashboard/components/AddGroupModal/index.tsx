@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { ConfigurableValidator } from "revalidate";
 
-import { handleCreateError, handleUpdateError } from "./helpers";
+import { handleCreateError } from "./helpers";
 
 import { ExternalLink } from "components/ExternalLink";
 import { InfoDropdown } from "components/InfoDropdown";
@@ -20,7 +20,6 @@ import { Col } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
 import type { IAuthContext } from "utils/auth";
@@ -81,21 +80,20 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
     onError: handleCreateError,
   });
 
-  const [updateTours] = useMutation(UPDATE_TOURS, {
-    onError: handleUpdateError,
-  });
-
   const finishTour = useCallback((): void => {
-    void updateTours({
-      variables: {
+    user.setUser({
+      tours: {
         newGroup: true,
         newRiskExposure: user.tours.newRiskExposure,
         newRoot: user.tours.newRoot,
         welcome: user.tours.welcome,
       },
+      userEmail: user.userEmail,
+      userIntPhone: user.userIntPhone,
+      userName: user.userName,
     });
     onClose();
-  }, [onClose, updateTours, user.tours]);
+  }, [onClose, user]);
 
   const handleSubmit = useCallback(
     async (values: {

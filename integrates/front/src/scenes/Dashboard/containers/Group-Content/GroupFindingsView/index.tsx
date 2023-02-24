@@ -63,6 +63,7 @@ import { Tooltip } from "components/Tooltip";
 import { searchingFindings } from "resources";
 import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { RiskExposureTour } from "scenes/Dashboard/components/RiskExposureTour/RiskExposureTour";
+import { WelcomeModal } from "scenes/Dashboard/components/WelcomeModal";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";
 import type {
@@ -709,6 +710,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           step={1}
         />
       ) : null}
+      <WelcomeModal />
     </React.StrictMode>
   );
 };

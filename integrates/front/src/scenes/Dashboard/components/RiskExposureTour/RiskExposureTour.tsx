@@ -1,8 +1,5 @@
-import { useMutation } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useCallback, useContext, useState } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 import type { IRiskExposureTourProps } from "./types";
@@ -11,11 +8,8 @@ import { Button } from "components/Button";
 import { Container } from "components/Container";
 import { Text } from "components/Text";
 import { BaseStep, Tour } from "components/Tour";
-import { UPDATE_TOURS } from "components/Tour/queries";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
-import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
 
 const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
   findingId,
@@ -24,7 +18,6 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
 }): JSX.Element => {
   const { push } = useHistory();
   const { url } = useRouteMatch();
-  const { t } = useTranslation();
 
   const tourStyle = {
     options: {
@@ -46,15 +39,6 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
     enableExposureRiskTour
   );
 
-  const [updateTours] = useMutation(UPDATE_TOURS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred fetching exposure risk tour", error);
-      });
-    },
-  });
-
   const finishTour = useCallback((): void => {
     user.setUser({
       tours: {
@@ -69,17 +53,6 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
     });
     setRunRiskExposureTour(false);
   }, [setRunRiskExposureTour, user]);
-
-  useEffect((): void => {
-    void updateTours({
-      variables: {
-        newGroup: user.tours.newGroup,
-        newRiskExposure: user.tours.newRiskExposure,
-        newRoot: user.tours.newRoot,
-        welcome: user.tours.welcome,
-      },
-    });
-  }, [updateTours, user.tours]);
 
   const goToFirstFinding = useCallback((): void => {
     push(`${url}/${findingId ?? ""}/locations`);
