@@ -7,6 +7,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityVerificationStatus,
+    VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (
     VulnerabilitiesConnection,
@@ -33,10 +34,14 @@ async def resolve(
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
     vulns_must_filters: list[dict[str, Any]] = _must_filter(parent.id)
+    vulns_must_not_filters: list[dict[str, Any]] = [
+        {"zero_risk.status": VulnerabilityZeroRiskStatus.CONFIRMED}
+    ]
 
     results = await search(
         after=kwargs.get("after"),
         must_filters=vulns_must_filters,
+        must_not_filters=vulns_must_not_filters,
         index="vulnerabilities",
         limit=kwargs.get("first", 1000),
     )
