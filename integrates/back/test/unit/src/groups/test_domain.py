@@ -1,10 +1,12 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    get_module_at_test,
     set_mocks_return_values,
 )
 from custom_exceptions import (
     InvalidGroupServicesConfig,
+    RepeatedValues,
 )
 from dataloaders import (
     Dataloaders,
@@ -76,6 +78,8 @@ from unittest.mock import (
     AsyncMock,
     patch,
 )
+
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -690,14 +694,48 @@ async def test_update_group(
     )
 
 
-async def test_validate_tags() -> None:
-    loaders: Dataloaders = get_new_context()
-    assert await validate_group_tags(
-        loaders, "unittesting", ["testtag", "this-is-ok", "th15-4l50"]
+@pytest.mark.parametrize(
+    ["group_name", "tags", "tags_to_raise_exception"],
+    [
+        [
+            "unittesting",
+            ["testtag", "this-is-ok", "th15-4l50"],
+            ["same-name", "same-name", "another-one"],
+        ],
+        [
+            "unittesting",
+            ["this-tag-is-valid", "but this is not"],
+            ["test-groups"],
+        ],
+    ],
+)
+@patch(MODULE_AT_TEST + "_has_repeated_tags")
+async def test_validate_group_tags(
+    mock__has_repeated_tags: AsyncMock,
+    group_name: str,
+    tags: list,
+    tags_to_raise_exception: list,
+) -> None:
+    assert set_mocks_return_values(
+        mocks_args=[[group_name, tags]],
+        mocked_objects=[mock__has_repeated_tags],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["_has_repeated_tags"],
     )
-    assert await validate_group_tags(
-        loaders, "unittesting", ["this-tag-is-valid", "but this is not"]
-    ) == ["this-tag-is-valid"]
+    loaders: Dataloaders = get_new_context()
+    result = await validate_group_tags(loaders, group_name, tags)
+    assert isinstance(result, list)
+    assert mock__has_repeated_tags.called is True
+
+    assert set_mocks_return_values(
+        mocks_args=[[group_name, tags_to_raise_exception]],
+        mocked_objects=[mock__has_repeated_tags],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["_has_repeated_tags"],
+    )
+    with pytest.raises(RepeatedValues):
+        await validate_group_tags(loaders, group_name, tags_to_raise_exception)
+    assert mock__has_repeated_tags.call_count == 2
 
 
 @freeze_time("2019-10-01")

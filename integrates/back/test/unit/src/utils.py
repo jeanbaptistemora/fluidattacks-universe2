@@ -10014,6 +10014,12 @@ mocked_responses: dict[str, dict[str, Any]] = {
         '["unittesting", "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
         '"integratesmanager@gmail.com", "2022-04-06 16:46:23+00:00"]': None,
     },
+    "groups.domain._has_repeated_tags": {
+        '["unittesting", ["same-name", "same-name", "another-one"]]': True,
+        '["unittesting", ["test-groups"]]': True,
+        '["unittesting", ["testtag", "this-is-ok", "th15-4l50"]]': False,
+        '["unittesting", ["this-tag-is-valid", "but this is not"]]': False,
+    },
     "group_access.domain.add_access": {
         '["org_testgroupmanager2@fluidattacks.com", '
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '

@@ -7,7 +7,6 @@ from custom_exceptions import (
     InvalidNumberAcceptances,
     InvalidRange,
     InvalidSchema,
-    RepeatedValues,
     UnableToSendSms,
     UnavailabilityError,
     VulnNotFound,
@@ -29,9 +28,6 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
-)
-from groups.domain import (
-    validate_group_tags,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -163,30 +159,6 @@ async def test_validate_file_schema_invalid(
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
         await validate_file_schema(file_url, info)  # type: ignore
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-async def test_validate_group_tags(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    loaders: Dataloaders = get_new_context()
-    with pytest.raises(RepeatedValues):
-        assert await validate_group_tags(
-            loaders, "unittesting", ["same-name", "same-name", "another-one"]
-        )
-    with pytest.raises(RepeatedValues):
-        assert await validate_group_tags(
-            loaders, "unittesting", ["test-groups"]
-        )
-    assert mock_table_resource.called is True
 
 
 @mock.patch(
