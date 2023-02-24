@@ -1,4 +1,3 @@
----
 /deployTerraform/sorts:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -16,7 +15,7 @@
     - m . /deployTerraform/sorts
   stage: deploy-infra
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -38,7 +37,7 @@
     - m . /lintPython/dirOfModules/sorts
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -60,7 +59,7 @@
     - m . /lintPython/imports/sorts
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +81,7 @@
     - m . /lintPython/module/sortsTests
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -104,7 +103,7 @@
     - m . /lintPython/module/sortsTraining
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -126,7 +125,7 @@
     - m . /lintTerraform/sorts
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -148,7 +147,7 @@
     - m . /sorts/association-rules/check/types
   stage: lint-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -167,7 +166,7 @@
     - m . /sorts/extract-features
   stage: pre-build
   tags:
-    - large
+    - sorts-large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -186,7 +185,7 @@
     - m . /sorts/merge-features
   stage: build
   tags:
-    - large
+    - sorts-large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -208,7 +207,7 @@
     - m . /testPython/sorts
   stage: test-code
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -230,7 +229,7 @@
     - m . /testTerraform/sorts
   stage: test-infra
   tags:
-    - small
+    - sorts-small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
