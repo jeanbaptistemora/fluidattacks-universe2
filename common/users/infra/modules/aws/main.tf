@@ -9,10 +9,19 @@ terraform {
   }
 }
 
-variable "name" {}
-variable "policy" {}
-variable "tags" {}
-variable "assume_role_policy" {
+variable "name" {
+  type = string
+}
+variable "policy" { # List[Json]
+  default = []
+}
+variable "policies" { # Dict[str, List[Json]]
+  default = {}
+}
+variable "tags" {
+  type = map(string)
+}
+variable "assume_role_policy" { # List[Json]
   default = []
 }
 
