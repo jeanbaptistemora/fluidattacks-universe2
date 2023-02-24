@@ -3,11 +3,9 @@ from arch_lint.dag import (
 )
 from typing import (
     cast,
-    FrozenSet,
-    Tuple,
 )
 
-_dag: Tuple[FrozenSet[str], ...] = (
+_dag: tuple[frozenset[str], ...] = (
     frozenset({"cli"}),
     frozenset({"app"}),
     frozenset({"schedulers"}),

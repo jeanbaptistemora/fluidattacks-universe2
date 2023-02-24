@@ -159,7 +159,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from unittest.mock import (
     AsyncMock,
@@ -10823,7 +10822,7 @@ def create_dummy_simple_session(
 
 
 async def create_dummy_session(
-    username: str = "unittest", session_jwt: Optional[str] = None
+    username: str = "unittest", session_jwt: str | None = None
 ) -> Request:
     request = create_dummy_simple_session(username)
     jti = sessions_utils.calculate_hash_token()["jti"]

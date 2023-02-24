@@ -1,4 +1,7 @@
 import boto3
+from collections.abc import (
+    AsyncGenerator,
+)
 from moto.dynamodb import (
     mock_dynamodb,
 )
@@ -9,9 +12,6 @@ import pytest
 import pytest_asyncio
 from typing import (
     Any,
-    AsyncGenerator,
-    Dict,
-    List,
 )
 
 pytestmark = [
@@ -31,7 +31,7 @@ attribute_definitions = {
         {"AttributeName": "pk", "AttributeType": "S"},
     ],
 }
-global_secondary_indexes: Dict[str, List[Any]] = {
+global_secondary_indexes: dict[str, list[Any]] = {
     "integrates_vms": [
         {
             "IndexName": "inverted_index",
@@ -45,7 +45,7 @@ global_secondary_indexes: Dict[str, List[Any]] = {
         }
     ],
 }
-data: Dict[str, List[Any]] = dict(
+data: dict[str, list[Any]] = dict(
     integrates_vms=[
         dict(
             group_name="unittesting",

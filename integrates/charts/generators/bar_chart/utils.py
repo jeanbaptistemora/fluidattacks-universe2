@@ -19,6 +19,13 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
+from collections.abc import (
+    Awaitable,
+    Callable,
+)
 from custom_exceptions import (
     UnsanitizedInputFound,
 )
@@ -55,12 +62,7 @@ from statistics import (
     mean,
 )
 from typing import (
-    Awaitable,
-    Callable,
-    Counter,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
 ORGANIZATION_CATEGORIES: list[str] = [
@@ -106,7 +108,7 @@ class Benchmarking(NamedTuple):
 
 
 def get_vulnerability_reattacks(
-    *, historic_verification: Tuple[VulnerabilityVerification, ...]
+    *, historic_verification: tuple[VulnerabilityVerification, ...]
 ) -> int:
     return sum(
         1
@@ -269,7 +271,7 @@ def get_worst_mttr(
     )
 
 
-def format_value(data: list[Tuple[str, int]]) -> Decimal:
+def format_value(data: list[tuple[str, int]]) -> Decimal:
     if data:
         return Decimal(data[0][1]) if data[0][1] else Decimal("1.0")
     return Decimal("1.0")
@@ -420,14 +422,14 @@ async def get_oldest_open_age(
 async def get_data_many_groups_mttr(
     *,
     organization_id: str,
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
     get_data_one_group: Callable[
-        [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
+        [str, Dataloaders, datetype | None], Awaitable[Benchmarking]
     ],
-    min_date: Optional[datetype],
+    min_date: datetype | None,
 ) -> Benchmarking:
-    groups_data: Tuple[Benchmarking, ...] = await collect(
+    groups_data: tuple[Benchmarking, ...] = await collect(
         tuple(
             get_data_one_group(group, loaders, min_date) for group in groups
         ),
@@ -456,7 +458,7 @@ async def get_data_many_groups_mttr(
 async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     *,
     get_data_one_group: Callable[
-        [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
+        [str, Dataloaders, datetype | None], Awaitable[Benchmarking]
     ],
     alternative: str,
     y_label: str = "Days",
@@ -467,8 +469,8 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         get_now_minus_delta(days=list_days[0]).date(),
         get_now_minus_delta(days=list_days[1]).date(),
     ]
-    organizations: list[Tuple[str, Tuple[str, ...]]] = []
-    portfolios: list[Tuple[str, Tuple[str, ...]]] = []
+    organizations: list[tuple[str, tuple[str, ...]]] = []
+    portfolios: list[tuple[str, tuple[str, ...]]] = []
     group_names: list[str] = list(
         sorted(
             await orgs_domain.get_all_active_group_names(loaders),
@@ -488,7 +490,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                 (f"{org_id}PORTFOLIO#{portfolio}", tuple(p_groups))
             )
 
-    all_groups_data: Tuple[Benchmarking, ...] = await collect(
+    all_groups_data: tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_group(
                 group_name,
@@ -500,7 +502,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_groups_data_30: Tuple[Benchmarking, ...] = await collect(
+    all_groups_data_30: tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_group(group_name, loaders, dates[0])
             for group_name in group_names
@@ -508,7 +510,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_groups_data_90: Tuple[Benchmarking, ...] = await collect(
+    all_groups_data_90: tuple[Benchmarking, ...] = await collect(
         [
             get_data_one_group(group_name, loaders, dates[1])
             for group_name in group_names
@@ -516,7 +518,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_organizations_data: Tuple[Benchmarking, ...] = await collect(
+    all_organizations_data: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=organization[0],
@@ -530,7 +532,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_organizations_data_30: Tuple[Benchmarking, ...] = await collect(
+    all_organizations_data_30: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=organization[0],
@@ -544,7 +546,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_organizations_data_90: Tuple[Benchmarking, ...] = await collect(
+    all_organizations_data_90: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=organization[0],
@@ -558,7 +560,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_portfolios_data: Tuple[Benchmarking, ...] = await collect(
+    all_portfolios_data: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=portfolio[0],
@@ -572,7 +574,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_portfolios_data_30: Tuple[Benchmarking, ...] = await collect(
+    all_portfolios_data_30: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=portfolio[0],
@@ -586,7 +588,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         workers=24,
     )
 
-    all_portfolios_data_90: Tuple[Benchmarking, ...] = await collect(
+    all_portfolios_data_90: tuple[Benchmarking, ...] = await collect(
         [
             get_data_many_groups_mttr(
                 organization_id=portfolio[0],
@@ -729,17 +731,17 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         ),
     }
 
-    _all_groups_data: dict[str, Tuple[Benchmarking, ...]] = {
+    _all_groups_data: dict[str, tuple[Benchmarking, ...]] = {
         "all_groups_data": all_groups_data,
         "all_groups_data_30": all_groups_data_30,
         "all_groups_data_90": all_groups_data_90,
     }
-    _all_organizations_data: dict[str, Tuple[Benchmarking, ...]] = {
+    _all_organizations_data: dict[str, tuple[Benchmarking, ...]] = {
         "all_organizations_data": all_organizations_data,
         "all_organizations_data_30": all_organizations_data_30,
         "all_organizations_data_90": all_organizations_data_90,
     }
-    _all_portfolios_data: dict[str, Tuple[Benchmarking, ...]] = {
+    _all_portfolios_data: dict[str, tuple[Benchmarking, ...]] = {
         "all_portfolios_data": all_portfolios_data,
         "all_portfolios_data_30": all_portfolios_data_30,
         "all_portfolios_data_90": all_portfolios_data_90,
@@ -868,7 +870,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
                 )
 
 
-def sum_mttr_many_groups(*, groups_data: Tuple[Remediate, ...]) -> Remediate:
+def sum_mttr_many_groups(*, groups_data: tuple[Remediate, ...]) -> Remediate:
 
     return Remediate(
         critical_severity=Decimal(

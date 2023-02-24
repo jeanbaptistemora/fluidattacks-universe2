@@ -2,6 +2,9 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_module_at_test,
     set_mocks_return_values,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -39,9 +42,6 @@ from freezegun import (
     freeze_time,
 )
 import pytest
-from typing import (
-    Iterable,
-)
 from unittest.mock import (
     AsyncMock,
     patch,

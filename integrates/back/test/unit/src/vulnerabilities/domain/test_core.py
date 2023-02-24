@@ -37,9 +37,6 @@ from newutils.datetime import (
     get_now_minus_delta,
 )
 import pytest
-from typing import (
-    Union,
-)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -294,7 +291,7 @@ async def test_get_treatments(finding_id: str, expected: list[int]) -> None:
     ),
 )
 async def test_get_updated_manager_mail_content(
-    vulnerabilities: dict[str, list[dict[str, Union[str, ToolItem]]]],
+    vulnerabilities: dict[str, list[dict[str, str | ToolItem]]],
 ) -> None:
     test_data = get_updated_manager_mail_content(vulnerabilities)
     expected_output = (

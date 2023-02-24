@@ -21,7 +21,6 @@ from db_model.groups.types import (
 import pytest
 from typing import (
     NamedTuple,
-    Tuple,
 )
 
 pytestmark = [
@@ -52,7 +51,7 @@ async def test_validate_fluidattacks_staff_on_group_deco() -> None:
     @validate_fluidattacks_staff_on_group_deco("group", "email", "role")
     def decorated_func(
         group: Group, email: str, role: str
-    ) -> Tuple[Group, str, str]:
+    ) -> tuple[Group, str, str]:
         return (group, email, role)
 
     assert decorated_func(
@@ -143,7 +142,7 @@ async def test_validate_handle_comment_scope_deco() -> None:
         user_email: str,
         group_name: str,
         parent_comment: str,
-    ) -> Tuple:
+    ) -> tuple:
         return (loaders, content, user_email, group_name, parent_comment)
 
     with pytest.raises(PermissionDenied):

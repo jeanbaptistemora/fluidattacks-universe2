@@ -22,6 +22,9 @@ from charts.generators.common.colors import (
 from charts.generators.common.utils import (
     get_finding_name,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -42,8 +45,6 @@ from itertools import (
 )
 from typing import (
     Any,
-    Counter,
-    Union,
 )
 
 
@@ -104,7 +105,7 @@ async def get_data_many_groups(
 
 def format_data(counters: Counter[str]) -> tuple[dict, utils.CsvData]:
     data: list[tuple[str, int]] = counters.most_common()
-    merged_data: list[list[Union[int, str]]] = []
+    merged_data: list[list[int | str]] = []
     for axis, columns in groupby(
         sorted(data, key=lambda x: get_finding_name([x[0]])),
         key=lambda x: get_finding_name([x[0]]),

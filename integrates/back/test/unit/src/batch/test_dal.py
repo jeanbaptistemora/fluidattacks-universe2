@@ -21,9 +21,6 @@ from batch.types import (
 )
 import json
 import pytest
-from typing import (
-    Union,
-)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -313,7 +310,7 @@ async def test_put_action_to_dynamodb(  # pylint: disable=too-many-arguments
     subject: str,
     time: str,
     additional_info: str,
-    queue: Union[IntegratesBatchQueue, SkimsBatchQueue],
+    queue: IntegratesBatchQueue | SkimsBatchQueue,
 ) -> None:
 
     key = mapping_to_key(

@@ -33,6 +33,9 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
 from contextlib import (
     suppress,
 )
@@ -65,7 +68,6 @@ from ruamel import (
     yaml,
 )
 from typing import (
-    Counter,
     NamedTuple,
 )
 

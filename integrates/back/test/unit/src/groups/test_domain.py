@@ -71,8 +71,6 @@ from organizations import (
 import pytest
 from typing import (
     Any,
-    List,
-    Optional,
 )
 from unittest.mock import (
     AsyncMock,
@@ -193,7 +191,7 @@ async def test_get_mean_remediate_non_treated_severity() -> None:
     ),
 )
 async def test_get_mean_remediate_non_treated_severity_medium(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int | None, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -359,7 +357,7 @@ async def test_get_mean_remediate_cvssf(  # pylint: disable=too-many-arguments
     ),
 )
 async def test_get_mean_remediate_severity_low(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int | None, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -538,7 +536,7 @@ async def test_send_mail_devsecops_agent(
     had_token: bool,
 ) -> None:
 
-    mocks_args: List[List[Any]]
+    mocks_args: list[list[Any]]
     mocked_objects, mocked_paths, mocks_args = [
         [
             mock_mailer_utils_get_group_emails_by_notification,
@@ -748,7 +746,7 @@ async def test_validate_group_tags(
     ),
 )
 async def test_get_mean_remediate_severity_low_min_days(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int | None, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"
@@ -776,7 +774,7 @@ async def test_get_mean_remediate_severity_low_min_days(
     ),
 )
 async def test_get_mean_remediate_severity_medium(
-    min_days: Optional[int], expected_output: Decimal
+    min_days: int | None, expected_output: Decimal
 ) -> None:
     loaders = get_new_context()
     group_name = "unittesting"

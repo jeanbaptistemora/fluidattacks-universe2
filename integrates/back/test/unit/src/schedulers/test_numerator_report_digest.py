@@ -16,8 +16,6 @@ from schedulers.numerator_report_digest import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 from unittest import (
     mock,
@@ -171,12 +169,12 @@ def test_validate_date_fail() -> None:
 )
 def test_common_generate_count_report(
     *,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     user_email: str,
 ) -> None:
     date_days = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
-    fields: List[str] = [
+    fields: list[str] = [
         "verified_inputs",
         "verified_inputs",
         "verified_inputs",
@@ -188,7 +186,7 @@ def test_common_generate_count_report(
         "released",
         "evidences",
     ]
-    groups: List[str] = [
+    groups: list[str] = [
         "unittesting",
         "unittesting",
         "test_group",
@@ -363,7 +361,7 @@ def test_common_generate_count_report(
     ],
 )
 async def test_send_mail_numerator_report(
-    content: Dict[str, Any],
+    content: dict[str, Any],
 ) -> None:
     with mock.patch(
         "schedulers.numerator_report_digest.mail_numerator_report",

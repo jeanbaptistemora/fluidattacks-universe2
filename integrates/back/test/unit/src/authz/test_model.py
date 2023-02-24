@@ -5,9 +5,6 @@ from authz.model import (
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
-    Set,
 )
 
 # Constants
@@ -82,7 +79,7 @@ pytestmark = [
     ],
 )
 def test_model_integrity_keys_1(
-    parameter: Dict[str, Any], expected: List[str]
+    parameter: dict[str, Any], expected: list[str]
 ) -> None:
     assert sorted(parameter.keys()) == expected
 
@@ -96,7 +93,7 @@ def test_model_integrity_keys_1(
         [authz.USER_LEVEL_ROLES_FOR_FLUIDATTACKS],
     ],
 )
-def test_model_integrity_keys_2(parameter: Dict[str, Any]) -> None:
+def test_model_integrity_keys_2(parameter: dict[str, Any]) -> None:
     for value in parameter.values():
         assert sorted(value.keys()) == ["actions", "tags"]
 
@@ -113,7 +110,7 @@ def test_model_integrity_keys_2(parameter: Dict[str, Any]) -> None:
     ],
 )
 def test_model_integrity_roles(
-    roles_common: Dict[str, Any], roles_fluid: Dict[str, Any]
+    roles_common: dict[str, Any], roles_fluid: dict[str, Any]
 ) -> None:
     assert sorted(roles_common.keys()) == sorted(roles_fluid.keys())
 
@@ -235,6 +232,6 @@ def test_model_integrity_roles(
     ],
 )
 def test_get_user_level_roles_model(
-    email: str, expected_output: Dict[str, Dict[str, Set[str]]]
+    email: str, expected_output: dict[str, dict[str, set[str]]]
 ) -> None:
     assert get_user_level_roles_model(email) == expected_output

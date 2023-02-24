@@ -29,9 +29,6 @@ from groups.domain import (
 from newutils.vulnerabilities import (
     is_accepted_undefined_vulnerability,
 )
-from typing import (
-    Optional,
-)
 
 
 async def get_historic_verification(
@@ -46,7 +43,7 @@ async def get_historic_verification(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
-    group: str, loaders: Dataloaders, min_date: Optional[datetype]
+    group: str, loaders: Dataloaders, min_date: datetype | None
 ) -> Benchmarking:
     group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (

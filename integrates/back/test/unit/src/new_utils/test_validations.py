@@ -48,12 +48,7 @@ from newutils import (
 import pytest
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Set,
-    Tuple,
 )
 
 pytestmark = [
@@ -221,7 +216,7 @@ def test_validate_fields_deco() -> None:
     test_list = ["test", "valid", "valid%"]
 
     @validations.validate_fields_deco(["test_list"])
-    def decorated_func_full_list(test_list: List) -> List:
+    def decorated_func_full_list(test_list: list) -> list:
         return test_list
 
     assert decorated_func_full_list(test_list=test_list)
@@ -308,8 +303,8 @@ def test_validate_file_exists_deco() -> None:
 
     @validations.validate_file_exists_deco("file_name", "group_files")
     def decorated_func_group(
-        file_name: str, group_files: Optional[list[GroupFile]]
-    ) -> Tuple:
+        file_name: str, group_files: list[GroupFile] | None
+    ) -> tuple:
         return (file_name, group_files)
 
     assert decorated_func_group(
@@ -330,8 +325,8 @@ def test_validate_file_exists_deco() -> None:
     @validations.validate_file_exists_deco("test_obj.file_name", "group_files")
     def decorated_func_obj(
         test_obj: TestClass,
-        group_files: Optional[list[GroupFile]],
-    ) -> Tuple[TestClass, Optional[list[GroupFile]]]:
+        group_files: list[GroupFile] | None,
+    ) -> tuple[TestClass, list[GroupFile] | None]:
         return (test_obj, group_files)
 
     assert decorated_func_obj(test_obj=test_obj, group_files=group_files)
@@ -932,7 +927,7 @@ def test_validate_title_change_deco() -> None:
     )
     def decorated_func_obj(
         test_obj: TestClass, status_field: str
-    ) -> Tuple[TestClass, str]:
+    ) -> tuple[TestClass, str]:
         return (test_obj, status_field)
 
     assert decorated_func_obj(
@@ -1251,9 +1246,9 @@ def test_validate_no_duplicate_drafts_deco() -> None:
     )
     def decorated_func(
         title_field: str,
-        drafts_field: Tuple[Finding, ...],
-        findings_field: Tuple[Finding, ...],
-    ) -> Tuple:
+        drafts_field: tuple[Finding, ...],
+        findings_field: tuple[Finding, ...],
+    ) -> tuple:
         return (title_field, drafts_field, findings_field)
 
     test_finding = (
@@ -1416,7 +1411,7 @@ def test_validate_missing_severity_field_names_deco() -> None:
     @validations.validate_missing_severity_field_names_deco(
         "fields", "css_version_field"
     )
-    def decorated_func(fields: Set[str], css_version_field: str) -> Tuple:
+    def decorated_func(fields: set[str], css_version_field: str) -> tuple:
         return (fields, css_version_field)
 
     fields_20_severity = {
@@ -1499,7 +1494,7 @@ def test_validate_update_severity_values() -> None:
 
 def test_validate_update_severity_values_deco() -> None:
     @validations.validate_update_severity_values_deco("dictionary")
-    def decorated_func(dictionary: Dict) -> Dict:
+    def decorated_func(dictionary: dict) -> dict:
         return dictionary
 
     my_dict = {"field1": 2, "field2": 6, "field3": 9}
@@ -1554,7 +1549,7 @@ def test_validate_severity_range_deco() -> None:
 
 def test_validate_field_exist_deco() -> None:
     @validations.validate_field_exist_deco("missing")
-    def decorated_func(missing: Optional[str]) -> Optional[str]:
+    def decorated_func(missing: str | None) -> str | None:
         return missing
 
     assert decorated_func(missing="something")

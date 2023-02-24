@@ -54,9 +54,6 @@ from roots.validations import (
     validate_url_branch_deco,
     working_credentials,
 )
-from typing import (
-    Tuple,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -310,7 +307,7 @@ async def test_validate_nickname_is_unique_deco() -> None:
     )
     def decorated_func(
         nickname: str, roots: tuple[Root, ...], old_nickname: str
-    ) -> Tuple:
+    ) -> tuple:
         return (nickname, roots, old_nickname)
 
     loaders = get_new_context()

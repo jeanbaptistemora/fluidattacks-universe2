@@ -12,6 +12,10 @@ from charts.generators.common.utils import (
     BAR_RATIO_WIDTH,
     get_max_axis,
 )
+from collections.abc import (
+    Awaitable,
+    Callable,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -28,29 +32,23 @@ from newutils import (
 )
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    Dict,
-    List,
-    Optional,
-    Tuple,
 )
 
 
 async def generate_all(  # pylint: disable=too-many-locals
     *,
-    format_data: Callable[[Remediate], Dict[str, Any]],
+    format_data: Callable[[Remediate], dict[str, Any]],
     get_data_one_group: Callable[
-        [str, Dataloaders, Optional[date]], Awaitable[Remediate]
+        [str, Dataloaders, date | None], Awaitable[Remediate]
     ],
     get_data_many_groups: Callable[
-        [Tuple[str, ...], Dataloaders, Optional[date]], Awaitable[Remediate]
+        [tuple[str, ...], Dataloaders, date | None], Awaitable[Remediate]
     ],
     alternative: str = "Mean time to remediate",
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    list_days: List[int] = [30, 90]
-    dates: List[date] = [
+    list_days: list[int] = [30, 90]
+    dates: list[date] = [
         datetime_utils.get_now_minus_delta(days=list_days[0]).date(),
         datetime_utils.get_now_minus_delta(days=list_days[1]).date(),
     ]

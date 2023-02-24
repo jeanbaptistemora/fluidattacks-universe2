@@ -7,6 +7,9 @@ import asyncio
 from charts import (
     utils,
 )
+from collections.abc import (
+    AsyncIterator,
+)
 import contextlib
 from decorators import (
     retry_on_exceptions,
@@ -39,9 +42,6 @@ from selenium.webdriver.support.wait import (
     WebDriverWait,
 )
 import socket
-from typing import (
-    AsyncIterator,
-)
 from urllib.parse import (
     quote_plus as percent_encode,
 )

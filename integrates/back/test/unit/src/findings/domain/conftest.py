@@ -1,4 +1,7 @@
 import boto3
+from collections.abc import (
+    AsyncGenerator,
+)
 from datetime import (
     datetime,
 )
@@ -36,10 +39,6 @@ import pytest
 import pytest_asyncio
 from typing import (
     Any,
-    AsyncGenerator,
-    Dict,
-    List,
-    Tuple,
 )
 
 # pylint: disable=too-many-lines
@@ -62,7 +61,7 @@ attribute_definitions = {
         {"AttributeName": "pk", "AttributeType": "S"},
     ],
 }
-global_secondary_indexes: Dict[str, List[Any]] = {
+global_secondary_indexes: dict[str, list[Any]] = {
     "integrates_vms": [
         {
             "IndexName": "inverted_index",
@@ -77,7 +76,7 @@ global_secondary_indexes: Dict[str, List[Any]] = {
     ],
 }
 
-data: Dict[str, List[Any]] = dict(
+data: dict[str, list[Any]] = dict(
     integrates_vms=[
         dict(
             severity=dict(
@@ -670,7 +669,7 @@ data: Dict[str, List[Any]] = dict(
 )
 
 
-findings: Dict[str, Tuple[Finding, ...]] = {
+findings: dict[str, tuple[Finding, ...]] = {
     '["463558592", "422286126"]': (
         Finding(
             hacker_email="unittest@fluidattacks.com",
@@ -1020,7 +1019,7 @@ findings: Dict[str, Tuple[Finding, ...]] = {
 
 
 @pytest.fixture(scope="function")
-def findings_data() -> Dict[str, Tuple[Finding, ...]]:
+def findings_data() -> dict[str, tuple[Finding, ...]]:
     return findings
 
 

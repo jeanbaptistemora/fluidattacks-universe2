@@ -32,14 +32,11 @@ from decimal import (
 from groups import (
     domain as groups_domain,
 )
-from typing import (
-    Optional,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
-    group: str, loaders: Dataloaders, min_date: Optional[date] = None
+    group: str, loaders: Dataloaders, min_date: date | None = None
 ) -> Remediate:
     critical, high, medium, low = await collect(
         [
@@ -69,7 +66,7 @@ async def get_data_one_group(
 async def get_data_many_groups(
     groups: tuple[str, ...],
     loaders: Dataloaders,
-    min_date: Optional[date] = None,
+    min_date: date | None = None,
 ) -> Remediate:
     groups_data: tuple[Remediate, ...] = await collect(
         tuple(

@@ -24,6 +24,9 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -35,10 +38,6 @@ from findings.domain import (
 )
 from itertools import (
     groupby,
-)
-from typing import (
-    Counter,
-    Union,
 )
 
 
@@ -75,7 +74,7 @@ def format_data(counters: Counter[str]) -> tuple[dict, CsvData]:
         for title, open_age in counters.most_common()
         if open_age > 0
     ]
-    merged_data: list[list[Union[int, str]]] = []
+    merged_data: list[list[int | str]] = []
 
     for axis, columns in groupby(
         sorted(data, key=lambda x: get_finding_name([x[0]])),

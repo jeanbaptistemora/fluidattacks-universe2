@@ -5,9 +5,6 @@ from pathlib import (
     Path,
 )
 import pytest
-from typing import (
-    List,
-)
 
 
 @pytest.mark.parametrize(
@@ -23,7 +20,7 @@ from typing import (
         ],
     ],
 )
-def test_mail_preferences(expected: List[str]) -> None:
+def test_mail_preferences(expected: list[str]) -> None:
     entries = Path("back/src/mailer/email_templates")
     notifications = {
         entry.name.removesuffix(".html")

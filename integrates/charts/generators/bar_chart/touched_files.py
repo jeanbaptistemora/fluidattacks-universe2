@@ -22,6 +22,9 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -40,9 +43,6 @@ from newutils.datetime import (
     get_now_minus_delta,
 )
 import re
-from typing import (
-    Counter,
-)
 
 
 def format_where(where: str) -> str:

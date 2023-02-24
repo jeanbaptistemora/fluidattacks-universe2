@@ -1,4 +1,7 @@
 import asyncio
+from collections.abc import (
+    AsyncGenerator,
+)
 import logging
 import pytest
 from settings import (
@@ -6,7 +9,6 @@ from settings import (
 )
 from typing import (
     Any,
-    AsyncGenerator,
 )
 
 logging.config.dictConfig(LOGGING)

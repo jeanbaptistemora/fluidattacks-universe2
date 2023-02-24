@@ -9,12 +9,9 @@ from newutils import (
     cvss as cvss_utils,
     utils,
 )
-from typing import (
-    Dict,
-)
 
 
-def format_severity(severity: Dict[str, float]) -> Dict[str, Decimal]:
+def format_severity(severity: dict[str, float]) -> dict[str, Decimal]:
     return {
         utils.camelcase_to_snakecase(key): Decimal(value)
         for key, value in severity.items()
