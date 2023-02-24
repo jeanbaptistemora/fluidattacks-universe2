@@ -7,14 +7,21 @@ resource "cloudflare_zone_settings_override" "fluidattacks_com" {
   zone_id = cloudflare_zone.fluidattacks_com.id
 
   settings {
-    always_online               = "on"
-    always_use_https            = "on"
-    automatic_https_rewrites    = "on"
-    brotli                      = "on"
-    browser_cache_ttl           = 1800
-    browser_check               = "on"
-    cache_level                 = "aggressive"
-    challenge_ttl               = 1800
+    always_online            = "on"
+    always_use_https         = "on"
+    automatic_https_rewrites = "on"
+    brotli                   = "on"
+    browser_cache_ttl        = 1800
+    browser_check            = "on"
+    cache_level              = "aggressive"
+    challenge_ttl            = 1800
+    ciphers = [
+      "ECDHE-RSA-AES128-GCM-SHA256",
+      "ECDHE-RSA-CHACHA20-POLY1305",
+      "AES128-GCM-SHA256",
+      "ECDHE-RSA-AES256-GCM-SHA384",
+      "AES256-GCM-SHA384",
+    ]
     cname_flattening            = "flatten_at_root"
     development_mode            = "off"
     email_obfuscation           = "on"
