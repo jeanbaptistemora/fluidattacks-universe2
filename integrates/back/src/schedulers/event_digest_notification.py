@@ -9,7 +9,14 @@ from custom_exceptions import (
     UnableToSendMail,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from datetime import (
+    datetime,
+)
+from db_model.event_comments.types import (
+    EventComment,
 )
 from db_model.events.types import (
     Event,
@@ -41,6 +48,7 @@ from settings import (
 )
 from typing import (
     Any,
+    Iterable,
     TypedDict,
 )
 
@@ -60,17 +68,63 @@ class EventsDataType(TypedDict):
     org_name: str
     email_to: tuple[str, ...]
     events: tuple[Event, ...]
+    events_comments: dict[str, tuple[EventComment, ...]]
 
 
-def unique_emails(
-    events_data: dict[str, EventsDataType],
-    email_list: tuple[str, ...],
-) -> tuple[str, ...]:
-    if events_data:
-        email_list += events_data.popitem()[1]["email_to"]
-        return unique_emails(events_data, email_list)
+def filter_last_event_comments(
+    comments: Iterable[EventComment],
+) -> list[EventComment]:
+    return [
+        comment
+        for comment in comments
+        if is_last_day_comment(comment.creation_date)
+    ]
 
-    return tuple(set(email_list))
+
+def get_days_since_comment(date: datetime) -> int:
+    return (datetime_utils.get_utc_now() - date).days
+
+
+async def group_event_comments(
+    loaders: Dataloaders,
+    groups_events: Iterable[Event],
+) -> dict[str, tuple[EventComment, ...]]:
+    comments = await collect(
+        [
+            events_comments(loaders, event.id)
+            for event in groups_events
+            if event.id
+        ]
+    )
+
+    events_dic = dict(
+        zip(
+            [event.id for event in groups_events],
+            comments,
+        )
+    )
+
+    return {
+        event_id: event_comment
+        for event_id, event_comment in events_dic.items()
+        if event_comment
+    }
+
+
+async def events_comments(
+    loaders: Dataloaders, instance_id: str
+) -> tuple[EventComment, ...]:
+    return tuple(
+        filter_last_event_comments(
+            await loaders.event_comments.load(instance_id)
+        )
+    )
+
+
+def is_last_day_comment(creation_date: datetime) -> bool:
+    comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
+
+    return get_days_since_comment(creation_date) < comments_age
 
 
 async def send_events_digest() -> None:
@@ -108,6 +162,12 @@ async def send_events_digest() -> None:
             for group_name in groups_names
         ]
     )
+    groups_events_comments = await collect(
+        [
+            group_event_comments(loaders, group_events)
+            for group_events in groups_events
+        ]
+    )
     groups_data: dict[str, EventsDataType] = dict(
         zip(
             groups_names,
@@ -116,9 +176,13 @@ async def send_events_digest() -> None:
                     "org_name": org_name,
                     "email_to": tuple(email_to),
                     "events": tuple(event),
+                    "events_comments": event_comments,
                 }
-                for org_name, email_to, event in zip(
-                    groups_org_names, groups_stakeholders_email, groups_events
+                for org_name, email_to, event, event_comments in zip(
+                    groups_org_names,
+                    groups_stakeholders_email,
+                    groups_events,
+                    groups_events_comments,
                 )
             ],
         )
@@ -134,6 +198,7 @@ async def send_events_digest() -> None:
                 group_name: {
                     "org_name": data["org_name"],
                     "open_events": data["events"],
+                    "events_comments": data["events_comments"],
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
@@ -161,6 +226,17 @@ async def send_events_digest() -> None:
             )
             continue
     LOGGER.info("Events digest report execution finished.")
+
+
+def unique_emails(
+    events_data: dict[str, EventsDataType],
+    email_list: tuple[str, ...],
+) -> tuple[str, ...]:
+    if events_data:
+        email_list += events_data.popitem()[1]["email_to"]
+        return unique_emails(events_data, email_list)
+
+    return tuple(set(email_list))
 
 
 async def main() -> None:
