@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ButtonToolbarCenter, Col100, Col33 } from "styles/styledComponents";
+import { ButtonToolbarCenter } from "styles/styledComponents";
 
 interface IFileOptionsModalProps {
   canRemove: boolean;
@@ -53,17 +53,17 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
             return (
               <React.Fragment>
                 <Row>
-                  <Col100>
+                  <Col>
                     <label>
                       {t("searchFindings.tabResources.modalOptionsContent")}
                       <b>{fileName}</b>
                       {"?"}
                     </label>
-                  </Col100>
+                  </Col>
                   <ButtonToolbarCenter>
                     <br />
                     {canRemove ? (
-                      <Col33>
+                      <Col>
                         <Button
                           onClick={onConfirmDelete(confirm)}
                           variant={"secondary"}
@@ -72,15 +72,15 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
                           &nbsp;
                           {t("searchFindings.tabResources.removeRepository")}
                         </Button>
-                      </Col33>
+                      </Col>
                     ) : undefined}
-                    <Col33>
+                    <Col>
                       <Button onClick={onDownload} variant={"secondary"}>
                         <FontAwesomeIcon icon={faDownload} />
                         &nbsp;
                         {t("searchFindings.tabResources.download")}
                       </Button>
-                    </Col33>
+                    </Col>
                   </ButtonToolbarCenter>
                 </Row>
                 <ModalConfirm onCancel={onClose} />
