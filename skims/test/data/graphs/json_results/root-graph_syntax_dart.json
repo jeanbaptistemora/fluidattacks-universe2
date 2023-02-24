@@ -18737,9 +18737,6 @@
             }
           },
           "139": {
-            "141": {
-              "label_ast": "AST"
-            },
             "143": {
               "label_ast": "AST"
             }
@@ -18940,9 +18937,6 @@
             }
           },
           "154": {
-            "156": {
-              "label_ast": "AST"
-            },
             "158": {
               "label_ast": "AST"
             }
@@ -21086,9 +21080,9 @@
             "selector_name": "writeAsString"
           },
           "139": {
+            "argument_name": "seconds",
             "label_type": "NamedArgument",
-            "value_id": "143",
-            "variable_id": "141"
+            "value_id": "143"
           },
           "1390": {
             "label_type": "ArgumentList"
@@ -21107,10 +21101,6 @@
           "1407": {
             "label_type": "SymbolLookup",
             "symbol": "print"
-          },
-          "141": {
-            "label_type": "SymbolLookup",
-            "symbol": "seconds"
           },
           "1410": {
             "label_type": "ArgumentList"
@@ -21257,9 +21247,9 @@
             "value": "null"
           },
           "154": {
+            "argument_name": "seconds",
             "label_type": "NamedArgument",
-            "value_id": "158",
-            "variable_id": "156"
+            "value_id": "158"
           },
           "1541": {
             "label_type": "ExecutionBlock"
@@ -21287,10 +21277,6 @@
             "label_type": "VariableDeclaration",
             "value_id": "1561",
             "variable": "list"
-          },
-          "156": {
-            "label_type": "SymbolLookup",
-            "symbol": "seconds"
           },
           "1561": {
             "label_type": "Literal",

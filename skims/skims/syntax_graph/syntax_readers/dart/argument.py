@@ -18,6 +18,9 @@ from utils.graph import (
     adj_ast,
     match_ast_d,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
@@ -29,7 +32,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if other_childs and (label_id := match_ast_d(graph, args.n_id, "label")):
         var_id = adj_ast(graph, label_id)[0]
-        return build_named_argument_node(args, var_id, other_childs[0])
+        arg_name = node_to_str(graph, var_id)
+        return build_named_argument_node(args, arg_name, other_childs[0])
 
     if valid_childs := [
         _id

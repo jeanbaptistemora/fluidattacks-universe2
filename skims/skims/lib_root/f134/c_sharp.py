@@ -93,15 +93,13 @@ def is_vulnerable_enable_attribute(graph: Graph, n_id: NId, name: str) -> bool:
     al_list = g.adj_ast(graph, al_id)
 
     for arg in al_list:
-        node = graph.nodes[arg]
+        n_attrs = graph.nodes[arg]
         if (
-            node["label_type"] == "NamedArgument"
-            and (var := graph.nodes[node["variable_id"]].get("symbol"))
-            and var.lower() == "origins"
+            n_attrs["label_type"] == "NamedArgument"
+            and n_attrs["argument_name"].lower() == "origins"
+            and get_eval_danger(graph, n_attrs["value_id"])
         ):
-            test_node = node["value_id"]
-            if get_eval_danger(graph, test_node):
-                return True
+            return True
 
     return False
 

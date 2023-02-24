@@ -19,6 +19,9 @@ from typing import (
 from utils.graph import (
     adj_ast,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
@@ -30,6 +33,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     identifier_id = n_attrs.get("label_field_name")
     if identifier_id:
-        return build_named_argument_node(args, identifier_id, value_id)
+        arg_name = node_to_str(graph, identifier_id)
+        return build_named_argument_node(args, arg_name, value_id)
 
     return build_argument_node(args, cast(Iterator[str], [value_id]))
