@@ -516,7 +516,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     (handleCloseModal: () => void, areAllMutationValid: boolean[]): void => {
       if (areAllMutationValid.every(Boolean)) {
         msgSuccess(
-          t("searchFindings.findingsDeleted"),
+          t("group.findings.deleteModal.alerts.vulnerabilitiesDeleted"),
           t("group.drafts.titleSuccess")
         );
         void refetch();
@@ -598,22 +598,22 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               </Can>
               <Can do={"api_mutations_remove_finding_mutate"}>
                 <Tooltip
-                  id={"searchFindings.delete.btn.tooltip"}
-                  tip={t("searchFindings.delete.btn.tooltip")}
+                  id={"group.findings.buttons.delete.tooltip"}
+                  tip={t("group.findings.buttons.delete.tooltip")}
                 >
                   <Button
                     disabled={selectedFindings.length === 0 || deleting}
                     icon={faTrashAlt}
                     onClick={openDeleteModal}
                   >
-                    {t("searchFindings.delete.btn.text")}
+                    {t("group.findings.buttons.delete.text")}
                   </Button>
                 </Tooltip>
               </Can>
               <Can I={"api_resolvers_query_report__get_url_group_report"}>
                 <Tooltip
-                  id={"group.findings.report.btn.tooltip.id"}
-                  tip={t("group.findings.report.btn.tooltip")}
+                  id={"group.findings.buttons.report.tooltip.id"}
+                  tip={t("group.findings.buttons.report.tooltip")}
                 >
                   <Button
                     icon={faArrowRight}
@@ -622,7 +622,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                     onClick={openReportsModal}
                     variant={"primary"}
                   >
-                    {t("group.findings.report.btn.text")}
+                    {t("group.findings.buttons.report.text")}
                   </Button>
                 </Tooltip>
               </Can>
@@ -661,18 +661,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeDeleteModal}
         open={isDeleteModalOpen}
-        title={t("searchFindings.delete.title")}
+        title={t("group.findings.deleteModal.title")}
       >
         <Formik
           enableReinitialize={true}
           initialValues={{}}
-          name={"removeFinding"}
+          name={"removeVulnerability"}
           onSubmit={handleDelete}
         >
-          <Form id={"removeFinding"}>
+          <Form id={"removeVulnerability"}>
             <FormGroup>
               <ControlLabel>
-                {t("searchFindings.delete.justif.label")}
+                {t("group.findings.deleteModal.justification.label")}
               </ControlLabel>
               <Select
                 name={"justification"}
@@ -680,13 +680,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               >
                 <option value={""} />
                 <option value={"DUPLICATED"}>
-                  {t("searchFindings.delete.justif.duplicated")}
+                  {t("group.findings.deleteModal.justification.duplicated")}
                 </option>
                 <option value={"FALSE_POSITIVE"}>
-                  {t("searchFindings.delete.justif.falsePositive")}
+                  {t("group.findings.deleteModal.justification.falsePositive")}
                 </option>
                 <option value={"NOT_REQUIRED"}>
-                  {t("searchFindings.delete.justif.notRequired")}
+                  {t("group.findings.deleteModal.justification.notRequired")}
                 </option>
               </Select>
             </FormGroup>

@@ -693,8 +693,29 @@ export const enTranslations: ResourceKey = {
           text: "Add",
           tooltip: "Add vulnerability",
         },
+        delete: {
+          text: "Delete",
+          tooltip: "Delete all about this vulnerability",
+        },
+        report: {
+          text: "Generate report",
+          tooltip:
+            "Generate a report of vulnerabilities and send it to your email",
+        },
       },
       closingPercentage: "Remediation %",
+      deleteModal: {
+        alerts: {
+          vulnerabilitiesDeleted: "Vulnerabilities were deleted",
+        },
+        justification: {
+          duplicated: "It is duplicated",
+          falsePositive: "It is a false positive",
+          label: "Justification",
+          notRequired: "Vulnerability not required",
+        },
+        title: "Delete Vulnerability",
+      },
       description: {
         exploitable: "Exploitable:",
         firstSeen: "First seen:",
@@ -710,6 +731,7 @@ export const enTranslations: ResourceKey = {
         value_plural: "{{count}} days ago",
         verified: "Verified:",
       },
+
       evidence: {
         edit: "Edit",
         noData: "There are no evidences",
@@ -763,10 +785,6 @@ export const enTranslations: ResourceKey = {
         alerts: {
           invalidVerificationCode: "The verification code is invalid",
           nonVerifiedStakeholder: "Try again in a few minutes",
-        },
-        btn: {
-          text: "Generate report",
-          tooltip: "Generate a report of findings and send it to your email",
         },
         cert: "  Certificate",
         certTooltip:
