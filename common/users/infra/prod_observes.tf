@@ -366,7 +366,7 @@ locals {
 }
 
 module "prod_observes" {
-  source = "./modules/aws2"
+  source = "./modules/aws"
 
   name     = "prod_observes"
   policies = local.prod_observes.policies.aws
@@ -391,7 +391,7 @@ module "prod_observes" {
 }
 
 module "observes_redshift_aws" {
-  source = "./modules/aws2"
+  source = "./modules/aws"
 
   name     = "observes_redshift_cluster"
   policies = local.observes_redshift_cluster.policies.aws
