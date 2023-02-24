@@ -90,9 +90,10 @@ import { composeValidators, required } from "utils/validations";
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const { setOpenVulnerabilities }: IVulnerabilitiesContext = useContext(
-    vulnerabilitiesContext
-  );
+  const {
+    openVulnerabilities,
+    setOpenVulnerabilities,
+  }: IVulnerabilitiesContext = useContext(vulnerabilitiesContext);
   const { push } = useHistory();
   const { url } = useRouteMatch();
   const { t } = useTranslation();
@@ -320,15 +321,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   useEffect((): void => {
     if (!_.isUndefined(data) && !_.isUndefined(setOpenVulnerabilities)) {
-      setOpenVulnerabilities(
-        data.group.findings.reduce(
-          (previousValue: number, find: IFindingAttr): number =>
-            previousValue + find.openVulnerabilities,
-          0
-        )
+      const newValue = data.group.findings.reduce(
+        (previousValue: number, find: IFindingAttr): number =>
+          previousValue + find.openVulnerabilities,
+        0
       );
+      if (openVulnerabilities !== newValue) {
+        setOpenVulnerabilities(newValue);
+      }
     }
-  }, [data, setOpenVulnerabilities]);
+  }, [data, openVulnerabilities, setOpenVulnerabilities]);
 
   useEffect((): void => {
     if (!_.isUndefined(vulnData)) {
@@ -584,8 +586,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   );
 
   const handleDelete = useCallback(
-    (values: Record<string, unknown>): void => {
-      void handleRemoveFinding(values.justification);
+    async (values: Record<string, unknown>): Promise<void> => {
+      await handleRemoveFinding(values.justification);
     },
     [handleRemoveFinding]
   );

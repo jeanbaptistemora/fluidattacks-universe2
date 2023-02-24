@@ -117,14 +117,17 @@ const GET_ROOTS: DocumentNode = gql`
       name
       roots {
         ... on GitRoot {
+          id
           nickname
           state
         }
         ... on IPRoot {
+          id
           nickname
           state
         }
         ... on URLRoot {
+          id
           nickname
           state
         }

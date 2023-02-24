@@ -121,14 +121,16 @@ const GroupContent: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
-  const events = useMemo(
-    (): IGetEventStatus["group"]["events"] =>
-      data === undefined ? [] : data.group.events,
+  const hasOpenEvents = useMemo(
+    (): boolean =>
+      data === undefined
+        ? false
+        : data.group.events.some(
+            (event): boolean => event.eventStatus === "CREATED"
+          ),
     [data]
   );
-  const hasOpenEvents = events.some(
-    (event): boolean => event.eventStatus === "CREATED"
-  );
+
   const vulnValue = useMemo(
     (): IVulnerabilitiesContext => ({
       openVulnerabilities,
