@@ -107,6 +107,16 @@ def get_repositories_log(dir_: str, repos_paths: ndarray) -> None:
         repo: str = os.path.basename(repo_path)
         try:
             git_repo: Git = Git(repo_path)
+            Git().execute(
+                [
+                    "git",
+                    "config",
+                    "--global",
+                    "--add",
+                    "safe.directory",
+                    str(repo_path),
+                ]
+            )
             git_log: str = git_repo.log(
                 "--no-merges", "--numstat", "--pretty=%n%H,%ae,%aI%n"
             ).replace("\n\n\n", "\n")
