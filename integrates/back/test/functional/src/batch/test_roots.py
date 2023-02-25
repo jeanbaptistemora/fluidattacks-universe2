@@ -48,17 +48,19 @@ async def test_queue_sync_git_roots_real_ssh_ok(
     root_1 = await loaders.root.load(
         RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),  # type: ignore
+        roots=(root_1,),
         group_name="group1",
     )
-    assert result.success  # type: ignore
+    assert result
+    assert result.success
     # restore db state
-    if result.dynamo_pk:  # type: ignore
-        await delete_action(dynamodb_pk=result.dynamo_pk)  # type: ignore
+    if result.dynamo_pk:
+        await delete_action(dynamodb_pk=result.dynamo_pk)
 
 
 @pytest.mark.asyncio
@@ -71,17 +73,19 @@ async def test_queue_sync_git_roots_real_https_ok(
     root_1 = await loaders.root.load(
         RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),  # type: ignore
+        roots=(root_1,),
         group_name="group1",
     )
-    assert result.success  # type: ignore
+    assert result
+    assert result.success
     # restore db state
-    if result.dynamo_pk:  # type: ignore
-        await delete_action(dynamodb_pk=result.dynamo_pk)  # type: ignore
+    if result.dynamo_pk:
+        await delete_action(dynamodb_pk=result.dynamo_pk)
 
 
 @pytest.mark.asyncio
@@ -103,11 +107,12 @@ async def test_queue_sync_git_roots_real_https_same_commit(
     root_1 = await loaders.root.load(
         RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),  # type: ignore
+        roots=(root_1,),
         group_name="group1",
     )
     assert result is None
@@ -132,11 +137,12 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
     root_1 = await loaders.root.load(
         RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         user_email=generic_data["global_vars"]["admin_email"],
-        roots=(root_1,),  # type: ignore
+        roots=(root_1,),
         group_name="group1",
     )
     assert result is None
@@ -172,12 +178,13 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     root_1 = await loaders.root.load(
         RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
+    assert isinstance(root_1, GitRoot)
 
     with pytest.raises(RootAlreadyCloning):
         await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
-            roots=(root_1,),  # type: ignore
+            roots=(root_1,),
             group_name="group1",
         )
 
@@ -191,13 +198,14 @@ async def test_queue_sync_git_roots_no_creds(
     root_1 = await loaders.root.load(
         RootRequest("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
+    assert isinstance(root_1, GitRoot)
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     with pytest.raises(CredentialNotFound):
         await roots_domain.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
-            roots=(root_1,),  # type: ignore
+            roots=(root_1,),
             group_name="group1",
         )
 
@@ -210,12 +218,10 @@ async def test_queue_sync_git_no_queue(
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     loaders = get_new_context()
-    root_1 = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
-        ),
+    root_1 = await loaders.root.load(
+        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
@@ -225,12 +231,10 @@ async def test_queue_sync_git_no_queue(
     )
     assert not result
     loaders.root.clear_all()
-    root = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
-        ),
+    root = await loaders.root.load(
+        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
+    assert isinstance(root, GitRoot)
     assert root.cloning.status == GitCloningStatus.FAILED
 
 
@@ -246,12 +250,10 @@ async def test_queue_sync_git_roots_cloning(
         return_value="904d294729ad03fd2dadbb89b920389458e53a61c",
     )
     loaders = get_new_context()
-    root_1 = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
-        ),
+    root_1 = await loaders.root.load(
+        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
@@ -261,12 +263,10 @@ async def test_queue_sync_git_roots_cloning(
     )
     assert result
     loaders.root.clear_all()
-    root = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
-        ),
+    root = await loaders.root.load(
+        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
+    assert isinstance(root, GitRoot)
     assert root.cloning.status == GitCloningStatus.QUEUED
 
 
@@ -287,12 +287,10 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     )
 
     loaders = get_new_context()
-    root_1 = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
-        ),
+    root_1 = await loaders.root.load(
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
@@ -302,12 +300,10 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     )
     assert not result
     loaders.root.clear_all()
-    root = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
-        ),
+    root = await loaders.root.load(
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
+    assert isinstance(root, GitRoot)
     assert root.cloning.status == GitCloningStatus.FAILED
 
 
@@ -328,12 +324,10 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     )
 
     loaders = get_new_context()
-    root_1 = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
-        ),
+    root_1 = await loaders.root.load(
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
+    assert isinstance(root_1, GitRoot)
 
     result = await roots_domain.queue_sync_git_roots(
         loaders=loaders,
@@ -343,12 +337,10 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     )
     assert result
     loaders.root.clear_all()
-    root = cast(
-        GitRoot,
-        await loaders.root.load(
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
-        ),
+    root = await loaders.root.load(
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
+    assert isinstance(root, GitRoot)
     assert root.cloning.status == GitCloningStatus.QUEUED
 
 

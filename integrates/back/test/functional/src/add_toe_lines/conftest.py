@@ -9,6 +9,7 @@ from db_model.enums import (
     GitCloningStatus,
 )
 from db_model.roots.enums import (
+    RootStatus,
     RootType,
 )
 from db_model.roots.types import (
@@ -31,7 +32,6 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
-    test_status = "ACTIVE"
     data: dict[str, Any] = {
         "roots": [
             {
@@ -62,7 +62,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="git_1",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=RootStatus.ACTIVE,
                         url="https://gitlab.com/fluidattacks/universe",
                     ),
                     type=RootType.GIT,
@@ -87,7 +87,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="ip_1",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=RootStatus.ACTIVE,
                     ),
                     type=RootType.IP,
                 ),
@@ -114,7 +114,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=RootStatus.ACTIVE,
                     ),
                     type=RootType.URL,
                 ),

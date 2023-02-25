@@ -6,6 +6,7 @@ from datetime import (
     datetime,
 )
 from db_model.roots.enums import (
+    RootStatus,
     RootType,
 )
 from db_model.roots.types import (
@@ -23,7 +24,6 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
-    test_status = "ACTIVE"
     data: dict[str, Any] = {
         "roots": [
             {
@@ -44,7 +44,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="test_ip_1",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=RootStatus.ACTIVE,
                     ),
                     type=RootType.IP,
                 ),

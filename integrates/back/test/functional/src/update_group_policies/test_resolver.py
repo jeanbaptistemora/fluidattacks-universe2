@@ -44,13 +44,13 @@ async def test_update_group_policies(populate: bool, email: str) -> None:
 
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
-    pol = group.policies
-    assert pol.max_acceptance_days == 30  # type: ignore
-    assert pol.max_acceptance_severity == Decimal("6.9")  # type: ignore
-    assert pol.max_number_acceptances == 2  # type: ignore
-    assert pol.min_acceptance_severity == Decimal("0.0")  # type: ignore
-    assert pol.min_breaking_severity == Decimal("7.0")  # type: ignore
-    assert pol.vulnerability_grace_period == 61  # type: ignore
+    assert group.policies
+    assert group.policies.max_acceptance_days == 30
+    assert group.policies.max_acceptance_severity == Decimal("6.9")
+    assert group.policies.max_number_acceptances == 2
+    assert group.policies.min_acceptance_severity == Decimal("0.0")
+    assert group.policies.min_breaking_severity == Decimal("7.0")
+    assert group.policies.vulnerability_grace_period == 61
 
 
 @pytest.mark.asyncio
