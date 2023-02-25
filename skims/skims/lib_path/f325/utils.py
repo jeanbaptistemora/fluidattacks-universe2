@@ -194,7 +194,8 @@ def cfn_iam_is_policy_actions_wildcard(
 
 def _yield_nodes_from_stmt(stmt: Any, method: MethodsEnum) -> Iterator[Node]:
     if (
-        hasattr(stmt.inner, "get")
+        hasattr(stmt, "inner")
+        and hasattr(stmt.inner, "get")
         and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
         and (actions := stmt.inner.get("Action"))
     ):

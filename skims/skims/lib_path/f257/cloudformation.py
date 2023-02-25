@@ -46,6 +46,7 @@ def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
             )
             if (
                 dis_api_term
+                and hasattr(dis_api_term, "raw")
                 and not isinstance(dis_api_term.raw, dict)
                 and dis_api_term.raw in FALSE_OPTIONS
             ):
