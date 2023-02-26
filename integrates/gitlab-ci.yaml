@@ -5051,6 +5051,32 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/web/testrigor:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs:
+    - /integrates/back/deploy/dev
+    - /integrates/front/deploy/dev
+  rules:
+    - if: ($CI_COMMIT_BRANCH != "cbetancuratfluid")
+      when: never
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/web/testrigor
+  stage: post-deploy
+  tags:
+    - integrates-small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/analytics:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

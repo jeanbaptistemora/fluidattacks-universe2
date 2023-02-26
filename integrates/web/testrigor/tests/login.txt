@@ -1,0 +1,6 @@
+check that page contains "Continue with Google"
+check that page contains "Continue with Microsoft"
+check that page contains "Continue with Bitbucket"
+press "Continue with Google"
+check that page contains "Sign in"
+
