@@ -20,6 +20,7 @@ function main {
     && sops_export_vars __argSecretsFile__ "TEST_FORCES_TOKEN" \
     && DAEMON=true integrates-db \
     && DAEMON=true integrates-back dev \
+    && sleep 40 \
     && echo "[INFO] Running forces tests..." \
     && pushd integrates/forces/ \
     && source __argForcesRuntime__/template \

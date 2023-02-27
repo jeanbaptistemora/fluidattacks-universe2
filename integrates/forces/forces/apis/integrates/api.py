@@ -83,27 +83,28 @@ async def get_findings(group: str, **kwargs: str) -> set[str]:
 
 @SHIELD
 async def get_vulnerabilities(
-    config: ForcesConfig, finding_id: str, **kwargs: str
+    config: ForcesConfig, **kwargs: str
 ) -> list[dict[str, str | list[dict[str, dict[str, object]]]]]:
     """
-    Returns the vulnerabilities of a finding.
+    Returns the vulnerabilities of a group.
 
-    :param `finding_id`: Finding identifier.
+    :param `config`: Forces config.
     """
     vulnerabilities: list[dict[str, Any]] = []
     query = """
-        query ForcesDoGetFindingVulnerabilities(
+        query ForcesDoGetVulnerabilities(
+            $group_name: String!
             $after: String
-            $finding_id: String!
             $first: Int
-            $state: VulnerabilityState
+            $brk_severity: String
+            $state: String
         ) {
-            finding(identifier: $finding_id) {
-                id
-                vulnerabilitiesConnection(
-                    after: $after,
-                    first: $first,
-                    state: $state,
+            group(groupName: $group_name) {
+                vulnerabilities(
+                    after: $after
+                    first: $first
+                    minSeverity: $brk_severity
+                    stateStatus: $state
                 ) {
                     edges {
                         node {
@@ -127,20 +128,24 @@ async def get_vulnerabilities(
             }
         }
     """
-    state_query = "VULNERABLE" if config.verbose_level <= 2 else None
+    query_parameters = dict(
+        group_name=config.group,
+        state="VULNERABLE" if config.verbose_level <= 2 else None,
+        brk_severity=str(config.breaking_severity)
+        if config.verbose_level == 1
+        else None,
+    )
     response: dict = await execute(
         query=query,
-        operation_name="ForcesDoGetFindingVulnerabilities",
-        variables=dict(finding_id=finding_id, state=state_query),
+        operation_name="ForcesDoGetVulnerabilities",
+        variables=query_parameters,
         default={},
         **kwargs,
     )
     while True:
         has_next_page = False
         if response:
-            vulnerabilities_connection = response["finding"][
-                "vulnerabilitiesConnection"
-            ]
+            vulnerabilities_connection = response["group"]["vulnerabilities"]
             vulnerability_page_info = vulnerabilities_connection["pageInfo"]
             vulnerability_edges = vulnerabilities_connection["edges"]
             has_next_page = vulnerability_page_info["hasNextPage"]
@@ -154,8 +159,8 @@ async def get_vulnerabilities(
 
         response = await execute(
             query=query,
-            operation_name="ForcesDoGetFindingVulnerabilities",
-            variables=dict(finding_id=finding_id, after=end_cursor),
+            operation_name="ForcesDoGetVulnerabilities",
+            variables=dict(**query_parameters, after=end_cursor),
             default={},
             **kwargs,
         )
@@ -213,10 +218,7 @@ async def vulns_generator(
 
     :param `group`: Group Name.
     """
-    findings: set[str] = await get_findings(config.group, **kwargs)
-    vulns_futures = [
-        get_vulnerabilities(config, fin, **kwargs) for fin in findings
-    ]
+    vulns_futures = [get_vulnerabilities(config, **kwargs)]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
             # Exception: WF(AsyncGenerator is subtype of iterator)

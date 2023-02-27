@@ -32,13 +32,11 @@ async def test_get_finding(test_token: str, test_finding: str) -> None:
 
 @pytest.mark.asyncio
 async def test_get_vulnerabilities(
-    test_token: str, test_config: ForcesConfig, test_finding: str
+    test_token: str, test_config: ForcesConfig
 ) -> None:
-    result = await get_vulnerabilities(
-        test_config, test_finding, api_token=test_token
-    )
-    assert len(result) == 28
-    assert "192.168.100.109" in result[0]["where"]
+    result = await get_vulnerabilities(test_config, api_token=test_token)
+    assert len(result) == 36
+    assert "192.168.100.103" in result[0]["where"]
 
 
 @pytest.mark.asyncio
