@@ -51,6 +51,9 @@ in this section
 you will find comments referencing your requests for [reattacks](/squad/reattacks)
 and the results of those reattacks.
 
+> **Note:** Consulting in the vulnerability view is available
+> for users with **Plan Machine** in view mode.
+
 ## Concerning events
 
 Finally,
