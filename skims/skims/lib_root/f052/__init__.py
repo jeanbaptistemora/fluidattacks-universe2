@@ -44,6 +44,9 @@ from lib_root.f052.kotlin import (
     kotlin_insecure_key_ec,
     kotlin_insecure_key_rsa,
 )
+from lib_root.f052.swift import (
+    swift_insecure_cipher,
+)
 from lib_root.f052.typescript import (
     ts_insecure_create_cipher,
     ts_insecure_encrypt,
@@ -109,4 +112,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, typescript_insec_msg_auth_mechanism),
     (FINDING, javascript_jwt_insec_sign_algo_async),
     (FINDING, typescript_jwt_insec_sign_algo_async),
+    (FINDING, swift_insecure_cipher),
 )

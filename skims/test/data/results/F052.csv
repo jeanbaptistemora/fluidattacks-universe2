@@ -1902,6 +1902,78 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,41
   51 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,"
+   1 | import CommonCrypto
+   2 | import IDZSwiftCommonCrypto
+   3 | import CryptoSwift
+   4 |
+   5 | import Crypto
+   6 |
+   7 |
+   8 | let algorithm = CCAlgorithm(kCCAlgorithmDES) // Noncompliant: 64 bits block size
+   9 |
+> 10 | let algorithm = .des // Noncompliant: 64 bits block size
+  11 |
+  12 | let blowfish = try Blowfish(key: key, blockMode: GCM(iv: iv, mode: .combined), padding: .pkcs7)
+  13 |  // Noncompliant: 64 bits block size
+  14 |
+  15 |
+  16 |
+  17 |
+  18 |
+  19 | let sealedBox = try AES.GCM.seal(input, using: key) // Compliant
+  20 |
+  21 | let algorithm = CCAlgorithm(kCCAlgorithmAES) // Compliant
+     ^ Col 0
+",swift.swift_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,"
+   1 | import CommonCrypto
+   2 | import IDZSwiftCommonCrypto
+   3 | import CryptoSwift
+   4 |
+   5 | import Crypto
+   6 |
+   7 |
+>  8 | let algorithm = CCAlgorithm(kCCAlgorithmDES) // Noncompliant: 64 bits block size
+   9 |
+  10 | let algorithm = .des // Noncompliant: 64 bits block size
+  11 |
+  12 | let blowfish = try Blowfish(key: key, blockMode: GCM(iv: iv, mode: .combined), padding: .pkcs7)
+  13 |  // Noncompliant: 64 bits block size
+  14 |
+  15 |
+  16 |
+  17 |
+  18 |
+  19 | let sealedBox = try AES.GCM.seal(input, using: key) // Compliant
+  20 |
+  21 | let algorithm = CCAlgorithm(kCCAlgorithmAES) // Compliant
+     ^ Col 0
+",swift.swift_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,"
+   2 | import IDZSwiftCommonCrypto
+   3 | import CryptoSwift
+   4 |
+   5 | import Crypto
+   6 |
+   7 |
+   8 | let algorithm = CCAlgorithm(kCCAlgorithmDES) // Noncompliant: 64 bits block size
+   9 |
+  10 | let algorithm = .des // Noncompliant: 64 bits block size
+  11 |
+> 12 | let blowfish = try Blowfish(key: key, blockMode: GCM(iv: iv, mode: .combined), padding: .pkcs7)
+  13 |  // Noncompliant: 64 bits block size
+  14 |
+  15 |
+  16 |
+  17 |
+  18 |
+  19 | let sealedBox = try AES.GCM.seal(input, using: key) // Compliant
+  20 |
+  21 | let algorithm = CCAlgorithm(kCCAlgorithmAES) // Compliant
+  22 |
+     ^ Col 0
+",swift.swift_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,"
    1 | import crypto from 'crypto';
    2 |
