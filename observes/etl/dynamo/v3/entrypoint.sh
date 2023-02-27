@@ -76,7 +76,7 @@ function dynamodb_etl {
       --schema-name "${schema}" \
       --bucket 'observes.etl-data' \
       --prefix 'test_dynamo/' \
-      --role 'arn:aws:iam::205810638802:role/redshift-role' \
+      --role 'arn:aws:iam::205810638802:role/observes_redshift_cluster' \
       < "${singer_file}"
 }
 

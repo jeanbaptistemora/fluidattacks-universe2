@@ -35,7 +35,7 @@ function dynamodb_etl {
       --schema-name "dynamodb_integrates_vms_part_${segment}" \
       --bucket 'observes.etl-data' \
       --prefix "dynamodb/part_${segment}/" \
-      --role 'arn:aws:iam::205810638802:role/redshift-role' \
+      --role 'arn:aws:iam::205810638802:role/observes_redshift_cluster' \
       < .singer \
     && rm .singer
 }
