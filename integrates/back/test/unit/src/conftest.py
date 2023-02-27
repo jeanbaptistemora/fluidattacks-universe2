@@ -1,14 +1,11 @@
 import asyncio
 from collections.abc import (
-    AsyncGenerator,
+    Generator,
 )
 import logging
 import pytest
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -21,10 +18,9 @@ def disable_logging() -> None:
 
 
 @pytest.yield_fixture(scope="session")
-def event_loop() -> AsyncGenerator[Any, None]:  # type: ignore
+def event_loop() -> Generator:
     loop = asyncio.get_event_loop_policy().new_event_loop()
-    # Exception: WF(AsyncGenerator is subtype of iterator)
-    yield loop  # NOSONAR
+    yield loop
     loop.close()
 
 

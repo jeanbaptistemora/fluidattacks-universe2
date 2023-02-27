@@ -76,11 +76,8 @@ async def test_update_group_indicators() -> None:
     assert test_data.treatment_summary == GroupTreatmentSummary(
         accepted=2, accepted_undefined=1, in_progress=1, untreated=25
     )
-
-    over_time = [
-        element[-12:]
-        for element in test_data.remediated_over_time  # type: ignore
-    ]
+    assert test_data.remediated_over_time
+    over_time = [element[-12:] for element in test_data.remediated_over_time]
     found = over_time[0][-1]["y"]
     closed = over_time[1][-1]["y"]
     accepted = over_time[2][-1]["y"]

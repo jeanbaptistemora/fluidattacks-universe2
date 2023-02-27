@@ -239,15 +239,17 @@ async def test_get_document_link(
 
 
 @pytest.mark.parametrize(
-    ["file_name"],
+    ["file_name", "content_type"],
     [
-        ["billing-test-file.png"],
-        ["unittesting-test-file.csv"],
+        ["billing-test-file.png", "image/png"],
+        ["unittesting-test-file.csv", "text/csv"],
     ],
 )
 @patch(MODULE_AT_TEST + "s3_ops.upload_memory_file", new_callable=AsyncMock)
 async def test_save_file(
-    mock_s3_ops_upload_memory_file: AsyncMock, file_name: str
+    mock_s3_ops_upload_memory_file: AsyncMock,
+    file_name: str,
+    content_type: str,
 ) -> None:
     assert set_mocks_return_values(
         mocks_args=[[file_name]],
@@ -259,7 +261,7 @@ async def test_save_file(
     file_location = os.path.dirname(os.path.abspath(__file__))
     file_location = os.path.join(file_location, "mock/resources/" + file_name)
     with open(file_location, "rb") as data:
-        test_file = UploadFile(data)  # type: ignore
+        test_file = UploadFile(data.name, data, content_type)
         await save_file(test_file, file_name)
     mock_s3_ops_upload_memory_file.assert_called_with(
         test_file, f"resources/{file_name}"
