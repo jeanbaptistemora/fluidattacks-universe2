@@ -29,7 +29,7 @@ from typing import (
 
 
 @enforce_group_level_auth_async
-async def _get_draft(finding: Finding, **_kwargs: Any) -> Finding:
+def _get_draft(finding: Finding, **_kwargs: Any) -> Finding:
     return finding
 
 
@@ -47,6 +47,6 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     finding = await findings_domain.get_finding(loaders, finding_id)
     if finding.approval is None:
-        return await _get_draft(finding, info=info)
+        return await _get_draft(finding, info=info)  # type: ignore
 
     return finding
