@@ -1,3 +1,6 @@
+from collections import (
+    Iterator,
+)
 from contextlib import (
     contextmanager,
 )
@@ -12,9 +15,6 @@ from gql.transport.transport import (
 )
 from sorts.constants import (
     CTX,
-)
-from typing import (
-    Iterator,
 )
 
 
