@@ -335,10 +335,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const { trial } = data.me;
 
   if (hasPersonalEmail) {
+    mixpanel.track("AutoenrollCorporateOnly");
+
     return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
 
   if (trial) {
+    mixpanel.track("AutoenrollAlreadyInTrial");
+
     return <Announce message={t("autoenrollment.alreadyInTrial")} />;
   }
 

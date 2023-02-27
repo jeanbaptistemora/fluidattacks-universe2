@@ -1,6 +1,4 @@
 import { Form, Formik } from "formik";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";

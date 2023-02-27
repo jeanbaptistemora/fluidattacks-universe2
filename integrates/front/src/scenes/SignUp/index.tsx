@@ -29,6 +29,7 @@ export const SignUp: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   useEffect((): void => {
+    mixpanel.track("SignUp");
     if (hash.pathname === "/SignUp") {
       sessionStorage.setItem("trial", "true");
     } else {

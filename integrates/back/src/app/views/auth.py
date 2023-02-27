@@ -234,6 +234,7 @@ async def complete_register(
             ),
         )
     )
+    await analytics.mixpanel_track(email, "Register")
 
 
 async def handle_user(
@@ -254,7 +255,6 @@ async def autoenroll_stakeholder(
     first_name: str,
     last_name: str,
 ) -> None:
-    await analytics.mixpanel_track(email, "Register")
     await orgs_domain.add_without_group(
         email=email,
         role="user",
@@ -275,7 +275,6 @@ async def invited_stakeholder(
     first_name: str,
     last_name: str,
 ) -> None:
-    await analytics.mixpanel_track(email, "Register")
     orgs_access = await loaders.stakeholder_organizations_access.load(email)
     groups_access = await loaders.stakeholder_groups_access.load(email)
     roles = []
