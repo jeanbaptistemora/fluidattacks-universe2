@@ -1,34 +1,36 @@
 locals {
   prod_airs = {
     policies = {
-      aws = [
-        {
-          Sid    = "s3Write"
-          Effect = "Allow"
-          Action = ["*"]
-          // This buckets and resources list belog to airs, so the wildcard
-          // above is not dangerous
-          Resource = [
-            "arn:aws:s3:::fluidattacks.com",
-            "arn:aws:s3:::fluidattacks.com/*",
-            "arn:aws:s3:::fluidattacks-terraform-states-prod/airs*",
-            "arn:aws:s3:::web.eph.fluidattacks.com",
-            "arn:aws:s3:::web.eph.fluidattacks.com/*",
-          ]
-        },
-        {
-          Sid    = "dynamoWrite"
-          Effect = "Allow"
-          Action = [
-            "dynamodb:DeleteItem",
-            "dynamodb:GetItem",
-            "dynamodb:PutItem",
-          ]
-          Resource = [
-            var.terraform_state_lock_arn,
-          ]
-        },
-      ]
+      aws = {
+        AirsPolicy = [
+          {
+            Sid    = "s3Write"
+            Effect = "Allow"
+            Action = ["*"]
+            // This buckets and resources list belog to airs, so the wildcard
+            // above is not dangerous
+            Resource = [
+              "arn:aws:s3:::fluidattacks.com",
+              "arn:aws:s3:::fluidattacks.com/*",
+              "arn:aws:s3:::fluidattacks-terraform-states-prod/airs*",
+              "arn:aws:s3:::web.eph.fluidattacks.com",
+              "arn:aws:s3:::web.eph.fluidattacks.com/*",
+            ]
+          },
+          {
+            Sid    = "dynamoWrite"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:DeleteItem",
+              "dynamodb:GetItem",
+              "dynamodb:PutItem",
+            ]
+            Resource = [
+              var.terraform_state_lock_arn,
+            ]
+          },
+        ]
+      }
 
       cloudflare = {
         account = {
@@ -77,8 +79,8 @@ locals {
 module "prod_airs_aws" {
   source = "./modules/aws"
 
-  name   = "prod_airs"
-  policy = local.prod_airs.policies.aws
+  name     = "prod_airs"
+  policies = local.prod_airs.policies.aws
 
   tags = {
     "Name"               = "prod_airs"

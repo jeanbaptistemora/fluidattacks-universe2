@@ -1,34 +1,36 @@
 locals {
   prod_docs = {
     policies = {
-      aws = [
-        {
-          Sid    = "s3Write"
-          Effect = "Allow"
-          Action = ["*"]
-          // This buckets and resources list belog to docs, so the wildcard
-          // above is not dangerous
-          Resource = [
-            "arn:aws:s3:::docs.fluidattacks.com",
-            "arn:aws:s3:::docs.fluidattacks.com/*",
-            "arn:aws:s3:::docs-dev.fluidattacks.com",
-            "arn:aws:s3:::docs-dev.fluidattacks.com/*",
-            "arn:aws:s3:::fluidattacks-terraform-states-prod/docs*",
-          ]
-        },
-        {
-          Sid    = "dynamoWrite"
-          Effect = "Allow"
-          Action = [
-            "dynamodb:DeleteItem",
-            "dynamodb:GetItem",
-            "dynamodb:PutItem",
-          ]
-          Resource = [
-            var.terraform_state_lock_arn,
-          ]
-        },
-      ]
+      aws = {
+        DocsPolicy = [
+          {
+            Sid    = "s3Write"
+            Effect = "Allow"
+            Action = ["*"]
+            // This buckets and resources list belog to docs, so the wildcard
+            // above is not dangerous
+            Resource = [
+              "arn:aws:s3:::docs.fluidattacks.com",
+              "arn:aws:s3:::docs.fluidattacks.com/*",
+              "arn:aws:s3:::docs-dev.fluidattacks.com",
+              "arn:aws:s3:::docs-dev.fluidattacks.com/*",
+              "arn:aws:s3:::fluidattacks-terraform-states-prod/docs*",
+            ]
+          },
+          {
+            Sid    = "dynamoWrite"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:DeleteItem",
+              "dynamodb:GetItem",
+              "dynamodb:PutItem",
+            ]
+            Resource = [
+              var.terraform_state_lock_arn,
+            ]
+          },
+        ]
+      }
 
       cloudflare = {
         account = {
@@ -77,8 +79,8 @@ locals {
 module "prod_docs_aws" {
   source = "./modules/aws"
 
-  name   = "prod_docs"
-  policy = local.prod_docs.policies.aws
+  name     = "prod_docs"
+  policies = local.prod_docs.policies.aws
 
   tags = {
     "Name"               = "prod_docs"
