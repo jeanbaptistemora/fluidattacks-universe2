@@ -16,6 +16,9 @@ from symbolic_eval.f016.member_access import (
 from symbolic_eval.f021.member_access import (
     evaluate as evaluate_member_access_f021,
 )
+from symbolic_eval.f034.member_access import (
+    evaluate as evaluate_member_access_f034,
+)
 from symbolic_eval.f052.member_access import (
     evaluate as evaluate_member_access_f052,
 )
@@ -79,6 +82,7 @@ FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F008: evaluate_member_access_f008,
     FindingEnum.F016: evaluate_member_access_f016,
     FindingEnum.F021: evaluate_member_access_f021,
+    FindingEnum.F034: evaluate_member_access_f034,
     FindingEnum.F052: evaluate_member_access_f052,
     FindingEnum.F085: evaluate_member_access_f085,
     FindingEnum.F091: evaluate_member_access_f091,

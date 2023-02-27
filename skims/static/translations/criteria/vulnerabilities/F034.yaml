@@ -18,3 +18,6 @@ src.lib_root.f034.java_use_insecure_randms.description:
   es: >
     La aplicación utiliza metodos inseguros para generar numeros aleatorios
     y los asigna a parametros sensibles
+src.lib_root.f034.kt_weak_random.description:
+  en: The seed to generate a random number is hardcoded
+  es: La semilla usada para generar un numero random esta quemada en el codigo

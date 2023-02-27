@@ -14,6 +14,32 @@ F034,lines,namespace/skims/test/data/lib_root/f034/java_weak_random.java,9,330,s
   11 | }
      ^ Col 0
 ",java.java_weak_random
+F034,lines,namespace/skims/test/data/lib_root/f034/kt_weak_random.kt,6,330,skims,034. Insecure generation of random numbers,The seed to generate a random number is hardcoded in namespace/skims/test/data/lib_root/f034/kt_weak_random.kt,"
+   1 | val sr_vuln = SecureRandom()
+   2 | val seed = 123456L
+   3 | sr_vuln.setSeed(seed) // Noncompliant
+   4 |
+   5 | val bytearray = ""abcdefghijklmnop"".toByteArray(charset(""us-ascii""))
+>  6 | val sr = SecureRandom(bytearray) // Noncompliant
+   7 |
+   8 | val sr = SecureRandom() //Compliant
+   9 |
+  10 | val v = sr.nextInt()
+     ^ Col 0
+",kotlin.kotlin_weak_random
+F034,lines,namespace/skims/test/data/lib_root/f034/kt_weak_random.kt,3,330,skims,034. Insecure generation of random numbers,The seed to generate a random number is hardcoded in namespace/skims/test/data/lib_root/f034/kt_weak_random.kt,"
+   1 | val sr_vuln = SecureRandom()
+   2 | val seed = 123456L
+>  3 | sr_vuln.setSeed(seed) // Noncompliant
+   4 |
+   5 | val bytearray = ""abcdefghijklmnop"".toByteArray(charset(""us-ascii""))
+   6 | val sr = SecureRandom(bytearray) // Noncompliant
+   7 |
+   8 | val sr = SecureRandom() //Compliant
+   9 |
+  10 | val v = sr.nextInt()
+     ^ Col 0
+",kotlin.kotlin_weak_random
 F034,lines,namespace/skims/test/data/lib_root/f034/js_weak_random.js,7,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/js_weak_random.js,"
    1 | import { Router } from ""express"";
    2 |
