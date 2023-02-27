@@ -6,18 +6,9 @@ resource "aws_security_group" "cloudflare" {
   ingress {
     description = "cloudflare-access"
     from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    to_port     = 65535
+    protocol    = "tcp"
     cidr_blocks = data.cloudflare_ip_ranges.cloudflare.ipv4_cidr_blocks
-    self        = true
-  }
-
-  egress {
-    description = "default-aws-egress-rule"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
