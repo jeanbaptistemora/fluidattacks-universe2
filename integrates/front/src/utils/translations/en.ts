@@ -4293,6 +4293,13 @@ export const enTranslations: ResourceKey = {
     success: "{{email}} was added successfully",
   },
   validations: {
+    addFindingModal: {
+      duplicatedDescription:
+        "Another vulnerability, which has the same title, contains the same description",
+      duplicatedRecommendation:
+        "Another vulnerability, which has the same title, contains the same recommendation",
+      invalidTitle: "The title is not valid",
+    },
     alphabetic: "Only alphabetic characters",
     alphanumeric: "Only alphanumeric characters",
     amountOfFiles: "The amount of files must be {{count}} or less",

@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import type {
   ColumnDef,
-  Row,
+  Row as FormRow,
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -63,6 +63,7 @@ import { Empty } from "components/Empty";
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { DataList, Input, Select, TextArea } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
@@ -289,7 +290,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   }, []);
 
   const goToFinding = useCallback(
-    (rowInfo: Row<IFindingAttr>): ((event: FormEvent) => void) => {
+    (rowInfo: FormRow<IFindingAttr>): ((event: FormEvent) => void) => {
       return (event: FormEvent): void => {
         push(`${url}/${rowInfo.original.id}/locations`);
         event.preventDefault();
@@ -566,9 +567,22 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     onError: (errors: ApolloError): void => {
       errors.graphQLErrors.forEach((error: GraphQLError): void => {
-        if (error.message) {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred adding finding", error);
+        switch (error.message) {
+          case "Exception - The inserted Draft/Finding title is invalid":
+            msgError(t("validations.addFindingModal.invalidTitle"));
+            break;
+          case "Exception - Finding with the same recommendation already exists":
+            msgError(t("validations.addFindingModal.duplicatedRecommendation"));
+            break;
+          case "Exception - Finding with the same description already exists":
+            msgError(t("validations.addFindingModal.duplicatedDescription"));
+            break;
+          case "Exception - Invalid characters":
+            msgError(t("validations.invalidChar"));
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred adding finding", error);
         }
       });
     },
@@ -668,9 +682,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     getVuln({ variables: { first: 1200, groupName, root } });
   }, 500);
 
-  const handleRowExpand = useCallback((row: Row<IFindingAttr>): JSX.Element => {
-    return renderDescription(row.original);
-  }, []);
+  const handleRowExpand = useCallback(
+    (row: FormRow<IFindingAttr>): JSX.Element => {
+      return renderDescription(row.original);
+    },
+    []
+  );
 
   const getFindingMatchingSuggestion = useCallback(
     (findingName: string): IFindingSuggestionData | undefined => {
@@ -836,45 +853,64 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           {(): JSX.Element => {
             return (
               <Form>
-                <Input
-                  label={t("group.findings.addModal.fields.title.label")}
-                  list={"ExList"}
-                  name={"title"}
-                  onChange={handleAddFindingTitleChange}
-                  tooltip={t("group.findings.addModal.fields.title.tooltip")}
-                  validate={composeValidators([
-                    required,
-                    validDraftTitle,
-                    validateFindingTypology,
-                  ])}
-                />
-                <DataList data={_.sortBy(titleSuggestions)} id={"ExList"} />
-                <TextArea
-                  label={t("group.findings.addModal.fields.description.label")}
-                  name={"description"}
-                  tooltip={t(
-                    "group.findings.addModal.fields.description.tooltip"
-                  )}
-                  validate={composeValidators([
-                    required,
-                    validTextField,
-                    maxDescriptionLength,
-                  ])}
-                />
-                <TextArea
-                  label={t(
-                    "group.findings.addModal.fields.recommendation.label"
-                  )}
-                  name={"recommendation"}
-                  tooltip={t(
-                    "group.findings.addModal.fields.recommendation.tooltip"
-                  )}
-                  validate={composeValidators([
-                    required,
-                    validTextField,
-                    maxRecommendationLength,
-                  ])}
-                />
+                <Row>
+                  <Col lg={100} md={100} sm={100}>
+                    <Input
+                      label={t("group.findings.addModal.fields.title.label")}
+                      list={"ExList"}
+                      name={"title"}
+                      onChange={handleAddFindingTitleChange}
+                      required={true}
+                      tooltip={t(
+                        "group.findings.addModal.fields.title.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validDraftTitle,
+                        validateFindingTypology,
+                      ])}
+                    />
+                    <DataList data={_.sortBy(titleSuggestions)} id={"ExList"} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={100} md={100} sm={100}>
+                    <TextArea
+                      label={t(
+                        "group.findings.addModal.fields.description.label"
+                      )}
+                      name={"description"}
+                      required={true}
+                      tooltip={t(
+                        "group.findings.addModal.fields.description.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxDescriptionLength,
+                      ])}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={100} md={100} sm={100}>
+                    <TextArea
+                      label={t(
+                        "group.findings.addModal.fields.recommendation.label"
+                      )}
+                      name={"recommendation"}
+                      required={true}
+                      tooltip={t(
+                        "group.findings.addModal.fields.recommendation.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxRecommendationLength,
+                      ])}
+                    />
+                  </Col>
+                </Row>
                 <ModalConfirm
                   disabled={addingFinding}
                   onCancel={closeAddFindingModal}
