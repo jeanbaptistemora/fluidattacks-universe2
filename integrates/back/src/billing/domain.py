@@ -697,89 +697,6 @@ async def create_other_payment_method(
     )
 
 
-@validations.validate_field_length_deco("business_name", 60)
-@validations.validate_fields_deco(["business_name"])
-async def update_payment_method(
-    *,
-    org: Organization,
-    documents: OrganizationDocuments,
-    payment_method_id: str,
-    card_expiration_month: int,
-    card_expiration_year: int,
-    make_default: bool,
-    business_name: str,
-    city: str,
-    country: str,
-    email: str,
-    state: str,
-) -> bool:
-    # Raise exception if payment method does not belong to organization
-    payment_methods: list[PaymentMethod] = await customer_payment_methods(
-        org=org,
-        limit=1000,
-    )
-    if payment_method_id not in [
-        payment_method.id for payment_method in list(payment_methods)
-    ]:
-        raise InvalidBillingPaymentMethod()
-
-    if (
-        list(
-            filter(
-                lambda method: method.id == payment_method_id, payment_methods
-            )
-        )[0].last_four_digits
-        == ""
-    ):
-        # get actual payment methods
-        other_payment_methods: list[OrganizationPaymentMethods] = []
-        if org.payment_methods:
-            other_payment_methods = org.payment_methods
-
-        other_payment_methods = list(
-            filter(
-                lambda method: method.id != payment_method_id,
-                other_payment_methods,
-            )
-        )
-        other_payment_methods.append(
-            OrganizationPaymentMethods(
-                business_name=business_name,
-                city=city,
-                country=country,
-                documents=documents,
-                email=email,
-                id=payment_method_id,
-                state=state,
-            )
-        )
-        await organizations_model.update_metadata(
-            metadata=OrganizationMetadataToUpdate(
-                payment_methods=other_payment_methods
-            ),
-            organization_id=org.id,
-            organization_name=org.name,
-        )
-        return True
-
-    # Raise exception if stripe customer does not exist
-    if org.billing_customer is None:
-        raise InvalidBillingCustomer()
-
-    result: bool = await dal.update_payment_method(
-        payment_method_id=payment_method_id,
-        card_expiration_month=card_expiration_month,
-        card_expiration_year=card_expiration_year,
-    )
-    if make_default:
-        result = result and await dal.update_default_payment_method(
-            payment_method_id=payment_method_id,
-            org_billing_customer=org.billing_customer,
-        )
-
-    return result
-
-
 async def update_credit_card_payment_method(
     *,
     org: Organization,
@@ -821,6 +738,8 @@ async def update_credit_card_payment_method(
     return result
 
 
+@validations.validate_field_length_deco("business_name", 60)
+@validations.validate_fields_deco(["business_name"])
 async def update_other_payment_method(
     *,
     org: Organization,
