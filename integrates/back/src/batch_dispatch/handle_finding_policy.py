@@ -11,9 +11,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
 )
@@ -72,13 +69,11 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         PolicyStateStatus.INACTIVE,
     }:
         organization = await get_organization(loaders, organization_name)
-        organization_id: str = organization.id
-        groups: list[Group] = await loaders.organization_groups.load(
-            organization_id
-        )
-        active_groups = groups_utils.filter_active_groups(tuple(groups))
+        organization_id = organization.id
+        groups = await loaders.organization_groups.load(organization_id)
+        active_groups = groups_utils.filter_active_groups(groups)
         active_group_names = [group.name for group in active_groups]
-        finding_name: str = finding_policy.name.lower()
+        finding_name = finding_policy.name.lower()
         (
             updated_finding_ids,
             updated_vuln_ids,

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterable,
+)
 from db_model.constants import (
     DEFAULT_MAX_SEVERITY,
     DEFAULT_MIN_SEVERITY,
@@ -20,37 +23,37 @@ from typing import (
 )
 
 
-def exclude_review_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
-    return tuple(
+def exclude_review_groups(groups: Iterable[Group]) -> list[Group]:
+    return [
         group
         for group in groups
         if group.state.managed != GroupManaged.UNDER_REVIEW
-    )
+    ]
 
 
-def filter_trial_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
-    return tuple(
+def filter_trial_groups(groups: Iterable[Group]) -> list[Group]:
+    return [
         group
         for group in groups
         if group.state.managed
         in {GroupManaged.TRIAL, GroupManaged.UNDER_REVIEW}
-    )
+    ]
 
 
-def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
-    return tuple(
+def filter_active_groups(groups: Iterable[Group]) -> list[Group]:
+    return [
         group
         for group in groups
         if group.state.status == GroupStateStatus.ACTIVE
-    )
+    ]
 
 
-def filter_deleted_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
-    return tuple(
+def filter_deleted_groups(groups: Iterable[Group]) -> list[Group]:
+    return [
         group
         for group in groups
         if group.state.status == GroupStateStatus.DELETED
-    )
+    ]
 
 
 async def get_group_max_acceptance_days(

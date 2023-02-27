@@ -394,6 +394,7 @@ async def get_all_groups(
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         groups.extend(org_groups)
+
     return tuple(groups)
 
 
@@ -402,6 +403,7 @@ async def get_all_group_names(
 ) -> tuple[str, ...]:
     groups = await get_all_groups(loaders)
     group_names = tuple(group.name for group in groups)
+
     return group_names
 
 
@@ -411,12 +413,11 @@ async def get_all_active_groups(
     active_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
-        org_active_groups = list(
-            groups_utils.exclude_review_groups(
-                groups_utils.filter_active_groups(tuple(org_groups))
-            )
+        org_active_groups = groups_utils.exclude_review_groups(
+            groups_utils.filter_active_groups(org_groups)
         )
         active_groups.extend(org_active_groups)
+
     return tuple(active_groups)
 
 
@@ -426,10 +427,9 @@ async def get_all_trial_groups(
     trial_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
-        org_trial_groups = list(
-            groups_utils.filter_trial_groups(tuple(org_groups))
-        )
+        org_trial_groups = groups_utils.filter_trial_groups(org_groups)
         trial_groups.extend(org_trial_groups)
+
     return tuple(trial_groups)
 
 
@@ -438,6 +438,7 @@ async def get_all_active_group_names(
 ) -> tuple[str, ...]:
     active_groups = await get_all_active_groups(loaders)
     active_group_names = tuple(group.name for group in active_groups)
+
     return active_group_names
 
 
@@ -447,10 +448,9 @@ async def get_all_deleted_groups(
     deleted_groups: list[Group] = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
-        org_deleted_groups = list(
-            groups_utils.filter_deleted_groups(tuple(org_groups))
-        )
+        org_deleted_groups = groups_utils.filter_deleted_groups(org_groups)
         deleted_groups.extend(org_deleted_groups)
+
     return tuple(deleted_groups)
 
 

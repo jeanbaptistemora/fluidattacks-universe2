@@ -143,7 +143,7 @@ async def test_get_groups_by_stakeholder() -> None:
         loaders, "integratesmanager@gmail.com"
     )
     groups = await loaders.group.load_many(user_groups_names)
-    groups_filtered = filter_active_groups(tuple(groups))
+    groups_filtered = filter_active_groups(groups)
     assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_groups
     )
@@ -154,7 +154,7 @@ async def test_get_groups_by_stakeholder() -> None:
         loaders, "integratesmanager@gmail.com", organization_id=org_id
     )
     groups = await loaders.group.load_many(user_org_groups_names)
-    groups_filtered = filter_active_groups(tuple(groups))
+    groups_filtered = filter_active_groups(groups)
     assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_org_groups
     )

@@ -37,7 +37,7 @@ from newutils import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> tuple[Group, ...]:
+) -> list[Group]:
     loaders: Dataloaders = info.context.loaders
     user_email: str = kwargs["user_email"]
     active, inactive = await collect(
@@ -49,6 +49,6 @@ async def resolve(
         ]
     )
     user_groups = active + inactive
-    groups: list[Group] = await loaders.group.load_many(user_groups)
+    groups = await loaders.group.load_many(user_groups)
 
-    return groups_utils.filter_active_groups(tuple(groups))
+    return groups_utils.filter_active_groups(groups)

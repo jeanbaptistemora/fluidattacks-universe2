@@ -23,9 +23,9 @@ async def resolve(
     parent: Portfolio,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     group_names = parent.groups
     loaders: Dataloaders = info.context.loaders
-    groups: list[Group] = await loaders.group.load_many(group_names)
+    groups = await loaders.group.load_many(group_names)
 
-    return groups_utils.filter_active_groups(tuple(groups))
+    return groups_utils.filter_active_groups(groups)

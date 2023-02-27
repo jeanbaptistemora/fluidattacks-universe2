@@ -29,7 +29,7 @@ async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     loaders: Dataloaders = info.context.loaders
     email = parent.email
     active, inactive = await collect(
@@ -41,8 +41,6 @@ async def resolve(
         ]
     )
     stakeholder_group_names: list[str] = active + inactive
-    groups: list[Group] = await loaders.group.load_many(
-        stakeholder_group_names
-    )
+    groups = await loaders.group.load_many(stakeholder_group_names)
 
-    return groups_utils.filter_active_groups(tuple(groups))
+    return groups_utils.filter_active_groups(groups)

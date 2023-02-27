@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -45,7 +48,7 @@ async def _remove_group(
 
 async def _remove_groups(
     loaders: Dataloaders,
-    obsolete_groups: tuple[Group, ...],
+    obsolete_groups: Iterable[Group],
     user_email: str,
 ) -> None:
     today = datetime_utils.get_utc_now().date()
@@ -69,18 +72,18 @@ async def _remove_groups(
 
 
 async def _remove_group_pending_deletion_dates(
-    active_groups: tuple[Group, ...],
-    obsolete_groups: tuple[Group, ...],
+    active_groups: Iterable[Group],
+    obsolete_groups: Iterable[Group],
     user_email: str,
 ) -> None:
-    groups_to_remove_pending_deletion_date = tuple(
+    groups_to_remove_pending_deletion_date = [
         group
         for group in active_groups
         if (
             group.state.pending_deletion_date
             and group.name not in [group.name for group in obsolete_groups]
         )
-    )
+    ]
     if groups_to_remove_pending_deletion_date:
         await collect(
             [
@@ -98,7 +101,7 @@ async def _remove_group_pending_deletion_dates(
 
 
 async def _set_group_pending_deletion_dates(
-    obsolete_groups: tuple[Group, ...],
+    obsolete_groups: Iterable[Group],
     user_email: str,
 ) -> None:
     groups_to_set_pending_deletion_date = [
@@ -137,14 +140,14 @@ async def delete_obsolete_groups() -> None:
         if not org_groups_names:
             continue
         groups = await loaders.group.load_many(org_groups_names)
-        active_groups = groups_utils.filter_active_groups(tuple(groups))
+        active_groups = groups_utils.filter_active_groups(groups)
         if not active_groups:
             continue
         info(f"Active groups for {org_name}: {len(active_groups)}")
-        no_squad_groups = tuple(
+        no_squad_groups = [
             group for group in active_groups if not group.state.has_squad
-        )
-        no_squad_groups_names = tuple(group.name for group in no_squad_groups)
+        ]
+        no_squad_groups_names = [group.name for group in no_squad_groups]
         no_squad_groups_findings = await loaders.group_findings.load_many(
             no_squad_groups_names
         )
@@ -152,7 +155,7 @@ async def delete_obsolete_groups() -> None:
             await get_group_stakeholders(loaders, group_name)
             for group_name in no_squad_groups_names
         ]
-        obsolete_groups = tuple(
+        obsolete_groups = [
             no_squad_group
             for (
                 no_squad_group,
@@ -165,7 +168,7 @@ async def delete_obsolete_groups() -> None:
             )
             if len(no_squad_group_findings) == 0
             and len(no_squad_group_stakeholders) <= 1
-        )
+        ]
         await collect(
             [
                 _remove_group_pending_deletion_dates(

@@ -316,9 +316,7 @@ async def format_vulnerabilities(
     return finding
 
 
-def format_where(
-    where: str, vulnerabilities: tuple[Vulnerability, ...]
-) -> str:
+def format_where(where: str, vulnerabilities: Iterable[Vulnerability]) -> str:
     for vuln in vulnerabilities:
         where = f"{where}{vuln.state.where} ({vuln.state.specific})\n"
     return where
@@ -348,7 +346,7 @@ def get_closing_date(
 
 
 def get_mean_remediate_vulnerabilities_cvssf(
-    vulns: tuple[Vulnerability, ...],
+    vulns: Iterable[Vulnerability],
     finding_cvssf: dict[str, Decimal],
     min_date: datetype | None = None,
 ) -> Decimal:
@@ -393,7 +391,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 
 def get_mean_remediate_vulnerabilities(
-    vulns: tuple[Vulnerability, ...],
+    vulns: Iterable[Vulnerability],
     min_date: datetype | None = None,
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
@@ -453,8 +451,8 @@ def get_report_dates(
 
 
 def group_specific(
-    vulns: tuple[Vulnerability, ...], vuln_type: VulnerabilityType
-) -> tuple[Vulnerability, ...]:
+    vulns: Iterable[Vulnerability], vuln_type: VulnerabilityType
+) -> list[Vulnerability]:
     """Group vulnerabilities by its specific field."""
     sorted_by_where = sort_vulnerabilities(vulns)
     grouped_vulns = []
@@ -490,16 +488,13 @@ def group_specific(
                 type=group[0].type,
             )
         )
-    return tuple(grouped_vulns)
+
+    return grouped_vulns
 
 
-def sort_vulnerabilities(
-    item: tuple[Vulnerability, ...]
-) -> tuple[Vulnerability, ...]:
+def sort_vulnerabilities(item: Iterable[Vulnerability]) -> list[Vulnerability]:
     """Sort a vulnerability by its where field."""
-    return tuple(
-        sorted(item, key=lambda vulnerability: vulnerability.state.where)
-    )
+    return sorted(item, key=lambda vulnerability: vulnerability.state.where)
 
 
 def range_to_list(range_value: str) -> list[str]:

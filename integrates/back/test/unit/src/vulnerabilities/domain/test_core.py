@@ -303,8 +303,8 @@ async def test_get_updated_manager_mail_content(
 async def test_group_vulnerabilities() -> None:
     loaders = get_new_context()
     vulns = await loaders.finding_vulnerabilities_all.load("422286126")
-    test_data = group_vulnerabilities(tuple(vulns))
-    expected_output = (
+    test_data = group_vulnerabilities(vulns)
+    expected_output = [
         Vulnerability(
             created_by="unittest@fluidattacks.com",
             created_date=datetime.fromisoformat("2020-01-03T17:46:10+00:00"),
@@ -399,7 +399,7 @@ async def test_group_vulnerabilities() -> None:
             verification=None,
             zero_risk=None,
         ),
-    )
+    ]
     assert test_data == expected_output
 
 

@@ -853,7 +853,7 @@ async def get_mean_remediate_severity_cvssf(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        tuple(findings_vulns),
+        findings_vulns,
         finding_cvssf,
         min_date,
     )
@@ -888,11 +888,11 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )
-    non_accepted_undefined_vulns = tuple(
+    non_accepted_undefined_vulns = [
         vuln
         for vuln in non_confirmed_zr_vulns
         if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
-    )
+    ]
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
         non_accepted_undefined_vulns,
         finding_cvssf,
@@ -922,7 +922,7 @@ async def get_mean_remediate_severity(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities(
-        tuple(findings_vulns),
+        findings_vulns,
         min_date,
     )
 
@@ -950,11 +950,11 @@ async def get_mean_remediate_non_treated_severity(
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
         findings_vulns
     )
-    non_accepted_undefined_vulns = tuple(
+    non_accepted_undefined_vulns = [
         vuln
         for vuln in non_confirmed_zr_vulns
         if not vulns_utils.is_accepted_undefined_vulnerability(vuln)
-    )
+    ]
     return vulns_utils.get_mean_remediate_vulnerabilities(
         non_accepted_undefined_vulns,
         min_date,
@@ -1470,7 +1470,7 @@ async def remove_stakeholder(
         stakeholder_org_groups_names
     )
     has_groups_in_org = bool(
-        groups_utils.filter_active_groups(tuple(stakeholder_org_groups))
+        groups_utils.filter_active_groups(stakeholder_org_groups)
     )
     if has_org_access and not has_groups_in_org:
         await orgs_domain.remove_access(
@@ -1495,7 +1495,7 @@ async def remove_stakeholder(
         stakeholder_groups_names
     )
     all_active_groups_by_stakeholder = groups_utils.filter_active_groups(
-        tuple(all_groups_by_stakeholder)
+        all_groups_by_stakeholder
     )
     has_groups_in_asm = bool(all_active_groups_by_stakeholder)
     if not has_groups_in_asm:

@@ -488,8 +488,8 @@ def get_verifications_count(
 
 
 def group_vulnerabilities(
-    vulnerabilities: tuple[Vulnerability, ...]
-) -> tuple[Vulnerability, ...]:
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
     """Group vulnerabilities by specific field."""
     vuln_types = (
         VulnerabilityType.LINES,
@@ -513,11 +513,12 @@ def group_vulnerabilities(
     for vuln_type in vuln_types:
         for vuln_state in vuln_states:
             grouped_vulns = vulns_utils.group_specific(
-                tuple(total_vulnerabilities[vuln_type][vuln_state]),
+                total_vulnerabilities[vuln_type][vuln_state],
                 vuln_type,
             )
             result_vulns.extend(grouped_vulns)
-    return tuple(result_vulns)
+
+    return result_vulns
 
 
 async def mask_vulnerability(
@@ -776,7 +777,7 @@ async def should_send_update_treatment(
     group_name: str,
     justification: str,
     treatment: str,
-    updated_vulns: tuple[Vulnerability, ...],
+    updated_vulns: Iterable[Vulnerability],
     modified_by: str,
 ) -> None:
     translations: dict[str, str] = {

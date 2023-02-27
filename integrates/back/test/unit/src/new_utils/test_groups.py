@@ -54,5 +54,5 @@ def test_filter_active_groups(
             type=GroupSubscriptionType.CONTINUOUS,
         ),
     )
-    filtered = filter_active_groups((group,))
+    filtered = filter_active_groups([group])
     assert bool(filtered) == expected

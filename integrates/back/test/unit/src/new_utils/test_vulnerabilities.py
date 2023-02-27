@@ -159,8 +159,8 @@ def test_get_ranges() -> None:
 async def test_group_specific() -> None:
     loaders = get_new_context()
     vulns = await loaders.finding_vulnerabilities_all.load("422286126")
-    test_data = group_specific(tuple(vulns), VulnerabilityType.INPUTS)
-    assert isinstance(test_data, tuple)
+    test_data = group_specific(vulns, VulnerabilityType.INPUTS)
+    assert isinstance(test_data, list)
     assert len(test_data) == 2
     assert isinstance(test_data[0], Vulnerability)
     assert test_data[0] is not None
@@ -190,7 +190,7 @@ def test_range_to_list() -> None:
 
 
 def test_sort_vulnerabilities() -> None:
-    vulns = tuple(
+    vulns = [
         Vulnerability(
             created_by="test@test.com",
             created_date=datetime.fromisoformat("2018-04-08T00:45:11+00:00"),
@@ -214,8 +214,8 @@ def test_sort_vulnerabilities() -> None:
             ),
         )
         for where in ("abaa", "1abc", "aaaa")
-    )
-    expected_output = tuple(
+    ]
+    expected_output = [
         Vulnerability(
             created_by="test@test.com",
             created_date=datetime.fromisoformat("2018-04-08T00:45:11+00:00"),
@@ -239,7 +239,7 @@ def test_sort_vulnerabilities() -> None:
             ),
         )
         for where in ("1abc", "aaaa", "abaa")
-    )
+    ]
     test_data = sort_vulnerabilities(vulns)
     assert test_data == expected_output
 
