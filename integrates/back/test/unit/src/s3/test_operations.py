@@ -9,10 +9,10 @@ from starlette.datastructures import (
 BUCKET_NAME = "test_bucket"
 
 
-def test_upload_memory_file() -> None:
+async def test_upload_memory_file() -> None:
     file_name = "test-file-records.csv"
     file_location = os.path.dirname(os.path.abspath(__file__))
     file_location = os.path.join(file_location, "mock/" + file_name)
     with open(file_location, "rb") as data:
-        test_file = UploadFile(data)  # type: ignore
-        upload_memory_file(test_file, file_name, BUCKET_NAME)  # type: ignore
+        test_file = UploadFile(data.name, data, "text/csv")
+        await upload_memory_file(test_file, file_name, BUCKET_NAME)

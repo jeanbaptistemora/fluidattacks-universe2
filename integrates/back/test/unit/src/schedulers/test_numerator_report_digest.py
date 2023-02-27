@@ -3,6 +3,7 @@ from dataloaders import (
 )
 from datetime import (
     date,
+    datetime,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -371,7 +372,9 @@ async def test_send_mail_numerator_report(
         await _send_mail_report(
             loaders=get_new_context(),
             content=content,
-            report_date="2022-07-08T06:00:00+00:00",  # type: ignore
+            report_date=datetime.fromisoformat(
+                "2022-07-08T06:00:00+00:00"
+            ).date(),
             responsible="integratesmanager@gmail.com",
         )
     assert mock_mail_numerator_report.called is True

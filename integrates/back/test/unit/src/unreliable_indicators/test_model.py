@@ -25,10 +25,10 @@ def test_model_entity_names_integrity() -> None:
 
 def test_model_entity_attrs_integrity() -> None:
     for entity in model.ENTITIES.values():
-        entity_attrs = [
-            str(ent) for ent in entity["attrs"].keys()  # type: ignore
-        ]
-        assert entity_attrs == sorted(entity_attrs)
+        entity_attrs = entity["attrs"]
+        assert isinstance(entity_attrs, dict)
+        entity_attrs_keys = [str(ent) for ent in entity_attrs.keys()]
+        assert entity_attrs_keys == sorted(entity_attrs_keys)
 
 
 def test_get_entities_to_update_by_dependency() -> None:

@@ -63,10 +63,7 @@ async def test_get_country_code() -> None:
 async def test_check_verification() -> None:
     test_phone_number = "12345678"
     test_code = "US"
-    test_result = await check_verification(  # type: ignore
-        phone_number=test_phone_number, code=test_code
-    )
-    assert test_result is None
+    await check_verification(phone_number=test_phone_number, code=test_code)
     with pytest.raises(CouldNotVerifyStakeholder):
         with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
             await check_verification(phone_number="", code=test_code)
@@ -91,10 +88,7 @@ async def test_start_verification() -> None:
         url: str
 
     test_phone_number = "12345678"
-    test_result = await start_verification(
-        phone_number=test_phone_number  # type: ignore
-    )
-    assert test_result is None
+    await start_verification(phone_number=test_phone_number)
     mocked_response = MockedTwilioObject(
         sid="VEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         service_sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -142,8 +136,7 @@ async def test_validate_mobile() -> None:
         url: str
 
     test_phone_number = "12345678"
-    test_result = await validate_mobile(test_phone_number)  # type: ignore
-    assert test_result is None
+    await validate_mobile(test_phone_number)
     mocked_response = MockedTwilioObject(
         caller_name="null",
         carrier={
