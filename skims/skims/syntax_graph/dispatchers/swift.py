@@ -4,6 +4,7 @@ from syntax_graph.syntax_readers.swift import (
     class_body as swift_class_body,
     class_declaration as swift_class_declaration,
     comment as swift_comment,
+    expression_statement as swift_expression_statement,
     function_body as swift_function_body,
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
@@ -60,6 +61,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={"comment", "multiline_comment"},
         syntax_reader=swift_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "directly_assignable_expression",
+        },
+        syntax_reader=swift_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
