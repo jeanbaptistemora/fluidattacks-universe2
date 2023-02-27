@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f016.cloudformation import (
-    cfn_elb_without_sslpolicy,
     cfn_serves_content_over_insecure_protocols,
 )
 from model.core_model import (
@@ -30,15 +29,6 @@ def run_cfn_serves_content_over_insecure_protocols(
 
 
 @SHIELD_BLOCKING
-def run_cfn_elb_without_sslpolicy(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_elb_without_sslpolicy(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -57,7 +47,6 @@ def analyze(
                     fun(content, path, template)
                     for fun in (
                         run_cfn_serves_content_over_insecure_protocols,
-                        run_cfn_elb_without_sslpolicy,
                     )
                 ),
             )

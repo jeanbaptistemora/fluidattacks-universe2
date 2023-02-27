@@ -2023,7 +2023,7 @@ class MethodsEnum(Enum):
     CFN_ELB_WITHOUT_SSLPOLICY = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb_without_sslpolicy",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

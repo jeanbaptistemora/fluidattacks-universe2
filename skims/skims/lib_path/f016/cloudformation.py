@@ -19,7 +19,6 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
-    iter_elb2_load_listeners,
 )
 from typing import (
     Any,
@@ -69,14 +68,6 @@ def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
                 )
 
 
-def _cfn_elb_without_sslpolicy(
-    listener_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for listener in listener_iterator:
-        if isinstance(listener, Node) and not listener.inner.get("SslPolicy"):
-            yield listener
-
-
 def cfn_serves_content_over_insecure_protocols(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -94,20 +85,4 @@ def cfn_serves_content_over_insecure_protocols(
         ),
         path=path,
         method=MethodsEnum.CFN_INSEC_PROTO,
-    )
-
-
-def cfn_elb_without_sslpolicy(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("lib_path.f016.aws_elb_without_sslpolicy"),
-        iterator=get_cloud_iterator(
-            _cfn_elb_without_sslpolicy(
-                listener_iterator=iter_elb2_load_listeners(template=template)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_ELB_WITHOUT_SSLPOLICY,
     )
