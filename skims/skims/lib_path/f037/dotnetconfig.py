@@ -16,27 +16,23 @@ from model.core_model import (
 )
 
 
-def has_remove_banner(soup: BeautifulSoup) -> bool:
-    for custom_headers in soup("customHeaders"):
-        for tag in custom_headers.contents:
-            if isinstance(tag, Tag):
-                tag_name = tag.name
-                tag_value = tag.attrs.get("name")
-                if tag_name == "remove" and tag_value == "X-Powered-By":
-                    return True
+def has_remove_banner(custom_headers: Tag) -> bool:
+    for header in custom_headers.find_all("remove"):
+        if (header_name := header.attrs.get("name")) and (
+            header_name.lower() == "x-powered-by"
+        ):
+            return True
     return False
 
 
 def not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[tuple[int, int]]:
-        """
-        Search for X-Powered-By headers in a Web.config source file or package.
-        """
-        soup = BeautifulSoup(content, features="xml")
-        if soup("customHeaders") and not has_remove_banner(soup):
-            line_no: int = 0
-            col_no: int = 0
-            yield line_no, col_no
+        soup = BeautifulSoup(content, features="html.parser")
+        for tag in soup.find_all("customheaders"):
+            if isinstance(tag, Tag) and not has_remove_banner(tag):
+                line_no: int = tag.sourceline
+                col_no: int = 0
+                yield line_no, col_no
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,

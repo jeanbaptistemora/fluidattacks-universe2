@@ -1,10 +1,10 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
+F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,4,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
  in namespace/skims/test/data/lib_path/f037/webVuln.config","
   1 | <configuration>
   2 |     <system.webServer>
   3 |         <httpProtocol>
-  4 |             <customHeaders>
+> 4 |             <customHeaders>
   5 |             </customHeaders>
   6 |         </httpProtocol>
   7 |     </system.webServer>
