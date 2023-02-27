@@ -1914,11 +1914,6 @@
               "label_ast": "AST"
             }
           },
-          "139": {
-            "141": {
-              "label_ast": "AST"
-            }
-          },
           "143": {
             "148": {
               "label_ast": "AST"
@@ -1980,11 +1975,6 @@
           },
           "36": {
             "41": {
-              "label_ast": "AST"
-            }
-          },
-          "41": {
-            "43": {
               "label_ast": "AST"
             }
           },
@@ -2053,18 +2043,8 @@
               "label_ast": "AST"
             }
           },
-          "78": {
-            "80": {
-              "label_ast": "AST"
-            }
-          },
           "83": {
             "86": {
-              "label_ast": "AST"
-            }
-          },
-          "86": {
-            "88": {
               "label_ast": "AST"
             }
           },
@@ -2162,17 +2142,12 @@
             "variable": "136"
           },
           "139": {
-            "expression_id": "141",
-            "label_type": "PrefixOperation",
-            "prefix": "."
+            "label_type": "SymbolLookup",
+            "symbol": ".aes"
           },
           "14": {
             "expression": "Crypto",
             "label_type": "Import"
-          },
-          "141": {
-            "label_type": "SymbolLookup",
-            "symbol": "aes"
           },
           "142": {
             "comment": "// Compliant",
@@ -2265,13 +2240,8 @@
             "variable": "38"
           },
           "41": {
-            "expression_id": "43",
-            "label_type": "PrefixOperation",
-            "prefix": "."
-          },
-          "43": {
             "label_type": "SymbolLookup",
-            "symbol": "des"
+            "symbol": ".des"
           },
           "44": {
             "comment": "// Noncompliant: 64 bits block size",
@@ -2345,13 +2315,8 @@
             "value_id": "78"
           },
           "78": {
-            "expression_id": "80",
-            "label_type": "PrefixOperation",
-            "prefix": "."
-          },
-          "80": {
             "label_type": "SymbolLookup",
-            "symbol": "combined"
+            "symbol": ".combined"
           },
           "83": {
             "argument_name": "padding",
@@ -2359,13 +2324,8 @@
             "value_id": "86"
           },
           "86": {
-            "expression_id": "88",
-            "label_type": "PrefixOperation",
-            "prefix": "."
-          },
-          "88": {
             "label_type": "SymbolLookup",
-            "symbol": "pkcs7"
+            "symbol": ".pkcs7"
           },
           "90": {
             "comment": "// Noncompliant: 64 bits block size",
