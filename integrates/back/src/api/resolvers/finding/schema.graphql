@@ -39,6 +39,8 @@ type Finding {
   id: String!
   "Is the Finding still exploitable?"
   isExploitable: Boolean!
+  "Date from last state status"
+  lastStateDate: String
   "Time in days since the last closed vulnerability in this Finding"
   lastVulnerability: Int
   "Machine (Skims) checks and tests associated with this Finding"
