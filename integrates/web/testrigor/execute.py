@@ -77,8 +77,8 @@ def _check_completion() -> None:
         elif response.status_code in [227, 228]:
             print("Test is not finished yet")
         elif response.status_code == 230:
-            print("Test finished but failed")
-            break
+            print(response)
+            raise Exception("Test finished but failed")
         elif response.status_code > 400:
             raise Exception("Error calling testRigor API")
         else:

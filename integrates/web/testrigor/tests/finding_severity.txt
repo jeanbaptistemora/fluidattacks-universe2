@@ -1,0 +1,9 @@
+open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups/unittesting/vulns"
+check that page contains "060. Insecure service configuration - Host verification"
+press "060. Insecure service configuration - Host verification"
+check that page contains "Severity"
+press "Severity"
+check that page contains "User Interaction" and "Privileges Required" and "Attack Vector" and "Attack Complexity"
+hover over "Privileges Required"
+check that page contains "None (N)" "Low (L)" "High (H)"
+
