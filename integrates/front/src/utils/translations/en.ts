@@ -697,7 +697,7 @@ export const enTranslations: ResourceKey = {
             label: "Recommendation",
             tooltip: "General suggestion to solve the vulnerability",
           },
-          title: { label: "Title", tooltip: "Finding number and name" },
+          title: { label: "Title", tooltip: "Vulnerability number and name" },
         },
         hint: {
           description: "Hint: Description",
@@ -4311,7 +4311,7 @@ export const enTranslations: ResourceKey = {
     datetime: "The datetime format is not valid",
     datetimeBetween: "The datetime must be between {{from}} and {{to}}",
     draftTitle: "The title format is not valid",
-    draftTypology: "The finding typology is not valid",
+    draftTypology: "The vulnerability typology is not valid",
     duplicateDraft:
       "A {{type}} of this type has been already created. Please submit vulnerabilities there",
     duplicateSecret: "This secret has been already defined",

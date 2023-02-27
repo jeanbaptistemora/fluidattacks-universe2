@@ -14,7 +14,7 @@ import type {
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, {
@@ -27,6 +27,7 @@ import React, {
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
+import type { ConfigurableValidator } from "revalidate";
 
 import { renderDescription } from "./description";
 import { assigneesFormatter } from "./formatters/assigneesFormatter";
@@ -61,7 +62,7 @@ import { Button } from "components/Button";
 import { Empty } from "components/Empty";
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
-import { Label, Select, TextArea } from "components/Input";
+import { DataList, Input, Select, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
@@ -82,11 +83,17 @@ import type { IVulnerabilitiesContext } from "scenes/Dashboard/group/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikAutocompleteText } from "utils/forms/fields";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { composeValidators, required } from "utils/validations";
+import {
+  composeValidators,
+  maxLength,
+  required,
+  validDraftTitle,
+  validFindingTypology,
+  validTextField,
+} from "utils/validations";
 
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
@@ -702,6 +709,25 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [addFindingInitialValues, getFindingMatchingSuggestion]
   );
 
+  const MAX_DESCRIPTION_LENGTH = 500;
+  const maxDescriptionLength: ConfigurableValidator = maxLength(
+    MAX_DESCRIPTION_LENGTH
+  );
+  const MAX_RECOMENDATION_LENGTH = 300;
+  const maxRecommendationLength: ConfigurableValidator = maxLength(
+    MAX_RECOMENDATION_LENGTH
+  );
+  const titleSuggestions = _.isUndefined(suggestions)
+    ? []
+    : _.sortBy(
+        suggestions.map(
+          (suggestion: IFindingSuggestionData): string =>
+            `${suggestion.code}. ${suggestion.title}`
+        )
+      );
+  const validateFindingTypology: ConfigurableValidator =
+    validFindingTypology(titleSuggestions);
+
   return (
     <React.StrictMode>
       {!loading && _.isEmpty(findings) && !_.isEmpty(activeRoots) ? (
@@ -807,39 +833,33 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           name={"addFinding"}
           onSubmit={handleAdd}
         >
-          {({ isValid }): JSX.Element => {
+          {(): JSX.Element => {
             return (
               <Form>
-                <Label
-                  htmlFor={"title"}
-                  tooltip={t("group.findings.addModal.fields.title.tooltip")}
-                >
-                  {t("group.findings.addModal.fields.title.label")}
-                </Label>
-                <Field
-                  component={FormikAutocompleteText}
-                  field={{ onChange: handleAddFindingTitleChange }}
-                  focus={true}
-                  id={"title"}
+                <Input
+                  label={t("group.findings.addModal.fields.title.label")}
+                  list={"ExList"}
                   name={"title"}
-                  suggestions={
-                    _.isUndefined(suggestions)
-                      ? []
-                      : _.sortBy(
-                          suggestions.map(
-                            (suggestion: IFindingSuggestionData): string =>
-                              `${suggestion.code}. ${suggestion.title}`
-                          )
-                        )
-                  }
-                  type={"text"}
+                  onChange={handleAddFindingTitleChange}
+                  tooltip={t("group.findings.addModal.fields.title.tooltip")}
+                  validate={composeValidators([
+                    required,
+                    validDraftTitle,
+                    validateFindingTypology,
+                  ])}
                 />
+                <DataList data={_.sortBy(titleSuggestions)} id={"ExList"} />
                 <TextArea
                   label={t("group.findings.addModal.fields.description.label")}
                   name={"description"}
                   tooltip={t(
                     "group.findings.addModal.fields.description.tooltip"
                   )}
+                  validate={composeValidators([
+                    required,
+                    validTextField,
+                    maxDescriptionLength,
+                  ])}
                 />
                 <TextArea
                   label={t(
@@ -849,9 +869,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   tooltip={t(
                     "group.findings.addModal.fields.recommendation.tooltip"
                   )}
+                  validate={composeValidators([
+                    required,
+                    validTextField,
+                    maxRecommendationLength,
+                  ])}
                 />
                 <ModalConfirm
-                  disabled={!isValid || addingFinding}
+                  disabled={addingFinding}
                   onCancel={closeAddFindingModal}
                 />
               </Form>
