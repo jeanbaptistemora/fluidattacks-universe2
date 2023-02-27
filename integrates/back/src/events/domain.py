@@ -164,6 +164,26 @@ async def get_event(loaders: Dataloaders, event_id: str) -> Event:
     return event
 
 
+async def _check_invalid_comment(
+    *,
+    loaders: Dataloaders,
+    content: str,
+    email: str,
+    group_name: str,
+    parent_comment: str,
+    event_id: str,
+) -> None:
+    await authz.validate_handle_comment_scope(
+        loaders, content, email, group_name, parent_comment
+    )
+    if parent_comment != "0":
+        event_comments = await loaders.event_comments.load(event_id)
+        event_comments_ids = [comment.id for comment in event_comments]
+        print(event_comments_ids, parent_comment)
+        if parent_comment not in event_comments_ids:
+            raise InvalidCommentParent()
+
+
 @validations.validate_field_length_deco("comment_data.content", limit=20000)
 @validations.validate_fields_deco(["comment_data.content"])
 async def add_comment(
@@ -179,14 +199,15 @@ async def add_comment(
     event = await get_event(loaders, event_id)
     group_name = event.group_name
 
-    await authz.validate_handle_comment_scope(
-        loaders, content, email, group_name, parent_comment
+    await _check_invalid_comment(
+        loaders=loaders,
+        content=content,
+        email=email,
+        group_name=group_name,
+        parent_comment=parent_comment,
+        event_id=event_id,
     )
-    if parent_comment != "0":
-        event_comments = await loaders.event_comments.load(event_id)
-        event_comments_ids = [comment.id for comment in event_comments]
-        if parent_comment not in event_comments_ids:
-            raise InvalidCommentParent()
+
     await event_comments_domain.add(comment_data)
 
 
