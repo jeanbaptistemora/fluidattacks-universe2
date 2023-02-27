@@ -9,6 +9,7 @@ export const GET_TODO_DRAFTS: DocumentNode = gql`
         groupName
         hacker
         id
+        lastStateDate
         openVulnerabilities
         reportDate
         severityScore
