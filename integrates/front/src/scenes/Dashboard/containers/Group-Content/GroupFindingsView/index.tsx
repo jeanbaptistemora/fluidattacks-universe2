@@ -611,8 +611,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const handleRemoveFinding = useCallback(
     async (justification: unknown): Promise<void> => {
+      setIsRunning(true);
       if (selectedFindings.length === 0) {
         msgError(t("searchFindings.tabResources.noSelection"));
+        setIsRunning(false);
       } else {
         try {
           const results = await getResults(
