@@ -534,6 +534,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[173, 324],
     )
+    F101: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F101",
+        cwe=693,
+        execution_queue=ExecutionQueue.cloud,
+        requirements=[186, 265],
+    )
     F103: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F103",
@@ -1178,13 +1185,6 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[185, 265, 266],
     )
-    F101: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F101",
-        cwe=693,
-        execution_queue=ExecutionQueue.cloud,
-        requirements=[186, 265],
-    )
     F408: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F408",
@@ -1532,45 +1532,21 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TS_SQL_INJECTION = MethodInfo(
-        file_name="typescript",
-        name="ts_sql_injection",
-        module="lib_root",
-        finding=FindingEnum.F297,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
+    AWS_ALLOWS_PRIV_ESCALATION_BY_POLICIES_VERSIONS = MethodInfo(
+        file_name="aws",
+        name="allows_priv_escalation_by_policies_versions",
+        module="dast",
+        finding=FindingEnum.F005,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
-    JS_SQL_INJECTION = MethodInfo(
-        file_name="javascript",
-        name="js_sql_injection",
-        module="lib_root",
-        finding=FindingEnum.F297,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_ZIP_SLIP = MethodInfo(
-        file_name="typescript",
-        name="ts_zip_slip",
-        module="lib_root",
-        finding=FindingEnum.F063,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_ZIP_SLIP = MethodInfo(
-        file_name="javascript",
-        name="js_zip_slip",
-        module="lib_root",
-        finding=FindingEnum.F063,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    PYTHON_IO_PATH_TRAVERSAL = MethodInfo(
-        file_name="python",
-        name="python_io_path_traversal",
-        module="lib_root",
-        finding=FindingEnum.F063,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.BASIC_SAST,
+    AWS_ALLOWS_PRIV_ESCALATION_BY_ATTACH_POLICY = MethodInfo(
+        file_name="aws",
+        name="allows_priv_escalation_by_attach_policy",
+        module="dast",
+        finding=FindingEnum.F005,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     JAVA_CSRF_PROTECTIONS_DISABLED = MethodInfo(
         file_name="java",
@@ -1699,78 +1675,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F009,
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
-        file_name="typescript",
-        name="typescript_non_secure_construction_of_cookies",
-        module="lib_root",
-        finding=FindingEnum.F280,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
-        file_name="javascript",
-        name="javascript_non_secure_construction_of_cookies",
-        module="lib_root",
-        finding=FindingEnum.F280,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    PYTHON_SESSION_FIXATION = MethodInfo(
-        file_name="python",
-        name="python_session_fixation",
-        module="lib_root",
-        finding=FindingEnum.F280,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_SALT_IS_HARDCODED = MethodInfo(
-        file_name="javascript",
-        name="js_salt_is_harcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_SALT_IS_HARDCODED = MethodInfo(
-        file_name="typescript",
-        name="ts_salt_is_harcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JAVA_SALT_IS_HARDCODED = MethodInfo(
-        file_name="java",
-        name="java_salt_is_harcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    KOTLIN_SALT_IS_HARDCODED = MethodInfo(
-        file_name="kotlin",
-        name="kotlin_salt_is_hardcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    GO_SALT_IS_HARDCODED = MethodInfo(
-        file_name="go",
-        name="go_salt_is_hardcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    DART_SALT_IS_HARDCODED = MethodInfo(
-        file_name="dart",
-        name="dart_salt_is_hardcoded",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
@@ -1980,6 +1884,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.DAST,
     )
+    XML_BASIC_AUTH_METHOD = MethodInfo(
+        file_name="conf_files",
+        name="xml_basic_auth_method",
+        module="lib_path",
+        finding=FindingEnum.F015,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_AUTHENTICATION = MethodInfo(
+        file_name="java",
+        name="java_insecure_authentication",
+        module="lib_root",
+        finding=FindingEnum.F015,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CS_WEAK_PROTOCOL = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_weak_protocol",
@@ -2011,14 +1931,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    CFN_WILDCARD_IN_ALLOWED_ORIGINS = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_wildcard_in_allowed_origins",
-        module="lib_root",
-        finding=FindingEnum.F134,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
@@ -2132,12 +2044,28 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )
-    BREACH_POSSIBLE = MethodInfo(
-        file_name="analyze_headers",
-        name="breach_possible",
-        module="lib_http",
-        finding=FindingEnum.F343,
-        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+    AWS_INSECURE_PROTOCOLS = MethodInfo(
+        file_name="aws",
+        name="serves_content_over_insecure_protocols",
+        module="dast",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_ELBV2_INSECURE_PROTOCOLS = MethodInfo(
+        file_name="aws",
+        name="elbv2_uses_insecure_ssl_protocol",
+        module="dast",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_ELBV2_INSECURE_SSL_CIPHER = MethodInfo(
+        file_name="aws",
+        name="elbv2_uses_insecure_ssl_cipher",
+        module="dast",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
     CS_JWT_SIGNED = MethodInfo(
@@ -2203,14 +2131,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F022,
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    KT_WEAK_RANDOM = MethodInfo(
-        file_name="kotlin",
-        name="kotlin_weak_random",
-        module="lib_root",
-        finding=FindingEnum.F034,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
     KT_UNENCRYPTED_CHANNEL = MethodInfo(
         file_name="kotlin",
@@ -2292,14 +2212,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
-    AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE = MethodInfo(
-        file_name="aws",
-        name="has_default_security_groups_in_use",
-        module="dast",
-        finding=FindingEnum.F177,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
     AWS_DEFAULT_ALL_TRAFIC = MethodInfo(
         file_name="aws",
         name="default_seggroup_allows_all_traffic",
@@ -2321,726 +2233,6 @@ class MethodsEnum(Enum):
         name="insecure_port_range_in_security_group",
         module="dast",
         finding=FindingEnum.F024,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ADMIN_POLICY_ATTACHED = MethodInfo(
-        file_name="aws",
-        name="admin_policy_attached",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_PUBLIC_BUCKETS = MethodInfo(
-        file_name="aws",
-        name="public_buckets",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_GROUP_WITH_INLINE_POLICY = MethodInfo(
-        file_name="aws",
-        name="group_with_inline_policies",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_USERS_WITH_PASSWORD_AND_ACCESS_KEYS = MethodInfo(
-        file_name="aws",
-        name="users_with_password_and_access_keys",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_POLICIES_ATTACHED_TO_USERS = MethodInfo(
-        file_name="aws",
-        name="policies_attached_to_users",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_USER_WITH_INLINE_POLICY = MethodInfo(
-        file_name="aws",
-        name="user_with_inline_policies",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_FULL_ACCESS_POLICIES = MethodInfo(
-        file_name="aws",
-        name="group_with_inline_policies",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ALLOWS_PRIV_ESCALATION_BY_POLICIES_VERSIONS = MethodInfo(
-        file_name="aws",
-        name="allows_priv_escalation_by_policies_versions",
-        module="dast",
-        finding=FindingEnum.F005,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ALLOWS_PRIV_ESCALATION_BY_ATTACH_POLICY = MethodInfo(
-        file_name="aws",
-        name="allows_priv_escalation_by_attach_policy",
-        module="dast",
-        finding=FindingEnum.F005,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_OPEN_PASSROLE = MethodInfo(
-        file_name="aws",
-        name="open_passrole",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_PERMISSIVE_POLICY = MethodInfo(
-        file_name="aws",
-        name="permissive_policy",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_HAS_PERMISSIVE_ROLE_POLICY = MethodInfo(
-        file_name="aws",
-        name="has_permissive_role_policies",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_FULL_ACCESS_SSM = MethodInfo(
-        file_name="aws",
-        name="full_access_to_ssm",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_NEGATIVE_STATEMENT = MethodInfo(
-        file_name="aws",
-        name="negative_statement",
-        module="dast",
-        finding=FindingEnum.F031,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_INSECURE_PROTOCOLS = MethodInfo(
-        file_name="aws",
-        name="serves_content_over_insecure_protocols",
-        module="dast",
-        finding=FindingEnum.F016,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ELBV2_INSECURE_PROTOCOLS = MethodInfo(
-        file_name="aws",
-        name="elbv2_uses_insecure_ssl_protocol",
-        module="dast",
-        finding=FindingEnum.F016,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ELBV2_INSECURE_SSL_CIPHER = MethodInfo(
-        file_name="aws",
-        name="elbv2_uses_insecure_ssl_cipher",
-        module="dast",
-        finding=FindingEnum.F016,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_INSECURE_SECURITY_POLICY = MethodInfo(
-        file_name="aws",
-        name="uses_insecure_security_policy",
-        module="dast",
-        finding=FindingEnum.F070,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_GROUP_INSECURE_PORT = MethodInfo(
-        file_name="aws",
-        name="target_group_insecure_port",
-        module="dast",
-        finding=FindingEnum.F070,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EKS_INSECURE_INBOUND_TRAFFIC = MethodInfo(
-        file_name="aws",
-        name="eks_allows_insecure_inbound_traffic",
-        module="dast",
-        finding=FindingEnum.F070,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_HAS_PUBLIC_INSTANCES = MethodInfo(
-        file_name="aws",
-        name="has_public_instances",
-        module="dast",
-        finding=FindingEnum.F073,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_MFA_DISABLED = MethodInfo(
-        file_name="aws",
-        name="iam_has_mfa_disabled",
-        module="dast",
-        finding=FindingEnum.F081,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_COGNITO_HAS_MFA_DISABLED = MethodInfo(
-        file_name="aws",
-        name="cognito_has_mfa_disabled",
-        module="dast",
-        finding=FindingEnum.F081,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_MFA_DISABLED_FOR_USERS_WITH_CONSOLE_PASSWD = MethodInfo(
-        file_name="aws",
-        name="mfa_disabled_for_users_with_console_password",
-        module="dast",
-        finding=FindingEnum.F081,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_ROOT_HAS_MFA_DISABLED = MethodInfo(
-        file_name="aws",
-        name="root_without_mfa",
-        module="dast",
-        finding=FindingEnum.F081,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_UNENCRYPTED_BUCKETS = MethodInfo(
-        file_name="aws",
-        name="unencrypted_buckets",
-        module="dast",
-        finding=FindingEnum.F099,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_BUCKET_POLICY_ENCRYPTION_DISABLE = MethodInfo(
-        file_name="aws",
-        name="bucket_policy_has_server_side_encryption_disable",
-        module="dast",
-        finding=FindingEnum.F099,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_NOT_INSIDE_A_DB_SUBNET_GROUP = MethodInfo(
-        file_name="aws",
-        name="is_not_inside_a_db_subnet_group",
-        module="dast",
-        finding=FindingEnum.F109,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_USER_WITH_MULTIPLE_ACCESS_KEYS = MethodInfo(
-        file_name="aws",
-        name="users_with_multiple_access_keys",
-        module="dast",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_ROOT_ACTIVE_SIGNING_CERTIFICATES = MethodInfo(
-        file_name="aws",
-        name="has_root_active_signing_certificates",
-        module="dast",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_NOT_SUPPORT_ROLE = MethodInfo(
-        file_name="aws",
-        name="has_not_support_role",
-        module="dast",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_DEFAULT_SECURITY_GROUP = MethodInfo(
-        file_name="aws",
-        name="use_default_security_group",
-        module="dast",
-        finding=FindingEnum.F177,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ACL_PUBLIC_BUCKETS = MethodInfo(
-        file_name="aws",
-        name="acl_public_buckets",
-        module="dast",
-        finding=FindingEnum.F203,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_RDS_HAS_UNENCRYPTED_STORAGE = MethodInfo(
-        file_name="aws",
-        name="rds_has_unencrypted_storage",
-        module="dast",
-        finding=FindingEnum.F246,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EBS_IS_ENCRYPTION_DISABLED = MethodInfo(
-        file_name="aws",
-        name="ebs_is_encryption_disabled",
-        module="dast",
-        finding=FindingEnum.F250,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_RDS_HAS_NOT_AUTOMATED_BACKUPS = MethodInfo(
-        file_name="aws",
-        name="rds_has_not_automated_backups",
-        module="dast",
-        finding=FindingEnum.F256,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_RDS_HAS_NOT_DELETION_PROTECTION = MethodInfo(
-        file_name="aws",
-        name="rds_has_not_deletion_protection",
-        module="dast",
-        finding=FindingEnum.F256,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_NOT_TERMINATION_PROTECTION = MethodInfo(
-        file_name="aws",
-        name="ec2_has_not_termination_protection",
-        module="dast",
-        finding=FindingEnum.F257,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ELB2_HAS_NOT_DELETION_PROTECTION = MethodInfo(
-        file_name="aws",
-        name="elb2_has_not_deletion_protection",
-        module="dast",
-        finding=FindingEnum.F258,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_DYNAMODB_HAS_NOT_POINT_IN_TIME_RECOVERY = MethodInfo(
-        file_name="aws",
-        name="dynamodb_has_not_point_in_time_recovery",
-        module="dast",
-        finding=FindingEnum.F259,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_S3_HAS_INSECURE_TRANSPORT = MethodInfo(
-        file_name="aws",
-        name="s3_has_insecure_transport",
-        module="dast",
-        finding=FindingEnum.F281,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_PRIVILEGES_OVER_IAM = MethodInfo(
-        file_name="aws",
-        name="iam_has_privileges_over_iam",
-        module="dast",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_KMS_HAS_MASTER_KEYS_EXPOSED_TO_EVERYONE = MethodInfo(
-        file_name="aws",
-        name="kms_has_master_keys_exposed_to_everyone",
-        module="dast",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_WILDCARD_RESOURCE_IN_WRITE_ACTION = MethodInfo(
-        file_name="aws",
-        name="iam_has_wildcard_resource_on_write_action",
-        module="dast",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
-        file_name="aws",
-        name="ec2_has_terminate_shutdown_behavior",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_UNUSED_SEGGROUPS = MethodInfo(
-        file_name="aws",
-        name="has_unused_seggroups",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_ASSOCIATE_PUBLIC_IP_ADDRESS = MethodInfo(
-        file_name="aws",
-        name="ec2_has_associate_public_ip_address",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_IAM_INSTANCE_WITHOUT_PROFILE = MethodInfo(
-        file_name="aws",
-        name="ec2_iam_instances_without_profile",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_DEFINED_USER_DATA = MethodInfo(
-        file_name="aws",
-        name="has_defined_user_data",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_INSTANCES_USING_UNAPPROVED_AMIS = MethodInfo(
-        file_name="aws",
-        name="has_instances_using_unapproved_amis",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_UNUSED_KEY_PAIRS = MethodInfo(
-        file_name="aws",
-        name="has_unused_ec2_key_pairs",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_S3_BUCKET_VERSIONING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="s3_bucket_versioning_disabled",
-        module="dast",
-        finding=FindingEnum.F335,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_NOT_REQUIRES_UPPERCASE = MethodInfo(
-        file_name="aws",
-        name="not_requires_uppercase",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_OLD_CREDS_ENABLED = MethodInfo(
-        file_name="aws",
-        name="have_old_creds_enabled",
-        module="dast",
-        finding=FindingEnum.F277,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_OLD_SSH_PUBLIC_KEYS = MethodInfo(
-        file_name="aws",
-        name="has_old_ssh_public_keys",
-        module="dast",
-        finding=FindingEnum.F277,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_HAS_OLD_ACCESS_KEYS = MethodInfo(
-        file_name="aws",
-        name="have_old_access_keys",
-        module="dast",
-        finding=FindingEnum.F277,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_ROOT_HAS_ACCESS_KEYS = MethodInfo(
-        file_name="aws",
-        name="root_has_access_keys",
-        module="dast",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_DYNAMODB_ENCRYPTED_WITH_AWS_MASTER_KEYS = MethodInfo(
-        file_name="aws",
-        name="dynamob_encrypted_with_aws_master_keys",
-        module="dast",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_NOT_REQUIRES_LOWERCASE = MethodInfo(
-        file_name="aws",
-        name="not_requires_lowercase",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_NOT_REQUIRES_SYMBOLS = MethodInfo(
-        file_name="aws",
-        name="not_requires_symbols",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_NOT_REQUIRES_NUMBERS = MethodInfo(
-        file_name="aws",
-        name="not_requires_numbers",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_MIN_PASSWORD_LEN_UNSAFE = MethodInfo(
-        file_name="aws",
-        name="min_password_len_unsafe",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_PASSWORD_REUSE_UNSAFE = MethodInfo(
-        file_name="aws",
-        name="password_reuse_unsafe",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_PASSWORD_EXPIRATION_UNSAFE = MethodInfo(
-        file_name="aws",
-        name="password_expiration_unsafe",
-        module="dast",
-        finding=FindingEnum.F363,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_KMS_IS_KEY_ROTATION_DISABLED = MethodInfo(
-        file_name="aws",
-        name="kms_key_is_key_rotation_absent_or_disabled",
-        module="dast",
-        finding=FindingEnum.F396,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EFS_IS_ENCRYPTION_DISABLED = MethodInfo(
-        file_name="aws",
-        name="efs_is_encryption_disabled",
-        module="dast",
-        finding=FindingEnum.F406,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EBS_HAS_ENCRYPTION_DISABLED = MethodInfo(
-        file_name="aws",
-        name="ebs_has_encryption_disabled",
-        module="dast",
-        finding=FindingEnum.F407,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ELB2_HAS_NOT_HTTPS = MethodInfo(
-        file_name="aws",
-        name="elbv2_listeners_not_using_https",
-        module="dast",
-        finding=FindingEnum.F372,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_CFT_SERVES_CONTENT_OVER_HTTP = MethodInfo(
-        file_name="aws",
-        name="cft_serves_content_over_http",
-        module="dast",
-        finding=FindingEnum.F372,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_ELBV2_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="elbv2_has_access_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EBS_USES_DEFAULT_KMS_KEY = MethodInfo(
-        file_name="aws",
-        name="ebs_uses_default_kms_key",
-        module="dast",
-        finding=FindingEnum.F411,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EFS_USES_DEFAULT_KMS_KEY = MethodInfo(
-        file_name="aws",
-        name="efs_uses_default_kms_key",
-        module="dast",
-        finding=FindingEnum.F411,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_FSX_USES_DEFAULT_KMS_KEY = MethodInfo(
-        file_name="aws",
-        name="fsx_uses_default_kms_key",
-        module="dast",
-        finding=FindingEnum.F411,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EKS_HAS_DISABLED_CLUSTER_LOGGING = MethodInfo(
-        file_name="aws",
-        name="eks_has_disable_cluster_logging",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_CLOUDFRONT_HAS_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="cloudfront_has_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_CLOUDTRAIL_TRAILS_NOT_MULTIREGION = MethodInfo(
-        file_name="aws",
-        name="cloudtrail_trails_not_multiregion",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IS_TRAIL_BUCKET_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="is_trail_bucket_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_S3_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="s3_has_server_access_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EKS_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="eks_has_server_access_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_MONITORING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="ec2_monitoring_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_CF_DISTRIBUTION_HAS_LOGGING_DISABLED = MethodInfo(
-        file_name="aws",
-        name="cf_distribution_has_logging_disabled",
-        module="dast",
-        finding=FindingEnum.F400,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_CLOUDTRAIL_FILES_NOT_VALIDATED = MethodInfo(
-        file_name="aws",
-        name="cloudtrail_files_not_validated",
-        module="dast",
-        finding=FindingEnum.F394,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_IS_POLICY_MISS_CONFIGURED = MethodInfo(
-        file_name="aws",
-        name="iam_is_policy_miss_configured",
-        module="dast",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_IAM_IS_TRAIL_BUCKET_PUBLIC = MethodInfo(
-        file_name="aws",
-        name="is_trail_bucket_public",
-        module="dast",
-        finding=FindingEnum.F203,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS = MethodInfo(
-        file_name="aws",
-        name="s3_buckets_allow_unauthorized_public_access",
-        module="dast",
-        finding=FindingEnum.F203,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_HAS_PUBLICLY_SHARED_AMIS = MethodInfo(
-        file_name="aws",
-        name="has_publicly_shared_amis",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_S3_BUCKETS_HAS_OBJECT_LOCK_DISABLED = MethodInfo(
-        file_name="aws",
-        name="bucket_has_object_lock_disabled",
-        module="dast",
-        finding=FindingEnum.F101,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_VPC_WITHOUT_FLOWLOG = MethodInfo(
-        file_name="aws",
-        name="vpcs_without_flowlog",
-        module="dast",
-        finding=FindingEnum.F200,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_UNENCRYPTED_SNAPSHOTS = MethodInfo(
-        file_name="aws",
-        name="has_unencrypted_snapshots",
-        module="dast",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.DAST,
-    )
-    AWS_EC2_HAS_UNENCRYPTED_AMIS = MethodInfo(
-        file_name="aws",
-        name="has_unencrypted_amis",
-        module="dast",
-        finding=FindingEnum.F333,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
@@ -3196,6 +2388,102 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_ADMIN_POLICY_ATTACHED = MethodInfo(
+        file_name="aws",
+        name="admin_policy_attached",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_PUBLIC_BUCKETS = MethodInfo(
+        file_name="aws",
+        name="public_buckets",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_GROUP_WITH_INLINE_POLICY = MethodInfo(
+        file_name="aws",
+        name="group_with_inline_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_USERS_WITH_PASSWORD_AND_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="users_with_password_and_access_keys",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_POLICIES_ATTACHED_TO_USERS = MethodInfo(
+        file_name="aws",
+        name="policies_attached_to_users",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_USER_WITH_INLINE_POLICY = MethodInfo(
+        file_name="aws",
+        name="user_with_inline_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_OPEN_PASSROLE = MethodInfo(
+        file_name="aws",
+        name="open_passrole",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_PERMISSIVE_POLICY = MethodInfo(
+        file_name="aws",
+        name="permissive_policy",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_HAS_PERMISSIVE_ROLE_POLICY = MethodInfo(
+        file_name="aws",
+        name="has_permissive_role_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_FULL_ACCESS_SSM = MethodInfo(
+        file_name="aws",
+        name="full_access_to_ssm",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_FULL_ACCESS_POLICIES = MethodInfo(
+        file_name="aws",
+        name="group_with_inline_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_NEGATIVE_STATEMENT = MethodInfo(
+        file_name="aws",
+        name="negative_statement",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_ADMIN_POLICY_ATTACHED = MethodInfo(
         file_name="cloudformation",
         name="cfn_admin_policy_attached",
@@ -3234,38 +2522,6 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_PERMISSIVE_POLICY = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_permissive_policy",
-        module="lib_path",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_EC2_NO_IAM = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_ec2_has_not_an_iam_instance_profile",
-        module="lib_path",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_EC2_ASSOC_PUB_IP = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_ec2_associate_public_ip_address",
-        module="lib_path",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_ec2_has_terminate_shutdown_behavior",
-        module="lib_path",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_FULL_ACCESS_SSM = MethodInfo(
@@ -3324,14 +2580,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_PERMISSIVE_POLICY = MethodInfo(
-        file_name="terraform",
-        name="terraform_permissive_policy",
-        module="lib_root",
-        finding=FindingEnum.F325,
-        developer=DeveloperEnum.ANDRES_CUBEROS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_IAM_FULL_ACCESS_SSM = MethodInfo(
         file_name="terraform",
         name="tfm_iam_has_full_access_to_ssm",
@@ -3348,13 +2596,13 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_EC2_NO_IAM = MethodInfo(
-        file_name="terraform",
-        name="tfm_ec2_has_not_an_iam_instance_profile",
+    KT_WEAK_RANDOM = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_weak_random",
         module="lib_root",
-        finding=FindingEnum.F333,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
+        finding=FindingEnum.F034,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JAVA_WEAK_RANDOM_COOKIE = MethodInfo(
         file_name="java",
@@ -3404,75 +2652,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.DAST,
     )
-    CHECK_DNS_RECORDS = MethodInfo(
-        file_name="analyze_dns",
-        name="check_dns_records",
-        module="lib_http",
-        finding=FindingEnum.F182,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.DAST,
-    )
-    XML_BASIC_AUTH_METHOD = MethodInfo(
-        file_name="conf_files",
-        name="xml_basic_auth_method",
-        module="lib_path",
-        finding=FindingEnum.F015,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     DOTNETCONFIG_NOT_SUPPRESS_VULN_HEADER = MethodInfo(
         file_name="dotnetconfig",
         name="dotnetconfig_not_suppress_vuln_header",
         module="lib_path",
         finding=FindingEnum.F037,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DOTNETCONFIG_HAS_SSL_DISABLED = MethodInfo(
-        file_name="dotnetconfig",
-        name="dotnetconfig_has_ssl_disabled",
-        module="lib_path",
-        finding=FindingEnum.F060,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    XML_ALLOWS_ALL_DOMAINS = MethodInfo(
-        file_name="xml",
-        name="xml_allows_all_domains",
-        module="lib_path",
-        finding=FindingEnum.F060,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DOTNETCONFIG_HAS_DEBUG_ENABLED = MethodInfo(
-        file_name="dotnetconfig",
-        name="dotnetconfig_has_debug_enabled",
-        module="lib_path",
-        finding=FindingEnum.F183,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
-        file_name="typescript",
-        name="tsx_lack_of_validation_event_listener",
-        module="lib_root",
-        finding=FindingEnum.F188,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
-        file_name="javascript",
-        name="tsx_lack_of_validation_event_listener",
-        module="lib_root",
-        finding=FindingEnum.F188,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DOTNETCONFIG_NOT_CUSTOM_ERRORS = MethodInfo(
-        file_name="dotnetconfig",
-        name="dotnetconfig_not_custom_errors",
-        module="lib_path",
-        finding=FindingEnum.F239,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -3908,6 +3092,70 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )
+    JS_INSECURE_HASH_LIBRARY = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_hash_library",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_INSECURE_HASH_LIBRARY = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_hash_library",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_JWT_INSEC_SIGN_ALGORITHM = MethodInfo(
+        file_name="javascript",
+        name="javascript_jwt_insec_sign_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_JWT_INSEC_SIGN_ALGORITHM = MethodInfo(
+        file_name="typescript",
+        name="typescript_jwt_insec_sign_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
+        file_name="javascript",
+        name="javascript_jwt_insec_sign_algo_async",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
+        file_name="typescript",
+        name="typescript_jwt_insec_sign_algo_async",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
+        file_name="javascript",
+        name="javascript_insec_msg_auth_mechanism",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
+        file_name="typescript",
+        name="typescript_insec_msg_auth_mechanism",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     APK_BACKUPS_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
         name="apk_backups_enabled",
@@ -3922,38 +3170,6 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F055,
         developer=DeveloperEnum.BRIAM_AGUDELO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    YML_SERVERLESS_CORS = MethodInfo(
-        file_name="yaml",
-        name="json_ssl_port_missing",
-        module="lib_root",
-        finding=FindingEnum.F134,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JSON_SSL_PORT_MISSING = MethodInfo(
-        file_name="conf_files",
-        name="json_ssl_port_missing",
-        module="lib_root",
-        finding=FindingEnum.F164,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JSON_HTTPS_FLAG_MISSING = MethodInfo(
-        file_name="conf_files",
-        name="json_https_flag_missing",
-        module="lib_root",
-        finding=FindingEnum.F372,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JSON_DISABLE_HOST_CHECK = MethodInfo(
-        file_name="conf_files",
-        name="json_disable_host_check",
-        module="lib_root",
-        finding=FindingEnum.F060,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JSON_ANON_CONNECTION_CONFIG = MethodInfo(
@@ -3988,6 +3204,30 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DOTNETCONFIG_HAS_SSL_DISABLED = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_has_ssl_disabled",
+        module="lib_path",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    XML_ALLOWS_ALL_DOMAINS = MethodInfo(
+        file_name="xml",
+        name="xml_allows_all_domains",
+        module="lib_path",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JSON_DISABLE_HOST_CHECK = MethodInfo(
+        file_name="conf_files",
+        name="json_disable_host_check",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INSECURE_CERTIFICATE_VALIDATION = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_certificate_validation",
@@ -4010,6 +3250,46 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F060,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_UNSAFE_ORIGIN = MethodInfo(
+        file_name="typescript",
+        name="typescript_unsafe_origin",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_UNSAFE_ORIGIN = MethodInfo(
+        file_name="javascript",
+        name="javascript_unsafe_origin",
+        module="lib_root",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_ZIP_SLIP = MethodInfo(
+        file_name="typescript",
+        name="ts_zip_slip",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_ZIP_SLIP = MethodInfo(
+        file_name="javascript",
+        name="js_zip_slip",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    PYTHON_IO_PATH_TRAVERSAL = MethodInfo(
+        file_name="python",
+        name="python_io_path_traversal",
+        module="lib_root",
+        finding=FindingEnum.F063,
+        developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_OPEN_REDIRECT = MethodInfo(
@@ -4092,14 +3372,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JS_USES_INNERHTML = MethodInfo(
-        file_name="javascript",
-        name="js_uses_innerhtml",
-        module="lib_root",
-        finding=FindingEnum.F371,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     JS_USES_CONSOLE_LOG = MethodInfo(
         file_name="javascript",
         name="js_uses_console_log",
@@ -4115,6 +3387,30 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F066,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_INSECURE_SECURITY_POLICY = MethodInfo(
+        file_name="aws",
+        name="uses_insecure_security_policy",
+        module="dast",
+        finding=FindingEnum.F070,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_GROUP_INSECURE_PORT = MethodInfo(
+        file_name="aws",
+        name="target_group_insecure_port",
+        module="dast",
+        finding=FindingEnum.F070,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EKS_INSECURE_INBOUND_TRAFFIC = MethodInfo(
+        file_name="aws",
+        name="eks_allows_insecure_inbound_traffic",
+        module="dast",
+        finding=FindingEnum.F070,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
@@ -4154,6 +3450,14 @@ class MethodsEnum(Enum):
         module="lib_http",
         finding=FindingEnum.F071,
         developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_HAS_PUBLIC_INSTANCES = MethodInfo(
+        file_name="aws",
+        name="has_public_instances",
+        module="dast",
+        finding=FindingEnum.F073,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
     CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
@@ -4204,13 +3508,37 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DEFAULT,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    PIP_INCOMPLETE_DEPENDENCIES_LIST = MethodInfo(
-        file_name="python",
-        name="pip_incomplete_dependencies_list",
-        module="lib_path",
-        finding=FindingEnum.F120,
+    AWS_IAM_HAS_MFA_DISABLED = MethodInfo(
+        file_name="aws",
+        name="iam_has_mfa_disabled",
+        module="dast",
+        finding=FindingEnum.F081,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_COGNITO_HAS_MFA_DISABLED = MethodInfo(
+        file_name="aws",
+        name="cognito_has_mfa_disabled",
+        module="dast",
+        finding=FindingEnum.F081,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_MFA_DISABLED_FOR_USERS_WITH_CONSOLE_PASSWD = MethodInfo(
+        file_name="aws",
+        name="mfa_disabled_for_users_with_console_password",
+        module="dast",
+        finding=FindingEnum.F081,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_ROOT_HAS_MFA_DISABLED = MethodInfo(
+        file_name="aws",
+        name="root_without_mfa",
+        module="dast",
+        finding=FindingEnum.F081,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     USES_INSECURE_DELETE = MethodInfo(
         file_name="analyze_bytecodes",
@@ -4292,12 +3620,60 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
+        file_name="javascript",
+        name="javascript_json_parse_unvalidated_data",
+        module="lib_root",
+        finding=FindingEnum.F089,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
+        file_name="typescript",
+        name="typescript_json_parse_unvalidated_data",
+        module="lib_root",
+        finding=FindingEnum.F089,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INSECURE_LOGGING = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_insecure_logging",
         module="lib_root",
         finding=FindingEnum.F091,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_INSECURE_LOGGING = MethodInfo(
+        file_name="java",
+        name="java_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DART_INSECURE_LOGGING = MethodInfo(
+        file_name="dart",
+        name="dart_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_INSECURE_LOGGING = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_INSECURE_LOGGING = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CBC_ENABLED = MethodInfo(
@@ -4356,6 +3732,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_HAS_REVERSE_TABNABBING = MethodInfo(
+        file_name="javascript",
+        name="javascript_has_reverse_tabnabbing",
+        module="lib_root",
+        finding=FindingEnum.F097,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_HAS_REVERSE_TABNABBING = MethodInfo(
+        file_name="typescript",
+        name="typescript_has_reverse_tabnabbing",
+        module="lib_root",
+        finding=FindingEnum.F097,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     CS_PATH_INJECTION = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_path_injection",
@@ -4363,6 +3755,22 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F098,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    AWS_UNENCRYPTED_BUCKETS = MethodInfo(
+        file_name="aws",
+        name="unencrypted_buckets",
+        module="dast",
+        finding=FindingEnum.F099,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_BUCKET_POLICY_ENCRYPTION_DISABLE = MethodInfo(
+        file_name="aws",
+        name="bucket_policy_has_server_side_encryption_disable",
+        module="dast",
+        finding=FindingEnum.F099,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_POLICY_SERVER_ENCRYP_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -4396,6 +3804,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    AWS_S3_BUCKETS_HAS_OBJECT_LOCK_DISABLED = MethodInfo(
+        file_name="aws",
+        name="bucket_has_object_lock_disabled",
+        module="dast",
+        finding=FindingEnum.F101,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     APK_UNSIGNED = MethodInfo(
         file_name="analyze_bytecodes",
         name="apk_unsigned",
@@ -4428,19 +3844,19 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    AWS_NOT_INSIDE_A_DB_SUBNET_GROUP = MethodInfo(
+        file_name="aws",
+        name="is_not_inside_a_db_subnet_group",
+        module="dast",
+        finding=FindingEnum.F109,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_is_not_inside_a_db_subnet_group",
         module="lib_path",
         finding=FindingEnum.F109,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_EC2_DEFAULT_SEC_GROUP = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_ec2_use_default_security_group",
-        module="lib_path",
-        finding=FindingEnum.F177,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -4490,6 +3906,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F117,
         developer=DeveloperEnum.DEFAULT,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    PIP_INCOMPLETE_DEPENDENCIES_LIST = MethodInfo(
+        file_name="python",
+        name="pip_incomplete_dependencies_list",
+        module="lib_path",
+        finding=FindingEnum.F120,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
     GO_INSECURE_QUERY_FLOAT = MethodInfo(
@@ -4572,6 +3996,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.DAST,
     )
+    CFN_WILDCARD_IN_ALLOWED_ORIGINS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_wildcard_in_allowed_origins",
+        module="lib_root",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    YML_SERVERLESS_CORS = MethodInfo(
+        file_name="yaml",
+        name="json_ssl_port_missing",
+        module="lib_root",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INSECURE_CORS = MethodInfo(
         file_name="c_sharp",
         name="csharp_insecure_cors",
@@ -4612,44 +4052,12 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TS_UNSAFE_ORIGIN = MethodInfo(
-        file_name="typescript",
-        name="typescript_unsafe_origin",
-        module="lib_root",
-        finding=FindingEnum.F060,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_UNSAFE_ORIGIN = MethodInfo(
-        file_name="javascript",
-        name="javascript_unsafe_origin",
-        module="lib_root",
-        finding=FindingEnum.F060,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
-        file_name="javascript",
-        name="javascript_unsafe_http_xframe_options",
-        module="lib_root",
-        finding=FindingEnum.F152,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
-        file_name="typescript",
-        name="typescript_unsafe_http_xframe_options",
-        module="lib_root",
-        finding=FindingEnum.F152,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_USES_INNERHTML = MethodInfo(
-        file_name="typescript",
-        name="ts_uses_innerhtml",
-        module="lib_root",
-        finding=FindingEnum.F371,
-        developer=DeveloperEnum.JULIAN_GOMEZ,
+    XML_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
+        file_name="conf_files",
+        name="xml_has_x_xss_protection_header",
+        module="lib_path",
+        finding=FindingEnum.F135,
+        developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JS_USES_EVAL = MethodInfo(
@@ -4676,6 +4084,30 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    XML_NETWORK_SSL_DISABLED = MethodInfo(
+        file_name="conf_files",
+        name="xml_network_ssl_disabled",
+        module="lib_path",
+        finding=FindingEnum.F149,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
+        file_name="javascript",
+        name="javascript_unsafe_http_xframe_options",
+        module="lib_root",
+        finding=FindingEnum.F152,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_UNSAFE_HTTP_X_FRAME_OPTIONS = MethodInfo(
+        file_name="typescript",
+        name="typescript_unsafe_http_xframe_options",
+        module="lib_root",
+        finding=FindingEnum.F152,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     XML_X_FRAME_OPTIONS = MethodInfo(
         file_name="conf_files",
         name="xml_x_frame_options",
@@ -4683,6 +4115,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F152,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE = MethodInfo(
+        file_name="java",
+        name="java_http_accepts_any_myme_type",
+        module="lib_root",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     XML_ACCEPT_HEADER = MethodInfo(
         file_name="conf_files",
@@ -4748,6 +4188,110 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSON_SSL_PORT_MISSING = MethodInfo(
+        file_name="conf_files",
+        name="json_ssl_port_missing",
+        module="lib_root",
+        finding=FindingEnum.F164,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_USER_WITH_MULTIPLE_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="users_with_multiple_access_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_HAS_ROOT_ACTIVE_SIGNING_CERTIFICATES = MethodInfo(
+        file_name="aws",
+        name="has_root_active_signing_certificates",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_HAS_NOT_SUPPORT_ROLE = MethodInfo(
+        file_name="aws",
+        name="has_not_support_role",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_ROOT_HAS_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="root_has_access_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_DYNAMODB_ENCRYPTED_WITH_AWS_MASTER_KEYS = MethodInfo(
+        file_name="aws",
+        name="dynamob_encrypted_with_aws_master_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    TFM_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
+        file_name="terraform",
+        name="tfm_iam_role_is_over_privileged",
+        module="lib_root",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_is_role_over_privileged",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_permissions_policy_allow_not_resource",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_permissions_policy_allow_not_action",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_PERMISSIONS_POLICY_APLLY_USERS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_permissions_policy_aplly_users",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_trust_policy_allow_not_principal",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_TRUST_POLICY_NOT_ACTION = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_trust_policy_allow_not_action",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CONTAINER_USING_SSHPASS = MethodInfo(
         file_name="docker",
         name="container_using_sshpass",
@@ -4764,6 +4308,30 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE = MethodInfo(
+        file_name="aws",
+        name="has_default_security_groups_in_use",
+        module="dast",
+        finding=FindingEnum.F177,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_DEFAULT_SECURITY_GROUP = MethodInfo(
+        file_name="aws",
+        name="use_default_security_group",
+        module="dast",
+        finding=FindingEnum.F177,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_EC2_DEFAULT_SEC_GROUP = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_use_default_security_group",
+        module="lib_path",
+        finding=FindingEnum.F177,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",
@@ -4771,6 +4339,70 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F177,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    CHECK_DNS_RECORDS = MethodInfo(
+        file_name="analyze_dns",
+        name="check_dns_records",
+        module="lib_http",
+        finding=FindingEnum.F182,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.DAST,
+    )
+    DOTNETCONFIG_HAS_DEBUG_ENABLED = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_has_debug_enabled",
+        module="lib_path",
+        finding=FindingEnum.F183,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
+        file_name="typescript",
+        name="tsx_lack_of_validation_event_listener",
+        module="lib_root",
+        finding=FindingEnum.F188,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
+        file_name="javascript",
+        name="tsx_lack_of_validation_event_listener",
+        module="lib_root",
+        finding=FindingEnum.F188,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_VPC_WITHOUT_FLOWLOG = MethodInfo(
+        file_name="aws",
+        name="vpcs_without_flowlog",
+        module="dast",
+        finding=FindingEnum.F200,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_ACL_PUBLIC_BUCKETS = MethodInfo(
+        file_name="aws",
+        name="acl_public_buckets",
+        module="dast",
+        finding=FindingEnum.F203,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_IS_TRAIL_BUCKET_PUBLIC = MethodInfo(
+        file_name="aws",
+        name="is_trail_bucket_public",
+        module="dast",
+        finding=FindingEnum.F203,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS = MethodInfo(
+        file_name="aws",
+        name="s3_buckets_allow_unauthorized_public_access",
+        module="dast",
+        finding=FindingEnum.F203,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_PUBLIC_BUCKETS = MethodInfo(
         file_name="cloudformation",
@@ -4820,7 +4452,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-
     CS_REGEX_INJETCION = MethodInfo(
         file_name="csharp",
         name="csharp_regex_injection",
@@ -4853,44 +4484,44 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JAVA_INSECURE_LOGGING = MethodInfo(
-        file_name="java",
-        name="java_insecure_logging",
-        module="lib_root",
-        finding=FindingEnum.F091,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DART_INSECURE_LOGGING = MethodInfo(
-        file_name="dart",
-        name="dart_insecure_logging",
-        module="lib_root",
-        finding=FindingEnum.F091,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_INSECURE_LOGGING = MethodInfo(
-        file_name="javascript",
-        name="javascript_insecure_logging",
-        module="lib_root",
-        finding=FindingEnum.F091,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_INSECURE_LOGGING = MethodInfo(
-        file_name="typescript",
-        name="typescript_insecure_logging",
-        module="lib_root",
-        finding=FindingEnum.F091,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TSCONFIG_SOURCEMAP_ENABLED = MethodInfo(
         file_name="tsconfig",
         name="tsconfig_sourcemap_enabled",
         module="lib_root",
         finding=FindingEnum.F236,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JAVA_HAS_PRINT_STATEMENTS = MethodInfo(
+        file_name="java",
+        name="java_has_print_statements",
+        module="lib_root",
+        finding=FindingEnum.F237,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DART_HAS_PRINT_STATEMENTS = MethodInfo(
+        file_name="dart",
+        name="dart_has_print_statements",
+        module="lib_root",
+        finding=FindingEnum.F237,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    PYTHON_HAS_PRINT_STATEMENTS = MethodInfo(
+        file_name="python",
+        name="python_has_print_statements",
+        module="lib_root",
+        finding=FindingEnum.F237,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DOTNETCONFIG_NOT_CUSTOM_ERRORS = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_not_custom_errors",
+        module="lib_path",
+        finding=FindingEnum.F239,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INFO_LEAK_ERRORS = MethodInfo(
@@ -4900,6 +4531,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F239,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    AWS_RDS_HAS_UNENCRYPTED_STORAGE = MethodInfo(
+        file_name="aws",
+        name="rds_has_unencrypted_storage",
+        module="dast",
+        finding=FindingEnum.F246,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="cloudformation",
@@ -4925,6 +4564,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_EBS_IS_ENCRYPTION_DISABLED = MethodInfo(
+        file_name="aws",
+        name="ebs_is_encryption_disabled",
+        module="dast",
+        finding=FindingEnum.F250,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     TFM_EBS_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
         name="tfm_ebs_unencrypted_volumes",
@@ -4949,14 +4596,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_ELB2_NOT_DELETION_PROTEC = MethodInfo(
-        file_name="terraform",
-        name="tfm_elb2_has_not_deletion_protection",
-        module="lib_root",
-        finding=FindingEnum.F258,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CFN_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_unencrypted_volumes",
@@ -4973,13 +4612,21 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CFN_S3_VERSIONING_DISABLED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_s3_bucket_versioning_disabled",
-        module="lib_path",
-        finding=FindingEnum.F335,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
+    AWS_RDS_HAS_NOT_AUTOMATED_BACKUPS = MethodInfo(
+        file_name="aws",
+        name="rds_has_not_automated_backups",
+        module="dast",
+        finding=FindingEnum.F256,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_RDS_HAS_NOT_DELETION_PROTECTION = MethodInfo(
+        file_name="aws",
+        name="rds_has_not_deletion_protection",
+        module="dast",
+        finding=FindingEnum.F256,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_RDS_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="cloudformation",
@@ -5029,6 +4676,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_EC2_HAS_NOT_TERMINATION_PROTECTION = MethodInfo(
+        file_name="aws",
+        name="ec2_has_not_termination_protection",
+        module="dast",
+        finding=FindingEnum.F257,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_not_termination_protection",
@@ -5045,6 +4700,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_ELB2_HAS_NOT_DELETION_PROTECTION = MethodInfo(
+        file_name="aws",
+        name="elb2_has_not_deletion_protection",
+        module="dast",
+        finding=FindingEnum.F258,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    TFM_ELB2_NOT_DELETION_PROTEC = MethodInfo(
+        file_name="terraform",
+        name="tfm_elb2_has_not_deletion_protection",
+        module="lib_root",
+        finding=FindingEnum.F258,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_ELB2_NOT_DELETION_PROTEC = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_has_not_deletion_protection",
@@ -5052,6 +4723,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F258,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_DYNAMODB_HAS_NOT_POINT_IN_TIME_RECOVERY = MethodInfo(
+        file_name="aws",
+        name="dynamodb_has_not_point_in_time_recovery",
+        module="dast",
+        finding=FindingEnum.F259,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_NOT_POINT_TIME_RECOVERY = MethodInfo(
         file_name="cloudformation",
@@ -5165,6 +4844,70 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    WEBVIEW_VULNS = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="webview_vulnerabilities",
+        module="lib_apk",
+        finding=FindingEnum.F268,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
+    )
+    AWS_IAM_HAS_OLD_CREDS_ENABLED = MethodInfo(
+        file_name="aws",
+        name="have_old_creds_enabled",
+        module="dast",
+        finding=FindingEnum.F277,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_HAS_OLD_SSH_PUBLIC_KEYS = MethodInfo(
+        file_name="aws",
+        name="has_old_ssh_public_keys",
+        module="dast",
+        finding=FindingEnum.F277,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_HAS_OLD_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="have_old_access_keys",
+        module="dast",
+        finding=FindingEnum.F277,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    TS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
+        file_name="typescript",
+        name="typescript_non_secure_construction_of_cookies",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_NON_SECURE_CONSTRUCTION_OF_COOKIES = MethodInfo(
+        file_name="javascript",
+        name="javascript_non_secure_construction_of_cookies",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    PYTHON_SESSION_FIXATION = MethodInfo(
+        file_name="python",
+        name="python_session_fixation",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_S3_HAS_INSECURE_TRANSPORT = MethodInfo(
+        file_name="aws",
+        name="s3_has_insecure_transport",
+        module="dast",
+        finding=FindingEnum.F281,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
         file_name="cloudformation",
         name="cfn_bucket_policy_has_secure_transport",
@@ -5172,6 +4915,30 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F281,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
+        file_name="terraform",
+        name="tfm_bucket_policy_has_secure_transport",
+        module="lib_root",
+        finding=FindingEnum.F281,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_SQL_INJECTION = MethodInfo(
+        file_name="typescript",
+        name="ts_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F297,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_SQL_INJECTION = MethodInfo(
+        file_name="javascript",
+        name="js_sql_injection",
+        module="lib_root",
+        finding=FindingEnum.F297,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TFM_AZURE_APP_AUTH_OFF = MethodInfo(
         file_name="terraform",
@@ -5219,6 +4986,54 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F320,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_IAM_HAS_PRIVILEGES_OVER_IAM = MethodInfo(
+        file_name="aws",
+        name="iam_has_privileges_over_iam",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_KMS_HAS_MASTER_KEYS_EXPOSED_TO_EVERYONE = MethodInfo(
+        file_name="aws",
+        name="kms_has_master_keys_exposed_to_everyone",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_HAS_WILDCARD_RESOURCE_IN_WRITE_ACTION = MethodInfo(
+        file_name="aws",
+        name="iam_has_wildcard_resource_on_write_action",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_IS_POLICY_MISS_CONFIGURED = MethodInfo(
+        file_name="aws",
+        name="iam_is_policy_miss_configured",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_PERMISSIVE_POLICY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_permissive_policy",
+        module="lib_path",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_PERMISSIVE_POLICY = MethodInfo(
+        file_name="terraform",
+        name="terraform_permissive_policy",
+        module="lib_root",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
@@ -5269,46 +5084,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    TFM_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
-        file_name="terraform",
-        name="tfm_bucket_policy_has_secure_transport",
-        module="lib_root",
-        finding=FindingEnum.F281,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TFM_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
-        file_name="terraform",
-        name="tfm_iam_role_is_over_privileged",
-        module="lib_root",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_is_role_over_privileged",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_permissions_policy_allow_not_resource",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_permissions_policy_allow_not_action",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_permissions_policy_wildcard_resources",
@@ -5317,35 +5092,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CFN_IAM_PERMISSIONS_POLICY_APLLY_USERS = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_permissions_policy_aplly_users",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_permissions_policy_wildcard_actions",
         module="lib_path",
         finding=FindingEnum.F325,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_trust_policy_allow_not_principal",
-        module="lib_path",
-        finding=FindingEnum.F165,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_IAM_TRUST_POLICY_NOT_ACTION = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_iam_trust_policy_allow_not_action",
-        module="lib_path",
-        finding=FindingEnum.F165,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -5365,13 +5116,125 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    WEBVIEW_VULNS = MethodInfo(
-        file_name="analyze_bytecodes",
-        name="webview_vulnerabilities",
-        module="lib_apk",
-        finding=FindingEnum.F268,
+    KUBERNETES_INSECURE_PORT = MethodInfo(
+        file_name="kubernetes",
+        name="kubernetes_insecure_port",
+        module="lib_path",
+        finding=FindingEnum.F332,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_EC2_HAS_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
+        file_name="aws",
+        name="ec2_has_terminate_shutdown_behavior",
+        module="dast",
+        finding=FindingEnum.F333,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.APK,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_UNUSED_SEGGROUPS = MethodInfo(
+        file_name="aws",
+        name="has_unused_seggroups",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_ASSOCIATE_PUBLIC_IP_ADDRESS = MethodInfo(
+        file_name="aws",
+        name="ec2_has_associate_public_ip_address",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_IAM_INSTANCE_WITHOUT_PROFILE = MethodInfo(
+        file_name="aws",
+        name="ec2_iam_instances_without_profile",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_DEFINED_USER_DATA = MethodInfo(
+        file_name="aws",
+        name="has_defined_user_data",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_INSTANCES_USING_UNAPPROVED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_instances_using_unapproved_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_UNUSED_KEY_PAIRS = MethodInfo(
+        file_name="aws",
+        name="has_unused_ec2_key_pairs",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_HAS_PUBLICLY_SHARED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_publicly_shared_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_UNENCRYPTED_SNAPSHOTS = MethodInfo(
+        file_name="aws",
+        name="has_unencrypted_snapshots",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_HAS_UNENCRYPTED_AMIS = MethodInfo(
+        file_name="aws",
+        name="has_unencrypted_amis",
+        module="dast",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_EC2_NO_IAM = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_not_an_iam_instance_profile",
+        module="lib_path",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_EC2_ASSOC_PUB_IP = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_associate_public_ip_address",
+        module="lib_path",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_ec2_has_terminate_shutdown_behavior",
+        module="lib_path",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TFM_EC2_NO_IAM = MethodInfo(
+        file_name="terraform",
+        name="tfm_ec2_has_not_an_iam_instance_profile",
+        module="lib_root",
+        finding=FindingEnum.F333,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="terraform",
@@ -5381,20 +5244,148 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    KUBERNETES_INSECURE_PORT = MethodInfo(
-        file_name="kubernetes",
-        name="kubernetes_insecure_port",
-        module="lib_path",
-        finding=FindingEnum.F332,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     TFM_EC2_ASSOC_PUB_IP = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_associate_public_ip_address",
         module="lib_root",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_S3_BUCKET_VERSIONING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="s3_bucket_versioning_disabled",
+        module="dast",
+        finding=FindingEnum.F335,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_S3_VERSIONING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_s3_bucket_versioning_disabled",
+        module="lib_path",
+        finding=FindingEnum.F335,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_SALT_IS_HARDCODED = MethodInfo(
+        file_name="javascript",
+        name="js_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_SALT_IS_HARDCODED = MethodInfo(
+        file_name="typescript",
+        name="ts_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JAVA_SALT_IS_HARDCODED = MethodInfo(
+        file_name="java",
+        name="java_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    KOTLIN_SALT_IS_HARDCODED = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_salt_is_hardcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    GO_SALT_IS_HARDCODED = MethodInfo(
+        file_name="go",
+        name="go_salt_is_hardcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    DART_SALT_IS_HARDCODED = MethodInfo(
+        file_name="dart",
+        name="dart_salt_is_hardcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    CS_CHECK_HASHES_SALT = MethodInfo(
+        file_name="c_sharp",
+        name="csharp_check_hashes_salt",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    BREACH_POSSIBLE = MethodInfo(
+        file_name="analyze_headers",
+        name="breach_possible",
+        module="lib_http",
+        finding=FindingEnum.F343,
+        developer=DeveloperEnum.ALEJANDRO_SALGADO,
+        technique=TechniqueEnum.DAST,
+    )
+    JS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_compression_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F343,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_compression_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F343,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
+        file_name="javascript",
+        name="javascript_local_storage_with_sensitive_data",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
+        file_name="typescript",
+        name="typescript_local_storage_with_sensitive_data",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT = MethodInfo(
+        file_name="javascript",
+        name="javascript_local_storage_sensitive_data_async",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT = MethodInfo(
+        file_name="typescript",
+        name="typescript_local_storage_sensitive_data_assignment",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    DANGEROUS_PERMISSIONS = MethodInfo(
+        file_name="android",
+        name="has_dangerous_permissions",
+        module="lib_path",
+        finding=FindingEnum.F346,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_INSECURE_TRUST_MANAGER = MethodInfo(
@@ -5429,38 +5420,69 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-
-    TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
-        file_name="terraform",
-        name="tfm_aws_s3_versioning_disabled",
+    CS_CERT_VALIDATION_DISABLED = MethodInfo(
+        file_name="csharp",
+        name="csharp_cert_validation_disabled",
         module="lib_root",
-        finding=FindingEnum.F394,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
+        finding=FindingEnum.F358,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TFM_KMS_KEY_ROTATION_DISABLED = MethodInfo(
-        file_name="terraform",
-        name="tfm_kms_key_is_key_rotation_absent_or_disabled",
-        module="lib_root",
-        finding=FindingEnum.F396,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CS_CHECK_HASHES_SALT = MethodInfo(
-        file_name="c_sharp",
-        name="csharp_check_hashes_salt",
-        module="lib_root",
-        finding=FindingEnum.F338,
-        developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DANGEROUS_PERMISSIONS = MethodInfo(
-        file_name="android",
-        name="has_dangerous_permissions",
-        module="lib_path",
-        finding=FindingEnum.F346,
+    AWS_IAM_NOT_REQUIRES_UPPERCASE = MethodInfo(
+        file_name="aws",
+        name="not_requires_uppercase",
+        module="dast",
+        finding=FindingEnum.F363,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_NOT_REQUIRES_LOWERCASE = MethodInfo(
+        file_name="aws",
+        name="not_requires_lowercase",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_NOT_REQUIRES_SYMBOLS = MethodInfo(
+        file_name="aws",
+        name="not_requires_symbols",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_NOT_REQUIRES_NUMBERS = MethodInfo(
+        file_name="aws",
+        name="not_requires_numbers",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_MIN_PASSWORD_LEN_UNSAFE = MethodInfo(
+        file_name="aws",
+        name="min_password_len_unsafe",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_PASSWORD_REUSE_UNSAFE = MethodInfo(
+        file_name="aws",
+        name="password_reuse_unsafe",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IAM_PASSWORD_EXPIRATION_UNSAFE = MethodInfo(
+        file_name="aws",
+        name="password_expiration_unsafe",
+        module="dast",
+        finding=FindingEnum.F363,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_INSEC_GEN_SECRET = MethodInfo(
         file_name="cloudformation",
@@ -5485,6 +5507,22 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F368,
         developer=DeveloperEnum.FABIO_LAGOS,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    JS_USES_INNERHTML = MethodInfo(
+        file_name="javascript",
+        name="js_uses_innerhtml",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_USES_INNERHTML = MethodInfo(
+        file_name="typescript",
+        name="ts_uses_innerhtml",
+        module="lib_root",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     HTML_IS_HEADER_CONTENT_TYPE_MISSING = MethodInfo(
         file_name="html",
@@ -5524,6 +5562,30 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F371,
         developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_ELB2_HAS_NOT_HTTPS = MethodInfo(
+        file_name="aws",
+        name="elbv2_listeners_not_using_https",
+        module="dast",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_CFT_SERVES_CONTENT_OVER_HTTP = MethodInfo(
+        file_name="aws",
+        name="cft_serves_content_over_http",
+        module="dast",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    JSON_HTTPS_FLAG_MISSING = MethodInfo(
+        file_name="conf_files",
+        name="json_https_flag_missing",
+        module="lib_root",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_CONTENT_HTTP = MethodInfo(
@@ -5582,6 +5644,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    USES_HTTP_RESOURCES = MethodInfo(
+        file_name="analyze_bytecodes",
+        name="uses_http_resources",
+        module="lib_apk",
+        finding=FindingEnum.F372,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.APK,
+    )
     TS_UNNECESSARY_IMPORTS = MethodInfo(
         file_name="typescript",
         name="ts_unnecessary_imports",
@@ -5606,6 +5676,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    BASH_IMAGE_HAS_DIGEST = MethodInfo(
+        file_name="bash",
+        name="bash_image_has_digest",
+        module="lib_path",
+        finding=FindingEnum.F380,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DOCKER_COMPOSE_IMAGE_HAS_DIGEST = MethodInfo(
+        file_name="docker",
+        name="docker_compose_image_has_digest",
+        module="lib_path",
+        finding=FindingEnum.F380,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CHECK_REQUIRED_VERSION = MethodInfo(
         file_name="terraform",
         name="check_required_version",
@@ -5613,14 +5699,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F381,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    USES_HTTP_RESOURCES = MethodInfo(
-        file_name="analyze_bytecodes",
-        name="uses_http_resources",
-        module="lib_apk",
-        finding=FindingEnum.F372,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.APK,
     )
     COMPOSER_JSON_DEV = MethodInfo(
         file_name="composer",
@@ -5702,11 +5780,43 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    AWS_CLOUDTRAIL_FILES_NOT_VALIDATED = MethodInfo(
+        file_name="aws",
+        name="cloudtrail_files_not_validated",
+        module="dast",
+        finding=FindingEnum.F394,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    TFM_CTRAIL_LOG_NOT_VALIDATED = MethodInfo(
+        file_name="terraform",
+        name="tfm_aws_s3_versioning_disabled",
+        module="lib_root",
+        finding=FindingEnum.F394,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_LOG_NOT_VALIDATED = MethodInfo(
         file_name="cloudformation",
         name="cfn_log_files_not_validated",
         module="lib_path",
         finding=FindingEnum.F394,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_KMS_IS_KEY_ROTATION_DISABLED = MethodInfo(
+        file_name="aws",
+        name="kms_key_is_key_rotation_absent_or_disabled",
+        module="dast",
+        finding=FindingEnum.F396,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    TFM_KMS_KEY_ROTATION_DISABLED = MethodInfo(
+        file_name="terraform",
+        name="tfm_kms_key_is_key_rotation_absent_or_disabled",
+        module="lib_root",
+        finding=FindingEnum.F396,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
@@ -5718,46 +5828,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    CFN_AWS_EFS_UNENCRYPTED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_aws_efs_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F406,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_aws_ebs_volumes_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F407,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_api_gateway_access_logging_disabled",
-        module="lib_path",
-        finding=FindingEnum.F408,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_dynamodb_table_unencrypted",
-        module="lib_path",
-        finding=FindingEnum.F409,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    CFN_AWS_SECRET_WITHOUT_KMS_KEY = MethodInfo(
-        file_name="cloudformation",
-        name="cfn_aws_secret_encrypted_without_kms_key",
-        module="lib_path",
-        finding=FindingEnum.F411,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     FRAGMENT_INJECTION = MethodInfo(
         file_name="analyze_bytecodes",
         name="has_fragment_injection",
@@ -5765,6 +5835,78 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F398,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.APK,
+    )
+    AWS_ELBV2_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="elbv2_has_access_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EKS_HAS_DISABLED_CLUSTER_LOGGING = MethodInfo(
+        file_name="aws",
+        name="eks_has_disable_cluster_logging",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_CLOUDFRONT_HAS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="cloudfront_has_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_CLOUDTRAIL_TRAILS_NOT_MULTIREGION = MethodInfo(
+        file_name="aws",
+        name="cloudtrail_trails_not_multiregion",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_IS_TRAIL_BUCKET_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="is_trail_bucket_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_S3_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="s3_has_server_access_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EKS_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="eks_has_server_access_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EC2_MONITORING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="ec2_monitoring_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_CF_DISTRIBUTION_HAS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="cf_distribution_has_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
     )
     CFN_LOG_CONF_DISABLED = MethodInfo(
         file_name="cloudformation",
@@ -5886,12 +6028,36 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    XML_INSECURE_CONFIGURATION = MethodInfo(
+        file_name="conf_files",
+        name="xml_insecure_configuration",
+        module="lib_path",
+        finding=FindingEnum.F403,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     BASH_EXCESSIVE_PRIVILEGES_FOR_OTHERS = MethodInfo(
         file_name="bash",
         name="excessive_privileges_for_others",
         module="lib_path",
         finding=FindingEnum.F405,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_EFS_IS_ENCRYPTION_DISABLED = MethodInfo(
+        file_name="aws",
+        name="efs_is_encryption_disabled",
+        module="dast",
+        finding=FindingEnum.F406,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_AWS_EFS_UNENCRYPTED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_aws_efs_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F406,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AWS_EFS_UNENCRYPTED = MethodInfo(
@@ -5902,6 +6068,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_EBS_HAS_ENCRYPTION_DISABLED = MethodInfo(
+        file_name="aws",
+        name="ebs_has_encryption_disabled",
+        module="dast",
+        finding=FindingEnum.F407,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_aws_ebs_volumes_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F407,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_AWS_EBS_VOLUMES_UNENCRYPTED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ebs_volumes_unencrypted",
@@ -5910,12 +6092,60 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_api_gateway_access_logging_disabled",
+        module="lib_path",
+        finding=FindingEnum.F408,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_api_gateway_access_logging_disabled",
         module="lib_root",
         finding=FindingEnum.F408,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_AWS_DYNAMODB_TABLE_UNENCRYPTED = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_dynamodb_table_unencrypted",
+        module="lib_path",
+        finding=FindingEnum.F409,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    AWS_EBS_USES_DEFAULT_KMS_KEY = MethodInfo(
+        file_name="aws",
+        name="ebs_uses_default_kms_key",
+        module="dast",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EFS_USES_DEFAULT_KMS_KEY = MethodInfo(
+        file_name="aws",
+        name="efs_uses_default_kms_key",
+        module="dast",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_FSX_USES_DEFAULT_KMS_KEY = MethodInfo(
+        file_name="aws",
+        name="fsx_uses_default_kms_key",
+        module="dast",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    CFN_AWS_SECRET_WITHOUT_KMS_KEY = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_aws_secret_encrypted_without_kms_key",
+        module="lib_path",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
@@ -5974,78 +6204,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JAVA_HAS_PRINT_STATEMENTS = MethodInfo(
-        file_name="java",
-        name="java_has_print_statements",
-        module="lib_root",
-        finding=FindingEnum.F237,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DART_HAS_PRINT_STATEMENTS = MethodInfo(
-        file_name="dart",
-        name="dart_has_print_statements",
-        module="lib_root",
-        finding=FindingEnum.F237,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    PYTHON_HAS_PRINT_STATEMENTS = MethodInfo(
-        file_name="python",
-        name="python_has_print_statements",
-        module="lib_root",
-        finding=FindingEnum.F237,
-        developer=DeveloperEnum.FABIO_LAGOS,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    XML_HAS_X_XSS_PROTECTION_HEADER = MethodInfo(
-        file_name="conf_files",
-        name="xml_has_x_xss_protection_header",
-        module="lib_path",
-        finding=FindingEnum.F135,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JAVA_INSECURE_AUTHENTICATION = MethodInfo(
-        file_name="java",
-        name="java_insecure_authentication",
-        module="lib_root",
-        finding=FindingEnum.F015,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    XML_INSECURE_CONFIGURATION = MethodInfo(
-        file_name="conf_files",
-        name="xml_insecure_configuration",
-        module="lib_path",
-        finding=FindingEnum.F403,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    XML_NETWORK_SSL_DISABLED = MethodInfo(
-        file_name="conf_files",
-        name="xml_network_ssl_disabled",
-        module="lib_path",
-        finding=FindingEnum.F149,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    BASH_IMAGE_HAS_DIGEST = MethodInfo(
-        file_name="bash",
-        name="bash_image_has_digest",
-        module="lib_path",
-        finding=FindingEnum.F380,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    DOCKER_COMPOSE_IMAGE_HAS_DIGEST = MethodInfo(
-        file_name="docker",
-        name="docker_compose_image_has_digest",
-        module="lib_path",
-        finding=FindingEnum.F380,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     K8S_IMAGE_HAS_DIGEST = MethodInfo(
         file_name="kubernetes",
         name="k8s_image_has_digest",
@@ -6069,164 +6227,4 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F428,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_HAS_REVERSE_TABNABBING = MethodInfo(
-        file_name="javascript",
-        name="javascript_has_reverse_tabnabbing",
-        module="lib_root",
-        finding=FindingEnum.F097,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_HAS_REVERSE_TABNABBING = MethodInfo(
-        file_name="typescript",
-        name="typescript_has_reverse_tabnabbing",
-        module="lib_root",
-        finding=FindingEnum.F097,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_INSECURE_HASH_LIBRARY = MethodInfo(
-        file_name="javascript",
-        name="javascript_insecure_hash_library",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_INSECURE_HASH_LIBRARY = MethodInfo(
-        file_name="typescript",
-        name="typescript_insecure_hash_library",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
-        file_name="javascript",
-        name="javascript_insecure_compression_algorithm",
-        module="lib_root",
-        finding=FindingEnum.F343,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
-        file_name="typescript",
-        name="typescript_insecure_compression_algorithm",
-        module="lib_root",
-        finding=FindingEnum.F343,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
-        file_name="javascript",
-        name="javascript_local_storage_with_sensitive_data",
-        module="lib_root",
-        finding=FindingEnum.F344,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
-        file_name="typescript",
-        name="typescript_local_storage_with_sensitive_data",
-        module="lib_root",
-        finding=FindingEnum.F344,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT = MethodInfo(
-        file_name="javascript",
-        name="javascript_local_storage_sensitive_data_async",
-        module="lib_root",
-        finding=FindingEnum.F344,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT = MethodInfo(
-        file_name="typescript",
-        name="typescript_local_storage_sensitive_data_assignment",
-        module="lib_root",
-        finding=FindingEnum.F344,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
-        file_name="javascript",
-        name="javascript_json_parse_unvalidated_data",
-        module="lib_root",
-        finding=FindingEnum.F089,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    TS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
-        file_name="typescript",
-        name="typescript_json_parse_unvalidated_data",
-        module="lib_root",
-        finding=FindingEnum.F089,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_JWT_INSEC_SIGN_ALGORITHM = MethodInfo(
-        file_name="javascript",
-        name="javascript_jwt_insec_sign_algorithm",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_JWT_INSEC_SIGN_ALGORITHM = MethodInfo(
-        file_name="typescript",
-        name="typescript_jwt_insec_sign_algorithm",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
-        file_name="javascript",
-        name="javascript_jwt_insec_sign_algo_async",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
-        file_name="typescript",
-        name="typescript_jwt_insec_sign_algo_async",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
-        file_name="javascript",
-        name="javascript_insec_msg_auth_mechanism",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    TS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
-        file_name="typescript",
-        name="typescript_insec_msg_auth_mechanism",
-        module="lib_root",
-        finding=FindingEnum.F052,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    CS_CERT_VALIDATION_DISABLED = MethodInfo(
-        file_name="csharp",
-        name="csharp_cert_validation_disabled",
-        module="lib_root",
-        finding=FindingEnum.F358,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE = MethodInfo(
-        file_name="java",
-        name="java_http_accepts_any_myme_type",
-        module="lib_root",
-        finding=FindingEnum.F153,
-        developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.ADVANCE_SAST,
     )
