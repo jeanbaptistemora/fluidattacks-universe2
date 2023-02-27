@@ -1,3 +1,7 @@
+import type { ApolloQueryResult } from "@apollo/client";
+
+import type { IGetMeVulnerabilitiesAssignedIds } from "./components/Navbar/Tasks/types";
+
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
 interface IAddStakeholderAttr {
@@ -60,12 +64,15 @@ interface IGetMeVulnerabilitiesAssigned {
   };
 }
 
-interface IAssignedVulnerabilitiesContext
-  extends Array<
-    IGetVulnsGroups[] | React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>
-  > {
-  0: IGetVulnsGroups[];
-  1: React.Dispatch<React.SetStateAction<IGetVulnsGroups[]>>;
+interface IAssignedVulnerabilitiesContext {
+  refetchIds?: () => Promise<
+    ApolloQueryResult<IGetMeVulnerabilitiesAssignedIds>
+  >;
+  setRefetchIds?: (
+    refetchIdsFn: () => Promise<
+      ApolloQueryResult<IGetMeVulnerabilitiesAssignedIds>
+    >
+  ) => void;
 }
 
 interface IRootIdAttr {
