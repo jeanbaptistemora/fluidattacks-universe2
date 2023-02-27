@@ -124,8 +124,9 @@ async def test_get_last_closed_vulnerability(
     initial_date = datetime(2019, 1, 15).date()
     assert vuln_closed_days == (actual_date - initial_date).days
     expected_id = "242f848c-148a-4028-8e36-c7d995502590"
-    assert last_closed_vuln.id == expected_id  # type: ignore
-    assert last_closed_vuln.finding_id == "463558592"  # type: ignore
+    assert last_closed_vuln
+    assert last_closed_vuln.id == expected_id
+    assert last_closed_vuln.finding_id == "463558592"
 
 
 @patch(get_mocked_path("get_open_vulnerabilities"), new_callable=AsyncMock)
@@ -148,7 +149,9 @@ async def test_get_max_open_severity(
     )
     test_data = await get_max_open_severity(loaders, findings_loader)
     assert test_data[0] == Decimal(4.3).quantize(Decimal("0.1"))
-    assert test_data[1].id == "463558592"  # type: ignore
+    result_finding = test_data[1]
+    assert result_finding
+    assert result_finding.id == "463558592"
 
 
 async def test_get_pending_verification_findings() -> None:

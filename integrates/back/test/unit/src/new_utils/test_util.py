@@ -345,13 +345,13 @@ def test_replace_all() -> None:
 
 
 def test_list_to_dict() -> None:
-    keys = ["item", "item2", "item3"]
-    values = ["hi", "this is a", "item"]
-    test_data = utils.list_to_dict(keys, values)  # type: ignore
+    keys: list[object] = ["item", "item2", "item3"]
+    values: list[object] = ["hi", "this is a", "item"]
+    test_data = utils.list_to_dict(keys, values)
     expected_output = {"item": "hi", "item2": "this is a", "item3": "item"}
-    second_test_data = utils.list_to_dict(keys[0:2], values)  # type: ignore
+    second_test_data = utils.list_to_dict(keys[0:2], values)
     second_expected_output = {"item": "hi", "item2": "this is a", 2: "item"}
-    third_test_data = utils.list_to_dict(keys, values[0:2])  # type: ignore
+    third_test_data = utils.list_to_dict(keys, values[0:2])
     third_expected_output = {"item": "hi", "item2": "this is a", "item3": ""}
     assert test_data == expected_output
     assert second_test_data == second_expected_output

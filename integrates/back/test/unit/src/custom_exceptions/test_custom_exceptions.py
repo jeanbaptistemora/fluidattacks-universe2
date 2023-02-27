@@ -156,7 +156,7 @@ async def test_validate_file_schema_invalid(
     with open(file_url, "w", encoding="utf-8") as stream:
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
-        await validate_file_schema(file_url, info)  # type: ignore
+        validate_file_schema(file_url, info)
 
 
 @mock.patch(

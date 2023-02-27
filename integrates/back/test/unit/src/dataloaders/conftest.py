@@ -8,6 +8,10 @@ from moto.dynamodb import (
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
+from mypy_boto3_dynamodb.type_defs import (
+    AttributeDefinitionServiceResourceTypeDef,
+    KeySchemaElementServiceResourceTypeDef,
+)
 import pytest
 import pytest_asyncio
 from typing import (
@@ -19,13 +23,15 @@ pytestmark = [
 ]
 
 tables_names = ["integrates_vms"]
-key_schemas = {
+key_schemas: dict[str, list[KeySchemaElementServiceResourceTypeDef]] = {
     "integrates_vms": [
         {"AttributeName": "pk", "KeyType": "HASH"},
         {"AttributeName": "sk", "KeyType": "RANGE"},
     ],
 }
-attribute_definitions = {
+attribute_definitions: dict[
+    str, list[AttributeDefinitionServiceResourceTypeDef]
+] = {
     "integrates_vms": [
         {"AttributeName": "sk", "AttributeType": "S"},
         {"AttributeName": "pk", "AttributeType": "S"},
@@ -95,8 +101,8 @@ def create_tables(
     for table in tables_names:
         dynamo_resource.create_table(
             TableName=table,
-            KeySchema=key_schemas[table],  # type: ignore
-            AttributeDefinitions=attribute_definitions[table],  # type: ignore
+            KeySchema=key_schemas[table],
+            AttributeDefinitions=attribute_definitions[table],
             GlobalSecondaryIndexes=global_secondary_indexes[table],
             ProvisionedThroughput=dynamodb_tables_args[table][
                 "provisioned_throughput"

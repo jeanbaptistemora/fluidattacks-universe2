@@ -33,8 +33,7 @@ def test_get_percent() -> None:
     # FP: local testing
     assert get_percent("0", 10) == "-"  # type: ignore  # NOSONAR
     assert get_percent(-10, 10) == "-100%"
-    # FP: local testing
-    assert get_percent(0.55, 10) == "+6%"  # type: ignore  # NOSONAR
+    assert get_percent(0.55, 10) == "+6%"
     assert get_percent(2, 3) == "+67%"
     assert get_percent(3, 2) == "+150%"
     assert get_percent(-2, 3) == "-67%"

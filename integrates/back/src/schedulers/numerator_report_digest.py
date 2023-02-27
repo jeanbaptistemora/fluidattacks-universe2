@@ -594,7 +594,7 @@ async def _generate_numerator_report(
     return content
 
 
-def get_percent(num_a: int, num_b: int) -> str:
+def get_percent(num_a: float | int, num_b: float | int) -> str:
     try:
         variation: float = num_a / num_b
     except TypeError:

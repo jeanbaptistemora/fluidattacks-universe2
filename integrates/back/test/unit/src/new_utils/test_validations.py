@@ -185,19 +185,10 @@ def test_validate_all_fields_length_deco() -> None:
     ],
 )
 def test_validate_fields(fields: list) -> None:
-    assert not bool(
-        validations.validate_fields(["valid%", " valid="]),  # type: ignore
-    )
-    assert not bool(
-        validations.validate_fields(  # type: ignore
-            [
-                "testfield",
-                "testfield2",
-            ]
-        ),
-    )
+    validations.validate_fields(["valid%", " valid="])
+    validations.validate_fields(["testfield", "testfield2"])
     with pytest.raises(InvalidChar):
-        assert validations.validate_fields(fields)  # type: ignore
+        validations.validate_fields(fields)
 
 
 def test_validate_fields_deco() -> None:
@@ -370,7 +361,7 @@ def test_validate_file_name_deco() -> None:
 
 
 def test_validate_group_name() -> None:
-    assert not bool(validations.validate_group_name("test"))  # type: ignore
+    validations.validate_group_name("test")
     with pytest.raises(InvalidField):
         validations.validate_group_name("=test2@")
 
@@ -657,9 +648,9 @@ def test_validate_sequence_deco() -> None:
 def test_validate_symbols(value: str, should_fail: bool) -> None:
     if should_fail:
         with pytest.raises(InvalidReportFilter):
-            assert validations.validate_symbols(value)  # type: ignore
+            validations.validate_symbols(value)
     else:
-        assert validations.validate_symbols(value) is None  # type: ignore
+        validations.validate_symbols(value)
 
 
 @pytest.mark.parametrize(
