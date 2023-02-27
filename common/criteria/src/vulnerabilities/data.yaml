@@ -4454,16 +4454,31 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
-      The content security policy is incorrectly configured in the http headers
+      After performing an HTTP GET request to the server, the CSP header
+      is insecurely configured
       ```http
       HTTP/1.1 200 OK
-      Content-Security-Policy: frame-ancestors 'none'
+      content-security-policy: style-src 'self'
+      'unsafe-inline'; font-src 'self' https://fonts.gstatic.com;
+      script-src 'unsafe-inline'; script-src-elem 'self';
+      img-src 'self' https://fonts.googleapis.com;
+      frame-ancestors https:; block-all-mixed-content;
       ```
+      In this example, the CSP header has the following vulnerabilities:
+      Unsafe https: wildcard in the frame-ancestors directive,
+      Unsafe 'unsafe-inline' in the script-src directive,
+      Does not have the object-src or default-src directive,
+      Does not contain the upgrade-insecure-requests,
+      Uses the deprecated block-all-mixed-content directive.
     compliant: |
-      Securely configure the content security policy in the http headers
+      The server has the CSP header correctly configured
       ```http
       HTTP/1.1 200 OK
-      Content-Security-Policy: default-src 'self' trusted.com *.trusted.com
+      content-security-policy: default-src 'self'; style-src 'self'
+      'unsafe-inline'; font-src 'self' https://fonts.gstatic.com;
+      object-src 'none'; script-src 'self' 'unsafe-eval';
+      script-src-elem 'self'; img-src 'self' https://fonts.googleapis.com;
+      upgrade-insecure-requests; frame-ancestors 'none';
       ```
   remediation_time: '15'
   score:
