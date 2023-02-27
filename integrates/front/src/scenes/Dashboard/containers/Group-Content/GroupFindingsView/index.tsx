@@ -61,7 +61,7 @@ import { Button } from "components/Button";
 import { Empty } from "components/Empty";
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
-import { Select } from "components/Input";
+import { Label, Select, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
@@ -79,11 +79,7 @@ import type {
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/types";
 import { vulnerabilitiesContext } from "scenes/Dashboard/group/context";
 import type { IVulnerabilitiesContext } from "scenes/Dashboard/group/types";
-import {
-  ControlLabel,
-  FormGroup,
-  HintFieldText,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikAutocompleteText } from "utils/forms/fields";
@@ -106,6 +102,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
   const [isAddFindingModalOpen, setIsAddFindingModalOpen] = useState(false);
+  const [addFindingInitialValues, setAddFindingInitialValues] = useState({
+    description: "",
+    recommendation: "",
+    title: "",
+  });
   const [suggestions, setSuggestions] = useState<
     IFindingSuggestionData[] | undefined
   >(undefined);
@@ -649,28 +650,41 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     return renderDescription(row.original);
   }, []);
 
-  const getFindingDescription: (findingName: string) => string = (
-    findingName: string
-  ): string => {
-    const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
-      suggestions
-    )
-      ? []
-      : suggestions.filter(
-          (suggestion: IFindingSuggestionData): boolean =>
-            `${suggestion.code}. ${suggestion.title}` === findingName
-        );
+  const getFindingMatchingSuggestion = useCallback(
+    (findingName: string): IFindingSuggestionData | undefined => {
+      const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
+        suggestions
+      )
+        ? []
+        : suggestions.filter(
+            (suggestion: IFindingSuggestionData): boolean =>
+              `${suggestion.code}. ${suggestion.title}` === findingName
+          );
 
-    if (
-      _.isUndefined(matchingSuggestion) ||
-      !matchingSuggestion.description ||
-      matchingSuggestion.description.includes("__empty__")
-    ) {
-      return t("group.findings.addModal.hint.empty");
-    }
+      return matchingSuggestion;
+    },
+    [suggestions]
+  );
 
-    return matchingSuggestion.description;
-  };
+  const handleAddFindingTitleChange = useCallback(
+    ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
+      const matchingSuggestion = getFindingMatchingSuggestion(target.value);
+      if (!_.isUndefined(matchingSuggestion)) {
+        setAddFindingInitialValues({
+          ...addFindingInitialValues,
+          description: matchingSuggestion.description.includes("__empty__")
+            ? ""
+            : matchingSuggestion.description,
+          recommendation: matchingSuggestion.recommendation.includes(
+            "__empty__"
+          )
+            ? ""
+            : matchingSuggestion.recommendation,
+        });
+      }
+    },
+    [addFindingInitialValues, getFindingMatchingSuggestion]
+  );
 
   return (
     <React.StrictMode>
@@ -773,48 +787,56 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       >
         <Formik
           enableReinitialize={true}
-          initialValues={{ title: "" }}
+          initialValues={addFindingInitialValues}
           name={"addFinding"}
           onSubmit={handleAdd}
         >
-          {({ dirty, isValid, values }): JSX.Element => (
-            <Form>
-              <Field
-                alignField={"horizontal"}
-                component={FormikAutocompleteText}
-                focus={true}
-                id={"title"}
-                name={"title"}
-                renderAsEditable={true}
-                suggestions={
-                  _.isUndefined(suggestions)
-                    ? []
-                    : _.sortBy(
-                        suggestions.map(
-                          (suggestion: IFindingSuggestionData): string =>
-                            `${suggestion.code}. ${suggestion.title}`
+          {({ isValid }): JSX.Element => {
+            return (
+              <Form>
+                <Label
+                  htmlFor={"title"}
+                  tooltip={t("searchFindings.tabDescription.title.tooltip")}
+                >
+                  {t("group.findings.addModal.title.label")}
+                </Label>
+                <Field
+                  component={FormikAutocompleteText}
+                  field={{ onChange: handleAddFindingTitleChange }}
+                  focus={true}
+                  id={"title"}
+                  name={"title"}
+                  suggestions={
+                    _.isUndefined(suggestions)
+                      ? []
+                      : _.sortBy(
+                          suggestions.map(
+                            (suggestion: IFindingSuggestionData): string =>
+                              `${suggestion.code}. ${suggestion.title}`
+                          )
                         )
-                      )
-                }
-                type={"text"}
-              />
-              {dirty && isValid ? (
-                <React.Fragment>
-                  <hr />
-                  <HintFieldText>
-                    {t("group.findings.addModal.hint.description")}
-                  </HintFieldText>
-                  <HintFieldText>
-                    {getFindingDescription(values.title)}
-                  </HintFieldText>
-                </React.Fragment>
-              ) : undefined}
-              <ModalConfirm
-                disabled={!dirty || !isValid || addingFinding}
-                onCancel={closeAddFindingModal}
-              />
-            </Form>
-          )}
+                  }
+                  type={"text"}
+                />
+                <TextArea
+                  label={t("group.findings.addModal.description.label")}
+                  name={"description"}
+                  tooltip={t("searchFindings.tabDescription.threat.tooltip")}
+                />
+                <TextArea
+                  label={t("group.findings.addModal.recommendation.label")}
+                  name={"recommendation"}
+                  tooltip={t(
+                    "searchFindings.tabDescription.recommendation.tooltip"
+                  )}
+                />
+                <ModalConfirm
+                  disabled={!isValid || addingFinding}
+                  onCancel={closeAddFindingModal}
+                />
+              </Form>
+            );
+          }}
         </Formik>
       </Modal>
       <Modal
