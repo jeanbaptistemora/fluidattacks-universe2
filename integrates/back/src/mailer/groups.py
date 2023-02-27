@@ -329,7 +329,7 @@ async def send_mail_group_alert(
     loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
 ) -> None:
     subject = (
-        f'[{context["group"]}] group deletion failed from '
+        f'[ARM] [{context["group"]}] group deletion failed from '
         + f'[{context["organization"]}]'
         if context["attempt"] is None
         else f'[ARM] Group [{context["group"]}] has been [{context["state"]}]'
@@ -341,7 +341,7 @@ async def send_mail_group_alert(
         context=context,
         tags=GENERAL_TAG,
         subject=(
-            f'[{context["group"]}] group will be deleted from '
+            f'[ARM] Group [{context["group"]}] will be deleted from '
             + f'[{context["organization"]}] soon'
             if context["attempt"]
             else subject
