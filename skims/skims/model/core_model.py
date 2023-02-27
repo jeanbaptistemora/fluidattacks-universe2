@@ -3636,6 +3636,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    SWIFT_INSECURE_CRYPTOR = MethodInfo(
+        file_name="swift",
+        name="swift_insecure_cryptor",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     GO_INSECURE_HASH = MethodInfo(
         file_name="go",
         name="go_insecure_hash",
