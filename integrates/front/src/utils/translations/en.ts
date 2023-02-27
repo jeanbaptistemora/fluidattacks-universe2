@@ -688,6 +688,17 @@ export const enTranslations: ResourceKey = {
         alerts: {
           addedFinding: "The vulnerability has been added",
         },
+        fields: {
+          description: {
+            label: "Description",
+            tooltip: "Brief explanation of the vulnerability and how it works",
+          },
+          recommendation: {
+            label: "Recommendation",
+            tooltip: "General suggestion to solve the vulnerability",
+          },
+          title: { label: "Title", tooltip: "Finding number and name" },
+        },
         hint: {
           description: "Hint: Description",
           empty: "Not available",

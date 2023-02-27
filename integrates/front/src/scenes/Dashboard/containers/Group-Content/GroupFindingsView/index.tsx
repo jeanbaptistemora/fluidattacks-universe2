@@ -252,6 +252,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       }
     }, [suggestions]);
   const closeAddFindingModal: () => void = useCallback((): void => {
+    setAddFindingInitialValues({
+      description: "",
+      recommendation: "",
+      title: "",
+    });
     setIsAddFindingModalOpen(false);
   }, []);
   const openReportsModal: () => void = useCallback((): void => {
@@ -549,7 +554,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           t("groupAlerts.titleSuccess")
         );
         await refetch();
-        setIsAddFindingModalOpen(false);
+        closeAddFindingModal();
       }
     },
     onError: (errors: ApolloError): void => {
@@ -563,7 +568,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   });
 
   const handleAdd = useCallback(
-    async ({ title }: { title: string }): Promise<void> => {
+    async ({
+      description,
+      recommendation,
+      title,
+    }: {
+      description: string;
+      recommendation: string;
+      title: string;
+    }): Promise<void> => {
       const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
         suggestions
       )
@@ -576,7 +589,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       await addFinding({
         variables: {
           ...draftData,
+          description,
           groupName,
+          recommendation,
           title,
         },
       });
@@ -680,6 +695,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           )
             ? ""
             : matchingSuggestion.recommendation,
+          title: target.value,
         });
       }
     },
@@ -796,9 +812,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               <Form>
                 <Label
                   htmlFor={"title"}
-                  tooltip={t("searchFindings.tabDescription.title.tooltip")}
+                  tooltip={t("group.findings.addModal.fields.title.tooltip")}
                 >
-                  {t("group.findings.addModal.title.label")}
+                  {t("group.findings.addModal.fields.title.label")}
                 </Label>
                 <Field
                   component={FormikAutocompleteText}
@@ -819,15 +835,19 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   type={"text"}
                 />
                 <TextArea
-                  label={t("group.findings.addModal.description.label")}
+                  label={t("group.findings.addModal.fields.description.label")}
                   name={"description"}
-                  tooltip={t("searchFindings.tabDescription.threat.tooltip")}
+                  tooltip={t(
+                    "group.findings.addModal.fields.description.tooltip"
+                  )}
                 />
                 <TextArea
-                  label={t("group.findings.addModal.recommendation.label")}
+                  label={t(
+                    "group.findings.addModal.fields.recommendation.label"
+                  )}
                   name={"recommendation"}
                   tooltip={t(
-                    "searchFindings.tabDescription.recommendation.tooltip"
+                    "group.findings.addModal.fields.recommendation.tooltip"
                   )}
                 />
                 <ModalConfirm
