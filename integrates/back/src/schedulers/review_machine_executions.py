@@ -31,7 +31,9 @@ from typing import (
 LOGGER = logging.getLogger("console")
 
 
-async def get_all_jobs(client: Any, queue: str, status: str) -> list[str]:
+async def get_all_jobs(
+    client: Any, queue: str, status: str
+) -> list[dict[str, str]]:
     jobs_to_inspect = []
     next_token = None
     while True:
@@ -77,9 +79,7 @@ async def main() -> None:
             )
         )
 
-        jobs_description = await describe_jobs(
-            *[job["jobId"] for job in jobs]  # type: ignore
-        )
+        jobs_description = await describe_jobs(*[job["jobId"] for job in jobs])
         logs = await collect(
             [
                 get_log_streams(

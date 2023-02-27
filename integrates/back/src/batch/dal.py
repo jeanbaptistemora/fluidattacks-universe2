@@ -404,27 +404,20 @@ async def delete_action(
     dynamodb_pk: str | None = None,
 ) -> bool:
     try:
-        if not dynamodb_pk and any(
-            [
-                not action_name,
-                not additional_info,
-                not entity,
-                not subject,
-                not time,
-            ]
-        ):
-            raise Exception(
-                (
-                    "you must supply the dynamodb pk argument"
-                    " or any other arguments to build pk"
-                )
+        if dynamodb_pk:
+            key = dynamodb_pk
+        elif action_name and additional_info and entity and subject and time:
+            key = generate_key_to_dynamod(
+                action_name=action_name,
+                additional_info=additional_info,
+                entity=entity,
+                subject=subject,
             )
-        key = dynamodb_pk or generate_key_to_dynamod(
-            action_name=action_name,  # type: ignore
-            additional_info=additional_info,  # type: ignore
-            entity=entity,  # type: ignore
-            subject=subject,  # type: ignore
-        )
+        else:
+            raise Exception(
+                "you must supply the dynamodb pk argument"
+                " or any other arguments to build pk"
+            )
         return await dynamodb_ops.delete_item(
             delete_attrs=dynamodb_ops.DynamoDelete(Key=dict(pk=key)),
             table=TABLE_NAME,

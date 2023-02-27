@@ -2,6 +2,9 @@ from graphql import (
     GraphQLError,
     TokenKind,
 )
+from graphql.language.ast import (
+    DirectiveNode,
+)
 from graphql.language.parser import (
     Parser,
 )
@@ -17,7 +20,7 @@ def validate_directives(query: str) -> None:
     """
 
     class DirectivesParser(Parser):
-        def parse_directives(self, is_const: bool) -> None:  # type: ignore
+        def parse_directives(self, is_const: bool) -> list[DirectiveNode]:
             directives = 0
 
             while self.peek(TokenKind.AT):
@@ -27,6 +30,8 @@ def validate_directives(query: str) -> None:
                     raise GraphQLError("Exception - Max directives exceeded")
 
                 self.parse_directive(is_const)
+
+            return []
 
     ast_parser = DirectivesParser(query)
     ast_parser.parse_document()

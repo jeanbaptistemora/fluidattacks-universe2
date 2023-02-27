@@ -43,10 +43,10 @@ async def append_records_to_file(
 ) -> UploadFile:
     header = records[0].keys()
     values = [list(v) for v in [record.values() for record in records]]
-    new_file_records = await new_file.read()
+    new_file_records: bytes = await new_file.read()
     await new_file.seek(0)
     new_file_header = new_file_records.decode("utf-8").split("\n")[0]
-    new_file_records = r"\n".join(  # type: ignore
+    new_file_records_str = r"\n".join(
         new_file_records.decode("utf-8").split("\n")[1:]
     )
     records_str = ""
@@ -57,7 +57,7 @@ async def append_records_to_file(
         str(",".join(header))
         + r"\n"
         + aux
-        + str(new_file_records).replace("'", "")
+        + new_file_records_str.replace("'", "")
     )
     if new_file_header != str(",".join(header)):
         raise InvalidFileStructure()

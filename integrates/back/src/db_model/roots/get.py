@@ -414,15 +414,16 @@ async def get_upload_url(group_name: str, root_nickname: str) -> str | None:
 
 async def get_upload_url_post(
     group_name: str, root_nickname: str
-) -> dict[str, dict[str, str]]:
+) -> tuple[str, dict[str, str]]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
-
-    return await client.generate_presigned_post(
+    response = await client.generate_presigned_post(
         FI_AWS_S3_MAIN_BUCKET,
         f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories/{object_name}",
         ExpiresIn=1800,
     )
+
+    return response["url"], response["fields"]
 
 
 async def _get_secrets(

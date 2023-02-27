@@ -57,7 +57,7 @@ async def enforce_group_level_role(
     request: Request,
     group: str,
     *allowed_roles: Sequence[str],
-) -> Response:
+) -> Response | None:
     response = None
     user_info = await sessions_domain.get_jwt_content(request)
     email = user_info["user_email"]
@@ -65,7 +65,7 @@ async def enforce_group_level_role(
     if requester_role not in allowed_roles:
         response = Response("Access denied")
         response.status_code = 403
-    return response  # type: ignore
+    return response
 
 
 async def get_evidence(  # pylint: disable=too-many-locals
@@ -129,14 +129,14 @@ async def get_evidence(  # pylint: disable=too-many-locals
                     "error": True,
                 }
             )
-    else:
-        logs_utils.cloudwatch_log(
-            request,
-            "Security: Attempted to retrieve evidence without permission",
-        )
-        return JSONResponse(
-            {"data": [], "message": "Evidence type not found", "error": True}
-        )
+
+    logs_utils.cloudwatch_log(
+        request,
+        "Security: Attempted to retrieve evidence without permission",
+    )
+    return JSONResponse(
+        {"data": [], "message": "Evidence type not found", "error": True}
+    )
 
 
 async def list_s3_evidences(prefix: str) -> list[str]:

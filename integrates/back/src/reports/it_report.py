@@ -760,11 +760,9 @@ class ITReport:
         tuple[VulnerabilityTreatment, ...],
         tuple[VulnerabilityVerification, ...],
     ]:
-        return await collect(  # type: ignore
-            (
-                self._get_historic_treatment(vuln.id),
-                self._get_historic_verification(vuln.id),
-            )
+        return (
+            await self._get_historic_treatment(vuln.id),
+            await self._get_historic_verification(vuln.id),
         )
 
     @staticmethod

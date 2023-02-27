@@ -82,17 +82,17 @@ async def upload_cloned_repo_to_s3_tar(
         os.remove(zip_output_path)
         return False
 
-    response = await get_upload_url_post(group_name, nickname)
+    url, fields = await get_upload_url_post(group_name, nickname)
     object_name = path.join(group_name, f"{nickname}.tar.gz")
     with open(zip_output_path, "rb") as object_file:
         data = aiohttp.FormData()
-        for key, value in response["fields"].items():
+        for key, value in fields.items():
             data.add_field(key, value)
         data.add_field("file", object_file, filename=object_name)
 
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                response["url"],  # type: ignore
+                url,
                 data=data,
             ) as upload_response:
                 if upload_response.status not in {200, 204}:
