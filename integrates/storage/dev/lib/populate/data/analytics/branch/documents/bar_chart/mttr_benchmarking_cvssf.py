@@ -49,9 +49,6 @@ from dynamodb.exceptions import (
 from groups.domain import (
     get_mean_remediate_severity_cvssf,
 )
-from typing import (
-    Optional,
-)
 
 
 @retry_on_exceptions(
@@ -82,7 +79,7 @@ async def _get_historic_verification(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
-    group: str, loaders: Dataloaders, min_date: Optional[datetype] = None
+    group: str, loaders: Dataloaders, min_date: datetype | None = None
 ) -> Benchmarking:
     group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(

@@ -21,6 +21,9 @@ from charts.generators.common.colors import (
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -36,9 +39,6 @@ from findings.domain.core import (
 )
 from operator import (
     attrgetter,
-)
-from typing import (
-    Counter,
 )
 
 

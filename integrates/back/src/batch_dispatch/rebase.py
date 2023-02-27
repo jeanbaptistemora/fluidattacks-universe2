@@ -62,9 +62,6 @@ from settings import (
     LOGGING,
 )
 import tempfile
-from typing import (
-    Optional,
-)
 from vulnerabilities.domain import (
     get_vulnerabilities,
 )
@@ -107,7 +104,7 @@ def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
     states: tuple[VulnerabilityState, ...],
-) -> Optional[git_utils.RebaseResult]:
+) -> git_utils.RebaseResult | None:
 
     try:
         if (

@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -48,7 +51,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Iterable,
     TypedDict,
 )
 

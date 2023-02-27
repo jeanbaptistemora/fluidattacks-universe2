@@ -21,6 +21,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -33,9 +36,6 @@ from dynamodb import (
 )
 from itertools import (
     chain,
-)
-from typing import (
-    Iterable,
 )
 
 

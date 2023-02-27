@@ -43,7 +43,6 @@ from operator import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -100,7 +99,7 @@ async def get_data_many_groups(
 
 
 def format_data(
-    *, data: tuple[EventsInfo, ...], legend: str, x_label: Optional[str] = None
+    *, data: tuple[EventsInfo, ...], legend: str, x_label: str | None = None
 ) -> tuple[dict, CsvData]:
     limited_data = [group for group in data if group.days > 0][:LIMIT]
 
