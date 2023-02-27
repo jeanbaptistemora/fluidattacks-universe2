@@ -84,6 +84,7 @@ async def get_result(
                 historicState
                 id
                 isExploitable
+                lastStateDate
                 lastVulnerability
                 minTimeToRemediate
                 observations{{

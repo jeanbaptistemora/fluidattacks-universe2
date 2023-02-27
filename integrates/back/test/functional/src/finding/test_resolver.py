@@ -103,6 +103,7 @@ async def test_get_finding(
     min_time_to_remediate: int = 4
     threat: str = "Updated threat"
     recommendation: str = "Updated recommendation"
+    last_state_date: str = "2018-04-07 19:45:15"
     tracking: list[dict] = [
         {
             "cycle": 0,
@@ -189,6 +190,7 @@ async def test_get_finding(
     assert result["data"]["finding"]["historicState"] == historic_state
     assert result["data"]["finding"]["id"] == identifier
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
+    assert result["data"]["finding"]["lastStateDate"] == last_state_date
     assert result["data"]["finding"]["lastVulnerability"] == last_vuln
     assert result["data"]["finding"]["observations"] == [
         {"content": "This is a test observations"}
