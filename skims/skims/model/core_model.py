@@ -2196,6 +2196,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    KT_WEAK_RANDOM = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_weak_random",
+        module="lib_root",
+        finding=FindingEnum.F034,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     KT_UNENCRYPTED_CHANNEL = MethodInfo(
         file_name="kotlin",
         name="kotlin_unencrypted_channel",

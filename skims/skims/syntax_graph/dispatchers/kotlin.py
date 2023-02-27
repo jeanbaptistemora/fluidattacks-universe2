@@ -206,6 +206,7 @@ KOTLIN_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "line_string_literal",
+            "long_literal",
             "multi_line_string_literal",
         },
         syntax_reader=kotlin_string_literal.reader,
