@@ -1,6 +1,9 @@
 from charts.utils import (
     CsvData,
 )
+from collections import (
+    Counter,
+)
 from contextlib import (
     suppress,
 )
@@ -9,9 +12,6 @@ from custom_exceptions import (
 )
 from newutils.validations import (
     validate_sanitized_csv_input,
-)
-from typing import (
-    Counter,
 )
 
 

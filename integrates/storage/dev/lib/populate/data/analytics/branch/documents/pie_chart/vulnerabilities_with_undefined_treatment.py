@@ -27,9 +27,6 @@ from db_model.groups.types import (
 from decimal import (
     Decimal,
 )
-from typing import (
-    Optional,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -40,9 +37,9 @@ async def get_data_group(
     indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(group_name)
     )
-    total_treatment: Optional[
-        GroupTreatmentSummary
-    ] = indicators.treatment_summary
+    total_treatment: (
+        GroupTreatmentSummary | None
+    ) = indicators.treatment_summary
     return PortfoliosGroupsInfo(
         group_name=group_name,
         value=Decimal(total_treatment.untreated if total_treatment else 0),

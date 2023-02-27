@@ -10,6 +10,10 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections.abc import (
+    Awaitable,
+    Callable,
+)
 from decimal import (
     Decimal,
 )
@@ -18,8 +22,6 @@ from operator import (
 )
 from typing import (
     Any,
-    Awaitable,
-    Callable,
     NamedTuple,
 )
 

@@ -30,6 +30,9 @@ from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
     MIN_PERCENTAGE,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -58,7 +61,6 @@ from statistics import (
     mean,
 )
 from typing import (
-    Counter,
     NamedTuple,
 )
 

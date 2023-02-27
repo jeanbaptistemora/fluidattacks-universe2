@@ -13,6 +13,7 @@ from charts.generators.stacked_bar_chart.utils import (
     format_stacked_vulnerabilities_data,
 )
 from collections import (
+    Counter,
     defaultdict,
 )
 from dataloaders import (
@@ -28,9 +29,6 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
-)
-from typing import (
-    Counter,
 )
 
 

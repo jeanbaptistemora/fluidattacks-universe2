@@ -14,6 +14,9 @@ from charts.generators.common.colors import (
 from charts.generators.pie_chart.utils import (
     generate_all,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -28,10 +31,7 @@ from findings.domain import (
     get_severity_score,
 )
 from typing import (
-    Counter,
-    Dict,
     NamedTuple,
-    Tuple,
 )
 
 Treatment = NamedTuple(
@@ -50,7 +50,7 @@ async def get_data_one_group(group: str) -> Treatment:
     loaders = get_new_context()
     group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
-    finding_cvssf: Dict[str, Decimal] = {
+    finding_cvssf: dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
         for finding in group_findings
     }
@@ -87,8 +87,8 @@ async def get_data_one_group(group: str) -> Treatment:
     )
 
 
-async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
-    groups_data: Tuple[Treatment, ...] = await collect(
+async def get_data_many_groups(groups: tuple[str, ...]) -> Treatment:
+    groups_data: tuple[Treatment, ...] = await collect(
         map(get_data_one_group, groups), workers=32
     )
 
@@ -103,7 +103,7 @@ async def get_data_many_groups(groups: Tuple[str, ...]) -> Treatment:
 
 
 def format_data(data: Treatment) -> dict:
-    translations: Dict[str, str] = {
+    translations: dict[str, str] = {
         "acceptedUndefined": "Permanently accepted",
         "accepted": "Temporarily accepted",
         "inProgress": "In progress",

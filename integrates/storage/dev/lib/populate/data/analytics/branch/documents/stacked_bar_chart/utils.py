@@ -14,6 +14,9 @@ from charts.utils import (
     CsvData,
     format_cvssf,
 )
+from collections.abc import (
+    Callable,
+)
 from contextlib import (
     suppress,
 )
@@ -38,10 +41,7 @@ from pandas import (
 )
 from typing import (
     Any,
-    Callable,
-    List,
     NamedTuple,
-    Union,
 )
 
 # Constants
@@ -65,21 +65,21 @@ MONTH_TO_NUMBER = {
     "Dec": 12,
 }
 
-DISTRIBUTION_OVER_TIME: List[str] = [
+DISTRIBUTION_OVER_TIME: list[str] = [
     "date",
     "Closed",
     "Accepted",
     "Open",
 ]
 
-RISK_OVER_TIME: List[str] = [
+RISK_OVER_TIME: list[str] = [
     "date",
     "Closed",
     "Accepted",
     "Reported",
 ]
 
-EXPOSED_OVER_TIME: List[str] = [
+EXPOSED_OVER_TIME: list[str] = [
     "date",
     "Exposure",
 ]
@@ -419,10 +419,10 @@ def sum_over_time_many_groups(
     all_group_documents: tuple[
         tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType
     ],
-    documents_names: List[str],
+    documents_names: list[str],
 ) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
     group_documents = all_group_documents[0]
-    all_dates: List[datetime] = sorted(
+    all_dates: list[datetime] = sorted(
         set(
             date
             for group_document in group_documents
@@ -526,9 +526,9 @@ def get_risk_over_rangetime(
 
 def get_data_risk_over_time_group(
     *,
-    over_time_weekly: list[list[dict[str, Union[str, Decimal]]]],
-    over_time_monthly: list[list[dict[str, Union[str, Decimal]]]],
-    over_time_yearly: list[list[dict[str, Union[str, Decimal]]]],
+    over_time_weekly: list[list[dict[str, str | Decimal]]],
+    over_time_monthly: list[list[dict[str, str | Decimal]]],
+    over_time_yearly: list[list[dict[str, str | Decimal]]],
     weekly_data_size: int,
     limited_days: bool,
 ) -> RiskOverTime:
@@ -669,8 +669,8 @@ def get_time_range(
 
 
 def round_percentage(
-    percentages: List[Decimal], exact_percentages: List[Decimal], last: int
-) -> List[Decimal]:
+    percentages: list[Decimal], exact_percentages: list[Decimal], last: int
+) -> list[Decimal]:
     sum_percentage = sum(percentages)
     if sum_percentage == Decimal("100.0") or sum_percentage == Decimal("0.0"):
         return percentages
@@ -691,7 +691,7 @@ def round_percentage(
     return round_percentage(new_percentages, exact_percentages, last - 1)
 
 
-def get_percentage(values: List[Decimal]) -> List[Decimal]:
+def get_percentage(values: list[Decimal]) -> list[Decimal]:
     percentages = [
         Decimal(value * Decimal("100.0")).to_integral_exact(
             rounding=ROUND_FLOOR
@@ -718,12 +718,12 @@ def format_severity(values: dict[str, Decimal]) -> tuple[dict[str, str], ...]:
 
     total_bar: Decimal = values["Accepted"] + values["Open"] + values["Closed"]
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
-    raw_percentages: List[Decimal] = [
+    raw_percentages: list[Decimal] = [
         values["Closed"] / total_bar,
         values["Accepted"] / total_bar,
         values["Open"] / total_bar,
     ]
-    percentages: List[Decimal] = get_percentage(raw_percentages)
+    percentages: list[Decimal] = get_percentage(raw_percentages)
     max_percentage_values = dict(
         Closed=str(percentages[0]) if percentages[0] >= MIN_PERCENTAGE else "",
         Accepted=str(percentages[1])
@@ -850,13 +850,13 @@ def format_stacked_percentages(
         + values["Open"]
     )
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
-    raw_percentages: List[Decimal] = [
+    raw_percentages: list[Decimal] = [
         values["Closed"] / total_bar,
         values["Temporarily accepted"] / total_bar,
         values["Permanently accepted"] / total_bar,
         values["Open"] / total_bar,
     ]
-    percentages: List[Decimal] = get_percentage(raw_percentages)
+    percentages: list[Decimal] = get_percentage(raw_percentages)
     max_percentage_values = {
         "Closed": str(percentages[0])
         if percentages[0] >= MIN_PERCENTAGE

@@ -32,6 +32,9 @@ from charts.generators.stacked_bar_chart.utils import (
     TimeRangeType,
     translate_date,
 )
+from collections.abc import (
+    Callable,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -46,7 +49,6 @@ from decimal import (
     Decimal,
 )
 from typing import (
-    Callable,
     NamedTuple,
 )
 

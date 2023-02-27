@@ -14,6 +14,9 @@ from charts.utils import (
     json_dump,
     TICK_ROTATION,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -21,7 +24,6 @@ from itertools import (
     chain,
 )
 from typing import (
-    Counter,
     NamedTuple,
 )
 

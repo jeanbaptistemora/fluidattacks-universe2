@@ -16,6 +16,9 @@ from charts.utils import (
     json_dump,
     retry_on_exceptions,
 )
+from collections.abc import (
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -63,9 +66,7 @@ from pandas import (
     DatetimeIndex,
 )
 from typing import (
-    Iterable,
     NamedTuple,
-    Optional,
 )
 
 
@@ -76,7 +77,7 @@ class FormatSprint(NamedTuple):
 
 
 def get_last_sprint_start_date(
-    *, sprint_start_date: Optional[datetime], sprint_length: int
+    *, sprint_start_date: datetime | None, sprint_length: int
 ) -> datetime:
     end_date: datetime = db_model_utils.get_min_iso_date(
         datetime.now()
@@ -120,7 +121,7 @@ def get_percentage_change(
 def get_current_sprint_state(
     state: VulnerabilityState,
     sprint_start_date: datetime,
-) -> Optional[VulnerabilityState]:
+) -> VulnerabilityState | None:
     if state.modified_date.timestamp() >= sprint_start_date.timestamp():
         return state
 
@@ -130,7 +131,7 @@ def get_current_sprint_state(
 def get_last_state(
     state: VulnerabilityState,
     last_day: datetime,
-) -> Optional[VulnerabilityState]:
+) -> VulnerabilityState | None:
     if state.modified_date.timestamp() <= last_day.timestamp():
         return state
 
@@ -145,7 +146,7 @@ def had_state_by_then(
     vulnerabilities: Iterable[Vulnerability],
     sprint: bool = False,
 ) -> Decimal:
-    lasts_valid_states: tuple[Optional[VulnerabilityState], ...]
+    lasts_valid_states: tuple[VulnerabilityState | None, ...]
     if sprint:
         lasts_valid_states = tuple(
             get_current_sprint_state(vulnerability.state, last_day)

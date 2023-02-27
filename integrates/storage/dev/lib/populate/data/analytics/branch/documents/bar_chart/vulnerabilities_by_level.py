@@ -11,11 +11,11 @@ from charts import (
 from charts.generators.bar_chart.utils import (
     format_vulnerabilities_by_data,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     get_new_context,
-)
-from typing import (
-    Counter,
 )
 
 

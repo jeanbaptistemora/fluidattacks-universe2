@@ -8,6 +8,12 @@ from charts import (
 from charts.generators.heat_map_chart.common import (
     format_csv_data,
 )
+from collections import (
+    Counter,
+)
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -18,8 +24,6 @@ from itertools import (
     chain,
 )
 from typing import (
-    Counter,
-    Iterable,
     NamedTuple,
 )
 
