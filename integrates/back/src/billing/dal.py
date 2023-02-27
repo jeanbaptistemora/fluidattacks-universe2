@@ -172,7 +172,7 @@ async def create_customer(
     return customer
 
 
-async def create_payment_method(
+def create_payment_method(
     *,
     card_number: str,
     card_expiration_month: str,
@@ -390,7 +390,7 @@ async def update_default_payment_method(
     return data.invoice_settings.default_payment_method == payment_method_id
 
 
-async def remove_payment_method(
+def remove_payment_method(
     *,
     payment_method_id: str,
 ) -> bool:

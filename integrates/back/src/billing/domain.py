@@ -587,7 +587,7 @@ async def create_credit_card_payment_method(
         limit=1000,
     )
     try:
-        created: PaymentMethod = await dal.create_payment_method(
+        created: PaymentMethod = dal.create_payment_method(
             card_number=card_number,
             card_expiration_month=card_expiration_month,
             card_expiration_year=card_expiration_year,
@@ -909,7 +909,7 @@ async def remove_payment_method(
     update_default_payment = await _set_default_payment(
         payment_methods, payment_method_id, org
     )
-    result = update_default_payment and await dal.remove_payment_method(
+    result = update_default_payment and dal.remove_payment_method(
         payment_method_id=payment_method_id,
     )
 
