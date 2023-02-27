@@ -18,6 +18,7 @@ from charts.utils import (
     json_dump,
 )
 from collections import (
+    Counter,
     defaultdict,
 )
 from dataloaders import (
@@ -36,9 +37,6 @@ from decimal import (
 )
 from findings.domain.core import (
     get_severity_score,
-)
-from typing import (
-    Counter,
 )
 
 

@@ -44,9 +44,6 @@ from newutils.datetime import (
     get_now,
     get_plus_delta,
 )
-from typing import (
-    Optional,
-)
 
 
 def format_decimal(value: Decimal) -> Decimal:
@@ -55,7 +52,7 @@ def format_decimal(value: Decimal) -> Decimal:
 
 def _get_next_open(
     historic_state: tuple[VulnerabilityState, ...]
-) -> Optional[datetime]:
+) -> datetime | None:
     for state in historic_state:
         if state.status == VulnerabilityStateStatus.VULNERABLE:
             return state.modified_date
@@ -64,7 +61,7 @@ def _get_next_open(
 
 def _get_in_between_state(
     historic_state: tuple[VulnerabilityState, ...], verification: datetime
-) -> Optional[datetime]:
+) -> datetime | None:
     reverse_historic_state = tuple(reversed(historic_state))
     before_limit = get_minus_delta(verification, minutes=30)
     after_limit = get_plus_delta(verification, minutes=30)
@@ -80,7 +77,7 @@ def _get_in_between_state(
     return verification
 
 
-def get_diff(*, start: Optional[datetime], end: datetime) -> int:
+def get_diff(*, start: datetime | None, end: datetime) -> int:
     if start is None:
         return 0
 
@@ -91,7 +88,7 @@ def get_diff(*, start: Optional[datetime], end: datetime) -> int:
 
 
 def is_requested(
-    verification: VulnerabilityVerification, start: Optional[datetime]
+    verification: VulnerabilityVerification, start: datetime | None
 ) -> bool:
     return (
         verification.status == VulnerabilityVerificationStatus.REQUESTED
@@ -100,7 +97,7 @@ def is_requested(
 
 
 def is_on_hold(
-    verification: VulnerabilityVerification, start: Optional[datetime]
+    verification: VulnerabilityVerification, start: datetime | None
 ) -> bool:
     return (
         verification.status == VulnerabilityVerificationStatus.ON_HOLD
@@ -109,7 +106,7 @@ def is_on_hold(
 
 
 def is_verifying(
-    verification: VulnerabilityVerification, start: Optional[datetime]
+    verification: VulnerabilityVerification, start: datetime | None
 ) -> bool:
     return (
         verification.status == VulnerabilityVerificationStatus.VERIFIED
@@ -136,7 +133,7 @@ async def _get_mean_time_to_reattack(
     for vulnerability, historic_verification, historic_state in zip(
         filtered_vulnerabilities, historic_verifications, historic_states
     ):
-        start: Optional[datetime] = vulnerability.created_date
+        start: datetime | None = vulnerability.created_date
         for verification in historic_verification:
             if is_requested(verification, start):
                 number_of_reattacks += 1

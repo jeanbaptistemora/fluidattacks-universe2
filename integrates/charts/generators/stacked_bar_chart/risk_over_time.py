@@ -20,6 +20,9 @@ from charts.generators.stacked_bar_chart.utils import (
     sum_over_time_many_groups,
     TimeRangeType,
 )
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -32,12 +35,6 @@ from db_model.groups.types import (
 )
 from decimal import (
     Decimal,
-)
-from typing import (
-    Iterable,
-    List,
-    Optional,
-    Tuple,
 )
 
 
@@ -69,9 +66,9 @@ async def get_group_document(group: str, days: int) -> RiskOverTime:
 
 
 async def get_many_groups_document(
-    groups: Iterable[str], days: Optional[int] = None
+    groups: Iterable[str], days: int | None = None
 ) -> tuple[tuple[dict[str, dict[datetime, Decimal]], ...], TimeRangeType]:
-    group_documents: Tuple[RiskOverTime, ...] = await collect(
+    group_documents: tuple[RiskOverTime, ...] = await collect(
         tuple(get_group_document(group, days) for group in groups), workers=32
     )
 
@@ -84,7 +81,7 @@ async def get_many_groups_document(
 async def generate_all() -> None:
     y_label: str = "Vulnerabilities"
     header: str = "Dates"
-    list_days: List[int] = [0, 30, 90]
+    list_days: list[int] = [0, 30, 90]
     for days in list_days:
         async for group in utils.iterate_groups():
             group_document: RiskOverTime = await get_group_document(

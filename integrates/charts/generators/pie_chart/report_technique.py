@@ -17,15 +17,15 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
-)
-from typing import (
-    Counter,
 )
 
 SCA_FINDINGS_IDS = ["011", "393"]

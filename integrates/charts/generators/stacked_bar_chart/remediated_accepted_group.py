@@ -32,9 +32,6 @@ from db_model.groups.types import (
 from decimal import (
     Decimal,
 )
-from typing import (
-    Optional,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -46,7 +43,7 @@ async def get_data_one_group(
         await loaders.group_unreliable_indicators.load(group_name)
     )
     open_vulnerabilities: int = indicators.open_vulnerabilities or 0
-    treatment: Optional[GroupTreatmentSummary] = indicators.treatment_summary
+    treatment: GroupTreatmentSummary | None = indicators.treatment_summary
     if treatment:
         accepted_vulnerabilities: int = (
             treatment.accepted_undefined + treatment.accepted

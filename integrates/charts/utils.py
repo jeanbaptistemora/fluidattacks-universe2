@@ -1,4 +1,8 @@
 import asyncio
+from collections.abc import (
+    AsyncIterator,
+    Callable,
+)
 import contextlib
 import csv
 from dataloaders import (
@@ -25,11 +29,7 @@ from organizations import (
 import os
 from typing import (
     Any,
-    AsyncIterator,
-    Callable,
     NamedTuple,
-    Optional,
-    Type,
 )
 
 
@@ -101,7 +101,7 @@ def json_dump(
     document: object,
     entity: str,
     subject: str,
-    csv_document: Optional[CsvData] = None,
+    csv_document: CsvData | None = None,
 ) -> None:
     for result_path in map(
         get_result_path,
@@ -147,7 +147,7 @@ def log_info(*args: Any, **kwargs: Any) -> None:
 def retry_on_exceptions(
     *,
     default_value: Any,
-    exceptions: tuple[Type[Exception], ...],
+    exceptions: tuple[type[Exception], ...],
     retry_times: int,
 ) -> Callable[..., Any]:
     def decorator(function: Callable[..., Any]) -> Callable[..., Any]:
@@ -183,7 +183,7 @@ def get_cvssf(severity: Decimal) -> Decimal:
     )
 
 
-def get_subject_days(days: Optional[int]) -> str:
+def get_subject_days(days: int | None) -> str:
     if days:
         return f"_{days}"
     return ""

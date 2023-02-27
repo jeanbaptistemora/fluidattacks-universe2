@@ -22,6 +22,12 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -37,10 +43,6 @@ from functools import (
     reduce,
 )
 import operator
-from typing import (
-    Counter,
-    Iterable,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
