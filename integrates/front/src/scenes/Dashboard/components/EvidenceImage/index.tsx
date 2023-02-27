@@ -2,12 +2,14 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { DisplayImage } from "./DisplayImage";
-import { EvidenceForm } from "./EvidenceForm";
-import { DescriptionContainer, ImageContainer } from "./styles";
-
-import { Row } from "components/Layout";
-import { Col33, EvidenceDescription } from "styles/styledComponents";
+import { Col, Row } from "components/Layout";
+import { DisplayImage } from "scenes/Dashboard/components/EvidenceImage/DisplayImage";
+import { EvidenceForm } from "scenes/Dashboard/components/EvidenceImage/EvidenceForm";
+import {
+  DescriptionContainer,
+  ImageContainer,
+} from "scenes/Dashboard/components/EvidenceImage/styles";
+import { EvidenceDescription } from "styles/styledComponents";
 import { getFileNameExtension } from "utils/validations";
 
 interface IEvidenceImageProps {
@@ -32,7 +34,7 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
 
   return (
     <React.StrictMode>
-      <Col33>
+      <Col lg={33} md={50} sm={100}>
         <div>
           <ImageContainer>
             <DisplayImage
@@ -66,7 +68,7 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
             </Row>
           </DescriptionContainer>
         </div>
-      </Col33>
+      </Col>
     </React.StrictMode>
   );
 };

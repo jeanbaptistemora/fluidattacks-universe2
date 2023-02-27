@@ -240,17 +240,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
         })}
       >
         {({ dirty, submitForm, values }): React.ReactNode => {
-          function onUpdate(): void {
-            void submitForm();
-          }
-
           return (
             <Fragment>
               <ActionButtons
                 isEditing={isEditing}
                 isPristine={!dirty}
                 onEdit={toggleEdit}
-                onUpdate={onUpdate}
+                onUpdate={submitForm}
               />
               <Row>
                 <Col lg={50} md={50} sm={50}>
