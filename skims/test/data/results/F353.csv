@@ -1,20 +1,26 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F353,lines,namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,"
-   1 | const jwt = require('jsonwebtoken');
-   2 |
-   3 | function unsafeVerifyJwt() {
-   4 |     // The signature is not verified before decoding
-   5 |     let allowed_algos = ['PS384'];
->  6 |     jwt.decode(token, key, allowed_algos);
-   7 | }
-   8 |
-   9 | function safeVerifyJwt() {
-  10 |     // The jwt is verified before being decoded
-  11 |     let allowed_algos = ['PS384'];
-  12 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
-  13 |     jwt.verify(token_secure, key, verify_config);
-  14 |     jwt.decode(token_secure, key, allowed_algos);
-  15 | }
+F353,lines,namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,7,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/js_decode_insecure_jwt_token.js,"
+   1 | import {verifyToken} from ""personal_module.js"";
+   2 | const jwt = require('jsonwebtoken');
+   3 |
+   4 | function unsafeVerifyJwt() {
+   5 |     // The signature is not verified before decoding
+   6 |     let allowed_algos = ['PS384'];
+>  7 |     jwt.decode(token, key, allowed_algos);
+   8 | }
+   9 |
+  10 | function safeVerifyJwt() {
+  11 |     // The jwt is verified before being decoded
+  12 |     let allowed_algos = ['PS384'];
+  13 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  14 |     jwt.verify(token_secure, key, verify_config);
+  15 |     jwt.decode(token_secure, key, allowed_algos);
+  16 | }
+  17 |
+  18 | function nonDeterministicJwt() {
+  19 |     // The jwt may be verified correctly from a function in another file, this vuln is not deterministic
+  20 |     if (!verifyToken(token_secure)){
+  21 |         return null;
      ^ Col 0
 ",javascript.js_decode_insecure_jwt_token
 F353,lines,namespace/skims/test/data/lib_root/f353/ts_decode_insecure_jwt_token.ts,6,287,skims,353. Lack of data validation - Token,Token JWT is not verified before decoding. in namespace/skims/test/data/lib_root/f353/ts_decode_insecure_jwt_token.ts,"
