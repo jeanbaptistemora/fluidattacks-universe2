@@ -8,6 +8,9 @@ from forces.apis.integrates.api import (
 from forces.apis.integrates.client import (
     ApiError,
 )
+from forces.model import (
+    ForcesConfig,
+)
 import pytest
 
 
@@ -28,8 +31,12 @@ async def test_get_finding(test_token: str, test_finding: str) -> None:
 
 
 @pytest.mark.asyncio
-async def test_get_vulnerabilities(test_token: str, test_finding: str) -> None:
-    result = await get_vulnerabilities(test_finding, api_token=test_token)
+async def test_get_vulnerabilities(
+    test_token: str, test_config: ForcesConfig, test_finding: str
+) -> None:
+    result = await get_vulnerabilities(
+        test_config, test_finding, api_token=test_token
+    )
     assert len(result) == 28
     assert "192.168.100.109" in result[0]["where"]
 
@@ -46,12 +53,14 @@ async def test_get_group_access() -> None:
 
 
 @pytest.mark.asyncio
-async def test_vulns_generator(test_token: str, test_group: str) -> None:
+async def test_vulns_generator(
+    test_token: str, test_config: ForcesConfig
+) -> None:
     vulns = [
         vuln
         # Exception: WF(AsyncGenerator is subtype of iterator)
         async for vuln in vulns_generator(  # NOSONAR
-            test_group, api_token=test_token
+            test_config, api_token=test_token
         )
     ]
     assert len(vulns) == 36

@@ -103,7 +103,7 @@ async def compile_raw_report(
         **kwargs,
     )
 
-    async for vuln in vulns_generator(config.group, **kwargs):
+    async for vuln in vulns_generator(config, **kwargs):
         find_id: str = str(vuln["findingId"])
 
         vulnerability: Vulnerability = Vulnerability(

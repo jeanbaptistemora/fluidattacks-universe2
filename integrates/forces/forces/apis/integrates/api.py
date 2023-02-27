@@ -83,7 +83,7 @@ async def get_findings(group: str, **kwargs: str) -> set[str]:
 
 @SHIELD
 async def get_vulnerabilities(
-    finding_id: str, **kwargs: str
+    config: ForcesConfig, finding_id: str, **kwargs: str
 ) -> list[dict[str, str | list[dict[str, dict[str, object]]]]]:
     """
     Returns the vulnerabilities of a finding.
@@ -96,12 +96,14 @@ async def get_vulnerabilities(
             $after: String
             $finding_id: String!
             $first: Int
+            $state: VulnerabilityState
         ) {
             finding(identifier: $finding_id) {
                 id
                 vulnerabilitiesConnection(
                     after: $after,
                     first: $first,
+                    state: $state,
                 ) {
                     edges {
                         node {
@@ -125,10 +127,11 @@ async def get_vulnerabilities(
             }
         }
     """
+    state_query = "VULNERABLE" if config.verbose_level <= 2 else None
     response: dict = await execute(
         query=query,
         operation_name="ForcesDoGetFindingVulnerabilities",
-        variables=dict(finding_id=finding_id),
+        variables=dict(finding_id=finding_id, state=state_query),
         default={},
         **kwargs,
     )
@@ -203,15 +206,17 @@ async def get_finding(finding: str, **kwargs: str) -> dict[str, object]:
 
 
 async def vulns_generator(
-    group_name: str, **kwargs: str
+    config: ForcesConfig, **kwargs: str
 ) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, object]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
     :param `group`: Group Name.
     """
-    findings: set[str] = await get_findings(group_name, **kwargs)
-    vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
+    findings: set[str] = await get_findings(config.group, **kwargs)
+    vulns_futures = [
+        get_vulnerabilities(config, fin, **kwargs) for fin in findings
+    ]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
             # Exception: WF(AsyncGenerator is subtype of iterator)
@@ -334,7 +339,7 @@ async def upload_report(  # pylint: disable=too-many-arguments
 @SHIELD
 async def get_groups_access(
     **kwargs: Any,
-) -> list[tuple[dict[str, str], float, int]]:
+) -> tuple[dict[str, Any], ...]:
     query = """
         query ForcesGetMeGroups {
           me {
@@ -371,16 +376,12 @@ async def get_groups_access(
                 "error",
                 "The token has expired or the token has no permissions",
             )
-            return []
+            return tuple()
         raise Exception from exc
-    return list(
-        (
-            group,
-            cast(float, group["minBreakingSeverity"]),
-            cast(int, group["vulnerabilityGracePeriod"]),
-        )
+    return tuple(
+        group
         for organization in response["me"]["organizations"]
-        for group in cast(list[dict[str, str]], organization["groups"])
+        for group in cast(list[dict[str, Any]], organization["groups"])
     )
 
 
@@ -414,12 +415,12 @@ async def get_forces_user_and_org_data(
     **kwargs: object,
 ) -> tuple[str | None, str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
-    for group, arm_severity_policy, vuln_grace_period in groups:
+    for group in groups:
         if group["userRole"] == "service_forces":
             return (
                 group["organization"],
                 group["name"],
-                arm_severity_policy,
-                vuln_grace_period,
+                group["minBreakingSeverity"],
+                group["vulnerabilityGracePeriod"],
             )
     return (None, None, None, None)

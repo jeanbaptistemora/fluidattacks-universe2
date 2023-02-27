@@ -1,6 +1,9 @@
 from collections.abc import (
     Iterator,
 )
+from forces.model import (
+    ForcesConfig,
+)
 import os
 import pytest
 
@@ -28,3 +31,11 @@ def test_token() -> Iterator[str]:
 @pytest.fixture(scope="session")
 def test_endpoint() -> Iterator[str]:
     yield "https://127.0.0.1:8001/api"
+
+
+@pytest.fixture(scope="session")
+def test_config() -> Iterator[ForcesConfig]:
+    yield ForcesConfig(
+        organization="okada",
+        group="unittesting",
+    )
