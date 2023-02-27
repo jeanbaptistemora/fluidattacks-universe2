@@ -97,6 +97,56 @@ F004,lines,namespace/skims/test/data/lib_root/f004/js_remote_command.js,6,78,ski
   11 | export default router;
      ^ Col 0
 ",javascript.javascript_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/python_remote_command.py,14,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/python_remote_command.py","
+   4 | )
+   5 | import os
+   6 | import shlex
+   7 | import subprocess
+   8 |
+   9 |
+  10 | def unsafe_command() -> None:
+  11 |     address = request.args.get(""address"")
+  12 |     cmd = ""ping -c 1 %s"" % address
+  13 |     # Noncompliant
+> 14 |     os.popen(cmd)
+  15 |     # Noncompliant; using shell=true is unsafe
+  16 |     subprocess.Popen(cmd, shell=True)
+  17 |
+  18 |
+  19 | def safe_command(param: str) -> None:
+  20 |     # Escape distinguished names special characters
+  21 |     address = shlex.quote(request.args[""address""])
+  22 |     cmd = ""ping -c 1 %s"" % address
+  23 |     # Compliant: Escaped user params
+  24 |     os.popen(cmd)
+     ^ Col 0
+",python.python_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/python_remote_command.py,16,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/python_remote_command.py","
+   6 | import shlex
+   7 | import subprocess
+   8 |
+   9 |
+  10 | def unsafe_command() -> None:
+  11 |     address = request.args.get(""address"")
+  12 |     cmd = ""ping -c 1 %s"" % address
+  13 |     # Noncompliant
+  14 |     os.popen(cmd)
+  15 |     # Noncompliant; using shell=true is unsafe
+> 16 |     subprocess.Popen(cmd, shell=True)
+  17 |
+  18 |
+  19 | def safe_command(param: str) -> None:
+  20 |     # Escape distinguished names special characters
+  21 |     address = shlex.quote(request.args[""address""])
+  22 |     cmd = ""ping -c 1 %s"" % address
+  23 |     # Compliant: Escaped user params
+  24 |     os.popen(cmd)
+  25 |     # Compliant: Do not execute user params
+  26 |     os.popen(param)
+     ^ Col 0
+",python.python_remote_command_execution
 F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,8,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
    1 | iant

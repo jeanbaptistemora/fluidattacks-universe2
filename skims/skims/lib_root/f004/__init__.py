@@ -7,6 +7,9 @@ from lib_root.f004.java import (
 from lib_root.f004.javascript import (
     remote_command_execution as js_remote_command_execution,
 )
+from lib_root.f004.python import (
+    python_remote_command_execution,
+)
 from lib_root.f004.typescript import (
     remote_command_execution as ts_remote_command_execution,
 )
@@ -20,5 +23,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_remote_command_execution),
     (FINDING, java_remote_command_execution),
     (FINDING, js_remote_command_execution),
+    (FINDING, python_remote_command_execution),
     (FINDING, ts_remote_command_execution),
 )

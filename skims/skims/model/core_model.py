@@ -1524,6 +1524,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_REMOTE_COMMAND_EXECUTION = MethodInfo(
+        file_name="python",
+        name="python_remote_command_execution",
+        module="lib_root",
+        finding=FindingEnum.F004,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     TS_SQL_INJECTION = MethodInfo(
         file_name="typescript",
         name="ts_sql_injection",

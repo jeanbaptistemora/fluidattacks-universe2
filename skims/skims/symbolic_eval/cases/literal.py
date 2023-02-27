@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f004.literal import (
+    evaluate as evaluate_literal_f004,
+)
 from symbolic_eval.f008.literal import (
     evaluate as evaluate_literal_f008,
 )
@@ -83,6 +86,7 @@ from utils import (
 )
 
 FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
+    FindingEnum.F004: evaluate_literal_f004,
     FindingEnum.F008: evaluate_literal_f008,
     FindingEnum.F012: evaluate_literal_f012,
     FindingEnum.F016: evaluate_literal_f016,
