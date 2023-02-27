@@ -6,7 +6,7 @@ const UPDATE_TOURS: DocumentNode = gql`
     $newGroup: Boolean!
     $newRiskExposure: Boolean!
     $newRoot: Boolean!
-    $welcome: Boolean
+    $welcome: Boolean!
   ) {
     updateTours(
       tours: {

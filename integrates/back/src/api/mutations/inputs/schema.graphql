@@ -115,5 +115,5 @@ input ToursInput {
   "Add git roots new user workflow"
   newRoot: Boolean!
   "Manage welcome tour"
-  welcome: Boolean
+  welcome: Boolean!
 }
