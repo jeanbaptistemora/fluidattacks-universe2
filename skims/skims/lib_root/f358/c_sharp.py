@@ -67,8 +67,6 @@ def cert_validation_disabled(
             graph = shard.syntax_graph
 
             for n_id in get_vuln_nodes(graph, method):
-                print("Sisa")
-                print(n_id)
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
