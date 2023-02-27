@@ -33,7 +33,7 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
         if line.startswith("[requires]"):
             line_deps = True
         elif line_deps:
-            if not line:
+            if not line or line.startswith("["):
                 break
             pkg_name, pkg_version = get_dep_info(line)
             yield format_pkg_dep(

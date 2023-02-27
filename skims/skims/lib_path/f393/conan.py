@@ -35,7 +35,7 @@ def conan_conanfile_txt_dev(
         if re.search(r"^\[(tool|build)_requires\]$", line):
             line_deps = True
         elif line_deps:
-            if not line:
+            if not line or line.startswith("["):
                 break
             pkg_name, pkg_version = get_dep_info(line)
             yield format_pkg_dep(
