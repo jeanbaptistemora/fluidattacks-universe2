@@ -32,9 +32,7 @@ def conan_conanfile_txt_dev(
 ) -> Iterator[DependencyType]:
     line_deps: bool = False
     for line_number, line in enumerate(content.splitlines(), 1):
-        if line.startswith("[tool_requires]") or line.startswith(
-            "[build_requires]"
-        ):
+        if re.search(r"^\[(tool|build)_requires\]$", line):
             line_deps = True
         elif line_deps:
             if not line:
