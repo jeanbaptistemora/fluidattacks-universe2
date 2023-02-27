@@ -2,14 +2,13 @@
 lib_http.analyze_headers.accept.insecure:
   en: >
     The Accept header is not properly configured and allows any MIME type
-    in the request
+    in the request.
   es: >
     El encabezado Accept no esta configurado correctamente y permite cualquier
-    tipo de MIME en la solicitud
+    tipo de MIME en la solicitud.
 lib_http.analyze_headers.accept.missing:
   en: The Accept header is not specified
   es: No se especifica el encabezado Accept
 lib_path.f153.xml_accept_header:
   en: The wildcard is allowed in the Accept header when making requests to the service.
-
   es: Se permite el wildcard en el encabezado de Accept a la hora de hacer peticiones en el servicio.

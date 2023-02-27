@@ -6214,3 +6214,11 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE = MethodInfo(
+        file_name="java",
+        name="java_http_accepts_any_myme_type",
+        module="lib_root",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
