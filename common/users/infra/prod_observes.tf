@@ -291,37 +291,6 @@ locals {
             ]
           },
         ]
-        ObservesIAM = [ # should be removed
-          {
-            Sid    = "manageObservesIAM"
-            Effect = "Allow"
-            Action = [
-              "iam:AttachRolePolicy",
-              "iam:CreatePolicy",
-              "iam:CreatePolicyVersion",
-              "iam:CreateRole",
-              "iam:DeletePolicy",
-              "iam:DeletePolicyVersion",
-              "iam:DeleteRole",
-              "iam:DeleteRolePolicy",
-              "iam:DetachRolePolicy",
-              "iam:PassRole",
-              "iam:PutRolePolicy",
-              "iam:TagRole",
-              "iam:UpdateAssumeRolePolicy",
-              "iam:UntagRole",
-            ]
-            Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/analytics/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/observes*",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/observes*",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/redshift*",
-              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/redshift*",
-            ]
-          },
-        ]
         ObservesSecGroups = [
           {
             Sid    = "manageObservesSecGroups"
