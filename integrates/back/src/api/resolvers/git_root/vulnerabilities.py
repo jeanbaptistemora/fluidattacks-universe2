@@ -25,6 +25,4 @@ async def resolve(
 ) -> list[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
     root_vulnerabilities = await loaders.root_vulnerabilities.load(parent.id)
-    return list(
-        filter_non_zero_risk(filter_non_deleted(tuple(root_vulnerabilities)))
-    )
+    return filter_non_zero_risk(filter_non_deleted(root_vulnerabilities))

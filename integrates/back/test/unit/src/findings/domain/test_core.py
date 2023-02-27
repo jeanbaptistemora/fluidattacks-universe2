@@ -107,7 +107,6 @@ async def test_get_last_closed_vulnerability(
     findings: list,
     findings_data: dict[str, tuple[Finding, ...]],
 ) -> None:
-
     findings_as_keys = json.dumps(findings)
     findings_loader = findings_data[findings_as_keys]
     mock_load_many_chained.return_value = get_mock_response(
@@ -582,14 +581,14 @@ async def test_add_comment() -> None:
                 threat="Amenaza.",
                 unreliable_indicators=FindingUnreliableIndicators(
                     unreliable_closed_vulnerabilities=1,
-                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                        "2018-11-27T19:54:08+00:00"
+                    unreliable_newest_vulnerability_report_date=(
+                        datetime.fromisoformat("2018-11-27T19:54:08+00:00")
                     ),
-                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                        "2018-11-27T19:54:08+00:00"
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        datetime.fromisoformat("2018-11-27T19:54:08+00:00")
                     ),
-                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
-                        "2018-11-27T19:54:08+00:00"
+                    unreliable_oldest_vulnerability_report_date=(
+                        datetime.fromisoformat("2018-11-27T19:54:08+00:00")
                     ),
                     unreliable_open_vulnerabilities=0,
                     unreliable_status=FindingStatus.SAFE,

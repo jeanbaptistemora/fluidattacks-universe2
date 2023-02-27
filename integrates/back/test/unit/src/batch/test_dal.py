@@ -177,7 +177,8 @@ def test_mapping_to_key(
     [
         [
             BatchProcessing(
-                key="78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                key="78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465"
+                "bd3a80871c",
                 action_name="report",
                 entity="unittesting",
                 subject="unittesting@fluidattacks.com",
@@ -212,7 +213,8 @@ def test_mapping_to_key(
         ],
         [
             BatchProcessing(
-                key="ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",  # noqa: E501 pylint: disable=line-too-long
+                key="ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c2"
+                "3e92fafb5",
                 action_name="report",
                 entity="unittesting",
                 subject="unittesting@fluidattacks.com",

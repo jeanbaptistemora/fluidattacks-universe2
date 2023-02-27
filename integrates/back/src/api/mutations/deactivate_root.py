@@ -108,7 +108,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
 
     root_vulnerabilities = await loaders.root_vulnerabilities.load(root.id)
     root_vulnerabilities_nzr = filter_non_zero_risk(
-        filter_non_deleted(tuple(root_vulnerabilities))
+        filter_non_deleted(root_vulnerabilities)
     )
     sast_vulns = [
         vuln

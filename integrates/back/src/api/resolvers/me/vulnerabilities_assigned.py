@@ -25,7 +25,7 @@ from typing import (
 @ME.field("vulnerabilitiesAssigned")
 async def resolve(
     parent: dict[str, Any], _info: GraphQLResolveInfo
-) -> tuple[Vulnerability, ...]:
+) -> list[Vulnerability]:
     email: str = str(parent["user_email"])
 
     results = await search(
@@ -35,7 +35,7 @@ async def resolve(
     )
 
     vulnerabilities = filter_non_zero_risk(
-        tuple(format_vulnerability(result) for result in results.items)
+        [format_vulnerability(result) for result in results.items]
     )
 
     return filter_non_zero_risk(filter_open_vulns(vulnerabilities))

@@ -427,7 +427,7 @@ async def get_open_vulnerabilities_specific_by_type(
     finding_id: str,
 ) -> dict[str, tuple[Vulnerability, ...]]:
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
-    open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
+    open_vulns = vulns_utils.filter_open_vulns(vulns)
     ports_vulns = tuple(
         vuln
         for vuln in open_vulns

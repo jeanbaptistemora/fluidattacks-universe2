@@ -52,4 +52,5 @@ async def resolve(
         get_vulnerabilities_to_reattack(loaders, finding_id)
         for finding_id in finding_ids
     )
+
     return list(chain.from_iterable(vulns_to_reattack))

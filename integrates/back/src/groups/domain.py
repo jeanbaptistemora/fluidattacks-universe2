@@ -886,7 +886,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
         group_findings_ids
     )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
-        tuple(findings_vulns)
+        findings_vulns
     )
     non_accepted_undefined_vulns = tuple(
         vuln
@@ -948,7 +948,7 @@ async def get_mean_remediate_non_treated_severity(
         group_findings_ids
     )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
-        tuple(findings_vulns)
+        findings_vulns
     )
     non_accepted_undefined_vulns = tuple(
         vuln

@@ -159,20 +159,20 @@ def is_sequence(specific: str) -> bool:
 
 
 def filter_no_treatment_vulns(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.treatment
         and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
-    )
+    ]
 
 
 def filter_non_deleted(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status
@@ -180,55 +180,55 @@ def filter_non_deleted(
             VulnerabilityStateStatus.DELETED,
             VulnerabilityStateStatus.MASKED,
         }
-    )
+    ]
 
 
 def filter_open_vulns(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    )
+    ]
 
 
 def filter_closed_vulns(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status == VulnerabilityStateStatus.SAFE
-    )
+    ]
 
 
 def filter_released_vulns(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status in RELEASED_FILTER_STATUSES
-    )
+    ]
 
 
 def filter_non_confirmed_zero_risk(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vulnerability
         for vulnerability in vulnerabilities
         if not vulnerability.zero_risk
         or vulnerability.zero_risk.status
         != VulnerabilityZeroRiskStatus.CONFIRMED
-    )
+    ]
 
 
 def filter_non_zero_risk(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if not vuln.zero_risk
@@ -237,19 +237,19 @@ def filter_non_zero_risk(
             VulnerabilityZeroRiskStatus.CONFIRMED,
             VulnerabilityZeroRiskStatus.REQUESTED,
         )
-    )
+    ]
 
 
 def filter_remediated(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: Iterable[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vulnerability
         for vulnerability in vulnerabilities
         if vulnerability.verification
         and vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
-    )
+    ]
 
 
 def _format_tool_item(
@@ -446,10 +446,10 @@ def get_ranges(numberlist: list[int]) -> str:
 
 
 def get_report_dates(
-    vulns: tuple[Vulnerability, ...],
-) -> tuple[datetime, ...]:
+    vulns: Iterable[Vulnerability],
+) -> list[datetime]:
     """Get report dates for vulnerabilities."""
-    return tuple(vuln.created_date for vuln in vulns)
+    return [vuln.created_date for vuln in vulns]
 
 
 def group_specific(
