@@ -242,13 +242,13 @@ async def dynamob_encrypted_with_aws_master_keys(
             table_arn = describe_table["Table"]["TableArn"]
             table = describe_table["Table"]
             try:
-                vulnerable = table["SSEDescription"]["SSEType"] == "AES256"
-                if vulnerable:
+                table_ssetype = table["SSEDescription"]["SSEType"]
+                if table_ssetype == "AES256":
                     locations = [
                         Location(
                             access_patterns=("/SSEDescription/SSEType",),
                             arn=(table_arn),
-                            values=(table["SSEDescription"]["SSEType"],),
+                            values=(table_ssetype,),
                             description=(
                                 "src.lib_path.f165."
                                 "dynamob_encrypted_with_aws_master_keys"

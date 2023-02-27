@@ -35,4 +35,16 @@ def mock_data() -> dict[str, Any]:
         "PolicyGroups": [],
         "PolicyUsers": [],
         "PolicyRoles": [],
+        "TableNames": [
+            "fluidTable",
+        ],
+        "Table": {
+            "TableName": "fluidTable",
+            "TableArn": "arn:aws:iam::aws:table/fluidTable",
+            "SSEDescription": {
+                "Status": "ENABLED",
+                "SSEType": "AES256",
+                "KMSMasterKeyArn": "arn:aws:iam::aws:key/fuildKey",
+            },
+        },
     }

@@ -68,4 +68,31 @@ def mock_data() -> dict[str, Any]:
                 },
             },
         },
+        "LoadBalancers": [
+            {
+                "LoadBalancerArn": "arn:aws:iam::aws:elbv2/fluidelb",
+            },
+        ],
+        "Listeners": [
+            {
+                "ListenerArn": "arn:aws:iam::aws:listener/fluidlist",
+                "LoadBalancerArn": "arn:aws:iam::aws:elbv2/fluidelb",
+                "Port": 123,
+                "SslPolicy": "fluid_ssl_policy",
+            }
+        ],
+        "SslPolicies": [
+            {
+                "SslProtocols": [
+                    "SSLv3",
+                    "TLSv1.2",
+                ],
+                "Ciphers": [
+                    {
+                        "Name": "ECDHE-ECDSA-AES128-GCM-SHA256",
+                        "Priority": 1,
+                    },
+                ],
+            },
+        ],
     }

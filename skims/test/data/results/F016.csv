@@ -349,6 +349,23 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_acces
   13 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_shared_access_protocol
+F016,inputs,arn:aws:iam::aws:elbv2/fluidelb (namespace),/0/SslProtocols: SSLv3,326,skims,016. Insecure encryption algorithm - SSL/TLS,lib_path.f016.elbv2_uses_insecure_ssl_protocol,"
+   1 | [
+   2 |     {
+>  3 |         ""SslProtocols"": [
+   4 |             ""SSLv3"",
+   5 |             ""TLSv1.2""
+   6 |         ],
+   7 |         ""Ciphers"": [
+   8 |             {
+   9 |                 ""Name"": ""ECDHE-ECDSA-AES128-GCM-SHA256"",
+  10 |                 ""Priority"": 1
+  11 |             }
+  12 |         ]
+  13 |     }
+  14 | ]
+     ^ Col 0
+",aws.elbv2_uses_insecure_ssl_protocol
 F016,inputs,arn:aws:iam::aws:distribution/mylist: (namespace),/ViewerCertificate/MinimumProtocolVersion: SSLv3,326,skims,016. Insecure encryption algorithm - SSL/TLS,src.lib_path.f016.serves_content_over_insecure_protocols,"
    4 |         ""Quantity"": 1,
    5 |         ""Items"": [
