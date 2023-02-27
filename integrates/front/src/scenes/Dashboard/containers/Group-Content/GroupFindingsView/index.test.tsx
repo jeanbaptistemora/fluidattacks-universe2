@@ -1,7 +1,9 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { FetchMockStatic } from "fetch-mock";
 import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
@@ -9,17 +11,20 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { GET_STAKEHOLDER_PHONE } from "scenes/Dashboard/components/VerifyDialog/queries";
 import { GroupFindingsView } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView";
 import {
+  ADD_FINDING_MUTATION,
   GET_FINDINGS,
   GET_GROUP_VULNERABILITIES,
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";
-import { msgError } from "utils/notifications";
+import { authzPermissionsContext } from "utils/authz/config";
+import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
     jest.requireActual("../../../../../utils/notifications");
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
+  jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
 
   return mockedNotifications;
 });
@@ -407,5 +412,130 @@ describe("groupFindingsView", (): void => {
     expect(screen.getByText("6")).toBeInTheDocument();
     expect(screen.getByText("Pending")).toBeInTheDocument();
     expect(screen.getByText("Assignees")).toBeInTheDocument();
+  });
+
+  it("should add finding", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedFetch: FetchMockStatic = fetch as FetchMockStatic &
+      typeof fetch;
+    const baseUrl: string =
+      "https://gitlab.com/api/v4/projects/20741933/repository/files";
+    const branchRef: string = "trunk";
+    const vulnsFileId: string =
+      "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";
+    mockedFetch.mock(`${baseUrl}/${vulnsFileId}/raw?ref=${branchRef}`, {
+      body: {
+        "001": {
+          en: {
+            description: "Description.\n",
+            impact: "",
+            recommendation: "Recommendation.\n",
+            threat: "",
+            title: "Title test",
+          },
+          requirements: ["1111", "2222"],
+          score: {
+            base: {
+              // eslint-disable-next-line camelcase
+              attack_complexity: "L",
+              // eslint-disable-next-line camelcase
+              attack_vector: "N",
+              availability: "N",
+              confidentiality: "N",
+              integrity: "L",
+              // eslint-disable-next-line camelcase
+              privileges_required: "N",
+              // eslint-disable-next-line camelcase
+              scope: "U",
+              // eslint-disable-next-line camelcase
+              user_interaction: "N",
+            },
+            temporal: {
+              // eslint-disable-next-line camelcase
+              exploit_code_maturity: "P",
+              // eslint-disable-next-line camelcase
+              remediation_level: "O",
+              // eslint-disable-next-line camelcase
+              report_confidence: "R",
+            },
+          },
+        },
+      },
+      status: 200,
+    });
+    const mockedMutations: readonly MockedResponse[] = [
+      {
+        request: {
+          query: ADD_FINDING_MUTATION,
+          variables: {
+            attackComplexity: 0.77,
+            attackVector: 0.85,
+            attackVectorDescription: "",
+            availabilityImpact: 0,
+            confidentialityImpact: 0,
+            description: "Description.\n",
+            exploitability: 0.94,
+            groupName: "TEST",
+            integrityImpact: 0.22,
+            minTimeToRemediate: null,
+            privilegesRequired: 0.85,
+            recommendation: "Recommendation.\n",
+            remediationLevel: 0.95,
+            reportConfidence: 0.96,
+            severityScope: 0,
+            threat: "",
+            title: "001. Title test",
+            unfulfilledRequirements: ["1111", "2222"],
+            userInteraction: 0.85,
+          },
+        },
+        result: { data: { addFinding: { success: true } } },
+      },
+    ];
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_mutations_add_finding_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MockedProvider
+            addTypename={true}
+            mocks={[...apolloDataMock, ...mockedMutations, ...apolloDataMock]}
+          >
+            <Route
+              component={GroupFindingsView}
+              path={"/groups/:groupName/vulns"}
+            />
+          </MockedProvider>
+        </authzPermissionsContext.Provider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(
+        screen.getByText("group.findings.buttons.add.text")
+      ).toBeInTheDocument();
+    });
+
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "group.findings.buttons.add.text",
+      })
+    );
+    await userEvent.type(
+      screen.getByRole("combobox", { name: /title/iu }),
+      "001. Title test"
+    );
+    await userEvent.click(
+      screen.getByRole("button", {
+        name: "components.modal.confirm",
+      })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "group.findings.addModal.alerts.addedFinding",
+        "groupAlerts.titleSuccess"
+      );
+    });
   });
 });
