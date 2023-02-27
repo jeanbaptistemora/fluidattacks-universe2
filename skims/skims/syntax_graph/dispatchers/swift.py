@@ -15,6 +15,7 @@ from syntax_graph.syntax_readers.swift import (
     prefix_expression as swift_prefix_expression,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
+    string_literal as swift_string_literal,
     try_expression as swift_try_expression,
     value_argument as swift_value_argument,
     value_arguments as swift_argument_list,
@@ -127,6 +128,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "source_file",
         },
         syntax_reader=swift_source_file.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "line_string_literal",
+        },
+        syntax_reader=swift_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
