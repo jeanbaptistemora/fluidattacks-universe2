@@ -4143,6 +4143,7 @@ export const enTranslations: ResourceKey = {
     tabs: {
       drafts: {
         organization: "Organization",
+        stateDate: "State Date",
         title: "Drafts",
       },
       reattacks: "Reattacks",
