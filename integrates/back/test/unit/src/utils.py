@@ -10613,6 +10613,9 @@ mocked_responses: dict[str, dict[str, Any]] = {
     "remove_stakeholder.domain.remove_stakeholder_all_organizations": {
         '["unittest@test.com"]': None,
     },
+    "s3.operations.client.upload_fileobj": {
+        '["test-file-records.csv"]': None,
+    },
     "s3.operations.upload_memory_file": {
         '["billing-test-file.png"]': None,
         '["test-vulns.yaml"]': None,
