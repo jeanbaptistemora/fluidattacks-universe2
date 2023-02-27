@@ -12,6 +12,7 @@ from dynamodb.types import (
 from dynamodb.utils import (
     SetEncoder,
 )
+import logging
 from opensearchpy import (
     AWSV4SignerAuth,
     OpenSearch,
@@ -19,6 +20,7 @@ from opensearchpy import (
 )
 from opensearchpy.helpers import (
     bulk,
+    BulkIndexError,
 )
 from typing import (
     Any,
@@ -37,6 +39,7 @@ CLIENT = OpenSearch(
     use_ssl=FI_ENVIRONMENT == "prod",
     verify_certs=FI_ENVIRONMENT == "prod",
 )
+LOGGER = logging.getLogger(__name__)
 
 
 def _process(records: tuple[Record, ...], index: str) -> None:
@@ -56,7 +59,11 @@ def _process(records: tuple[Record, ...], index: str) -> None:
             actions.append({**action, "_source": record.new_image})
         else:
             actions.append(action)
-    bulk(client=CLIENT, actions=actions)
+
+    try:
+        bulk(client=CLIENT, actions=actions)
+    except BulkIndexError as ex:
+        LOGGER.exception(ex, extra={"extra": {"errors": ex.errors}})
 
 
 def process_vulns(records: tuple[Record, ...]) -> None:

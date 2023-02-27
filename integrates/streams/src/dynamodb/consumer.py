@@ -12,6 +12,7 @@ from amazon_kclpy.messages import (
 from amazon_kclpy.v2 import (
     processor,
 )
+import bugsnag
 from dynamodb.triggers import (
     TRIGGERS,
 )
@@ -89,9 +90,9 @@ class RecordProcessor(processor.RecordProcessorBase):
                 # Must keep going even if one processor fails
                 # pylint: disable-next=broad-except
                 except Exception as ex:
-                    LOGGER.exception(
+                    bugsnag.notify(
                         ex,
-                        extra={
+                        metadata={
                             "extra": {
                                 "matching_records": {
                                     record.sequence_number: record
@@ -100,6 +101,7 @@ class RecordProcessor(processor.RecordProcessorBase):
                                 "trigger": trigger.records_processor.__name__,
                             }
                         },
+                        unhandled=True,
                     )
 
         self.checkpoint(
