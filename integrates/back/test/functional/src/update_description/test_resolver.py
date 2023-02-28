@@ -132,6 +132,29 @@ async def test_update_finding_duplicated_description(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
+    ["email", "recommendation"],
+    [
+        ["admin@gmail.com", "Duplicated recommendation"],
+        ["hacker@gmail.com", "Duplicated recommendation"],
+    ],
+)
+async def test_update_finding_duplicated_recommendation(
+    populate: bool, email: str, recommendation: str
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, recommendation=recommendation
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Finding with the same recommendation already exists"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_description")
+@pytest.mark.parametrize(
     ["email"],
     [
         ["user@gmail.com"],
