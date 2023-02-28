@@ -30,6 +30,9 @@ from symbolic_eval.f052.literal.kotlin import (
     kt_insecure_key,
     kt_insecure_key_ec,
 )
+from symbolic_eval.f052.literal.swift import (
+    swift_insecure_crypto,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -64,6 +67,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
     MethodsEnum.JS_INSEC_MSG_AUTH_MECHANISM: insecure_sign_mechanism,
     MethodsEnum.TS_INSEC_MSG_AUTH_MECHANISM: insecure_sign_mechanism,
+    MethodsEnum.SWIFT_INSECURE_CRYPTOR: swift_insecure_crypto,
 }
 
 

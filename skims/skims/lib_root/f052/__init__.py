@@ -46,6 +46,7 @@ from lib_root.f052.kotlin import (
 )
 from lib_root.f052.swift import (
     swift_insecure_cipher,
+    swift_insecure_cryptalgo,
     swift_insecure_crypto,
 )
 from lib_root.f052.typescript import (
@@ -115,4 +116,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, typescript_jwt_insec_sign_algo_async),
     (FINDING, swift_insecure_cipher),
     (FINDING, swift_insecure_crypto),
+    (FINDING, swift_insecure_cryptalgo),
 )

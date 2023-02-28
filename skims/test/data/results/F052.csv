@@ -1974,6 +1974,22 @@ F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,1
   22 |
      ^ Col 0
 ",swift.swift_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecurre_cryptor.swift,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecurre_cryptor.swift,"
+   1 |
+   2 |
+   3 | let cryptor = try Cryptor(operation: .encrypt, algorithm: .des, options: .none, key: key, iv: []) // Noncompliant
+   4 |
+   5 | let crypt = CkoCrypt2()
+>  6 | crypt.CryptAlgorithm = ""3des"" // Noncompliant
+   7 |
+   8 |
+   9 |
+  10 | let cryptor = try Cryptor(operation: .encrypt, algorithm: .aes, options: .none, key: key, iv: []) // Compliant
+  11 |
+  12 | let crypt = CkoCrypt2()
+  13 | crypt.CryptAlgorithm = ""aes"" // Compliant
+     ^ Col 0
+",swift.swift_insecure_cryptor
 F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecurre_cryptor.swift,3,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecurre_cryptor.swift,"
    1 |
    2 |

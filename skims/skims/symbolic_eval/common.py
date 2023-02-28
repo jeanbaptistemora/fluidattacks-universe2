@@ -34,6 +34,7 @@ INSECURE_ALGOS = {
     "rc2",
     "rc4",
     "rsa",
+    "3des",
 }
 
 INSECURE_MODES = {"cbc", "ecb", "ofb"}
