@@ -71,8 +71,10 @@ DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "Annotation",
+            "Argument",
             "ArrayInitializer",
             "ArrowExpressionClause",
+            "AssignableSelector",
             "Assignment",
             "AwaitExpression",
             "Break",
@@ -92,10 +94,12 @@ DISPATCHERS: Dispatchers = (
             "InitializedIdentifier",
             "JsxElement",
             "LexicalDeclaration",
+            "LibraryName",
             "Literal",
             "MemberAccess",
             "MethodSignature",
             "MissingNode",
+            "NamedArgument",
             "NewExpression",
             "Object",
             "ObjectCreation",

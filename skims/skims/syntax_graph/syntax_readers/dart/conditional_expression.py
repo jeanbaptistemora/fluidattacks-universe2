@@ -1,10 +1,11 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.conditional_expression import (
-    build_conditional_expression_node,
+from syntax_graph.syntax_nodes.if_statement import (
+    build_if_node,
 )
 from syntax_graph.types import (
+    MissingCaseHandling,
     SyntaxGraphArgs,
 )
 from utils.graph import (
@@ -13,9 +14,7 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-
     conditional_node = None
-
     invalid_types = {
         "?",
         ":",
@@ -37,6 +36,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     ):
         conditional_node = frst_child
 
-    return build_conditional_expression_node(
-        args, conditional_node, true_block, false_block
-    )
+    if not conditional_node:
+        raise MissingCaseHandling(
+            f"Bad conditional expression handling in {args.n_id}"
+        )
+
+    return build_if_node(args, conditional_node, true_block, false_block)

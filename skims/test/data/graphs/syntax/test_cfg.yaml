@@ -4,6 +4,7 @@
  pi: 3.14159
  xmas: true
  french-hens: 3
+ empty-key:
  calling-birds:
    - Id: [MyLambdaFunction: [test: a], Arn]
    - huey

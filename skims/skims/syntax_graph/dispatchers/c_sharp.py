@@ -20,7 +20,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     conditional_access_expression as c_sharp_conditional_access_expression,
-    conditional_expression as c_sharp_conditional_expression,
     constructor_declaration as c_sharp_constructor_declaration,
     continue_statement as c_sharp_continue_statement,
     declaration_block as c_sharp_declaration_block,
@@ -210,12 +209,6 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "conditional_expression",
-        },
-        syntax_reader=c_sharp_conditional_expression.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "conditional_access_expression",
         },
         syntax_reader=c_sharp_conditional_access_expression.reader,
@@ -306,6 +299,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "conditional_expression",
             "if_statement",
         },
         syntax_reader=c_sharp_if_statement.reader,
