@@ -1,5 +1,6 @@
 import type { FetchResult } from "@apollo/client";
 
+import type { IConfirmFn } from "components/ConfirmDialog";
 import type {
   IUpdateVulnerabilityForm,
   IVulnDataTypeAttr,
@@ -14,6 +15,10 @@ interface IUpdateDescriptionProps {
   handleClearSelected: () => void;
   handleCloseModal: () => void;
   refetchData: () => void;
+}
+
+interface IUpdateDescriptionContentProps extends IUpdateDescriptionProps {
+  confirm: IConfirmFn;
 }
 
 interface ISendNotificationResultAttr {
@@ -89,5 +94,6 @@ export type {
   ISendNotificationResultAttr,
   IUpdateDescriptionProps,
   IUpdateTreatmentModalProps,
+  IUpdateDescriptionContentProps,
   IUpdateVulnerabilityResultAttr,
 };
