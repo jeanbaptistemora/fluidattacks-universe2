@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import type { IGetMeVulnerabilitiesAssignedIds } from "./types";
 import { Button } from "components/Button";
 import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
+import { assignedVulnerabilitiesContext } from "scenes/Dashboard/context";
+import type { IAssignedVulnerabilitiesContext } from "scenes/Dashboard/types";
 import { Logger } from "utils/logger";
 
 export const TaskInfo: React.FC = (): JSX.Element => {
@@ -20,13 +22,13 @@ export const TaskInfo: React.FC = (): JSX.Element => {
   const onClick = useCallback((): void => {
     push("/todos");
   }, [push]);
-  const { data: meVulnerabilitiesAssignedIds } =
+  const { data: meVulnerabilitiesAssignedIds, refetch: refetchIds } =
     useQuery<IGetMeVulnerabilitiesAssignedIds>(
       GET_ME_VULNERABILITIES_ASSIGNED_IDS,
       {
         fetchPolicy: "cache-first",
-        onError: ({ graphQLErrors }): void => {
-          graphQLErrors.forEach((error): void => {
+        onError: (errors): void => {
+          errors.graphQLErrors.forEach((error): void => {
             Logger.warning(
               "An error occurred fetching vulnerabilities assigned ids",
               error
@@ -56,12 +58,22 @@ export const TaskInfo: React.FC = (): JSX.Element => {
     [meVulnerabilitiesAssignedIds, allAssigned]
   );
 
+  const { setRefetchIds }: IAssignedVulnerabilitiesContext = useContext(
+    assignedVulnerabilitiesContext
+  );
+  useEffect((): void => {
+    if (setRefetchIds !== undefined) {
+      setRefetchIds(refetchIds);
+    }
+  }, [refetchIds, setRefetchIds]);
+
   if (meVulnerabilitiesAssignedIds === undefined) {
     return <div />;
   }
 
   return (
-    <Container position={"relative"}>
+    // eslint-disable-next-line react/forbid-component-props
+    <Container position={"relative"} style={{ overflowY: "visible" }}>
       <Tooltip
         id={"navbar.task.id"}
         tip={t(
