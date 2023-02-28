@@ -63,7 +63,7 @@ def conan_conanfile_py_dev(
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
-        if re.search(r"\s+tool_requires[\s=]+", line):
+        if re.search(r"\s+(tool|build)_requires[\s=]+", line):
             for dep in get_tools_deps(line, line_number):
                 yield dep
 
