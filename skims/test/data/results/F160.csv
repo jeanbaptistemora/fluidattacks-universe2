@@ -1,4 +1,22 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F160,lines,namespace/skims/test/data/lib_root/f160/python_unsafe_temp_file.py,6,378,skims,160. Excessive privileges - Temporary Files,The application uses insecure functions to create temporary files in namespace/skims/test/data/lib_root/f160/python_unsafe_temp_file.py,"
+   1 | # pylint: skip-file
+   2 | import tempfile
+   3 |
+   4 |
+   5 | def unsafe_tempfile() -> None:
+>  6 |     filename = tempfile.mktemp()  # Noncompliant
+   7 |     open(filename, ""w+"")
+   8 |
+   9 |
+  10 | def safe_tempfile() -> None:
+  11 |     # Compliant; Easy replacement to tempfile.mktemp()
+  12 |     tmp_file1 = tempfile.NamedTemporaryFile(delete=False)
+  13 |     tmp_file2 = tempfile.NamedTemporaryFile()
+  14 |     open(tmp_file1, ""w+"")
+  15 |     open(tmp_file2, ""w+"")
+     ^ Col 0
+",python.python_unsafe_temp_file
 F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,"
    1 | using System;
    2 | using System.IO;

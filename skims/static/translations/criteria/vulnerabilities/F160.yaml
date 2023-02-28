@@ -1,7 +1,10 @@
 ---
-src.lib_path.f160.java_file_create_temp_file.description:
+src.lib_root.f160.java_file_create_temp_file:
   en: Use of Java File.createTempFile
   es: Uso de Java File.createTempFile
-src.lib_path.f160.c_sharp_file_create_temp_file.description:
+src.lib_root.f160.c_sharp_file_create_temp_file:
   en: Use of C# Path.GetTempFileName
   es: Uso de C# Path.GetTempFileName
+src.lib_root.f160.insecure_temp_file:
+  en: The application uses insecure functions to create temporary files
+  es: La aplicación utiliza funciones inseguras para crear archivos temporales

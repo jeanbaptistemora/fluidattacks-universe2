@@ -40,7 +40,7 @@ def c_sharp_file_create_temp_file(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f160.c_sharp_file_create_temp_file.description",
+        desc_key="src.lib_root.f160.c_sharp_file_create_temp_file",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

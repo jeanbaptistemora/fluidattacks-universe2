@@ -4188,6 +4188,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    PYTHON_UNSAFE_TEMP_FILE = MethodInfo(
+        file_name="python",
+        name="python_unsafe_temp_file",
+        module="lib_root",
+        finding=FindingEnum.F160,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JSON_SSL_PORT_MISSING = MethodInfo(
         file_name="conf_files",
         name="json_ssl_port_missing",

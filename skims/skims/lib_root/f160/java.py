@@ -91,7 +91,7 @@ def java_file_create_temp_file(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f160.java_file_create_temp_file.description",
+        desc_key="src.lib_root.f160.java_file_create_temp_file",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
