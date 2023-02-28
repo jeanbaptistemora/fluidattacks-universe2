@@ -12,9 +12,6 @@ terraform {
 variable "name" {
   type = string
 }
-variable "policy" { # List[Json]
-  default = []
-}
 variable "policies" { # Dict[str, List[Json]]
   default = {}
 }
