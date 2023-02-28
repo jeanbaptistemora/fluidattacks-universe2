@@ -107,6 +107,27 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/deployTerraform/commonCi:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
+  script:
+    - m . /deployTerraform/commonCi
+  stage: deploy-infra
+  tags:
+    - common-small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/commonCompute:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

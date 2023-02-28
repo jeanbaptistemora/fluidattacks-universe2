@@ -53,6 +53,10 @@ in {
           };
         }
         {
+          output = "/deployTerraform/commonCi";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/commonCompute";
           gitlabExtra = gitlabDeployInfra;
         }
