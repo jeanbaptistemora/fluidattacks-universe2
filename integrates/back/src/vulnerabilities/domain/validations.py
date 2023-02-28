@@ -18,6 +18,7 @@ from custom_exceptions import (
     InvalidVulnerabilityAlreadyExists,
     InvalidVulnSpecific,
     InvalidVulnWhere,
+    OrganizationNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -47,7 +48,6 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.groups import (
-    get_group_max_acceptance_days,
     get_group_max_acceptance_severity,
     get_group_max_number_acceptances,
     get_group_min_acceptance_severity,
@@ -73,19 +73,32 @@ from vulnerabilities.domain.utils import (
 )
 
 
+async def get_policy_max_acceptance_days(
+    *, loaders: Dataloaders, group_name: str
+) -> int | None:
+    group: Group = await loaders.group.load(group_name)
+    if group.policies:
+        return group.policies.max_acceptance_days
+
+    organization = await loaders.organization.load(group.organization_id)
+    if not organization:
+        raise OrganizationNotFound()
+
+    return organization.policies.max_acceptance_days
+
+
 async def validate_acceptance_days(
     loaders: Dataloaders,
     accepted_until: datetime,
     group_name: str,
 ) -> None:
     """
-    Checks if acceptance date complies with organization policies.
+    Checks if acceptance date complies with group and organization policies.
     """
     today = datetime_utils.get_utc_now()
     acceptance_days = Decimal((accepted_until - today).days)
-    group: Group = await loaders.group.load(group_name)
-    max_acceptance_days = await get_group_max_acceptance_days(
-        loaders=loaders, group=group
+    max_acceptance_days = await get_policy_max_acceptance_days(
+        loaders=loaders, group_name=group_name
     )
     if (
         max_acceptance_days is not None

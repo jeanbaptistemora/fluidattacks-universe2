@@ -84,13 +84,9 @@ pytestmark = [
         ],
     ],
 )
-@patch(
-    MODULE_AT_TEST + "get_group_max_acceptance_days", new_callable=AsyncMock
-)
 @patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
 async def test_validate_acceptance_days(
     mock_dataloaders_group: AsyncMock,
-    mock_get_group_max_acceptance_days: AsyncMock,
     acceptance_date: datetime,
     acceptance_date_to_raise_exception: datetime,
     group_name: str,
@@ -98,13 +94,13 @@ async def test_validate_acceptance_days(
     mocked_objects, mocked_paths, mocks_args = [
         [
             mock_dataloaders_group.load,
-            mock_get_group_max_acceptance_days,
         ],
         [
             "Dataloaders.group",
-            "get_group_max_acceptance_days",
         ],
-        [[group_name], [group_name]],
+        [
+            [group_name],
+        ],
     ]
     assert set_mocks_return_values(
         mocks_args=mocks_args,
