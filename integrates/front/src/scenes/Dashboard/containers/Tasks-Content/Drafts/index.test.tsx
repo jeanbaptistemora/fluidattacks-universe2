@@ -30,6 +30,7 @@ describe("TodoDraftsView", (): void => {
               groupName: "group1",
               hacker: "test1@fluidattacks.com",
               id: "475041513",
+              lastStateDate: "2019-06-18 09:00:00",
               openVulnerabilities: 1,
               reportDate: "2019-04-12 08:45:48",
               severityScore: 3.4,
@@ -40,6 +41,7 @@ describe("TodoDraftsView", (): void => {
               groupName: "gropu1",
               hacker: "test2@fluidattacks.com",
               id: "475041535",
+              lastStateDate: "2019-02-25 11:30:00",
               openVulnerabilities: 0,
               reportDate: "2019-02-04 12:46:10",
               severityScore: 3.4,
@@ -83,6 +85,9 @@ describe("TodoDraftsView", (): void => {
     expect(screen.getByText("Open Vulns.")).toBeInTheDocument();
     expect(screen.getByText("Group Name")).toBeInTheDocument();
     expect(
+      screen.getByText("todoList.tabs.drafts.stateDate")
+    ).toBeInTheDocument();
+    expect(
       screen.getByText("todoList.tabs.drafts.organization")
     ).toBeInTheDocument();
     expect(screen.getByText("State")).toBeInTheDocument();
@@ -91,5 +96,6 @@ describe("TodoDraftsView", (): void => {
       screen.getByText("006. Authentication mechanism absence or evasion")
     ).toBeInTheDocument();
     expect(screen.getAllByText("Created")).toHaveLength(1);
+    expect(screen.getByText("2019-06-18 09:00:00")).toBeInTheDocument();
   });
 });
