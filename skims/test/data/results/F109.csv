@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,36,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+F109,lines,namespace/skims/test/data/lib_root/f109/cfn_rds_has_not_termination_protection.yaml,36,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/cfn_rds_has_not_termination_protection.yaml,"
   26 |       DBParameterGroupName:
   27 |         Ref: RDSDBParameterGroup
   28 |       DBSubnetGroupName:
@@ -23,7 +23,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   46 |     Type: AWS::RDS::DBCluster
      ^ Col 0
 ",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
-F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,48,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+F109,lines,namespace/skims/test/data/lib_root/f109/cfn_rds_has_not_termination_protection.yaml,48,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/cfn_rds_has_not_termination_protection.yaml,"
   38 |         Ref: RDSDBClusterParameterGroup
   39 |       DeletionProtection: true
   40 |       Engine: aurora
@@ -45,54 +45,6 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   56 |       DBParameterGroupName:
   57 |         Ref: RDSDBParameterGroup
   58 |       DeletionProtection: true
-     ^ Col 0
-",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
-F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,49,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
-  39 |           ""Ref"": ""DBSubnetGroup""
-  40 |         },
-  41 |         ""DeletionProtection"": true,
-  42 |         ""Engine"": ""aurora"",
-  43 |         ""PubliclyAccessible"": ""true"",
-  44 |         ""StorageEncrypted"": true
-  45 |       },
-  46 |       ""Type"": ""AWS::RDS::DBInstance""
-  47 |     },
-  48 |     ""RDSCluster2"": {
-> 49 |       ""Properties"": {
-  50 |         ""DBClusterParameterGroupName"": {
-  51 |           ""Ref"": ""RDSDBClusterParameterGroup""
-  52 |         },
-  53 |         ""DeletionProtection"": true,
-  54 |         ""Engine"": ""aurora"",
-  55 |         ""MasterUserPassword"": {
-  56 |           ""Ref"": ""password""
-  57 |         },
-  58 |         ""MasterUsername"": {
-  59 |           ""Ref"": ""username""
-     ^ Col 0
-",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
-F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,66,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
-  56 |           ""Ref"": ""password""
-  57 |         },
-  58 |         ""MasterUsername"": {
-  59 |           ""Ref"": ""username""
-  60 |         },
-  61 |         ""StorageEncrypted"": true
-  62 |       },
-  63 |       ""Type"": ""AWS::RDS::DBCluster""
-  64 |     },
-  65 |     ""RDSDBInstance2"": {
-> 66 |       ""Properties"": {
-  67 |         ""AvailabilityZone"": {
-  68 |           ""Fn::GetAtt"": [
-  69 |             ""Subnet1"",
-  70 |             ""AvailabilityZone""
-  71 |           ]
-  72 |         },
-  73 |         ""DBClusterIdentifier"": {
-  74 |           ""Ref"": ""RDSCluster""
-  75 |         },
-  76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
      ^ Col 0
 ",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
 F109,lines,namespace/skims/test/data/lib_root/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/subnet_test.tf,"
