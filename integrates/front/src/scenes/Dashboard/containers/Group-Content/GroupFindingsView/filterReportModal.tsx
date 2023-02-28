@@ -11,9 +11,9 @@ import { useParams } from "react-router-dom";
 import { FilterForm } from "./filterForm";
 import { REQUEST_GROUP_REPORT } from "./queries";
 
+import { Col } from "components/Layout";
 import { Modal } from "components/Modal";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
-import { Col100 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -122,7 +122,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
       >
-        <Col100>
+        <Col>
           <VerifyDialog isOpen={isVerifyDialogOpen}>
             {(setVerifyCallbacks): JSX.Element => {
               return (
@@ -135,7 +135,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               );
             }}
           </VerifyDialog>
-        </Col100>
+        </Col>
       </Modal>
     </React.StrictMode>
   );
