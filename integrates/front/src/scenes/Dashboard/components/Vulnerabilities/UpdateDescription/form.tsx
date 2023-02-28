@@ -1,4 +1,3 @@
-/* eslint-disable fp/no-mutation, no-sequences */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
@@ -12,6 +11,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -45,7 +45,6 @@ import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
 
 import { GET_FINDING_HEADER } from "../../../containers/Finding-Content/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../../Navbar/Tasks/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { Col, Row } from "components/Layout";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
@@ -77,7 +76,8 @@ import {
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
+import { assignedVulnerabilitiesContext } from "scenes/Dashboard/context";
+import type { IAssignedVulnerabilitiesContext } from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import {
@@ -121,6 +121,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     (vulnerability: IVulnDataTypeAttr): boolean =>
       vulnerability.state === "SAFE"
   );
+  const { refetchIds }: IAssignedVulnerabilitiesContext = useContext(
+    assignedVulnerabilitiesContext
+  );
+
   const [isRunning, setIsRunning] = useState(false);
   const [treatment, setTreatment] = useContext(UpdateDescriptionContext);
 
@@ -173,22 +177,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const isPreviousTreatmentPristine = usePreviousPristine(isTreatmentPristine);
 
   const [updateVulnerability, { loading: updatingVulnerability }] =
-    useMutation<IUpdateVulnerabilityResultAttr>(UPDATE_VULNERABILITY_MUTATION, {
-      onCompleted: (result: IUpdateVulnerabilityResultAttr): void => {
-        if (
-          (!_.isUndefined(result.updateVulnerabilitiesTreatment) &&
-            result.updateVulnerabilitiesTreatment.success) ||
-          (!_.isUndefined(result.updateVulnerabilityDescription) &&
-            result.updateVulnerabilityDescription.success)
-        ) {
-          refetchData();
-        }
-      },
-      refetchQueries: [
-        GET_ME_VULNERABILITIES_ASSIGNED,
-        GET_ME_VULNERABILITIES_ASSIGNED_IDS,
-      ],
-    });
+    useMutation<IUpdateVulnerabilityResultAttr>(UPDATE_VULNERABILITY_MUTATION);
 
   const [sendNotification] = useMutation<ISendNotificationResultAttr>(
     SEND_ASSIGNED_NOTIFICATION,
@@ -206,13 +195,18 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     }
   );
 
-  const numberOfGroups: number = Array.from(
-    new Set(
-      vulnerabilities.map(
-        (vulnerability: IVulnDataTypeAttr): string => vulnerability.groupName
-      )
-    )
-  ).length;
+  const numberOfGroups = useMemo(
+    (): number =>
+      Array.from(
+        new Set(
+          vulnerabilities.map(
+            (vulnerability: IVulnDataTypeAttr): string =>
+              vulnerability.groupName
+          )
+        )
+      ).length,
+    [vulnerabilities]
+  );
 
   const { data } = useQuery<IGroupUsersAttr>(GET_GROUP_USERS, {
     skip:
@@ -240,11 +234,13 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
       });
     },
-    refetchQueries: [
-      GET_ME_VULNERABILITIES_ASSIGNED,
-      GET_ME_VULNERABILITIES_ASSIGNED_IDS,
-    ],
   });
+
+  const updateAssignedIds = useCallback(async (): Promise<void> => {
+    if (refetchIds !== undefined) {
+      await refetchIds();
+    }
+  }, [refetchIds]);
 
   const handleUpdateVulnerability = async (
     values: IUpdateVulnerabilityForm,
@@ -256,6 +252,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       msgError(t("searchFindings.tabResources.noSelection"));
     } else {
       dataTreatmentTrackHelper(values);
+
       try {
         setIsRunning(true);
         const results = await getAllResults(
@@ -268,6 +265,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
 
         const areAllMutationValid = getAreAllChunckedMutationValid(results);
+
+        refetchData();
 
         validMutationsHelper(
           handleCloseModal,
@@ -298,6 +297,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       } catch (updateError: unknown) {
         handleUpdateVulnTreatmentError(updateError);
       } finally {
+        await updateAssignedIds();
         setIsRunning(false);
       }
     }
@@ -321,15 +321,16 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_VULNS_ZERO_RISK,
     {
-      onCompleted: (
+      onCompleted: async (
         requestZeroRiskVulnResult: IRequestVulnZeroRiskResultAttr
-      ): void => {
+      ): Promise<void> => {
         requestZeroRiskHelper(
           handleClearSelected,
           handleCloseModal,
           refetchData,
           requestZeroRiskVulnResult
         );
+        await updateAssignedIds();
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
         handleRequestZeroRiskError(graphQLErrors);
@@ -354,23 +355,24 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             groupName: vulnerabilities[0].groupName,
           },
         },
-        GET_ME_VULNERABILITIES_ASSIGNED,
-        GET_ME_VULNERABILITIES_ASSIGNED_IDS,
       ],
     }
   );
 
-  const userEmails: string[] =
-    _.isUndefined(data) || _.isEmpty(data) || numberOfGroups > 1
-      ? [userEmail]
-      : data.group.stakeholders
-          .filter(
-            (stakeholder: IStakeholderAttr): boolean =>
-              stakeholder.invitationState === "REGISTERED" &&
-              (!stakeholder.email.endsWith("@fluidattacks.com") ||
-                canAssignVulnsToFluid)
-          )
-          .map((stakeholder: IStakeholderAttr): string => stakeholder.email);
+  const userEmails: string[] = useMemo(
+    (): string[] =>
+      _.isUndefined(data) || _.isEmpty(data) || numberOfGroups > 1
+        ? [userEmail]
+        : data.group.stakeholders
+            .filter(
+              (stakeholder: IStakeholderAttr): boolean =>
+                stakeholder.invitationState === "REGISTERED" &&
+                (!stakeholder.email.endsWith("@fluidattacks.com") ||
+                  canAssignVulnsToFluid)
+            )
+            .map((stakeholder: IStakeholderAttr): string => stakeholder.email),
+    [data, canAssignVulnsToFluid, numberOfGroups, userEmail]
+  );
 
   const lastTreatment: IHistoricTreatment = {
     ...groupLastHistoricTreatment(vulnerabilities),
