@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f153.argument_list import (
+    evaluate as evaluate_argument_list_f153,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -10,7 +13,9 @@ from utils import (
     graph as g,
 )
 
-FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
+    FindingEnum.F153: evaluate_argument_list_f153,
+}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:

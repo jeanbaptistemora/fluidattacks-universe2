@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f052.variable_declaration import (
     evaluate as evaluate_variable_declaration_f052,
 )
+from symbolic_eval.f153.variable_declaration import (
+    evaluate as evaluate_variable_declaration_f153,
+)
 from symbolic_eval.f297.variable_declaration import (
     evaluate as evaluate_variable_declaration_f297,
 )
@@ -18,6 +21,7 @@ from symbolic_eval.types import (
 
 FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F052: evaluate_variable_declaration_f052,
+    FindingEnum.F153: evaluate_variable_declaration_f153,
     FindingEnum.F297: evaluate_variable_declaration_f297,
     FindingEnum.F338: evaluate_variable_declaration_f338,
 }
