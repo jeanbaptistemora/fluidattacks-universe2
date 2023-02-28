@@ -161,18 +161,22 @@ async def _validate_finding_requirements(
         raise InvalidVulnerabilityRequirement()
 
 
-async def _validate_duplicated_finding(
+async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     group_name: str,
     title: str,
     description: str,
     recommendation: str,
+    finding_id: str | None = None,
 ) -> None:
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
     same_type_of_findings = [
         finding
         for finding in group_findings
-        if finding.title.split(".")[0].strip() == title.split(".")[0].strip()
+        if finding.id != finding_id
+        and (
+            finding.title.split(".")[0].strip() == title.split(".")[0].strip()
+        )
     ]
     for finding in same_type_of_findings:
         if finding.description.strip() == description.strip():
@@ -876,6 +880,25 @@ def get_remaining_exposure(
 
 
 @validations.validate_fields_deco(["description"])
+@validations.validate_fields_length_deco(
+    [
+        "description.attack_vector_description",
+        "description.description",
+        "description.recommendation",
+        "description.threat",
+    ],
+    limit=5000,
+)
+@validations.validate_fields_length_deco(
+    [
+        "description.attack_vector_description",
+        "description.description",
+        "description.recommendation",
+        "description.threat",
+    ],
+    limit=0,
+    is_greater_than_limit=True,
+)
 async def update_description(
     loaders: Dataloaders,
     finding_id: str,
@@ -885,6 +908,18 @@ async def update_description(
         await findings_utils.is_valid_finding_title(loaders, description.title)
 
     finding = await get_finding(loaders, finding_id)
+    if (
+        description.description is not None
+        or description.recommendation is not None
+    ):
+        await _validate_duplicated_finding(
+            loaders,
+            finding.group_name,
+            description.title or finding.title,
+            description.description or finding.description,
+            description.recommendation or finding.recommendation,
+            finding_id,
+        )
     metadata = FindingMetadataToUpdate(
         attack_vector_description=description.attack_vector_description,
         description=description.description,
