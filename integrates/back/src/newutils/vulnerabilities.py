@@ -262,7 +262,8 @@ def _format_tool_item(
 
 
 async def format_vulnerabilities(
-    group_name: str, loaders: Any, vulnerabilities: Iterable[Vulnerability]
+    vulnerabilities: Iterable[Vulnerability],
+    vulnerabilities_roots: Iterable[Root | None],
 ) -> dict[str, list[dict[str, str | Item]]]:
     finding: dict[str, list[dict[str, str | Item]]] = {
         "ports": [],
@@ -274,7 +275,7 @@ async def format_vulnerabilities(
         "lines": {"where": "path", "specific": "line"},
         "inputs": {"where": "url", "specific": "field"},
     }
-    for vuln in vulnerabilities:
+    for vuln, root in zip(vulnerabilities, vulnerabilities_roots):
         format_source = (
             str(vuln.state.source.value).lower()
             if vuln.state.source != Source.ASM
@@ -307,12 +308,9 @@ async def format_vulnerabilities(
             finding[vuln_type][-1]["commit_hash"] = vuln.state.commit
         if vuln.stream:
             finding[vuln_type][-1]["stream"] = ",".join(vuln.stream)
-        if vuln.root_id:
-            with suppress(RootNotFound):
-                root: Root = await loaders.root.load(
-                    RootRequest(group_name, vuln.root_id)
-                )
-                finding[vuln_type][-1]["repo_nickname"] = root.state.nickname
+        if vuln.root_id and root:
+            finding[vuln_type][-1]["repo_nickname"] = root.state.nickname
+
     return finding
 
 

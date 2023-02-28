@@ -44,6 +44,9 @@ from db_model.organization_finding_policies.enums import (
 from db_model.organization_finding_policies.types import (
     OrgFindingPolicy,
 )
+from db_model.roots.types import (
+    RootRequest,
+)
 from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
@@ -786,8 +789,14 @@ async def should_send_update_treatment(
     }
     if treatment in translations:
         vulns_grouped = group_vulnerabilities(updated_vulns)
+        vulns_roots = await loaders.root.load_many(
+            [
+                RootRequest(group_name=group_name, root_id=vuln.root_id or "")
+                for vuln in vulns_grouped
+            ]
+        )
         vulns_data = await vulns_utils.format_vulnerabilities(
-            group_name, loaders, vulns_grouped
+            vulns_grouped, vulns_roots
         )
         mail_content = get_updated_manager_mail_content(vulns_data)
         schedule(

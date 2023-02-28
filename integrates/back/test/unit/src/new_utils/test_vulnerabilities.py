@@ -2,6 +2,7 @@ from custom_exceptions import (
     InvalidRange,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -9,6 +10,9 @@ from datetime import (
 )
 from db_model.enums import (
     Source,
+)
+from db_model.roots.types import (
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -47,13 +51,17 @@ def test_as_range() -> None:
 
 
 async def test_format_vulnerabilities() -> None:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     finding_id = "422286126"
     group_name: str = "unittesting"
     finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    test_data = await format_vulnerabilities(
-        group_name, loaders, finding_vulns
+    vulns_roots = await loaders.root.load_many(
+        [
+            RootRequest(group_name=group_name, root_id=vuln.root_id or "")
+            for vuln in finding_vulns
+        ]
     )
+    test_data = await format_vulnerabilities(finding_vulns, vulns_roots)
     expected_output = {
         "inputs": [
             {
