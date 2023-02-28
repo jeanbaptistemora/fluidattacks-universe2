@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+F070,lines,namespace/skims/test/data/lib_root/f070/cfn_elb2_uses_insecure_security_policy.yaml,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
    8 |           RedirectConfig:
    9 |             Protocol: HTTPS
   10 |             Port: 443
@@ -23,7 +23,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   28 |             Path: /#{path}
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,34,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+F070,lines,namespace/skims/test/data/lib_root/f070/cfn_elb2_uses_insecure_security_policy.yaml,34,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   14 |             StatusCode: HTTP_301
   15 |       LoadBalancerArn: myLoadBalancer
   16 |       Port: 80
@@ -45,54 +45,6 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   32 |       Port: 80
   33 |       Protocol: HTTP
 > 34 |       SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
-     ^ Col 0
-",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,22,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
-  12 |               ""Host"": ""#{host}"",
-  13 |               ""Path"": ""/#{path}"",
-  14 |               ""Query"": ""#{query}"",
-  15 |               ""StatusCode"": ""HTTP_301""
-  16 |             }
-  17 |           }
-  18 |         ],
-  19 |         ""LoadBalancerArn"": ""myLoadBalancer"",
-  20 |         ""Port"": 80,
-  21 |         ""Protocol"": ""HTTPS"",
-> 22 |         ""SslPolicy"": ""ELBSecurityPolicy-2016-08""
-  23 |       }
-  24 |     },
-  25 |     ""listener2"": {
-  26 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
-  27 |       ""Properties"": {
-  28 |         ""DefaultActions"": [
-  29 |           {
-  30 |             ""Type"": ""redirect"",
-  31 |             ""RedirectConfig"": {
-  32 |               ""Protocol"": ""HTTPS"",
-     ^ Col 0
-",cloudformation.cfn_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
-  28 |         ""DefaultActions"": [
-  29 |           {
-  30 |             ""Type"": ""redirect"",
-  31 |             ""RedirectConfig"": {
-  32 |               ""Protocol"": ""HTTPS"",
-  33 |               ""Port"": 443,
-  34 |               ""Host"": ""#{host}"",
-  35 |               ""Path"": ""/#{path}"",
-  36 |               ""Query"": ""#{query}"",
-  37 |               ""StatusCode"": ""HTTP_301""
-  38 |             }
-  39 |           }
-  40 |         ],
-  41 |         ""LoadBalancerArn"": ""myLoadBalancer"",
-  42 |         ""Port"": 80,
-  43 |         ""Protocol"": ""HTTP"",
-> 44 |         ""SslPolicy"": ""ELBSecurityPolicy-TLS-1-2-2017-01""
-  45 |       }
-  46 |     }
-  47 |   }
-  48 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,5,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,"

@@ -1,7 +1,7 @@
 from collections.abc import (
     Iterator,
 )
-from lib_path.f070.common import (
+from lib_root.f070.common import (
     PREDEFINED_SSL_POLICY_VALUES,
     SAFE_SSL_POLICY_VALUES,
 )

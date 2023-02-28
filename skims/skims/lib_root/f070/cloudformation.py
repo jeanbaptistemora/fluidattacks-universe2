@@ -1,6 +1,10 @@
 from collections.abc import (
     Iterator,
 )
+from lib_root.f070.common import (
+    PREDEFINED_SSL_POLICY_VALUES,
+    SAFE_SSL_POLICY_VALUES,
+)
 from lib_root.utilities.cloudformation import (
     get_attribute,
     iterate_resource,
@@ -21,17 +25,25 @@ from sast.query import (
 )
 
 
-def _elb_without_sslpolicy(graph: Graph, nid: NId) -> Iterator[NId]:
+def _elb2_uses_insecure_security_policy(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
     _, _, prop_id = get_attribute(graph, nid, "Properties")
     val_id = graph.nodes[prop_id]["value_id"]
-    if not get_attribute(graph, val_id, "SslPolicy")[0]:
-        yield nid
+    ssl_policy, ssl_val, ssl_id = get_attribute(graph, val_id, "SslPolicy")
+
+    if (
+        ssl_policy
+        and ssl_val in PREDEFINED_SSL_POLICY_VALUES
+        and ssl_val not in SAFE_SSL_POLICY_VALUES
+    ):
+        yield ssl_id
 
 
-def cfn_elb_without_sslpolicy(
+def cfn_elb2_uses_insecure_security_policy(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.CFN_ELB_WITHOUT_SSLPOLICY
+    method = MethodsEnum.CFN_ELB2_INSECURE_SEC_POLICY
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.YAML):
@@ -42,11 +54,11 @@ def cfn_elb_without_sslpolicy(
             for nid in iterate_resource(
                 graph, "AWS::ElasticLoadBalancingV2::Listener"
             ):
-                for report in _elb_without_sslpolicy(graph, nid):
+                for report in _elb2_uses_insecure_security_policy(graph, nid):
                     yield shard, report
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_path.f016.aws_elb_without_sslpolicy",
+        desc_key="src.lib_path.f070.elb2_uses_insecure_security_policy",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

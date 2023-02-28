@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f070.cloudformation import (
     cfn_elb2_target_group_insecure_port,
-    cfn_elb2_uses_insecure_security_policy,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -18,15 +17,6 @@ from parse_cfn.loader import (
 from typing import (
     Any,
 )
-
-
-@SHIELD_BLOCKING
-def run_cfn_elb2_uses_insecure_security_policy(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_elb2_uses_insecure_security_policy(
-        content=content, path=path, template=template
-    )
 
 
 @SHIELD_BLOCKING
@@ -52,10 +42,6 @@ def analyze(
         for template in load_templates_blocking(content, fmt=file_extension):
             results = (
                 *results,
-                *(
-                    fun(content, path, template)
-                    for fun in (run_cfn_elb2_uses_insecure_security_policy,)
-                ),
                 *(
                     fun(content, file_extension, path, template)
                     for fun in (run_cfn_elb2_target_group_insecure_port,)
