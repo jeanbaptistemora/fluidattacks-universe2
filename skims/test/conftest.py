@@ -100,6 +100,7 @@ def test_group() -> Iterator[str]:
 def test_prepare_cfn_json_data() -> Generator:
     for path in chain(
         iglob("skims/test/data/lib_path/**/*.yaml", recursive=True),
+        iglob("skims/test/data/lib_root/**/*.yaml", recursive=True),
         iglob("skims/test/data/parse_cfn/**/*.yaml", recursive=True),
     ):
         # Take the yaml and dump it as json as is
@@ -113,6 +114,7 @@ def test_prepare_cfn_json_data() -> Generator:
 
     for path in chain(
         iglob("skims/test/data/lib_path/**/*.yaml.json", recursive=True),
+        iglob("skims/test/data/lib_root/**/*.yaml.json", recursive=True),
         iglob("skims/test/data/parse_cfn/**/*.yaml.json", recursive=True),
     ):
         os.remove(path)

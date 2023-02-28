@@ -67,6 +67,30 @@ F099,lines,namespace/skims/test/data/lib_root/f099/cfn_unencrypted_buckets.yaml,
   17 |     DeletionPolicy: Delete
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_root/f099/cfn_unencrypted_buckets.yaml.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_root/f099/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
 F099,lines,namespace/skims/test/data/lib_root/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_root/f099/tfm_unencrypted_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
    2 |   bucket = ""my_unencrypted_bucket_1""

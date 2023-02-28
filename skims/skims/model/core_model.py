@@ -3855,7 +3855,7 @@ class MethodsEnum(Enum):
     CFN_RDS_NOT_INSIDE_DB_SUBNET = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_is_not_inside_a_db_subnet_group",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

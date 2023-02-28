@@ -31,6 +31,30 @@ F016,lines,namespace/skims/test/data/lib_root/f016/cfn_elb_without_sslpolicy.yam
   16 |       Protocol: HTTPS
      ^ Col 0
 ",cloudformation.cfn_elb_without_sslpolicy
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_elb_without_sslpolicy.yaml.json,3,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_root/f016/cfn_elb_without_sslpolicy.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+>  3 |     ""listener1"": {
+   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+   5 |       ""Properties"": {
+   6 |         ""DefaultActions"": [
+   7 |           {
+   8 |             ""Type"": ""redirect"",
+   9 |             ""RedirectConfig"": {
+  10 |               ""Protocol"": ""HTTPS"",
+  11 |               ""Port"": 443,
+  12 |               ""Host"": ""#{host}"",
+  13 |               ""Path"": ""/#{path}"",
+  14 |               ""Query"": ""#{query}"",
+  15 |               ""StatusCode"": ""HTTP_301""
+  16 |             }
+  17 |           }
+  18 |         ],
+  19 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  20 |         ""Port"": 80,
+  21 |         ""Protocol"": ""HTTPS""
+     ^ Col 0
+",cloudformation.cfn_elb_without_sslpolicy
 F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_elb_without_sslpolicy.tf,1,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_root/f016/tfm_aws_elb_without_sslpolicy.tf,"
 >  1 | resource ""aws_lb_listener"" ""front_end"" {
    2 |   load_balancer_arn = aws_lb.front_end.arn

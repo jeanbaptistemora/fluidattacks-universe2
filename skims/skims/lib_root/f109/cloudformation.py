@@ -40,7 +40,10 @@ def cfn_rds_is_not_inside_a_db_subnet_group(
     method = MethodsEnum.CFN_RDS_NOT_INSIDE_DB_SUBNET
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(GraphLanguage.YAML):
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

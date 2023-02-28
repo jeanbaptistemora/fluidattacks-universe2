@@ -1,6 +1,9 @@
 from collections.abc import (
     Iterator,
 )
+from itertools import (
+    chain,
+)
 from lib_root.utilities.cloudformation import (
     get_attribute,
     iterate_resource,
@@ -35,7 +38,10 @@ def cfn_unencrypted_buckets(
     method = MethodsEnum.CFN_UNENCRYPTED_BUCKETS
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(GraphLanguage.YAML):
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

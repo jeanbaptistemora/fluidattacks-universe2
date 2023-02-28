@@ -1,6 +1,9 @@
 from collections.abc import (
     Iterator,
 )
+from itertools import (
+    chain,
+)
 from lib_root.f070.common import (
     PREDEFINED_SSL_POLICY_VALUES,
     SAFE_SSL_POLICY_VALUES,
@@ -58,7 +61,10 @@ def cfn_elb2_target_group_insecure_port(
     method = MethodsEnum.CFN_LB_TARGET_INSECURE_PORT
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(GraphLanguage.YAML):
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -83,7 +89,10 @@ def cfn_elb2_uses_insecure_security_policy(
     method = MethodsEnum.CFN_ELB2_INSECURE_SEC_POLICY
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(GraphLanguage.YAML):
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
