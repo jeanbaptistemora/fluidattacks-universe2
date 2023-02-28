@@ -21658,7 +21658,37 @@
             "PartitionKeyAlias": "CMNT#id",
             "SortKeyAlias": "EVENT#event_id"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "event_id": {
+                "S": "418900971"
+              },
+              "full_name": {
+                "S": "user Integrates"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "EVENT#418900971"
+              },
+              "pk": {
+                "S": "CMNT#1677548565934"
+              },
+              "id": {
+                "S": "1677548565934"
+              },
+              "creation_date": {
+                "S": "2023-01-23T15:00:00+00:00"
+              },
+              "content": {
+                "S": "Testing event comment."
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "email",
             "parent_id",
