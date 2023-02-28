@@ -14,7 +14,10 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     member_id = args.ast_graph.nodes[args.n_id]["label_field_target"]
-    expression_id = args.ast_graph.nodes[args.n_id]["label_field_suffix"]
+    navigation_suffix = args.ast_graph.nodes[args.n_id]["label_field_suffix"]
+    expression_id = args.ast_graph.nodes[navigation_suffix][
+        "label_field_suffix"
+    ]
     member = node_to_str(args.ast_graph, member_id)
     expression = node_to_str(args.ast_graph, expression_id)
     return build_member_access_node(args, member, expression, expression_id)

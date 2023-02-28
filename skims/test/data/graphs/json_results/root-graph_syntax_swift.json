@@ -2110,7 +2110,7 @@
           "120": {
             "label_type": "VariableDeclaration",
             "value_id": "125",
-            "variable": "122"
+            "variable": "algorithm"
           },
           "125": {
             "arguments_id": "128",
@@ -2139,7 +2139,7 @@
           "134": {
             "label_type": "VariableDeclaration",
             "value_id": "139",
-            "variable": "136"
+            "variable": "algorithm"
           },
           "139": {
             "label_type": "SymbolLookup",
@@ -2156,7 +2156,7 @@
           "143": {
             "label_type": "VariableDeclaration",
             "value_id": "148",
-            "variable": "145"
+            "variable": "aes"
           },
           "148": {
             "block_id": "150",
@@ -2208,7 +2208,7 @@
           "22": {
             "label_type": "VariableDeclaration",
             "value_id": "27",
-            "variable": "24"
+            "variable": "algorithm"
           },
           "27": {
             "arguments_id": "30",
@@ -2237,7 +2237,7 @@
           "36": {
             "label_type": "VariableDeclaration",
             "value_id": "41",
-            "variable": "38"
+            "variable": "algorithm"
           },
           "41": {
             "label_type": "SymbolLookup",
@@ -2250,7 +2250,7 @@
           "45": {
             "label_type": "VariableDeclaration",
             "value_id": "50",
-            "variable": "47"
+            "variable": "blowfish"
           },
           "50": {
             "block_id": "52",
@@ -2334,7 +2334,7 @@
           "91": {
             "label_type": "VariableDeclaration",
             "value_id": "96",
-            "variable": "93"
+            "variable": "sealedBox"
           },
           "96": {
             "block_id": "98",
@@ -2347,8 +2347,8 @@
             "label_type": "MethodInvocation"
           },
           "99": {
-            "expression": ".seal",
-            "expression_id": "105",
+            "expression": "seal",
+            "expression_id": "107",
             "label_type": "MemberAccess",
             "member": "AES.GCM"
           }
