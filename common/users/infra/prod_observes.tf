@@ -36,7 +36,7 @@ locals {
   prod_observes = {
     policies = {
       aws = {
-        ObservesGeneralAccess = [
+        main = [
           {
             Sid    = "dynamoWrite"
             Effect = "Allow"
@@ -101,7 +101,7 @@ locals {
             ]
           },
         ]
-        ObservesBatch = [
+        batch = [
           {
             Sid    = "batchTags"
             Effect = "Allow"
@@ -141,7 +141,7 @@ locals {
             "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "observes" } }
           },
         ]
-        ObservesRedshift = [
+        redshift = [
           {
             # required to rename tags
             Sid    = "redshiftTags"
@@ -250,7 +250,7 @@ locals {
             Resource = ["*"]
           },
         ]
-        ObservesKinesis = [
+        kinesis = [
           {
             Sid    = "KinesisInfraManagement"
             Effect = "Allow"
@@ -291,7 +291,7 @@ locals {
             ]
           },
         ]
-        ObservesSecGroups = [
+        sec_groups = [
           {
             Sid    = "manageObservesSecGroups"
             Effect = "Allow"

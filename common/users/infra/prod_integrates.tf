@@ -2,7 +2,7 @@ locals {
   prod_integrates = {
     policies = {
       aws = {
-        IntegratesPolicy = [
+        main = [
           {
             Sid    = "iamRead"
             Effect = "Allow"

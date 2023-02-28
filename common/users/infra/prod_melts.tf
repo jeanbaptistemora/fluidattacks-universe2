@@ -2,7 +2,7 @@ locals {
   prod_melts = {
     policies = {
       aws = {
-        MetlsPolicy = [
+        main = [
           {
             Sid    = "s3Write"
             Effect = "Allow"

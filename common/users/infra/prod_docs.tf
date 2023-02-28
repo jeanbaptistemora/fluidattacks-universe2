@@ -2,7 +2,7 @@ locals {
   prod_docs = {
     policies = {
       aws = {
-        DocsPolicy = [
+        main = [
           {
             Sid    = "s3Write"
             Effect = "Allow"
