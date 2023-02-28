@@ -12,6 +12,11 @@ pkg2/[~3.1.5, loose=False, include_prerelease=True]
 assimp/5.2.5
 libbpf/0.6.0
 
+[tool_requires]
+7zip/16.00
+leptonica/1.80.0
+libconfuse/3.3
+
 [generators]
 cmake_find_package
 cmake_paths
