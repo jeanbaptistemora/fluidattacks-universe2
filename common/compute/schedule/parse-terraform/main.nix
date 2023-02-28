@@ -9,7 +9,7 @@ makeTemplate {
   replace = {
     __argParser__ = projectPath "/common/compute/schedule/parse-terraform/src/__init__.py";
     __argSchedules__ = toFileJson "data.json" (
-      import (projectPath "/common/compute/schedule/schedules.nix")
+      import (projectPath "/common/compute/schedule/src")
     );
     __argSizes__ = projectPath "/common/compute/arch/sizes/data.yaml";
   };

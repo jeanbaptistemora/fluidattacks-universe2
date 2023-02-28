@@ -5,7 +5,7 @@
   ...
 }: let
   lib = inputs.nixpkgs.lib;
-  schedules = import ./schedules.nix;
+  schedules = import ./src;
   sizes = fromYaml (
     builtins.readFile (
       projectPath "/common/compute/arch/sizes/data.yaml"
