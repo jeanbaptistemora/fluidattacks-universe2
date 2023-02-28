@@ -8,6 +8,7 @@ from billing.types import (
 )
 from botocore.exceptions import (
     ClientError,
+    ConnectTimeoutError,
 )
 from context import (
     BASE_URL,
@@ -22,6 +23,9 @@ from custom_exceptions import (
 )
 from datetime import (
     datetime,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 import io
 import logging
@@ -54,6 +58,10 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+@retry_on_exceptions(
+    exceptions=(ConnectTimeoutError,),
+    sleep_seconds=float("0.2"),
+)
 async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
     year: str = date.strftime("%Y")
     month: str = date.strftime("%m")

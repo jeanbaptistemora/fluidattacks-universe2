@@ -1015,7 +1015,8 @@ async def get_organization_authors(
                 [
                     dal.get_group_authors(date=date, group=group)
                     for group in org_groups
-                ]
+                ],
+                workers=20,
             )
         )
     )
