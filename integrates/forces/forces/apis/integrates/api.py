@@ -1,8 +1,6 @@
 """Fluid Forces integrates api module."""
 
-import asyncio
 from collections.abc import (
-    AsyncGenerator,
     Callable,
     Mapping,
 )
@@ -86,7 +84,7 @@ async def get_findings(
 @SHIELD
 async def get_vulnerabilities(
     config: ForcesConfig, **kwargs: str
-) -> list[dict[str, str | list[dict[str, dict[str, object]]]]]:
+) -> tuple[dict[str, Any], ...]:
     """
     Returns the vulnerabilities of a group.
 
@@ -133,9 +131,10 @@ async def get_vulnerabilities(
         }
     """
     query_parameters = dict(
-        brk_severity=str(config.breaking_severity)
+        brk_severity=str(int(config.breaking_severity))
         if config.verbose_level == 1
         else None,
+        first=200,
         group_name=config.group,
         state="VULNERABLE" if config.verbose_level <= 2 else None,
         vuln_type="lines" if config.kind == KindEnum.STATIC else None,
@@ -148,7 +147,7 @@ async def get_vulnerabilities(
         **kwargs,
     )
     while True:
-        has_next_page = False
+        has_next_page: bool = False
         if response:
             vulnerabilities_connection = response["group"]["vulnerabilities"]
             vulnerability_page_info = vulnerabilities_connection["pageInfo"]
@@ -181,22 +180,7 @@ async def get_vulnerabilities(
         }:
             vulnerabilities[index]["state"] = "ACCEPTED"
 
-    return vulnerabilities
-
-
-async def vulns_generator(
-    config: ForcesConfig, **kwargs: str
-) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, object]]]], None]:
-    """
-    Returns a generator with all the vulnerabilities of a group.
-
-    :param `group`: Group Name.
-    """
-    vulns_futures = [get_vulnerabilities(config, **kwargs)]
-    for vulnerabilities in asyncio.as_completed(vulns_futures):
-        for vuln in await vulnerabilities:
-            # Exception: WF(AsyncGenerator is subtype of iterator)
-            yield vuln  # NOSONAR
+    return tuple(vulnerabilities)
 
 
 @SHIELD

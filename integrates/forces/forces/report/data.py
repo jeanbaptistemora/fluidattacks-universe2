@@ -10,7 +10,7 @@ from decimal import (
 )
 from forces.apis.integrates.api import (
     get_findings,
-    vulns_generator,
+    get_vulnerabilities,
 )
 from forces.model import (
     Finding,
@@ -98,7 +98,7 @@ async def compile_raw_report(
         **kwargs,
     )
 
-    async for vuln in vulns_generator(config, **kwargs):
+    for vuln in await get_vulnerabilities(config, **kwargs):
         find_id: str = str(vuln["findingId"])
 
         vulnerability: Vulnerability = Vulnerability(

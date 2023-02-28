@@ -2,7 +2,6 @@ from forces.apis.integrates.api import (
     get_findings,
     get_groups_access,
     get_vulnerabilities,
-    vulns_generator,
 )
 from forces.apis.integrates.client import (
     ApiError,
@@ -41,17 +40,3 @@ async def test_get_group_access() -> None:
             "Login required" in exc.messages
             or "Token format unrecognized" in exc.messages
         )
-
-
-@pytest.mark.asyncio
-async def test_vulns_generator(
-    test_token: str, test_config: ForcesConfig
-) -> None:
-    vulns = [
-        vuln
-        # Exception: WF(AsyncGenerator is subtype of iterator)
-        async for vuln in vulns_generator(  # NOSONAR
-            test_config, api_token=test_token
-        )
-    ]
-    assert len(vulns) == 36
