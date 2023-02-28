@@ -88,12 +88,11 @@ def test_trial_onboarding(
     )
     start_trial_button.click()
 
-    assert utils.wait_for_text(driver, "Our Machine is running", timeout)
-    close_button = utils.wait_for_id(driver, "close-standby", timeout)
+    close_button = utils.wait_for_id(driver, "welcome-close", timeout)
     close_button.click()
 
-    assert utils.wait_for_text(driver, "Git Roots", timeout)
     assert utils.wait_for_text(
-        driver, "https://gitlab.com/fluidattacks/demo", timeout
+        driver,
+        "We are testing your application to find vulnerabilities",
+        timeout,
     )
-    assert utils.wait_for_text(driver, "Queued", timeout)

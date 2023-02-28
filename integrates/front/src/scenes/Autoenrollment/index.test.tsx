@@ -647,10 +647,6 @@ describe("Autoenrollment", (): void => {
     const startTrialButton = await screen.findByText("autoenrollment.proceed");
     await userEvent.click(startTrialButton);
 
-    await expect(
-      screen.findByText("autoenrollment.standby.title")
-    ).resolves.toBeInTheDocument();
-
     // eslint-disable-next-line fp/no-mutating-methods
     Object.defineProperty(window, "location", {
       value: { replace: jest.fn() },
@@ -661,7 +657,7 @@ describe("Autoenrollment", (): void => {
     await userEvent.click(closeButton);
 
     expect(window.location.replace).toHaveBeenCalledWith(
-      "/orgs/testorg/groups/testgroup/scope"
+      "/orgs/testorg/groups/testgroup/vulns"
     );
 
     mockedFetch.reset();
@@ -826,10 +822,6 @@ describe("Autoenrollment", (): void => {
     const startTrialButton = await screen.findByText("autoenrollment.proceed");
     await userEvent.click(startTrialButton);
 
-    await expect(
-      screen.findByText("autoenrollment.standby.title")
-    ).resolves.toBeInTheDocument();
-
     // eslint-disable-next-line fp/no-mutating-methods
     Object.defineProperty(window, "location", {
       value: { replace: jest.fn() },
@@ -840,7 +832,7 @@ describe("Autoenrollment", (): void => {
     await userEvent.click(closeButton);
 
     expect(window.location.replace).toHaveBeenCalledWith(
-      "/orgs/testorg/groups/testgroup/scope"
+      "/orgs/testorg/groups/testgroup/vulns"
     );
 
     mockedFetch.reset();

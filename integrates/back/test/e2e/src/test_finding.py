@@ -39,6 +39,13 @@ def test_finding_description(
     )
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
 
+    close_welcome = utils.wait_for_id(
+        driver,
+        "welcome-close",
+        timeout,
+    )
+    close_welcome.click()
+
     # Close risk exposure tour
     time.sleep(2)
     try:
@@ -325,18 +332,6 @@ def test_finding_reattack(
     )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
-
-    # Close risk exposure tour
-    time.sleep(2)
-    try:
-        close_tour = utils.wait_for_id(
-            driver,
-            "close-tour",
-            timeout,
-        )
-        close_tour.click()
-    except TimeoutException:
-        pass
 
     finding = utils.wait_for_text(
         driver,

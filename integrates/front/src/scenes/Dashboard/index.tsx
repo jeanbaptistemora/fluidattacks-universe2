@@ -118,7 +118,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
           newGroup: me.tours.newGroup,
           newRiskExposure: me.tours.newRiskExposure,
           newRoot: me.tours.newRoot,
-          welcome: true,
+          welcome: me.tours.welcome,
         },
         userEmail: me.userEmail,
         userIntPhone: _.isNil(me.phone)

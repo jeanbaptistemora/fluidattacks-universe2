@@ -47,6 +47,7 @@ const WelcomeModal: React.FC = (): JSX.Element => {
       </Text>
       <Container display={"flex"} justify={"center"} scroll={"none"}>
         <ModalConfirm
+          id={"welcome-close"}
           onConfirm={closeModal}
           txtConfirm={t("autoenrollment.welcome.modal.button")}
         />

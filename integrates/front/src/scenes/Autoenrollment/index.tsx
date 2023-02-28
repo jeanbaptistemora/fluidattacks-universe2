@@ -9,7 +9,6 @@ import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
 import { LanguagesButton } from "./components/LanguagesButton";
 import { Sidebar } from "./components/Sidebar";
-import { Standby } from "./components/Standby";
 import { ContainerAutoenrollment, DashboardContent } from "./styles";
 import { getAddGitRootCredentials, isPersonalEmail } from "./utils";
 
@@ -55,8 +54,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     message: "",
     type: "success",
   });
-
-  const [redirectPath, setRedirectPath] = useState("/logout");
 
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
@@ -274,8 +271,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             localStorage.clear();
             sessionStorage.clear();
             await addEnrollment();
-            setRedirectPath(
-              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
+            location.replace(
+              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/vulns`
             );
             setPage("standBy");
           } else {
@@ -312,21 +309,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       addGroup,
       addOrganization,
       repository,
-      setRedirectPath,
       setOrganizationValues,
       setPage,
       successMutation,
       t,
     ]
   );
-
-  function redirect(): void {
-    /*
-     * Intentional full page reload as we're in a conditionally rendered view
-     * No way to use the router to get to the dashboard from here
-     */
-    location.replace(redirectPath);
-  }
 
   if (data === undefined || hasPersonalEmail === undefined) {
     return <div />;
@@ -399,21 +387,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         </Row>
       </Fragment>
     ),
-    standBy: (
-      <Row justify={"center"}>
-        <div className={"pb4"} />
-        <Col lg={30} md={50} sm={70}>
-          <Card>
-            <Standby onClose={redirect}>
-              <Text fw={7} mb={2} size={"medium"} ta={"center"}>
-                {t("autoenrollment.standby.title")}
-              </Text>
-              <Text ta={"center"}>{t("autoenrollment.standby.subtitle")}</Text>
-            </Standby>
-          </Card>
-        </Col>
-      </Row>
-    ),
+    standBy: <div />,
   };
 
   return (

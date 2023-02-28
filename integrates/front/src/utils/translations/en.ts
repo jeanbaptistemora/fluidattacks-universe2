@@ -375,12 +375,6 @@ export const enTranslations: ResourceKey = {
     reportLanguageTip:
       "Select the language of your preference to report vulnerabilities",
     setupOrganization: "Name your organization and group",
-    standby: {
-      subtitle:
-        "You have created your group. You can relax and wait for the " +
-        "results of the security testing",
-      title: "Our Machine is running!",
-    },
     step1: "Step 1 of 2",
     step2: "Step 2 of 2",
     subtitle: "To begin, add the first code repository",
