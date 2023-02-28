@@ -234,13 +234,9 @@ async def test_validate_acceptance_severity(
         ],
     ],
 )
-@patch(
-    MODULE_AT_TEST + "get_group_max_number_acceptances", new_callable=AsyncMock
-)
 @patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
 async def test_validate_number_acceptances(
     mock_dataloaders_group: AsyncMock,
-    mock_get_group_max_number_acceptances: AsyncMock,
     group_name: str,
     historic_treatment: Iterable[VulnerabilityTreatment],
     historic_treatment_to_raise_exception: Iterable[VulnerabilityTreatment],
@@ -248,13 +244,13 @@ async def test_validate_number_acceptances(
     mocked_objects, mocked_paths, mocks_args = [
         [
             mock_dataloaders_group.load,
-            mock_get_group_max_number_acceptances,
         ],
         [
             "Dataloaders.group",
-            "get_group_max_number_acceptances",
         ],
-        [[group_name], [group_name]],
+        [
+            [group_name],
+        ],
     ]
     assert set_mocks_return_values(
         mocks_args=mocks_args,

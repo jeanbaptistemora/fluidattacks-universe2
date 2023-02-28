@@ -56,18 +56,6 @@ def filter_deleted_groups(groups: Iterable[Group]) -> list[Group]:
     ]
 
 
-async def get_group_max_number_acceptances(
-    *, loaders: Any, group: Group
-) -> int | None:
-    if group.policies:
-        return group.policies.max_number_acceptances
-
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
-    )
-    return organization.policies.max_number_acceptances
-
-
 async def get_group_max_acceptance_severity(
     *, loaders: Any, group: Group
 ) -> Decimal:

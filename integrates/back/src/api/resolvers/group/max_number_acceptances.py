@@ -7,8 +7,8 @@ from db_model.groups.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.groups import (
-    get_group_max_number_acceptances,
+from vulnerabilities.domain.validations import (
+    get_policy_max_number_acceptances,
 )
 
 
@@ -18,8 +18,6 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> int | None:
-
-    return await get_group_max_number_acceptances(
-        loaders=info.context.loaders,
-        group=parent,
+    return await get_policy_max_number_acceptances(
+        loaders=info.context.loaders, group_name=parent.name
     )

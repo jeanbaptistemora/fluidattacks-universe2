@@ -18,7 +18,6 @@ from custom_exceptions import (
     InvalidVulnerabilityAlreadyExists,
     InvalidVulnSpecific,
     InvalidVulnWhere,
-    OrganizationNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -49,12 +48,14 @@ from newutils import (
 )
 from newutils.groups import (
     get_group_max_acceptance_severity,
-    get_group_max_number_acceptances,
     get_group_min_acceptance_severity,
 )
 from newutils.validations import (
     check_exp,
     get_attr_value,
+)
+from organizations.utils import (
+    get_organization,
 )
 import re
 from string import (
@@ -80,11 +81,21 @@ async def get_policy_max_acceptance_days(
     if group.policies:
         return group.policies.max_acceptance_days
 
-    organization = await loaders.organization.load(group.organization_id)
-    if not organization:
-        raise OrganizationNotFound()
+    organization = await get_organization(loaders, group.organization_id)
 
     return organization.policies.max_acceptance_days
+
+
+async def get_policy_max_number_acceptances(
+    *, loaders: Dataloaders, group_name: str
+) -> int | None:
+    group: Group = await loaders.group.load(group_name)
+    if group.policies:
+        return group.policies.max_number_acceptances
+
+    organization = await get_organization(loaders, group.organization_id)
+
+    return organization.policies.max_number_acceptances
 
 
 async def validate_acceptance_days(
@@ -139,10 +150,8 @@ async def validate_number_acceptances(
     Check that a vulnerability to temporarily accept does not exceed the
     maximum number of acceptances the organization set.
     """
-    group: Group = await loaders.group.load(group_name)
-    max_acceptances = await get_group_max_number_acceptances(
-        loaders=loaders,
-        group=group,
+    max_acceptances = await get_policy_max_number_acceptances(
+        loaders=loaders, group_name=group_name
     )
     current_acceptances: int = sum(
         1
