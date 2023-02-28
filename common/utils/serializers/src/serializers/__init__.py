@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from more_itertools import (
     chunked,
 )
@@ -5,11 +8,7 @@ from operator import (
     itemgetter,
 )
 from typing import (
-    Iterator,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
 # Constants
@@ -19,7 +18,7 @@ SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 class SnippetViewport(NamedTuple):
     line: int
-    column: Optional[int] = None
+    column: int | None = None
 
     columns_per_line: int = SNIPPETS_COLUMNS
     line_context: int = SNIPPETS_CONTEXT
@@ -31,8 +30,8 @@ class SnippetViewport(NamedTuple):
 class Snippet(NamedTuple):
     content: str
     offset: int
-    line: Optional[int] = None
-    column: Optional[int] = None
+    line: int | None = None
+    column: int | None = None
     columns_per_line: int = SNIPPETS_COLUMNS
     line_context: int = SNIPPETS_CONTEXT
     wrap: bool = False
@@ -50,14 +49,14 @@ def _chunked(line: str, chunk_size: int) -> Iterator[str]:
 def make_snippet(  # NOSONAR
     *,
     content: str,
-    viewport: Optional[SnippetViewport] = None,
+    viewport: SnippetViewport | None = None,
 ) -> Snippet:
     # Replace tab by spaces so 1 char renders as 1 symbol
-    lines_raw: List[str] = content.replace("\t", " ").splitlines()
+    lines_raw: list[str] = content.replace("\t", " ").splitlines()
     offset = 0
     # Build a list of line numbers to line contents, handling wrapping
     if viewport is not None and viewport.wrap:
-        lines: List[Tuple[int, str]] = [
+        lines: list[tuple[int, str]] = [
             (line_no, "".join(line_chunk))
             for line_no, line in enumerate(lines_raw, start=1)
             for line_chunk in _chunked(line, viewport.columns_per_line)
@@ -89,7 +88,7 @@ def make_snippet(  # NOSONAR
             loc_width: int = len(str(lines[-1][0]))
 
             # '>' highlights the line being marked
-            line_no_last: Optional[int] = (
+            line_no_last: int | None = (
                 lines[-2][0] if len(lines) >= 2 else None
             )
             for index, (line_no, line) in enumerate(lines):
