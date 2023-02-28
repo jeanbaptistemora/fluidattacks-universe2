@@ -2,7 +2,7 @@ locals {
   dev = {
     policies = {
       aws = {
-        main = [
+        DevPolicy = [
           {
             Sid    = "read"
             Effect = "Allow"

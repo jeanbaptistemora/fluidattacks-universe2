@@ -2,7 +2,7 @@ locals {
   prod_skims = {
     policies = {
       aws = {
-        main = [
+        SkimsPolicy = [
           {
             Sid    = "batchRead"
             Effect = "Allow"

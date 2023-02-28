@@ -2,7 +2,7 @@ locals {
   prod_airs = {
     policies = {
       aws = {
-        main = [
+        AirsPolicy = [
           {
             Sid    = "s3Write"
             Effect = "Allow"

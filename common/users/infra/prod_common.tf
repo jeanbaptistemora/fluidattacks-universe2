@@ -2,7 +2,7 @@ locals {
   prod_common = {
     policies = {
       aws = {
-        main = [
+        AdminPolicy = [
           {
             Sid    = "allWrite"
             Effect = "Allow"

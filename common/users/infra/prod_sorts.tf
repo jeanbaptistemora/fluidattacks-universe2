@@ -2,7 +2,7 @@ locals {
   prod_sorts = {
     policies = {
       aws = {
-        main = [
+        SortsPolicy = [
           {
             Sid    = "dynamoRead"
             Effect = "Allow"

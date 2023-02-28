@@ -1,9 +1,8 @@
 locals {
-  prefix = "${var.aws_role.name}_"
-  prefixed_policies = merge(
-    { for k, v in var.policies : join("", [local.prefix, k]) => v },
+  all_policies = merge(
+    var.policies,
     {
-      "${local.prefix}pass_self" = [{
+      "${var.aws_role.name}_pass_self" = [{
         Sid    = "PassSelf"
         Effect = "Allow"
         Action = ["iam:PassRole"]
@@ -16,7 +15,7 @@ locals {
 }
 
 resource "aws_iam_policy" "main" {
-  for_each = local.prefixed_policies
+  for_each = local.all_policies
 
   name = each.key
   policy = jsonencode(
