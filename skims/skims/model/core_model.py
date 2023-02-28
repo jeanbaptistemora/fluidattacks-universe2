@@ -4212,6 +4212,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EKS_HAS_ENDPOINTS_PUBLICLY_ACCESSIBLE = MethodInfo(
+        file_name="aws",
+        name="eks_has_endpoints_publicly_accessible",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_IAM_HAS_ROOT_ACTIVE_SIGNING_CERTIFICATES = MethodInfo(
         file_name="aws",
         name="has_root_active_signing_certificates",

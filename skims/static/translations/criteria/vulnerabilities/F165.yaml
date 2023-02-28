@@ -58,3 +58,6 @@ src.lib_path.f165.has_root_active_signing_certificates:
 src.lib_path.f165.dynamob_encrypted_with_aws_master_keys:
   en: DynamoDB tables uses AWS-owned Master Keys for Server-Side Encryption.
   es: Las tablas DynamoDB usan claves maestras poriedad de AWS para la encripcion al lado del servidor.
+src.lib_path.f165.eks_has_endpoints_publicly_accessible:
+  en: The endpoints of the Kubernetes API server of the EKS clusters are publicly accessible from the Internet.
+  es: El endpoint del servidor API de Kubernates de los cluster EKS son publicamente accesibles desde internet.
