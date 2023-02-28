@@ -7,7 +7,7 @@ slug: /development/stack/aws/batch
 
 ## Rationale
 
-We use [Batch][BATCH]
+We use [Batch][batch]
 for running [batch processing](https://en.wikipedia.org/wiki/Batch_processing)
 jobs in the [cloud](https://en.wikipedia.org/wiki/Cloud_computing).
 The main reasons why we chose it
@@ -19,7 +19,7 @@ are the following:
   so we do not need to manage any infrastructure directly.
 - [It is free](https://aws.amazon.com/batch/pricing/),
   so we only have to pay
-  for the Elastic Compute Cloud ([EC2][EC2]) machines
+  for the Elastic Compute Cloud ([EC2][ec2]) machines
   we use to process workloads.
 - It complies with [several](https://aws.amazon.com/compliance/iso-certified/)
   certifications from [ISO](https://en.wikipedia.org/wiki/International_Organization_for_Standardization)
@@ -32,7 +32,7 @@ are the following:
 - We can [monitor](https://docs.aws.amazon.com/batch/latest/userguide/using_cloudwatch_logs.html)
   job logs
   using [CloudWatch](/development/stack/aws/cloudwatch/).
-- The jobs are highly [resilient](https://en.wikipedia.org/wiki/Resilience_(network)),
+- The jobs are highly [resilient](<https://en.wikipedia.org/wiki/Resilience_(network)>),
   which means
   they rarely go irresponsive.
   This feature is very important
@@ -107,7 +107,7 @@ Cons:
 
 ## Usage
 
-We use [Batch][BATCH] for running
+We use [Batch][batch] for running
 
 - [Production background schedules](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix)
   for all our products.
@@ -116,28 +116,53 @@ We use [Batch][BATCH] for running
 
 ## Guidelines
 
-- You can access the [Batch][BATCH] console
+### General
+
+- You can access the [Batch][batch] console
   after [authenticating to AWS](/development/stack/aws#guidelines).
-- Any changes to [Batch][BATCH] infrastructure
+- Any changes to [Batch][batch] infrastructure
   must be done
   via [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
-- You can queue new jobs to [Batch][BATCH]
+- You can queue new jobs to [Batch][batch]
   using the [compute-on-aws module](https://gitlab.com/fluidattacks/universe/-/tree/89f27281c773baa55b70b8fd37cff8b802edf2e7/makes/utils/compute-on-aws).
 - If a scheduled job takes longer than six hours,
-  it should generally run in [Batch][BATCH];
+  it should generally run in [Batch][batch];
   otherwise,
-  you can use [GitLab CI][GITLAB-CI].
+  you can use [GitLab CI][gitlab-ci].
 - To learn how to test
   and apply infrastructure
   via [Terraform](/development/stack/terraform/),
   visit the [Terraform Guidelines](/development/stack/terraform#guidelines).
-- When adding a new
-  [schedule](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix),
-  a [Makes](https://github.com/fluidattacks/makes) job
-  with name `computeOnAwsBatch/schedule_<job-name>` will be created for local reproducibiliy.
 - [Terraform infrastructure](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/infra/schedules.tf#L5)
   for such schedule will also be provisioned.
 
-[BATCH]: https://aws.amazon.com/batch/
-[EC2]: /development/stack/aws/ec2/
-[GITLAB-CI]: /development/stack/gitlab-ci/
+### Local reproducibility in schedules
+
+Following [this link](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/schedule/schedules.nix),
+you can find all schedules.
+Once a new schedule is
+declared in that file,
+two things happen:
+
+- All the infrastructure is created
+  via Terraform to execute the
+  schedule periodically.
+- A job in Makes is created
+  with the format
+  `computeOnAwsBatch/schedule_<name>`
+  for local reproducibility.
+
+Generally,
+to run any schedule,
+all that is necessary is to
+export the `UNIVERSE_API_TOKEN`
+variable.
+Bear in mind that `schedules.nix`
+becomes the single source of
+truth regarding schedules.
+Everything is defined there,
+albeit with a few exceptions.
+
+[batch]: https://aws.amazon.com/batch/
+[ec2]: /development/stack/aws/ec2/
+[gitlab-ci]: /development/stack/gitlab-ci/
