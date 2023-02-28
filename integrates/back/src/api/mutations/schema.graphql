@@ -1019,6 +1019,8 @@ type Mutation {
     threat: String!
     "Finding number and name"
     title: String!
+    "Rules that are broken and lead to the existence of the vulnerability"
+    unfulfilledRequirements: [String!]
   ): SimpleFindingPayload!
 
   "Updates an Event's description"

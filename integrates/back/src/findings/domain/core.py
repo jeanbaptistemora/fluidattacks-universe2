@@ -24,6 +24,7 @@ from custom_exceptions import (
     PermissionDenied,
     RepeatedFindingDescription,
     RepeatedFindingRecommendation,
+    RequiredUnfulfilledRequirements,
     RootNotFound,
     VulnNotFound,
 )
@@ -147,6 +148,8 @@ class VulnsProperties(TypedDict):
 async def _validate_finding_requirements(
     loaders: Dataloaders, title: str, unfulfilled_requirements: list[str]
 ) -> None:
+    if not unfulfilled_requirements:
+        raise RequiredUnfulfilledRequirements()
     vulnerabilities_file = await loaders.vulnerabilities_file.load("")
     criteria_vulnerability_id = title.split(".")[0].strip()
     criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
@@ -904,6 +907,11 @@ async def update_description(
     finding_id: str,
     description: FindingDescriptionToUpdate,
 ) -> None:
+    unfulfilled_requirements = (
+        None
+        if description.unfulfilled_requirements is None
+        else sorted(set(description.unfulfilled_requirements))
+    )
     if description.title:
         await findings_utils.is_valid_finding_title(loaders, description.title)
 
@@ -920,6 +928,13 @@ async def update_description(
             description.recommendation or finding.recommendation,
             finding_id,
         )
+
+    if unfulfilled_requirements is not None:
+        await _validate_finding_requirements(
+            loaders,
+            description.title or finding.title,
+            unfulfilled_requirements,
+        )
     metadata = FindingMetadataToUpdate(
         attack_vector_description=description.attack_vector_description,
         description=description.description,
@@ -927,6 +942,7 @@ async def update_description(
         sorts=description.sorts,
         threat=description.threat,
         title=description.title,
+        unfulfilled_requirements=unfulfilled_requirements,
     )
     await findings_model.update_metadata(
         group_name=finding.group_name,

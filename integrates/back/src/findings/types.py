@@ -19,6 +19,7 @@ class FindingDescriptionToUpdate(NamedTuple):
     sorts: FindingSorts | None = None
     threat: str | None = None
     title: str | None = None
+    unfulfilled_requirements: list[str] | None = None
 
 
 class FindingDraftToAdd(NamedTuple):

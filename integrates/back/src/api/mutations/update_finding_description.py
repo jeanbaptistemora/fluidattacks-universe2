@@ -72,6 +72,7 @@ async def mutate(
             else None,
             threat=kwargs["threat"],
             title=kwargs["title"],
+            unfulfilled_requirements=kwargs.get("unfulfilled_requirements"),
         )
         await findings_domain.update_description(
             loaders=loaders,
@@ -80,13 +81,13 @@ async def mutate(
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Updated description in finding "
+            "Security: Updated description in finding "
             f"{finding_id} with success",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Attempted to update description in finding "
+            "Security: Attempted to update description in finding "
             f"{finding_id}",
         )
         raise

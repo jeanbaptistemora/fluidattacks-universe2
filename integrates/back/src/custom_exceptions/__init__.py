@@ -1827,3 +1827,9 @@ class RepeatedFindingDescription(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Finding with the same description already exists"
         super(RepeatedFindingDescription, self).__init__(msg)
+
+
+class RequiredUnfulfilledRequirements(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The unfulfilled requirements are required"
+        super(RequiredUnfulfilledRequirements, self).__init__(msg)
