@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @STAKEHOLDER.field("email")
-async def resolve(
+def resolve(
     parent: Stakeholder,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

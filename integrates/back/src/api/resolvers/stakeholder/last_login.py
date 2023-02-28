@@ -13,7 +13,7 @@ from newutils import (
 
 
 @STAKEHOLDER.field("lastLogin")
-async def resolve(
+def resolve(
     parent: Stakeholder,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
