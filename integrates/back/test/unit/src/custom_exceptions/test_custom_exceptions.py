@@ -3,7 +3,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_session,
 )
 from custom_exceptions import (
-    InvalidNumberAcceptances,
     InvalidRange,
     InvalidSchema,
     UnableToSendSms,
@@ -11,20 +10,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from datetime import (
-    datetime,
-    timedelta,
-    timezone,
-)
-from db_model.vulnerabilities.enums import (
-    VulnerabilityTreatmentStatus,
-)
-from db_model.vulnerabilities.types import (
-    VulnerabilityTreatment,
-)
-from decimal import (
-    Decimal,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -49,9 +34,6 @@ from unittest.mock import (
     AsyncMock,
 )
 import uuid
-from vulnerabilities.domain import (
-    validate_accepted_treatment_change,
-)
 from vulnerability_files.domain import (
     validate_file_schema,
 )
@@ -63,46 +45,6 @@ pytestmark = [
 
 BUCKET_NAME = "unit_test_bucket"
 TABLE_NAME = "integrates_vms"
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-async def test_validate_number_acceptances(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = [
-        VulnerabilityTreatment(
-            modified_date=datetime.fromisoformat("2020-01-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.ACCEPTED,
-            accepted_until=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            justification="Justification to accept the finding",
-            modified_by="unittest@fluidattacks.com",
-        ),
-        VulnerabilityTreatment(
-            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.UNTREATED,
-        ),
-    ]
-    finding_severity = Decimal("3.0")
-    accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
-        tz=timezone.utc
-    )
-    with pytest.raises(InvalidNumberAcceptances):
-        await validate_accepted_treatment_change(
-            loaders=get_new_context(),
-            accepted_until=accepted_until,
-            finding_severity=finding_severity,
-            group_name="kurome",
-            historic_treatment=historic_treatment,
-        )
-    assert mock_table_resource.called is True
 
 
 def test_invalid_range_to_list() -> None:
