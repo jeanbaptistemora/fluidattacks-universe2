@@ -1,28 +1,25 @@
 import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, ApolloQueryResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, {
-  Fragment,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import { DashboardNavBar } from "./NavBar";
-import { DashboardSideBar } from "./SideBar";
-import { DashboardContainer, DashboardContent } from "./styles";
-
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
+import type { IGetMeVulnerabilitiesAssignedIds } from "scenes/Dashboard/components/Navbar/Tasks/types";
 import { GroupRoute } from "scenes/Dashboard/containers/Group-Content/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
@@ -30,8 +27,15 @@ import { OrganizationContent } from "scenes/Dashboard/containers/Organization-Co
 import { OrganizationRedirect } from "scenes/Dashboard/containers/Organization-Content/OrganizationRedirectView";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { TasksContent } from "scenes/Dashboard/containers/Tasks-Content";
+import { assignedVulnerabilitiesContext } from "scenes/Dashboard/context";
+import { DashboardNavBar } from "scenes/Dashboard/NavBar";
 import { ACCEPT_LEGAL_MUTATION, GET_USER } from "scenes/Dashboard/queries";
-import type { IUser } from "scenes/Dashboard/types";
+import { DashboardSideBar } from "scenes/Dashboard/SideBar";
+import { DashboardContainer, DashboardContent } from "scenes/Dashboard/styles";
+import type {
+  IAssignedVulnerabilitiesContext,
+  IUser,
+} from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -70,6 +74,34 @@ export const Dashboard: React.FC = (): JSX.Element => {
     return isLogin || isGoogleLogin;
   }, []);
   const [userRole, setUserRole] = useState<string | undefined>(undefined);
+
+  const [refetchIdsCallback, setRefetchIdsCallback] =
+    useState<
+      () => Promise<ApolloQueryResult<IGetMeVulnerabilitiesAssignedIds>>
+    >();
+
+  const refetchCall = useCallback(
+    (
+      refetchIdsFn: () => Promise<
+        ApolloQueryResult<IGetMeVulnerabilitiesAssignedIds>
+      >
+    ): void => {
+      setRefetchIdsCallback(
+        (): (() => Promise<
+          ApolloQueryResult<IGetMeVulnerabilitiesAssignedIds>
+        >) => refetchIdsFn
+      );
+    },
+    [setRefetchIdsCallback]
+  );
+
+  const refetchValue = useMemo(
+    (): IAssignedVulnerabilitiesContext => ({
+      refetchIds: refetchIdsCallback,
+      setRefetchIds: refetchCall,
+    }),
+    [refetchIdsCallback, refetchCall]
+  );
 
   const permissions: PureAbility<string> = useContext(authzPermissionsContext);
 
@@ -192,7 +224,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <DashboardContainer>
         <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
         {isLegalModalOpen ? undefined : (
-          <Fragment>
+          <assignedVulnerabilitiesContext.Provider value={refetchValue}>
             <DashboardNavBar userRole={userRole} />
             <div className={"flex flex-auto flex-row"}>
               <Switch>
@@ -259,7 +291,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 txtConfirm={translate.t("validations.inactiveSessionDismiss")}
               />
             </Modal>
-          </Fragment>
+          </assignedVulnerabilitiesContext.Provider>
         )}
       </DashboardContainer>
     </ErrorBoundary>
