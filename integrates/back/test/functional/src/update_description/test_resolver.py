@@ -28,6 +28,87 @@ async def test_update_finding_description(populate: bool, email: str) -> None:
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
+    ["email", "unfulfilled_requirements"],
+    [
+        ["admin@gmail.com", ["266"]],
+        ["hacker@gmail.com", ["266"]],
+    ],
+)
+async def test_update_finding_unfulfilled_requirements(
+    populate: bool, email: str, unfulfilled_requirements: list[str]
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, unfulfilled_requirements=unfulfilled_requirements
+    )
+    assert "errors" not in result
+    assert "success" in result["data"]["updateDescription"]
+    assert result["data"]["updateDescription"]["success"]
+    assert (
+        len(
+            result["data"]["updateDescription"]["finding"][
+                "unfulfilledRequirements"
+            ]
+        )
+        == 1
+    )
+    assert (
+        result["data"]["updateDescription"]["finding"][
+            "unfulfilledRequirements"
+        ][0]["id"]
+        == "266"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_description")
+@pytest.mark.parametrize(
+    ["email", "unfulfilled_requirements"],
+    [
+        ["admin@gmail.com", ["999"]],
+        ["hacker@gmail.com", ["999"]],
+    ],
+)
+async def test_update_finding_invalid_unfulfilled_requirements(
+    populate: bool, email: str, unfulfilled_requirements: list[str]
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, unfulfilled_requirements=unfulfilled_requirements
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - The requirement is not valid in the vulnerability"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_description")
+@pytest.mark.parametrize(
+    ["email", "unfulfilled_requirements"],
+    [
+        ["admin@gmail.com", []],
+        ["hacker@gmail.com", []],
+    ],
+)
+async def test_update_finding_empty_unfulfilled_requirements(
+    populate: bool, email: str, unfulfilled_requirements: list[str]
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, unfulfilled_requirements=unfulfilled_requirements
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - The unfulfilled requirements are required"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_description")
+@pytest.mark.parametrize(
     ["email"],
     [
         ["user@gmail.com"],

@@ -11,8 +11,7 @@ from typing import (
 
 
 async def get_result(
-    *,
-    user: str,
+    *, user: str, unfulfilled_requirements: list[str] | None = None
 ) -> dict[str, Any]:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     attack_vector_description: str = "This is an updated attack vector"
@@ -21,9 +20,11 @@ async def get_result(
     recommendation: str = "edited recommendation"
     sorts: str = "YES"
     threat: str = "Updated threat"
-    title: str = "051. Cracked weak credentials"
+    title: str = "060. Insecure service configuration - Host verification"
     query: str = f"""
-        mutation {{
+        mutation UpdateFindingDescription(
+            $unfulfilledRequirements: [String!]
+        ){{
             updateDescription(
                 attackVectorDescription: "{attack_vector_description}",
                 description: "{description}",
@@ -33,6 +34,7 @@ async def get_result(
                 sorts: {sorts},
                 threat: "{threat}",
                 title: "{title}",
+                unfulfilledRequirements: $unfulfilledRequirements
             ) {{
                 finding {{
                     age
@@ -96,13 +98,20 @@ async def get_result(
                         assigned
                         open
                     }}
+                    unfulfilledRequirements {{
+                        id
+                        title
+                    }}
                     verified
                 }}
                 success
             }}
         }}
     """
-    data: dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {"unfulfilledRequirements": unfulfilled_requirements},
+    }
     return await get_graphql_result(
         data,
         stakeholder=user,
