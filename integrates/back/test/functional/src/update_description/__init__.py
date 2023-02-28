@@ -11,13 +11,15 @@ from typing import (
 
 
 async def get_result(
-    *, user: str, unfulfilled_requirements: list[str] | None = None
+    *,
+    user: str,
+    description: str = "I just have updated the description",
+    recommendation: str = "edited recommendation",
+    unfulfilled_requirements: list[str] | None = None,
 ) -> dict[str, Any]:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     attack_vector_description: str = "This is an updated attack vector"
     records: str = "Clave plana"
-    description: str = "I just have updated the description"
-    recommendation: str = "edited recommendation"
     sorts: str = "YES"
     threat: str = "Updated threat"
     title: str = "060. Insecure service configuration - Host verification"

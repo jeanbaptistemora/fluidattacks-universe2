@@ -109,6 +109,29 @@ async def test_update_finding_empty_unfulfilled_requirements(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
+    ["email", "description"],
+    [
+        ["admin@gmail.com", "Duplicated description"],
+        ["hacker@gmail.com", "Duplicated description"],
+    ],
+)
+async def test_update_finding_duplicated_description(
+    populate: bool, email: str, description: str
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email, description=description
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Finding with the same description already exists"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_description")
+@pytest.mark.parametrize(
     ["email"],
     [
         ["user@gmail.com"],
