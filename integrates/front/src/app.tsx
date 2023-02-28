@@ -123,11 +123,7 @@ const environment = getEnvironment();
 
 if (environment === "production") {
   datadogRum.init({
-    allowedTracingUrls: [
-      {
-        match: window.location.origin,
-      },
-    ],
+    allowedTracingUrls: [window.location.origin],
     applicationId: "a84672b1-d59e-4902-b174-e156175139b8",
     clientToken: "pub90824b70bbf9f5264c166fa21526fae2",
     defaultPrivacyLevel: "mask-user-input",
