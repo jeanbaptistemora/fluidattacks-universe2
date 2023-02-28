@@ -1,4 +1,7 @@
 # pylint: disable=too-many-lines
+from botocore.exceptions import (
+    ClientError,
+)
 from custom_exceptions import (
     GroupNotFound,
 )
@@ -10615,6 +10618,26 @@ mocked_responses: dict[str, dict[str, Any]] = {
     },
     "s3.operations.client.upload_fileobj": {
         '["test-file-records.csv"]': None,
+        '["unittesting-test-file.csv"]': [
+            ClientError(
+                {
+                    "Error": {
+                        "Code": "SomeServiceException",
+                        "Message": "Details/context around the exception or error",  # noqa: E501 pylint: disable=line-too-long
+                    },
+                    "ResponseMetadata": {
+                        "RequestId": "1234567890ABCDEF",
+                        "HostId": "host ID data will appear here as a hash",
+                        "HTTPStatusCode": 400,
+                        "HTTPHeaders": {
+                            "header metadata key/values will appear here"
+                        },
+                        "RetryAttempts": 0,
+                    },
+                },
+                "upload_fileobj",
+            )
+        ],
     },
     "s3.operations.upload_memory_file": {
         '["billing-test-file.png"]': None,

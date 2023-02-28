@@ -3,12 +3,10 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_session,
 )
 from custom_exceptions import (
-    ErrorUploadingFileS3,
     InvalidNumberAcceptances,
     InvalidRange,
     InvalidSchema,
     UnableToSendSms,
-    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -34,16 +32,9 @@ from mypy_boto3_dynamodb import (
 from newutils.vulnerabilities import (
     range_to_list,
 )
-import os
 import pytest
-from s3 import (
-    operations as s3_ops,
-)
 from sms.common import (
     send_sms_notification,
-)
-from starlette.datastructures import (
-    UploadFile,
 )
 from twilio.base.exceptions import (
     TwilioRestException,
@@ -72,20 +63,6 @@ pytestmark = [
 
 BUCKET_NAME = "unit_test_bucket"
 TABLE_NAME = "integrates_vms"
-
-
-async def test_exception_error_uploading_file_s3() -> None:
-    bucket_name = "test_bucket"
-    file_name = "test-anim.gif"
-    file_location = os.path.dirname(os.path.abspath(__file__))
-    file_location = os.path.join(file_location, "mock/" + file_name)
-    with pytest.raises(ErrorUploadingFileS3):
-        with open(file_location, "rb") as data:
-            await s3_ops.upload_memory_file(
-                data,
-                file_name,
-                bucket_name,
-            )
 
 
 @mock.patch(
@@ -190,32 +167,3 @@ async def test_exception_unable_to_send_sms() -> None:
                     phone_number=test_phone_number,
                     message_body=test_message,
                 )
-
-
-@mock.patch(
-    "s3.operations.get_s3_resource",
-    new_callable=AsyncMock,
-)
-async def test_exception_unavailability_error(
-    mock_s3_client: AsyncMock,
-) -> None:
-    def mock_upload_fileobj(*args: Any) -> None:
-        if args[0] != BUCKET_NAME:
-            raise UnavailabilityError()
-
-    mock_s3_client.return_value.upload_fileobj.side_effect = (
-        mock_upload_fileobj
-    )
-    bad_bucket_name = "bad_test_bucket"
-    file_name = "test-anim.gif"
-    file_location = os.path.dirname(os.path.abspath(__file__))
-    file_location = os.path.join(file_location, "mock/" + file_name)
-    with pytest.raises(UnavailabilityError):
-        with open(file_location, "rb"):
-            test_file = UploadFile(filename=file_name)
-            await s3_ops.upload_memory_file(
-                test_file,
-                file_name,
-                bad_bucket_name,
-            )
-    assert mock_s3_client.called is True
