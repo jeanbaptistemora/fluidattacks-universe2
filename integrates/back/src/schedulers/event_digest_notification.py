@@ -21,6 +21,9 @@ from datetime import (
 from db_model.event_comments.types import (
     EventComment,
 )
+from db_model.events.enums import (
+    EventStateStatus,
+)
 from db_model.events.types import (
     Event,
     GroupEventsRequest,
@@ -52,6 +55,7 @@ from settings import (
 from typing import (
     Any,
     TypedDict,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -69,7 +73,7 @@ mail_events_digest = retry_on_exceptions(
 class EventsDataType(TypedDict):
     org_name: str
     email_to: tuple[str, ...]
-    events: tuple[Event, ...]
+    open_events: list[dict[str, Union[datetime, str]]]
     events_comments: dict[str, tuple[EventComment, ...]]
 
 
@@ -85,6 +89,20 @@ def filter_last_event_comments(
 
 def get_days_since_comment(date: datetime) -> int:
     return (datetime_utils.get_utc_now() - date).days
+
+
+def get_open_events(
+    events: list[Event],
+) -> list[dict[str, Union[datetime, str]]]:
+    return [
+        dict(
+            created_date=event.created_date,
+            description=event.description,
+            id=event.id,
+        )
+        for event in events
+        if event.state.status == EventStateStatus.CREATED
+    ]
 
 
 async def group_event_comments(
@@ -164,6 +182,9 @@ async def send_events_digest() -> None:
             for group_name in groups_names
         ]
     )
+    groups_open_events = [
+        get_open_events(group_events) for group_events in groups_events
+    ]
     groups_events_comments = await collect(
         [
             group_event_comments(loaders, group_events)
@@ -177,13 +198,13 @@ async def send_events_digest() -> None:
                 {
                     "org_name": org_name,
                     "email_to": tuple(email_to),
-                    "events": tuple(event),
+                    "open_events": open_events,
                     "events_comments": event_comments,
                 }
-                for org_name, email_to, event, event_comments in zip(
+                for org_name, email_to, open_events, event_comments in zip(
                     groups_org_names,
                     groups_stakeholders_email,
-                    groups_events,
+                    groups_open_events,
                     groups_events_comments,
                 )
             ],
@@ -192,14 +213,14 @@ async def send_events_digest() -> None:
     groups_data = {
         group_name: data
         for (group_name, data) in groups_data.items()
-        if (data["email_to"] and (data["events"]))
+        if (data["email_to"] and (data["open_events"]))
     }
     for email in unique_emails(dict(groups_data), ()):
         user_content: dict[str, Any] = {
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],
-                    "open_events": data["events"],
+                    "open_events": data["open_events"],
                     "events_comments": data["events_comments"],
                 }
                 for group_name, data in groups_data.items()
