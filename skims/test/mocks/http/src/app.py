@@ -17,7 +17,7 @@ import os
 import time
 from typing import (
     Callable,
-    List,
+    Iterable,
 )
 import urllib.parse
 
@@ -41,7 +41,7 @@ def add_rule(
 @APP.route("/")
 def home() -> Response:
     # Return a small sitemap with the available URL and methods in the server
-    urls: List[str] = []
+    urls: list[str] = []
 
     for rule in APP.url_map.iter_rules():
         url = request.host_url[:-1] + urllib.parse.unquote(
@@ -60,7 +60,7 @@ def home() -> Response:
     return Response(content, content_type="text/html")
 
 
-def _add_contents(finding: str, paths: List[str]) -> None:
+def _add_contents(finding: str, paths: Iterable[str]) -> None:
     for index, path in enumerate(paths):
         with open(os.path.join(ROOT, path), encoding="utf-8") as handle:
             add_rule(
@@ -73,7 +73,7 @@ def _add_contents(finding: str, paths: List[str]) -> None:
 def _add_headers(
     finding: str,
     header: str,
-    header_values: List[str],
+    header_values: Iterable[str],
     status: int = 200,
 ) -> None:
     for index, value in enumerate(header_values):
@@ -154,7 +154,7 @@ def add_f042_httponly() -> None:
     )
     response5.set_cookie(key="session2", value="test52")
 
-    all_response: List[Response] = [
+    all_response: list[Response] = [
         response0,
         response1,
         response2,
@@ -190,7 +190,7 @@ def add_f042_samesite() -> None:
     response5.set_cookie(key="google_analytics", value="test5")
     response5.set_cookie(key="session2", value="test52", samesite="Lax")
 
-    all_response: List[Response] = [
+    all_response: list[Response] = [
         response0,
         response1,
         response2,
@@ -229,7 +229,7 @@ def add_f042_secure() -> None:
     response6.set_cookie(key="google_analytics", value="1asdf345")
     response6.set_cookie(key="session", value="test5")
 
-    all_response: List[Response] = [
+    all_response: list[Response] = [
         response0,
         response1,
         response2,
