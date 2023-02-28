@@ -62,24 +62,6 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
                 "menu.platform.aSinglePane.platformOverview.subtitle"
               )}
             </Text>
-            <AirsLink
-              hoverColor={"#bf0b1a"}
-              href={"/platform/arm/"}
-              onClick={handleClick}
-            >
-              <Text
-                color={"#2e2e38"}
-                mb={3}
-                mt={2}
-                size={"small"}
-                weight={"bold"}
-              >
-                {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
-              </Text>
-            </AirsLink>
-            <Text color={"#535365"} size={"xs"}>
-              {translate.t("menu.platform.aSinglePane.ARMplatform.subtitle")}
-            </Text>
           </Container>
         </Container>
         <Container maxWidth={width > 960 ? "833px" : "1440px"} ph={4}>
@@ -119,6 +101,15 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
               </AirsLink>
               <AirsLink
                 hoverColor={"#bf0b1a"}
+                href={"/product/mast/"}
+                onClick={handleClick}
+              >
+                <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
+                  {translate.t("menu.platform.products.links.mast")}
+                </Text>
+              </AirsLink>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
                 href={"/product/sca/"}
                 onClick={handleClick}
               >
@@ -130,11 +121,11 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
             <Container>
               <AirsLink
                 hoverColor={"#bf0b1a"}
-                href={"/product/re/"}
+                href={"/platform/arm/"}
                 onClick={handleClick}
               >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
-                  {translate.t("menu.platform.products.links.re")}
+                  {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
                 </Text>
               </AirsLink>
               <AirsLink
@@ -148,11 +139,11 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
               </AirsLink>
               <AirsLink
                 hoverColor={"#bf0b1a"}
-                href={"/product/mast/"}
+                href={"/product/re/"}
                 onClick={handleClick}
               >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
-                  {translate.t("menu.platform.products.links.mast")}
+                  {translate.t("menu.platform.products.links.re")}
                 </Text>
               </AirsLink>
             </Container>

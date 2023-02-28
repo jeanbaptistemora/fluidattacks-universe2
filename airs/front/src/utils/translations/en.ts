@@ -850,7 +850,7 @@ const pageTexts: ResourceKey = {
           subtitle:
             "Discover your organization’s attack surface and flaws " +
             "in its attack prevention, detection and response.",
-          title: "Attack Resistance Management (ARM) platform",
+          title: "Attack Resistance Management (ARM)",
         },
         platformOverview: {
           subtitle:
