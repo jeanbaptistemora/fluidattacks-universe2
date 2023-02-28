@@ -95,7 +95,7 @@ F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_securi
   25 | }
      ^ Col 0
 ",terraform.tfm_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,11,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,"
+F070,lines,namespace/skims/test/data/lib_root/f070/cfn_elb2_target_group_insecure_port.yaml,11,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/cfn_elb2_target_group_insecure_port.yaml,"
    1 | ---
    2 | Resources:
    3 |   MyTargetGroup1:
@@ -119,7 +119,7 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecur
   21 |       TargetType: ip
      ^ Col 0
 ",cloudformation.cfn_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,20,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,"
+F070,lines,namespace/skims/test/data/lib_root/f070/cfn_elb2_target_group_insecure_port.yaml,20,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/cfn_elb2_target_group_insecure_port.yaml,"
    8 |       TargetType: lambda
    9 |   MyTargetGroup2:
   10 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -141,54 +141,6 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecur
   26 |       Name: MyTargets
   27 |       Port: 443
   28 |       TargetType: ip
-     ^ Col 0
-",cloudformation.cfn_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,13,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,"
-   3 |     ""MyTargetGroup1"": {
-   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
-   5 |       ""Properties"": {
-   6 |         ""HealthCheckEnabled"": false,
-   7 |         ""Name"": ""MyTargets"",
-   8 |         ""TargetType"": ""lambda""
-   9 |       }
-  10 |     },
-  11 |     ""MyTargetGroup2"": {
-  12 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
-> 13 |       ""Properties"": {
-  14 |         ""HealthCheckEnabled"": false,
-  15 |         ""Name"": ""MyTargets"",
-  16 |         ""TargetType"": ""ip""
-  17 |       }
-  18 |     },
-  19 |     ""MyTargetGroup3"": {
-  20 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
-  21 |       ""Properties"": {
-  22 |         ""HealthCheckEnabled"": false,
-  23 |         ""Name"": ""MyTargets"",
-     ^ Col 0
-",cloudformation.cfn_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,24,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,"
-  14 |         ""HealthCheckEnabled"": false,
-  15 |         ""Name"": ""MyTargets"",
-  16 |         ""TargetType"": ""ip""
-  17 |       }
-  18 |     },
-  19 |     ""MyTargetGroup3"": {
-  20 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
-  21 |       ""Properties"": {
-  22 |         ""HealthCheckEnabled"": false,
-  23 |         ""Name"": ""MyTargets"",
-> 24 |         ""Port"": 80,
-  25 |         ""TargetType"": ""ip""
-  26 |       }
-  27 |     },
-  28 |     ""MyTargetGroup4"": {
-  29 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
-  30 |       ""Properties"": {
-  31 |         ""HealthCheckEnabled"": false,
-  32 |         ""Name"": ""MyTargets"",
-  33 |         ""Port"": 443,
-  34 |         ""TargetType"": ""ip""
      ^ Col 0
 ",cloudformation.cfn_lb_target_group_insecure_port
 F070,lines,namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,3,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,"

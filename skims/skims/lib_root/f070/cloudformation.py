@@ -40,6 +40,43 @@ def _elb2_uses_insecure_security_policy(
         yield ssl_id
 
 
+def _elb2_target_group_insecure_port(graph: Graph, nid: NId) -> Iterator[NId]:
+    _, _, prop_id = get_attribute(graph, nid, "Properties")
+    properties_id = graph.nodes[prop_id]["value_id"]
+    port, port_val, port_id = get_attribute(graph, properties_id, "Port")
+    _, target_type, _ = get_attribute(graph, properties_id, "TargetType")
+    if target_type != "lambda":
+        if not port:
+            yield prop_id
+        elif int(port_val) != 443:
+            yield port_id
+
+
+def cfn_elb2_target_group_insecure_port(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_LB_TARGET_INSECURE_PORT
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.YAML):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(
+                graph, "AWS::ElasticLoadBalancingV2::TargetGroup"
+            ):
+                for report in _elb2_target_group_insecure_port(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f070.elb2_target_group_insecure_port",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_elb2_uses_insecure_security_policy(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
