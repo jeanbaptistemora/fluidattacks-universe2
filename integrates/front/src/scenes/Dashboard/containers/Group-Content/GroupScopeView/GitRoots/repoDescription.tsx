@@ -6,8 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { GET_GIT_ROOT_DETAILS } from "../queries";
 import type { IEnvironmentUrl } from "../types";
-import { Row } from "components/Layout";
-import { Col50 } from "styles/styledComponents";
+import { Col, Row } from "components/Layout";
 import { formatIsoDate } from "utils/date";
 import { Logger } from "utils/logger";
 
@@ -58,18 +57,18 @@ const Description = ({
     <div>
       <h3>{t("group.findings.description.title")}</h3>
       <Row>
-        <Col50>
+        <Col>
           {t("group.scope.git.repo.nickname")}
           {":"}&nbsp;{nickname}
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           {t("group.scope.git.repo.environment")}
           {":"}&nbsp;{environment}
-        </Col50>
+        </Col>
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col>
           {t("group.scope.git.envUrls")}
           {":"}
           <ul>
@@ -83,8 +82,8 @@ const Description = ({
               )
             )}
           </ul>
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           {t("group.scope.git.filter.exclude")}
           {":"}
           <ul>
@@ -94,25 +93,25 @@ const Description = ({
               )
             )}
           </ul>
-        </Col50>
+        </Col>
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col>
           {t("group.scope.common.lastStateStatusUpdate")}
           {":"}&nbsp;{formatIsoDate(lastStateStatusUpdate)}
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           {t("group.scope.common.lastCloningStatusUpdate")}
           {":"}&nbsp;{formatIsoDate(lastCloningStatusUpdate)}
-        </Col50>
+        </Col>
       </Row>
       <hr />
       <Row>
-        <Col50>
+        <Col>
           {t("group.scope.git.repo.cloning.message")}
           {":"}&nbsp;{cloningStatus.message}
-        </Col50>
+        </Col>
       </Row>
     </div>
   );
