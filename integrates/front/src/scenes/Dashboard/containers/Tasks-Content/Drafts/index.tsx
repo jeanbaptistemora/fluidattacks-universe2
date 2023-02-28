@@ -68,6 +68,10 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
         statusFormatter(cell.getValue()),
       header: "State",
     },
+    {
+      accessorKey: "lastStateDate",
+      header: t("todoList.tabs.drafts.stateDate"),
+    },
   ];
 
   const [filters, setFilters] = useState<IFilter<ITodoDraftAttr>[]>([
