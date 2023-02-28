@@ -24,8 +24,8 @@ from pytz import (
 )
 from schedulers.event_digest_notification import (
     EventsDataType,
-    filter_last_event_comments,
-    get_days_since_comment,
+    filter_last_instances,
+    get_days_since,
     get_open_events,
     unique_emails,
 )
@@ -37,9 +37,7 @@ pytestmark = [
 
 @freeze_time("2022-12-07T00:00:00.0")
 def test_get_days_since_comment() -> None:
-    assert (
-        get_days_since_comment(datetime(2022, 12, 1).replace(tzinfo=UTC)) == 6
-    )
+    assert get_days_since(datetime(2022, 12, 1).replace(tzinfo=UTC)) == 6
 
 
 @pytest.mark.parametrize(
@@ -306,11 +304,11 @@ def test_get_open_events(
     ],
 )
 @freeze_time("2022-12-05T06:00:00.0")
-def test_filter_last_event_comments(
+def test_filter_last_instances(
     *,
     comments: list[EventComment],
 ) -> None:
-    assert len(filter_last_event_comments(comments)) == 2
+    assert len(filter_last_instances(comments)) == 2
 
 
 @pytest.mark.parametrize(

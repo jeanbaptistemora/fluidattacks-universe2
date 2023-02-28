@@ -26,6 +26,7 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    EventState,
     GroupEventsRequest,
 )
 from decorators import (
@@ -73,22 +74,98 @@ mail_events_digest = retry_on_exceptions(
 class EventsDataType(TypedDict):
     org_name: str
     email_to: tuple[str, ...]
+    events: tuple[Event, ...]
+    event_comments: dict[str, tuple[EventComment, ...]]
+    event_states: dict[str, tuple[EventState, ...]]
     open_events: list[dict[str, Union[datetime, str]]]
-    events_comments: dict[str, tuple[EventComment, ...]]
 
 
-def filter_last_event_comments(
-    comments: Iterable[EventComment],
-) -> list[EventComment]:
+def filter_last_instances(
+    instances: Iterable[Union[EventComment, EventState]],
+) -> list[Any]:
     return [
-        comment
-        for comment in comments
-        if is_last_day_comment(comment.creation_date)
+        instance
+        for instance in instances
+        if is_last_day_instance(
+            instance.creation_date
+            if isinstance(instance, EventComment)
+            else instance.modified_date
+        )
     ]
 
 
-def get_days_since_comment(date: datetime) -> int:
+def get_days_since(date: datetime) -> int:
     return (datetime_utils.get_utc_now() - date).days
+
+
+async def get_event_comments(
+    loaders: Dataloaders, event_id: str
+) -> tuple[EventComment, ...]:
+    return tuple(
+        filter_last_instances(await loaders.event_comments.load(event_id))
+    )
+
+
+async def get_event_states(
+    loaders: Dataloaders, event_id: str
+) -> tuple[EventState, ...]:
+    return tuple(
+        filter_last_instances(
+            await loaders.event_historic_state.load(event_id)
+        )
+    )
+
+
+async def get_group_event_comments(
+    loaders: Dataloaders,
+    groups_events: Iterable[Event],
+) -> dict[str, tuple[EventComment, ...]]:
+    comments = await collect(
+        [
+            get_event_comments(loaders, event.id)
+            for event in groups_events
+            if event.id
+        ]
+    )
+
+    events_comments = dict(
+        zip(
+            [event.id for event in groups_events],
+            comments,
+        )
+    )
+
+    return {
+        event_id: event_comment
+        for event_id, event_comment in events_comments.items()
+        if event_comment
+    }
+
+
+async def get_group_event_states(
+    loaders: Dataloaders,
+    groups_events: Iterable[Event],
+) -> dict[str, tuple[EventState, ...]]:
+    states = await collect(
+        [
+            get_event_states(loaders, event.id)
+            for event in groups_events
+            if event.id
+        ]
+    )
+
+    events_states = dict(
+        zip(
+            [event.id for event in groups_events],
+            states,
+        )
+    )
+
+    return {
+        event_id: event_states
+        for event_id, event_states in events_states.items()
+        if event_states
+    }
 
 
 def get_open_events(
@@ -101,50 +178,15 @@ def get_open_events(
             id=event.id,
         )
         for event in events
-        if event.state.status == EventStateStatus.CREATED
+        if event.state.status
+        in [EventStateStatus.CREATED, EventStateStatus.VERIFICATION_REQUESTED]
     ]
 
 
-async def group_event_comments(
-    loaders: Dataloaders,
-    groups_events: Iterable[Event],
-) -> dict[str, tuple[EventComment, ...]]:
-    comments = await collect(
-        [
-            events_comments(loaders, event.id)
-            for event in groups_events
-            if event.id
-        ]
-    )
+def is_last_day_instance(creation_date: datetime) -> bool:
+    instance_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
-    events_dic = dict(
-        zip(
-            [event.id for event in groups_events],
-            comments,
-        )
-    )
-
-    return {
-        event_id: event_comment
-        for event_id, event_comment in events_dic.items()
-        if event_comment
-    }
-
-
-async def events_comments(
-    loaders: Dataloaders, instance_id: str
-) -> tuple[EventComment, ...]:
-    return tuple(
-        filter_last_event_comments(
-            await loaders.event_comments.load(instance_id)
-        )
-    )
-
-
-def is_last_day_comment(creation_date: datetime) -> bool:
-    comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
-
-    return get_days_since_comment(creation_date) < comments_age
+    return get_days_since(creation_date) < instance_age
 
 
 async def send_events_digest() -> None:
@@ -187,7 +229,13 @@ async def send_events_digest() -> None:
     ]
     groups_events_comments = await collect(
         [
-            group_event_comments(loaders, group_events)
+            get_group_event_comments(loaders, group_events)
+            for group_events in groups_events
+        ]
+    )
+    groups_events_states = await collect(
+        [
+            get_group_event_states(loaders, group_events)
             for group_events in groups_events
         ]
     )
@@ -198,14 +246,25 @@ async def send_events_digest() -> None:
                 {
                     "org_name": org_name,
                     "email_to": tuple(email_to),
+                    "events": tuple(event),
+                    "event_comments": event_comments,
+                    "event_states": event_states,
                     "open_events": open_events,
-                    "events_comments": event_comments,
                 }
-                for org_name, email_to, open_events, event_comments in zip(
+                for (
+                    org_name,
+                    email_to,
+                    event,
+                    event_comments,
+                    event_states,
+                    open_events,
+                ) in zip(
                     groups_org_names,
                     groups_stakeholders_email,
-                    groups_open_events,
+                    groups_events,
                     groups_events_comments,
+                    groups_events_states,
+                    groups_open_events,
                 )
             ],
         )
@@ -213,15 +272,25 @@ async def send_events_digest() -> None:
     groups_data = {
         group_name: data
         for (group_name, data) in groups_data.items()
-        if (data["email_to"] and (data["open_events"]))
+        if (
+            data["email_to"]
+            and (
+                data["events"]
+                or data["event_comments"]
+                or data["event_states"]
+                or data["open_events"]
+            )
+        )
     }
     for email in unique_emails(dict(groups_data), ()):
         user_content: dict[str, Any] = {
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],
+                    "events": data["events"],
+                    "event_comments": data["event_comments"],
+                    "event_states": data["event_states"],
                     "open_events": data["open_events"],
-                    "events_comments": data["events_comments"],
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
