@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f099.cloudformation import (
     cfn_bucket_policy_has_server_side_encryption_disabled,
-    cfn_unencrypted_buckets,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -30,16 +29,6 @@ def run_cfn_bucket_policy_has_server_side_encryption_disabled(
 
 
 @SHIELD_BLOCKING
-def run_cfn_unencrypted_buckets(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag W41 S3 Bucket should have encryption option set
-    return cfn_unencrypted_buckets(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -55,9 +44,6 @@ def analyze(
                 *results,
                 run_cfn_bucket_policy_has_server_side_encryption_disabled(
                     content, path, template
-                ),
-                run_cfn_unencrypted_buckets(
-                    content, file_extension, path, template
                 ),
             )
 

@@ -3783,7 +3783,7 @@ class MethodsEnum(Enum):
     CFN_UNENCRYPTED_BUCKETS = MethodInfo(
         file_name="cloudformation",
         name="cfn_unencrypted_buckets",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F099,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
