@@ -115,12 +115,6 @@ from starlette.routing import (
 from starlette.staticfiles import (
     StaticFiles,
 )
-from telemetry import (
-    instrumentation,
-)
-from telemetry.instrumentation import (
-    instrument,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -329,12 +323,7 @@ exception_handlers = {404: not_found, 500: server_error}
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
-    on_startup=[
-        dynamo_startup,
-        instrumentation.initialize,
-        s3_startup,
-        search_startup,
-    ],
+    on_startup=[dynamo_startup, s3_startup, search_startup],
     on_shutdown=[dynamo_shutdown, search_shutdown, s3_shutdown],
     routes=[
         Route("/", templates.login),
@@ -355,10 +344,7 @@ STARLETTE_APP = Starlette(
             "/confirm_access_organization/{url_token:path}",
             confirm_access_organization,
         ),
-        Route(
-            "/confirm_deletion/{url_token:path}",
-            confirm_deletion,
-        ),
+        Route("/confirm_deletion/{url_token:path}", confirm_deletion),
         Route("/dglogin", auth.do_google_login),
         Route("/dalogin", auth.do_azure_login),
         Route("/dblogin", auth.do_bitbucket_login),
@@ -400,7 +386,6 @@ STARLETTE_APP = Starlette(
 )
 
 # ASGI wrappers
-instrument(STARLETTE_APP)
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)
 
 APP = BUGSNAG_WRAPPER
