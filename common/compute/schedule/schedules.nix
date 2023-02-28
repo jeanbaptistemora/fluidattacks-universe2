@@ -1156,7 +1156,7 @@
       "management:type" = "product";
     };
   };
-  cancel_stuck_jobs = {
+  observes_cancel_stuck_jobs = {
     enabled = true;
     command = [
       "m"
