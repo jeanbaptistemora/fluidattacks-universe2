@@ -1,6 +1,13 @@
-import { Link } from "gatsby";
 import { join } from "path-browserify";
 import React from "react";
+
+import {
+  Breadcrumb,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbListItem,
+  BreadcrumbSeparator,
+} from "./StyledComponents";
 
 import { capitalizeDashedString } from "../../utils/utilities";
 
@@ -17,8 +24,8 @@ const Breadcrumbs: React.FC<IProps> = ({
   const lastPage = currentPath.length > 0 ? currentPath.length - 1 : 0;
 
   return (
-    <nav className={"breadcrumb"}>
-      <ol className={"breadcrumb-list"}>
+    <Breadcrumb>
+      <BreadcrumbList>
         {currentPath.map((page, index): JSX.Element => {
           // eslint-disable-next-line fp/no-mutation
           linkPath = join(linkPath, page);
@@ -26,24 +33,24 @@ const Breadcrumbs: React.FC<IProps> = ({
           const currentPage = page === "/" ? "Home" : page;
 
           return (
-            <li className={"breadcrumb-list-item"} key={currentPage}>
+            <BreadcrumbListItem key={currentPage}>
               {index === lastPage ? (
-                <div className={"breadcrumb-link"}>
+                <BreadcrumbLink to={linkPath}>
                   {capitalizeDashedString(page)}
-                </div>
+                </BreadcrumbLink>
               ) : (
                 <div>
-                  <Link to={linkPath}>
+                  <BreadcrumbLink to={linkPath}>
                     {capitalizeDashedString(currentPage)}
-                  </Link>
-                  <div className={"breadcrumb-separator"}>{"/"}</div>
+                  </BreadcrumbLink>
+                  <BreadcrumbSeparator>{"/"}</BreadcrumbSeparator>
                 </div>
               )}
-            </li>
+            </BreadcrumbListItem>
           );
         })}
-      </ol>
-    </nav>
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 };
 

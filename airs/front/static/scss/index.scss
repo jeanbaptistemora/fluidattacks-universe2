@@ -197,6 +197,7 @@ body {
 .hv-grow { &:hover { transform: scale(1.05); } }
 .hv-rotate-360 { &:hover { transform: rotate(360deg); } }
 .hv-card { &:hover { box-shadow: 0 20px 20px $dark-shadow; } }
+.hv-white-244 { &:hover { color: $white-244; } }
 .mh-100 { max-height: 100%; }
 
 // Line Heights
