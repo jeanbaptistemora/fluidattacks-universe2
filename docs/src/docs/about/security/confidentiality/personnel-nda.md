@@ -11,5 +11,5 @@ We enforce this
 by requiring all our new employees
 to sign a non-disclosure agreement (NDA).
 
-The NDA document will be found
+The NDA document can be found
 [here](https://res.cloudinary.com/fluid-attacks/image/upload/v1676499184/docs/about/security/confidentiality/nda_document.pdf).
