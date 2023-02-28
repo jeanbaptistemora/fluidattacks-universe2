@@ -1,5 +1,4 @@
 from forces.apis.integrates.api import (
-    get_finding,
     get_findings,
     get_groups_access,
     get_vulnerabilities,
@@ -21,13 +20,7 @@ async def test_get_findings(
     test_finding: str,
 ) -> None:
     result = await get_findings(test_group, api_token=test_token)
-    assert test_finding in result
-
-
-@pytest.mark.asyncio
-async def test_get_finding(test_token: str, test_finding: str) -> None:
-    result = await get_finding(test_finding, api_token=test_token)
-    assert result["id"] == test_finding
+    assert test_finding in result[0]["id"]
 
 
 @pytest.mark.asyncio

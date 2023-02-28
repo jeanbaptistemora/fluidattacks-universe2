@@ -61,7 +61,7 @@ async def test_compile_report(
     find: Finding = next(
         find for find in report.findings if find.identifier == test_finding
     )
-    assert len(find.vulnerabilities) == 28
+    assert len(find.vulnerabilities) == 1
 
     identifiers: set[str] = {find.identifier for find in report.findings}
     assert len(identifiers) == len(report.findings)

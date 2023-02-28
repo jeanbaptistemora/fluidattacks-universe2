@@ -16,6 +16,7 @@ from forces.apis.integrates.client import (
 from forces.model import (
     ForcesConfig,
     ForcesData,
+    KindEnum,
     VulnerabilityState,
 )
 from forces.utils.env import (
@@ -43,42 +44,43 @@ SHIELD: Callable[[TFun], TFun] = shield(
 
 
 @SHIELD
-async def get_findings(group: str, **kwargs: str) -> set[str]:
-    """
-    Returns the findings of a group.
+async def get_findings(
+    group: str, **kwargs: str
+) -> tuple[dict[str, Any], ...]:
+    """Returns the findings of a group.
 
-    :param client: gql Client.
-    :param group: Group name.
+    Args:
+        `group (str)`: Group name
+
+    Returns:
+        `tuple[dict[str, Any]]`: A tuple with the findings of a group
     """
     query = """
         query ForcesDoGetGroupFindings($group_name: String!) {
-          group (groupName: $group_name) {
-            findings {
-              id
-              currentState
+            group(groupName: $group_name) {
+                findings {
+                    id
+                    currentState
+                    title
+                    status
+                    severity {
+                        exploitability
+                    }
+                    severityScore
+                }
             }
-          }
         }
         """
 
-    result: dict[str, dict[str, list[Any]]] = (
-        await execute(
-            query=query,
-            operation_name="ForcesDoGetGroupFindings",
-            variables=dict(group_name=group),
-            default={},
-            **kwargs,
-        )
-        or {}
+    result: dict[str, dict[str, list[Any]]] = await execute(
+        query=query,
+        operation_name="ForcesDoGetGroupFindings",
+        variables=dict(group_name=group),
+        default={},
+        **kwargs,
     )
 
-    findings: set[str] = set(
-        finding["id"]
-        for finding in (result.get("group", {}) or {}).get("findings", [])
-        if finding["currentState"] == "APPROVED"
-    )
-
-    return findings
+    return tuple(result["group"]["findings"])
 
 
 @SHIELD
@@ -98,6 +100,7 @@ async def get_vulnerabilities(
             $first: Int
             $brk_severity: String
             $state: String
+            $vuln_type: String
         ) {
             group(groupName: $group_name) {
                 vulnerabilities(
@@ -105,6 +108,7 @@ async def get_vulnerabilities(
                     first: $first
                     minSeverity: $brk_severity
                     stateStatus: $state
+                    type: $vuln_type
                 ) {
                     edges {
                         node {
@@ -129,11 +133,12 @@ async def get_vulnerabilities(
         }
     """
     query_parameters = dict(
-        group_name=config.group,
-        state="VULNERABLE" if config.verbose_level <= 2 else None,
         brk_severity=str(config.breaking_severity)
         if config.verbose_level == 1
         else None,
+        group_name=config.group,
+        state="VULNERABLE" if config.verbose_level <= 2 else None,
+        vuln_type="lines" if config.kind == KindEnum.STATIC else None,
     )
     response: dict = await execute(
         query=query,
@@ -177,37 +182,6 @@ async def get_vulnerabilities(
             vulnerabilities[index]["state"] = "ACCEPTED"
 
     return vulnerabilities
-
-
-@SHIELD
-async def get_finding(finding: str, **kwargs: str) -> dict[str, object]:
-    """
-    Returns a finding.
-
-    :param finding: Finding identifier.
-    """
-    query = """
-        query ForcesDoGetFinding($finding_id: String!) {
-          finding(identifier: $finding_id) {
-            title
-            id
-            status
-            severity {
-              exploitability
-            }
-            severityScore
-          }
-        }
-        """
-    params = {"finding_id": finding}
-    response: dict[str, str] = await execute(
-        query=query,
-        operation_name="ForcesDoGetFinding",
-        variables=params,
-        default={},
-        **kwargs,
-    )
-    return response.get("finding", {})  # type: ignore
 
 
 async def vulns_generator(

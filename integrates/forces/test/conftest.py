@@ -20,7 +20,7 @@ def test_group() -> Iterator[str]:
 
 @pytest.fixture(scope="session")
 def test_finding() -> Iterator[str]:
-    yield "436992569"
+    yield "422286126"
 
 
 @pytest.fixture(scope="session")

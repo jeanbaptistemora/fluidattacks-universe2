@@ -2,7 +2,6 @@ from .filters import (
     filter_kind,
     filter_repo,
 )
-import asyncio
 from datetime import (
     datetime,
 )
@@ -10,7 +9,6 @@ from decimal import (
     Decimal,
 )
 from forces.apis.integrates.api import (
-    get_finding,
     get_findings,
     vulns_generator,
 )
@@ -55,23 +53,20 @@ async def get_group_findings_info(
         with their identifier as key
     """
     findings_dict: dict[str, Finding] = {}
-    findings_futures = [
-        get_finding(fin) for fin in await get_findings(group, **kwargs)
-    ]
-    for _find in asyncio.as_completed(findings_futures):
-        find: dict[str, Any] = await _find
-        severity: dict[str, Any] = find.pop("severity", {})
-        find["exploitability"] = severity.get("exploitability", 0)
+    findings = await get_findings(group, **kwargs)
+    for finding in findings:
+        severity: dict[str, Any] = finding.pop("severity", {})
+        finding["exploitability"] = severity.get("exploitability", 0)
 
-        findings_dict[find["id"]] = Finding(
-            identifier=str(find["id"]),
-            title=str(find["title"]),
-            state=FindingState[str(find["status"]).upper()],
-            exploitability=float(find["exploitability"]),
-            severity=Decimal(str(find["severityScore"])),
+        findings_dict[finding["id"]] = Finding(
+            identifier=str(finding["id"]),
+            title=str(finding["title"]),
+            state=FindingState[str(finding["status"]).upper()],
+            exploitability=float(finding["exploitability"]),
+            severity=Decimal(str(finding["severityScore"])),
             url=(
                 f"https://app.fluidattacks.com/orgs/{organization}/groups/"
-                f"{group}/vulns/{find['id']}"
+                f"{group}/vulns/{finding['id']}"
             ),
             vulnerabilities=[],
         )
