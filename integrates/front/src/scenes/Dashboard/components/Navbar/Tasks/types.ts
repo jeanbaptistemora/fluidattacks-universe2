@@ -5,4 +5,11 @@ interface IGetMeVulnerabilitiesAssignedIds {
   };
 }
 
-export type { IGetMeVulnerabilitiesAssignedIds };
+interface INavbarProps {
+  allAssigned: number;
+  meVulnerabilitiesAssignedIds: IGetMeVulnerabilitiesAssignedIds | undefined;
+  undefinedOrEmpty: boolean;
+  userRole: string | undefined;
+}
+
+export type { IGetMeVulnerabilitiesAssignedIds, INavbarProps };

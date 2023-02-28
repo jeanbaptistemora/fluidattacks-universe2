@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const VULNS_FRAGMENT: DocumentNode = gql`
-  fragment vulnFields on Vulnerability {
+  fragment vulnGroupFields on Vulnerability {
     state
     externalBugTrackingSystem
     findingId
@@ -64,7 +64,7 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
               severityScore
               title
             }
-            ...vulnFields
+            ...vulnGroupFields
           }
         }
         pageInfo {

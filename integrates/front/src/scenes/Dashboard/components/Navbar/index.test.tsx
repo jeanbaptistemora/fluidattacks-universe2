@@ -110,7 +110,12 @@ describe("navbar", (): void => {
                 userName: "",
               }}
             >
-              <Navbar userRole={"user"} />
+              <Navbar
+                allAssigned={0}
+                meVulnerabilitiesAssignedIds={undefined}
+                undefinedOrEmpty={true}
+                userRole={"user"}
+              />
             </authContext.Provider>
           </MockedProvider>
         </MemoryRouter>
@@ -218,7 +223,12 @@ describe("navbar", (): void => {
                 userName: "",
               }}
             >
-              <Navbar userRole={"user"} />
+              <Navbar
+                allAssigned={0}
+                meVulnerabilitiesAssignedIds={undefined}
+                undefinedOrEmpty={true}
+                userRole={"user"}
+              />
             </authContext.Provider>
           </MockedProvider>
         </MemoryRouter>
@@ -296,7 +306,12 @@ describe("navbar", (): void => {
                 userName: "",
               }}
             >
-              <Navbar userRole={"user"} />
+              <Navbar
+                allAssigned={0}
+                meVulnerabilitiesAssignedIds={undefined}
+                undefinedOrEmpty={true}
+                userRole={"user"}
+              />
             </authContext.Provider>
           </MockedProvider>
         </MemoryRouter>

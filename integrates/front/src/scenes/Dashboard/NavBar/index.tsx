@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import {
   faBullhorn,
   faCheck,
@@ -9,7 +10,7 @@ import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -22,10 +23,15 @@ import { Button } from "components/Button";
 import { Input } from "components/Input";
 import { useShow } from "components/Modal";
 import { NavBar } from "components/NavBar";
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "scenes/Dashboard/components/Navbar/Tasks/queries";
+import type { IGetMeVulnerabilitiesAssignedIds } from "scenes/Dashboard/components/Navbar/Tasks/types";
+import { assignedVulnerabilitiesContext } from "scenes/Dashboard/context";
+import type { IAssignedVulnerabilitiesContext } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import type { IAuthContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import { featurePreviewContext } from "utils/featurePreview";
+import { Logger } from "utils/logger";
 import { alphaNumeric, composeValidators } from "utils/validations";
 
 interface IDashboardNavBarProps {
@@ -55,6 +61,46 @@ const DashboardNavBar: FC<IDashboardNavBarProps> = ({
     },
     [push]
   );
+
+  const { data: meVulnerabilitiesAssignedIds, refetch: refetchIds } =
+    useQuery<IGetMeVulnerabilitiesAssignedIds>(
+      GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+      {
+        fetchPolicy: "cache-first",
+        onError: (errors): void => {
+          errors.graphQLErrors.forEach((error): void => {
+            Logger.warning(
+              "An error occurred fetching vulnerabilities assigned ids",
+              error
+            );
+          });
+        },
+      }
+    );
+
+  const allAssigned: number = useMemo(
+    (): number =>
+      meVulnerabilitiesAssignedIds === undefined
+        ? 0
+        : meVulnerabilitiesAssignedIds.me.vulnerabilitiesAssigned.length,
+    [meVulnerabilitiesAssignedIds]
+  );
+
+  const undefinedOrEmpty: boolean = useMemo(
+    (): boolean =>
+      meVulnerabilitiesAssignedIds === undefined || allAssigned === 0,
+    [meVulnerabilitiesAssignedIds, allAssigned]
+  );
+
+  const { setRefetchIds }: IAssignedVulnerabilitiesContext = useContext(
+    assignedVulnerabilitiesContext
+  );
+
+  useEffect((): void => {
+    if (setRefetchIds !== undefined) {
+      setRefetchIds(refetchIds);
+    }
+  }, [refetchIds, setRefetchIds]);
 
   return featurePreview ? (
     <NavBar>
@@ -96,7 +142,12 @@ const DashboardNavBar: FC<IDashboardNavBarProps> = ({
       <HelpModal onClose={closeHelp} open={showHelp} />
     </NavBar>
   ) : (
-    <Navbar userRole={userRole} />
+    <Navbar
+      allAssigned={allAssigned}
+      meVulnerabilitiesAssignedIds={meVulnerabilitiesAssignedIds}
+      undefinedOrEmpty={undefinedOrEmpty}
+      userRole={userRole}
+    />
   );
 };
 

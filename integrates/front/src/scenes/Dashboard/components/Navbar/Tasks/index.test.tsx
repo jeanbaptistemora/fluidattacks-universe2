@@ -5,9 +5,9 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
-import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "./queries";
-
-import { TaskInfo } from ".";
+import { TaskInfo } from "scenes/Dashboard/components/Navbar/Tasks";
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "scenes/Dashboard/components/Navbar/Tasks/queries";
+import { DashboardNavBar } from "scenes/Dashboard/NavBar";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock("react-router-dom", (): Record<string, unknown> => {
@@ -54,19 +54,23 @@ describe("taskInfo component", (): void => {
     render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
-          <TaskInfo />
+          <DashboardNavBar userRole={undefined} />
         </MockedProvider>
       </MemoryRouter>
     );
 
     await waitFor((): void => {
-      expect(screen.queryByRole("button")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "components.navBar.toDo" })
+      ).toBeInTheDocument();
       expect(
         screen.queryByText("navbar.task.tooltip.assigned")
       ).not.toBeInTheDocument();
     });
 
-    await userEvent.hover(screen.getByRole("button"));
+    await userEvent.hover(
+      screen.getByRole("button", { name: "components.navBar.toDo" })
+    );
 
     await waitFor((): void => {
       expect(
@@ -99,19 +103,23 @@ describe("taskInfo component", (): void => {
     render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
-          <TaskInfo />
+          <DashboardNavBar userRole={undefined} />
         </MockedProvider>
       </MemoryRouter>
     );
 
     await waitFor((): void => {
-      expect(screen.queryByRole("button")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "components.navBar.toDo" })
+      ).toBeInTheDocument();
       expect(
         screen.queryByText("navbar.task.tooltip.assignedless")
       ).not.toBeInTheDocument();
     });
 
-    await userEvent.hover(screen.getByRole("button"));
+    await userEvent.hover(
+      screen.getByRole("button", { name: "components.navBar.toDo" })
+    );
 
     await waitFor((): void => {
       expect(
@@ -149,16 +157,20 @@ describe("taskInfo component", (): void => {
     render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
         <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
-          <TaskInfo />
+          <DashboardNavBar userRole={undefined} />
         </MockedProvider>
       </MemoryRouter>
     );
 
     await waitFor((): void => {
-      expect(screen.queryByRole("button")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "components.navBar.toDo" })
+      ).toBeInTheDocument();
     });
 
-    await userEvent.click(screen.getByRole("button"));
+    await userEvent.click(
+      screen.getByRole("button", { name: "components.navBar.toDo" })
+    );
 
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledWith("/todos");

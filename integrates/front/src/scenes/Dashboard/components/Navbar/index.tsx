@@ -11,13 +11,13 @@ import { UserProfile } from "./UserProfile";
 
 import { NavBar } from "components/NavBar";
 import { Tooltip } from "components/Tooltip";
+import type { INavbarProps } from "scenes/Dashboard/components/Navbar/Tasks/types";
 import { Can } from "utils/authz/Can";
 
-interface INavbarProps {
-  userRole: string | undefined;
-}
-
 export const Navbar: React.FC<INavbarProps> = ({
+  allAssigned,
+  meVulnerabilitiesAssignedIds,
+  undefinedOrEmpty,
   userRole,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
@@ -27,7 +27,12 @@ export const Navbar: React.FC<INavbarProps> = ({
       <Can do={"front_can_use_groups_searchbar"}>
         <Searchbar />
       </Can>
-      <TaskInfo />
+      <TaskInfo
+        allAssigned={allAssigned}
+        meVulnerabilitiesAssignedIds={meVulnerabilitiesAssignedIds}
+        undefinedOrEmpty={undefinedOrEmpty}
+        userRole={userRole}
+      />
       <Tooltip id={"navbar.newsTooltip.id"} tip={t("navbar.newsTooltip")}>
         <NewsWidget />
       </Tooltip>
