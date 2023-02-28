@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import type { IVerificationSummaryAttr } from "./types";
 
-import { Row } from "components/Layout";
-import { Col33 } from "styles/styledComponents";
+import { Col, Row } from "components/Layout";
 
 interface IDescriptionProps {
   description: string;
@@ -37,68 +36,68 @@ const Description = ({
         <p>{description}</p>
       </Row>
       <Row>
-        <Col33>
+        <Col>
           {t("group.findings.description.lastReport")}&nbsp;
           {t("group.findings.description.value", { count: lastVulnerability })}
-        </Col33>
-        <Col33>{treatmentNew}</Col33>
+        </Col>
+        <Col>{treatmentNew}</Col>
         {isOpen ? (
-          <Col33>
+          <Col>
             {t("group.findings.description.onHold")}&nbsp;
             {verificationSummary.onHold}
-          </Col33>
+          </Col>
         ) : (
-          <Col33 />
+          <Col />
         )}
       </Row>
       <hr />
       <Row>
-        <Col33>
+        <Col>
           {t("group.findings.description.firstSeen")}&nbsp;
           {t("group.findings.description.value", { count: openAge })}
-        </Col33>
-        <Col33>{inProgress}</Col33>
+        </Col>
+        <Col>{inProgress}</Col>
         {isOpen ? (
-          <Col33>
+          <Col>
             {t("group.findings.description.requested")}&nbsp;
             {verificationSummary.requested}
-          </Col33>
+          </Col>
         ) : (
-          <Col33 />
+          <Col />
         )}
       </Row>
       <hr />
       <Row>
-        <Col33>
+        <Col>
           {t("group.findings.description.exploitable")}&nbsp;
           {t(
             isExploitable
               ? "group.findings.boolean.True"
               : "group.findings.boolean.False"
           )}
-        </Col33>
-        <Col33>{temporallyAccepted}</Col33>
+        </Col>
+        <Col>{temporallyAccepted}</Col>
         {isOpen ? (
-          <Col33>
+          <Col>
             {t("group.findings.description.verified")}&nbsp;
             {verificationSummary.verified}
-          </Col33>
+          </Col>
         ) : (
-          <Col33 />
+          <Col />
         )}
       </Row>
       <hr />
       <Row>
-        <Col33>
+        <Col>
           {t("group.findings.description.reattack")}&nbsp;
           {t(
             verificationSummary.onHold > 0 || verificationSummary.requested > 0
               ? "group.findings.boolean.True"
               : "group.findings.boolean.False"
           )}
-        </Col33>
-        <Col33>{permanentlyAccepted}</Col33>
-        <Col33 />
+        </Col>
+        <Col>{permanentlyAccepted}</Col>
+        <Col />
       </Row>
     </div>
   );
