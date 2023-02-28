@@ -178,6 +178,10 @@ from trials import (
 from typing import (
     Any,
 )
+from vulnerabilities.domain.validations import (
+    get_policy_max_acceptance_severity,
+    get_policy_min_acceptance_severity,
+)
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -1989,18 +1993,11 @@ async def validate_acceptance_severity_range(
     *, group_name: str, loaders: Dataloaders, values: PoliciesToUpdate
 ) -> bool:
     success: bool = True
-    group: Group = await loaders.group.load(group_name)
-    min_acceptance_severity = (
-        await groups_utils.get_group_min_acceptance_severity(
-            loaders=loaders,
-            group=group,
-        )
+    min_acceptance_severity = await get_policy_min_acceptance_severity(
+        loaders=loaders, group_name=group_name
     )
-    max_acceptance_severity = (
-        await groups_utils.get_group_max_acceptance_severity(
-            loaders=loaders,
-            group=group,
-        )
+    max_acceptance_severity = await get_policy_max_acceptance_severity(
+        loaders=loaders, group_name=group_name
     )
     min_value = (
         values.min_acceptance_severity

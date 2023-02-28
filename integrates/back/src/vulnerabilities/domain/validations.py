@@ -25,6 +25,10 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+)
 from db_model.enums import (
     Source,
 )
@@ -45,10 +49,6 @@ from decimal import (
 import functools
 from newutils import (
     datetime as datetime_utils,
-)
-from newutils.groups import (
-    get_group_max_acceptance_severity,
-    get_group_min_acceptance_severity,
 )
 from newutils.validations import (
     check_exp,
@@ -98,6 +98,40 @@ async def get_policy_max_number_acceptances(
     return organization.policies.max_number_acceptances
 
 
+async def get_policy_max_acceptance_severity(
+    *, loaders: Dataloaders, group_name: str
+) -> Decimal:
+    group: Group = await loaders.group.load(group_name)
+    if group.policies:
+        return (
+            group.policies.max_acceptance_severity
+            if group.policies.max_acceptance_severity is not None
+            else DEFAULT_MAX_SEVERITY
+        )
+
+    organization = await get_organization(loaders, group.organization_id)
+
+    return (
+        organization.policies.max_acceptance_severity
+        if organization.policies.max_acceptance_severity is not None
+        else DEFAULT_MAX_SEVERITY
+    )
+
+
+async def get_policy_min_acceptance_severity(
+    *, loaders: Dataloaders, group_name: str
+) -> Decimal:
+    group: Group = await loaders.group.load(group_name)
+    if group.policies:
+        return group.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+
+    organization = await get_organization(loaders, group.organization_id)
+
+    return (
+        organization.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+    )
+
+
 async def validate_acceptance_days(
     loaders: Dataloaders,
     accepted_until: datetime,
@@ -130,12 +164,11 @@ async def validate_acceptance_severity(
     Checks if the severity to be temporarily accepted is inside
     the range set by the defined policy.
     """
-    group: Group = await loaders.group.load(group_name)
-    min_value = await get_group_min_acceptance_severity(
-        loaders=loaders, group=group
+    min_value = await get_policy_min_acceptance_severity(
+        loaders=loaders, group_name=group_name
     )
-    max_value = await get_group_max_acceptance_severity(
-        loaders=loaders, group=group
+    max_value = await get_policy_max_acceptance_severity(
+        loaders=loaders, group_name=group_name
     )
     if not min_value <= severity <= max_value:
         raise InvalidAcceptanceSeverity(str(severity))

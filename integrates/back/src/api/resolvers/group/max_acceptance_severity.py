@@ -10,8 +10,8 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.groups import (
-    get_group_max_acceptance_severity,
+from vulnerabilities.domain.validations import (
+    get_policy_max_acceptance_severity,
 )
 
 
@@ -21,8 +21,6 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Decimal:
-
-    return await get_group_max_acceptance_severity(
-        loaders=info.context.loaders,
-        group=parent,
+    return await get_policy_max_acceptance_severity(
+        loaders=info.context.loaders, group_name=parent.name
     )

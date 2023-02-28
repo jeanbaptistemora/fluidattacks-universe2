@@ -11067,12 +11067,6 @@ mocked_responses: dict[str, dict[str, Any]] = {
             sprint_start_date=datetime.fromisoformat("2023-02-20"),
         ),
     },
-    "vulnerabilities.domain.validations.get_group_max_acceptance_severity": {
-        '["kurome"]': Decimal("7.0"),
-    },
-    "vulnerabilities.domain.validations.get_group_min_acceptance_severity": {
-        '["kurome"]': Decimal("0.0"),
-    },
 }
 
 

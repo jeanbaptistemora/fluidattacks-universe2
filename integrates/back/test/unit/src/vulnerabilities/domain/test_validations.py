@@ -135,20 +135,9 @@ async def test_validate_acceptance_days(
         ],
     ],
 )
-@patch(
-    MODULE_AT_TEST + "get_group_max_acceptance_severity",
-    new_callable=AsyncMock,
-)
-@patch(
-    MODULE_AT_TEST + "get_group_min_acceptance_severity",
-    new_callable=AsyncMock,
-)
 @patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
 async def test_validate_acceptance_severity(
-    # pylint: disable=too-many-arguments
     mock_dataloaders_group: AsyncMock,
-    mock_get_group_min_acceptance_severity: AsyncMock,
-    mock_get_group_max_acceptance_severity: AsyncMock,
     group_name: str,
     severity: Decimal,
     severity_to_raise_exception: Decimal,
@@ -156,15 +145,13 @@ async def test_validate_acceptance_severity(
     mocked_objects, mocked_paths, mocks_args = [
         [
             mock_dataloaders_group.load,
-            mock_get_group_min_acceptance_severity,
-            mock_get_group_max_acceptance_severity,
         ],
         [
             "Dataloaders.group",
-            "get_group_min_acceptance_severity",
-            "get_group_max_acceptance_severity",
         ],
-        [[group_name], [group_name], [group_name]],
+        [
+            [group_name],
+        ],
     ]
     assert set_mocks_return_values(
         mocks_args=mocks_args,
@@ -183,7 +170,7 @@ async def test_validate_acceptance_severity(
             group_name,
             severity_to_raise_exception,
         )
-    assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
+    assert all(mock_object.call_count == 4 for mock_object in mocked_objects)
 
 
 @pytest.mark.parametrize(
