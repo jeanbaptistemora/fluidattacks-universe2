@@ -287,6 +287,65 @@ async def dynamob_encrypted_with_aws_master_keys(
     return vulns
 
 
+async def eks_has_endpoints_publicly_accessible(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="eks", function="list_clusters"
+    )
+    method = core_model.MethodsEnum.AWS_EKS_HAS_ENDPOINTS_PUBLICLY_ACCESSIBLE
+    cluster_names = response.get("clusters", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    locations: list[Location] = []
+    for cluster in cluster_names:
+        cluster_desc = await run_boto3_fun(
+            credentials,
+            service="eks",
+            function="describe_cluster",
+            parameters={"name": str(cluster)},
+        )
+        cluster_description = cluster_desc["cluster"]
+        vulnerable = (
+            cluster_description["resourcesVpcConfig"]["endpointPrivateAccess"]
+            is False
+        ) and (
+            cluster_description["resourcesVpcConfig"]["endpointPublicAccess"]
+            is True
+        )
+        if vulnerable:
+            locations = [
+                Location(
+                    access_patterns=(
+                        "/resourcesVpcConfig/endpointPrivateAccess",
+                        "/resourcesVpcConfig/endpointPublicAccess",
+                    ),
+                    arn=(cluster_description["arn"]),
+                    values=(
+                        cluster_description["resourcesVpcConfig"][
+                            "endpointPrivateAccess"
+                        ],
+                        cluster_description["resourcesVpcConfig"][
+                            "endpointPublicAccess"
+                        ],
+                    ),
+                    description=(
+                        "src.lib_path.f165."
+                        "dynamob_encrypted_with_aws_master_keys"
+                    ),
+                ),
+            ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=cluster_description,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -296,4 +355,5 @@ CHECKS: tuple[
     has_not_support_role,
     has_root_active_signing_certificates,
     dynamob_encrypted_with_aws_master_keys,
+    eks_has_endpoints_publicly_accessible,
 )
