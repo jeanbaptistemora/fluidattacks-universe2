@@ -9,9 +9,8 @@ import { RootField } from "./RootField";
 import type { IFormValues, IHandleAdditionModalFormProps, Root } from "./types";
 import { getGitRootHost, getUrlRootHost, isGitRoot, isURLRoot } from "./utils";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100, Col50 } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
@@ -52,22 +51,22 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   return (
     <Form id={"addToeInput"}>
       <Row>
-        <Col50>
+        <Col>
           <RootField roots={roots} />
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           <EnvironmentUrlField selectedRoot={selectedRoot} />
-        </Col50>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <ComponentField host={host} />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <EntryPointField />
-        </Col100>
+        </Col>
       </Row>
       <ModalConfirm onCancel={handleCloseModal} onConfirm={submitForm} />
     </Form>
