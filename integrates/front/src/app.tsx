@@ -126,7 +126,6 @@ if (environment === "production") {
     allowedTracingUrls: [
       {
         match: window.location.origin,
-        propagatorTypes: ["tracecontext"],
       },
     ],
     applicationId: "a84672b1-d59e-4902-b174-e156175139b8",

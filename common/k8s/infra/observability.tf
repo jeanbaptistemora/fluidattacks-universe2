@@ -88,6 +88,9 @@ resource "helm_release" "datadog" {
           }
         }
         datadog = {
+          apm = {
+            portEnabled = true
+          }
           dogstatsd = {
             nonLocalTraffic = true
             port            = 8135
