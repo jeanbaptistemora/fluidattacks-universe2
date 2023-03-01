@@ -1,9 +1,6 @@
 from collections.abc import (
     Iterator,
 )
-from lib_root.utilities.common import (
-    search_method_invocation_naive,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -21,6 +18,9 @@ from sast.query import (
 from symbolic_eval.evaluate import (
     evaluate,
 )
+from symbolic_eval.types import (
+    Path,
+)
 from symbolic_eval.utils import (
     get_backward_paths,
 )
@@ -29,24 +29,28 @@ from utils import (
 )
 
 
-def has_cannonical_check(graph: Graph, symbol: str) -> NId | None:
-    for node in search_method_invocation_naive(graph, {"getCanonicalPath"}):
+def has_cannonical_check(graph: Graph, file_name: str, path: Path) -> bool:
+    for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+        n_attrs = graph.nodes[n_id]
         if (
-            graph.nodes[graph.nodes[node].get("object_id")].get("symbol")
-            == symbol
+            n_attrs["expression"] == "getCanonicalPath"
+            and (obj_id := graph.nodes[n_id].get("object_id"))
+            and graph.nodes[obj_id].get("symbol") == file_name
+            and g.pred(graph, n_id)[0] in path
         ):
-            return g.pred(graph, node)[0]
-    return None
+            return True
+    return False
 
 
-def is_argument_safe(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
+def is_argument_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     symbol = graph.nodes[n_id].get("symbol")
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if (
             evaluation
+            and evaluation.danger
             and evaluation.triggers == {"ZipFile"}
-            and (has_cannonical_check(graph, symbol) in path)
+            and not has_cannonical_check(graph, symbol, path)
         ):
             return True
     return False
@@ -68,7 +72,7 @@ def zip_slip_injection(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_ZIP_SLIP_PATH_INJECTION
-    read_entry = {"readFileToString"}
+    danger_methods = {"readFileToString"}
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -77,13 +81,15 @@ def zip_slip_injection(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
-            for nid in search_method_invocation_naive(graph, read_entry):
-                if (args_id := graph.nodes[nid].get("arguments_id")) and (
-                    (test_id := g.match_ast(graph, args_id).get("__0__"))
-                    and not is_argument_safe(graph, test_id, method)
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["expression"] in danger_methods
+                    and (al_id := n_attrs.get("arguments_id"))
+                    and (test_id := g.match_ast(graph, al_id).get("__0__"))
+                    and is_argument_danger(graph, test_id, method)
                 ):
-                    yield shard, nid
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f063.zip_slip_path_injection",

@@ -33,4 +33,10 @@ class zip_slip {
 
         return filesContent;
     }
+
+    public static List<String> zipSlipCompliant2(String path, String targetDirectory) {
+        File file = new File(pathFile);
+        String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8); // Compliant
+        return content;
+    }
 }
