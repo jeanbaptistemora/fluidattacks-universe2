@@ -2,7 +2,6 @@
 
 from collections.abc import (
     Callable,
-    Mapping,
 )
 from datetime import (
     datetime,
@@ -45,13 +44,13 @@ SHIELD: Callable[[TFun], TFun] = shield(
 async def get_findings(
     group: str, **kwargs: str
 ) -> tuple[dict[str, Any], ...]:
-    """Returns the findings of a group.
+    """Gets the findings of a group.
 
     Args:
         `group (str)`: Group name
 
     Returns:
-        `tuple[dict[str, Any]]`: A tuple with the findings of a group
+        `tuple[dict[str, Any, ...]]`: A tuple with the findings of a group
     """
     query = """
         query ForcesDoGetGroupFindings($group_name: String!) {
@@ -85,10 +84,13 @@ async def get_findings(
 async def get_vulnerabilities(
     config: ForcesConfig, **kwargs: str
 ) -> tuple[dict[str, Any], ...]:
-    """
-    Returns the vulnerabilities of a group.
+    """Gets the vulnerabilities of a group.
 
-    :param `config`: Forces config.
+    Args:
+        `config (ForcesConfig)`: The current Forces config
+
+    Returns:
+        `tuple[dict[str, Any, ...]]`: A tuple with the vulns of a group
     """
     vulnerabilities: list[dict[str, Any]] = []
     query = """
@@ -187,20 +189,23 @@ async def get_vulnerabilities(
 async def upload_report(  # pylint: disable=too-many-arguments
     config: ForcesConfig,
     execution_id: str,
-    git_metadata: Mapping[str, str],
+    git_metadata: dict[str, str],
     log_file: str,
     report: ForcesData,
     exit_code: str,
 ) -> bool:
-    """
-    Upload report execution to Integrates.
+    """Upload report to ARM
 
-    :param `config`: Current Forces config
-    :param `execution_id`: ID of forces execution.
-    :param `git_metadata`: Repository metadata.
-    :param `log`: Forces execution log.
-    :param `report`: Forces execution report.
-    :param `exit_code`: Exit code.
+    Args:
+        `config (ForcesConfig)`: The current Forces config
+        `execution_id (str)`: ID of forces execution.
+        `git_metadata (dict[str, str])`: Repository metadata.
+        `log (str)`: Forces execution log.
+        `report (ForcesData)`: Forces execution report.
+        `exit_code (str)`: Exit code.
+
+    Returns:
+        `bool`: Report upload status
     """
     mutation = """
         mutation ForcesDoUploadReport(
@@ -298,8 +303,17 @@ async def upload_report(  # pylint: disable=too-many-arguments
 
 @SHIELD
 async def get_groups_access(
-    **kwargs: Any,
+    api_token: str,
 ) -> tuple[dict[str, Any], ...]:
+    """Gets the relevant user and org data from the token
+
+    Args:
+        `api_token (str)`: Forces ARM API token
+
+    Returns:
+        `tuple[dict[str, Any], ...]`: A tuple of dicts with the group data the
+        user has access to
+    """
     query = """
         query ForcesGetMeGroups {
           me {
@@ -325,7 +339,7 @@ async def get_groups_access(
         ] = await execute(
             query,
             operation_name="ForcesGetMeGroups",
-            **kwargs,
+            api_token=api_token,
         )
     except ApiError as exc:
         if (
@@ -347,7 +361,16 @@ async def get_groups_access(
 
 async def get_git_remotes(
     group: str, **kwargs: object
-) -> list[dict[str, str]]:
+) -> tuple[dict[str, str], ...]:
+    """Gets the git root information of the group
+
+    Args:
+        `group (str)`: Group name
+
+    Returns:
+        `list[dict[str, str]]`: A tuple of dicts with the git root information:
+        (`url`, `state` and `nickname`)
+    """
     query = """
         query ForcesGetGitRoots($group: String!) {
           group(groupName: $group){
@@ -368,13 +391,23 @@ async def get_git_remotes(
         **kwargs,
     )
 
-    return response["group"]["roots"]
+    return tuple(response["group"]["roots"])
 
 
 async def get_forces_user_and_org_data(
-    **kwargs: object,
+    api_token: str,
 ) -> tuple[str | None, str | None, float | None, int | None]:
-    groups = await get_groups_access(**kwargs)
+    """Gets the relevant forces user and org data from the group access info
+
+    Args:
+        `api_token (str)`: Forces ARM API token
+
+    Returns:
+        `tuple[str | None, str | None, float | None, int | None]`: A tuple
+        with the (`org_name`, `group_name`, `arm_severity_policy`,
+        `grace_period`)
+    """
+    groups = await get_groups_access(api_token)
     for group in groups:
         if group["userRole"] == "service_forces":
             return (

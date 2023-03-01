@@ -101,6 +101,9 @@ async def compile_raw_report(
     for vuln in await get_vulnerabilities(config, **kwargs):
         find_id: str = str(vuln["findingId"])
 
+        if find_id not in findings_dict:
+            continue
+
         vulnerability: Vulnerability = Vulnerability(
             type=(
                 VulnerabilityType.SAST
