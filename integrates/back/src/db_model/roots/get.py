@@ -148,7 +148,11 @@ class GroupRootsLoader(DataLoader[str, list[Root]]):
         )
 
 
-async def _get_organization_roots(*, organization_name: str) -> list[Root]:
+async def _get_organization_roots(
+    *,
+    organization_name: str,
+    root_dataloader: RootLoader,
+) -> list[Root]:
     primary_key = keys.build_key(
         facet=ORG_INDEX_METADATA,
         values={"name": organization_name},
@@ -170,17 +174,32 @@ async def _get_organization_roots(*, organization_name: str) -> list[Root]:
         table=TABLE,
     )
 
-    return [format_root(item) for item in response.items]
+    roots: list[Root] = []
+    for item in response.items:
+        root = format_root(item)
+        roots.append(root)
+        root_dataloader.prime(
+            RootRequest(group_name=root.group_name, root_id=root.id), root
+        )
+
+    return roots
 
 
 class OrganizationRootsLoader(DataLoader[str, list[Root]]):
+    def __init__(self, dataloader: RootLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_names: Iterable[str]
     ) -> list[list[Root]]:
         return list(
             await collect(
-                _get_organization_roots(organization_name=organization_name)
+                _get_organization_roots(
+                    organization_name=organization_name,
+                    root_dataloader=self.dataloader,
+                )
                 for organization_name in organization_names
             )
         )

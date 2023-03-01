@@ -324,6 +324,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
 
     root_loader = RootLoader()
     group_roots_loader = GroupRootsLoader(root_loader)
+    organization_roots_loader = OrganizationRootsLoader(root_loader)
 
     return Dataloaders(
         compliance_unreliable_indicators=(
@@ -386,7 +387,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         organization_finding_policies=organization_finding_policies_loader,
         organization_portfolios=organization_portfolios_loader,
         organization_credentials=OrganizationCredentialsLoader(),
-        organization_roots=OrganizationRootsLoader(),
+        organization_roots=organization_roots_loader,
         organization_stakeholders_access=(
             organization_stakeholders_access_loader
         ),
