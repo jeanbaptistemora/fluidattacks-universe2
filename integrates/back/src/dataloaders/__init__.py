@@ -263,6 +263,7 @@ def apply_context_attrs(
 
 def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     group_drafts_and_findings_loader = GroupDraftsAndFindingsLoader()
+    group_drafts_loader = GroupDraftsLoader(group_drafts_and_findings_loader)
     group_findings_loader = GroupFindingsLoader(
         group_drafts_and_findings_loader
     )
@@ -366,7 +367,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         group_access=group_access_loader,
         group_historic_access=GroupHistoricAccessLoader(),
         group_comments=GroupCommentsLoader(),
-        group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
+        group_drafts=group_drafts_loader,
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=group_events_loader,
         group_findings=group_findings_loader,

@@ -26,10 +26,50 @@ from dynamodb import (
 )
 
 
+async def _get_portfolios(
+    *, requests: Iterable[PortfolioRequest]
+) -> list[Portfolio | None]:
+    requests_formatted = list(
+        request._replace(
+            organization_name=request.organization_name.lower().strip()
+        )
+        for request in requests
+    )
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["portfolio_metadata"],
+            values={
+                "id": request.portfolio_id,
+                "name": request.organization_name,
+            },
+        )
+        for request in requests_formatted
+    )
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+    response = {
+        PortfolioRequest(
+            organization_name=portfolio.organization_name,
+            portfolio_id=portfolio.id,
+        ): portfolio
+        for portfolio in [format_portfolio(item) for item in items]
+    }
+
+    return [response.get(request) for request in requests_formatted]
+
+
+class PortfolioLoader(DataLoader[PortfolioRequest, Portfolio | None]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[PortfolioRequest]
+    ) -> list[Portfolio | None]:
+        return await _get_portfolios(requests=requests)
+
+
 async def _get_organization_portfolios(
     *,
     organization_name: str,
-    portfolio_dataloader: DataLoader,
+    portfolio_dataloader: PortfolioLoader,
 ) -> list[Portfolio]:
     organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
@@ -65,40 +105,8 @@ async def _get_organization_portfolios(
     return portfolio_list
 
 
-async def _get_portfolios(
-    *, requests: Iterable[PortfolioRequest]
-) -> list[Portfolio | None]:
-    requests_formatted = list(
-        request._replace(
-            organization_name=request.organization_name.lower().strip()
-        )
-        for request in requests
-    )
-    primary_keys = tuple(
-        keys.build_key(
-            facet=TABLE.facets["portfolio_metadata"],
-            values={
-                "id": request.portfolio_id,
-                "name": request.organization_name,
-            },
-        )
-        for request in requests_formatted
-    )
-    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
-
-    response = {
-        PortfolioRequest(
-            organization_name=portfolio.organization_name,
-            portfolio_id=portfolio.id,
-        ): portfolio
-        for portfolio in [format_portfolio(item) for item in items]
-    }
-
-    return [response.get(request) for request in requests_formatted]
-
-
 class OrganizationPortfoliosLoader(DataLoader[str, list[Portfolio]]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: PortfolioLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
@@ -115,11 +123,3 @@ class OrganizationPortfoliosLoader(DataLoader[str, list[Portfolio]]):
                 for organization_name in organization_names
             )
         )
-
-
-class PortfolioLoader(DataLoader[PortfolioRequest, Portfolio | None]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, requests: Iterable[PortfolioRequest]
-    ) -> list[Portfolio | None]:
-        return await _get_portfolios(requests=requests)

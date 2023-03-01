@@ -55,9 +55,19 @@ async def _get_organization_finding_policy(
     return [response.get(request) for request in requests]
 
 
+class OrganizationFindingPolicyLoader(
+    DataLoader[OrgFindingPolicyRequest, OrgFindingPolicy | None]
+):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[OrgFindingPolicyRequest]
+    ) -> list[OrgFindingPolicy | None]:
+        return await _get_organization_finding_policy(requests=requests)
+
+
 async def _get_organization_finding_policies(
     *,
-    policy_dataloader: DataLoader,
+    policy_dataloader: OrganizationFindingPolicyLoader,
     organization_name: str,
 ) -> list[OrgFindingPolicy]:
     primary_key = keys.build_key(
@@ -95,20 +105,10 @@ async def _get_organization_finding_policies(
     return policies_list
 
 
-class OrganizationFindingPolicyLoader(
-    DataLoader[OrgFindingPolicyRequest, OrgFindingPolicy | None]
-):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, requests: Iterable[OrgFindingPolicyRequest]
-    ) -> list[OrgFindingPolicy | None]:
-        return await _get_organization_finding_policy(requests=requests)
-
-
 class OrganizationFindingPoliciesLoader(
     DataLoader[str, list[OrgFindingPolicy]]
 ):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: OrganizationFindingPolicyLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
