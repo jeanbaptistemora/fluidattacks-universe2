@@ -16,13 +16,13 @@ RESOURCE_OPTIONS = {
     "config": AioConfig(
         # The time in seconds till a timeout exception is thrown when
         # attempting to make a connection. [60]
-        connect_timeout=15,
+        connect_timeout=60,
         # Maximum amount of simultaneously opened connections. [10]
         # https://docs.aiohttp.org/en/stable/client_advanced.html#limiting-connection-pool-size
         max_pool_connections=2000,
         # The time in seconds till a timeout exception is thrown when
         # attempting to read from a connection. [60]
-        read_timeout=30,
+        read_timeout=60,
         # https://boto3.amazonaws.com/v1/documentation/api/latest/guide/retries.html
         retries={"max_attempts": 10, "mode": "standard"},
         # Signature version for signing URLs
