@@ -149,7 +149,7 @@
       "schedulers.consulting_digest_notification.main"
     ];
 
-    schedule_expression = "cron(0 10 ? * 2-6 *)";
+    schedule_expression = "cron(0 11,19 ? * 2-6 *)";
     size = "integrates_nano";
     awsRole = "prod_integrates";
     attempts = 3;
