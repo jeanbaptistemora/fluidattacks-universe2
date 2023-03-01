@@ -10,6 +10,9 @@ from context import (
     FI_AZURE_OAUTH2_REPOSITORY_APP_ID,
     FI_AZURE_OAUTH2_REPOSITORY_SECRET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -32,9 +35,6 @@ from newutils.datetime import (
 import pytz
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -100,7 +100,7 @@ async def get_azure_refresh_token(
 async def get_azure_token(
     *,
     credential: Credentials,
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> str | None:
     if not isinstance(credential.state.secret, OauthAzureSecret):
         return None

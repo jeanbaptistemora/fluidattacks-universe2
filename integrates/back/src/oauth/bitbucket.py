@@ -11,6 +11,9 @@ from context import (
     FI_BITBUCKET_OAUTH2_REPOSITORY_APP_ID,
     FI_BITBUCKET_OAUTH2_REPOSITORY_SECRET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -33,9 +36,6 @@ from newutils.datetime import (
 import pytz
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 from urllib.parse import (
     urlencode,
@@ -107,7 +107,7 @@ async def get_bitbucket_refresh_token(
 async def get_bitbucket_token(
     *,
     credential: Credentials,
-    loaders: Any,
+    loaders: Dataloaders,
 ) -> str | None:
     if not isinstance(credential.state.secret, OauthBitbucketSecret):
         return None

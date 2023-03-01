@@ -4,6 +4,9 @@ from context import (
     FI_GITLAB_OAUTH2_APP_ID,
     FI_GITLAB_OAUTH2_SECRET,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -18,9 +21,6 @@ from db_model.credentials.update import (
 )
 import json
 import pytz
-from typing import (
-    Any,
-)
 
 GITLAB_AUTHZ_URL = "https://gitlab.com/oauth/authorize"
 GITLAB_REFRESH_URL = "https://gitlab.com/oauth/token"
@@ -74,7 +74,11 @@ async def get_refresh_token(
     return None
 
 
-async def get_token(*, credential: Credentials, loaders: Any) -> str | None:
+async def get_token(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+) -> str | None:
     if not isinstance(credential.state.secret, OauthGitlabSecret):
         return None
 
