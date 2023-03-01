@@ -3,7 +3,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_session,
 )
 from custom_exceptions import (
-    InvalidRange,
     InvalidSchema,
     UnableToSendSms,
 )
@@ -13,9 +12,6 @@ from dataloaders import (
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
-)
-from newutils.vulnerabilities import (
-    range_to_list,
 )
 import pytest
 from sms.common import (
@@ -45,12 +41,6 @@ pytestmark = [
 
 BUCKET_NAME = "unit_test_bucket"
 TABLE_NAME = "integrates_vms"
-
-
-def test_invalid_range_to_list() -> None:
-    bad_range_value = "13-12"
-    with pytest.raises(InvalidRange):
-        assert range_to_list(bad_range_value)
 
 
 @mock.patch(

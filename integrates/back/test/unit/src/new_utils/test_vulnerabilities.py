@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    InvalidRange,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -181,12 +184,20 @@ def test_is_sequence() -> None:
         assert not is_sequence(no_secuence_value)
 
 
-def test_range_to_list() -> None:
-    range_value = "10-15"
-    test_data = range_to_list(range_value)
-    expected_output = ["10", "11", "12", "13", "14", "15"]
-    assert isinstance(test_data, list)
-    assert test_data == expected_output
+@pytest.mark.parametrize(
+    ["range_value", "expected_output", "range_to_raise_exception"],
+    [["10-15", ["10", "11", "12", "13", "14", "15"], "13-12"]],
+)
+def test_range_to_list(
+    range_value: str,
+    expected_output: list,
+    range_to_raise_exception: str,
+) -> None:
+    result = range_to_list(range_value)
+    assert isinstance(result, list)
+    assert result == expected_output
+    with pytest.raises(InvalidRange):
+        assert range_to_list(range_to_raise_exception)
 
 
 def test_sort_vulnerabilities() -> None:
