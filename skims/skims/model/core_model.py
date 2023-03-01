@@ -5004,6 +5004,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    PYTHON_LDAP_CONN_AUTH = MethodInfo(
+        file_name="python",
+        name="python_unsafe_ldap_connections",
+        module="lib_root",
+        finding=FindingEnum.F320,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     AWS_IAM_HAS_PRIVILEGES_OVER_IAM = MethodInfo(
         file_name="aws",
         name="iam_has_privileges_over_iam",

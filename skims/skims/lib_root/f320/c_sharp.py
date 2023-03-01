@@ -39,7 +39,7 @@ def is_node_danger(graph: Graph, nid: NId) -> bool:
     return False
 
 
-def ldap_connections_authenticated(
+def cs_ldap_connections_authenticated(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_LDAP_CONN_AUTH

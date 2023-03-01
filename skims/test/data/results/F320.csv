@@ -33,3 +33,103 @@ F320,lines,namespace/skims/test/data/lib_root/f320/c_sharp_insecure_ldap.cs,9,90
   13 |
      ^ Col 45
 ",c_sharp.csharp_ldap_connections_authenticated
+F320,lines,namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py,12,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py","
+   1 | # pylint: skip-file
+   2 | import ldap
+   3 | import os
+   4 |
+   5 |
+   6 | def unsafe_ldap() -> None:
+   7 |     server = ldap.initialize(""ldap://example:1389"")
+   8 |     # Noncompliant: No password, or stored directly as plain text
+   9 |     server.simple_bind(""cn=root"")
+  10 |     server.simple_bind_s(""cn=root"")
+  11 |     server.bind_s(""cn=root"", None)
+> 12 |     server.bind(""cn=root"", ""1234"")
+  13 |
+  14 |
+  15 | def safe_ldap(password: str) -> None:
+  16 |     connect = ldap.initialize(""ldap://example:1389"")
+  17 |     # Compliant, undeterministic password is used to bind the connection
+  18 |     connect.simple_bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  19 |     connect.simple_bind_s(""cn=root"", password)
+  20 |     connect.bind_s(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  21 |     connect.bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+     ^ Col 0
+",python.python_unsafe_ldap_connections
+F320,lines,namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py,11,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py","
+   1 | # pylint: skip-file
+   2 | import ldap
+   3 | import os
+   4 |
+   5 |
+   6 | def unsafe_ldap() -> None:
+   7 |     server = ldap.initialize(""ldap://example:1389"")
+   8 |     # Noncompliant: No password, or stored directly as plain text
+   9 |     server.simple_bind(""cn=root"")
+  10 |     server.simple_bind_s(""cn=root"")
+> 11 |     server.bind_s(""cn=root"", None)
+  12 |     server.bind(""cn=root"", ""1234"")
+  13 |
+  14 |
+  15 | def safe_ldap(password: str) -> None:
+  16 |     connect = ldap.initialize(""ldap://example:1389"")
+  17 |     # Compliant, undeterministic password is used to bind the connection
+  18 |     connect.simple_bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  19 |     connect.simple_bind_s(""cn=root"", password)
+  20 |     connect.bind_s(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  21 |     connect.bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+     ^ Col 0
+",python.python_unsafe_ldap_connections
+F320,lines,namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py,10,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py","
+   1 | # pylint: skip-file
+   2 | import ldap
+   3 | import os
+   4 |
+   5 |
+   6 | def unsafe_ldap() -> None:
+   7 |     server = ldap.initialize(""ldap://example:1389"")
+   8 |     # Noncompliant: No password, or stored directly as plain text
+   9 |     server.simple_bind(""cn=root"")
+> 10 |     server.simple_bind_s(""cn=root"")
+  11 |     server.bind_s(""cn=root"", None)
+  12 |     server.bind(""cn=root"", ""1234"")
+  13 |
+  14 |
+  15 | def safe_ldap(password: str) -> None:
+  16 |     connect = ldap.initialize(""ldap://example:1389"")
+  17 |     # Compliant, undeterministic password is used to bind the connection
+  18 |     connect.simple_bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  19 |     connect.simple_bind_s(""cn=root"", password)
+  20 |     connect.bind_s(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  21 |     connect.bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+     ^ Col 0
+",python.python_unsafe_ldap_connections
+F320,lines,namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py,9,90,skims,320. Insecure service configuration - LDAP,"LDAP connections should be authenticated
+ in namespace/skims/test/data/lib_root/f320/python_unsafe_ldap.py","
+   1 | # pylint: skip-file
+   2 | import ldap
+   3 | import os
+   4 |
+   5 |
+   6 | def unsafe_ldap() -> None:
+   7 |     server = ldap.initialize(""ldap://example:1389"")
+   8 |     # Noncompliant: No password, or stored directly as plain text
+>  9 |     server.simple_bind(""cn=root"")
+  10 |     server.simple_bind_s(""cn=root"")
+  11 |     server.bind_s(""cn=root"", None)
+  12 |     server.bind(""cn=root"", ""1234"")
+  13 |
+  14 |
+  15 | def safe_ldap(password: str) -> None:
+  16 |     connect = ldap.initialize(""ldap://example:1389"")
+  17 |     # Compliant, undeterministic password is used to bind the connection
+  18 |     connect.simple_bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  19 |     connect.simple_bind_s(""cn=root"", password)
+  20 |     connect.bind_s(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+  21 |     connect.bind(""cn=root"", os.environ.get(""LDAP_PASSWORD""))
+     ^ Col 0
+",python.python_unsafe_ldap_connections
