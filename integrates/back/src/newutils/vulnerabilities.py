@@ -8,9 +8,6 @@ from collections import (
 from collections.abc import (
     Iterable,
 )
-from contextlib import (
-    suppress,
-)
 from custom_exceptions import (
     AlreadyOnHold,
     AlreadyRequested,
@@ -21,7 +18,6 @@ from custom_exceptions import (
     NotVerificationRequested,
     NotZeroRiskRequested,
     OutdatedRepository,
-    RootNotFound,
     ToeInputNotFound,
     ToeLinesNotFound,
     ToePortNotFound,
@@ -658,18 +654,19 @@ def validate_closed(vulnerability: Vulnerability) -> Vulnerability:
 
 
 async def validate_requested_verification(
-    loaders: Any,
+    loaders: Dataloaders,
     vulnerability: Vulnerability,
     is_closing_event: bool = False,
 ) -> Vulnerability:
     """Validate if the vulnerability is not requested. If no Event is being
-    closed, vulnerabilities on hold count as requested"""
+    closed, vulnerabilities on hold count as requested."""
     if (
         vulnerability.verification
         and vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
     ):
         raise AlreadyRequested()
+
     if (
         (not is_closing_event)
         and vulnerability.verification
@@ -677,21 +674,20 @@ async def validate_requested_verification(
         == VulnerabilityVerificationStatus.ON_HOLD
     ):
         raise AlreadyRequested()
+
     if vulnerability.type == VulnerabilityType.LINES and vulnerability.root_id:
-        with suppress(RootNotFound):
-            root: GitRoot = await loaders.root.load(
-                RootRequest(vulnerability.group_name, vulnerability.root_id)
-            )
-            if (
-                isinstance(root, GitRoot)
-                and root.cloning.commit == vulnerability.state.commit
-                and root.cloning.commit_date
-                and (
-                    datetime.now(timezone.utc) - root.cloning.commit_date
-                ).seconds
-                > (3600 * 20)
-            ):
-                raise OutdatedRepository()
+        root = await loaders.root.load(
+            RootRequest(vulnerability.group_name, vulnerability.root_id)
+        )
+        if (
+            root is not None
+            and isinstance(root, GitRoot)
+            and root.cloning.commit == vulnerability.state.commit
+            and root.cloning.commit_date
+            and (datetime.now(timezone.utc) - root.cloning.commit_date).seconds
+            > (3600 * 20)
+        ):
+            raise OutdatedRepository()
 
     return vulnerability
 

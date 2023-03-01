@@ -89,6 +89,7 @@ __all__ = [
     "send_treatment_change_mail",
     "send_treatment_report_mail",
     "update_vulnerabilities_treatment",
+    # validations
     "validate_accepted_treatment_change",
     # verification
     "get_efficacy",
