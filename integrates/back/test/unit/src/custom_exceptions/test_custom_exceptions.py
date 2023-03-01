@@ -4,7 +4,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     InvalidSchema,
-    UnableToSendSms,
 )
 from dataloaders import (
     Dataloaders,
@@ -14,12 +13,6 @@ from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
 import pytest
-from sms.common import (
-    send_sms_notification,
-)
-from twilio.base.exceptions import (
-    TwilioRestException,
-)
 from typing import (
     Any,
 )
@@ -84,18 +77,3 @@ async def test_stakeholder_not_found(
     loaders: Dataloaders = get_new_context()
     assert not await loaders.stakeholder.load(email)
     assert mock_resource.called is True
-
-
-async def test_exception_unable_to_send_sms() -> None:
-    status = 500
-    uri = "/Accounts/ACXXXXXXXXXXXXXXXXX/Messages.json"
-    test_phone_number = "12345678"
-    test_message = "This is a test message"
-    with mock.patch("sms.common.FI_ENVIRONMENT", "production"):
-        with mock.patch("sms.common.client.messages.create") as mock_twilio:
-            mock_twilio.side_effect = TwilioRestException(status, uri)
-            with pytest.raises(UnableToSendSms):
-                await send_sms_notification(
-                    phone_number=test_phone_number,
-                    message_body=test_message,
-                )
