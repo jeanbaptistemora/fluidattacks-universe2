@@ -71,7 +71,7 @@ mail_treatment_alert = retry_on_exceptions(
 class ExpiringDataType(TypedDict):
     org_name: str
     email_to: tuple[str, ...]
-    group_expiring_findings: dict[str, dict[str, dict[str, int]]]
+    group_expiring_findings: tuple[tuple[str, dict[str, dict[str, int]]], ...]
 
 
 def days_to_end(date: datetime) -> int:
@@ -118,19 +118,19 @@ async def expiring_vulnerabilities(
 
 async def findings_close_to_expiring(
     loaders: Dataloaders, group_name: str
-) -> dict[str, dict[str, dict[str, int]]]:
+) -> tuple[tuple[str, dict[str, dict[str, int]]], ...]:
     findings = await loaders.group_findings.load(group_name)
-    finding_types = (finding.title for finding in findings)
+    finding_types = list(finding.title for finding in findings)
     vulnerabilities = await collect(
         [expiring_vulnerabilities(loaders, finding) for finding in findings]
     )
 
-    findings_to_expiring = dict(zip(finding_types, vulnerabilities))
-    return {
-        finding_type: data
-        for (finding_type, data) in findings_to_expiring.items()
+    findings_to_expiring = list(zip(finding_types, vulnerabilities))
+    return tuple(
+        (finding_type, data)
+        for finding_type, data in findings_to_expiring
         if list(data.values())[0]
-    }
+    )
 
 
 def unique_emails(
@@ -187,8 +187,11 @@ async def send_temporal_treatment_report() -> None:
                 ExpiringDataType(
                     org_name=org_name,
                     email_to=tuple(email_to),
-                    group_expiring_findings=dict(
-                        sorted(expiring_findings.items())
+                    group_expiring_findings=tuple(
+                        sorted(
+                            expiring_findings,
+                            key=lambda exp_finding: exp_finding[0],
+                        )
                     ),
                 )
                 for org_name, email_to, expiring_findings in zip(
@@ -203,7 +206,7 @@ async def send_temporal_treatment_report() -> None:
     groups_data = {
         group_name: data
         for (group_name, data) in groups_data.items()
-        if data["email_to"] and data["group_expiring_findings"].values()
+        if data["email_to"] and data["group_expiring_findings"]
     }
 
     for email in unique_emails(dict(groups_data), ()):
@@ -211,15 +214,16 @@ async def send_temporal_treatment_report() -> None:
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],
-                    "finding_title": list(
-                        data["group_expiring_findings"].keys()
-                    ),
-                    "group_expiring_findings": list(
-                        data["group_expiring_findings"].values()
-                    ),
+                    "finding_title": list(findings_data[0]),
+                    "group_expiring_findings": list(findings_data[1]),
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
+                and (
+                    findings_data := tuple(
+                        zip(*data["group_expiring_findings"])
+                    )
+                )
             }
         }
 
