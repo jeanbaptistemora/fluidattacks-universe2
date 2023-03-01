@@ -203,3 +203,17 @@ resource "cloudflare_record" "pic_domainkey" {
   ttl     = 1
   proxied = false
 }
+
+resource "cloudflare_page_rule" "redirect_landing" {
+  zone_id  = data.cloudflare_zone.fluidattacks_com.id
+  target   = "landing.${data.cloudflare_zone.fluidattacks_com.name}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    forwarding_url {
+      url         = "https://try.${cloudflare_zone.fluidattacks_tech.zone}/$1"
+      status_code = 301
+    }
+  }
+}
