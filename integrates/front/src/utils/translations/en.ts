@@ -3871,6 +3871,8 @@ export const enTranslations: ResourceKey = {
             "The line '{{line}}' does not exist in the range of 0 and lines of code from the lines surface, error is located at '{{path}}'\n",
           linesPathDoesNotExist:
             "Path for the new vulnerabilities of lines type must exist on the lines surface, error is located at '{{path}}'\n",
+          missingFindingInfo:
+            "Please provide {{missingFields}} before updating\n",
           value:
             "Value is invalid, pattern '{{pattern}}' is not followed at '{{path}}'.\n",
         },

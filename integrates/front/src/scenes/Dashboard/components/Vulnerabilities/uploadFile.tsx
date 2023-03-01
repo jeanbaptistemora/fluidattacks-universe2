@@ -152,6 +152,14 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         } else {
           msgError(t("groupAlerts.invalidSchema"));
         }
+      } else if (
+        _.includes(message, "Exception - This finding has missing fields")
+      ) {
+        msgError(
+          t("searchFindings.tabVuln.alerts.uploadFile.missingFindingInfo", {
+            missingFields: message.split("fields: ")[1],
+          })
+        );
       } else {
         handleFinalElse(message);
       }
