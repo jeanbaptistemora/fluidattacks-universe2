@@ -1,6 +1,8 @@
 import yaml from "js-yaml";
 import _ from "lodash";
 
+import type { IUnfulfilledRequirement } from "./types";
+
 import type {
   IRequirementData,
   IVulnData,
@@ -17,6 +19,22 @@ const formatFindingType: (type: string) => string = (type: string): string =>
   _.isEmpty(type)
     ? "-"
     : translate.t(`searchFindings.tabDescription.type.${type.toLowerCase()}`);
+
+function formatRequirements(
+  requirements: string[],
+  criteriaData: Record<string, IRequirementData> | undefined
+): IUnfulfilledRequirement[] {
+  if (criteriaData === undefined || _.isEmpty(requirements)) {
+    return [];
+  }
+  const requirementsData: IUnfulfilledRequirement[] = requirements.map(
+    (key: string): IUnfulfilledRequirement => {
+      return { id: key, summary: criteriaData[key].en.summary };
+    }
+  );
+
+  return requirementsData;
+}
 
 function getRequirementsText(
   requirements: string[],
@@ -70,6 +88,7 @@ const getVulnsData = async (): Promise<
 
 export {
   formatFindingType,
+  formatRequirements,
   getRequerimentsData,
   getRequirementsText,
   getVulnsData,
