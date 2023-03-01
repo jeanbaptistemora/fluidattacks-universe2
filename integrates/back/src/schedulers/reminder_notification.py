@@ -59,7 +59,8 @@ async def send_reminder_notification() -> None:
         stakeholder
         for org_id in orgs_ids
         for stakeholder in await orgs_domain.get_stakeholders(loaders, org_id)
-        if (
+        if stakeholder
+        and (
             stakeholder.last_login_date
             and (
                 datetime_utils.get_utc_now() - stakeholder.last_login_date

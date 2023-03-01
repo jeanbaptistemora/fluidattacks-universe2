@@ -95,7 +95,8 @@ async def process_organization(
     inactive_stakeholders = [
         stakeholder
         for stakeholder in org_stakeholders
-        if stakeholder.last_login_date
+        if stakeholder
+        and stakeholder.last_login_date
         and (
             datetime_utils.get_utc_now() - _get_last_activity(stakeholder)
         ).days

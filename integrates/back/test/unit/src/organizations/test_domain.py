@@ -267,7 +267,7 @@ async def test_get_stakeholders() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     org_stakeholders = await get_stakeholders(loaders, org_id)
     org_stakeholders_emails = sorted(
-        [stakeholder.email for stakeholder in org_stakeholders]
+        [stakeholder.email for stakeholder in org_stakeholders if stakeholder]
     )
 
     expected_emails = [

@@ -569,11 +569,11 @@ async def get_stakeholders(
     loaders: Dataloaders,
     organization_id: str,
     user_email: str | None = None,
-) -> list[Stakeholder]:
+) -> list[Stakeholder | None]:
     emails = await get_stakeholders_emails(loaders, organization_id)
 
     if user_email and not validations_utils.is_fluid_staff(user_email):
-        return await loaders.stakeholder_with_fallback.load_many(
+        return await loaders.stakeholder.load_many(
             [
                 email
                 for email in emails
@@ -581,7 +581,7 @@ async def get_stakeholders(
             ]
         )
 
-    return await loaders.stakeholder_with_fallback.load_many(emails)
+    return await loaders.stakeholder.load_many(emails)
 
 
 async def has_group(
@@ -783,19 +783,22 @@ async def remove_access(
         organization_id=organization_id,
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
-    stakeholder = await loaders.stakeholder_with_fallback.load(email)
-    LOGGER.info(
-        "Stakeholder removed from organization",
-        extra={
-            "extra": {
-                "email": email,
-                "modified_by": modified_by,
-                "organization_id": organization_id,
-                "last_login_date": stakeholder.last_login_date,
-                "last_api_token_use_date": stakeholder.last_api_token_use_date,
-            }
-        },
-    )
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder:
+        LOGGER.info(
+            "Stakeholder removed from organization",
+            extra={
+                "extra": {
+                    "email": email,
+                    "modified_by": modified_by,
+                    "organization_id": organization_id,
+                    "last_login_date": stakeholder.last_login_date,
+                    "last_api_token_use_date": (
+                        stakeholder.last_api_token_use_date
+                    ),
+                }
+            },
+        )
 
     loaders = get_new_context()
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
@@ -1088,7 +1091,8 @@ async def send_mail_policies(
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in org_stakeholders
-        if await get_stakeholder_role(
+        if stakeholder
+        and await get_stakeholder_role(
             loaders,
             stakeholder.email,
             stakeholder.is_registered,
@@ -1121,7 +1125,8 @@ async def send_mail_reassigned_credentials_owner(
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in org_stakeholders
-        if await get_stakeholder_role(
+        if stakeholder
+        and await get_stakeholder_role(
             loaders,
             stakeholder.email,
             stakeholder.is_registered,

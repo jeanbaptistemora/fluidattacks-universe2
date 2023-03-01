@@ -31,7 +31,7 @@ async def test_remove_inactive_stakeholders() -> None:
     org_id = organization.id
     org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
-        stakeholder.email for stakeholder in org_stakeholders
+        stakeholder.email for stakeholder in org_stakeholders if stakeholder
     ]
     assert org_stakeholders_emails == [
         "active_imamura3@fluidattacks.com",  # NOSONAR
@@ -56,7 +56,7 @@ async def test_remove_inactive_stakeholders() -> None:
     loaders = get_new_context()
     org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
-        stakeholder.email for stakeholder in org_stakeholders
+        stakeholder.email for stakeholder in org_stakeholders if stakeholder
     ]
     assert org_stakeholders_emails == [
         "active_imamura3@fluidattacks.com",
@@ -88,7 +88,7 @@ async def test_remove_inactive_stakeholders() -> None:
     loaders = get_new_context()
     org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
-        stakeholder.email for stakeholder in org_stakeholders
+        stakeholder.email for stakeholder in org_stakeholders if stakeholder
     ]
     assert org_stakeholders_emails == [
         "active_imamura3@fluidattacks.com",
