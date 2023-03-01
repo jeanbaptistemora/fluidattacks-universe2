@@ -289,7 +289,7 @@ async def refresh_active_root_repo_toe_lines(
             }
         },
     )
-    await git_utils.disable_quotepath(str(repo.working_dir))
+    await git_utils.disable_quotepath(path.join(str(repo.working_dir), ".git"))
     present_filenames = await get_present_filenames(
         repo, git_root.state.nickname
     )

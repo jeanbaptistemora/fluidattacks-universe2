@@ -32,6 +32,7 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingState,
+    SeverityScore,
 )
 from db_model.utils import (
     get_datetime_with_offset,
@@ -46,6 +47,7 @@ from findings.types import (
     FindingDraftToAdd,
 )
 from newutils import (
+    cvss as cvss_utils,
     datetime as datetime_utils,
     findings as findings_utils,
 )
@@ -180,6 +182,15 @@ async def add_draft(
         recommendation=draft_info.recommendation,
         requirements=draft_info.requirements,
         severity=draft_info.severity,
+        severity_score=SeverityScore(
+            base_score=cvss_utils.get_severity_base_score(draft_info.severity),
+            temporal_score=cvss_utils.get_severity_temporal_score(
+                draft_info.severity
+            ),
+            cvssf=cvss_utils.get_cvssf_score(
+                cvss_utils.get_severity_temporal_score(draft_info.severity)
+            ),
+        ),
         title=draft_info.title,
         threat=draft_info.threat,
         unfulfilled_requirements=requirements,

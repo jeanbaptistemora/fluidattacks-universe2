@@ -1,12 +1,16 @@
 # pylint: disable=too-many-arguments
 from . import (
     get_result,
+    get_result_new_finding,
 )
 from dataloaders import (
     get_new_context,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+)
+from decimal import (
+    Decimal,
 )
 import pytest
 from typing import (
@@ -31,7 +35,7 @@ async def test_add_finding(
     populate: bool, email: str, description: str, recommendation: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result_new_finding(
         user=email, description=description, recommendation=recommendation
     )
     assert "errors" not in result
@@ -46,6 +50,12 @@ async def test_add_finding(
         and finding.recommendation == recommendation
     )
     assert new_finding.state.status is FindingStateStatus.CREATED
+
+    # severity is equivalent to vulnerability 011 in criteria
+    assert new_finding.severity_score
+    assert new_finding.severity_score.base_score == Decimal(5)
+    assert new_finding.severity_score.temporal_score == Decimal(4.5)
+    assert new_finding.severity_score.cvssf == Decimal(2)
 
 
 @pytest.mark.asyncio

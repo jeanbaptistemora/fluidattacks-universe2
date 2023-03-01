@@ -305,6 +305,7 @@ async def _process_finding(
                 recommendation=source_finding.recommendation,
                 requirements=source_finding.requirements,
                 severity=source_finding.severity,
+                severity_score=source_finding.severity_score,
                 title=source_finding.title,
                 threat=source_finding.threat,
             )

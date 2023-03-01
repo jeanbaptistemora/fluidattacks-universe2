@@ -311,6 +311,10 @@
           "AttributeType": "M"
         },
         {
+          "AttributeName": "severity_score",
+          "AttributeType": "M"
+        },
+        {
           "AttributeName": "attack_vector_description",
           "AttributeType": "S"
         },
@@ -30921,6 +30925,7 @@
             "sorts",
             "group_name",
             "severity",
+            "severity_score",
             "attack_vector_description",
             "min_time_to_remediate",
             "pk_2",

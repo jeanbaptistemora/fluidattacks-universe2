@@ -60,6 +60,7 @@ from db_model.findings.types import (
     FindingMetadataToUpdate,
     FindingState,
     FindingVerification,
+    SeverityScore,
 )
 from db_model.roots.types import (
     GitRootState,
@@ -253,6 +254,15 @@ async def add_finding(
         ),
         recommendation=attributes.recommendation,
         severity=attributes.severity,
+        severity_score=SeverityScore(
+            base_score=cvss_utils.get_severity_base_score(attributes.severity),
+            temporal_score=cvss_utils.get_severity_temporal_score(
+                attributes.severity
+            ),
+            cvssf=cvss_utils.get_cvssf_score(
+                cvss_utils.get_severity_temporal_score(attributes.severity)
+            ),
+        ),
         title=attributes.title,
         threat=attributes.threat,
         unfulfilled_requirements=sorted(
@@ -978,7 +988,18 @@ async def update_severity(
     else:
         updated_severity = severity
 
-    metadata = FindingMetadataToUpdate(severity=updated_severity)
+    metadata = FindingMetadataToUpdate(
+        severity=updated_severity,
+        severity_score=SeverityScore(
+            base_score=cvss_utils.get_severity_base_score(updated_severity),
+            temporal_score=cvss_utils.get_severity_temporal_score(
+                updated_severity
+            ),
+            cvssf=cvss_utils.get_cvssf_score(
+                cvss_utils.get_severity_temporal_score(updated_severity)
+            ),
+        ),
+    )
     await findings_model.update_metadata(
         group_name=finding.group_name,
         finding_id=finding.id,

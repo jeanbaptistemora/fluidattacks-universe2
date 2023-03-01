@@ -29,6 +29,7 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
     FindingVerificationSummary,
+    SeverityScore,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -130,8 +131,15 @@ def format_finding(item: Item) -> Finding:
     )
 
     min_time_to_remediate: int | None = None
+    severity_score: SeverityScore | None = None
     if "min_time_to_remediate" in item:
         min_time_to_remediate = int(item["min_time_to_remediate"])
+    if item.get("severity_score") is not None:
+        severity_score = SeverityScore(
+            base_score=Decimal(item["severity_score"]["base_score"]),
+            temporal_score=Decimal(item["severity_score"]["temporal_score"]),
+            cvssf=Decimal(item["severity_score"]["cvssf"]),
+        )
 
     return Finding(
         hacker_email=item["analyst_email"],
@@ -143,6 +151,7 @@ def format_finding(item: Item) -> Finding:
         group_name=item["group_name"],
         id=item["id"],
         severity=severity,
+        severity_score=severity_score,
         min_time_to_remediate=min_time_to_remediate,
         sorts=FindingSorts[item["sorts"]],
         submission=submission,

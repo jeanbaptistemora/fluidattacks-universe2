@@ -56,6 +56,7 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingMetadataToUpdate,
+    SeverityScore,
 )
 from db_model.findings.update import (
     update_metadata as update_finding_metadata,
@@ -105,6 +106,9 @@ from io import (
 )
 import json
 import logging
+from newutils import (
+    cvss as cvss_utils,
+)
 from newutils.files import (
     path_is_include,
 )
@@ -413,6 +417,7 @@ async def _update_finding_metadata(
         threat=finding.threat,
         title=finding.title,
     )
+    new_severity = _get_finding_severity(criteria_vulnerability)
 
     updated_attrs = FindingMetadataToUpdate(
         attack_vector_description=criteria_vulnerability[language]["impact"],
@@ -425,7 +430,16 @@ async def _update_finding_metadata(
                 for item in criteria_vulnerability["requirements"]
             ]
         ),
-        severity=_get_finding_severity(criteria_vulnerability),
+        severity=new_severity,
+        severity_score=SeverityScore(
+            base_score=cvss_utils.get_severity_base_score(new_severity),
+            temporal_score=cvss_utils.get_severity_temporal_score(
+                new_severity
+            ),
+            cvssf=cvss_utils.get_cvssf_score(
+                cvss_utils.get_severity_temporal_score(new_severity)
+            ),
+        ),
         threat=criteria_vulnerability[language]["threat"],
         title=(
             f"{vulnerability_id}. "

@@ -173,3 +173,33 @@ def calculate_privileges(privileges: float, scope: float) -> float:
             privileges = 0.27
 
     return privileges
+
+
+def get_severity_score(
+    severity: Finding20Severity | Finding31Severity,
+) -> Decimal:
+    if isinstance(severity, Finding31Severity):
+        base_score = get_cvss3_basescore(severity)
+        return get_cvss3_temporal(severity, base_score)
+
+    base_score = get_cvss2_basescore(severity)
+    return get_cvss2_temporal(severity, base_score)
+
+
+def get_severity_temporal_score(
+    severity: Finding20Severity | Finding31Severity,
+) -> Decimal:
+    return get_severity_score(severity)
+
+
+def get_severity_base_score(
+    severity: Finding20Severity | Finding31Severity,
+) -> Decimal:
+    if isinstance(severity, Finding31Severity):
+        return get_cvss3_basescore(severity)
+
+    return get_cvss2_basescore(severity)
+
+
+def get_cvssf_score(temporal_score: Decimal) -> Decimal:
+    return Decimal(pow(4, (temporal_score - 4)))

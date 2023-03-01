@@ -1,3 +1,7 @@
+from __future__ import (
+    annotations,
+)
+
 from .enums import (
     DraftRejectionReason,
     FindingSorts,
@@ -117,6 +121,12 @@ class Finding31Severity(NamedTuple):
     user_interaction: Decimal = Decimal("0.0")
 
 
+class SeverityScore(NamedTuple):
+    base_score: Decimal = Decimal("0.0")
+    temporal_score: Decimal = Decimal("0.0")
+    cvssf: Decimal = Decimal("0.0")
+
+
 class Finding31CvssParameters(NamedTuple):
     basescore_factor: Decimal
     exploitability_factor_1: Decimal
@@ -180,6 +190,7 @@ class Finding(NamedTuple):
     recommendation: str = ""
     requirements: str = ""
     severity: Finding20Severity | Finding31Severity = Finding31Severity()
+    severity_score: SeverityScore | None = None
     sorts: FindingSorts = FindingSorts.NO
     submission: FindingState | None = None
     threat: str = ""
@@ -216,6 +227,7 @@ class FindingMetadataToUpdate(NamedTuple):
     recommendation: str | None = None
     requirements: str | None = None
     severity: Finding20Severity | Finding31Severity | None = None
+    severity_score: SeverityScore | None = None
     sorts: FindingSorts | None = None
     threat: str | None = None
     title: str | None = None

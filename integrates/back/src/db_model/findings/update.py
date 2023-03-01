@@ -38,6 +38,7 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+    SeverityScore,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
@@ -135,13 +136,16 @@ async def update_metadata(
         key: value.value
         if isinstance(value, Enum)
         else value._asdict()
-        if isinstance(value, (Finding20Severity, Finding31Severity))
+        if isinstance(
+            value, (Finding20Severity, Finding31Severity, SeverityScore)
+        )
         else format_evidences_item(value)
         if isinstance(value, FindingEvidences)
         else value
         for key, value in metadata._asdict().items()
         if value is not None
     }
+
     if "severity" in metadata_item:
         cvss_version = (
             FindingCvssVersion.V31
