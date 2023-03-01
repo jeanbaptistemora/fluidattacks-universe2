@@ -12,7 +12,8 @@ function main {
   export CACHIX_AUTH_TOKEN
   export UNIVERSE_API_TOKEN
 
-  DATA="$(cat "__argSchedules__")" \
+  : \
+    && DATA="$(yq -rec "." "__argSchedules__")" \
     && TF_VAR_schedules="$(python "__argParser__")" \
     && TF_VAR_sizes="$(yq -rec "." "__argSizes__")"
 }

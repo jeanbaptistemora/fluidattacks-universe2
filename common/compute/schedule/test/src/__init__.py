@@ -67,21 +67,21 @@ def test_meta_required_by(*, name: str, values: Any) -> bool:
 
 def main() -> None:
     success: bool = True
-    schedules: dict[str, Any] = json.loads(os.environ["SCHEDULES"])
-    user: str = os.environ["CI_COMMIT_REF_NAME"]
+    data: dict[str, Any] = json.loads(os.environ["DATA"])
 
     success = success and all(
         tuple(
             test_schedule_maintainers(name=name, values=values)
-            for (name, values) in schedules.items()
+            for (name, values) in data.items()
         )
     )
 
     success = success and all(
         tuple(
             test_schedule(name=name, values=values)
-            for (name, values) in schedules.items()
-            if user in values["meta"]["maintainers"]
+            for (name, values) in data.items()
+            if os.environ["CI_COMMIT_REF_NAME"]
+            in values["meta"]["maintainers"]
         )
     )
 

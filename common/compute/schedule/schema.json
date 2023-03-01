@@ -1,0 +1,65 @@
+{
+  "$id": "/common/compute/schedule",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "Batch schedules schema",
+  "patternProperties": {
+    "^[a-z0-9_]+$": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "type": "integer"
+        },
+        "awsRole": {
+          "type": "string"
+        },
+        "command": {
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "environment": {
+          "type": "array"
+        },
+        "meta": {
+          "type": "object"
+        },
+        "parallel": {
+          "type": "integer"
+        },
+        "scheduleExpression": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object"
+        },
+        "timeout": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "attempts",
+        "awsRole",
+        "command",
+        "enabled",
+        "environment",
+        "meta",
+        "parallel",
+        "scheduleExpression",
+        "size",
+        "tags",
+        "timeout"
+      ],
+      "type": "object"
+    }
+  },
+  "propertyNames": {
+    "pattern": "^[a-z0-9_]+$"
+  },
+  "title": "schedules",
+  "type": "object"
+}

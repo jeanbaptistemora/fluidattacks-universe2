@@ -1,11 +1,13 @@
 {
   fromYaml,
-  projectPath,
   inputs,
+  projectPath,
   ...
 }: let
   lib = inputs.nixpkgs.lib;
-  schedules = import ./schedules.nix;
+  schedules = fromYaml (
+    builtins.readFile ./data.yaml
+  );
   sizes = fromYaml (
     builtins.readFile (
       projectPath "/common/compute/arch/sizes/data.yaml"
@@ -29,9 +31,15 @@
       vcpus = sizes.${value.size}.cpu;
     };
 in {
+  computeOnAwsBatch = lib.mapAttrs' mapToBatch schedules;
   imports = [
     ./parse-terraform/makes.nix
     ./test/makes.nix
   ];
-  computeOnAwsBatch = lib.mapAttrs' mapToBatch schedules;
+  lintWithAjv = {
+    "common/compute/schedule" = {
+      schema = "/common/compute/schedule/schema.json";
+      targets = ["/common/compute/schedule/data.yaml"];
+    };
+  };
 }

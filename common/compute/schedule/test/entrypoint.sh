@@ -1,10 +1,10 @@
 # shellcheck shell=bash
 
 function main {
-  export SCHEDULES
+  export DATA
 
   : \
-    && SCHEDULES="$(cat "__argSchedules__")" \
+    && DATA="$(yq -rec "." "__argData__")" \
     && python "__argSrc__"
 }
 
