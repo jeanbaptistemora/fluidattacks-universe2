@@ -13,7 +13,7 @@ def swift_insecure_crypto(
     args.evaluation[args.n_id] = False
     if args.graph.nodes[args.n_id]["value_type"] == "string":
         member_str = args.graph.nodes[args.n_id]["value"]
-        if member_str in INSECURE_ALGOS:
+        if member_str.lower() in INSECURE_ALGOS:
             args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

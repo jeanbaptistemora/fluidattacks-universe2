@@ -157,7 +157,6 @@ def swift_insecure_cryptalgo(
                 ident = n_attrs.get("expression")
                 parent = g.pred_ast(graph, n_id)[0]
                 var_id = graph.nodes[parent]["value_id"]
-                print(var_id)
                 if ident in danger_methods and get_eval_result(
                     graph, var_id, method
                 ):
