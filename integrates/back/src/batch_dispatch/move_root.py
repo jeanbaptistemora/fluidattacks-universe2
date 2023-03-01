@@ -268,6 +268,8 @@ async def _process_finding(
             finding
             for finding in target_group_findings
             if finding.title == source_finding.title
+            and finding.description == source_finding.description
+            and finding.recommendation == source_finding.recommendation
         ),
         None,
     )
@@ -308,6 +310,9 @@ async def _process_finding(
                 severity_score=source_finding.severity_score,
                 title=source_finding.title,
                 threat=source_finding.threat,
+                unfulfilled_requirements=(
+                    source_finding.unfulfilled_requirements
+                ),
             )
         )
         LOGGER.info(
@@ -781,8 +786,7 @@ async def move_root(*, item: BatchProcessing) -> None:
         },
         tags=GENERAL_TAG,
         subject=(
-            f"Root moved from [{source_group_name}] "
-            f"to [{target_group_name}]"
+            f"Root moved from [{source_group_name}] to [{target_group_name}]"
         ),
         template_name="root_moved",
     )
