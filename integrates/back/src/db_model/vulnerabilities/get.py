@@ -315,6 +315,19 @@ async def _get_affected_reattacks(*, event_id: str) -> list[Vulnerability]:
     return [format_vulnerability(item) for item in response.items]
 
 
+class VulnerabilityLoader(DataLoader[str, Vulnerability | None]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, vulnerability_ids: Iterable[str]
+    ) -> list[Vulnerability | None]:
+        return list(
+            await collect(
+                _get_vulnerability(vulnerability_id=vulnerability_id)
+                for vulnerability_id in vulnerability_ids
+            )
+        )
+
+
 class AssignedVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
@@ -331,7 +344,7 @@ class AssignedVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
 
 
 class FindingVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: VulnerabilityLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
@@ -386,7 +399,7 @@ class FindingVulnerabilitiesDraftConnectionLoader(
 class FindingVulnerabilitiesNonDeletedLoader(
     DataLoader[str, list[Vulnerability]]
 ):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: FindingVulnerabilitiesLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
@@ -414,7 +427,9 @@ class FindingVulnerabilitiesNonDeletedLoader(
 class FindingVulnerabilitiesReleasedNonZeroRiskLoader(
     DataLoader[str, list[Vulnerability]]
 ):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(
+        self, dataloader: FindingVulnerabilitiesNonDeletedLoader
+    ) -> None:
         super().__init__()
         self.dataloader = dataloader
 
@@ -457,7 +472,9 @@ class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(
 class FindingVulnerabilitiesReleasedZeroRiskLoader(
     DataLoader[str, list[Vulnerability]]
 ):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(
+        self, dataloader: FindingVulnerabilitiesNonDeletedLoader
+    ) -> None:
         super().__init__()
         self.dataloader = dataloader
 
@@ -543,19 +560,6 @@ class EventVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
             await collect(
                 _get_affected_reattacks(event_id=event_id)
                 for event_id in event_ids
-            )
-        )
-
-
-class VulnerabilityLoader(DataLoader[str, Vulnerability | None]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, vulnerability_ids: Iterable[str]
-    ) -> list[Vulnerability | None]:
-        return list(
-            await collect(
-                _get_vulnerability(vulnerability_id=vulnerability_id)
-                for vulnerability_id in vulnerability_ids
             )
         )
 

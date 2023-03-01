@@ -54,9 +54,57 @@ async def _get_event(*, event_id: str) -> Event | None:
     return format_event(response.items[0])
 
 
+class EventLoader(DataLoader[str, Event | None]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self,
+        event_keys: Iterable[str],
+    ) -> list[Event | None]:
+        return list(
+            await collect(
+                tuple(_get_event(event_id=event_id) for event_id in event_keys)
+            )
+        )
+
+
+async def _get_historic_state(
+    *,
+    event_id: str,
+) -> list[EventState]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_historic_state"],
+        values={"id": event_id},
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["event_historic_state"],),
+        table=TABLE,
+    )
+    return list(map(format_state, response.items))
+
+
+class EventsHistoricStateLoader(DataLoader[str, list[EventState]]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, event_ids: Iterable[str]
+    ) -> list[list[EventState]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_historic_state(event_id=event_id)
+                    for event_id in event_ids
+                )
+            )
+        )
+
+
 async def _get_group_events(
     *,
-    event_dataloader: DataLoader,
+    event_dataloader: EventLoader,
     request: GroupEventsRequest,
 ) -> list[Event]:
     if request.is_solved is None:
@@ -101,56 +149,8 @@ async def _get_group_events(
     return events
 
 
-async def _get_historic_state(
-    *,
-    event_id: str,
-) -> list[EventState]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["event_historic_state"],
-        values={"id": event_id},
-    )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["event_historic_state"],),
-        table=TABLE,
-    )
-    return list(map(format_state, response.items))
-
-
-class EventsHistoricStateLoader(DataLoader[str, list[EventState]]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, event_ids: Iterable[str]
-    ) -> list[list[EventState]]:
-        return list(
-            await collect(
-                tuple(
-                    _get_historic_state(event_id=event_id)
-                    for event_id in event_ids
-                )
-            )
-        )
-
-
-class EventLoader(DataLoader[str, Event | None]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self,
-        event_keys: Iterable[str],
-    ) -> list[Event | None]:
-        return list(
-            await collect(
-                tuple(_get_event(event_id=event_id) for event_id in event_keys)
-            )
-        )
-
-
 class GroupEventsLoader(DataLoader[GroupEventsRequest, list[Event]]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: EventLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 

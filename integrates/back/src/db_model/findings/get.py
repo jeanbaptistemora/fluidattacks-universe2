@@ -165,7 +165,7 @@ class GroupDraftsLoader(DataLoader[str, list[Finding]]):
 
 
 class GroupFindingsLoader(DataLoader[str, list[Finding]]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: GroupDraftsAndFindingsLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
