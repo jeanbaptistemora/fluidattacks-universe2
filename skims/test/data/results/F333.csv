@@ -159,50 +159,50 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_a
   21 |               ""Groups"": [
      ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,14,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,"
-   1 |
-   2 |
-   3 | plate:
-   4 | ::EC2::LaunchTemplate
-   5 | s:
-   6 | emplateName: MyLaunchTemplate
-   7 | emplateData:
-   8 | stanceProfile:
-   9 | :
-  10 |  MyIamInstanceProfile
-  11 |  Arn
-  12 | leApiTermination: true
-  13 | Id: ami-04d5cc9b88example
-> 14 | nceInitiatedShutdownBehavior: stop
-  15 | nceType: t2.micro
-  16 | me: MyKeyPair
-  17 | ityGroupIds:
-  18 | g-083cd3bfb8example
-     ^ Col 13
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,14,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   MyLaunchTemplate:
+   4 |     Type: AWS::EC2::LaunchTemplate
+   5 |     Properties:
+   6 |       LaunchTemplateName: MyLaunchTemplate
+   7 |       LaunchTemplateData:
+   8 |         IamInstanceProfile:
+   9 |           Arn:
+  10 |             - MyIamInstanceProfile
+  11 |             - Arn
+  12 |         DisableApiTermination: true
+  13 |         ImageId: ami-04d5cc9b88example
+> 14 |         InstanceInitiatedShutdownBehavior: stop
+  15 |         InstanceType: t2.micro
+  16 |         KeyName: MyKeyPair
+  17 |         SecurityGroupIds:
+  18 |           - sg-083cd3bfb8example
+     ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml.json,16,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml.json,"
-   6 | mplateName"": ""MyLaunchTemplate"",
-   7 | mplateData"": {
-   8 | tanceProfile"": {
-   9 | : [
-  10 | IamInstanceProfile"",
-  11 | n""
-  12 |
-  13 |
-  14 | eApiTermination"": true,
-  15 | d"": ""ami-04d5cc9b88example"",
-> 16 | ceInitiatedShutdownBehavior"": ""stop"",
-  17 | ceType"": ""t2.micro"",
-  18 | e"": ""MyKeyPair"",
-  19 | tyGroupIds"": [
-  20 | 83cd3bfb8example""
-  21 |
-  22 |
-  23 |
-  24 |
-  25 |
-  26 |
-     ^ Col 17
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml.json,16,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_has_terminate_shutdown_behavior.yaml.json,"
+   6 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+   7 |         ""LaunchTemplateData"": {
+   8 |           ""IamInstanceProfile"": {
+   9 |             ""Arn"": [
+  10 |               ""MyIamInstanceProfile"",
+  11 |               ""Arn""
+  12 |             ]
+  13 |           },
+  14 |           ""DisableApiTermination"": true,
+  15 |           ""ImageId"": ""ami-04d5cc9b88example"",
+> 16 |           ""InstanceInitiatedShutdownBehavior"": ""stop"",
+  17 |           ""InstanceType"": ""t2.micro"",
+  18 |           ""KeyName"": ""MyKeyPair"",
+  19 |           ""SecurityGroupIds"": [
+  20 |             ""sg-083cd3bfb8example""
+  21 |           ]
+  22 |         }
+  23 |       }
+  24 |     }
+  25 |   }
+  26 | }
+     ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
 F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace),/InstanceInitiatedShutdownBehavior/Value: terminate,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured,"
   23 |                         ""Code"": 1,
@@ -463,7 +463,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_a
   49 |         ""KeyName"": {
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   MyEC2Instance:
@@ -482,7 +482,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   16 |           NoDevice: {}
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_has_not_an_iam_instance_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""MyEC2Instance"": {

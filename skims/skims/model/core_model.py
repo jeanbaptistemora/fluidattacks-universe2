@@ -5255,7 +5255,7 @@ class MethodsEnum(Enum):
     CFN_EC2_TERMINATE_SHUTDOWN_BEHAVIOR = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_terminate_shutdown_behavior",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
