@@ -101,7 +101,10 @@ class RunningSubprocess(Generic[_A]):
         return Cmd.from_cmd(_action)
 
     def poll(self) -> Cmd[Optional[int]]:
-        return Cmd.from_cmd(lambda: self._process.poll())
+        return Cmd.from_cmd(self._process.poll)
+
+    def wait(self, timeout: Optional[float]) -> Cmd[int]:
+        return Cmd.from_cmd(lambda: self._process.wait(timeout))
 
 
 def chain(
