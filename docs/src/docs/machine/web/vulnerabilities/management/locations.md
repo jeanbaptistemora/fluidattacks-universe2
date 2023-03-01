@@ -176,6 +176,11 @@ these are described below:
 - **Assignees:**
   Locations that have an assigned.
 
+Note that you can identify when a vulnerability
+is new because you will see the tag called **new.**
+
+![New tag location](https://res.cloudinary.com/fluid-attacks/image/upload/v1677668980/docs/web/vulnerabilities/management/new_tag_locations.png)
+
 :::note
 You can see a pop-up window with details
 by clicking on any location.

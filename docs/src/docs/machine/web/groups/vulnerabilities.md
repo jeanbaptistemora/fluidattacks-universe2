@@ -9,6 +9,12 @@ The **Vulnerabilities** section is
 the first one you see when clicking
 on one of your group's names.
 
+Note that if you keep the mouse cursor
+on the word vulnerabilities,
+you can see the total of all open vulnerabilities in that group.
+
+![Total of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1677560179/docs/web/groups/vulnerabilities/total.png)
+
 ## Vulnerabilities Table
 
 In the Vulnerabilities section,
@@ -97,6 +103,11 @@ described below:
   to exposure (CVSSF)
   of the group is contributing.
 
+Note that you can identify when a vulnerability type is new
+because you will see the tag called **new.**
+
+![new tag](https://res.cloudinary.com/fluid-attacks/image/upload/v1677668727/docs/web/groups/vulnerabilities/newtag.png)
+
 There is also a downward-facing
 arrow on the left of the Type column,
 which,
@@ -105,10 +116,6 @@ you will find the information that
 the column filter offers you.
 
 ![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1675162531/docs/web/groups/vulnerabilities/down_row.png)
-
-> **Note:** You can see the total of your open vulnerabilities;
-> when you put the mouse cursor on vulnerabilities,
-> you will see a tooltip where it will give you the total sum of these.
 
 ## Functionalities
 
