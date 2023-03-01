@@ -1,3 +1,4 @@
+import ast
 from collections.abc import (
     Iterator,
 )
@@ -11,6 +12,9 @@ from model.core_model import (
     Platform,
 )
 import re
+from typing import (
+    Optional,
+)
 
 CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
 SELF_REQUIRES: re.Pattern[str] = re.compile(
@@ -39,6 +43,16 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
+
+
+def get_conanfile_class(content: str) -> Optional[ast.ClassDef]:
+    conan_tree = ast.parse(content)
+    for ast_object in conan_tree.body:
+        if isinstance(ast_object, ast.ClassDef):
+            for param in ast_object.bases:
+                if hasattr(param, "id") and param.id == "ConanFile":
+                    return ast_object
+    return None
 
 
 # pylint: disable=unused-argument
