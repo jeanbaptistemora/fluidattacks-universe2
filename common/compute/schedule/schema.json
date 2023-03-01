@@ -14,15 +14,48 @@
           "type": "string"
         },
         "command": {
+          "items": {
+            "type": "string"
+          },
           "type": "array"
         },
         "enabled": {
           "type": "boolean"
         },
         "environment": {
+          "items": {
+            "type": "string"
+          },
           "type": "array"
         },
         "meta": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "lastReviewed": {
+              "type": "string"
+            },
+            "maintainers": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "requiredBy": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "description",
+            "lastReviewed",
+            "maintainers",
+            "requiredBy"
+          ],
           "type": "object"
         },
         "parallel": {

@@ -161,6 +161,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintWithAjv/common/compute/schedule";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintWithAjv/common/criteria/compliance";
           gitlabExtra = gitlabLint;
         }
