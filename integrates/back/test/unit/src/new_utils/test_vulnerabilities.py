@@ -21,6 +21,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
     VulnerabilityUnreliableIndicators,
 )
 from newutils.vulnerabilities import (
@@ -29,6 +30,7 @@ from newutils.vulnerabilities import (
     get_closing_date,
     get_opening_date,
     get_ranges,
+    get_treatment_from_org_finding_policy,
     group_specific,
     is_range,
     is_sequence,
@@ -165,6 +167,29 @@ def test_get_ranges() -> None:
     test_data = get_ranges(working_list)
     expected_output = "1-3,7,9-13,19"
     assert test_data == expected_output
+
+
+@pytest.mark.parametrize(
+    ["modified_date", "user_email"],
+    [
+        [
+            datetime.fromisoformat("2020-01-01T20:07:57+00:00"),
+            "unittesting@fluidattacks.com",
+        ]
+    ],
+)
+def test_get_treatment_from_org_finding_policy(
+    modified_date: datetime, user_email: str
+) -> None:
+    result = get_treatment_from_org_finding_policy(
+        modified_date=modified_date, user_email=user_email
+    )
+    assert isinstance(result, tuple)
+    assert len(result) == 2
+    assert all(
+        isinstance(result[i], VulnerabilityTreatment)
+        for i in range(len(result))
+    )
 
 
 async def test_group_specific() -> None:
