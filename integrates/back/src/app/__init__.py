@@ -16,6 +16,7 @@ config.version = CI_COMMIT_SHORT_SHA
 patch_all(
     aiobotocore=True,
     httplib=True,
+    logging=True,
     urllib3=True,
 )
 RuntimeMetrics.enable()
