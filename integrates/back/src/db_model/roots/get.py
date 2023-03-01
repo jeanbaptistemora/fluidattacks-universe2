@@ -84,7 +84,11 @@ class RootLoader(DataLoader[RootRequest, Root | None]):
         return [roots.get(request.root_id) for request in requests]
 
 
-async def _get_group_roots(*, group_name: str) -> list[Root]:
+async def _get_group_roots(
+    *,
+    group_name: str,
+    root_dataloader: RootLoader,
+) -> list[Root]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -108,10 +112,22 @@ async def _get_group_roots(*, group_name: str) -> list[Root]:
         table=TABLE,
     )
 
-    return [format_root(item) for item in response.items]
+    roots: list[Root] = []
+    for item in response.items:
+        root = format_root(item)
+        roots.append(root)
+        root_dataloader.prime(
+            RootRequest(group_name=root.group_name, root_id=root.id), root
+        )
+
+    return roots
 
 
 class GroupRootsLoader(DataLoader[str, list[Root]]):
+    def __init__(self, dataloader: RootLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
     async def load_many_chained(
         self, group_names: Iterable[str]
     ) -> list[Root]:
@@ -124,7 +140,9 @@ class GroupRootsLoader(DataLoader[str, list[Root]]):
     ) -> list[list[Root]]:
         return list(
             await collect(
-                _get_group_roots(group_name=group_name)
+                _get_group_roots(
+                    group_name=group_name, root_dataloader=self.dataloader
+                )
                 for group_name in group_names
             )
         )

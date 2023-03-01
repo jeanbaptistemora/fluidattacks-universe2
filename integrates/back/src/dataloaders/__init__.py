@@ -287,6 +287,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
 
     event_loader = EventLoader()
     group_events_loader = GroupEventsLoader(event_loader)
+
     group_loader = GroupLoader()
     organization_groups_loader = OrganizationGroupsLoader(group_loader)
 
@@ -294,6 +295,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     stakeholder_with_fallback = StakeholderWithFallbackLoader(
         stakeholder_loader
     )
+
     group_access_loader = GroupAccessLoader()
     group_stakeholders_access_loader = GroupStakeholdersAccessLoader(
         group_access_loader
@@ -301,6 +303,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     stakeholder_groups_access_loader = StakeholderGroupsAccessLoader(
         group_access_loader
     )
+
     organization_access_loader = OrganizationAccessLoader()
     organization_stakeholders_access_loader = (
         OrganizationStakeholdersAccessLoader(organization_access_loader)
@@ -308,14 +311,19 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     stakeholder_organizations_access_loader = (
         StakeholderOrganizationsAccessLoader(organization_access_loader)
     )
+
     organization_finding_policy_loader = OrganizationFindingPolicyLoader()
     organization_finding_policies_loader = OrganizationFindingPoliciesLoader(
         organization_finding_policy_loader
     )
+
     portfolio_loader = PortfolioLoader()
     organization_portfolios_loader = OrganizationPortfoliosLoader(
         portfolio_loader
     )
+
+    root_loader = RootLoader()
+    group_roots_loader = GroupRootsLoader(root_loader)
 
     return Dataloaders(
         compliance_unreliable_indicators=(
@@ -363,7 +371,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         group_findings=group_findings_loader,
         group_forces_executions=GroupForcesExecutionsLoader(),
         group_historic_state=GroupHistoricStateLoader(),
-        group_roots=GroupRootsLoader(),
+        group_roots=group_roots_loader,
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_toe_ports=GroupToePortsLoader(),
@@ -399,7 +407,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         ),
         portfolio=portfolio_loader,
         requirements_file=RequirementsFileLoader(),
-        root=RootLoader(),
+        root=root_loader,
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
