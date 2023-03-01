@@ -5,25 +5,27 @@ variable "clusterPass" {
   default = "fakePassword1234"
 }
 # Network
+data "aws_prefix_list" "private_s3" {
+  name = "com.amazonaws.us-east-1.s3"
+}
+
 resource "aws_security_group" "expose-redshift" {
   name        = "expose-redshift"
   description = "Expose redshift endpoint"
   vpc_id      = data.aws_vpc.main.id
   ingress {
-    description      = "External access"
-    from_port        = 5439
-    to_port          = 5439
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    description = "External access"
+    from_port   = 5439
+    to_port     = 5439
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    description      = "VPC access"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    description = "VPC access"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = data.aws_prefix_list.private_s3.cidr_blocks
   }
   tags = {
     "Name"               = "observes"
