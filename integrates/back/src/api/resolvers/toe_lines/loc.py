@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("loc")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
     return parent.state.loc

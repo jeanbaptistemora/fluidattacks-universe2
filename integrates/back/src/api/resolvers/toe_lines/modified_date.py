@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("modifiedDate")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime:
     return parent.state.last_commit_date

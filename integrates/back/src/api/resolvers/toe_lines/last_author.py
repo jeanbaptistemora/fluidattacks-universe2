@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("lastAuthor")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     return parent.state.last_author

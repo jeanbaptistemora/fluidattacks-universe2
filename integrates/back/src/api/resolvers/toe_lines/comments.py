@@ -14,7 +14,7 @@ from graphql.type.definition import (
 
 @TOE_LINES.field("comments")
 @enforce_group_level_auth_async
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
     return parent.state.comments

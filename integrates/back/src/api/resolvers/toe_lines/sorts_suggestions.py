@@ -11,7 +11,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("sortsSuggestions")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> list[SortsSuggestion] | None:
     return parent.state.sorts_suggestions

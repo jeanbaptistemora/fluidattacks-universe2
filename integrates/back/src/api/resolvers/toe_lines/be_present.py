@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("bePresent")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
     return parent.state.be_present

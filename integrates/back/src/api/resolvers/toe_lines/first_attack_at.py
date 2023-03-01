@@ -17,7 +17,7 @@ from graphql.type.definition import (
 
 @TOE_LINES.field("firstAttackAt")
 @enforce_group_level_auth_async
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime | None:
     return parent.state.first_attack_at

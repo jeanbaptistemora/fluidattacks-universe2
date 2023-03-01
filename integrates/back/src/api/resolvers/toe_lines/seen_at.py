@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @TOE_LINES.field("seenAt")
-async def resolve(
+def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime:
     return parent.state.seen_at
