@@ -6,32 +6,32 @@ src.lib_path.f016.serves_content_over_insecure_protocols:
   en: The application makes use of an insecure protocol
   es: La aplicación hace uso de un protocolo inseguro
 lib_ssl.analyze_protocol.sslv3_enabled:
-  en: server accepts connections with SSLv3
-  es: el servidor acepta conexiones con SSLv3
+  en: Server accepts connections with SSLv3
+  es: El servidor acepta conexiones con SSLv3
 lib_ssl.analyze_protocol.tlsv1_enabled:
-  en: server accepts connections with TLSv1.0
-  es: el servidor acepta conexiones con TLSv1.0
+  en: Server accepts connections with TLSv1.0
+  es: El servidor acepta conexiones con TLSv1.0
 lib_ssl.analyze_protocol.tlsv1_1_enabled:
-  en: server accepts connections with TLSv1.1
+  en: Server accepts connections with TLSv1.1
   es: el servidor acepta conexiones con TLSv1.1
 lib_ssl.analyze_protocol.tlsv1_2_or_higher_disabled:
-  en: server refuses connections with TLSv1.2 or TLSv1.3
-  es: el servidor rechaza conexiones con TLSv1.2 o TLSv1.3
+  en: Server refuses connections with TLSv1.2 or TLSv1.3
+  es: El servidor rechaza conexiones con TLSv1.2 o TLSv1.3
 lib_ssl.analyze_protocol.fallback_scsv_disabled:
-  en: server does not handle TLS_FALLBACK_SCSV correctly
-  es: el servidor no maneja de manera correcta TLS_FALLBACK_SCSV
+  en: Server does not handle TLS_FALLBACK_SCSV correctly
+  es: El servidor no maneja de manera correcta TLS_FALLBACK_SCSV
 lib_ssl.analyze_protocol.tlsv1_3_downgrade:
-  en: server allows TLSv1.3 downgrade to {v_name}
-  es: el servidor permite degradar TLSv1.3 a {v_name}
+  en: Server allows TLSv1.3 downgrade to {v_name}
+  es: El servidor permite degradar TLSv1.3 a {v_name}
 lib_ssl.analyze_protocol.heartbleed_possible:
-  en: server is vulnerable to heartbleed attacks in {v_name}
-  es: el servidor es vulnerable a ataques heartbleed {v_name}
+  en: Server is vulnerable to heartbleed attacks in {v_name}
+  es: El servidor es vulnerable a ataques heartbleed {v_name}
 lib_ssl.analyze_protocol.freak_possible:
-  en: server is vulnerable to FREAK attacks in {v_name}
-  es: el servidor es vulnerable a ataques FREAK in {v_name}
+  en: Server is vulnerable to FREAK attacks in {v_name}
+  es: El servidor es vulnerable a ataques FREAK in {v_name}
 lib_ssl.analyze_protocol.raccoon_possible:
-  en: server is vulnerable to RACCOON attacks {v_name}
-  es: el servidor es vulnerable a ataques RACCOON {v_name}
+  en: Server is vulnerable to RACCOON attacks {v_name}
+  es: El servidor es vulnerable a ataques RACCOON {v_name}
 lib_root.f016.service_point_manager_disabled:
   en: >
     A AppContext.SetSwitch method call sets

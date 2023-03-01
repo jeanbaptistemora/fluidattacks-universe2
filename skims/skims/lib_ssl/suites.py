@@ -3807,7 +3807,7 @@ class SSLCipherSuite(Enum):
         code=(0xC0, 0x2B),
         key_exchange=SSLKeyExchange.ECDHE,
         authentication=SSLAuthentication.ECDSA,
-        encryption=SSLEncryption.AES_128_CBC,
+        encryption=SSLEncryption.AES_128_GCM,
         ssl_hash=SSLHash.SHA256,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(),
@@ -3820,7 +3820,7 @@ class SSLCipherSuite(Enum):
         code=(0xC0, 0x2C),
         key_exchange=SSLKeyExchange.ECDHE,
         authentication=SSLAuthentication.ECDSA,
-        encryption=SSLEncryption.AES_256_CBC,
+        encryption=SSLEncryption.AES_256_GCM,
         ssl_hash=SSLHash.SHA384,
         tls_versions=(SSLVersionId.tlsv1_2,),
         vulnerabilities=(),
@@ -6224,14 +6224,9 @@ def get_suites_with_cbc() -> Iterator[SSLSuiteInfo]:
 
 
 def get_weak_suites() -> Iterator[SSLSuiteInfo]:
+    ignored_vulns = {SSLSuiteVuln.NO_PFS, SSLSuiteVuln.CBC}
     for suite in SSLCipherSuite:
-        weak_vuln = False
-        for vuln in SSLSuiteVuln:
-            if vuln in suite.value.vulnerabilities and vuln not in (
-                SSLSuiteVuln.NO_PFS,
-                SSLSuiteVuln.CBC,
-            ):
-                weak_vuln = True
-                break
-        if weak_vuln:
+        if not any(
+            vuln in ignored_vulns for vuln in suite.value.vulnerabilities
+        ):
             yield suite.value

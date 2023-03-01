@@ -493,7 +493,7 @@ class FindingEnum(Enum):
         requirements=[148, 149, 150, 181, 336],
     )
     F094: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F094",
         cwe=757,
         execution_queue=ExecutionQueue.ssl,

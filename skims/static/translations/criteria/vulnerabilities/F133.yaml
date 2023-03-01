@@ -1,4 +1,4 @@
 ---
 lib_ssl.analyze_protocol.pfs_disabled:
-  en: server refuses connections with PFS support in {v_name}
-  es: el servidor descarta conexiones con soporte PFS en {v_name}
+  en: Server refuses connections with PFS support in {v_name}
+  es: El servidor descarta conexiones con soporte PFS en {v_name}

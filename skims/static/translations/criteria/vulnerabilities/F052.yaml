@@ -29,10 +29,10 @@ lib_root.f052.c_sharp_disabled_strong_crypto:
     en verdadero
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: >
-    server accepts connections import sha1 from "js-sha1"; with weak cipher method {insecure_cipher}, included
+    Server accepts connections import sha1 from "js-sha1"; with weak cipher method {insecure_cipher}, included
     in: {v_name}
   es: >
-    el servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher},
+    El servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher},
     included in: {v_name}
 lib_root.f052.c_sharp_obsolete_key_derivation:
   en: >

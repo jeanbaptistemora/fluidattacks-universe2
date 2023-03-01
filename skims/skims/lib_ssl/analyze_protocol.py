@@ -530,7 +530,6 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         "DES3",
         "SM3",
         "SM4",
-        "CBC",
     ]
     hash_names: list[str] = [
         "SHA",
