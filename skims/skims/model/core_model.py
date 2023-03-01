@@ -4431,7 +4431,7 @@ class MethodsEnum(Enum):
     CFN_PUBLIC_BUCKETS = MethodInfo(
         file_name="cloudformation",
         name="cfn_public_buckets",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F203,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

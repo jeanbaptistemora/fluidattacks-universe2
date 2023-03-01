@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
+F203,lines,namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml,"
    1 | ---
    2 | Resources:
    3 |   S3Bucket:
@@ -23,7 +23,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,7,284
   21 |           - ServerSideEncryptionByDefault:
      ^ Col 0
 ",cloudformation.cfn_public_buckets
-F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,17,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
+F203,lines,namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml,17,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml,"
    7 |       AccessControl: PublicReadWrite
    8 |       BucketName: SKIMS-PUBLIC-BUCKET
    9 |       BucketEncryption:
@@ -47,7 +47,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,17,28
   27 |     Properties:
      ^ Col 0
 ",cloudformation.cfn_public_buckets
-F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
+F203,lines,namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml.json,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket"": {
@@ -71,7 +71,7 @@ F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,
   21 |     ""S3Bucket1"": {
      ^ Col 0
 ",cloudformation.cfn_public_buckets
-F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
+F203,lines,namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml.json,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/cfn_public_buckets.yaml.json,"
   14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
   15 |               }
   16 |             }
