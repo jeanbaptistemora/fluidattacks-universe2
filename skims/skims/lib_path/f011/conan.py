@@ -13,7 +13,9 @@ from model.core_model import (
 )
 import re
 from typing import (
+    Any,
     Optional,
+    Tuple,
 )
 
 CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
@@ -53,6 +55,18 @@ def get_conanfile_class(content: str) -> Optional[ast.ClassDef]:
                 if hasattr(param, "id") and param.id == "ConanFile":
                     return ast_object
     return None
+
+
+def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[Tuple[Any, Any]]:
+    for attr in conan_class.body:
+        if (
+            isinstance(attr, ast.Assign)
+            and hasattr(attr.targets[0], "id")
+            and attr.targets[0].id == "requires"
+            and hasattr(attr.value, "elts")
+        ):
+            for dep in attr.value.elts:
+                yield dep.value, dep.lineno
 
 
 # pylint: disable=unused-argument
