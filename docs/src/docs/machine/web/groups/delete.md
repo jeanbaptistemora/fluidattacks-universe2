@@ -41,6 +41,38 @@ to complete the deletion of the group.
 
 ![Delete Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1668526339/docs/web/groups/delete/action_delete.png)
 
+## Reason why you want to delete the group
+
+When you want to delete a group,
+you will find eight reasons to do this action.
+Below you can see the definitions of these reasons.
+
+- **System will be deprecated:** It will not be further
+  developed in those repositories that make up the group.
+
+- **No more security testing:** No further testing of
+  the group will be required, as the group is now closed.
+
+- **Different security testing strategy:** Change of testing
+  service provider.
+
+- **Group rename:** The name of the group should be changed
+  to a more appropriate name for the project.
+
+- **Information will be moved to a different group:**
+  The scope in that group will be moved to another
+  group either because it will be merged with another
+  project or because the information in it needs to be restructured.
+
+- **PoC Over:** End of PoC time.
+
+- **Testing Request Cancelled:** Before starting tests on a group,
+  the customer cancels the order.
+
+- **Other reasons not mentioned here:**
+  Of the eight reasons given above,
+  none apply to why the group is being closed.
+
 > **Note:** This action will immediately delete the group.
 > This will remove all of its data including
 > findings and related vulnerabilities.
