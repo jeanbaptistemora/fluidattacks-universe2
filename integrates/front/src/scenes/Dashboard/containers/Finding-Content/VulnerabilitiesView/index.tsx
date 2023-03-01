@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
+import { Col } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
 import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
@@ -48,7 +49,6 @@ import type {
   IVulnerabilityEdge,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/types";
 import { isPendingToAcceptance } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/utils";
-import { Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
@@ -578,7 +578,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
               />
             </div>
             <br />
-            <Col100>
+            <Col>
               <Have I={"can_report_vulnerabilities"}>
                 <Can do={"api_mutations_upload_file_mutate"}>
                   <UploadVulnerabilities
@@ -588,7 +588,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
                   />
                 </Can>
               </Have>
-            </Col100>
+            </Col>
           </div>
         </div>
         {isOpen && (
