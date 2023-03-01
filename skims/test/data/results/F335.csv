@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,"
+F335,lines,namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   S3Bucket:
@@ -20,7 +20,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disa
   18 |       BucketName: b3
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,14,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,"
+F335,lines,namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml,14,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   S3Bucket:
@@ -41,7 +41,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disa
   18 |       BucketName: b3
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
+F335,lines,namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml.json,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
    7 |         ""VersioningConfiguration"": {
    8 |           ""Status"": ""Enabled""
    9 |         }
@@ -65,7 +65,7 @@ F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disa
   27 |   }
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,23,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
+F335,lines,namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml.json,23,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_root/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
    8 |           ""Status"": ""Enabled""
    9 |         }
   10 |       }

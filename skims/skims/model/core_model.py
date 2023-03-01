@@ -5295,7 +5295,7 @@ class MethodsEnum(Enum):
     CFN_S3_VERSIONING_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_s3_bucket_versioning_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F335,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
