@@ -9,7 +9,23 @@ def allow_all_mime_types(
 ) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = False
     nodes = args.graph.nodes
-    danger_classes: set[str] = {"HttpURLConnection", "HttpRequest"}
+    danger_classes: set[str] = {
+        "HttpURLConnection",
+        "HttpRequest",
+        "URLConnection",
+        "HttpDelete",
+        "HttpGet",
+        "HttpHead",
+        "HttpOptions",
+        "HttpPatch",
+        "HttpPost",
+        "HttpPut",
+        "HttpTrace",
+        "RequestBuilder",
+        "HttpEntityEnclosingRequestBase",
+        "AbstractHttpMessage",
+        "HttpUriRequest",
+    }
 
     if (instance_class := nodes[args.n_id].get("variable_type")) and (
         instance_class in danger_classes

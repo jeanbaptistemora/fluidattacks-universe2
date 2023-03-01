@@ -46,7 +46,12 @@ def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> Iterator[NId]:
             and (node.get("expression") in dang_invocations)
         )
 
-    dang_invocations: set[str] = {"setRequestProperty", "header", "setHeader"}
+    dang_invocations: set[str] = {
+        "setRequestProperty",
+        "header",
+        "setHeader",
+        "addHeader",
+    }
 
     for n_id in g.filter_nodes(graph, graph.nodes, predicate_matcher):
         if is_vuln(graph, n_id, method):

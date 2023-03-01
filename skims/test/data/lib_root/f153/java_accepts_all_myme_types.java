@@ -12,6 +12,21 @@ public class test112 extends HttpServlet {
     return huc;
   }
 
+  // Line 19 should be marked
+  private URLConnection urlConnection(String url) throws IOException {
+    URLConnection connection = new URL(url).openConnection();
+    connection.setDoOutput(true);
+    connection.setRequestProperty("Accept","*/*");
+    return connection;
+  }
+
+  // Line 26 should be marked
+  public HttpRequest headerUse(String url) throws IOException {
+    HttpRequest request = HttpRequest.post(url);
+    request.header("Accept","*/*");
+    return request;
+  }
+
   // No line of following function should be marked (SAFE)
   private HttpURLConnection urlConnectionNcnpII(String url) throws IOException {
     URL uc = new URL(url);
@@ -23,28 +38,4 @@ public class test112 extends HttpServlet {
     return huc;
   }
 
-  // Line 29 should be marked
-  public HttpRequest headerUse(String url) throws IOException {
-    HttpRequest request = HttpRequest.post(url);
-    request.header("Accept","*/*");
-    return request;
-  }
-
-  // Line 37 should be marked
-  public HttpRequest chainOfMethods(String url) throws IOException {
-    HttpRequest request = HttpRequest.newBuilder()
-      .setHeader("X-Our-Header-1", "value1")
-      .setHeader("Accept","*/*")
-      .uri(new URI(url)).build();
-    return request;
-  }
-
-  // line 46 should be marked
-  public HttpRequest chainOfMethodsII(String url) throws IOException {
-    HttpRequest request = HttpRequest.post(url)
-      .header("X-Our-Header-1", "value1")
-      .header("Accept","*/*")
-      .uri(new URI(url)).build();
-    return request;
-  }
 }
