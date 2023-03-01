@@ -412,6 +412,15 @@ class IncompleteDraft(CustomBaseException):
         super(IncompleteDraft, self).__init__(msg)
 
 
+class IncompleteFinding(CustomBaseException):
+    def __init__(self, fields: Sequence[str]) -> None:
+        """Constructor"""
+        msg = (
+            f'Exception - This finding has missing fields: {", ".join(fields)}'
+        )
+        super(IncompleteFinding, self).__init__(msg)
+
+
 class IncompleteSeverity(CustomBaseException):
     """Exception to control severity fields"""
 
