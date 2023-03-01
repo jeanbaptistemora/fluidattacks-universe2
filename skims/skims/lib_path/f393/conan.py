@@ -13,7 +13,7 @@ from model.core_model import (
 import re
 
 SELF_TOOL_DEPS: re.Pattern[str] = re.compile(
-    r'\s+self\.tool_requires\("(?P<pkg>[^"]+)"[^\)]*\)'
+    r'\s+self\.(tool|build)_requires\("(?P<pkg>[^"]+)"[^\)]*\)'
 )
 TOOL_DEPS: re.Pattern[str] = re.compile(r'"([^"]+)"[,\s]*')
 
