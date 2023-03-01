@@ -8,6 +8,7 @@
       "additionalProperties": false,
       "properties": {
         "attempts": {
+          "minimum": 1,
           "type": "integer"
         },
         "awsRole": {
@@ -17,6 +18,7 @@
           "items": {
             "type": "string"
           },
+          "minItems": 1,
           "type": "array"
         },
         "enabled": {
@@ -32,21 +34,26 @@
           "additionalProperties": false,
           "properties": {
             "description": {
+              "minLength": 0,
               "type": "string"
             },
             "lastReviewed": {
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
               "type": "string"
             },
             "maintainers": {
               "items": {
+                "pattern": "^[a-z]+$",
                 "type": "string"
               },
+              "minItems": 1,
               "type": "array"
             },
             "requiredBy": {
               "items": {
                 "type": "string"
               },
+              "minItems": 0,
               "type": "array"
             }
           },
@@ -59,6 +66,7 @@
           "type": "object"
         },
         "parallel": {
+          "minimum": 1,
           "type": "integer"
         },
         "scheduleExpression": {
@@ -71,6 +79,7 @@
           "type": "object"
         },
         "timeout": {
+          "minimum": 60,
           "type": "integer"
         }
       },
