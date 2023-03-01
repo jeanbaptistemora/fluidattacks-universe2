@@ -51,10 +51,24 @@ def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> Iterator[NId]:
         "header",
         "setHeader",
         "addHeader",
+        "add",
     }
+    nodes = graph.nodes
 
-    for n_id in g.filter_nodes(graph, graph.nodes, predicate_matcher):
+    for n_id in g.filter_nodes(graph, nodes, predicate_matcher):
         if is_vuln(graph, n_id, method):
+            yield n_id
+
+    for n_id in g.matching_nodes(
+        graph, label_type="ObjectCreation", name="Header"
+    ):
+        if (
+            (args_n_id := nodes[n_id].get("arguments_id"))
+            and (args := g.adj_ast(graph, args_n_id))
+            and (len(args) == 2)
+            and (nodes[args[0]].get("value")[1:-1] == "Accept")
+            and (nodes[args[1]].get("value")[1:-1] == "*/*")
+        ):
             yield n_id
 
 

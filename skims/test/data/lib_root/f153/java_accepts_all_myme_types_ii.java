@@ -12,6 +12,19 @@ public class test extends HttpServlet {
     return req;
   }
 
+  // line 20 should be marked
+  public HttpHeaders getMultipartHeaders(String paramOrFileName) {
+    String contentType = getMultipartContentType(paramOrFileName);
+    if (contentType != null) {
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Accept","*/*");
+      return headers;
+    }
+    else {
+      return null;
+    }
+  }
+
   // Safe implementations, no lines should be marked
 	private HttpGet urlConnection(String url) throws IOException {
     URL uc = new URL(url);

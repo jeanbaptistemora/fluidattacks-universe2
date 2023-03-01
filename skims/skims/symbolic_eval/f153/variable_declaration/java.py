@@ -12,6 +12,7 @@ def allow_all_mime_types(
     danger_classes: set[str] = {
         "HttpURLConnection",
         "HttpRequest",
+        "HttpHeaders",
         "URLConnection",
         "HttpDelete",
         "HttpGet",
