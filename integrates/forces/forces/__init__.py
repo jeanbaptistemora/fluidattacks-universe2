@@ -54,35 +54,50 @@ async def entrypoint(
         "[bold green]Working on reports...[/]", spinner="aesthetic"
     ):
         tasks: dict[str, str] = {
-            "resolving": "Resolving repo",
             "gathering": "Gathering findings data",
             "processing": "Processing findings data",
             "formatting": "Formatting findings data",
             "uploading": "Uploading Report to ARM",
         }
         footer: str = ": [green]Complete[/]"
-        if config.kind in {KindEnum.STATIC, KindEnum.ALL}:
-            metadata["git_repo"] = (
-                config.repository_name or metadata["git_repo"]
-            )
-            if not config.repository_name:
-                await log(
-                    "warning",
-                    (
-                        "No specific repository name has been set. "
-                        "The vulnerabilities of [bright_yellow]all[/] "
-                        f"repositories registered in {config.group} will be "
-                        "scanned"
-                    ),
-                )
-
+        if config.kind == KindEnum.DYNAMIC:
             if config.repository_name:
                 await log(
                     "info",
                     (
-                        f"Running DevSecOps agent for vulnerabilities in the "
-                        f"repo: [bright_yellow]{config.repository_name}[/] "
+                        f"Looking for dynamic vulnerabilities associated "
+                        f"with the repo: "
+                        f"[bright_yellow]{config.repository_name}[/] "
+                        f"of group {config.group}."
+                    ),
+                )
+                await log(
+                    "info",
+                    (
+                        "Dynamic vulnerabilities in this group not associated "
+                        "with any repos will also be included in the report"
+                    ),
+                )
+        else:
+            metadata["git_repo"] = (
+                config.repository_name or metadata["git_repo"]
+            )
+            if config.repository_name:
+                await log(
+                    "info",
+                    (
+                        f"Looking for vulnerabilities in the repo: "
+                        f"[bright_yellow]{config.repository_name}[/] "
                         f"of group {config.group}"
+                    ),
+                )
+            else:
+                await log(
+                    "warning",
+                    (
+                        "No specific repository name has been set. "
+                        "Looking for vulnerabilities in [bright_yellow]all[/] "
+                        f"repositories registered in {config.group}"
                     ),
                 )
 
@@ -93,9 +108,9 @@ async def entrypoint(
                 and not await check_remotes(config)
             ):
                 return 1
-        await log("info", f"{tasks['resolving']}{footer}")
-        report = await compile_raw_report(config)
+
         await log("info", f"{tasks['gathering']}{footer}")
+        report = await compile_raw_report(config)
 
         if report.summary.total > 0:
             await log("info", f"{tasks['processing']}{footer}")
@@ -115,9 +130,9 @@ async def entrypoint(
                 ),
             )
 
-        if output := config.output:
+        if config.output:
             temp_file.seek(os.SEEK_SET)
-            await in_thread(output.write, temp_file.read())
+            await in_thread(config.output.write, temp_file.read())
         exit_code = await set_forces_exit_code(config, report.findings)
         await upload_report(
             config=config,
