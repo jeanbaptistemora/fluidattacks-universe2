@@ -5,6 +5,7 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     JsonObj,
+    JsonValue,
     Result,
     ResultE,
 )
@@ -13,6 +14,9 @@ from fa_purity.json.factory import (
 )
 from fa_purity.json.transform import (
     dumps,
+)
+from fa_purity.json.value.transform import (
+    Unfolder,
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
@@ -65,6 +69,49 @@ class TapConfig:
 
     def to_file(self) -> Cmd[TempReadOnlyFile]:
         return TempReadOnlyFile.new(from_flist((dumps(self.to_json()),)))
+
+    def __repr__(self) -> str:
+        return "TapConfig: [masked]"
+
+
+def decode_conf(raw: JsonObj) -> ResultE[TapConfig]:
+    def get_str(key: str) -> ResultE[str]:
+        return (
+            Unfolder(JsonValue(raw))
+            .uget(key)
+            .bind(lambda u: u.to_primitive(str).alt(Exception))
+        )
+
+    def get_int(key: str) -> ResultE[int]:
+        return (
+            Unfolder(JsonValue(raw))
+            .uget(key)
+            .bind(lambda u: u.to_primitive(int).alt(Exception))
+        )
+
+    return get_str("client_id").bind(
+        lambda client_id: get_str("client_secret").bind(
+            lambda client_secret: get_str("refresh_token").bind(
+                lambda refresh_token: get_str("spreadsheet_id").bind(
+                    lambda spreadsheet_id: get_str("start_date").bind(
+                        lambda start_date: get_str("user_agent").bind(
+                            lambda user_agent: get_int("request_timeout").map(
+                                lambda request_timeout: TapConfig(
+                                    client_id,
+                                    client_secret,
+                                    refresh_token,
+                                    spreadsheet_id,
+                                    start_date,
+                                    user_agent,
+                                    request_timeout,
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
 
 
 @dataclass(frozen=True)

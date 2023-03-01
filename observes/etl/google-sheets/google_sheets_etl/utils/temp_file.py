@@ -10,6 +10,9 @@ from fa_purity import (
     PureIter,
     Stream,
 )
+from fa_purity.cmd.core import (
+    CmdUnwrapper,
+)
 from fa_purity.pure_iter.factory import (
     unsafe_from_cmd,
 )
@@ -23,6 +26,8 @@ from tempfile import (
     NamedTemporaryFile,
 )
 from typing import (
+    Callable,
+    IO,
     Iterable,
 )
 
@@ -40,10 +45,16 @@ class TempFile:
 
         return Cmd.from_cmd(_action)
 
+    def write_hook(self, hook: Callable[[IO[str]], Cmd[None]]) -> Cmd[None]:
+        def _action(unwrapper: CmdUnwrapper) -> None:
+            with open(self.path, "w", encoding="UTF-8") as file:
+                unwrapper.act(hook(file))
+
+        return Cmd.new_cmd(_action)
+
     def read_lines(self) -> Stream[str]:
         def _new_iter() -> Iterable[str]:
             with open(self.path, "r", encoding="UTF-8") as file:
-
                 line = file.readline()
                 while line:
                     yield line
@@ -52,11 +63,9 @@ class TempFile:
         return unsafe_build_stream(Cmd.from_cmd(_new_iter))
 
     def write_lines(self, lines: PureIter[str]) -> Cmd[None]:
-        def _new_iter() -> None:
-            with open(self.path, "w", encoding="UTF-8") as file:
-                file.writelines(lines)
-
-        return Cmd.from_cmd(_new_iter)
+        return self.write_hook(
+            lambda f: Cmd.from_cmd(lambda: f.writelines(lines))
+        )
 
 
 @dataclass(frozen=True)
