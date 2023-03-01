@@ -96,15 +96,10 @@ const MediumFooter: React.FC = (): JSX.Element => {
                   {"PLATFORM"}
                 </Text>
                 <AirsLink hoverColor={"#b0b0bf"} href={"/platform/"}>
-                  <Text color={"#ffffff"} mb={2} size={"small"}>
+                  <Text color={"#ffffff"} mb={4} size={"small"}>
                     {translate.t(
                       "menu.platform.aSinglePane.platformOverview.title"
                     )}
-                  </Text>
-                </AirsLink>
-                <AirsLink hoverColor={"#b0b0bf"} href={"/platform/arm/"}>
-                  <Text color={"#ffffff"} mb={4} size={"small"}>
-                    {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
                   </Text>
                 </AirsLink>
                 <Text
@@ -126,14 +121,19 @@ const MediumFooter: React.FC = (): JSX.Element => {
                     {"DAST"}
                   </Text>
                 </AirsLink>
+                <AirsLink hoverColor={"#b0b0bf"} href={"/product/mast/"}>
+                  <Text color={"#ffffff"} mb={3} size={"small"}>
+                    {"MAST"}
+                  </Text>
+                </AirsLink>
                 <AirsLink hoverColor={"#b0b0bf"} href={"/product/sca/"}>
                   <Text color={"#ffffff"} mb={3} size={"small"}>
                     {"SCA"}
                   </Text>
                 </AirsLink>
-                <AirsLink hoverColor={"#b0b0bf"} href={"/product/re/"}>
+                <AirsLink hoverColor={"#b0b0bf"} href={"/platform/arm/"}>
                   <Text color={"#ffffff"} mb={3} size={"small"}>
-                    {"RE"}
+                    {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
                   </Text>
                 </AirsLink>
                 <AirsLink hoverColor={"#b0b0bf"} href={"/product/ptaas/"}>
@@ -141,9 +141,9 @@ const MediumFooter: React.FC = (): JSX.Element => {
                     {"PTaaS"}
                   </Text>
                 </AirsLink>
-                <AirsLink hoverColor={"#b0b0bf"} href={"/product/mast/"}>
+                <AirsLink hoverColor={"#b0b0bf"} href={"/product/re/"}>
                   <Text color={"#ffffff"} mb={3} size={"small"}>
-                    {"MAST"}
+                    {"RE"}
                   </Text>
                 </AirsLink>
               </Container>
