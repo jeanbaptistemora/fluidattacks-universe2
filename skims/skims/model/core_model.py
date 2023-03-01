@@ -4116,9 +4116,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE = MethodInfo(
+    JAVA_HTTP_REQ_ACCEPTS_ANY_MIMETYPE = MethodInfo(
         file_name="java",
-        name="java_http_accepts_any_myme_type",
+        name="java_http_accepts_any_mime_type",
         module="lib_root",
         finding=FindingEnum.F153,
         developer=DeveloperEnum.LUIS_PATINO,

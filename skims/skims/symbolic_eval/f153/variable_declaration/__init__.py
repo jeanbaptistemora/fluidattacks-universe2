@@ -11,7 +11,7 @@ from symbolic_eval.types import (
 )
 
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE: java_allows_all_mime_types,
+    MethodsEnum.JAVA_HTTP_REQ_ACCEPTS_ANY_MIMETYPE: java_allows_all_mime_types,
 }
 
 

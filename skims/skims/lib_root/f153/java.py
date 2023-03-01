@@ -53,10 +53,10 @@ def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> Iterator[NId]:
             yield n_id
 
 
-def java_http_accepts_any_myme_type(
+def java_http_accepts_any_mime_type(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_HTTP_REQ_ACCEPTS_ANY_MYMETYPE
+    method = MethodsEnum.JAVA_HTTP_REQ_ACCEPTS_ANY_MIMETYPE
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
