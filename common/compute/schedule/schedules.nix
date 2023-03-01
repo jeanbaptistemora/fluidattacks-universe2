@@ -24,6 +24,21 @@
       "management:product" = "common";
       "management:type" = "product";
     };
+
+    meta = {
+      description = ''
+        Cleans AWS EC2 SSH keys in order to avoid reaching 5000 limit.
+      '';
+      lastReviewed = "2023-03-01";
+      maintainers = ["dsalazaratfluid"];
+      requiredBy = [
+        ''
+          CI bastions as they create keys
+          for their workers
+          but do not delete them afterwards.
+        ''
+      ];
+    };
   };
   integrates_abandoned_trial_notification = {
     enabled = true;
@@ -53,6 +68,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_clean_ephemerals = {
     enabled = true;
@@ -79,6 +101,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_clone_groups_roots = {
@@ -109,6 +138,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_clone_groups_roots_vpn = {
     enabled = true;
@@ -137,6 +173,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_consulting_digest_notification = {
@@ -167,6 +210,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_event_digest_notification = {
     enabled = true;
@@ -195,6 +245,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_groups_languages_distribution = {
@@ -226,6 +283,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_organization_vulnerabilities = {
     enabled = true;
@@ -254,6 +318,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_update_organization_repositories = {
@@ -284,6 +355,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_remove_inactive_stakeholders = {
     enabled = false;
@@ -312,6 +390,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_delete_obsolete_groups = {
@@ -342,6 +427,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_delete_obsolete_orgs = {
     enabled = true;
@@ -370,6 +462,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_event_report = {
@@ -400,6 +499,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_expire_free_trial = {
     enabled = true;
@@ -428,6 +534,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_missing_environment_alert = {
@@ -458,6 +571,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_numerator_report_digest = {
     enabled = true;
@@ -487,6 +607,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_machine_queue_all = {
     enabled = true;
@@ -515,6 +642,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_update_organization_overview = {
@@ -546,6 +680,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_machine_queue_re_attacks = {
     enabled = true;
@@ -574,6 +715,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_refresh_toe_lines = {
@@ -604,6 +752,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_reminder_notification = {
     enabled = true;
@@ -632,6 +787,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_report_squad_usage = {
@@ -662,6 +824,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_requeue_actions = {
     enabled = true;
@@ -691,6 +860,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_reset_expired_accepted_findings = {
     enabled = true;
@@ -719,6 +895,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_charts_documents = rec {
@@ -750,6 +933,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_charts_snapshots = {
     enabled = true;
@@ -777,6 +967,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_review_machine_executions = {
@@ -807,6 +1004,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_send_deprecation_notice = {
     enabled = true;
@@ -835,6 +1039,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_subscriptions_analytics_daily = {
@@ -865,6 +1076,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_subscriptions_analytics_monthly = {
     enabled = true;
@@ -893,6 +1111,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_subscriptions_analytics_weekly = {
@@ -923,6 +1148,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_update_compliance = {
     enabled = true;
@@ -951,6 +1183,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_update_group_toe_priorities = {
@@ -981,6 +1220,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_update_group_toe_vulns = {
     enabled = true;
@@ -1009,6 +1255,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_update_indicators = {
@@ -1039,6 +1292,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_update_portfolios = {
     enabled = true;
@@ -1067,6 +1327,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_fix_machine_executions = {
@@ -1097,6 +1364,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   integrates_send_trial_engagement_notification = {
     enabled = true;
@@ -1125,6 +1399,13 @@
       "management:area" = "cost";
       "management:product" = "integrates";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   integrates_treatment_alert_notification = {
@@ -1155,6 +1436,13 @@
       "management:product" = "integrates";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   observes_cancel_stuck_jobs = {
     enabled = true;
@@ -1181,6 +1469,13 @@
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   observes_etl_code_compute_bills = {
@@ -1209,6 +1504,13 @@
       "management:product" = "observes";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   observes_etl_gitlab_ephemeral = {
     enabled = true;
@@ -1235,6 +1537,13 @@
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   observes_etl_matomo = {
@@ -1263,6 +1572,13 @@
       "management:product" = "observes";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   observes_etl_mixpanel = {
     enabled = true;
@@ -1288,6 +1604,13 @@
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   observes_etl_timedoctor = {
@@ -1315,6 +1638,13 @@
       "management:product" = "observes";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   observes_etl_timedoctor_backup = {
     enabled = true;
@@ -1340,6 +1670,13 @@
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   observes_etl_zoho_crm_fluid = {
@@ -1367,6 +1704,13 @@
       "management:product" = "observes";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   observes_etl_zoho_crm_fluid_prepare = {
     enabled = true;
@@ -1392,6 +1736,13 @@
       "management:area" = "cost";
       "management:product" = "observes";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   observes_job_scheduler = {
@@ -1420,6 +1771,13 @@
       "management:product" = "observes";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   skims_benchmark_owasp = {
     enabled = true;
@@ -1446,6 +1804,13 @@
       "management:area" = "cost";
       "management:product" = "skims";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   skims_update_sca_table = {
@@ -1475,6 +1840,13 @@
       "management:product" = "skims";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   sorts_association_rules = {
     enabled = true;
@@ -1501,6 +1873,13 @@
       "management:area" = "cost";
       "management:product" = "sorts";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
   sorts_association_execute = rec {
@@ -1530,6 +1909,13 @@
       "management:product" = "sorts";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   sorts_execute = rec {
     enabled = true;
@@ -1558,6 +1944,13 @@
       "management:product" = "sorts";
       "management:type" = "product";
     };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
+    };
   };
   sorts_training_and_tune = {
     enabled = true;
@@ -1584,6 +1977,13 @@
       "management:area" = "cost";
       "management:product" = "sorts";
       "management:type" = "product";
+    };
+
+    meta = {
+      description = "";
+      lastReviewed = "";
+      maintainers = [];
+      requiredBy = [];
     };
   };
 }
