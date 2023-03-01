@@ -86,8 +86,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
               findingId: vulnerabilitiesList[0].findingId,
             },
           },
-          GET_ME_VULNERABILITIES_ASSIGNED,
-          GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+          { query: GET_ME_VULNERABILITIES_ASSIGNED },
+          { query: GET_ME_VULNERABILITIES_ASSIGNED_IDS },
         ],
       }
     );

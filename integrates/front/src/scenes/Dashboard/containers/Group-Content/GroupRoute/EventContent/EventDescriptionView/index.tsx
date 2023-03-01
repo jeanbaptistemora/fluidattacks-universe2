@@ -230,7 +230,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       onError: handleUpdateError,
       refetchQueries: [
         { query: GET_EVENT_HEADER, variables: { eventId } },
-        GET_EVENT_DESCRIPTION,
+        {
+          query: GET_EVENT_DESCRIPTION,
+          variables: {
+            canRetrieveHacker: permissions.can(
+              "api_resolvers_event_hacker_resolve"
+            ),
+            eventId,
+          },
+        },
       ],
     }
   );
@@ -274,7 +282,18 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         }
       });
     },
-    refetchQueries: [GET_EVENT_HEADER, GET_EVENT_DESCRIPTION],
+    refetchQueries: [
+      { query: GET_EVENT_HEADER, variables: { eventId } },
+      {
+        query: GET_EVENT_DESCRIPTION,
+        variables: {
+          canRetrieveHacker: permissions.can(
+            "api_resolvers_event_hacker_resolve"
+          ),
+          eventId,
+        },
+      },
+    ],
   });
 
   const [updateEvent] = useMutation(UPDATE_EVENT_MUTATION, {
@@ -306,13 +325,23 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         }
       });
     },
-    refetchQueries: [GET_EVENT_DESCRIPTION],
+    refetchQueries: [
+      {
+        query: GET_EVENT_DESCRIPTION,
+        variables: {
+          canRetrieveHacker: permissions.can(
+            "api_resolvers_event_hacker_resolve"
+          ),
+          eventId,
+        },
+      },
+    ],
   });
 
   const handleRejectSolution: (values: Record<string, unknown>) => void =
     useCallback(
-      (values: Record<string, unknown>): void => {
-        void rejectSolution({
+      async (values: Record<string, unknown>): Promise<void> => {
+        await rejectSolution({
           variables: {
             comments: values.treatmentJustification,
             eventId,

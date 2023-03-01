@@ -10,17 +10,6 @@ const GET_GROUP_SERVICES = gql`
   }
 `;
 
-const GET_ME_VULNERABILITIES_ASSIGNED_IDS: DocumentNode = gql`
-  query GetMeVulnerabilitiesAssignedIds {
-    me(callerOrigin: "FRONT") {
-      vulnerabilitiesAssigned {
-        id
-      }
-      userEmail
-    }
-  }
-`;
-
 const REQUEST_GROUPS_UPGRADE_MUTATION: DocumentNode = gql`
   mutation RequestGroupsUpgrade($groupNames: [String!]!) {
     requestGroupsUpgrade(groupNames: $groupNames) {
@@ -29,8 +18,4 @@ const REQUEST_GROUPS_UPGRADE_MUTATION: DocumentNode = gql`
   }
 `;
 
-export {
-  GET_GROUP_SERVICES,
-  GET_ME_VULNERABILITIES_ASSIGNED_IDS,
-  REQUEST_GROUPS_UPGRADE_MUTATION,
-};
+export { GET_GROUP_SERVICES, REQUEST_GROUPS_UPGRADE_MUTATION };

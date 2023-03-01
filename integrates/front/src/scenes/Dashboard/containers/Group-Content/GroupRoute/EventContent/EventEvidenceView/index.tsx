@@ -83,7 +83,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   const { data, networkStatus, refetch } = useQuery<IGetEventEvidences>(
     GET_EVENT_EVIDENCES,
     {
-      notifyOnNetworkStatusChange: true,
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(t("groupAlerts.errorTextsad"));
@@ -115,7 +114,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
         Logger.warning("An error occurred removing event evidence", error);
       });
     },
-    refetchQueries: [GET_EVENT_EVIDENCES],
   });
   const [updateEvidence] = useMutation<IUpdateEventEvidenceResultAttr>(
     UPDATE_EVIDENCE_MUTATION,
@@ -318,6 +316,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                         evidenceType: _.snakeCase(name).toUpperCase(),
                       },
                     });
+                    await refetch();
                   };
 
                   const handleDownload = async (): Promise<void> => {
