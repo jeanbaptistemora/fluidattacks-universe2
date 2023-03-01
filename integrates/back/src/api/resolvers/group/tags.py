@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @GROUP.field("tags")
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
 ) -> list[str] | None:

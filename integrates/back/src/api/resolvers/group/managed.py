@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @GROUP.field("managed")
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
 ) -> GroupManaged:

@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @GROUP.field("groupContext")
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
 ) -> str | None:
