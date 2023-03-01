@@ -65,6 +65,14 @@ async def _get_group_access(
     raise StakeholderNotInGroup()
 
 
+class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[GroupAccessRequest]
+    ) -> list[GroupAccess]:
+        return await _get_group_access(requests=requests)
+
+
 async def _get_historic_group_access(
     *, request: GroupAccessRequest
 ) -> list[GroupAccess]:
@@ -88,9 +96,26 @@ async def _get_historic_group_access(
     return [format_group_access(item) for item in response.items]
 
 
+class GroupHistoricAccessLoader(
+    DataLoader[GroupAccessRequest, list[GroupAccess]]
+):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[GroupAccessRequest]
+    ) -> list[list[GroupAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_historic_group_access(request=request)
+                    for request in requests
+                )
+            )
+        )
+
+
 async def _get_group_stakeholders_access(
     *,
-    access_dataloader: DataLoader,
+    access_dataloader: GroupAccessLoader,
     group_name: str,
 ) -> list[GroupAccess]:
     group_name = group_name.lower().strip()
@@ -127,9 +152,31 @@ async def _get_group_stakeholders_access(
     return access_list
 
 
+class GroupStakeholdersAccessLoader(DataLoader[str, list[GroupAccess]]):
+    def __init__(self, dataloader: GroupAccessLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> list[list[GroupAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_group_stakeholders_access(
+                        access_dataloader=self.dataloader,
+                        group_name=group_name,
+                    )
+                    for group_name in group_names
+                )
+            )
+        )
+
+
 async def _get_stakeholder_groups_access(
     *,
-    access_dataloader: DataLoader,
+    access_dataloader: GroupAccessLoader,
     email: str,
 ) -> list[GroupAccess]:
     email = email.lower().strip()
@@ -162,55 +209,8 @@ async def _get_stakeholder_groups_access(
     return access_list
 
 
-class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, requests: Iterable[GroupAccessRequest]
-    ) -> list[GroupAccess]:
-        return await _get_group_access(requests=requests)
-
-
-class GroupHistoricAccessLoader(
-    DataLoader[GroupAccessRequest, list[GroupAccess]]
-):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, requests: Iterable[GroupAccessRequest]
-    ) -> list[list[GroupAccess]]:
-        return list(
-            await collect(
-                tuple(
-                    _get_historic_group_access(request=request)
-                    for request in requests
-                )
-            )
-        )
-
-
-class GroupStakeholdersAccessLoader(DataLoader[str, list[GroupAccess]]):
-    def __init__(self, dataloader: DataLoader) -> None:
-        super().__init__()
-        self.dataloader = dataloader
-
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> list[list[GroupAccess]]:
-        return list(
-            await collect(
-                tuple(
-                    _get_group_stakeholders_access(
-                        access_dataloader=self.dataloader,
-                        group_name=group_name,
-                    )
-                    for group_name in group_names
-                )
-            )
-        )
-
-
 class StakeholderGroupsAccessLoader(DataLoader[str, list[GroupAccess]]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: GroupAccessLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 

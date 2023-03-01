@@ -114,9 +114,17 @@ async def _get_stakeholders_no_fallback(
     return stakeholders
 
 
+class StakeholderLoader(DataLoader[str, Stakeholder | None]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, emails: Iterable[str]
+    ) -> list[Stakeholder | None]:
+        return await _get_stakeholders_no_fallback(emails=emails)
+
+
 async def _get_stakeholders_with_fallback(
     *,
-    stakeholder_dataloader: DataLoader,
+    stakeholder_dataloader: StakeholderLoader,
     emails: Iterable[str],
 ) -> list[Stakeholder]:
     emails_formatted = [email.lower().strip() for email in emails]
@@ -141,16 +149,8 @@ async def _get_stakeholders_with_fallback(
     return stakeholders
 
 
-class StakeholderLoader(DataLoader[str, Stakeholder | None]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> list[Stakeholder | None]:
-        return await _get_stakeholders_no_fallback(emails=emails)
-
-
 class StakeholderWithFallbackLoader(DataLoader[str, Stakeholder]):
-    def __init__(self, dataloader: DataLoader) -> None:
+    def __init__(self, dataloader: StakeholderLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
