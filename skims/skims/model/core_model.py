@@ -4343,7 +4343,7 @@ class MethodsEnum(Enum):
     CFN_EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_use_default_security_group",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F177,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
