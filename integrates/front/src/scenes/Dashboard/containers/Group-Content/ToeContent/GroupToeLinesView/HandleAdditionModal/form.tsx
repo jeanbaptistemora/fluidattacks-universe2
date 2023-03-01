@@ -9,9 +9,8 @@ import { ModifiedDateField } from "./ModifiedDateField";
 import { RootField } from "./RootField";
 import type { IFormValues, IHandleAdditionModalFormProps } from "./types";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100 } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
@@ -23,34 +22,34 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   return (
     <Form id={"addToeLines"}>
       <Row>
-        <Col100>
+        <Col>
           <RootField roots={roots} />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <FilenameField />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <LinesOfCodeField />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <LastAuthorField />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <LastCommitField />
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <ModifiedDateField />
-        </Col100>
+        </Col>
       </Row>
       <ModalConfirm onCancel={handleCloseModal} onConfirm={submitForm} />
     </Form>
