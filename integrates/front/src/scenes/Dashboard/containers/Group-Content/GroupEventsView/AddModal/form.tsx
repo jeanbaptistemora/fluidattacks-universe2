@@ -16,7 +16,7 @@ import type {
 import { InputDateTime, InputFile, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col50, ControlLabel, FormGroup } from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import { FormikAutocompleteText } from "utils/forms/fields";
@@ -116,7 +116,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
   return (
     <Form>
       <Row>
-        <Col50>
+        <Col>
           <InputDateTime
             label={t("group.events.form.date")}
             name={"eventDate"}
@@ -126,8 +126,8 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               dateTimeBeforeToday,
             ])}
           />
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           <FormGroup>
             <Select
               label={t("group.events.form.type")}
@@ -174,7 +174,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               </option>
             </Select>
           </FormGroup>
-        </Col50>
+        </Col>
       </Row>
       <Row>
         <Col>
@@ -205,7 +205,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
         </Col>
       </Row>
       <Row>
-        <Col50>
+        <Col>
           <FormGroup>
             <InputFile
               accept={"image/png,video/webm"}
@@ -221,8 +221,8 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               ])}
             />
           </FormGroup>
-        </Col50>
-        <Col50>
+        </Col>
+        <Col>
           <FormGroup>
             <InputFile
               accept={"application/pdf,application/zip,text/csv,text/plain"}
@@ -236,7 +236,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               ])}
             />
           </FormGroup>
-        </Col50>
+        </Col>
       </Row>
       {hasReattacks && canOnHold ? (
         <FormGroup>
