@@ -12,10 +12,10 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
 import { Layout } from "../scenes/Footer/Layout";
@@ -25,35 +25,23 @@ import {
   ArticleTitle,
   PageArticle,
 } from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const MdDefaultPage: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { banner, description, keywords, slug, subtext, subtitle, title } =
     data.markdownRemark.frontmatter;
 
   const hasBanner: boolean = typeof banner === "string";
   const isCareers: boolean = slug === "careers/";
-
-  const isComparative: boolean = slug === "services/comparative/";
-  const serviceIndex = crumbs.findIndex(
-    (crumb): boolean => crumb.crumbLabel === "services"
-  );
-
-  const changeCrumbs = (
-    index: number
-  ): [{ pathname: string; crumbLabel: string }] => {
-    const comparativeCrumbs = crumbs;
-    comparativeCrumbs[index].pathname = "/services/continuous-hacking/";
-
-    return comparativeCrumbs;
-  };
 
   return (
     <React.Fragment>
@@ -70,13 +58,7 @@ const MdDefaultPage: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={decode(capitalizePlainString(title))}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(
-              isComparative ? changeCrumbs(serviceIndex) : crumbs
-            )}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <PageHeader

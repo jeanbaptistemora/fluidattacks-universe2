@@ -135,26 +135,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-breadcrumb",
-      options: {
-        // useAutoGen: required 'true' to use autogen
-        useAutoGen: true,
-        // autoGenHomeLabel: optional 'Home' is default
-        // exlude: optional, include this array to exclude paths you don't want to
-        // generate breadcrumbs for (see below for details).
-        // isMatchOptions: optional, include this object to configure the wildcard-match library.
-        excludeOptions: {
-          separator: ".",
-        },
-        // crumbLabelUpdates: optional, update specific crumbLabels in the path
-        // trailingSlashes: optional, will add trailing slashes to the end
-        // of crumb pathnames. default is false
-        trailingSlashes: true,
-        // usePathPrefix: optional, if you are using pathPrefix above
-        usePathPrefix: "/front",
-      },
-    },
-    {
       resolve: "gatsby-plugin-web-font-loader",
       options: {
         typekit: {

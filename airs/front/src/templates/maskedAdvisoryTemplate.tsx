@@ -11,10 +11,10 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import type { Auth0ContextInterface } from "@auth0/auth0-react";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { LogoutButton } from "../components/LogoutButton";
 import { Seo } from "../components/Seo";
 import { TimeLapse } from "../components/TimeLapse";
@@ -27,15 +27,17 @@ import {
   PageArticle,
   RedMark,
 } from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const MaskedAdvisoryIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const renderAst = new (rehypeReact as any)({
     components: {
@@ -64,11 +66,7 @@ const MaskedAdvisoryIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f4f4f6"}>
             <p>{`Logged in as: ${user?.email}`}</p>

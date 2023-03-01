@@ -23,6 +23,9 @@ const PageMaker = (createPage) => {
               context: {
                 id: post.node.id,
                 slug: `/pages/${post.node.frontmatter.slug}`,
+                breadcrumb: {
+                  location: post.node.frontmatter.slug,
+                },
               },
             });
           } else {
@@ -32,6 +35,9 @@ const PageMaker = (createPage) => {
               context: {
                 id: post.node.id,
                 slug: `/pages/${post.node.frontmatter.slug}`,
+                breadcrumb: {
+                  location: post.node.frontmatter.slug,
+                },
               },
             });
           }
@@ -42,6 +48,9 @@ const PageMaker = (createPage) => {
             context: {
               id: post.node.id,
               slug: `/blog/${post.node.frontmatter.slug}`,
+              breadcrumb: {
+                location: post.node.fields.slug,
+              },
             },
           });
         }
@@ -69,7 +78,12 @@ const createTagPages = (createPage, posts) => {
     createPage({
       path: `blog/tags/${tagName}`,
       component: tagTemplate,
-      context: { tagName },
+      context: {
+        tagName,
+        breadcrumb: {
+          location: `blog/tags/${tagName}`,
+        },
+      },
     });
   });
 };
@@ -95,7 +109,12 @@ const createCategoryPages = (createPage, posts) => {
     createPage({
       path: `blog/categories/${categoryName}`,
       component: categoryTemplate,
-      context: { categoryName },
+      context: {
+        categoryName,
+        breadcrumb: {
+          location: `blog/categories/${categoryName}`,
+        },
+      },
     });
   });
 };
@@ -125,7 +144,12 @@ const createAuthorPages = (createPage, posts) => {
     createPage({
       path: `blog/authors/${authorName}`,
       component: authorTemplate,
-      context: { authorName },
+      context: {
+        authorName,
+        breadcrumb: {
+          location: `blog/authors/${authorName}`,
+        },
+      },
     });
   });
 };
@@ -184,5 +208,27 @@ exports.onCreateNode = async ({ node, actions, getNode, loadNodeContent }) => {
       node,
       value,
     });
+  }
+};
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions;
+  const newPage = Object.assign({}, page);
+
+  if (
+    page.path === "/blog/" ||
+    page.path === "/blog/authors/" ||
+    page.path === "/blog/categories/" ||
+    page.path === "/blog/tags/"
+  ) {
+    deletePage(page);
+
+    newPage.context = {
+      breadcrumb: {
+        location: page.path,
+      },
+    };
+
+    createPage(newPage);
   }
 };

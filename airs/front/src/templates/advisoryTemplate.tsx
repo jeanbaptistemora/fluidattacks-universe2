@@ -15,10 +15,10 @@
 
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Seo } from "../components/Seo";
 import { TimeLapse } from "../components/TimeLapse";
 import { Layout } from "../scenes/Footer/Layout";
@@ -30,15 +30,17 @@ import {
   PageArticle,
   RedMark,
 } from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const AdvisoryIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const renderAst = new (rehypeReact as any)({
     components: {
@@ -70,11 +72,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f4f4f6"}>
             <MarkedTitleContainer>

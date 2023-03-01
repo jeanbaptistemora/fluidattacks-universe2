@@ -11,9 +11,9 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
@@ -29,15 +29,17 @@ import {
   PageArticle,
   RedMark,
 } from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const CategoryIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const {
     description,
@@ -73,11 +75,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <ComplianceContainer>

@@ -14,9 +14,9 @@
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React, { useCallback } from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { FloatingButton } from "../components/FloatingButton";
 import { InternalCta } from "../components/InternalCta";
 import { Seo } from "../components/Seo";
@@ -34,15 +34,17 @@ import {
   ServicesHeaderContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const ContinuousHackingIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { description, headtitle, image, keywords, slug, subtext, title } =
     data.markdownRemark.frontmatter;
@@ -79,11 +81,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <BigPageContainer>

@@ -926,42 +926,10 @@ body {
   }
 }
 
-.breadcrumb {
-  background-color: #40404f;
-  font-family: 'Poppins', sans-serif;
-  padding-bottom: 0;
-  padding-top: 0;
-}
-
 .down-cards p,
 .down-cards p > code,
 .down-cards ul > li > p {
   font-size: 1rem !important;
-}
-
-// stylelint-disable-next-line selector-class-pattern
-.breadcrumb__list {
-  font-size: 0.75rem;
-  margin: 0 auto !important;
-  max-width: 1570px;
-  padding: 15px 1.75rem !important;
-  text-align: left;
-
-  @media screen and (min-width: 60em) {
-    font-size: 0.875rem;
-    padding: 15px 1.75rem !important;
-  }
-}
-
-// stylelint-disable-next-line selector-class-pattern
-.breadcrumb__link {
-  color: $fluid-gray;
-  &:hover { color: $white-244; }
-}
-
-// stylelint-disable-next-line selector-class-pattern
-.breadcrumb__separator {
-  color: $fluid-gray;
 }
 
 .internal {

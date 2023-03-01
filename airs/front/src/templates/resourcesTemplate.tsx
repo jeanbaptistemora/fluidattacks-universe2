@@ -11,22 +11,24 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { ResourcesPage } from "../components/ResourcesPage";
 import { Seo } from "../components/Seo";
 import { Layout } from "../scenes/Footer/Layout";
 import { NavbarComponent } from "../scenes/Menu";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const ResourcesIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
@@ -46,11 +48,7 @@ const ResourcesIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
           <ResourcesPage bannerTitle={title} />
         </div>
       </Layout>

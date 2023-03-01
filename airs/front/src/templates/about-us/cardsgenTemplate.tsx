@@ -11,9 +11,9 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { CertificationsPage } from "../../components/CertificationsPage";
 import { ClientsPage } from "../../components/ClientsPage";
 import { PartnerPage } from "../../components/PartnerPage";
@@ -27,15 +27,17 @@ import {
   FullWidthContainer,
   PageArticle,
 } from "../../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
 
 const CardsgenIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const {
     banner,
@@ -74,11 +76,7 @@ const CardsgenIndex: React.FC<IQueryData> = ({
         <Layout>
           <div>
             <NavbarComponent />
-            <Breadcrumb
-              crumbLabel={capitalizePlainString(title)}
-              crumbSeparator={" / "}
-              crumbs={capitalizeObject(crumbs)}
-            />
+            <Breadcrumbs currentPath={path} />
 
             <PageArticle bgColor={"#f9f9f9"}>
               <BannerContainer className={banner}>
@@ -113,11 +111,7 @@ const CardsgenIndex: React.FC<IQueryData> = ({
         <Layout>
           <div>
             <NavbarComponent />
-            <Breadcrumb
-              crumbLabel={capitalizePlainString(title)}
-              crumbSeparator={" / "}
-              crumbs={capitalizeObject(crumbs)}
-            />
+            <Breadcrumbs currentPath={path} />
 
             <PageArticle bgColor={"#f9f9f9"}>
               <BannerContainer className={banner}>
@@ -153,11 +147,7 @@ const CardsgenIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <BannerContainer className={banner}>

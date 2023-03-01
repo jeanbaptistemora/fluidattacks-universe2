@@ -11,9 +11,9 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Seo } from "../components/Seo";
 import { Title } from "../components/Texts";
 import { Layout } from "../scenes/Footer/Layout";
@@ -23,15 +23,17 @@ import {
   FlexCenterItemsContainer,
   PageArticle,
 } from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const ComplianceIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { description, headtitle, keywords, slug, title } =
     data.markdownRemark.frontmatter;
@@ -55,11 +57,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <FlexCenterItemsContainer>

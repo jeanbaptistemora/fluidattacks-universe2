@@ -12,9 +12,9 @@
 /* eslint import/no-namespace:0 */
 import { Link, graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { CloudImage } from "../components/CloudImage";
 import { Seo } from "../components/Seo";
 import { Paragraph, Title } from "../components/Texts";
@@ -28,15 +28,17 @@ import {
   SystemsCardContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const SystemsIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
@@ -113,11 +115,7 @@ const SystemsIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f4f4f6"}>
             <FlexCenterItemsContainer>

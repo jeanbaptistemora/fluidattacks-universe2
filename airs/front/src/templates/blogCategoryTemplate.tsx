@@ -1,22 +1,25 @@
 /* eslint react/forbid-component-props: 0 */
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { BlogSeo } from "../components/BlogSeo";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Seo } from "../components/Seo";
 import { BlogsToFilterPage } from "../scenes/BlogsToFilterPage";
 import { Layout } from "../scenes/Footer/Layout";
 import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
+import { capitalizePlainString } from "../utils/utilities";
 
 const blogCategoryTemplate: React.FC<IQueryData> = ({
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { categoryName } = pageContext;
   const blogImage: string =
@@ -105,11 +108,7 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
 
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(categoryName)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
           <PageArticle bgColor={"transparent"}>
             <BlogsToFilterPage
               description={categoryDescription}

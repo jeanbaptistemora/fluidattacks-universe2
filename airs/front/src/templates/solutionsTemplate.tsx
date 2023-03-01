@@ -13,9 +13,9 @@
 /* eslint react/jsx-no-bind:0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../components/Breadcrumbs";
 import { Container } from "../components/Container";
 import { Grid } from "../components/Grid";
 import { Hero } from "../components/Hero";
@@ -25,15 +25,17 @@ import { Layout } from "../scenes/Footer/Layout";
 import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const SolutionsIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
@@ -104,11 +106,7 @@ const SolutionsIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
           <PageArticle bgColor={"#ffffff"}>
             <Hero
               button1Link={"/free-trial/"}

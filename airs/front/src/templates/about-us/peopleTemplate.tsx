@@ -11,9 +11,9 @@
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { PeopleSectionList } from "../../components/PeopleSectionsList";
 import { Seo } from "../../components/Seo";
 import { Layout } from "../../scenes/Footer/Layout";
@@ -25,15 +25,17 @@ import {
   FullWidthContainer,
   PageArticle,
 } from "../../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../../utils/utilities";
 
 const PeopleIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
+  const { location } = pageContext.breadcrumb;
+
+  const home = ["/"];
+  const path = home.concat(
+    location.split("/").filter((name): boolean => name !== "")
+  );
 
   const { banner, description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
@@ -53,11 +55,7 @@ const PeopleIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
+          <Breadcrumbs currentPath={path} />
 
           <PageArticle bgColor={"#f9f9f9"}>
             <BannerContainer className={banner}>
