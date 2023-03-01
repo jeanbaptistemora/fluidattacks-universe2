@@ -215,7 +215,6 @@ mocked_paths: dict[str, str] = {
     "loaders.organization_credentials.load": "db_model.credentials.get.OrganizationCredentialsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
-    "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.trial.load": "db_model.trials.get.TrialLoader.load",
     "mailer_utils.get_group_emails_by_notification": "mailer.utils.get_group_emails_by_notification",  # noqa: E501 pylint: disable=line-too-long
     "operations.put_item": "dynamodb.operations.put_item",
@@ -4233,86 +4232,6 @@ mocked_responses: dict[str, dict[str, Any]] = {
                 modified_date=None,
                 notifications_preferences=NotificationsPreferences(
                     email=[],
-                    sms=[],
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-    },
-    "db_model.stakeholders.get.StakeholderWithFallbackLoader.load": {
-        '["integrateshacker@fluidattacks.com"]': Stakeholder(
-            email="integrateshacker@fluidattacks.com",
-            access_token=None,
-            first_name="Ismael",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="Rivera",
-            legal_remember=False,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="3004005006",
-            ),
-            role="hacker",
-            session_key=None,
-            session_token=None,
-            state=StakeholderState(
-                modified_by="integrateshacker@fluidattacks.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[],
-                    sms=[],
-                    parameters=NotificationsParameters(
-                        min_severity=Decimal("7.0")
-                    ),
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-        '["integratesuser@gmail.com"]': Stakeholder(
-            email="integratesuser@gmail.com",
-            access_token=None,
-            first_name="Jane",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="Doe",
-            legal_remember=True,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="30044445556",
-            ),
-            role="user",
-            session_key=None,
-            session_token=StakeholderSessionToken(
-                jti="0f98c8d494be2c9eddd973e4a861483988a1d90bb26"
-                "8be48dfc442d0b4cada72",
-                state=StateSessionType.IS_VALID,
-            ),
-            state=StakeholderState(
-                modified_by="integratesuser@gmail.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[
-                        "ACCESS_GRANTED",
-                        "AGENT_TOKEN",
-                        "CHARTS_REPORT",
-                        "EVENT_REPORT",
-                        "FILE_UPDATE",
-                        "GROUP_INFORMATION",
-                        "GROUP_REPORT",
-                        "NEW_COMMENT",
-                        "NEW_DRAFT",
-                        "PORTFOLIO_UPDATE",
-                        "REMEDIATE_FINDING",
-                        "REMINDER_NOTIFICATION",
-                        "ROOT_UPDATE",
-                        "SERVICE_UPDATE",
-                        "UNSUBSCRIPTION_ALERT",
-                        "UPDATED_TREATMENT",
-                        "VULNERABILITY_ASSIGNED",
-                        "VULNERABILITY_REPORT",
-                    ],
                     sms=[],
                 ),
             ),

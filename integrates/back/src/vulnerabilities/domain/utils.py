@@ -14,9 +14,6 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     GitRoot,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityType,
@@ -167,12 +164,9 @@ async def get_valid_assigned(
     if not is_manager:
         assigned = email
     group_enforcer = await authz.get_group_level_enforcer(loaders, assigned)
-    stakeholder: Stakeholder = await loaders.stakeholder_with_fallback.load(
-        assigned
-    )
-    if (
-        not group_enforcer(group_name, "valid_assigned")
-        or not stakeholder.is_registered
+    stakeholder = await loaders.stakeholder.load(assigned)
+    if not group_enforcer(group_name, "valid_assigned") or (
+        stakeholder and not stakeholder.is_registered
     ):
         raise InvalidAssigned()
     user_enforcer = await authz.get_user_level_enforcer(loaders, email)
