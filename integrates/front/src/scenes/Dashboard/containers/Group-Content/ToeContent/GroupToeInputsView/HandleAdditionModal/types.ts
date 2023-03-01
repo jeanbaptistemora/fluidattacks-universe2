@@ -3,6 +3,7 @@ interface IFormValues {
   environmentUrl: string;
   path: string;
   rootId: string | undefined;
+  rootNickname: string | undefined;
 }
 
 interface IHandleAdditionModalFormProps {

@@ -124,6 +124,7 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
                   : "",
               path: "",
               rootId: _.isEmpty(roots) ? undefined : roots[0].id,
+              rootNickname: "",
             }}
             name={"addToeInput"}
             onSubmit={handleSubmit}
