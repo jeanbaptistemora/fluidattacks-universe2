@@ -2,13 +2,14 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
-import _ from "lodash";
+import _, { isNull, isUndefined } from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type {
   IGetOrganizationBilling,
   IOrganizationActiveGroupAttr,
+  IOrganizationActorAttr,
   IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
 } from "./types";
@@ -65,12 +66,31 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
 
     return `${monthStr.padStart(2, "0")}/${date.getFullYear()}`;
   };
+  const formatActor = (actor: string): IOrganizationActorAttr | undefined => {
+    const textMatch: RegExpMatchArray | null =
+      /^(?<name>.+) <(?<email>[^>]+)>$/u.exec(actor);
+    if (isNull(textMatch)) {
+      return undefined;
+    }
+
+    if (isUndefined(textMatch.groups)) {
+      return undefined;
+    }
+    const { email, name } = textMatch.groups;
+
+    return { email, name };
+  };
+
   const formatAuthorsData = (
     authorData: IOrganizationAuthorAttr[]
   ): IOrganizationAuthorsTable[] =>
     authorData.map(
       (author: IOrganizationAuthorAttr): IOrganizationAuthorsTable => {
-        const actor: string = _.capitalize(author.actor);
+        const actor: IOrganizationActorAttr | undefined = formatActor(
+          author.actor
+        );
+        const actorName: string = _.capitalize(actor?.name);
+        const actorEmail = actor?.email;
         const activeGroups: string = author.activeGroups
           .map((group: IOrganizationActiveGroupAttr): string => group.name)
           .join(", ");
@@ -78,15 +98,20 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
         return {
           ...author,
           activeGroups,
-          actor,
+          actorEmail,
+          actorName,
         };
       }
     );
 
   const tableColumns: ColumnDef<IOrganizationAuthorsTable>[] = [
     {
-      accessorKey: "actor",
+      accessorKey: "actorName",
       header: t("organization.tabs.billing.authors.headers.authorName"),
+    },
+    {
+      accessorKey: "actorEmail",
+      header: t("organization.tabs.billing.authors.headers.authorEmail"),
     },
     {
       accessorKey: "activeGroups",
@@ -96,8 +121,14 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
 
   const [filters, setFilters] = useState<IFilter<IOrganizationAuthorsTable>[]>([
     {
-      id: "actor",
-      key: "actor",
+      id: "actorEmail",
+      key: "actorEmail",
+      label: t("organization.tabs.billing.authors.headers.authorEmail"),
+      type: "text",
+    },
+    {
+      id: "actorName",
+      key: "actorName",
       label: t("organization.tabs.billing.authors.headers.authorName"),
       type: "text",
     },
@@ -144,6 +175,7 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       <Table
         columns={tableColumns}
         data={filteredDataset}
+        exportCsv={true}
         filters={<Filters filters={filters} setFilters={setFilters} />}
         id={"tblGroups"}
       />

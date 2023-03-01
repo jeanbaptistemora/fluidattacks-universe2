@@ -1820,6 +1820,7 @@ export const enTranslations: ResourceKey = {
         authors: {
           headers: {
             activeGroups: "Active groups",
+            authorEmail: "Author email",
             authorName: "Author name",
           },
           label:

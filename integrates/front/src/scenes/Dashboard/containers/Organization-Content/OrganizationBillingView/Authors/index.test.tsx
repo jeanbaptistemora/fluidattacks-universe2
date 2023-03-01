@@ -46,7 +46,7 @@ describe("OrganizationOverview", (): void => {
                         tier: "SQUAD",
                       },
                     ],
-                    actor: "Dev 1",
+                    actor: "Dev 1 <dev1@fluidattacks.com>",
                   },
                   {
                     activeGroups: [
@@ -55,7 +55,7 @@ describe("OrganizationOverview", (): void => {
                         tier: "SQUAD",
                       },
                     ],
-                    actor: "Dev 2",
+                    actor: "Dev 2 <dev2@fluidattacks.com>",
                   },
                 ],
               },
@@ -77,6 +77,11 @@ describe("OrganizationOverview", (): void => {
         screen.getByText("organization.tabs.billing.authors.title")
       ).toBeInTheDocument();
 
+      expect(
+        screen.getByText(
+          "organization.tabs.billing.authors.headers.authorEmail"
+        )
+      ).toBeInTheDocument();
       expect(
         screen.getByText("organization.tabs.billing.authors.headers.authorName")
       ).toBeInTheDocument();

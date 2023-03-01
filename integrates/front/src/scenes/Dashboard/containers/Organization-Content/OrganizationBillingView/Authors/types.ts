@@ -1,3 +1,8 @@
+interface IOrganizationActorAttr {
+  name: string;
+  email: string;
+}
+
 interface IOrganizationActiveGroupAttr {
   name: string;
   tier: string;
@@ -17,13 +22,15 @@ interface IGetOrganizationBilling {
 }
 
 interface IOrganizationAuthorsTable {
-  actor: string;
+  actorName: string;
   activeGroups: string;
+  actorEmail: string | undefined;
 }
 
 export type {
   IGetOrganizationBilling,
   IOrganizationActiveGroupAttr,
+  IOrganizationActorAttr,
   IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
 };
