@@ -105,6 +105,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/commonComputeScheduleTest";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintPython/module/commonOktaParse";
           gitlabExtra = gitlabLint;
         }

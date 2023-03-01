@@ -31,6 +31,7 @@
 in {
   imports = [
     ./parse-terraform/makes.nix
+    ./test/makes.nix
   ];
   computeOnAwsBatch = lib.mapAttrs' mapToBatch schedules;
 }
