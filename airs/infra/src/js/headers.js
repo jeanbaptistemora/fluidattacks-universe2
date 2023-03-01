@@ -1115,6 +1115,16 @@ const redirectMap = new Map([
   ["/blog/vulnserver-lter-seh/exploit.py/", "https://fluidattacks.com/blog/vulnserver-lter-seh/exploit.py"],
   ["/blog/vulnserver-trun-rop/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun-rop/exploit.py"],
   ["/blog/vulnserver-trun/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun/exploit.py"],
+  ["/product-overview/", "https://fluidattacks.com/platform/"],
+  ["/categories/arm/", "https://fluidattacks.com/platform/arm/"],
+  ["/categories/sast/", "https://fluidattacks.com/product/sast/"],
+  ["/categories/dast/", "https://fluidattacks.com/product/dast/"],
+  ["/categories/sca/", "https://fluidattacks.com/product/sca/"],
+  ["/categories/re/", "https://fluidattacks.com/product/re/"],
+  ["/categories/ptaas/", "https://fluidattacks.com/product/ptaas/"],
+  ["/categories/mast/", "https://fluidattacks.com/product/mast/"],
+  ["/about-us/clients/", " https://fluidattacks.com/clients/"],
+  ["/about-us/certifications/", "https://fluidattacks.com/certifications/"],
 ]);
 
 addEventListener('fetch', event => {
