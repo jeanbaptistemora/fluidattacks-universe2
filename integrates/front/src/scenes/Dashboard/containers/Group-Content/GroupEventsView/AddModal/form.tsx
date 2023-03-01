@@ -14,14 +14,9 @@ import type {
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
 import { InputDateTime, InputFile, Select, TextArea } from "components/Input";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import {
-  Col100,
-  Col50,
-  ControlLabel,
-  FormGroup,
-} from "styles/styledComponents";
+import { Col50, ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import { FormikAutocompleteText } from "utils/forms/fields";
@@ -182,7 +177,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
         </Col50>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <FormGroup>
             <ControlLabel>{t("group.events.form.root")}</ControlLabel>
             <Field
@@ -192,10 +187,10 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               suggestions={nicknames}
             />
           </FormGroup>
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <FormGroup>
             <TextArea
               label={t("group.events.form.details")}
@@ -207,7 +202,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               ])}
             />
           </FormGroup>
-        </Col100>
+        </Col>
       </Row>
       <Row>
         <Col50>
