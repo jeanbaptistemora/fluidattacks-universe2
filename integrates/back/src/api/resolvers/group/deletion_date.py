@@ -20,7 +20,7 @@ from newutils import (
 
 @GROUP.field("deletionDate")
 @require_asm
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

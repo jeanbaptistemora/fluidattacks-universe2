@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @GROUP.field("hasForces")
-async def resolve(
+def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
 ) -> bool:
