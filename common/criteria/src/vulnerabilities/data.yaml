@@ -75,14 +75,14 @@
     base:
       attack_vector: N
       attack_complexity: L
-      privileges_required: N
+      privileges_required: L
       user_interaction: N
       scope: U
       confidentiality: N
       integrity: L
       availability: N
     temporal:
-      exploit_code_maturity: P
+      exploit_code_maturity: U
       remediation_level: O
       report_confidence: R
   requirements: ['169', '173']
@@ -1016,7 +1016,7 @@
       such as, key vault services,
       configuration files properly encrypted
       or administrative environment variables.
-    threat: Attacker with access to the source-code from the Internet.
+    threat: Anonymous attacker with access to the source-code from the Internet.
   es:
     title: Sensitive information in source code
     description: >
@@ -1052,7 +1052,7 @@
       archivos de configuración
       que estén debidamente cifrados
       o variables de entorno administrativas.
-    threat: Atacante con acceso al código fuente desde Internet.
+    threat: Atacante anónimo con acceso al código fuente desde Internet.
   category: Information Collection
   examples:
     non_compliant: |
@@ -1101,14 +1101,14 @@
     base:
       attack_vector: N
       attack_complexity: H
-      privileges_required: L
+      privileges_required: N
       user_interaction: N
       scope: U
       confidentiality: L
       integrity: N
       availability: N
     temporal:
-      exploit_code_maturity: P
+      exploit_code_maturity: H
       remediation_level: X
       report_confidence: X
   requirements: ['145', '156', '266']
@@ -31238,8 +31238,7 @@
       Securely configure the vulnerable service so
       that it can only be accessed by authorized users.
     threat: >
-      User with access to the victims traffic
-      (man-in-the-middle attack).
+      Anonymous attacker in adjacent network executing a man-in-the-middle attack.
   es:
     title: Insecure service configuration - BREACH Attack
     description: >
@@ -31262,8 +31261,7 @@
       vulnerable permitiendo así que solo sean
       accedido por usuarios autorizados.
     threat: >
-      Usuario con acceso al tráfico de la víctima
-      (ataque man-in-the-middle).
+      Atacante anónimo en red adyacente ejecutando un ataque man-in-the-middle.
   category: Functionality Abuse
   examples:
     non_compliant: |
@@ -31292,13 +31290,13 @@
       attack_vector: A
       attack_complexity: H
       privileges_required: N
-      user_interaction: N
+      user_interaction: R
       scope: U
       confidentiality: L
       integrity: N
       availability: N
     temporal:
-      exploit_code_maturity: P
+      exploit_code_maturity: U
       remediation_level: W
       report_confidence: X
   requirements: ['266']
