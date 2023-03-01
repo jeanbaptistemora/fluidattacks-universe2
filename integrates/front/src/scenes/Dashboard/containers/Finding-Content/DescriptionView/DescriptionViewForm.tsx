@@ -1,14 +1,15 @@
 import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import type { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import { getVulnsData } from "./utils";
+import { formatRequirements, getRequerimentsData, getVulnsData } from "./utils";
 
+import type { IVulnData } from "../../Group-Content/GroupDraftsView/types";
 import { ExternalLink } from "components/ExternalLink";
-import { Editable, Select, TextArea } from "components/Input";
+import { Checkbox, Editable, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { ActionButtons } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/ActionButtons";
@@ -68,6 +69,12 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
+  const [criteriaBaseRequirements, setCriteriaBaseRequirements] = useState<
+    IUnfulfilledRequirement[] | undefined
+  >(undefined);
+  const [criteriaVulnerabilityData, setCriteriaVulnerabilityData] = useState<
+    Record<string, IVulnData> | undefined
+  >(undefined);
 
   const toggleEdit: () => void = useCallback((): void => {
     if (!isDescriptionPristine) {
@@ -89,6 +96,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   useEffect((): void => {
     async function fetchData(): Promise<void> {
       const vulnsData = await getVulnsData();
+      setCriteriaVulnerabilityData(vulnsData);
 
       if (!_.isNil(vulnsData) && !_.isNil(findingNumber)) {
         const titlesList = Object.keys(vulnsData).map((key: string): string => {
@@ -100,7 +108,28 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
       }
     }
     void fetchData();
-  }, [findingNumber, groupLanguage]);
+  }, [findingNumber, groupLanguage, setCriteriaBaseRequirements]);
+  useEffect((): void => {
+    async function fetchData(): Promise<void> {
+      if (
+        isEditing &&
+        _.isUndefined(criteriaBaseRequirements) &&
+        !_.isUndefined(criteriaVulnerabilityData)
+      ) {
+        const { requirements } = criteriaVulnerabilityData[findingNumber];
+        const requirementsData = await getRequerimentsData();
+        setCriteriaBaseRequirements(
+          formatRequirements(requirements, requirementsData)
+        );
+      }
+    }
+    void fetchData();
+  }, [
+    criteriaBaseRequirements,
+    criteriaVulnerabilityData,
+    findingNumber,
+    isEditing,
+  ]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -223,21 +252,50 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       {t("searchFindings.tabDescription.requirements.text")}
                     </b>
                   </ControlLabel>
-                  <div className={"ws-pre-wrap"}>
-                    {dataset.unfulfilledRequirements.map(
-                      (requirement: IUnfulfilledRequirement): ReactElement => {
-                        return (
-                          <div className={"w-100"} key={requirement.id}>
-                            <ExternalLink
-                              href={`${baseCriteriaUrl}requirements/${requirement.id}`}
-                            >
-                              {`${requirement.id}. ${requirement.summary}`}
-                            </ExternalLink>
-                          </div>
-                        );
-                      }
-                    )}
-                  </div>
+                  <Can
+                    do={"api_mutations_update_finding_description_mutate"}
+                    passThrough={true}
+                  >
+                    {(canEdit: boolean): JSX.Element =>
+                      isEditing && canEdit ? (
+                        <Fragment>
+                          {_.defaultTo(criteriaBaseRequirements, []).map(
+                            (
+                              requirement: IUnfulfilledRequirement
+                            ): ReactElement => (
+                              <Checkbox
+                                id={requirement.id}
+                                key={`requirementIds.${requirement.id}`}
+                                label={t(
+                                  `${requirement.id}. ${requirement.summary}`
+                                )}
+                                name={"requirementIds"}
+                                value={requirement.id}
+                              />
+                            )
+                          )}
+                        </Fragment>
+                      ) : (
+                        <div className={"ws-pre-wrap"}>
+                          {dataset.unfulfilledRequirements.map(
+                            (
+                              requirement: IUnfulfilledRequirement
+                            ): ReactElement => {
+                              return (
+                                <div className={"w-100"} key={requirement.id}>
+                                  <ExternalLink
+                                    href={`${baseCriteriaUrl}requirements/${requirement.id}`}
+                                  >
+                                    {`${requirement.id}. ${requirement.summary}`}
+                                  </ExternalLink>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                      )
+                    }
+                  </Can>
                 </FormGroup>
               </Tooltip>
             </Col>

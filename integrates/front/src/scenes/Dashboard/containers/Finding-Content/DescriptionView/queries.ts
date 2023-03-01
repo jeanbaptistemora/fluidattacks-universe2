@@ -45,6 +45,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
     $sorts: Sorts!
     $threat: String!
     $title: String!
+    $unfulfilledRequirements: [String!]
   ) {
     updateDescription(
       attackVectorDescription: $attackVectorDescription
@@ -54,6 +55,7 @@ const UPDATE_DESCRIPTION_MUTATION: DocumentNode = gql`
       sorts: $sorts
       threat: $threat
       title: $title
+      unfulfilledRequirements: $unfulfilledRequirements
     ) {
       success
     }

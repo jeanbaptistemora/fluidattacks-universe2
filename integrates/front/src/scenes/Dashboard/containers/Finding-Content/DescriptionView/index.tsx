@@ -8,6 +8,7 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { array, object, string } from "yup";
 
 import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { DescriptionViewForm } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/DescriptionViewForm";
@@ -21,6 +22,7 @@ import type {
   IFindingDescriptionData,
   IFindingDescriptionVars,
   ILanguageData,
+  IUnfulfilledRequirement,
 } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -98,7 +100,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
   });
 
   const handleDescriptionSubmit = useCallback(
-    async (values: IFinding): Promise<void> => {
+    async (values: IFinding & { requirementIds: string[] }): Promise<void> => {
       setIsEditing(false);
       await updateDescription({
         variables: {
@@ -109,6 +111,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
           sorts: values.sorts,
           threat: values.threat,
           title: values.title,
+          unfulfilledRequirements: values.requirementIds,
         },
       });
     },
@@ -126,9 +129,20 @@ const DescriptionView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <Formik
         enableReinitialize={true}
-        initialValues={{ ...dataset }}
+        initialValues={{
+          ...dataset,
+          requirementIds: dataset.unfulfilledRequirements.map(
+            (unfulfilledRequirement: IUnfulfilledRequirement): string =>
+              unfulfilledRequirement.id
+          ),
+        }}
         name={"editDescription"}
         onSubmit={handleDescriptionSubmit}
+        validationSchema={object().shape({
+          requirementIds: array()
+            .min(1, t("validations.someRequired"))
+            .of(string().required(t("validations.required"))),
+        })}
       >
         <DescriptionViewForm
           data={data}
