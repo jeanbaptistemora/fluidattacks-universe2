@@ -43,9 +43,11 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
 }: IAdditionalInfoProps): JSX.Element => {
   const { t } = useTranslation();
 
-  function formatError(errorName: string, errorValue: string): string {
-    return ` ${t(errorName)} "${errorValue}" ${t("groupAlerts.invalid")}. `;
-  }
+  const formatError = useCallback(
+    (errorName: string, errorValue: string): string =>
+      ` ${t(errorName)} "${errorValue}" ${t("groupAlerts.invalid")}. `,
+    [t]
+  );
 
   // State
   const [isEditing, setIsEditing] = useState(false);
@@ -187,33 +189,40 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
     [vulnerability, updateVulnerabilityDescription]
   );
 
-  // Get information
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <React.StrictMode />;
-  }
   const isVulnOpen: boolean = vulnerability.state === "VULNERABLE";
+  const vulnerabilityType = useMemo((): string => {
+    if (data === undefined) {
+      return t("searchFindings.tabVuln.vulnTable.vulnerabilityType.inputs");
+    }
+
+    return t(
+      `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
+    );
+  }, [t, data]);
+
   const currentExpiration: string =
     isVulnOpen &&
-    data.vulnerability.treatmentStatus === "ACCEPTED" &&
+    data?.vulnerability.treatmentStatus === "ACCEPTED" &&
     !_.isNull(data.vulnerability.treatmentAcceptanceDate)
       ? data.vulnerability.treatmentAcceptanceDate.split(" ")[0]
       : "";
+
   const currentJustification: string =
     !isVulnOpen ||
-    _.isUndefined(data.vulnerability.treatmentJustification) ||
-    _.isNull(data.vulnerability.treatmentJustification)
+    _.isUndefined(vulnerability.treatmentJustification) ||
+    _.isNull(vulnerability.treatmentJustification)
       ? ""
-      : data.vulnerability.treatmentJustification;
+      : vulnerability.treatmentJustification;
   const currentAssigned: string = isVulnOpen
-    ? (data.vulnerability.treatmentAssigned as string)
+    ? (vulnerability.treatmentAssigned as string)
     : "";
   const treatmentDate: string = isVulnOpen
-    ? data.vulnerability.lastTreatmentDate.split(" ")[0]
+    ? vulnerability.lastTreatmentDate.split(" ")[0]
     : "";
 
-  const treatmentChanges = parseInt(data.vulnerability.treatmentChanges, 10);
-  const vulnerabilityType: string = t(
-    `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
+  const treatmentChanges = parseInt(
+    data?.vulnerability.treatmentChanges ?? "0",
+    10
   );
 
   return (
@@ -221,9 +230,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
       <Formik
         enableReinitialize={true}
         initialValues={{
-          commitHash: data.vulnerability.commitHash,
-          source: data.vulnerability.source.toUpperCase(),
-          type: data.vulnerability.vulnerabilityType,
+          commitHash: data?.vulnerability.commitHash ?? "",
+          source: data?.vulnerability.source.toUpperCase() ?? "",
+          type: data?.vulnerability.vulnerabilityType ?? "",
         }}
         name={"editVulnerability"}
         onSubmit={onSubmit}
@@ -255,21 +264,21 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
                       <Detail
                         editableField={undefined}
-                        field={_.unescape(data.vulnerability.where)}
+                        field={_.unescape(vulnerability.where)}
                         isEditing={false}
                         label={undefined}
                       />
-                      {_.isEmpty(data.vulnerability.stream) ? undefined : (
+                      {_.isEmpty(vulnerability.stream) ? undefined : (
                         <Detail
                           editableField={undefined}
-                          field={data.vulnerability.stream}
+                          field={vulnerability.stream}
                           isEditing={false}
                           label={undefined}
                         />
                       )}
                       <Detail
                         editableField={undefined}
-                        field={<Value value={data.vulnerability.specific} />}
+                        field={<Value value={vulnerability.specific} />}
                         isEditing={false}
                         label={t(
                           `searchFindings.tabVuln.vulnTable.specificType.${vulnerabilityType}`
@@ -284,7 +293,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         editableField={undefined}
                         field={
                           <Value
-                            value={data.vulnerability.reportDate.split(" ")[0]}
+                            value={vulnerability.reportDate.split(" ")[0]}
                           />
                         }
                         isEditing={false}
@@ -295,9 +304,9 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         field={
                           <Value
                             value={
-                              _.isNull(data.vulnerability.closingDate)
+                              _.isNull(data?.vulnerability.closingDate)
                                 ? ""
-                                : data.vulnerability.closingDate.split(" ")[0]
+                                : data?.vulnerability.closingDate.split(" ")[0]
                             }
                           />
                         }
@@ -338,13 +347,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                               </option>
                             </Select>
                           }
-                          field={<Value value={data.vulnerability.source} />}
+                          field={<Value value={data?.vulnerability.source} />}
                           isEditing={isEditing}
                           label={t("searchFindings.tabVuln.vulnTable.source")}
                         />
                       ) : undefined}
                       {(_.isEmpty(values.commitHash) && !isEditing) ||
-                      data.vulnerability.vulnerabilityType !==
+                      data?.vulnerability.vulnerabilityType !==
                         "lines" ? undefined : (
                         <Detail
                           editableField={<Input name={"commitHash"} />}
@@ -374,10 +383,10 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         field={
                           <Value
                             value={
-                              data.vulnerability.severity === null ||
-                              data.vulnerability.severity === "-1"
+                              vulnerability.severity === null ||
+                              vulnerability.severity === "-1"
                                 ? ""
-                                : data.vulnerability.severity
+                                : vulnerability.severity
                             }
                           />
                         }
@@ -409,7 +418,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       {canRetrieveHacker ? (
                         <Detail
                           editableField={undefined}
-                          field={<Value value={data.vulnerability.hacker} />}
+                          field={<Value value={data?.vulnerability.hacker} />}
                           isEditing={false}
                           label={t("searchFindings.tabDescription.hacker")}
                         />
@@ -424,7 +433,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         field={
                           <Value
                             value={
-                              data.vulnerability.lastRequestedReattackDate?.split(
+                              data?.vulnerability.lastRequestedReattackDate?.split(
                                 " "
                               )[0] ?? ""
                             }
@@ -439,7 +448,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         editableField={undefined}
                         field={
                           <Value
-                            value={data.vulnerability.lastReattackRequester}
+                            value={data?.vulnerability.lastReattackRequester}
                           />
                         }
                         isEditing={false}
@@ -447,13 +456,13 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       />
                       <Detail
                         editableField={undefined}
-                        field={<Value value={data.vulnerability.cycles} />}
+                        field={<Value value={data?.vulnerability.cycles} />}
                         isEditing={false}
                         label={t("searchFindings.tabVuln.vulnTable.cycles")}
                       />
                       <Detail
                         editableField={undefined}
-                        field={<Value value={data.vulnerability.efficacy} />}
+                        field={<Value value={data?.vulnerability.efficacy} />}
                         isEditing={false}
                         label={t("searchFindings.tabVuln.vulnTable.efficacy")}
                       />
