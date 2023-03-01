@@ -1,6 +1,9 @@
 from db_model.enums import (
     Notification,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from typing import (
     Any,
 )
@@ -45,7 +48,7 @@ MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
     consulting_digest=dict(
         email_preferences=Notification.NEW_COMMENT,
         exclude_trial=False,
-        only_fluid_staff=False,
+        only_fluid_staff=datetime_utils.get_now().hour > 12,
         roles=dict(
             group={
                 "admin",
