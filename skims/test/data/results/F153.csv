@@ -1,4 +1,167 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java,11,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java","
+   1 | import java.util.Random;
+   2 |
+   3 | public class test112 extends HttpServlet {
+   4 |
+   5 |   // line 11 should be marked
+   6 |  private HttpURLConnection urlConnectionNcnp(String url) throws IOException {
+   7 |     URL uc = new URL(url);
+   8 |     HttpURLConnection huc = (HttpURLConnection) uc.openConnection();
+   9 |     huc.setRequestMethod(""GET"");
+  10 |     huc.setRequestProperty(GITLAB_PRIVATE_TOKEN, configProperties.getRepository());
+> 11 |     huc.setRequestProperty(""Accept"",""*/*"");
+  12 |     return huc;
+  13 |   }
+  14 |
+  15 |   // Line 19 should be marked
+  16 |   private URLConnection urlConnection(String url) throws IOException {
+  17 |     URLConnection connection = new URL(url).openConnection();
+  18 |     connection.setDoOutput(true);
+  19 |     connection.setRequestProperty(""Accept"",""*/*"");
+  20 |     return connection;
+  21 |   }
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java,19,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java","
+   9 |     huc.setRequestMethod(""GET"");
+  10 |     huc.setRequestProperty(GITLAB_PRIVATE_TOKEN, configProperties.getRepository());
+  11 |     huc.setRequestProperty(""Accept"",""*/*"");
+  12 |     return huc;
+  13 |   }
+  14 |
+  15 |   // Line 19 should be marked
+  16 |   private URLConnection urlConnection(String url) throws IOException {
+  17 |     URLConnection connection = new URL(url).openConnection();
+  18 |     connection.setDoOutput(true);
+> 19 |     connection.setRequestProperty(""Accept"",""*/*"");
+  20 |     return connection;
+  21 |   }
+  22 |
+  23 |   // Line 26 should be marked
+  24 |   public HttpRequest headerUse(String url) throws IOException {
+  25 |     HttpRequest request = HttpRequest.post(url);
+  26 |     request.header(""Accept"",""*/*"");
+  27 |     return request;
+  28 |   }
+  29 |
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java,26,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java","
+  16 |   private URLConnection urlConnection(String url) throws IOException {
+  17 |     URLConnection connection = new URL(url).openConnection();
+  18 |     connection.setDoOutput(true);
+  19 |     connection.setRequestProperty(""Accept"",""*/*"");
+  20 |     return connection;
+  21 |   }
+  22 |
+  23 |   // Line 26 should be marked
+  24 |   public HttpRequest headerUse(String url) throws IOException {
+  25 |     HttpRequest request = HttpRequest.post(url);
+> 26 |     request.header(""Accept"",""*/*"");
+  27 |     return request;
+  28 |   }
+  29 |
+  30 |   // No line of following function should be marked (SAFE)
+  31 |   private HttpURLConnection urlConnectionNcnpII(String url) throws IOException {
+  32 |     URL uc = new URL(url);
+  33 |     HttpURLConnection huc = (HttpURLConnection) uc.openConnection();
+  34 |     huc.setRequestMethod(""GET"");
+  35 |     huc.setRequestProperty(GITLAB_PRIVATE_TOKEN, configProperties.getRepository());
+  36 |     huc.setRequestProperty(""Accept"",""text/html"");
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java,10,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java","
+   1 | public class test extends HttpServlet {
+   2 |
+   3 |   // lines 7 and 10 should be marked
+   4 |  private HttpGet urlConnection(String url) throws IOException {
+   5 |     URL uc = new URL(url);
+   6 |     HttpGet req = new HttpGet(uc);
+   7 |     req.setHeader(""Accept"",""*/*"");
+   8 |
+   9 |     HttpUriRequest reqII = new HttpUriRequest(uc);
+> 10 |     reqII.addHeader(""Accept"",""*/*"");
+  11 |
+  12 |     return req;
+  13 |   }
+  14 |
+  15 |   // line 20 should be marked
+  16 |   public HttpHeaders getMultipartHeaders(String paramOrFileName) {
+  17 |     String contentType = getMultipartContentType(paramOrFileName);
+  18 |     if (contentType != null) {
+  19 |       HttpHeaders headers = new HttpHeaders();
+  20 |       headers.add(""Accept"",""*/*"");
+  21 |       return headers;
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java,7,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java","
+   1 | public class test extends HttpServlet {
+   2 |
+   3 |   // lines 7 and 10 should be marked
+   4 |  private HttpGet urlConnection(String url) throws IOException {
+   5 |     URL uc = new URL(url);
+   6 |     HttpGet req = new HttpGet(uc);
+>  7 |     req.setHeader(""Accept"",""*/*"");
+   8 |
+   9 |     HttpUriRequest reqII = new HttpUriRequest(uc);
+  10 |     reqII.addHeader(""Accept"",""*/*"");
+  11 |
+  12 |     return req;
+  13 |   }
+  14 |
+  15 |   // line 20 should be marked
+  16 |   public HttpHeaders getMultipartHeaders(String paramOrFileName) {
+  17 |     String contentType = getMultipartContentType(paramOrFileName);
+  18 |     if (contentType != null) {
+  19 |       HttpHeaders headers = new HttpHeaders();
+  20 |       headers.add(""Accept"",""*/*"");
+  21 |       return headers;
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java,20,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types_ii.java","
+  10 |     reqII.addHeader(""Accept"",""*/*"");
+  11 |
+  12 |     return req;
+  13 |   }
+  14 |
+  15 |   // line 20 should be marked
+  16 |   public HttpHeaders getMultipartHeaders(String paramOrFileName) {
+  17 |     String contentType = getMultipartContentType(paramOrFileName);
+  18 |     if (contentType != null) {
+  19 |       HttpHeaders headers = new HttpHeaders();
+> 20 |       headers.add(""Accept"",""*/*"");
+  21 |       return headers;
+  22 |     }
+  23 |     else {
+  24 |       return null;
+  25 |     }
+  26 |   }
+  27 |
+  28 |   // Safe implementations, no lines should be marked
+  29 |  private HttpGet urlConnection(String url) throws IOException {
+  30 |     URL uc = new URL(url);
+     ^ Col 0
+",java.java_http_accepts_any_mime_type
+F153,lines,namespace/skims/test/data/lib_root/f153/java_directheaders_all_mime.java,4,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_directheaders_all_mime.java","
+  1 | public class test112 extends HttpServlet {
+  2 |
+  3 |   // Line 4 should be marked
+> 4 |   Header myHeader = new Header(""Accept"", ""*/*"");
+  5 |
+  6 |   // Line 6 is safe
+  7 |   Header myHeaderII = new Header(""Accept"",""text/html"");
+  8 |
+  9 | }
+    ^ Col 0
+",java.java_http_accepts_any_mime_type
 F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,"
    1 | <elementProp name="""" elementType=""Header"">
 >  2 |   <stringProp name=""Header.name"">Accept</stringProp>
