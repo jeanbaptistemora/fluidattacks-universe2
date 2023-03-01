@@ -21,6 +21,77 @@ of only that specific group.
 The following are
 the common analytics:
 
+## Exposure over time
+
+![Exposure over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1644932532/docs/web/analytics/common/common_total_exposur.png)
+
+One of the main dilemmas organizations face
+every day is which vulnerability they
+should close first.
+To address this, we at `Fluid Attacks` designed
+a metric called the [CVSSF](/about/glossary#cvssf)
+to help you make better decisions.
+
+This new metric recognizes that closing 10
+vulnerabilities with a score equal to 1 is
+not the same as closing 1 vulnerability
+with a score equal to 10.
+Additionally, it helps calculate the level
+of exposure of a system.
+
+Thanks to the new graph based on the
+[CVSSF](/about/glossary#cvssf),
+you will be able to know which vulnerabilities
+to attack and remediate first to reduce the
+level of exposure of your system.
+
+## Sprint exposure increment
+
+![Sprint Exposure Increment](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_increment.png)
+
+This figure is the percentage
+increase in risk exposure in
+the current sprint (i.e.,
+the newly reported exposure
+value relative to the initial
+exposure value).
+The value is zero when no
+vulnerability has been
+reported in the period.
+
+## Sprint exposure decrement
+
+![Sprint Exposure Decrement](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_decrement.png)
+
+This figure is the percentage
+decrease in risk exposure in
+the current sprint (i.e.,
+the newly remediated exposure
+value relative to the initial
+exposure value).
+The value is zero when no
+vulnerability has been
+remediated in the period.
+
+## Sprint exposure change overall
+
+![Sprint Exposure Overall](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_exposure_overall.png)
+
+This figure is the resulting
+percentage change in risk
+exposure in the current sprint
+(i.e.,
+the exposure decrement minus
+the exposure increment).
+A positive value means that
+more exposure was reported
+than remediated.
+A negative value means that
+more exposure was remediated
+than reported.
+A zero value means that as much
+exposure was remediated as reported.
+
 ## Total types
 
 A type is a group of vulnerabilities
@@ -28,6 +99,7 @@ on your system related to the same
 attack vector.
 
 ![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
+
 ## Vulnerabilities with no treatment
 
 Number of vulnerabilities without
@@ -35,6 +107,7 @@ a remediation plan specified by
 one of your managers.
 
 ![Vulnerabilities no treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1666124094/docs/web/analytics/common/vulnerabilities_with_no_treatment.png)
+
 ## Open vulnerabilities
 
 ![Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/open_vulnerabilities.png)
@@ -274,30 +347,6 @@ and the worst organizations.
 > **NOTE:**
   > MTTR  means “Mean Time To Remediate.”
 
-## Exposure over time
-
-![Exposure over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1644932532/docs/web/analytics/common/common_total_exposur.png)
-
-One of the main dilemmas organizations face
-every day is which vulnerability they
-should close first.
-To address this, we at `Fluid Attacks` designed
-a metric called the [CVSSF](/about/glossary#cvssf)
-to help you make better decisions.
-
-This new metric recognizes that closing 10
-vulnerabilities with a score equal to 1 is
-not the same as closing 1 vulnerability
-with a score equal to 10.
-Additionally, it helps calculate the level
-of exposure of a system.
-
-Thanks to the new graph based on the
-[CVSSF](/about/glossary#cvssf),
-you will be able to know which vulnerabilities
-to attack and remediate first to reduce the
-level of exposure of your system.
-
 ## Days until zero exposure
 
 ![Days Until Zero Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1646407723/docs/web/analytics/common/common_days_until_0exposure.png)
@@ -382,53 +431,6 @@ it is shown what percentage
 are Open or Close.
 
 ![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666130296/docs/web/analytics/common/status_of_assigned_vulnerabilities.png)
-
-## Sprint exposure change overall
-
-![Sprint Exposure Overall](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_exposure_overall.png)
-
-This figure is the resulting
-percentage change in risk
-exposure in the current sprint
-(i.e.,
-the exposure decrement minus
-the exposure increment).
-A positive value means that
-more exposure was reported
-than remediated.
-A negative value means that
-more exposure was remediated
-than reported.
-A zero value means that as much
-exposure was remediated as reported.
-
-## Sprint exposure increment
-
-![Sprint Exposure Increment](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_increment.png)
-
-This figure is the percentage
-increase in risk exposure in
-the current sprint (i.e.,
-the newly reported exposure
-value relative to the initial
-exposure value).
-The value is zero when no
-vulnerability has been
-reported in the period.
-
-## Sprint exposure decrement
-
-![Sprint Exposure Decrement](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_decrement.png)
-
-This figure is the percentage
-decrease in risk exposure in
-the current sprint (i.e.,
-the newly remediated exposure
-value relative to the initial
-exposure value).
-The value is zero when no
-vulnerability has been
-remediated in the period.
 
 ## Report technique
 
