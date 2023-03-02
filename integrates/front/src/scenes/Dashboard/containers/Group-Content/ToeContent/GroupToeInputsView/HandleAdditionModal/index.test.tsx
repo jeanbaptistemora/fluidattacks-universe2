@@ -1,6 +1,6 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
 import { GET_ROOTS } from "./queries";
@@ -74,5 +74,42 @@ describe("Handle addition modal", (): void => {
         screen.getByText("group.toe.inputs.addModal.fields.entryPoint")
       ).toBeInTheDocument();
     });
+  });
+
+  it("should input change", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    render(
+      <MockedProvider addTypename={false} mocks={[queryMock]}>
+        <HandleAdditionModal
+          groupName={"groupname"}
+          handleCloseModal={handleCloseModal}
+          refetchData={refetchDataFn}
+        />
+      </MockedProvider>
+    );
+
+    await screen.findByText("group.toe.inputs.addModal.title");
+
+    const rootInput = screen.getByRole("combobox", { name: "rootId" });
+    const environmentInput = screen.getByRole("combobox", {
+      name: "environmentUrl",
+    });
+    const componentInput = screen.getByRole("textbox", { name: "path" });
+    const entryPointInput = screen.getByRole("textbox", { name: "entryPoint" });
+
+    fireEvent.change(rootInput, { target: { value: "universe" } });
+    fireEvent.change(environmentInput, {
+      target: { value: "https://app.fluidattacks.com/test" },
+    });
+    fireEvent.change(componentInput, { target: { value: "test" } });
+    fireEvent.change(entryPointInput, { target: { value: "test" } });
+
+    expect(rootInput).toHaveValue("4039d098-ffc5-4984-8ed3-eb17bca98e19");
+    expect(environmentInput).toHaveValue("https://app.fluidattacks.com/test");
+    expect(componentInput).toHaveValue("test");
+    expect(entryPointInput).toHaveValue("test");
   });
 });
