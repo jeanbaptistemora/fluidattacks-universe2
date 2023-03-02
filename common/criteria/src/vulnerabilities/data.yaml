@@ -1109,8 +1109,8 @@
       availability: N
     temporal:
       exploit_code_maturity: H
-      remediation_level: X
-      report_confidence: X
+      remediation_level: U
+      report_confidence: C
   requirements: ['145', '156', '266']
   metadata:
     en:
@@ -31298,7 +31298,7 @@
     temporal:
       exploit_code_maturity: U
       remediation_level: W
-      report_confidence: X
+      report_confidence: R
   requirements: ['266']
   metadata:
     en:
