@@ -115,12 +115,14 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/differences-between-sast-sca-dast/",
     ],
     vulnerabilityManagement: [
-      "/blog/aws-devsecops-with-fluid-attacks/",
-      "/blog/devsecops-tools/",
       "/blog/cvssf-risk-exposure-metric/",
       "/blog/rules-new-standard/",
       "/blog/attack-resistance-management-psirts/",
+      "/blog/web-app-vulnerability-scanning/",
+      "/blog/vulnerability-scan/",
+      "/blog/vulnerability-assessment/",
       "/blog/from-asm-to-arm/",
+      "/blog/what-is-vulnerability-management/",
     ],
   };
 
