@@ -146,6 +146,78 @@ Remember that this graph has three different filters:
 - Vulnerability level, where it tells you the total vulnerabilities.
 - The data of the last 30, 90 days, or all.
 
+## Exposure management over time (%)
+
+![Exposure management over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
+
+This section shows the **percentage** of closed,
+accepted and open vulnerabilities over time,
+based on our standard
+[CVSSF](/about/glossary#cvssf)
+and total Vulnerabilities.
+
+## Exposure benchmark
+
+![Exposure benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1663701130/docs/web/analytics/common/aggregated_exposure_benchmark.png)
+
+In this chart,
+you will be able to compare
+your risk exposure levels
+[(CVSSF)](/about/glossary#cvssf)
+results with other organizations,
+groups or portfolios (the best,
+the average,
+and the worst).
+
+## Exposure trends by vulnerability category
+
+![Exposure Trends Categories](https://res.cloudinary.com/fluid-attacks/image/upload/v1661885630/docs/web/analytics/common/exposure_trends_cat.png)
+
+According to the nine categories
+that group the different
+types of vulnerabilities,
+it will be possible to filter by
+30,
+60,
+90 and 180 days how the
+[CVSSF](/about/glossary#cvssf)
+of these has varied,
+showing whether the exposure
+has increased or decreased.
+
+## Days since last remediation
+
+![Days Since Last Remediation](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121514/docs/web/analytics/common/days_last_remediation.png)
+
+Days since a finding
+was effectively closed.
+
+## Mean time to request reattacks
+
+This metric shows the average number
+of days it takes customers to request
+a reattack.
+
+![Mean time to request](https://res.cloudinary.com/fluid-attacks/image/upload/v1666199798/docs/web/analytics/common/mean_time_to_request_reattacks.png)
+
+## Vulnerabilities being re-attacked
+
+![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1652120561/docs/web/analytics/common/vulns_being_reattacked.png)
+
+This metric shows an integer,
+which refers to the vulnerabilities
+still in the reattacked state,
+waiting for validation by `Fluid Attacks'.`
+
+## Days until zero exposure
+
+![Days Until Zero Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1646407723/docs/web/analytics/common/common_days_until_0exposure.png)
+
+This is an estimate of the total
+number of days it will take you
+to remediate all the vulnerabilities
+reported to this date.
+
 ## Total vulnerabilities
 
 ![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
@@ -163,22 +235,6 @@ on your system related to the same
 attack vector.
 
 ![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
-
-## Vulnerabilities being re-attacked
-
-![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1652120561/docs/web/analytics/common/vulns_being_reattacked.png)
-
-This metric shows an integer,
-which refers to the vulnerabilities
-still in the reattacked state,
-waiting for validation by `Fluid Attacks'.`
-
-## Days since last remediation
-
-![Days Since Last Remediation](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121514/docs/web/analytics/common/days_last_remediation.png)
-
-Days since a finding
-was effectively closed.
 
 ## Severity
 
@@ -257,22 +313,6 @@ or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 assigned to them.
 
-## Exposure trends by vulnerability category
-
-![Exposure Trends Categories](https://res.cloudinary.com/fluid-attacks/image/upload/v1661885630/docs/web/analytics/common/exposure_trends_cat.png)
-
-According to the nine categories
-that group the different
-types of vulnerabilities,
-it will be possible to filter by
-30,
-60,
-90 and 180 days how the
-[CVSSF](/about/glossary#cvssf)
-of these has varied,
-showing whether the exposure
-has increased or decreased.
-
 ## Accepted vulnerabilities by user
 
 ![Accepted Vulns By User](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/accepted_vulns_by_user_pfrrpz.png)
@@ -346,25 +386,6 @@ and the worst organizations.
 
 > **NOTE:**
   > MTTR  means “Mean Time To Remediate.”
-
-## Days until zero exposure
-
-![Days Until Zero Exposure](https://res.cloudinary.com/fluid-attacks/image/upload/v1646407723/docs/web/analytics/common/common_days_until_0exposure.png)
-
-This is an estimate of the total
-number of days it will take you
-to remediate all the vulnerabilities
-reported to this date.
-
-## Exposure management over time (%)
-
-![Exposure management over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
-
-This section shows the **percentage** of closed,
-accepted and open vulnerabilities over time,
-based on our standard
-[CVSSF](/about/glossary#cvssf)
-and total Vulnerabilities.
 
 ## Exposure by type
 
@@ -457,27 +478,6 @@ The X-axis represents
 the total number of vulnerabilities
 and on the Y-axis you can see the
 name of the registered files.
-
-## Exposure benchmark
-
-![Exposure benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1663701130/docs/web/analytics/common/aggregated_exposure_benchmark.png)
-
-In this chart,
-you will be able to compare
-your risk exposure levels
-[(CVSSF)](/about/glossary#cvssf)
-results with other organizations,
-groups or portfolios (the best,
-the average,
-and the worst).
-
-## Mean time to request reattacks
-
-This metric shows the average number
-of days it takes customers to request
-a reattack.
-
-![Mean time to request](https://res.cloudinary.com/fluid-attacks/image/upload/v1666199798/docs/web/analytics/common/mean_time_to_request_reattacks.png)
 
 :::tip free trial
 **Search for vulnerabilities in your apps for free
