@@ -5,10 +5,18 @@ from .various import (
     BASE_DIR,
     DEBUG,
 )
+from aioextensions import (
+    in_thread,
+    schedule,
+)
+import asyncio
 from boto3.session import (
     Session,
 )
 import bugsnag
+from bugsnag.client import (
+    Client,
+)
 from bugsnag_client import (
     remove_nix_hash as bugsnag_remove_nix_hash,
 )
@@ -31,7 +39,10 @@ from graphql import (
 )
 import json
 from logging import (
+    Filter,
+    Formatter,
     LogRecord,
+    StreamHandler,
 )
 import logging.config
 import os
@@ -48,12 +59,12 @@ BOTO3_SESSION = Session(
 
 
 # pylint: disable=too-few-public-methods
-class RequireDebugFalse(logging.Filter):
+class RequireDebugFalse(Filter):
     def filter(self, _: LogRecord) -> bool:
         return not DEBUG
 
 
-class ExtraMessageFormatter(logging.Formatter):
+class ExtraMessageFormatter(Formatter):
     def __init__(
         self,
         fmt: str = "[{levelname}] {message}, extra={extra}",
@@ -61,7 +72,7 @@ class ExtraMessageFormatter(logging.Formatter):
     ) -> None:
         logging.Formatter.__init__(self, fmt=fmt, style=style)
 
-    def format(self, record: logging.LogRecord) -> str:
+    def format(self, record: LogRecord) -> str:
         arg_pattern = re.compile(r"\{(\w+)\}")
         arg_names = [x.group(1) for x in arg_pattern.finditer(str(self._fmt))]
         for field in arg_names:
@@ -69,6 +80,16 @@ class ExtraMessageFormatter(logging.Formatter):
                 record.__dict__[field] = None
 
         return super().format(record)
+
+
+class AsyncStreamHandler(StreamHandler):
+    def emit(self, record: LogRecord) -> None:
+        try:
+            asyncio.get_running_loop()
+            schedule(in_thread(super().emit, record))
+        except RuntimeError:
+            # Called outside an async context
+            super().emit(record)
 
 
 MODULES = os.listdir(os.path.dirname(os.path.dirname(__file__)))
@@ -88,10 +109,11 @@ LOGGING = {
             "extra_fields": {"extra": ["extra"]},
             "filters": ["require_debug_false"],
             "class": "bugsnag.handlers.BugsnagHandler",
+            "client": Client(asynchronous=True),
             "level": LOG_LEVEL_BUGSNAG or "WARNING",
         },
         "console": {
-            "class": "logging.StreamHandler",
+            "()": AsyncStreamHandler,
             "level": LOG_LEVEL_CONSOLE or "INFO",
             "formatter": "level_message_extra",
         },
@@ -107,6 +129,7 @@ LOGGING = {
             "level": LOG_LEVEL_WATCHTOWER or "INFO",
             "log_group_name": "FLUID",
             "log_stream_name": "FLUIDIntegrates",
+            "use_queues": True,
         },
     },
     "loggers": {
