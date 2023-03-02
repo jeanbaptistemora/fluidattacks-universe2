@@ -92,29 +92,6 @@ than reported.
 A zero value means that as much
 exposure was remediated as reported.
 
-## Total types
-
-A type is a group of vulnerabilities
-on your system related to the same
-attack vector.
-
-![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
-
-## Vulnerabilities with no treatment
-
-Number of vulnerabilities without
-a remediation plan specified by
-one of your managers.
-
-![Vulnerabilities no treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1666124094/docs/web/analytics/common/vulnerabilities_with_no_treatment.png)
-
-## Open vulnerabilities
-
-![Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/open_vulnerabilities.png)
-
-Number of open vulnerabilities
-within your system.
-
 ## Remediation rate
 
 ![Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/remediation_rate.png)
@@ -127,6 +104,21 @@ organization (all groups in
 the organization),
 or portfolio (all groups in
 the portfolio).
+
+## Open vulnerabilities
+
+![Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1664814053/docs/web/analytics/common/open_vulnerabilities.png)
+
+Number of open vulnerabilities
+within your system.
+
+## Vulnerabilities with no treatment
+
+Number of vulnerabilities without
+a remediation plan specified by
+one of your managers.
+
+![Vulnerabilities no treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1666124094/docs/web/analytics/common/vulnerabilities_with_no_treatment.png)
 
 ## Exposure management over time
 
@@ -163,6 +155,14 @@ the minimum units of risk.
 They are tied to a system,
 and a specific location
 within that system.
+
+## Total types
+
+A type is a group of vulnerabilities
+on your system related to the same
+attack vector.
+
+![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
 
 ## Vulnerabilities being re-attacked
 
