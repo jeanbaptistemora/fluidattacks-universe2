@@ -125,6 +125,7 @@ async def authz_azure(request: Request) -> HTMLResponse:
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     email = user.get("email", user.get("upn", "")).lower()
+    await analytics.mixpanel_track(email, "LoginAzure")
     response = RedirectResponse(url="/home")
     await handle_user(
         request,
@@ -147,6 +148,7 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
+    await analytics.mixpanel_track(user.get("email", ""), "LoginBitbucket")
     response = RedirectResponse(url="/home")
     await handle_user(request, response, user)  # type: ignore
     return response  # type: ignore
@@ -165,6 +167,7 @@ async def authz_google(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
+    await analytics.mixpanel_track(user.get("email", ""), "LoginGoogle")
     response = RedirectResponse(url="/home")
     await handle_user(request, response, user)  # type: ignore
     return response  # type: ignore
