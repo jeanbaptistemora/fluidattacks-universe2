@@ -66,6 +66,7 @@ from vulnerabilities.domain import (
     get_vulnerabilities,
 )
 from vulnerabilities.domain.rebase import (
+    close_vulnerability,
     rebase as rebase_vulnerability,
 )
 from vulnerabilities.domain.snippet import (
@@ -191,6 +192,7 @@ async def _vulnerability_historic_state(
 async def rebase_root(
     loaders: Dataloaders, group_name: str, repo: Repo, git_root: GitRoot
 ) -> None:
+    root_head_commit = repo.head.commit.hexsha
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
@@ -239,6 +241,22 @@ async def rebase_root(
                 rebase_result.path != vuln.state.where
                 or str(rebase_result.line) != vuln.state.specific
             )
+            and rebase_result.rev == root_head_commit
+        ]
+    )
+    await collect(
+        [
+            close_vulnerability(
+                loaders,
+                vuln.id,
+                rebase_result.rev,
+                rebase_result.path,
+                str(rebase_result.line),
+            )
+            for rebase_result, vuln in all_rebase
+            if rebase_result
+            and rebase_result.rev != root_head_commit
+            and vuln.created_by == "machine@fluidattacks.com"
         ]
     )
     vulnerabilities_snippet = await get_vulnerabilities(

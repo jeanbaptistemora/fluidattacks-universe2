@@ -16,6 +16,8 @@ from db_model.enums import (
     Source,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateReason,
+    VulnerabilityStateStatus,
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
@@ -176,3 +178,50 @@ async def rebase(
             ),
         )
     return last_state
+
+
+async def close_vulnerability(
+    loaders: Dataloaders,
+    vulnerability_id: str,
+    vulnerability_commit: str,
+    vulnerability_where: str,
+    vulnerability_specific: str,
+) -> None:
+    vulnerability = await loaders.vulnerability.load(vulnerability_id)
+    if not vulnerability:
+        return
+    vulns_states = await loaders.vulnerability_historic_state.load(
+        vulnerability_id
+    )
+    last_state = vulns_states[-1]._replace(
+        commit=vulnerability_commit,
+        specific=vulnerability_specific,
+        where=vulnerability_where,
+        modified_date=datetime_utils.get_utc_now(),
+        modified_by="rebase@fluidattacks.com",
+        source=Source.ASM,
+        reasons=[VulnerabilityStateReason.CONSISTENCY],
+        status=VulnerabilityStateStatus.SAFE,
+        other_reason=(
+            "The content of the vulnerability "
+            "could not be found in the HEAD commit."
+        ),
+    )
+
+    await vulns_model.update_historic_entry(
+        current_value=vulnerability,
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability_id,
+        entry=last_state,
+    )
+    with suppress(InvalidParameter):
+        loaders.vulnerability.clear(vulnerability_id)
+        await update_metadata(
+            vulnerability_id=vulnerability_id,
+            finding_id=vulnerability.finding_id,
+            metadata=VulnerabilityMetadataToUpdate(
+                hash=await get_hash_from_machine_vuln(
+                    loaders, await get_vulnerability(loaders, vulnerability_id)
+                )
+            ),
+        )
