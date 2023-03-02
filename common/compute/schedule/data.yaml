@@ -132,11 +132,13 @@ integrates_clean_ephemerals:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Destroy ephemerals by destroying resources in dev namespace.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - dacevedo
+      - dsalazar
+    requiredBy:
+      - CI in order to free unused resources each day.
   parallel: 1
   scheduleExpression: cron(0 1 * * ? *)
   size: integrates_nano
@@ -160,11 +162,14 @@ integrates_clone_groups_roots:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Clone all the roots in active groups that have
+      credentials associated and upload them to S3.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - drestrepo
+      - acuberos
+    requiredBy:
+      - Security testers for analyzing up-to-date repositories.
   parallel: 1
   scheduleExpression: cron(0 5,8,11,14,17,21 ? * 2-6 *)
   size: integrates_nano
@@ -188,11 +193,15 @@ integrates_clone_groups_roots_vpn:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Clone all the roots in active groups that have
+      credentials associated and upload them to S3. There repositories
+      are behind VPNs.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - drestrepo
+      - acuberos
+    requiredBy:
+      - Security testers for analyzing up-to-date repositories behind VPNs.
   parallel: 1
   scheduleExpression: cron(30 6,11,16 ? * 2-6 *)
   size: integrates_nano
@@ -216,11 +225,13 @@ integrates_consulting_digest_notification:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send emails to users with comments digest.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jhurtado
+    requiredBy:
+      - ARM sending only one mail with all comments summary and avoid
+        email flooding to users.
   parallel: 1
   scheduleExpression: cron(0 11,19 ? * 2-6 *)
   size: integrates_nano
@@ -244,11 +255,14 @@ integrates_delete_obsolete_groups:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Remove groups without users, findings nor Fluid Attacks
+      services enabled.
+    lastReviewed: "02-03-2023"
     maintainers:
       - jmesa
-    requiredBy: []
+      - acaguirre
+    requiredBy:
+      - ARM cleaning unwanted or obsolete data.
   parallel: 1
   scheduleExpression: cron(0 2 ? * * *)
   size: integrates_nano
@@ -272,11 +286,13 @@ integrates_delete_obsolete_orgs:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Remove organizations without groups after 60 days.
+    lastReviewed: "02-03-2023"
     maintainers:
       - jmesa
-    requiredBy: []
+      - acaguirre
+    requiredBy:
+      - ARM cleaning unwanted or obsolete data.
   parallel: 1
   scheduleExpression: cron(0 9 ? * * *)
   size: integrates_nano
