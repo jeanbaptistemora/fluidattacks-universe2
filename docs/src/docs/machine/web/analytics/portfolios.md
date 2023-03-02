@@ -42,18 +42,26 @@ The percentage of vulnerabilities
 with no treatment that each group
 compared with the whole portfolio.
 
-## Vulnerability types by group
+## Exposure by group
 
-![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
+![Exposure By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645821564/docs/web/analytics/portfolios/open_severity_by_groups.png)
 
-Number of vulnerabilities
-categorized by group.
+For each of your groups,
+you can find out the exposure (CVSSF)
+of open vulnerabilities.
 
 ## Open vulnerability types by group
 
 ![Open vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_open_types_vuln_by_group.png)
 
 Number of open vulnerabilities
+categorized by group.
+
+## Vulnerability types by group
+
+![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
+
+Number of vulnerabilities
 categorized by group.
 
 ## Vulnerabilities by group
@@ -83,14 +91,6 @@ all the tags you have
 and the amount of each one
 that belong to each group
 of your portfolio.
-
-## Exposure by group
-
-![Exposure By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645821564/docs/web/analytics/portfolios/open_severity_by_groups.png)
-
-For each of your groups,
-you can find out the exposure (CVSSF)
-of open vulnerabilities.
 
 ## Unsolved events by group
 

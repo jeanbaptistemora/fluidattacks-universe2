@@ -50,6 +50,20 @@ The percentage of vulnerabilities
 with no treatment that each group
 has compared with the whole organization.
 
+## Exposure by group
+
+![Exposure by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
+
+For each of your groups, you can find out
+the exposure (CVSSF) of open vulnerabilities.
+
+## Open vulnerability types by group
+
+![Open vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_open_types_vuln_by_group.png)
+
+Number of open vulnerabilities
+categorized by group.
+
 ## Tags by groups
 
 ![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
@@ -60,25 +74,11 @@ and the amount of each one
 that belong to each group
 of your organization.
 
-## Exposure by group
-
-![Exposure by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
-
-For each of your groups, you can find out
-the exposure (CVSSF) of open vulnerabilities.
-
 ## Vulnerability types by group
 
 ![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_types_vuln_by_group.png)
 
 Number of vulnerabilities
-categorized by group.
-
-## Open vulnerability types by group
-
-![Open vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647440139/docs/web/analytics/organizations/organization_open_types_vuln_by_group.png)
-
-Number of open vulnerabilities
 categorized by group.
 
 ## Oldest vulnerability types

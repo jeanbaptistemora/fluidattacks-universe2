@@ -316,23 +316,49 @@ This section shows what vulnerability types are open according to:
 - According to what type Code,
   infra and app.
 
-## Total vulnerabilities
+## Vulnerabilities treatment
 
-![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
+On the ARM, you can plan and manage the
+remediation of security findings.
+Vulnerabilities can be grouped according
+to their assigned treatment:
 
-Vulnerabilities are
-the minimum units of risk.
-They are tied to a system,
-and a specific location
-within that system.
+- **Untreated:**
+  New vulnerabilities go here until you
+  generate an action plan and assign it
+  to a developer.
 
-## Total types
+- **In progress:**
+  With this treatment, you acknowledge
+  the existence of the vulnerability and
+  assign a user to it in order to ensure
+  it is solved.
 
-A type is a group of vulnerabilities
-on your system related to the same
-attack vector.
+- **Temporarily accepted:**
+  This treatment is used when you don't
+  intend to solve the vulnerability, but
+  only temporarily, in which case you
+  accept the risks that come with it
+  until a selected date.
 
-![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
+- **Permanently accepted:**
+  As with the previous treatment, this
+  is used when you don't intend to solve
+  the vulnerability, but this time you
+  accept the risks that come with it
+  permanently.
+
+![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
+
+## Vulnerabilities by source
+
+![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1666183901/docs/web/analytics/common/vulnerabilities_by_source.png)
+
+These are the vulnerabilities
+categorized based on
+whether they come
+directly from an app,
+code or the infrastructure.
 
 ## Active resources distribution
 
@@ -353,6 +379,24 @@ The maximum benefit is reached
 when every environment
 has its full source-code available
 for us to test it.
+
+## Total types
+
+A type is a group of vulnerabilities
+on your system related to the same
+attack vector.
+
+![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
+
+## Total vulnerabilities
+
+![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
+
+Vulnerabilities are
+the minimum units of risk.
+They are tied to a system,
+and a specific location
+within that system.
 
 ## Vulnerabilities by tag
 
@@ -408,50 +452,6 @@ These are the accepted vulnerabilities
 grouped under the user
 with access to them
 that accepted the vulnerabilities.
-
-## Vulnerabilities by source
-
-![Vulns By Source](https://res.cloudinary.com/fluid-attacks/image/upload/v1666183901/docs/web/analytics/common/vulnerabilities_by_source.png)
-
-These are the vulnerabilities
-categorized based on
-whether they come
-directly from an app,
-code or the infrastructure.
-
-## Vulnerabilities treatment
-
-On the ARM, you can plan and manage the
-remediation of security findings.
-Vulnerabilities can be grouped according
-to their assigned treatment:
-
-- **Untreated:**
-  New vulnerabilities go here until you
-  generate an action plan and assign it
-  to a developer.
-
-- **In progress:**
-  With this treatment, you acknowledge
-  the existence of the vulnerability and
-  assign a user to it in order to ensure
-  it is solved.
-
-- **Temporarily accepted:**
-  This treatment is used when you don't
-  intend to solve the vulnerability, but
-  only temporarily, in which case you
-  accept the risks that come with it
-  until a selected date.
-
-- **Permanently accepted:**
-  As with the previous treatment, this
-  is used when you don't intend to solve
-  the vulnerability, but this time you
-  accept the risks that come with it
-  permanently.
-
-![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
 
 ## Report technique
 
