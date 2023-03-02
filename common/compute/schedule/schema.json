@@ -38,7 +38,7 @@
               "type": "string"
             },
             "lastReviewed": {
-              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "pattern": "^[0-9]{2}-[0-9]{2}-[0-9]{4}$",
               "type": "string"
             },
             "maintainers": {
@@ -51,6 +51,7 @@
             },
             "requiredBy": {
               "items": {
+                "minLength": 10,
                 "type": "string"
               },
               "minItems": 0,

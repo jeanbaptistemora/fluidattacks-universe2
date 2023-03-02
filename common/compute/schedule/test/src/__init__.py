@@ -1,3 +1,9 @@
+from datetime import (
+    datetime,
+)
+from dateutil.relativedelta import (
+    relativedelta,
+)
 import json
 import os
 import sys
@@ -10,78 +16,47 @@ def error(msg: str) -> None:
     print("[ERROR]", msg)
 
 
-def test_schedule_maintainers(*, name: str, values: Any) -> bool:
-    success: bool = True
-
-    if len(values["meta"]["maintainers"]) == 0:
-        success = False
-        error(
-            "'meta.maintainers' option"
-            " must not be empty"
-            f" in schedule '{name}'."
-        )
-
-    return success
-
-
 def test_schedule(*, name: str, values: Any) -> bool:
     return all(
         tuple(
             [
-                test_meta_description(name=name, values=values),
-                test_meta_required_by(name=name, values=values),
+                test_meta_last_reviewed(name=name, values=values),
             ]
         )
     )
 
 
-def test_meta_description(*, name: str, values: Any) -> bool:
+def test_meta_last_reviewed(*, name: str, values: Any) -> bool:
     success: bool = True
-    min_chars: int = 50
-    description: str = values["meta"]["description"]
+    delta_months: int = 1
+    time_format: str = "%d-%m-%Y"
+    last_reviewed: datetime = datetime.strptime(
+        values["meta"]["lastReviewed"],
+        time_format,
+    )
+    next_review: datetime = last_reviewed + relativedelta(months=delta_months)
+    today: datetime = datetime.today()
 
-    if len(description) < min_chars:
+    if today > next_review:
         success = False
         error(
-            "'meta.description' option"
-            f" must be at least {min_chars} characters long"
-            f" in schedule '{name}'."
-        )
-
-    return success
-
-
-def test_meta_required_by(*, name: str, values: Any) -> bool:
-    success: bool = True
-    required_by: list[str] = values["meta"]["requiredBy"]
-
-    if len(required_by) == 0:
-        success = False
-        error(
-            "'meta.requiredBy' option"
-            f"must must not be empty in schedule '{name}'."
+            f"{name}.meta.lastReviewed was on"
+            f" {last_reviewed.strftime(time_format)}."
+            " Please review and update the schedule."
         )
 
     return success
 
 
 def main() -> None:
-    success: bool = True
     data: dict[str, Any] = json.loads(os.environ["DATA"])
+    user: str = os.environ["CI_COMMIT_REF_NAME"].removesuffix("atfluid")
 
-    success = success and all(
-        tuple(
-            test_schedule_maintainers(name=name, values=values)
-            for (name, values) in data.items()
-        )
-    )
-
-    success = success and all(
+    success: bool = all(
         tuple(
             test_schedule(name=name, values=values)
             for (name, values) in data.items()
-            if os.environ["CI_COMMIT_REF_NAME"]
-            in values["meta"]["maintainers"]
+            if user in values["meta"]["maintainers"]
         )
     )
 
