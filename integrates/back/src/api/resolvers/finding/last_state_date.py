@@ -13,7 +13,7 @@ from newutils import (
 
 
 @FINDING.field("lastStateDate")
-async def resolve(
+def resolve(
     parent: Finding,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
