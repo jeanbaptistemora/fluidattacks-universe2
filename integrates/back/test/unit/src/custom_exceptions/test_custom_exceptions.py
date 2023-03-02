@@ -5,10 +5,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 from custom_exceptions import (
     InvalidSchema,
 )
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
@@ -59,21 +55,3 @@ async def test_validate_file_schema_invalid(
         yaml.safe_dump("", stream)
     with pytest.raises(InvalidSchema):  # NOQA
         validate_file_schema(file_url, info)
-
-
-@mock.patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
-async def test_stakeholder_not_found(
-    mock_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
-
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
-    email: str = "testanewuser@test.test"
-    loaders: Dataloaders = get_new_context()
-    assert not await loaders.stakeholder.load(email)
-    assert mock_resource.called is True

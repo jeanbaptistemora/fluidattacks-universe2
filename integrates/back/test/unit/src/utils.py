@@ -4244,6 +4244,74 @@ mocked_responses: dict[str, dict[str, Any]] = {
         '["test_email@test.com", "user"]': None,
         '["test_email@test.com", "admin"]': None,
     },
+    "db_model.stakeholders.get._get_stakeholders_no_fallback": {
+        '["integratesmanager@fluidattacks.com"]': [
+            Stakeholder(
+                email="integratesmanager@fluidattacks.com",
+                access_token=None,
+                enrolled=True,
+                first_name="Integrates",
+                is_concurrent_session=False,
+                is_registered=True,
+                last_login_date=datetime.fromisoformat(
+                    "2020-12-31T16:50:17+00:00"
+                ),
+                last_api_token_use_date=None,
+                last_name="Manager",
+                legal_remember=True,
+                phone=StakeholderPhone(
+                    country_code="CO",
+                    calling_country_code="57",
+                    national_number="1234567891",
+                ),
+                registration_date=datetime.fromisoformat(
+                    "2018-02-28T16:54:12+00:00"
+                ),
+                role="admin",
+                session_key=None,
+                session_token=None,
+                state=StakeholderState(
+                    modified_by="integratesmanager@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-02-28T16:54:12+00:00"
+                    ),
+                    notifications_preferences=NotificationsPreferences(
+                        available=[],
+                        email=[
+                            "ACCESS_GRANTED",
+                            "AGENT_TOKEN",
+                            "CHARTS_REPORT",
+                            "EVENT_REPORT",
+                            "FILE_UPDATE",
+                            "GROUP_INFORMATION",
+                            "GROUP_REPORT",
+                            "NEW_COMMENT",
+                            "NEW_DRAFT",
+                            "PORTFOLIO_UPDATE",
+                            "REMEDIATE_FINDING",
+                            "REMINDER_NOTIFICATION",
+                            "ROOT_UPDATE",
+                            "SERVICE_UPDATE",
+                            "UNSUBSCRIPTION_ALERT",
+                            "UPDATED_TREATMENT",
+                            "VULNERABILITY_ASSIGNED",
+                            "VULNERABILITY_REPORT",
+                        ],
+                        sms=[],
+                        parameters=NotificationsParameters(
+                            min_severity=Decimal("3.0")
+                        ),
+                    ),
+                ),
+                tours=StakeholderTours(
+                    new_group=False,
+                    new_root=False,
+                    new_risk_exposure=False,
+                    welcome=False,
+                ),
+            ),
+        ]
+    },
     "db_model.vulnerabilities.get.AssignedVulnerabilitiesLoader.load": {
         '["unittest@fluidattacks.com"]': [],
     },
