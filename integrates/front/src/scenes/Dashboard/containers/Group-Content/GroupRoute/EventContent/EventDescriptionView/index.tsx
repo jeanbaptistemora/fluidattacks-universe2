@@ -18,7 +18,7 @@ import type {
 } from "./types";
 
 import { Input, Select } from "components/Input";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import {
@@ -29,7 +29,6 @@ import {
 } from "scenes/Dashboard/containers/Group-Content/GroupRoute/EventContent/EventDescriptionView/queries";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/Group-Content/GroupRoute/EventContent/queries";
 import {
-  Col100,
   Col50,
   ControlLabel,
   EditableFieldTitle50,
@@ -436,7 +435,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             {({ dirty, values }): React.ReactNode => (
               <Form id={"solvingReason"}>
                 <Row>
-                  <Col100>
+                  <Col>
                     <FormGroup>
                       <Select
                         label={t(
@@ -467,15 +466,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         />
                       </FormGroup>
                     ) : undefined}
-                  </Col100>
+                  </Col>
                 </Row>
                 {_.isEmpty(data.event.affectedReattacks) ? undefined : (
                   <Row>
-                    <Col100>
+                    <Col>
                       {t("group.events.description.solved.holds", {
                         length: data.event.affectedReattacks.length,
                       })}
-                    </Col100>
+                    </Col>
                   </Row>
                 )}
                 <ModalConfirm
