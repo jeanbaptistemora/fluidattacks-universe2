@@ -101,16 +101,6 @@ The percentage of vulnerabilities
 that each group has compared with
 the whole organization.
 
-## Tags by groups
-
-![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
-
-Here you can see
-all the tags you have
-and the amount of each one
-that belong to each group
-of your organization.
-
 ## Overall availability of groups
 
 ![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1666187102/docs/web/analytics/organizations/overall_availability_of_groups.png)
@@ -127,6 +117,16 @@ the total existence of the group.
 This chart shows the number
 of days of the oldest
 unsolved event in the groups
+of your organization.
+
+## Tags by groups
+
+![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
+
+Here you can see
+all the tags you have
+and the amount of each one
+that belong to each group
 of your organization.
 
 :::tip free trial

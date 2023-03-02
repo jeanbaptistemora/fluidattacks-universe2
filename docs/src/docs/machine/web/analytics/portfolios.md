@@ -97,16 +97,6 @@ The percentage of vulnerabilities
 that each group has
 compared with the whole portfolio.
 
-## Tags by groups
-
-![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/tags_by_groups_g8xfjs.png)
-
-Here you can see
-all the tags you have
-and the amount of each one
-that belong to each group
-of your portfolio.
-
 ## Overall availability of groups
 
 ![Availability of groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1666197752/docs/web/analytics/portfolios/overall_port.png)
@@ -123,6 +113,16 @@ the total existence of the group.
 This chart shows the number
 of days of the oldest
 unsolved event in the groups
+of your portfolio.
+
+## Tags by groups
+
+![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/tags_by_groups_g8xfjs.png)
+
+Here you can see
+all the tags you have
+and the amount of each one
+that belong to each group
 of your portfolio.
 
 :::tip free trial

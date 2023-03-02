@@ -435,6 +435,19 @@ grouped under the user
 with access to them
 that accepted the vulnerabilities.
 
+## Report technique
+
+![Report Technique](https://res.cloudinary.com/fluid-attacks/image/upload/v1657895822/docs/web/analytics/common/report_technique.png)
+
+Of all the vulnerabilities
+reported (Open and Closed),
+what is the percentage of
+these according to the
+different types of security
+tests (Sast,
+Dast,
+and Sca).
+
 ## Exposure by assignee
 
 ![Exposure by Assignee](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
@@ -452,19 +465,6 @@ treatments they have given to
 or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 assigned to them.
-
-## Report technique
-
-![Report Technique](https://res.cloudinary.com/fluid-attacks/image/upload/v1657895822/docs/web/analytics/common/report_technique.png)
-
-Of all the vulnerabilities
-reported (Open and Closed),
-what is the percentage of
-these according to the
-different types of security
-tests (Sast,
-Dast,
-and Sca).
 
 ## Files with open vulnerabilities in the last 20 weeks
 
