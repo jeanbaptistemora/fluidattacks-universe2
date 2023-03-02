@@ -1125,6 +1125,12 @@ const redirectMap = new Map([
   ["/categories/mast/", "https://fluidattacks.com/product/mast/"],
   ["/about-us/clients/", " https://fluidattacks.com/clients/"],
   ["/about-us/certifications/", "https://fluidattacks.com/certifications/"],
+  ["/blog/product/attacks/", "https://fluidattacks.com/blog/categories/attacks/"],
+  ["/blog/product/development/", "https://fluidattacks.com/blog/categories/development/"],
+  ["/blog/product/interview/", "https://fluidattacks.com/blog/categories/interview/"],
+  ["/blog/product/opinions/", "https://fluidattacks.com/blog/categories/opinions/"],
+  ["/blog/product/philosophy/", "https://fluidattacks.com/blog/categories/philosophy/"],
+  ["/blog/product/politics/", "https://fluidattacks.com/blog/categories/politics/"],
 ]);
 
 addEventListener('fetch', event => {
