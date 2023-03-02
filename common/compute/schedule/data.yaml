@@ -40,11 +40,15 @@ integrates_abandoned_trial_notification:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send email notifications to resume or start over trial
+      registration.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - faristizabal
+      - jhurtado
+    requiredBy:
+      - ARM in order to prevent losing users that start onboarding
+        services for a free trial.
   parallel: 1
   scheduleExpression: cron(0 */1 * * ? *)
   size: integrates_nano
@@ -69,11 +73,14 @@ integrates_charts_documents:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Generate charts documents by executing the analytics
+      generators and upload them to S3.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - slizcano
+      - jperez
+    requiredBy:
+      - Analytics view in the ARM.
   parallel: 22
   scheduleExpression: cron(0 1 ? * 2-6 *)
   size: integrates_medium
@@ -96,11 +103,14 @@ integrates_charts_snapshots:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Generate charts snapshots by executing the analytics
+      generators using Selenium and upload them to S3.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - slizcano
+      - jperez
+    requiredBy:
+      - Analytics view in the ARM.
   parallel: 1
   scheduleExpression: cron(45 3 ? * 2-6 *)
   size: integrates_small
