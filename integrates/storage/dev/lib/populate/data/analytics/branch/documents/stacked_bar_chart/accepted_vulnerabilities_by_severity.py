@@ -25,6 +25,9 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from collections import (
+    Counter,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -37,9 +40,6 @@ from decimal import (
 )
 from findings import (
     domain as findings_domain,
-)
-from typing import (
-    Counter,
 )
 
 

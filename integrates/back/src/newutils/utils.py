@@ -2,6 +2,9 @@ from . import (
     findings as findings_utils,
 )
 import collections
+from collections.abc import (
+    KeysView,
+)
 from custom_exceptions import (
     InvalidFilter,
 )
@@ -11,7 +14,6 @@ from db_model.findings.types import (
 import re
 from typing import (
     Any,
-    KeysView,
 )
 
 

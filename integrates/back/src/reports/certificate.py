@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    ValuesView,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -47,7 +50,6 @@ import subprocess  # nosec
 import tempfile
 from typing import (
     TypedDict,
-    ValuesView,
 )
 import uuid
 
