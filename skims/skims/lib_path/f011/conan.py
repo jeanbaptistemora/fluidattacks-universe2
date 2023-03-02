@@ -69,6 +69,21 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[Tuple[Any, Any]]:
                 yield dep.value, dep.lineno
 
 
+def get_conan_self_requires(
+    conan_class: ast.ClassDef,
+) -> Iterator[Tuple[Any, Any]]:
+    for node in conan_class.body:
+        if isinstance(node, ast.FunctionDef) and node.name == "requirements":
+            for req_node in node.body:
+                if (
+                    hasattr(req_node, "value")
+                    and req_node.value.func.value.id == "self"
+                    and req_node.value.func.attr == "requires"
+                ):
+                    dep_info = req_node.value.args[0]
+                    yield dep_info.value, dep_info.lineno
+
+
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.CONAN, MethodsEnum.CONAN_CONANFILE_PY)
 def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
