@@ -45,7 +45,7 @@ def remote_command_execution(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     java = GraphLanguage.JAVA
-    danger_methods = {"command", "exec", "start"}
+    danger_methods = {"exec", "start"}
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):

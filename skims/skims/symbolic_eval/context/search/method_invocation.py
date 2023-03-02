@@ -12,18 +12,15 @@ from utils import (
     graph as g,
 )
 
-MODIFYING_METHODS = {"add", "push", "put"}
-
 
 def method_modifies_symbol(args: SearchArgs) -> bool:
     n_attr = args.graph.nodes[args.n_id]
     expr_split = n_attr["expression"].split(".")
-    if expr_split[-1] in MODIFYING_METHODS:
-        obj_id = n_attr.get("object_id")
-        if (
-            obj_id and args.symbol == args.graph.nodes[obj_id].get("symbol")
-        ) or (len(expr_split) > 1 and args.symbol in expr_split[0:-1]):
-            return True
+    obj_id = n_attr.get("object_id")
+    if (obj_id and args.symbol == args.graph.nodes[obj_id].get("symbol")) or (
+        len(expr_split) > 1 and args.symbol == expr_split[0]
+    ):
+        return True
     return False
 
 

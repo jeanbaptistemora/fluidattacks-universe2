@@ -105,6 +105,7 @@ EVALUATORS: dict[str, Evaluator] = {
     "ParenthesizedExpression": parenthesized_expression.evaluate,
     "PrefixOperation": prefix_operation.evaluate,
     "Return": return_node.evaluate,
+    "ReservedWord": not_dangerous.evaluate,
     "SpreadElement": spread_element.evaluate,
     "SwitchBody": switch_case.evaluate,
     "SwitchSection": switch_case.evaluate,

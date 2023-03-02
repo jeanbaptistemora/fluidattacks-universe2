@@ -1,7 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java,68,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java,71,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.java","
-  58 |          argList.add(""cmd.exe"");
   59 |          argList.add(""/c"");
   60 |         } else {
   61 |          argList.add(""sh"");
@@ -11,10 +10,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.j
   65 |
   66 |   ProcessBuilder pb = new ProcessBuilder();
   67 |
-> 68 |   pb.command(argList);
+  68 |   pb.command(argList);
   69 |
   70 |   try {
-  71 |    Process p = pb.start();
+> 71 |    Process p = pb.start();
   72 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   73 |   } catch (IOException e) {
   74 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -22,6 +21,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00006.j
   76 |   }
   77 |  }
   78 |
+  79 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.java,61,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -49,9 +49,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00007.j
   71 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java,73,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.java","
-  60 |          argList.add(""cmd.exe"");
   61 |          argList.add(""/c"");
   62 |         } else {
   63 |          argList.add(""sh"");
@@ -61,10 +60,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.j
   67 |
   68 |   ProcessBuilder pb = new ProcessBuilder();
   69 |
-> 70 |   pb.command(argList);
+  70 |   pb.command(argList);
   71 |
   72 |   try {
-  73 |    Process p = pb.start();
+> 73 |    Process p = pb.start();
   74 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   75 |   } catch (IOException e) {
   76 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -72,6 +71,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00015.j
   78 |   }
   79 |  }
   80 |
+  81 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00017.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -399,9 +399,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00177.j
   81 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.java,75,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.java,78,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.java","
-  65 |          argList.add(""cmd.exe"");
   66 |          argList.add(""/c"");
   67 |         } else {
   68 |          argList.add(""sh"");
@@ -411,10 +410,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.j
   72 |
   73 |   ProcessBuilder pb = new ProcessBuilder();
   74 |
-> 75 |   pb.command(argList);
+  75 |   pb.command(argList);
   76 |
   77 |   try {
-  78 |    Process p = pb.start();
+> 78 |    Process p = pb.start();
   79 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   80 |   } catch (IOException e) {
   81 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -422,6 +421,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00293.j
   83 |   }
   84 |  }
   85 |
+  86 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00294.java,78,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -649,9 +649,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00311.j
   90 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00396.java,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00396.java,73,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00396.java","
-  60 |          a1 = ""cmd.exe"";
   61 |          a2 = ""/c"";
   62 |         } else {
   63 |          a1 = ""sh"";
@@ -661,10 +660,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00396.j
   67 |
   68 |   ProcessBuilder pb = new ProcessBuilder();
   69 |
-> 70 |   pb.command(args);
+  70 |   pb.command(args);
   71 |
   72 |   try {
-  73 |    Process p = pb.start();
+> 73 |    Process p = pb.start();
   74 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   75 |   } catch (IOException e) {
   76 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -672,6 +671,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00396.j
   78 |   }
   79 |  }
   80 |
+  81 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00406.java,77,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -774,9 +774,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00409.j
   102 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.java,75,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.java,78,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.java","
-  65 |          argList.add(""cmd.exe"");
   66 |          argList.add(""/c"");
   67 |         } else {
   68 |          argList.add(""sh"");
@@ -786,10 +785,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.j
   72 |
   73 |   ProcessBuilder pb = new ProcessBuilder();
   74 |
-> 75 |   pb.command(argList);
+  75 |   pb.command(argList);
   76 |
   77 |   try {
-  78 |    Process p = pb.start();
+> 78 |    Process p = pb.start();
   79 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   80 |   } catch (IOException e) {
   81 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -797,6 +796,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00480.j
   83 |   }
   84 |  }
   85 |
+  86 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00481.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -1349,9 +1349,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00743.j
   86 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00814.java,84,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00814.java,87,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00814.java","
-  74 |          argList.add(""cmd.exe"");
   75 |          argList.add(""/c"");
   76 |         } else {
   77 |          argList.add(""sh"");
@@ -1361,10 +1360,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00814.j
   81 |
   82 |   ProcessBuilder pb = new ProcessBuilder();
   83 |
-> 84 |   pb.command(argList);
+  84 |   pb.command(argList);
   85 |
   86 |   try {
-  87 |    Process p = pb.start();
+> 87 |    Process p = pb.start();
   88 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   89 |   } catch (IOException e) {
   90 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -1372,11 +1371,11 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00814.j
   92 |   }
   93 |  }
   94 |
+  95 | }
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.java,78,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.java,81,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.java","
-  68 |          a1 = ""cmd.exe"";
   69 |          a2 = ""/c"";
   70 |         } else {
   71 |          a1 = ""sh"";
@@ -1386,10 +1385,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.j
   75 |
   76 |   ProcessBuilder pb = new ProcessBuilder();
   77 |
-> 78 |   pb.command(args);
+  78 |   pb.command(args);
   79 |
   80 |   try {
-  81 |    Process p = pb.start();
+> 81 |    Process p = pb.start();
   82 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   83 |   } catch (IOException e) {
   84 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -1397,11 +1396,11 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00815.j
   86 |   }
   87 |  }
   88 |
+  89 | }
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java,83,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java,86,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.java","
-  73 |          a1 = ""cmd.exe"";
   74 |          a2 = ""/c"";
   75 |         } else {
   76 |          a1 = ""sh"";
@@ -1411,10 +1410,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.j
   80 |
   81 |   ProcessBuilder pb = new ProcessBuilder();
   82 |
-> 83 |   pb.command(args);
+  83 |   pb.command(args);
   84 |
   85 |   try {
-  86 |    Process p = pb.start();
+> 86 |    Process p = pb.start();
   87 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   88 |   } catch (IOException e) {
   89 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -1422,6 +1421,7 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00816.j
   91 |   }
   92 |  }
   93 |
+  94 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest00823.java,81,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -2274,11 +2274,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01194.j
    75 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01269.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01269.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01269.java","
-  52 |          a1 = ""cmd.exe"";
-  53 |          a2 = ""/c"";
-  54 |         } else {
   55 |          a1 = ""sh"";
   56 |          a2 = ""-c"";
   57 |         }
@@ -2286,10 +2283,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01269.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(args);
+  62 |   pb.command(args);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -2297,6 +2294,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01269.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |     private class Test {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01270.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -2474,11 +2474,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01290.j
   64 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01353.java,67,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01353.java,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01353.java","
-   57 |          argList.add(""cmd.exe"");
-   58 |          argList.add(""/c"");
-   59 |         } else {
    60 |          argList.add(""sh"");
    61 |          argList.add(""-c"");
    62 |         }
@@ -2486,10 +2483,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01353.j
    64 |
    65 |   ProcessBuilder pb = new ProcessBuilder();
    66 |
->  67 |   pb.command(argList);
+   67 |   pb.command(argList);
    68 |
    69 |   try {
-   70 |    Process p = pb.start();
+>  70 |    Process p = pb.start();
    71 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    72 |   } catch (IOException e) {
    73 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -2497,6 +2494,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01353.j
    75 |   }
    76 |  }  // end doPost
    77 |
+   78 |
+   79 |     private class Test {
+   80 |
       ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01360.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -2849,11 +2849,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01446.j
   82 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01516.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01516.java,66,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01516.java","
-  53 |          a1 = ""cmd.exe"";
-  54 |          a2 = ""/c"";
-  55 |         } else {
   56 |          a1 = ""sh"";
   57 |          a2 = ""-c"";
   58 |         }
@@ -2861,10 +2858,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01516.j
   60 |
   61 |   ProcessBuilder pb = new ProcessBuilder();
   62 |
-> 63 |   pb.command(args);
+  63 |   pb.command(args);
   64 |
   65 |   try {
-  66 |    Process p = pb.start();
+> 66 |    Process p = pb.start();
   67 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   68 |   } catch (IOException e) {
   69 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -2872,6 +2869,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01516.j
   71 |   }
   72 |  }  // end doPost
   73 |
+  74 |
+  75 |     private class Test {
+  76 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01517.java,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -3099,11 +3099,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01533.j
   63 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01600.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01600.java,68,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01600.java","
-  55 |          argList.add(""cmd.exe"");
-  56 |          argList.add(""/c"");
-  57 |         } else {
   58 |          argList.add(""sh"");
   59 |          argList.add(""-c"");
   60 |         }
@@ -3111,10 +3108,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01600.j
   62 |
   63 |   ProcessBuilder pb = new ProcessBuilder();
   64 |
-> 65 |   pb.command(argList);
+  65 |   pb.command(argList);
   66 |
   67 |   try {
-  68 |    Process p = pb.start();
+> 68 |    Process p = pb.start();
   69 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   70 |   } catch (IOException e) {
   71 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -3122,6 +3119,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01600.j
   73 |   }
   74 |  }  // end doPost
   75 |
+  76 |
+  77 |     private class Test {
+  78 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01601.java,66,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -3274,11 +3274,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01610.j
   71 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01672.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01672.java,79,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01672.java","
-   66 |          a1 = ""cmd.exe"";
-   67 |          a2 = ""/c"";
-   68 |         } else {
    69 |          a1 = ""sh"";
    70 |          a2 = ""-c"";
    71 |         }
@@ -3286,10 +3283,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01672.j
    73 |
    74 |   ProcessBuilder pb = new ProcessBuilder();
    75 |
->  76 |   pb.command(args);
+   76 |   pb.command(args);
    77 |
    78 |   try {
-   79 |    Process p = pb.start();
+>  79 |    Process p = pb.start();
    80 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    81 |   } catch (IOException e) {
    82 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -3297,6 +3294,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01672.j
    84 |   }
    85 |  }  // end doPost
    86 |
+   87 |
+   88 |     private class Test {
+   89 |
       ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01673.java,77,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -3574,11 +3574,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01693.j
    82 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01778.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01778.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01778.java","
-  52 |          a1 = ""cmd.exe"";
-  53 |          a2 = ""/c"";
-  54 |         } else {
   55 |          a1 = ""sh"";
   56 |          a2 = ""-c"";
   57 |         }
@@ -3586,10 +3583,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01778.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(args);
+  62 |   pb.command(args);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -3597,13 +3594,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01778.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |     private class Test {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01779.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01779.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01779.java","
-  52 |          a1 = ""cmd.exe"";
-  53 |          a2 = ""/c"";
-  54 |         } else {
   55 |          a1 = ""sh"";
   56 |          a2 = ""-c"";
   57 |         }
@@ -3611,10 +3608,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01779.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(args);
+  62 |   pb.command(args);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -3622,6 +3619,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01779.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |     private class Test {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01780.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -3924,11 +3924,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01865.j
    85 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.java,67,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.java,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.java","
-   57 |          argList.add(""cmd.exe"");
-   58 |          argList.add(""/c"");
-   59 |         } else {
    60 |          argList.add(""sh"");
    61 |          argList.add(""-c"");
    62 |         }
@@ -3936,10 +3933,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.j
    64 |
    65 |   ProcessBuilder pb = new ProcessBuilder();
    66 |
->  67 |   pb.command(argList);
+   67 |   pb.command(argList);
    68 |
    69 |   try {
-   70 |    Process p = pb.start();
+>  70 |    Process p = pb.start();
    71 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    72 |   } catch (IOException e) {
    73 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -3947,6 +3944,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01928.j
    75 |   }
    76 |  }  // end doPost
    77 |
+   78 |
+   79 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+   80 |
       ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest01929.java,68,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -4349,11 +4349,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02070.j
   69 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.java","
-  52 |          argList.add(""cmd.exe"");
-  53 |          argList.add(""/c"");
-  54 |         } else {
   55 |          argList.add(""sh"");
   56 |          argList.add(""-c"");
   57 |         }
@@ -4361,10 +4358,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(argList);
+  62 |   pb.command(argList);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4372,6 +4369,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02137.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02146.java,57,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -4649,11 +4649,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02156.j
   62 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02242.java,67,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02242.java,70,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02242.java","
-  57 |          argList.add(""cmd.exe"");
-  58 |          argList.add(""/c"");
-  59 |         } else {
   60 |          argList.add(""sh"");
   61 |          argList.add(""-c"");
   62 |         }
@@ -4661,10 +4658,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02242.j
   64 |
   65 |   ProcessBuilder pb = new ProcessBuilder();
   66 |
-> 67 |   pb.command(argList);
+  67 |   pb.command(argList);
   68 |
   69 |   try {
-  70 |    Process p = pb.start();
+> 70 |    Process p = pb.start();
   71 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   72 |   } catch (IOException e) {
   73 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4672,6 +4669,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02242.j
   75 |   }
   76 |  }  // end doPost
   77 |
+  78 |
+  79 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  80 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02243.java,68,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -4849,11 +4849,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02253.j
    86 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java,79,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.java","
-  66 |          argList.add(""cmd.exe"");
-  67 |          argList.add(""/c"");
-  68 |         } else {
   69 |          argList.add(""sh"");
   70 |          argList.add(""-c"");
   71 |         }
@@ -4861,10 +4858,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.j
   73 |
   74 |   ProcessBuilder pb = new ProcessBuilder();
   75 |
-> 76 |   pb.command(argList);
+  76 |   pb.command(argList);
   77 |
   78 |   try {
-  79 |    Process p = pb.start();
+> 79 |    Process p = pb.start();
   80 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   81 |   } catch (IOException e) {
   82 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4872,13 +4869,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02333.j
   84 |   }
   85 |  }  // end doPost
   86 |
+  87 |
+  88 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  89 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.java,79,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.java","
-   66 |          argList.add(""cmd.exe"");
-   67 |          argList.add(""/c"");
-   68 |         } else {
    69 |          argList.add(""sh"");
    70 |          argList.add(""-c"");
    71 |         }
@@ -4886,10 +4883,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.j
    73 |
    74 |   ProcessBuilder pb = new ProcessBuilder();
    75 |
->  76 |   pb.command(argList);
+   76 |   pb.command(argList);
    77 |
    78 |   try {
-   79 |    Process p = pb.start();
+>  79 |    Process p = pb.start();
    80 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    81 |   } catch (IOException e) {
    82 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4897,13 +4894,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02334.j
    84 |   }
    85 |  }  // end doPost
    86 |
+   87 |
+   88 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+   89 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02335.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02335.java,79,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02335.java","
-   66 |          a1 = ""cmd.exe"";
-   67 |          a2 = ""/c"";
-   68 |         } else {
    69 |          a1 = ""sh"";
    70 |          a2 = ""-c"";
    71 |         }
@@ -4911,10 +4908,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02335.j
    73 |
    74 |   ProcessBuilder pb = new ProcessBuilder();
    75 |
->  76 |   pb.command(args);
+   76 |   pb.command(args);
    77 |
    78 |   try {
-   79 |    Process p = pb.start();
+>  79 |    Process p = pb.start();
    80 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    81 |   } catch (IOException e) {
    82 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4922,13 +4919,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02335.j
    84 |   }
    85 |  }  // end doPost
    86 |
+   87 |
+   88 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+   89 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02336.java,76,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02336.java,79,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02336.java","
-   66 |          a1 = ""cmd.exe"";
-   67 |          a2 = ""/c"";
-   68 |         } else {
    69 |          a1 = ""sh"";
    70 |          a2 = ""-c"";
    71 |         }
@@ -4936,10 +4933,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02336.j
    73 |
    74 |   ProcessBuilder pb = new ProcessBuilder();
    75 |
->  76 |   pb.command(args);
+   76 |   pb.command(args);
    77 |
    78 |   try {
-   79 |    Process p = pb.start();
+>  79 |    Process p = pb.start();
    80 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
    81 |   } catch (IOException e) {
    82 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -4947,6 +4944,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02336.j
    84 |   }
    85 |  }  // end doPost
    86 |
+   87 |
+   88 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+   89 |
       ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02340.java,85,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -5074,11 +5074,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02344.j
   76 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java,66,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.java","
-  53 |          a1 = ""cmd.exe"";
-  54 |          a2 = ""/c"";
-  55 |         } else {
   56 |          a1 = ""sh"";
   57 |          a2 = ""-c"";
   58 |         }
@@ -5086,10 +5083,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.j
   60 |
   61 |   ProcessBuilder pb = new ProcessBuilder();
   62 |
-> 63 |   pb.command(args);
+  63 |   pb.command(args);
   64 |
   65 |   try {
-  66 |    Process p = pb.start();
+> 66 |    Process p = pb.start();
   67 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   68 |   } catch (IOException e) {
   69 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5097,13 +5094,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02411.j
   71 |   }
   72 |  }  // end doPost
   73 |
+  74 |
+  75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  76 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.java,66,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.java","
-  53 |          a1 = ""cmd.exe"";
-  54 |          a2 = ""/c"";
-  55 |         } else {
   56 |          a1 = ""sh"";
   57 |          a2 = ""-c"";
   58 |         }
@@ -5111,10 +5108,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.j
   60 |
   61 |   ProcessBuilder pb = new ProcessBuilder();
   62 |
-> 63 |   pb.command(args);
+  63 |   pb.command(args);
   64 |
   65 |   try {
-  66 |    Process p = pb.start();
+> 66 |    Process p = pb.start();
   67 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   68 |   } catch (IOException e) {
   69 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5122,13 +5119,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02412.j
   71 |   }
   72 |  }  // end doPost
   73 |
+  74 |
+  75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  76 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02413.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02413.java,66,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02413.java","
-  53 |          a1 = ""cmd.exe"";
-  54 |          a2 = ""/c"";
-  55 |         } else {
   56 |          a1 = ""sh"";
   57 |          a2 = ""-c"";
   58 |         }
@@ -5136,10 +5133,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02413.j
   60 |
   61 |   ProcessBuilder pb = new ProcessBuilder();
   62 |
-> 63 |   pb.command(args);
+  63 |   pb.command(args);
   64 |
   65 |   try {
-  66 |    Process p = pb.start();
+> 66 |    Process p = pb.start();
   67 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   68 |   } catch (IOException e) {
   69 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5147,6 +5144,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02413.j
   71 |   }
   72 |  }  // end doPost
   73 |
+  74 |
+  75 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  76 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02414.java,64,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -5324,11 +5324,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02433.j
   82 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.java,68,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.java","
-  55 |          a1 = ""cmd.exe"";
-  56 |          a2 = ""/c"";
-  57 |         } else {
   58 |          a1 = ""sh"";
   59 |          a2 = ""-c"";
   60 |         }
@@ -5336,10 +5333,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.j
   62 |
   63 |   ProcessBuilder pb = new ProcessBuilder();
   64 |
-> 65 |   pb.command(args);
+  65 |   pb.command(args);
   66 |
   67 |   try {
-  68 |    Process p = pb.start();
+> 68 |    Process p = pb.start();
   69 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   70 |   } catch (IOException e) {
   71 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5347,6 +5344,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02496.j
   73 |   }
   74 |  }  // end doPost
   75 |
+  76 |
+  77 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  78 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02510.java,58,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
@@ -5674,11 +5674,8 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02613.j
    76 |
       ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02697.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02697.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02697.java","
-  52 |          argList.add(""cmd.exe"");
-  53 |          argList.add(""/c"");
-  54 |         } else {
   55 |          argList.add(""sh"");
   56 |          argList.add(""-c"");
   57 |         }
@@ -5686,10 +5683,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02697.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(argList);
+  62 |   pb.command(argList);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5697,13 +5694,13 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02697.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
-F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02698.java,62,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02698.java,65,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02698.java","
-  52 |          argList.add(""cmd.exe"");
-  53 |          argList.add(""/c"");
-  54 |         } else {
   55 |          argList.add(""sh"");
   56 |          argList.add(""-c"");
   57 |         }
@@ -5711,10 +5708,10 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02698.j
   59 |
   60 |   ProcessBuilder pb = new ProcessBuilder();
   61 |
-> 62 |   pb.command(argList);
+  62 |   pb.command(argList);
   63 |
   64 |   try {
-  65 |    Process p = pb.start();
+> 65 |    Process p = pb.start();
   66 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
   67 |   } catch (IOException e) {
   68 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
@@ -5722,6 +5719,9 @@ F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02698.j
   70 |   }
   71 |  }  // end doPost
   72 |
+  73 |
+  74 |  private static String doSomething(HttpServletRequest request, String param) throws ServletException, IOException {
+  75 |
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,OWASP/src/main/java/org/owasp/benchmark/testcode/BenchmarkTest02699.java,63,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.

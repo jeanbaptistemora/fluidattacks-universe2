@@ -64,7 +64,7 @@ F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs,1
   26 | }
      ^ Col 0
 ",c_sharp.c_sharp_remote_command_execution
-F004,lines,namespace/skims/test/data/lib_root/f004/java_remote_command.java,10,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+F004,lines,namespace/skims/test/data/lib_root/f004/java_remote_command.java,12,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
  in namespace/skims/test/data/lib_root/f004/java_remote_command.java","
    1 | import java.io.IOException;
    2 | import javax.servlet.http.HttpServletRequest;
@@ -75,11 +75,17 @@ F004,lines,namespace/skims/test/data/lib_root/f004/java_remote_command.java,10,7
    7 |
    8 |     param = request.getHeader(""someheader"");
    9 |     ProcessBuilder pb = new ProcessBuilder();
-> 10 |     pb.command(param);
-  11 |
-  12 |   }
-  13 |
-  14 | }
+  10 |     pb.command(param);
+  11 |     try {
+> 12 |    Process p = pb.start();
+  13 |    org.owasp.benchmark.helpers.Utils.printOSCommandResults(p, response);
+  14 |   } catch (IOException e) {
+  15 |    System.out.println(""Problem executing cmdi - java.lang.ProcessBuilder(java.util.List) Test Case"");
+  16 |             throw new ServletException(e);
+  17 |   }
+  18 |   }
+  19 |
+  20 | }
      ^ Col 0
 ",java.java_remote_command_execution
 F004,lines,namespace/skims/test/data/lib_root/f004/js_remote_command.js,6,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
