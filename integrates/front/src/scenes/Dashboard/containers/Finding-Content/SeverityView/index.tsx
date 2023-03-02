@@ -16,7 +16,7 @@ import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import {
@@ -30,7 +30,7 @@ import type {
   IUpdateSeverityAttr,
 } from "scenes/Dashboard/containers/Finding-Content/SeverityView/types";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/Finding-Content/SeverityView/utils";
-import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { calcCVSSv3 } from "utils/cvss";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
@@ -162,7 +162,7 @@ const SeverityView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Row>
-        <Col100>
+        <Col>
           <React.Fragment>
             <Can do={"api_mutations_update_severity_mutate"}>
               <ButtonToolbarRow>
@@ -269,7 +269,7 @@ const SeverityView: React.FC = (): JSX.Element => {
               <SeverityContent {...data.finding.severity} />
             )}
           </React.Fragment>
-        </Col100>
+        </Col>
       </Row>
     </React.StrictMode>
   );
