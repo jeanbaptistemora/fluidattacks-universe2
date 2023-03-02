@@ -441,7 +441,7 @@ integrates_groups_languages_distribution:
     - INTEGRATES_API_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description:  Download all active group repositories and executes tokei
+    description: Download all active group repositories and executes tokei
       over them. Save the results at the root level (individual) and at the
       group level (overall).
     lastReviewed: "02-03-2023"
@@ -1470,10 +1470,13 @@ skims_benchmark_owasp:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
+    description: Skims is executed with the test data provided by the owasp
+      benchmark, then the results of the execution are
+      compared with the results expected by the owasp benchmark
     lastReviewed: "01-03-2023"
     maintainers:
       - drestrepo
+      - acuberos
     requiredBy: []
   parallel: 1
   scheduleExpression: cron(0 11-23/2 * * ? *)
@@ -1497,11 +1500,14 @@ skims_update_sca_table:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
+    description: Check sca vulnerabilities and update the
+      vulnerability table in dynamo
     lastReviewed: "01-03-2023"
     maintainers:
       - drestrepo
-    requiredBy: []
+      - acuberos
+    requiredBy:
+      - Machine executions that query about sca vulnerabilities
   parallel: 1
   scheduleExpression: cron(0 10 * * ? *)
   size: skims_nano
