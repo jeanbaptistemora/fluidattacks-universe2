@@ -9,7 +9,9 @@ closure:
   gql: 3.4.0
   graphql-core: 3.2.3
   idna: "3.4"
+  jsonschema: 4.17.3
   multidict: 6.0.4
+  pyrsistent: 0.19.3
   python-dateutil: 2.8.2
   six: 1.16.0
   types-python-dateutil: 2.8.19.10
@@ -186,6 +188,12 @@ links:
   - name: idna-3.4.tar.gz
     sha256: 1d1cs1in0lmm61sjmlach9qvyq3xm3xcb49vhclx7mzain754kw1
     url: https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz
+  - name: jsonschema-4.17.3-py3-none-any.whl
+    sha256: 1xh8cnma4qj9g02g6yn5mh2zhrfj56n5r452ns2cma519ljssw58
+    url: https://files.pythonhosted.org/packages/c1/97/c698bd9350f307daad79dd740806e1a59becd693bd11443a0f531e3229b3/jsonschema-4.17.3-py3-none-any.whl
+  - name: jsonschema-4.17.3.tar.gz
+    sha256: 03dnxhvzfxmnpn53zsc0598hsslaz7w3wi87cyx7cq4bmcvl91hg
+    url: https://files.pythonhosted.org/packages/36/3d/ca032d5ac064dff543aa13c984737795ac81abc9fb130cd2fcff17cfabc7/jsonschema-4.17.3.tar.gz
   - name: multidict-6.0.4-cp310-cp310-macosx_10_9_universal2.whl
     sha256: 1f5rghvlpchmlyppw071jcwh17whxj7h4y1qc4npg18c7ql9f6hb
     url: https://files.pythonhosted.org/packages/bb/e4/ea5687129b0cb781aba596bd08abb2aca3c8051e41aabf989c966e93af04/multidict-6.0.4-cp310-cp310-macosx_10_9_universal2.whl
@@ -228,6 +236,21 @@ links:
   - name: multidict-6.0.4.tar.gz
     sha256: 0jfsq7dnaja8jnd4ih02fhp6ic2ryhn7zfg7q19n9dzgj9j90rin
     url: https://files.pythonhosted.org/packages/4a/15/bd620f7a6eb9aa5112c4ef93e7031bcd071e0611763d8e17706ef8ba65e0/multidict-6.0.4.tar.gz
+  - name: pyrsistent-0.19.3-cp310-cp310-macosx_10_9_universal2.whl
+    sha256: 0jhf2nkc4rhb7sa071sxx1sysr2b6ihdbnx1r9wkx6j3xb00lii0
+    url: https://files.pythonhosted.org/packages/ed/7b/7d032130a6838b179b46dff1ee88909c11d518a10ec9bc70c4b72c7c2f80/pyrsistent-0.19.3-cp310-cp310-macosx_10_9_universal2.whl
+  - name: pyrsistent-0.19.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 0r6b3khah9035kh0q95b6pcx27sckqzp4hss13knhpjbp162c62c
+    url: https://files.pythonhosted.org/packages/40/04/f1d7813d4cdb62ed58e75b53e2ef481b47081ab5ad2a104cd284fa507042/pyrsistent-0.19.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: pyrsistent-0.19.3-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 1kwxydyjp5vbbhsql4mk78knryzi0dclwm5nmljx9a6xi294yxsb
+    url: https://files.pythonhosted.org/packages/73/55/1e300772f5c24921a81fc1c8b3de8a06a199c4ebb523d7c5a85f4e74a32e/pyrsistent-0.19.3-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: pyrsistent-0.19.3-py3-none-any.whl
+    sha256: 0r3bwr3mymr2fjpaxvgjh8cqkhyp9vwgs9hckwbi30cg42yxdw6c
+    url: https://files.pythonhosted.org/packages/64/de/375aa14daaee107f987da76ca32f7a907fea00fa8b8afb67dc09bec0de91/pyrsistent-0.19.3-py3-none-any.whl
+  - name: pyrsistent-0.19.3.tar.gz
+    sha256: 0h346x0710v4v734h45x4d4k260l9z4ppa9ibjcv9fq66xvr8a8s
+    url: https://files.pythonhosted.org/packages/bf/90/445a7dbd275c654c268f47fa9452152709134f61f09605cf776407055a89/pyrsistent-0.19.3.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl

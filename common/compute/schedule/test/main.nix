@@ -11,6 +11,7 @@ makeScript {
   name = "common-compute-schedule-test";
   replace = {
     __argData__ = projectPath "/common/compute/schedule/data.yaml";
+    __argSchema__ = projectPath "/common/compute/schedule/schema.json";
     __argSrc__ = ./src/__init__.py;
   };
   searchPaths = {
