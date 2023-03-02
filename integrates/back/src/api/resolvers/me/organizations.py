@@ -29,7 +29,7 @@ async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Organization, ...]:
+) -> list[Organization]:
     loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
     stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
@@ -45,4 +45,4 @@ async def resolve(
         )
     )
 
-    return orgs_utils.filter_active_organizations(tuple(organizations))
+    return orgs_utils.filter_active_organizations(organizations)

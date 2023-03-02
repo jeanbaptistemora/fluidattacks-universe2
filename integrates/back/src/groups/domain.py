@@ -1890,9 +1890,7 @@ async def request_upgrade(
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
-    await notifications_domain.request_groups_upgrade(
-        loaders, email, tuple(groups)
-    )
+    await notifications_domain.request_groups_upgrade(loaders, email, groups)
 
 
 async def get_treatment_summary(

@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     in_thread,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     BASE_URL,
     FI_MAIL_PRODUCTION,
@@ -378,7 +381,7 @@ async def request_vulnerability_zero_risk(
     finding_id: str,
     justification: str,
     requester_email: str,
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Iterable[Vulnerability],
 ) -> bool:
     finding = await loaders.finding.load(finding_id)
     if finding is None:
@@ -435,7 +438,7 @@ async def request_vulnerability_zero_risk(
 async def request_groups_upgrade(
     loaders: Dataloaders,
     user_email: str,
-    groups: tuple[Group, ...],
+    groups: Iterable[Group],
 ) -> None:
     organization_ids = list(group.organization_id for group in groups)
     organizations = await collect(

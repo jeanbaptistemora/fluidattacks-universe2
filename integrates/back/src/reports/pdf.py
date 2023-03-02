@@ -233,7 +233,7 @@ async def format_finding(
 
     finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulnerabilities = await finding_vulns_loader.load(finding.id)
-    treatments = vulns_domain.get_treatments_count(tuple(vulnerabilities))
+    treatments = vulns_domain.get_treatments_count(vulnerabilities)
     formated_treatments: list[str] = []
     if treatments.accepted > 0:
         formated_treatments.append(

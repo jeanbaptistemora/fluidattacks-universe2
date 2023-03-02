@@ -156,7 +156,7 @@ async def test_get_max_open_severity(
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    findings: tuple[Finding, ...] = await get_pending_verification_findings(
+    findings: list[Finding] = await get_pending_verification_findings(
         loaders, group_name
     )
     assert len(findings) >= 1

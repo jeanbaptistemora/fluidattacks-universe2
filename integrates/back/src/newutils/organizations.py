@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterable,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -11,10 +14,10 @@ def is_deleted(organization: Organization) -> bool:
 
 
 def filter_active_organizations(
-    organizations: tuple[Organization, ...]
-) -> tuple[Organization, ...]:
-    return tuple(
+    organizations: Iterable[Organization],
+) -> list[Organization]:
+    return [
         organization
         for organization in organizations
         if not is_deleted(organization)
-    )
+    ]

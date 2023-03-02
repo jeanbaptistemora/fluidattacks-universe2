@@ -316,8 +316,8 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     ] = tuple(historic[0] for historic in vulnerabilities_historics)
 
     if vulns:
-        first_day, last_day = get_first_week_dates(tuple(vulns), min_date)
-        first_day_last_week = get_date_last_vulns(tuple(vulns))
+        first_day, last_day = get_first_week_dates(vulns, min_date)
+        first_day_last_week = get_date_last_vulns(vulns)
         while first_day <= first_day_last_week:
             result_vulns_by_week: VulnerabilitiesStatusByTimeRange = (
                 get_status_vulns_by_time_range(
@@ -470,7 +470,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
 
     if vulns_nzr:
         first_day, last_day = get_first_dates(historic_states)
-        first_day_last_month = get_last_vulnerabilities_date(tuple(vulns_nzr))
+        first_day_last_month = get_last_vulnerabilities_date(vulns_nzr)
         while first_day <= first_day_last_month:
             result_vulns_by_month: VulnerabilitiesStatusByTimeRange = (
                 get_status_vulns_by_time_range(
@@ -742,7 +742,7 @@ def get_date_last_vulns(vulns: Iterable[Vulnerability]) -> datetime:
 
 
 def get_last_vulnerabilities_date(
-    vulns: tuple[Vulnerability, ...],
+    vulns: Iterable[Vulnerability],
 ) -> datetime:
     last_date = max(vuln.state.modified_date for vuln in vulns)
     day_month: int = int(last_date.strftime("%d"))

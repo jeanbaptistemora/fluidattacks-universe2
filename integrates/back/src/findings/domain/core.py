@@ -419,7 +419,7 @@ async def get_finding_open_age(loaders: Dataloaders, finding_id: str) -> int:
 
 async def get_last_closed_vulnerability_info(
     loaders: Dataloaders,
-    findings: tuple[Finding, ...],
+    findings: Iterable[Finding],
 ) -> tuple[int, Vulnerability | None]:
     """Get days since the last closed vulnerability and its metadata."""
     valid_findings_ids = [
@@ -449,7 +449,7 @@ async def get_last_closed_vulnerability_info(
 
 
 async def get_max_open_severity(
-    loaders: Dataloaders, findings: tuple[Finding, ...]
+    loaders: Dataloaders, findings: Iterable[Finding]
 ) -> tuple[Decimal, Finding | None]:
     open_vulns = await collect(
         get_open_vulnerabilities(loaders, finding.id) for finding in findings
@@ -503,19 +503,19 @@ async def _is_pending_verification(
 async def get_pending_verification_findings(
     loaders: Dataloaders,
     group_name: str,
-) -> tuple[Finding, ...]:
+) -> list[Finding]:
     """Gets findings pending for verification."""
     findings = await loaders.group_findings.load(group_name)
     are_pending_verifications = await collect(
         _is_pending_verification(loaders, finding.id) for finding in findings
     )
-    return tuple(
+    return [
         finding
         for finding, is_pending_verification in zip(
             findings, are_pending_verifications
         )
         if is_pending_verification
-    )
+    ]
 
 
 def get_report_days(report_date: datetime | None) -> int:
@@ -606,7 +606,7 @@ async def get_verification_summary(
     vulnerabilities = await loaders.finding_vulnerabilities_released_nzr.load(
         finding_id
     )
-    return vulns_domain.get_verifications_count(tuple(vulnerabilities))
+    return vulns_domain.get_verifications_count(vulnerabilities)
 
 
 async def _get_wheres(
@@ -717,19 +717,19 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         finding_id,
         vulnerability_ids,
     )
-    vulnerabilities = await collect(
-        tuple(
-            (
+    vulnerabilities = list(
+        await collect(
+            tuple(
                 vulns_utils.validate_requested_verification(
                     loaders, vuln, is_closing_event
                 )
+                for vuln in vulnerabilities
             )
-            for vuln in vulnerabilities
         )
     )
-    vulnerabilities = tuple(
+    vulnerabilities = [
         vulns_utils.validate_closed(vuln) for vuln in vulnerabilities
-    )
+    ]
     if not vulnerabilities:
         raise VulnNotFound()
     root_ids = {
@@ -1217,7 +1217,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
 async def get_oldest_no_treatment(
     loaders: Dataloaders,
-    findings: tuple[Finding, ...],
+    findings: Iterable[Finding],
 ) -> dict[str, int | str] | None:
     """Get the finding with oldest "no treatment" vulnerability."""
     vulns = (

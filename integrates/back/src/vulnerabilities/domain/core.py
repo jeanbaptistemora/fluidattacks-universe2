@@ -179,10 +179,10 @@ async def confirm_vulnerabilities_zero_risk(
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
-    vulnerabilities = tuple(
+    vulnerabilities = [
         vulns_utils.validate_zero_risk_requested(vuln)
         for vuln in vulnerabilities
-    )
+    ]
     if not vulnerabilities:
         raise VulnNotFound()
 
@@ -321,13 +321,12 @@ async def get_by_finding_and_vuln_ids(
     loaders: Dataloaders,
     finding_id: str,
     vuln_ids: set[str],
-) -> tuple[Vulnerability, ...]:
+) -> list[Vulnerability]:
     finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    filtered_vulns = tuple(
-        vuln for vuln in finding_vulns if vuln.id in vuln_ids
-    )
+    filtered_vulns = [vuln for vuln in finding_vulns if vuln.id in vuln_ids]
     if len(filtered_vulns) != len(vuln_ids):
         raise VulnNotInFinding()
+
     return filtered_vulns
 
 
@@ -475,7 +474,7 @@ def get_treatments_count(
 
 
 def get_verifications_count(
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Iterable[Vulnerability],
 ) -> Verifications:
     treatment_counter = Counter(
         vuln.verification.status
@@ -633,10 +632,10 @@ async def reject_vulnerabilities_zero_risk(
     vulnerabilities = await get_by_finding_and_vuln_ids(
         loaders, finding_id, vuln_ids
     )
-    vulnerabilities = tuple(
+    vulnerabilities = [
         vulns_utils.validate_zero_risk_requested(vuln)
         for vuln in vulnerabilities
-    )
+    ]
     if not vulnerabilities:
         raise VulnNotFound()
 
@@ -719,7 +718,7 @@ async def request_vulnerabilities_zero_risk(
         raise VulnNotFound()
 
     comment_id = str(round(time() * 1000))
-    user_email = user_info["user_email"]
+    user_email = str(user_info["user_email"])
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
@@ -738,7 +737,7 @@ async def request_vulnerabilities_zero_risk(
             vulnerability_id=vuln.id,
             entry=VulnerabilityZeroRisk(
                 comment_id=comment_id,
-                modified_by=str(user_email),
+                modified_by=user_email,
                 modified_date=datetime_utils.get_utc_now(),
                 status=VulnerabilityZeroRiskStatus.REQUESTED,
             ),
@@ -749,7 +748,7 @@ async def request_vulnerabilities_zero_risk(
         loaders=loaders,
         finding_id=finding_id,
         justification=justification,
-        requester_email=str(user_email),
+        requester_email=user_email,
         vulnerabilities=vulnerabilities,
     )
 
