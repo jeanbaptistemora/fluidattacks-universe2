@@ -413,6 +413,7 @@ integrates_fix_machine_executions:
     lastReviewed: "02-03-2023"
     maintainers:
       - drestrepo
+      - acuberos
     requiredBy:
       - Machine as some runs end with success status,
         but the result is not reported in db correctly.
@@ -472,11 +473,13 @@ integrates_machine_queue_all:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Queue machine executions for all active groups.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - drestrepo
+      - acuberos
+    requiredBy:
+      - Machine as it needs to run periodically over every group.
   parallel: 1
   scheduleExpression: cron(0 13 ? * 7 *)
   size: integrates_small
@@ -500,11 +503,14 @@ integrates_machine_queue_re_attacks:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Queue pending reattacks on open vulnerabilities with a
+      requested verification.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - drestrepo
+      - acuberos
+    requiredBy:
+      - Machine in order to ensure that reattacks are verified.
   parallel: 1
   scheduleExpression: cron(0 12,19 ? * 2-6 *)
   size: integrates_small
@@ -528,11 +534,14 @@ integrates_missing_environment_alert:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send emails when a group does not have registered
+      environments URLs.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jvillegas
+      - jhurtado
+    requiredBy:
+      - ARM to ensure the environments data is given.
   parallel: 1
   scheduleExpression: cron(0 11 ? * 2-6 *)
   size: integrates_nano
@@ -556,11 +565,14 @@ integrates_numerator_report_digest:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Automates the enumerator report and send an email
+      notification with it.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jvillegas
+      - jhurtado
+    requiredBy:
+      - Hackers as they need to fill out this report daily.
   parallel: 1
   scheduleExpression: cron(0 11 ? * 2-6 *)
   size: integrates_large
@@ -584,11 +596,14 @@ integrates_organization_vulnerabilities:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Build an artifact with all vulnerabilities
+      from an organization and store it in S3.
+    lastReviewed: "02-03-2023"
     maintainers:
+      - slizcano
       - jmesa
-    requiredBy: []
+    requiredBy:
+      - ARM to ease downloading all data from a group or an organization.
   parallel: 1
   scheduleExpression: cron(30 1,5,9,13,17,21 ? * 2-6 *)
   size: integrates_medium
@@ -612,11 +627,13 @@ integrates_refresh_toe_lines:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Refresh the ToE lines in all active groups.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - acaguirre
+      - drestrepo
+    requiredBy:
+      - ARM to update surface view and related data.
   parallel: 1
   scheduleExpression: cron(0 20 ? * 2-6 *)
   size: integrates_nano
@@ -640,11 +657,13 @@ integrates_reminder_notification:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send an email to users inactive during three weeks.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jvillegas
+      - jhurtado
+    requiredBy:
+      - ARM as some users stop using the platform.
   parallel: 1
   scheduleExpression: cron(0 19 ? * * *)
   size: integrates_nano
@@ -668,11 +687,15 @@ integrates_remove_inactive_stakeholders:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Remove inactive stakeholders according to the related
+      organization policy.
+    lastReviewed: "02-03-2023"
     maintainers:
       - jmesa
-    requiredBy: []
+      - dacevedo
+    requiredBy:
+      - ARM to ensure the removal for users that have left the company
+        or no longer have interest in the platform.
   parallel: 1
   scheduleExpression: cron(0 1 ? * * *)
   size: integrates_nano
