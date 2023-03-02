@@ -16,19 +16,21 @@ const BlogCta: React.FC<IBlogCta> = ({
   title,
   paragraph,
 }): JSX.Element => (
-  <Container pv={3}>
-    <CtaBanner
-      button1Link={link}
-      button1Text={buttontxt}
-      matomoAction={"Blog-internal-cta"}
-      paragraph={paragraph}
-      pv={4}
-      size={"xs"}
-      textSize={"medium"}
-      title={title}
-      variant={"dark"}
-    />
-  </Container>
+  <div className={"btn-rompe-trafico"}>
+    <Container pv={3}>
+      <CtaBanner
+        button1Link={link}
+        button1Text={buttontxt}
+        matomoAction={"Blog-internal-cta"}
+        paragraph={paragraph}
+        pv={4}
+        size={"xs"}
+        textSize={"medium"}
+        title={title}
+        variant={"dark"}
+      />
+    </Container>
+  </div>
 );
 
 export { BlogCta };
