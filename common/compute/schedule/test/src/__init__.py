@@ -43,7 +43,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                         "minItems": 1,
                         "type": "array",
                     },
-                    "enabled": {"type": "boolean"},
+                    "enable": {"type": "boolean"},
                     "environment": {
                         "items": {"type": "string"},
                         "type": "array",
@@ -52,7 +52,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                         "additionalProperties": False,
                         "properties": {
                             "description": {"minLength": 0, "type": "string"},
-                            "lastReviewed": {
+                            "lastReview": {
                                 "pattern": "^[0-9]{2}-[0-9]{2}-[0-9]{4}$",
                                 "type": "string",
                             },
@@ -72,7 +72,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                         },
                         "required": [
                             "description",
-                            "lastReviewed",
+                            "lastReview",
                             "maintainers",
                             "requiredBy",
                         ],
@@ -88,7 +88,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                     "attempts",
                     "awsRole",
                     "command",
-                    "enabled",
+                    "enable",
                     "environment",
                     "meta",
                     "parallel",
@@ -159,25 +159,25 @@ def test_meta_active_maintainers(*, data: dict[str, Any]) -> bool:
     return success
 
 
-def test_meta_last_reviewed(*, data: dict[str, Any]) -> bool:
+def test_meta_last_review(*, data: dict[str, Any]) -> bool:
     success: bool = True
     delta_months: int = 1
     time_format: str = "%d-%m-%Y"
     today: datetime = datetime.today()
 
     for name, values in data.items():
-        last_reviewed: datetime = datetime.strptime(
-            values["meta"]["lastReviewed"],
+        last_review: datetime = datetime.strptime(
+            values["meta"]["lastReview"],
             time_format,
         )
-        next_review: datetime = last_reviewed + relativedelta(
+        next_review: datetime = last_review + relativedelta(
             months=delta_months
         )
         if today > next_review:
             success = False
             error(
-                f"{name}.meta.lastReviewed was on"
-                f" {last_reviewed.strftime(time_format)}."
+                f"{name}.meta.lastReview was on"
+                f" {last_review.strftime(time_format)}."
                 " Please review and update the schedule."
             )
 
@@ -198,7 +198,7 @@ def main() -> None:
         if os.environ["CI_COMMIT_REF_NAME"].removesuffix("atfluid")
         in values["meta"]["maintainers"]
     }
-    success = success and test_meta_last_reviewed(data=user_data)
+    success = success and test_meta_last_review(data=user_data)
 
     sys.exit(0 if success else 1)
 

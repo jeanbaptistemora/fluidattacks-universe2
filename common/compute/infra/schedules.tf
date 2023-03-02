@@ -70,7 +70,7 @@ resource "aws_cloudwatch_event_rule" "main" {
   for_each = local.schedules
 
   name                = "schedule_${each.key}"
-  is_enabled          = each.value.enabled
+  is_enabled          = each.value.enable
   schedule_expression = each.value.scheduleExpression
 
   tags = {

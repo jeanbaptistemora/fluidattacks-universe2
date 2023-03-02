@@ -7,7 +7,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/common/ci/clean-keys"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
     ];
@@ -15,7 +15,7 @@
       description = ''
         Clean AWS EC2 SSH keys in order to avoid reaching 5000 limit.
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "dsalazar"
       ];
@@ -47,7 +47,7 @@
       "prod"
       "schedulers.abandoned_trial_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -57,7 +57,7 @@
         Send email notifications
         to resume or start over trial registration.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "faristizabal"
         "jhurtado"
@@ -91,7 +91,7 @@
       "22"
       "batch"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -101,7 +101,7 @@
         Generate charts documents by executing
         the analytics generators and upload them to S3.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "slizcano"
         "jperez"
@@ -130,7 +130,7 @@
       "/integrates/charts/snapshots"
       "prod"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -140,7 +140,7 @@
         Generate charts snapshots by executing
         the analytics generators using Selenium and upload them to S3.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "slizcano"
         "jperez"
@@ -168,7 +168,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/back/deploy/dev/destroy"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -177,7 +177,7 @@
       description = ''
         Destroy ephemerals by destroying resources in dev namespace.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dacevedo"
         "dsalazar"
@@ -207,7 +207,7 @@
       "prod"
       "schedulers.clone_groups_roots.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -217,7 +217,7 @@
         Clone all the roots in active groups
         that have credentials associated and upload them to S3.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "drestrepo"
         "acuberos"
@@ -247,7 +247,7 @@
       "prod"
       "schedulers.clone_groups_roots_vpn.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -259,7 +259,7 @@
         and upload them to S3.
         There repositories are behind VPNs.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "drestrepo"
         "acuberos"
@@ -289,7 +289,7 @@
       "prod"
       "schedulers.consulting_digest_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -298,7 +298,7 @@
       description = ''
         Send emails to users with comments digest.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jhurtado"
       ];
@@ -330,7 +330,7 @@
       "prod"
       "schedulers.delete_obsolete_groups.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -340,7 +340,7 @@
         Remove groups without users,
         findings nor Fluid Attacks services enabled.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
         "acaguirre"
@@ -370,7 +370,7 @@
       "prod"
       "schedulers.delete_obsolete_orgs.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -379,7 +379,7 @@
       description = ''
         Remove organizations without groups after 60 days.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
         "acaguirre"
@@ -409,7 +409,7 @@
       "prod"
       "schedulers.event_digest_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -418,7 +418,7 @@
       description = ''
         Send emails to users with events digest.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jhurtado"
       ];
@@ -450,7 +450,7 @@
       "prod"
       "schedulers.event_report.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -459,7 +459,7 @@
       description = ''
         Send emails to users with events summary.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jhurtado"
         "jvillegas"
@@ -492,7 +492,7 @@
       "prod"
       "schedulers.expire_free_trial.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -502,7 +502,7 @@
         Send emails notifying the trial period has expired
         for all trial groups and update their group state.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dacevedo"
         "kcamargo"
@@ -532,7 +532,7 @@
       "prod"
       "schedulers.fix_machine_executions.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -541,7 +541,7 @@
       description = ''
         Fix machine executions that have incomplete data.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "drestrepo"
         "acuberos"
@@ -574,7 +574,7 @@
       "prod"
       "schedulers.groups_languages_distribution.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "INTEGRATES_API_TOKEN"
@@ -587,7 +587,7 @@
         Save the results at the root level (individual)
         and at the group level (overall).
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "acuberos"
         "jmesa"
@@ -617,7 +617,7 @@
       "prod"
       "schedulers.machine_queue_all.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -626,7 +626,7 @@
       description = ''
         Queue machine executions for all active groups.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "drestrepo"
         "acuberos"
@@ -656,7 +656,7 @@
       "prod"
       "schedulers.machine_queue_re_attacks.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -666,7 +666,7 @@
         Queue pending reattacks
         on open vulnerabilities with a requested verification.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "drestrepo"
         "acuberos"
@@ -696,7 +696,7 @@
       "prod"
       "schedulers.missing_environment_alert.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -705,7 +705,7 @@
       description = ''
         Send emails when a group does not have registered environments URLs.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jvillegas"
         "jhurtado"
@@ -735,7 +735,7 @@
       "prod"
       "schedulers.numerator_report_digest.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -744,7 +744,7 @@
       description = ''
         Automates the enumerator report and send an email notification with it.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jvillegas"
         "jhurtado"
@@ -774,7 +774,7 @@
       "prod"
       "schedulers.organization_vulnerabilities.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -784,7 +784,7 @@
         Build an artifact with all vulnerabilities
         from an organization and store it in S3.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "slizcano"
         "jmesa"
@@ -814,7 +814,7 @@
       "prod"
       "schedulers.refresh_toe_lines.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -823,7 +823,7 @@
       description = ''
         Refresh the ToE lines in all active groups.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "acaguirre"
         "drestrepo"
@@ -853,7 +853,7 @@
       "prod"
       "schedulers.reminder_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -862,7 +862,7 @@
       description = ''
         Send an email to users inactive during three weeks.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jvillegas"
         "jhurtado"
@@ -892,7 +892,7 @@
       "prod"
       "schedulers.remove_inactive_stakeholders.main"
     ];
-    enabled = false;
+    enable = false;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -902,7 +902,7 @@
         Remove inactive stakeholders
         according to the related organization policy.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
         "dacevedo"
@@ -936,7 +936,7 @@
       "prod"
       "schedulers.report_squad_usage.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -945,7 +945,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -972,7 +972,7 @@
       "prod"
       "schedulers.requeue_actions.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -981,7 +981,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1009,7 +1009,7 @@
       "prod"
       "schedulers.reset_expired_accepted_findings.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1018,7 +1018,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1046,7 +1046,7 @@
       "prod"
       "schedulers.review_machine_executions.main"
     ];
-    enabled = false;
+    enable = false;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1055,7 +1055,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1083,7 +1083,7 @@
       "prod"
       "schedulers.send_deprecation_notice.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1092,7 +1092,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1120,7 +1120,7 @@
       "prod"
       "schedulers.send_trial_engagement_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1129,7 +1129,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1157,7 +1157,7 @@
       "prod"
       "daily"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1166,7 +1166,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1194,7 +1194,7 @@
       "prod"
       "monthly"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1203,7 +1203,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1231,7 +1231,7 @@
       "prod"
       "weekly"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1240,7 +1240,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1268,7 +1268,7 @@
       "prod"
       "schedulers.treatment_alert_notification.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1277,7 +1277,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1305,7 +1305,7 @@
       "prod"
       "schedulers.update_compliance.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1314,7 +1314,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1342,7 +1342,7 @@
       "prod"
       "schedulers.update_group_toe_priorities.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1351,7 +1351,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1379,7 +1379,7 @@
       "prod"
       "schedulers.update_group_toe_vulns.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1388,7 +1388,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1416,7 +1416,7 @@
       "prod"
       "schedulers.update_indicators.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1425,7 +1425,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1453,7 +1453,7 @@
       "prod"
       "schedulers.update_organization_overview.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "INTEGRATES_API_TOKEN"
@@ -1463,7 +1463,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1491,7 +1491,7 @@
       "prod"
       "schedulers.update_organization_repositories.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1500,7 +1500,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1528,7 +1528,7 @@
       "prod"
       "schedulers.update_portfolios.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1537,7 +1537,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "jmesa"
       ];
@@ -1563,7 +1563,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/job/cancel-ci-jobs"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1572,7 +1572,7 @@
       description = ''
         Clean possible CI stuck jobs.
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1603,7 +1603,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/code/compute-bills"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1612,7 +1612,7 @@
       description = ''
         Calculates and exports billed authors
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "kcamargo"
@@ -1640,7 +1640,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/gitlab/universe/ephemeral"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1649,7 +1649,7 @@
       description = ''
         Gitlab full recreation ETL
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1677,7 +1677,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/matomo"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CI_PROJECT_ID"
       "UNIVERSE_API_TOKEN"
@@ -1686,7 +1686,7 @@
       description = ''
         Matomo ETL
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1714,7 +1714,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/mixpanel"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
     ];
@@ -1722,7 +1722,7 @@
       description = ''
         Mixpanel ETL
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1750,7 +1750,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/timedoctor"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CI_PROJECT_ID"
     ];
@@ -1758,7 +1758,7 @@
       description = ''
         Timedoctor ETL
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1786,7 +1786,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/timedoctor/backup"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CI_PROJECT_ID"
     ];
@@ -1794,7 +1794,7 @@
       description = ''
         Timedoctor ETL backup
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1822,7 +1822,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/zoho-crm/fluid"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
     ];
@@ -1830,7 +1830,7 @@
       description = ''
         Zoho CRM ETL
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1858,7 +1858,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/zoho-crm/fluid/prepare"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
     ];
@@ -1866,7 +1866,7 @@
       description = ''
         Zoho CRM ETL preparation phase
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1894,7 +1894,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/observes/job/scheduler"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -1903,7 +1903,7 @@
       description = ''
         Legacy schedules trigger
       '';
-      lastReviewed = "02-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "dmurcia"
         "rrodriguez"
@@ -1931,21 +1931,23 @@
       "gitlab:fluidattacks/universe@trunk"
       "/skims/benchmark/owasp/upload"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
     ];
     meta = {
       description = ''
-
+        Skims is executed with the test data provided by the owasp
+        benchmark, then the results of the execution are
+        compared with the results expected by the owasp benchmark
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
+        "acuberos"
         "drestrepo"
       ];
-      requiredBy = [
-      ];
+      requiredBy = [];
     };
     parallel = 1;
     scheduleExpression = "cron(0 11-23/2 * * ? *)";
@@ -1967,20 +1969,23 @@
       "/skims/sca/scheduler"
       "schedulers.update_sca_table.main"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
     ];
     meta = {
       description = ''
-
+        Check sca vulnerabilities
+        and update the vulnerability table in dynamo
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
+        "acuberos"
         "drestrepo"
       ];
       requiredBy = [
+        "Machine executions that query about sca vulnerabilities"
       ];
     };
     parallel = 1;
@@ -2003,7 +2008,7 @@
       "/sorts/association-execute"
       "15"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -2012,7 +2017,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
       ];
@@ -2038,7 +2043,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/sorts/association-rules/bin"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -2047,7 +2052,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
       ];
@@ -2074,7 +2079,7 @@
       "/sorts/execute"
       "20"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -2083,7 +2088,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
       ];
@@ -2109,7 +2114,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/sorts/training-and-tune"
     ];
-    enabled = true;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
@@ -2118,7 +2123,7 @@
       description = ''
 
       '';
-      lastReviewed = "01-03-2023";
+      lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
       ];
