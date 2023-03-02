@@ -65,6 +65,14 @@ describe("Handle addition modal", (): void => {
       expect(
         screen.getByText("group.toe.inputs.addModal.title")
       ).toBeInTheDocument();
+      expect(screen.getByText("Root")).toBeInTheDocument();
+      expect(screen.getByText("Environment url")).toBeInTheDocument();
+      expect(
+        screen.getByText("group.toe.inputs.addModal.fields.component")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("group.toe.inputs.addModal.fields.entryPoint")
+      ).toBeInTheDocument();
     });
   });
 });
