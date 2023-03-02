@@ -1,3 +1,6 @@
+# Schedule expressions:
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+# schedule.meta.requiredBy format is DD-MM-YYYY
 {
   common_ci_clean_keys = {
     attempts = 1;
@@ -943,13 +946,18 @@
     ];
     meta = {
       description = ''
-
+        Report squad usage to Stripe.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "dsalazar"
+        "dacevedo"
       ];
-      requiredBy = [];
+      requiredBy = [
+        ''
+          ARM billing costumer module as part of the autoenrollment flow.
+        ''
+      ];
     };
     parallel = 1;
     scheduleExpression = "cron(0 18,00 ? * * *)";
@@ -979,13 +987,19 @@
     ];
     meta = {
       description = ''
-
+        Send pending actions/jobs to batch when unsuccessful and update
+        their state in DynamoDB table fi_async_processing.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "drestrepo"
+        "acuberos"
       ];
       requiredBy = [
+        ''
+          Batch as actions/jobs could fail and they will be resend a certain
+          number of attempts.
+        ''
       ];
     };
     parallel = 1;
@@ -1016,13 +1030,20 @@
     ];
     meta = {
       description = ''
-
+        Update treatment for vulnerabilities where acceptance
+        date has expired. This applies for both accepted and
+        accepted undefined treatment statuses.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
+        "dacevedo"
       ];
       requiredBy = [
+        ''
+          ARM in order to comply with treatment acceptance expiration
+          dates and fulfill the accepted treatment flow.
+        ''
       ];
     };
     parallel = 1;
@@ -1053,13 +1074,18 @@
     ];
     meta = {
       description = ''
-
+        Requeue machine executions that are suspected to be
+        paused due to an unknown reason.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "drestrepo"
+        "acuberos"
       ];
       requiredBy = [
+        ''
+          Machine in order to run on all groups as expected.
+        ''
       ];
     };
     parallel = 1;
@@ -1090,13 +1116,19 @@
     ];
     meta = {
       description = ''
-
+        Send a mail to all users notifying a deprecated field,
+        mutation, etc, will be soon removed from the ARM API.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "jchaves"
+        "dacevedo"
       ];
       requiredBy = [
+        ''
+          ARM users as API deprecations could go unnoticed
+          by the customers, breaking their integrations.
+        ''
       ];
     };
     parallel = 1;
@@ -1127,13 +1159,20 @@
     ];
     meta = {
       description = ''
-
+        Send engagement notification emails to free trial users
+        making them aware of the platform features and communication
+        channels.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "faristizabal"
+        "jhurtado"
       ];
       requiredBy = [
+        ''
+          ARM as part of the free trial flow leveraging on the free
+          trial to boost user engagement.
+        ''
       ];
     };
     parallel = 1;
