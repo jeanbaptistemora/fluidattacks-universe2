@@ -224,6 +224,54 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   125 |
       ^ Col 3
 ",cloudformation.cfn_iam_permissions_policy_allow_not_resource
+F165,lines,namespace/skims/test/data/lib_root/f165/cfn_iam_is_policy_applying_to_users.yaml,5,16,skims,165. Insecure service configuration - AWS,"Should not apply directly to users, Should be on group. in namespace/skims/test/data/lib_root/f165/cfn_iam_is_policy_applying_to_users.yaml","
+   1 | ---
+   2 | Resources:
+   3 |   CreateTestDBPolicy:
+   4 |     Type: AWS::IAM::ManagedPolicy
+>  5 |     Properties:
+   6 |       Description: Policy for creating a test database
+   7 |       Path: /
+   8 |       PolicyDocument:
+   9 |         Version: '2012-10-17'
+  10 |         Statement:
+  11 |           - Effect: Allow
+  12 |             Action: rds:CreateDBInstance
+  13 |             Condition:
+  14 |               StringEquals:
+  15 |                 rds:DatabaseEngine: mysql
+  16 |       Users:
+  17 |         - user1
+  18 |       Groups:
+  19 |         - TestDBGroup
+  20 |   Policy:
+  21 |     Type: AWS::IAM::Policy
+     ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_aplly_users
+F165,lines,namespace/skims/test/data/lib_root/f165/cfn_iam_is_policy_applying_to_users.yaml.json,5,16,skims,165. Insecure service configuration - AWS,"Should not apply directly to users, Should be on group. in namespace/skims/test/data/lib_root/f165/cfn_iam_is_policy_applying_to_users.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""CreateTestDBPolicy"": {
+   4 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+>  5 |       ""Properties"": {
+   6 |         ""Description"": ""Policy for creating a test database"",
+   7 |         ""Path"": ""/"",
+   8 |         ""PolicyDocument"": {
+   9 |           ""Version"": ""2012-10-17"",
+  10 |           ""Statement"": [
+  11 |             {
+  12 |               ""Effect"": ""Allow"",
+  13 |               ""Action"": ""rds:CreateDBInstance"",
+  14 |               ""Condition"": {
+  15 |                 ""StringEquals"": {
+  16 |                   ""rds:DatabaseEngine"": ""mysql""
+  17 |                 }
+  18 |               }
+  19 |             }
+  20 |           ]
+  21 |         },
+     ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_aplly_users
 F165,inputs,arn:aws:iam::aws:table/fluidTable (namespace),/SSEDescription/SSEType: AES256,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.dynamob_encrypted_with_aws_master_keys,"
   1 | {
   2 |     ""TableName"": ""fluidTable"",

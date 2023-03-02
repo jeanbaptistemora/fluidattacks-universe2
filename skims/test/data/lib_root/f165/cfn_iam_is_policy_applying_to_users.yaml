@@ -1,0 +1,29 @@
+---
+Resources:
+  CreateTestDBPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: rds:CreateDBInstance
+            Condition:
+              StringEquals:
+                rds:DatabaseEngine: mysql
+      Users:
+        - user1
+      Groups:
+        - TestDBGroup
+  Policy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: CFNUsers
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Deny
+            Action:
+              - cloudformation:Describe*

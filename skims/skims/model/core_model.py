@@ -4295,7 +4295,7 @@ class MethodsEnum(Enum):
     CFN_IAM_PERMISSIONS_POLICY_APLLY_USERS = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_permissions_policy_aplly_users",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F165,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,

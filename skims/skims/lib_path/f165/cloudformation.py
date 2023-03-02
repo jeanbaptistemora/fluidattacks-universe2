@@ -3,7 +3,6 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from lib_path.f165.utils import (
-    cfn_iam_is_policy_applying_to_users_check,
     cfn_iam_permissions_policies_checks,
     iam_trust_policies_checks,
 )
@@ -12,7 +11,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.structure import (
-    iter_iam_managed_policies_and_mgd_policies,
     iter_iam_roles,
 )
 from typing import (
@@ -101,23 +99,4 @@ def cfn_iam_allow_not_actions_trust_policy(
         ),
         path=path,
         method=method,
-    )
-
-
-def cfn_iam_is_policy_applying_to_users(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("src.lib_path.f165.iam_policies_applying_to_users"),
-        iterator=get_cloud_iterator(
-            cfn_iam_is_policy_applying_to_users_check(
-                file_ext=file_ext,
-                iam_iterator=iter_iam_managed_policies_and_mgd_policies(
-                    template=template
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_APLLY_USERS,
     )

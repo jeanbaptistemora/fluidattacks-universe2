@@ -183,16 +183,3 @@ def cfn_iam_permissions_policies_checks(
     for iam_res in iam_iterator:
         policies = iam_res.inner.get("Policies")
         yield from _check_policy_documents(policies, file_ext, method)
-
-
-def cfn_iam_is_policy_applying_to_users_check(
-    file_ext: str,
-    iam_iterator: Iterator[Node],
-) -> Iterator[AWSIamManagedPolicy | Node]:
-    for iam_res in iam_iterator:
-        if users := iam_res.inner.get("Users"):
-            yield AWSIamManagedPolicy(
-                column=users.start_column,
-                data=users.data,
-                line=get_line_by_extension(users.start_line, file_ext),
-            )
