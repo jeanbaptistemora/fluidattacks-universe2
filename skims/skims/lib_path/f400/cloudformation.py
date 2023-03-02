@@ -1,5 +1,4 @@
 from aws.model import (
-    AWSCloudfrontDistribution,
     AWSCTrail,
     AWSEC2,
     AWSElb,
@@ -23,7 +22,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.structure import (
-    iter_cloudfront_distributions,
     iter_cloudtrail_trail,
     iter_ec2_instances,
     iter_elb2_load_balancers,
@@ -51,24 +49,6 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
             )
         elif access_log.raw in FALSE_OPTIONS:
             yield access_log
-
-
-def _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
-    file_ext: str,
-    distributions_iterator: Iterator[Node],
-) -> Iterator[AWSCloudfrontDistribution]:
-    for dist in distributions_iterator:
-        dist_config = dist.inner["DistributionConfig"]
-        if isinstance(dist_config, Node):
-            logging = dist_config.inner.get("Logging")
-            if not isinstance(logging, Node):
-                yield AWSCloudfrontDistribution(
-                    column=dist_config.start_column,
-                    data=dist_config.data,
-                    line=get_line_by_extension(
-                        dist_config.start_line, file_ext
-                    ),
-                )
 
 
 def _cfn_trails_not_multiregion_iterate_vulnerabilities(
@@ -150,25 +130,6 @@ def cfn_elb_has_access_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.CFN_ELB_ACCESS_LOG_DISABLED,
-    )
-
-
-def cfn_cf_distribution_has_logging_disabled(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.has_logging_disabled",
-        iterator=get_cloud_iterator(
-            _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
-                file_ext=file_ext,
-                distributions_iterator=iter_cloudfront_distributions(
-                    template=template
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_CF_DISTR_LOG_DISABLED,
     )
 
 

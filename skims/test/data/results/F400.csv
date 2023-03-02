@@ -8,7 +8,7 @@ F400,inputs,arn:aws:iam::aws:cluster/fluid (namespace),/enabled: False,778,skims
   6 | }
     ^ Col 0
 ",aws.eks_has_disable_cluster_logging
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,19,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_cf_distribution_has_logging_disabled.yaml,19,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_root/f400/cfn_cf_distribution_has_logging_disabled.yaml,"
    6 |       DistributionConfig:
    7 |         Enabled: 'true'
    8 |         DefaultCacheBehavior:
@@ -32,7 +32,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_loggi
   26 |               Forward: all
      ^ Col 0
 ",cloudformation.cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,26,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,26,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_root/f400/cfn_cf_distribution_has_logging_disabled.yaml.json,"
   16 |           },
   17 |           ""Logging"": {
   18 |             ""Bucket"": ""bucket1""
