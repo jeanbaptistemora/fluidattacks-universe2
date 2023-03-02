@@ -41,11 +41,11 @@
   };
   secretsForEnvFromSops = {
     commonMonitoringDev = {
-      vars = ["DATADOG_API_KEY" "REDSHIFT_USER" "REDSHIFT_PASSWORD"];
+      vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
       manifest = "/common/secrets/dev.yaml";
     };
     commonMonitoringProd = {
-      vars = ["DATADOG_API_KEY" "REDSHIFT_USER" "REDSHIFT_PASSWORD"];
+      vars = ["REDSHIFT_USER" "REDSHIFT_PASSWORD"];
       manifest = "/common/secrets/prod.yaml";
     };
     commonMonitoringOkta = {

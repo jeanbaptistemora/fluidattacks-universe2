@@ -141,11 +141,29 @@ data "aws_iam_policy_document" "grafana_prometheus_access" {
   }
 }
 
+data "aws_iam_policy_document" "grafana_xray_access" {
+  statement {
+    actions = [
+      "xray:BatchGetTraces",
+      "xray:GetTraceSummaries",
+      "xray:GetTraceGraph",
+      "xray:GetGroups",
+      "xray:GetTimeSeriesServiceStatistics",
+      "xray:GetInsightSummaries",
+      "xray:GetInsight",
+      "ec2:DescribeRegions"
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+}
+
 data "aws_iam_policy_document" "grafana" {
   source_policy_documents = [
     data.aws_iam_policy_document.grafana_athena_access.json,
     data.aws_iam_policy_document.grafana_redshift_access.json,
-    data.aws_iam_policy_document.grafana_prometheus_access.json
+    data.aws_iam_policy_document.grafana_prometheus_access.json,
+    data.aws_iam_policy_document.grafana_xray_access.json
   ]
 }
 
@@ -199,4 +217,10 @@ resource "okta_app_user" "grafana_user_2" {
   app_id   = okta_app_saml.grafana.id
   user_id  = "00u1l65axaSd0IMke357"
   username = "jrestrepo@fluidattacks.com"
+}
+
+resource "okta_app_user" "grafana_user_3" {
+  app_id   = okta_app_saml.grafana.id
+  user_id  = "00u1la30aoz6g8iyD357"
+  username = "dacevedo@fluidattacks.com"
 }

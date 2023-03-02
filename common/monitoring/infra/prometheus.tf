@@ -87,6 +87,23 @@ data "aws_iam_policy_document" "prometheus_permissions" {
   }
 }
 
+data "aws_iam_policy_document" "xray_permissions" {
+  statement {
+    actions = [
+      "xray:PutTelemetryRecords",
+      "xray:PutTraceSegments"
+    ]
+    resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "monitoring_permissions" {
+  source_policy_documents = [
+    data.aws_iam_policy_document.prometheus_permissions.json,
+    data.aws_iam_policy_document.xray_permissions.json
+  ]
+}
+
 data "aws_iam_policy_document" "k8s_oidc" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -104,10 +121,10 @@ data "aws_iam_policy_document" "k8s_oidc" {
   }
 }
 
-resource "aws_iam_policy" "prometheus" {
-  name        = "EKSPrometheusAccess"
-  description = "Permissions required for ADOT Collector to send scraped metrics to AMP"
-  policy      = data.aws_iam_policy_document.prometheus_permissions.json
+resource "aws_iam_policy" "monitoring" {
+  name        = "EKSMonitoring"
+  description = "Permissions required for ADOT Collector to send scraped metrics to AMP and traces to X-Ray"
+  policy      = data.aws_iam_policy_document.monitoring_permissions.json
 }
 
 resource "aws_iam_role" "monitoring" {
@@ -117,7 +134,7 @@ resource "aws_iam_role" "monitoring" {
 
 resource "aws_iam_role_policy_attachment" "prometheus_access" {
   role       = aws_iam_role.monitoring.name
-  policy_arn = aws_iam_policy.prometheus.arn
+  policy_arn = aws_iam_policy.monitoring.arn
 }
 
 resource "kubernetes_service_account" "monitoring" {
@@ -196,32 +213,9 @@ resource "kubernetes_manifest" "adot_collector" {
             service: "aps"
             region: "us-east-1"
 
-        hostmetrics:
-          collection_interval: 10s
-          scrapers:
-            paging:
-              metrics:
-                system.paging.utilization:
-                  enabled: true
-            cpu:
-              metrics:
-                system.cpu.utilization:
-                  enabled: true
-            disk:
-            filesystem:
-              metrics:
-                system.filesystem.utilization:
-                  enabled: true
-            load:
-            memory:
-            network:
-
         processors:
-          k8sattributes:
           batch:
-            send_batch_max_size: 100
-            send_batch_size: 10
-            timeout: 10s
+          k8sattributes:
 
         receivers:
           otlp:
@@ -287,10 +281,12 @@ resource "kubernetes_manifest" "adot_collector" {
           statsd:
 
         exporters:
-          datadog:
-            api:
-              site: datadoghq.com
-              key: ${var.datadogApiKey}
+          awsemf:
+            namespace: "ECS/AWSOTel/Application"
+            log_group_name: "/aws/ecs/application/metrics"
+            region: "us-east-1"
+          awsxray:
+            region: "us-east-1"
           prometheusremotewrite:
             endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-e60ff23e-bccf-4df2-bf46-745c50b45c70/api/v1/remote_write
             auth:
@@ -300,13 +296,13 @@ resource "kubernetes_manifest" "adot_collector" {
           extensions: [sigv4auth]
           pipelines:
             metrics:
-              receivers: [hostmetrics, otlp, prometheus, statsd]
-              processors: [k8sattributes, batch]
-              exporters: [datadog, prometheusremotewrite]
+              receivers: [otlp, prometheus, statsd]
+              processors: [batch, k8sattributes]
+              exporters: [awsemf, prometheusremotewrite]
             traces:
               receivers: [otlp]
-              processors: [k8sattributes, batch]
-              exporters: [datadog]
+              processors: [batch]
+              exporters: [awsxray]
       EOT
     }
   }
