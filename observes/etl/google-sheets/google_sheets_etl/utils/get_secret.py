@@ -1,18 +1,12 @@
 from fa_purity import (
     Cmd,
+    JsonObj,
 )
 from fa_purity.cmd.core import (
     CmdUnwrapper,
 )
 from fa_purity.json.factory import (
     loads,
-)
-from google_sheets_etl.bin_sdk.tap import (
-    decode_conf,
-    TapConfig,
-)
-from google_sheets_etl.utils.cache import (
-    Cache,
 )
 from google_sheets_etl.utils.process import (
     RunningSubprocess,
@@ -21,11 +15,12 @@ from google_sheets_etl.utils.process import (
 from google_sheets_etl.utils.temp_file import (
     TempFile,
 )
+from pathlib import (
+    Path,
+)
 
-_cache: Cache[TapConfig] = Cache(None)
 
-
-def get_conf() -> TapConfig:
+def get_secret(file_path: Path) -> Cmd[JsonObj]:
     out = TempFile.new()
 
     def save(file: TempFile) -> Cmd[None]:
@@ -33,7 +28,15 @@ def get_conf() -> TapConfig:
             with file.path.open("w") as f:
                 process = RunningSubprocess.run_universal_newlines(
                     Subprocess(
-                        ("sops", "-d", "./fx_tests/secrets/conf.json"),
+                        (
+                            "sops",
+                            "--aws-profile",
+                            "default",
+                            "--decrypt",
+                            "--output-type",
+                            "json",
+                            file_path.as_posix(),
+                        ),
                         None,
                         f,
                         None,
@@ -48,10 +51,9 @@ def get_conf() -> TapConfig:
 
         return Cmd.new_cmd(_action)
 
-    raw: Cmd[TapConfig] = (
+    return (
         out.bind(lambda f: save(f).map(lambda _: f))
         .bind(lambda f: f.read_lines().to_list().map("".join))
         .map(loads)
-        .map(lambda r: r.alt(Exception).bind(decode_conf).unwrap())
+        .map(lambda r: r.alt(Exception).unwrap())
     )
-    return _cache.get_or_set(raw)

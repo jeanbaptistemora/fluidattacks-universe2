@@ -1,7 +1,7 @@
 from fa_purity.cmd import (
     unsafe_unwrap,
 )
-from fx_tests.get_secret import (
+from fx_tests.get_conf import (
     get_conf,
 )
 from google_sheets_etl.bin_sdk.tap import (
