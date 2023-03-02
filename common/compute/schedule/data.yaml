@@ -316,11 +316,13 @@ integrates_event_digest_notification:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send emails to users with events digest.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jhurtado
+    requiredBy:
+      - ARM sending a consolidated events summary and avoid
+        email flooding to users.
   parallel: 1
   scheduleExpression: cron(0 11 ? * 2-6 *)
   size: integrates_nano
@@ -344,11 +346,14 @@ integrates_event_report:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send emails to users with events summary.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - jhurtado
+      - jvillegas
+    requiredBy:
+      - ARM sending a consolidated events summary and avoid
+        email flooding to users.
   parallel: 1
   scheduleExpression: cron(0 14 ? * * *)
   size: integrates_nano
@@ -372,11 +377,15 @@ integrates_expire_free_trial:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Send emails notifying the trial period has expired for
+      all trial groups and update their group state.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - dacevedo
+      - kcamargo
+    requiredBy:
+      - ARM autoenrollment as the trial expiration
+        needs to be automatic.
   parallel: 1
   scheduleExpression: cron(0 0 * * ? *)
   size: integrates_nano
@@ -400,11 +409,13 @@ integrates_fix_machine_executions:
     - CACHIX_AUTH_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description: Fix machine executions that have incomplete data.
+    lastReviewed: "02-03-2023"
     maintainers:
-      - jmesa
-    requiredBy: []
+      - drestrepo
+    requiredBy:
+      - Machine as some runs end with success status,
+        but the result is not reported in db correctly.
   parallel: 1
   scheduleExpression: cron(0 16 ? * * *)
   size: integrates_nano
@@ -429,11 +440,15 @@ integrates_groups_languages_distribution:
     - INTEGRATES_API_TOKEN
     - UNIVERSE_API_TOKEN
   meta:
-    description: ""
-    lastReviewed: "01-03-2023"
+    description:  Download all active group repositories and executes tokei
+      over them. Save the results at the root level (individual) and at the
+      group level (overall).
+    lastReviewed: "02-03-2023"
     maintainers:
+      - acuberos
       - jmesa
-    requiredBy: []
+    requiredBy:
+      - ARM collecting information on repositories language distribution.
   parallel: 1
   scheduleExpression: cron(0 10 ? * 2,5 *)
   size: integrates_small
