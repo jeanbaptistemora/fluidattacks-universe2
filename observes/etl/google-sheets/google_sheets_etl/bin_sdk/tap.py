@@ -1,16 +1,22 @@
+from __future__ import (
+    annotations,
+)
+
 from dataclasses import (
     dataclass,
     field,
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     JsonObj,
     JsonValue,
     Result,
     ResultE,
+    UnfoldedJVal,
 )
 from fa_purity.json.factory import (
-    from_prim_dict,
+    from_unfolded_dict,
 )
 from fa_purity.json.transform import (
     dumps,
@@ -55,7 +61,7 @@ class TapConfig:
     request_timeout: int
 
     def to_json(self) -> JsonObj:
-        return from_prim_dict(
+        data: FrozenDict[str, UnfoldedJVal] = FrozenDict(
             {
                 "client_id": self.client_id,
                 "client_secret": self.client_secret,
@@ -66,6 +72,7 @@ class TapConfig:
                 "request_timeout": self.request_timeout,
             }
         )
+        return from_unfolded_dict(data)
 
     def to_file(self) -> Cmd[TempReadOnlyFile]:
         return TempReadOnlyFile.new(from_flist((dumps(self.to_json()),)))
@@ -119,6 +126,10 @@ class TapGoogleSheets:
     _private: _Private = field(repr=False, hash=False, compare=False)
     cache: Cache[TempFile] = field(repr=False, hash=False, compare=False)
     config: TapConfig
+
+    @staticmethod
+    def new(config: TapConfig) -> TapGoogleSheets:
+        return TapGoogleSheets(_Private(), Cache(None), config)
 
     @property
     def config_file_path(self) -> Path:

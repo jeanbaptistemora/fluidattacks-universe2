@@ -27,10 +27,11 @@
   ];
   bin_deps = [
     nixpkgs.tap-google-sheets
+    nixpkgs.sops
   ];
 
   pkg = import ./pkg {
-    inherit src metadata runtime_deps build_deps test_deps;
+    inherit src metadata runtime_deps test_deps build_deps;
     lib = deps.lib;
   };
   env = import ./env.nix {
