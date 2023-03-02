@@ -5,15 +5,6 @@ sidebar_label: Portfolio
 slug: /machine/web/analytics/portfolio
 ---
 
-## Distribution of vulnerabilities by group
-
-![Distribution of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666196319/docs/web/analytics/portfolios/distribution_port.png)
-
-The percentage of
-closed, open, temporarily accepted
-and permanently accepted vulnerabilities
-categorized by group.
-
 ## Remediation rate benchmark
 
 ![Remediation rate benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1646411325/docs/web/analytics/portfolios/remediation_rate_benchmarking.png)
@@ -25,6 +16,15 @@ and how your numbers are
 compared to the average
 and the worst portfolios
 of all organizations.
+
+## Distribution of vulnerabilities by group
+
+![Distribution of vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666196319/docs/web/analytics/portfolios/distribution_port.png)
+
+The percentage of
+closed, open, temporarily accepted
+and permanently accepted vulnerabilities
+categorized by group.
 
 ## Vulnerability types by group
 

@@ -218,6 +218,49 @@ number of days it will take you
 to remediate all the vulnerabilities
 reported to this date.
 
+## Mean time to remediate (MTTR) benchmark
+
+![MTTR Benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
+
+This section shows the average time your organization,
+group,
+or portfolio takes to fix vulnerabilities.
+These times are weighted by exposure to risk
+[(CVSSF)](/about/glossary#cvssf)
+and days with non-treated,
+which refers to non permanently accepted treatment vulnerabilities.
+Also you can filter by the data of the last 30,
+90 days,
+or all.
+You can compare your numbers to those of the best,
+the average,
+and the worst organizations.
+
+> **NOTE:**
+  > MTTR  means “Mean Time To Remediate.
+
+## Mean time to remediate (MTTR) by CVSS severity
+
+![Mean Days To Remediate](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/mean_average_days_to_remediate_eyfowf.png)
+
+Here you can see the average number of days
+it takes to remediate vulnerabilities grouped
+by the CVSS severity in your organization,
+group,
+or portfolio.
+These times are weighted by exposure to risk (CVSSF).
+
+Remember that this graph has six different filters:
+
+- Days per exposure (The graph that displays by default)
+- Days are counted without applying CVSSF
+- Non-treated CVSSF which refers to non
+  permanently accepted treatment vulnerabilities.
+- Non-treated days are counted without applying
+  CVSSF which refers to vulnerabilities whose
+  treatment is not permanently accepted.
+- The data of the last 30, 90 days, or all.
+
 ## Total vulnerabilities
 
 ![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
@@ -343,49 +386,6 @@ against those that are open
 and if those vulnerabilities
 have low, medium, high or critical
 severities.
-
-## Mean time to remediate (MTTR) by CVSS severity
-
-![Mean Days To Remediate](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/mean_average_days_to_remediate_eyfowf.png)
-
-Here you can see the average number of days
-it takes to remediate vulnerabilities grouped
-by the CVSS severity in your organization,
-group,
-or portfolio.
-These times are weighted by exposure to risk (CVSSF).
-
-Remember that this graph has six different filters:
-
-- Days per exposure (The graph that displays by default)
-- Days are counted without applying CVSSF
-- Non-treated CVSSF which refers to non
-  permanently accepted treatment vulnerabilities.
-- Non-treated days are counted without applying
-  CVSSF which refers to vulnerabilities whose
-  treatment is not permanently accepted.
-- The data of the last 30, 90 days, or all.
-
-## Mean time to remediate (MTTR) benchmark
-
-![MTTR Benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
-
-This section shows the average time your organization,
-group,
-or portfolio takes to fix vulnerabilities.
-These times are weighted by exposure to risk
-[(CVSSF)](/about/glossary#cvssf)
-and days with non-treated,
-which refers to non permanently accepted treatment vulnerabilities.
-Also you can filter by the data of the last 30,
-90 days,
-or all.
-You can compare your numbers to those of the best,
-the average,
-and the worst organizations.
-
-> **NOTE:**
-  > MTTR  means “Mean Time To Remediate.”
 
 ## Exposure by type
 

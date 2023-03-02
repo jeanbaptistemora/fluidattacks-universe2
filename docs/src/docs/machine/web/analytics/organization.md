@@ -5,16 +5,6 @@ sidebar_label: Organization
 slug: /machine/web/analytics/organization
 ---
 
-## Tags by groups
-
-![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
-
-Here you can see
-all the tags you have
-and the amount of each one
-that belong to each group
-of your organization.
-
 ## Remediation rate benchmark
 
 ![Remediation rate benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925701/docs/web/analytics/organizations/organization_remediation_benchmarking.png)
@@ -35,13 +25,6 @@ as well as these percentages in
 the best and the worst organization
 and the average across all organizations.
 
-## Exposure by group
-
-![Exposure by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
-
-For each of your groups, you can find out
-the exposure (CVSSF) of open vulnerabilities.
-
 ## Distribution of vulnerabilities by group
 
 ![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1666129428/docs/web/analytics/organizations/distribution_of_vulnerabilities_by_group.png)
@@ -50,6 +33,23 @@ The percentage of closed, open,
 temporarily accepted and permanently
 accepted vulnerabilities categorized
 by group.
+
+## Tags by groups
+
+![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
+
+Here you can see
+all the tags you have
+and the amount of each one
+that belong to each group
+of your organization.
+
+## Exposure by group
+
+![Exposure by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
+
+For each of your groups, you can find out
+the exposure (CVSSF) of open vulnerabilities.
 
 ## Vulnerability types by group
 
