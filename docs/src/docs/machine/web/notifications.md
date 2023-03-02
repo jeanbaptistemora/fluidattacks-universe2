@@ -699,22 +699,6 @@ type of vulnerability in question.
 
 ![Vulnerability Remediated](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174233/docs/web/notifications/vulnerability_remediated.png)
 
-### Vulnerability updates (pending to verify)
-
-If you enable
-**Vulnerability updates**
-notifications,
-you will receive email
-notifications telling you
-which reattacks are pending.
-The email is automatically
-generated and sent by
-`projects@fluidattacks.com`
-on weekdays at 5:30 AM and
-4:30 PM (GMT-5).
-
-![Pending To Verify](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173622/docs/web/notifications/pending_verify.png)
-
 ### Vulnerability updates (type of vulnerability deleted)
 
 If you enable
