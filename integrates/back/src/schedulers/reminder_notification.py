@@ -46,11 +46,11 @@ async def send_reminder_notification() -> None:
     group_names = await orgs_domain.get_all_active_group_names(loaders)
 
     if FI_ENVIRONMENT == "production":
-        group_names = tuple(
+        group_names = [
             group_name
             for group_name in group_names
             if group_name not in FI_TEST_PROJECTS.split(",")
-        )
+        ]
 
     groups = await loaders.group.load_many(group_names)
     orgs_ids: set[str] = set(group.organization_id for group in groups)

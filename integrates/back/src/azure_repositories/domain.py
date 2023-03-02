@@ -470,10 +470,8 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
     progress: float,
     all_group_names: set[str],
 ) -> None:
-    organization_group_names: tuple[str, ...] = await get_group_names(
-        loaders, organization.id
-    )
-    organization_group_names = tuple(
+    organization_group_names = await get_group_names(loaders, organization.id)
+    organization_group_names = list(
         all_group_names.intersection(
             set(group.lower() for group in organization_group_names)
         )
@@ -1320,10 +1318,8 @@ async def update_organization_repositories(
     progress: float,
     all_group_names: set[str],
 ) -> None:
-    organization_group_names: tuple[str, ...] = await get_group_names(
-        loaders, organization.id
-    )
-    organization_group_names = tuple(
+    organization_group_names = await get_group_names(loaders, organization.id)
+    organization_group_names = list(
         all_group_names.intersection(
             set(group.lower() for group in organization_group_names)
         )
@@ -1355,7 +1351,7 @@ async def update_organization_repositories(
         Credentials
     ] = await loaders.organization_credentials.load(organization.id)
     groups_roots = await loaders.group_roots.load_many_chained(
-        list(organization_group_names)
+        organization_group_names
     )
     urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)

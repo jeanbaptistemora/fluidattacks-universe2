@@ -60,11 +60,11 @@ async def send_users_weekly_report() -> None:
     group_names = await orgs_domain.get_all_active_group_names(loaders)
 
     if FI_ENVIRONMENT == "production":
-        group_names = tuple(
+        group_names = [
             group_name
             for group_name in group_names
             if group_name not in FI_TEST_PROJECTS.split(",")
-        )
+        ]
 
     users: dict[str, list[str]] = {}
 

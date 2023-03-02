@@ -149,11 +149,11 @@ async def send_temporal_treatment_report() -> None:
     groups_names = await orgs_domain.get_all_active_group_names(loaders)
 
     if FI_ENVIRONMENT == "production":
-        groups_names = tuple(
+        groups_names = [
             group
             for group in groups_names
             if group not in FI_TEST_PROJECTS.split(",")
-        )
+        ]
 
     groups_org_names = await collect(
         [

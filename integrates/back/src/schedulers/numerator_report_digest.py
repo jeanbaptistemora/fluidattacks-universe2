@@ -543,7 +543,7 @@ async def _toe_port_content(
 
 
 async def _generate_numerator_report(
-    loaders: Dataloaders, groups_names: tuple[str, ...], date_range: int
+    loaders: Dataloaders, groups_names: list[str], date_range: int
 ) -> dict[str, Any]:
     content: dict[str, Any] = {}
     allowed_roles: set[str] = {
@@ -657,7 +657,7 @@ async def _send_mail_report(
 async def send_numerator_report() -> None:
     loaders: Dataloaders = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
-    test_group_names = tuple(FI_TEST_PROJECTS.split(","))
+    test_group_names = FI_TEST_PROJECTS.split(",")
 
     async for _, org_name, org_groups_names in (
         orgs_domain.iterate_organizations_and_groups(loaders)
@@ -666,14 +666,14 @@ async def send_numerator_report() -> None:
             if (
                 org_name in FI_TEST_ORGS.lower().split(",")
             ) and group_name not in test_group_names:
-                test_group_names += tuple(org_groups_names)
+                test_group_names += org_groups_names
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
     report_date = datetime_utils.get_now_minus_delta(days=date_range).date()
 
     if FI_ENVIRONMENT == "production":
-        group_names = tuple(
+        group_names = [
             group for group in group_names if group not in test_group_names
-        )
+        ]
 
     content: dict[str, Any] = await _generate_numerator_report(
         loaders, group_names, date_range

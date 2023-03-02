@@ -189,7 +189,7 @@ async def main() -> None:  # noqa: MC0001
     ):
         count += 1
         print(count, org_name)
-        await process_organization(org_groups_names)
+        await process_organization(org_groups_names)  # type: ignore
 
 
 if __name__ == "__main__":

@@ -67,9 +67,7 @@ async def process_group(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    all_deleted_groups: tuple[Group, ...] = await get_all_deleted_groups(
-        loaders=loaders
-    )
+    all_deleted_groups = await get_all_deleted_groups(loaders=loaders)
 
     LOGGER_CONSOLE.info(
         "Deleted groups",

@@ -389,27 +389,27 @@ async def get_access_by_url_token(
 
 async def get_all_groups(
     loaders: Dataloaders,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         groups.extend(org_groups)
 
-    return tuple(groups)
+    return groups
 
 
 async def get_all_group_names(
     loaders: Dataloaders,
-) -> tuple[str, ...]:
+) -> list[str]:
     groups = await get_all_groups(loaders)
-    group_names = tuple(group.name for group in groups)
+    group_names = [group.name for group in groups]
 
     return group_names
 
 
 async def get_all_active_groups(
     loaders: Dataloaders,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     active_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
@@ -418,49 +418,48 @@ async def get_all_active_groups(
         )
         active_groups.extend(org_active_groups)
 
-    return tuple(active_groups)
+    return active_groups
 
 
 async def get_all_trial_groups(
     loaders: Dataloaders,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     trial_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         org_trial_groups = groups_utils.filter_trial_groups(org_groups)
         trial_groups.extend(org_trial_groups)
 
-    return tuple(trial_groups)
+    return trial_groups
 
 
 async def get_all_active_group_names(
     loaders: Dataloaders,
-) -> tuple[str, ...]:
+) -> list[str]:
     active_groups = await get_all_active_groups(loaders)
-    active_group_names = tuple(group.name for group in active_groups)
+    active_group_names = [group.name for group in active_groups]
 
     return active_group_names
 
 
 async def get_all_deleted_groups(
     loaders: Dataloaders,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     deleted_groups: list[Group] = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         org_deleted_groups = groups_utils.filter_deleted_groups(org_groups)
         deleted_groups.extend(org_deleted_groups)
 
-    return tuple(deleted_groups)
+    return deleted_groups
 
 
 async def get_group_names(
     loaders: Dataloaders, organization_id: str
-) -> tuple[str, ...]:
-    org_groups: list[Group] = await loaders.organization_groups.load(
-        organization_id
-    )
-    return tuple(group.name for group in org_groups)
+) -> list[str]:
+    org_groups = await loaders.organization_groups.load(organization_id)
+
+    return [group.name for group in org_groups]
 
 
 async def exists(loaders: Dataloaders, organization_name: str) -> bool:
@@ -654,7 +653,7 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
 
 async def iterate_organizations_and_groups(
     loaders: Dataloaders,
-) -> AsyncIterator[tuple[str, str, tuple[str, ...]]]:
+) -> AsyncIterator[tuple[str, str, list[str]]]:
     """Yield (org_id, org_name, org_group_names) non-concurrently generated."""
     async for organization in iterate_organizations():
         # Exception: WF(AsyncIterator is subtype of iterator)

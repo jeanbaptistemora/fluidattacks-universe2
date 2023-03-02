@@ -26,6 +26,6 @@ from organizations import (
 async def resolve(
     _: None,
     info: GraphQLResolveInfo,
-) -> tuple[str, ...]:
+) -> list[str]:
     # All active groups have 'forces' enabled
     return await orgs_domain.get_all_active_group_names(info.context.loaders)

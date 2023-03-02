@@ -21,9 +21,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupStateStatus,
 )
-from db_model.groups.types import (
-    Group,
-)
 from groups import (
     domain as groups_domain,
 )
@@ -35,7 +32,7 @@ import time
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    deleted_groups: tuple[Group, ...] = await get_all_deleted_groups(loaders)
+    deleted_groups = await get_all_deleted_groups(loaders)
     print(f"Groups to process: {len(deleted_groups)=}")
     for count, group in enumerate(deleted_groups):
         print(f"Working on {group.name=}...")

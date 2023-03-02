@@ -194,14 +194,14 @@ async def send_events_digest() -> None:
     groups = await orgs_domain.get_all_active_groups(loaders)
 
     if FI_ENVIRONMENT == "production":
-        groups = tuple(
+        groups = [
             group
             for group in groups
             if group.name not in FI_TEST_PROJECTS.split(",")
             and group.state.has_squad
-        )
+        ]
 
-    groups_names = tuple(group.name for group in groups)
+    groups_names = [group.name for group in groups]
     groups_org_names = await collect(
         [
             get_organization_name(loaders, group_name)

@@ -74,9 +74,7 @@ async def _process_group(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    active_groups: tuple[Group, ...] = await orgs_domain.get_all_active_groups(
-        loaders
-    )
+    active_groups = await orgs_domain.get_all_active_groups(loaders)
     LOGGER_CONSOLE.info(
         "Active groups",
         extra={"extra": {"groups_len": len(active_groups)}},
