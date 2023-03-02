@@ -95,14 +95,18 @@ closure:
   opentelemetry-instrumentation-aiohttp-client: 0.37b0
   opentelemetry-instrumentation-asgi: 0.37b0
   opentelemetry-instrumentation-botocore: 0.37b0
+  opentelemetry-instrumentation-dbapi: 0.37b0
   opentelemetry-instrumentation-httpx: 0.37b0
   opentelemetry-instrumentation-jinja2: 0.37b0
+  opentelemetry-instrumentation-psycopg2: 0.37b0
   opentelemetry-instrumentation-requests: 0.37b0
   opentelemetry-instrumentation-starlette: 0.37b0
   opentelemetry-instrumentation-urllib: 0.37b0
   opentelemetry-instrumentation-urllib3: 0.37b0
+  opentelemetry-propagator-aws-xray: 1.0.1
   opentelemetry-proto: 1.16.0
   opentelemetry-sdk: 1.16.0
+  opentelemetry-sdk-extension-aws: 2.0.1
   opentelemetry-semantic-conventions: 0.37b0
   opentelemetry-util-http: 0.37b0
   packaging: "23.0"
@@ -992,6 +996,12 @@ links:
   - name: opentelemetry_instrumentation_botocore-0.37b0.tar.gz
     sha256: 0h8vy8x7v1yapssmwkaai0sz5dfiyhrh9b7f7br0zybg71v5cidj
     url: https://files.pythonhosted.org/packages/0f/14/bc48ddb133fecf29220d9ebcd257aa92f0d295e6fd7bc71a601ae1af8751/opentelemetry_instrumentation_botocore-0.37b0.tar.gz
+  - name: opentelemetry_instrumentation_dbapi-0.37b0-py3-none-any.whl
+    sha256: 142sr8qfj8brmp1wwnyrp72rai2f7dv4m81maxgmqqd7xycyrjz9
+    url: https://files.pythonhosted.org/packages/73/5a/ec0bf5b0e5f193cc02f7392c87f01daa3aaecba77359b024589c0b17c5d4/opentelemetry_instrumentation_dbapi-0.37b0-py3-none-any.whl
+  - name: opentelemetry_instrumentation_dbapi-0.37b0.tar.gz
+    sha256: 1nss38jfv0bxhhhc7w4nvx8d6j3x71clb7591cqgj897w3qxp9d8
+    url: https://files.pythonhosted.org/packages/e6/d6/531aa83fc21c0ed6155921826966fd41b536b4c4f19cdc0483ca457341c3/opentelemetry_instrumentation_dbapi-0.37b0.tar.gz
   - name: opentelemetry_instrumentation_httpx-0.37b0-py3-none-any.whl
     sha256: 03y6vwn65f5085sdb2ik05vq3ywlkx3dnn7z3k2yx03xh1zsp7y2
     url: https://files.pythonhosted.org/packages/54/66/b2b486959e1d7fa23293df87851967238c6c2698561840fe6b11e3642e91/opentelemetry_instrumentation_httpx-0.37b0-py3-none-any.whl
@@ -1004,6 +1014,12 @@ links:
   - name: opentelemetry_instrumentation_jinja2-0.37b0.tar.gz
     sha256: 1bd1b1sb8c5wbikmc5baz884vjm9bkfdaxbc3qjhkv5a73b8xaby
     url: https://files.pythonhosted.org/packages/7d/55/e4743512cfee249c3159311e7ffa8aefdb67d651560a45c7e2bb41d30595/opentelemetry_instrumentation_jinja2-0.37b0.tar.gz
+  - name: opentelemetry_instrumentation_psycopg2-0.37b0-py3-none-any.whl
+    sha256: 1k8v2p8ymk1q3c0fh8xqs0cf4d2w5l03kdfwwylm3z5i2d4l3ph5
+    url: https://files.pythonhosted.org/packages/77/ac/f5ec697589a11df6d4b072c0307d04dc8dffc17e6704e54c0034e71012a1/opentelemetry_instrumentation_psycopg2-0.37b0-py3-none-any.whl
+  - name: opentelemetry_instrumentation_psycopg2-0.37b0.tar.gz
+    sha256: 1kanwmcrh99765piyp8kcfph317a23snkqbn0nwbkkb02k7cybnn
+    url: https://files.pythonhosted.org/packages/33/61/266f9569cca450fbdca56d12fe63fb0b3c12c08541545a4602a2865a95b9/opentelemetry_instrumentation_psycopg2-0.37b0.tar.gz
   - name: opentelemetry_instrumentation_requests-0.37b0-py3-none-any.whl
     sha256: 1g8c6gc1qm111dczjyg885hqjf3352bb6b6hax679bq1kwnh6xi2
     url: https://files.pythonhosted.org/packages/2a/1a/c709de9efbc870591f3d18213b624e767127e1c6dc7d3df66a3ffa940147/opentelemetry_instrumentation_requests-0.37b0-py3-none-any.whl
@@ -1028,6 +1044,12 @@ links:
   - name: opentelemetry_instrumentation_urllib3-0.37b0.tar.gz
     sha256: 1xclar3fbqpyj9gsv30ddgzaqbqjgf81gal64h9l2m68ily43crx
     url: https://files.pythonhosted.org/packages/dc/f0/fa31a106903b60375a3cb3b215f770ece50b462e35aa1e0508bca0c41c23/opentelemetry_instrumentation_urllib3-0.37b0.tar.gz
+  - name: opentelemetry_propagator_aws_xray-1.0.1-py3-none-any.whl
+    sha256: 03wwhb072370w0qlav0mygi27qwgyfg4zqkmmj04iw5kf8fpl9j9
+    url: https://files.pythonhosted.org/packages/04/24/2b1694b9452ac7ab3567dcb80902f7c5c8a39962751d5a4c54a357caa49e/opentelemetry_propagator_aws_xray-1.0.1-py3-none-any.whl
+  - name: opentelemetry-propagator-aws-xray-1.0.1.tar.gz
+    sha256: 11lznjhhp0avwzzjjf2dyrzja48bxk6sgckh3pcc65ygpdkyd2vf
+    url: https://files.pythonhosted.org/packages/32/13/310a7f3c789eb9bb51f8ee9b88fb4b9f4f1e7191c8c96c7ea6f15eaa99b5/opentelemetry-propagator-aws-xray-1.0.1.tar.gz
   - name: opentelemetry_proto-1.16.0-py3-none-any.whl
     sha256: 1mfbjwv99vwqnsa850mrrs4k5dp5dr8idaf4f8zkrx7s039jc0qn
     url: https://files.pythonhosted.org/packages/80/10/b181e8fc4fe6194c7fd056eeacb22d07ae044179c0996212f9b967ba80f7/opentelemetry_proto-1.16.0-py3-none-any.whl
@@ -1040,6 +1062,12 @@ links:
   - name: opentelemetry_sdk-1.16.0.tar.gz
     sha256: 0kls4fxwmqqba34w3nzrkfi7ckys07cnam9vfzmbx790kqgbjfsd
     url: https://files.pythonhosted.org/packages/c3/25/0a27b6b694affb1f6d26465b6b1b31c6a80c5d9d6b6e0a7bcde555ca14f9/opentelemetry_sdk-1.16.0.tar.gz
+  - name: opentelemetry_sdk_extension_aws-2.0.1-py3-none-any.whl
+    sha256: 0rvwzn0kwx1spx8zx6cjilxgccxdky13771jsdld5plkhxcv0r7r
+    url: https://files.pythonhosted.org/packages/95/22/903fdb380dd98ed1c59fa18df0e3c2c86190ca570e3bf0fdb92ad9dc20bc/opentelemetry_sdk_extension_aws-2.0.1-py3-none-any.whl
+  - name: opentelemetry-sdk-extension-aws-2.0.1.tar.gz
+    sha256: 1fplaggwhbyqcirgn3mn05b5b92c34pqyd3rw7dp103w1vygcz6x
+    url: https://files.pythonhosted.org/packages/0a/9b/84c4821a43d4d4a7a2860ae57061b23929a01f2ad97dd74184b4b202c57f/opentelemetry-sdk-extension-aws-2.0.1.tar.gz
   - name: opentelemetry_semantic_conventions-0.37b0-py3-none-any.whl
     sha256: 1vm5vgf2dd3glw9a0s3wx29izzk0hjgxh734d0gv1nj2i8kq4aa6
     url: https://files.pythonhosted.org/packages/0a/09/560656591ba10d69c974d1c449e0bfcaaf697e0b849c2f098c9f56281e76/opentelemetry_semantic_conventions-0.37b0-py3-none-any.whl

@@ -26,6 +26,9 @@ from opentelemetry.instrumentation.httpx import (
 from opentelemetry.instrumentation.jinja2 import (
     Jinja2Instrumentor,
 )
+from opentelemetry.instrumentation.psycopg2 import (
+    Psycopg2Instrumentor,
+)
 from opentelemetry.instrumentation.requests import (
     RequestsInstrumentor,
 )
@@ -100,6 +103,7 @@ def instrument(app: Starlette) -> None:
     BotocoreInstrumentor().instrument()
     HTTPXClientInstrumentor().instrument()
     Jinja2Instrumentor().instrument()
+    Psycopg2Instrumentor().instrument()
     RequestsInstrumentor().instrument()
     StarletteInstrumentor.instrument_app(app)
     URLLibInstrumentor().instrument()
