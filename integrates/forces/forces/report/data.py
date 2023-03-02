@@ -101,6 +101,7 @@ async def compile_raw_report(
     for vuln in await get_vulnerabilities(config, **kwargs):
         find_id: str = str(vuln["findingId"])
 
+        # The API may serve vulns without their corresponding Finding
         if find_id not in findings_dict:
             continue
 
