@@ -1203,13 +1203,18 @@
     ];
     meta = {
       description = ''
-
+        Send daily email to users subscribed to ARM analytics
+        on a given organization, group or portfolio.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
+        "slizcano"
       ];
       requiredBy = [
+        ''
+          ARM to fullfil the analytics subscription flow.
+        ''
       ];
     };
     parallel = 1;
@@ -1240,13 +1245,18 @@
     ];
     meta = {
       description = ''
-
+        Send monthly email to users subscribed to ARM analytics
+        on a given organization, group or portfolio.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
+        "slizcano"
       ];
       requiredBy = [
+        ''
+          ARM to fullfil the analytics subscription flow.
+        ''
       ];
     };
     parallel = 1;
@@ -1277,13 +1287,18 @@
     ];
     meta = {
       description = ''
-
+        Send weekly email to users subscribed to ARM analytics
+        on a given organization, group or portfolio.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
         "jmesa"
+        "slizcano"
       ];
       requiredBy = [
+        ''
+          ARM to fullfil the analytics subscription flow.
+        ''
       ];
     };
     parallel = 1;
@@ -1314,13 +1329,21 @@
     ];
     meta = {
       description = ''
-
+        Send an alert email with a list of the
+        accepted vulnerabilities in a given group
+        whose acceptance date is close to expire.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "jhurtado"
+        "jvillegas"
       ];
       requiredBy = [
+        ''
+          ARM sending only one mail with all related
+          accepted treatment summary
+          and avoid email flooding to users.
+        ''
       ];
     };
     parallel = 1;
@@ -1351,13 +1374,17 @@
     ];
     meta = {
       description = ''
-
+        Update all organizations compliance indicators.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "acaguirre"
       ];
       requiredBy = [
+        ''
+          ARM in order to update info that will be displayed
+          in the organization compliance view.
+        ''
       ];
     };
     parallel = 1;
@@ -1388,13 +1415,19 @@
     ];
     meta = {
       description = ''
-
+        Update sort priorities for all active groups' toe lines
+        retrieving sorts results from S3.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "rrodriguez"
+        "mrivera"
       ];
       requiredBy = [
+        ''
+          Sorts as updating this results using the ARM API
+          is too slow.
+        ''
       ];
     };
     parallel = 1;
@@ -1425,13 +1458,19 @@
     ];
     meta = {
       description = ''
-
+        Update the has_vulnerabilities attribute in the
+        ToE surface
       '';
-      lastReview = "01-03-2023";
+      lastReview = "02-03-2023";
       maintainers = [
-        "jmesa"
+        "acaguirre"
+        "jchaves"
       ];
       requiredBy = [
+        ''
+          ARM to display updated info in the surface view
+          and related flows.
+        ''
       ];
     };
     parallel = 1;
