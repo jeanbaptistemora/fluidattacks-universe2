@@ -1016,6 +1016,86 @@ async def upload_snippet(
             break
 
 
+def _has_machine_description(
+    finding: Finding, criteria_vulnerability: dict[str, Any], language: str
+) -> bool:
+    return all(
+        (
+            finding.description.strip()
+            == criteria_vulnerability[language]["description"].strip(),
+            finding.threat.strip()
+            == criteria_vulnerability[language]["threat"].strip(),
+            finding.severity == _get_finding_severity(criteria_vulnerability),
+        )
+    )
+
+
+async def _split_target_findings(
+    criteria_vulnerability: dict[str, Any],
+    language: str,
+    same_type_of_findings: tuple[Finding, ...],
+) -> tuple[Finding | None, tuple[Finding, ...]]:
+    target_finding = None
+    non_target_findings: list[Finding] = []
+    for finding in same_type_of_findings:
+        if _has_machine_description(finding, criteria_vulnerability, language):
+            target_finding = finding
+        else:
+            non_target_findings.append(finding)
+    return target_finding, tuple(non_target_findings)
+
+
+async def _close_vulns_in_non_target(  # pylint: disable = too-many-arguments
+    loaders: Dataloaders,
+    group_name: str,
+    git_root: GitRoot,
+    sarif_log: dict[str, Any],
+    execution_config: dict[str, Any],
+    organization_name: str,
+    sarif_vulns: list,
+    finding: Finding,
+) -> None:
+    existing_open_machine_vulns = tuple(
+        vuln
+        for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+        if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
+        and is_machine_vuln(vuln)
+        and vuln.root_id == git_root.id
+    )
+    existing_vulns_to_close = _build_vulnerabilities_stream_from_integrates(
+        _machine_vulns_to_close(
+            sarif_vulns,
+            existing_open_machine_vulns,
+            execution_config,
+        ),
+        git_root,
+        state="closed",
+        commit=sarif_log["runs"][0]["versionControlProvenance"][0][
+            "revisionId"
+        ],
+    )
+    if persisted_vulns := await persist_vulnerabilities(
+        loaders=loaders,
+        group_name=group_name,
+        git_root=git_root,
+        finding=finding,
+        stream={
+            "inputs": [
+                *existing_vulns_to_close["inputs"],
+            ],
+            "lines": [
+                *existing_vulns_to_close["lines"],
+            ],
+        },
+        organization_name=organization_name,
+    ):
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.upload_file,
+            finding_ids=[finding.id],
+            vulnerability_ids=list(persisted_vulns),
+        )
+
+
 async def process_criteria_vuln(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
