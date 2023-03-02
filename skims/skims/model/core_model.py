@@ -4468,14 +4468,6 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    JAVA_VULN_REGEX = MethodInfo(
-        file_name="java",
-        name="java_vuln_regex",
-        module="lib_root",
-        finding=FindingEnum.F211,
-        developer=DeveloperEnum.JHON_ROMERO,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
     CS_REGEX_INJETCION = MethodInfo(
         file_name="csharp",
         name="csharp_regex_injection",
@@ -4484,17 +4476,33 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    TS_REGEX_INJETCION = MethodInfo(
-        file_name="typescript",
-        name="ts_regex_injection",
+    JAVA_VULN_REGEX = MethodInfo(
+        file_name="java",
+        name="java_vuln_regex",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_REGEX_INJETCION = MethodInfo(
+        file_name="javascript",
+        name="js_regex_injection",
         module="lib_root",
         finding=FindingEnum.F211,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    JS_REGEX_INJETCION = MethodInfo(
-        file_name="javascript",
-        name="js_regex_injection",
+    PYTHON_REGEX_DOS = MethodInfo(
+        file_name="python",
+        name="python_regex_dos",
+        module="lib_root",
+        finding=FindingEnum.F211,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_REGEX_INJETCION = MethodInfo(
+        file_name="typescript",
+        name="ts_regex_injection",
         module="lib_root",
         finding=FindingEnum.F211,
         developer=DeveloperEnum.JULIAN_GOMEZ,

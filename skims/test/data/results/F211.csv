@@ -215,3 +215,78 @@ F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,sk
   21 |   input.matches(regex);  // Safe
      ^ Col 0
 ",java.java_vuln_regex
+F211,lines,namespace/skims/test/data/lib_root/f211/python_regex_injection.py,13,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/python_regex_injection.py","
+   3 |     request,
+   4 | )
+   5 | import os
+   6 | import re
+   7 |
+   8 |
+   9 | def unsafe_regex(mail: str) -> None:
+  10 |     # Noncompliant: regex patterns built from user inputs
+  11 |     username = request.args[""username""]
+  12 |     filename = str(request.files[""attachment""].filename)
+> 13 |     re.search(username, filename)
+  14 |
+  15 |     usermail = request.args[""useremail""]
+  16 |     re.match(usermail, mail)
+  17 |
+  18 |     user_id = request.args[""userId""]
+  19 |     re.findall(user_id, os.environ[""users""])
+  20 |
+  21 |
+  22 | def safe_regex(mail: str) -> None:
+  23 |     # Compliant: Regex pattern uses escaped user input
+     ^ Col 0
+",python.python_regex_dos
+F211,lines,namespace/skims/test/data/lib_root/f211/python_regex_injection.py,16,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/python_regex_injection.py","
+   6 | import re
+   7 |
+   8 |
+   9 | def unsafe_regex(mail: str) -> None:
+  10 |     # Noncompliant: regex patterns built from user inputs
+  11 |     username = request.args[""username""]
+  12 |     filename = str(request.files[""attachment""].filename)
+  13 |     re.search(username, filename)
+  14 |
+  15 |     usermail = request.args[""useremail""]
+> 16 |     re.match(usermail, mail)
+  17 |
+  18 |     user_id = request.args[""userId""]
+  19 |     re.findall(user_id, os.environ[""users""])
+  20 |
+  21 |
+  22 | def safe_regex(mail: str) -> None:
+  23 |     # Compliant: Regex pattern uses escaped user input
+  24 |     username = re.escape(request.args[""username""])
+  25 |     filename = str(request.files[""attachment""].filename)
+  26 |     re.search(username, filename)
+     ^ Col 0
+",python.python_regex_dos
+F211,lines,namespace/skims/test/data/lib_root/f211/python_regex_injection.py,19,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/python_regex_injection.py","
+   9 | def unsafe_regex(mail: str) -> None:
+  10 |     # Noncompliant: regex patterns built from user inputs
+  11 |     username = request.args[""username""]
+  12 |     filename = str(request.files[""attachment""].filename)
+  13 |     re.search(username, filename)
+  14 |
+  15 |     usermail = request.args[""useremail""]
+  16 |     re.match(usermail, mail)
+  17 |
+  18 |     user_id = request.args[""userId""]
+> 19 |     re.findall(user_id, os.environ[""users""])
+  20 |
+  21 |
+  22 | def safe_regex(mail: str) -> None:
+  23 |     # Compliant: Regex pattern uses escaped user input
+  24 |     username = re.escape(request.args[""username""])
+  25 |     filename = str(request.files[""attachment""].filename)
+  26 |     re.search(username, filename)
+  27 |
+  28 |     usermail = request.args[""useremail""]
+  29 |     safe_patt = re.escape(usermail)
+     ^ Col 0
+",python.python_regex_dos

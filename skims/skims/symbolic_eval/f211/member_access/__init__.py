@@ -8,6 +8,9 @@ from symbolic_eval.f211.member_access.c_sharp import (
 from symbolic_eval.f211.member_access.common import (
     common_regex_injection,
 )
+from symbolic_eval.f211.member_access.python import (
+    python_regex_dos,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -18,6 +21,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REGEX_INJETCION: cs_regex_injection,
     MethodsEnum.CS_VULN_REGEX: cs_vuln_regex,
     MethodsEnum.JS_REGEX_INJETCION: common_regex_injection,
+    MethodsEnum.PYTHON_REGEX_DOS: python_regex_dos,
     MethodsEnum.TS_REGEX_INJETCION: common_regex_injection,
 }
 
