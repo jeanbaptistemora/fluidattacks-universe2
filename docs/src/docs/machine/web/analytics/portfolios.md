@@ -26,6 +26,22 @@ closed, open, temporarily accepted
 and permanently accepted vulnerabilities
 categorized by group.
 
+## Open vulnerabilities by group
+
+![Open Vulns By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/open_vulns_by_group_u5lkiz.png)
+
+The percentage of open vulnerabilities
+that each group has
+compared with the whole portfolio.
+
+## Undefined treatment by group
+
+![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/treatmentless_by_group_neyank.png)
+
+The percentage of vulnerabilities
+with no treatment that each group
+compared with the whole portfolio.
+
 ## Vulnerability types by group
 
 ![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
@@ -48,14 +64,6 @@ The percentage of vulnerabilities
 that each group has
 compared with the whole portfolio.
 
-## Open vulnerabilities by group
-
-![Open Vulns By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/open_vulns_by_group_u5lkiz.png)
-
-The percentage of open vulnerabilities
-that each group has
-compared with the whole portfolio.
-
 ## Oldest vulnerability types
 
 ![Oldest vulnerability types](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
@@ -65,14 +73,6 @@ the vulnerabilities
 that have been open
 for the highest
 amount of days.
-
-## Undefined treatment by group
-
-![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/treatmentless_by_group_neyank.png)
-
-The percentage of vulnerabilities
-with no treatment that each group
-compared with the whole portfolio.
 
 ## Tags by groups
 

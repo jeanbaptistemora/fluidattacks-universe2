@@ -202,7 +202,7 @@ a reattack.
 
 ## Vulnerabilities being re-attacked
 
-![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1652120561/docs/web/analytics/common/vulns_being_reattacked.png)
+![Vulnerability Being Re-Attacked](https://res.cloudinary.com/fluid-attacks/image/upload/v1677756845/docs/web/analytics/common/vulns_being_reattacked.png)
 
 This metric shows an integer,
 which refers to the vulnerabilities
@@ -261,6 +261,61 @@ Remember that this graph has six different filters:
   treatment is not permanently accepted.
 - The data of the last 30, 90 days, or all.
 
+## Accepted vulnerabilities by CVSS severity
+
+![Accepted By Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1645810726/docs/web/analytics/common/common_vuln_by_severity.png)
+
+Here you can see information
+about the vulnerabilities
+that you have accepted
+against those that are open
+and if those vulnerabilities
+have low, medium, high or critical
+severities.
+
+## Severity
+
+![Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1666127996/docs/web/analytics/common/severity.png)
+
+Security vulnerabilities are ranked
+based on [CVSS v3.1](/about/glossary#cvss).
+The higher the score,
+the more damage an attack
+can make to your system,
+and the easier it is to carry it on.
+
+## Vulnerabilities by assignment
+
+![Vulnerabilities By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654033821/docs/web/analytics/common/vulnerabilities_by_assignment.png)
+
+This pie chart in an organization,
+group or portfolio shows you the
+percentage of open vulnerabilities
+assigned to your team members
+versus the percentage of those
+vulnerabilities not yet assigned.
+
+## Status of assigned vulnerabilities
+
+Of all the vulnerabilities
+already assigned,
+it is shown what percentage
+are Open or Close.
+
+![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666130296/docs/web/analytics/common/status_of_assigned_vulnerabilities.png)
+
+## Exposure by type
+
+![Exposure By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
+
+This section shows what vulnerability types are open according to:
+
+- Exposure severity level the our
+  [CVSSF](/about/glossary#cvssf) metric.
+- Number of Vulnerabilities.
+- According to what type Code,
+  infra and app.
+
 ## Total vulnerabilities
 
 ![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
@@ -278,17 +333,6 @@ on your system related to the same
 attack vector.
 
 ![Total type](https://res.cloudinary.com/fluid-attacks/image/upload/v1666184692/docs/web/analytics/common/total_types.png)
-
-## Severity
-
-![Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1666127996/docs/web/analytics/common/severity.png)
-
-Security vulnerabilities are ranked
-based on [CVSS v3.1](/about/glossary#cvss).
-The higher the score,
-the more damage an attack
-can make to your system,
-and the easier it is to carry it on.
 
 ## Active resources distribution
 
@@ -375,41 +419,6 @@ whether they come
 directly from an app,
 code or the infrastructure.
 
-## Accepted vulnerabilities by CVSS severity
-
-![Accepted By Severity](https://res.cloudinary.com/fluid-attacks/image/upload/v1645810726/docs/web/analytics/common/common_vuln_by_severity.png)
-
-Here you can see information
-about the vulnerabilities
-that you have accepted
-against those that are open
-and if those vulnerabilities
-have low, medium, high or critical
-severities.
-
-## Exposure by type
-
-![Exposure By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
-
-This section shows what vulnerability types are open according to:
-
-- Exposure severity level the our
-  [CVSSF](/about/glossary#cvssf) metric.
-- Number of Vulnerabilities.
-- According to what type Code,
-  infra and app.
-
-## Vulnerabilities by assignment
-
-![Vulnerabilities By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654033821/docs/web/analytics/common/vulnerabilities_by_assignment.png)
-
-This pie chart in an organization,
-group or portfolio shows you the
-percentage of open vulnerabilities
-assigned to your team members
-versus the percentage of those
-vulnerabilities not yet assigned.
-
 ## Vulnerabilities treatment
 
 On the ARM, you can plan and manage the
@@ -443,15 +452,6 @@ to their assigned treatment:
   permanently.
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
-
-## Status of assigned vulnerabilities
-
-Of all the vulnerabilities
-already assigned,
-it is shown what percentage
-are Open or Close.
-
-![Assigned Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1666130296/docs/web/analytics/common/status_of_assigned_vulnerabilities.png)
 
 ## Report technique
 

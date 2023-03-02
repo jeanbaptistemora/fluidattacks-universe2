@@ -34,6 +34,22 @@ temporarily accepted and permanently
 accepted vulnerabilities categorized
 by group.
 
+## Open vulnerabilities by group
+
+![Open Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_vuln_by_group.png)
+
+The percentage of open vulnerabilities
+that each group has compared with
+the whole organization.
+
+## Undefined treatment by group
+
+![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
+
+The percentage of vulnerabilities
+with no treatment that each group
+has compared with the whole organization.
+
 ## Tags by groups
 
 ![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
@@ -87,14 +103,6 @@ The above chart shows you how
 many of these are in each of
 your groups.
 
-## Undefined treatment by group
-
-![Undefined Treatment by Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_treatmentless_by_group.png)
-
-The percentage of vulnerabilities
-with no treatment that each group
-has compared with the whole organization.
-
 ## Vulnerabilities by group
 
 ![Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_by_group.png)
@@ -111,14 +119,6 @@ The percentage of time that
 each group in your organization
 has unsolved events compared to
 the total existence of the group.
-
-## Open vulnerabilities by group
-
-![Open Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_vuln_by_group.png)
-
-The percentage of open vulnerabilities
-that each group has compared with
-the whole organization.
 
 ## Days since groups are failing
 
