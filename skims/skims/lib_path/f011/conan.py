@@ -14,8 +14,6 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Optional,
-    Tuple,
 )
 
 CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
@@ -54,7 +52,7 @@ def format_conan_dep_info(dep_info: ast.Constant) -> DependencyType:
     return format_pkg_dep(pkg_name, pkg_version, line_num, line_num, col_num)
 
 
-def get_conanfile_class(content: str) -> Optional[ast.ClassDef]:
+def get_conanfile_class(content: str) -> ast.ClassDef | None:
     conan_tree = ast.parse(content)
     for ast_object in conan_tree.body:
         if isinstance(ast_object, ast.ClassDef):
@@ -64,7 +62,7 @@ def get_conanfile_class(content: str) -> Optional[ast.ClassDef]:
     return None
 
 
-def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[Tuple[Any, Any]]:
+def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[tuple[Any, Any]]:
     for attr in conan_class.body:
         if (
             isinstance(attr, ast.Assign)
@@ -78,7 +76,7 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[Tuple[Any, Any]]:
 
 def get_conan_self_requires(
     conan_class: ast.ClassDef,
-) -> Iterator[Tuple[Any, Any]]:
+) -> Iterator[tuple[Any, Any]]:
     for node in conan_class.body:
         if isinstance(node, ast.FunctionDef) and node.name == "requirements":
             for req_node in node.body:

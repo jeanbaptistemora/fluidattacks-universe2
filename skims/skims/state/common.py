@@ -45,7 +45,7 @@ def store_object(
     :param value: Value to store
     :type value: Any
     :param ttl: Time to live in seconds, defaults to None
-    :type ttl: Optional[int], optional
+    :type ttl: int | None, optional
     """
     obj_id: bytes = get_obj_id(key)
     obj_stream: bytes = py_dumps(value, ttl=ttl)
