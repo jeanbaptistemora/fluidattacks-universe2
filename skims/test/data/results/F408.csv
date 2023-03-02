@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml,16,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml,"
+F408,lines,namespace/skims/test/data/lib_root/f408/cfn_api_gateway_access_logging_disabled.yaml,16,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_root/f408/cfn_api_gateway_access_logging_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   Prod:
@@ -23,7 +23,7 @@ F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_loggin
   21 |         Stack: Prod
      ^ Col 0
 ",cloudformation.cfn_api_gateway_access_logging_disabled
-F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml.json,20,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_logging_disabled.yaml.json,"
+F408,lines,namespace/skims/test/data/lib_root/f408/cfn_api_gateway_access_logging_disabled.yaml.json,20,778,skims,408. Traceability Loss - API Gateway,Property AccessLogSetting is either missing or misconfigured in namespace/skims/test/data/lib_root/f408/cfn_api_gateway_access_logging_disabled.yaml.json,"
   10 |         ""StageName"": ""Prod"",
   11 |         ""Description"": ""Prod Stage"",
   12 |         ""RestApiId"": ""MyRestApi"",

@@ -6127,7 +6127,7 @@ class MethodsEnum(Enum):
     CFN_API_GATEWAY_LOGGING_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_api_gateway_access_logging_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F408,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
