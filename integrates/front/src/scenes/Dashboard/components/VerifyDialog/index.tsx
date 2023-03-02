@@ -17,10 +17,10 @@ import type {
 } from "./types";
 
 import { Input } from "components/Input";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { BaseStep, Tour } from "components/Tour";
-import { Col100, ControlLabel } from "styles/styledComponents";
+import { ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
@@ -149,7 +149,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
             return (
               <Form id={"verify"}>
                 <Row>
-                  <Col100>
+                  <Col>
                     <ControlLabel>
                       <b>{t("verifyDialog.fields.verificationCode")}</b>
                     </ControlLabel>
@@ -158,7 +158,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
                       type={"text"}
                       validate={required}
                     />
-                  </Col100>
+                  </Col>
                 </Row>
                 <br />
                 <ModalConfirm
