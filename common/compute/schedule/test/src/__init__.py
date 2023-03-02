@@ -30,7 +30,79 @@ def error(msg: str) -> None:
 
 
 def test_data_schema(*, data: dict[str, Any]) -> None:
-    schema: dict[str, Any] = json.loads(os.environ["SCHEMA"])
+    schema: dict[str, Any] = {
+        "additionalProperties": False,
+        "patternProperties": {
+            "^[a-z0-9_]+$": {
+                "additionalProperties": False,
+                "properties": {
+                    "attempts": {"minimum": 1, "type": "integer"},
+                    "awsRole": {"type": "string"},
+                    "command": {
+                        "items": {"type": "string"},
+                        "minItems": 1,
+                        "type": "array",
+                    },
+                    "enabled": {"type": "boolean"},
+                    "environment": {
+                        "items": {"type": "string"},
+                        "type": "array",
+                    },
+                    "meta": {
+                        "additionalProperties": False,
+                        "properties": {
+                            "description": {"minLength": 0, "type": "string"},
+                            "lastReviewed": {
+                                "pattern": "^[0-9]{2}-[0-9]{2}-[0-9]{4}$",
+                                "type": "string",
+                            },
+                            "maintainers": {
+                                "items": {
+                                    "pattern": "^[a-z]+$",
+                                    "type": "string",
+                                },
+                                "minItems": 1,
+                                "type": "array",
+                            },
+                            "requiredBy": {
+                                "items": {"minLength": 10, "type": "string"},
+                                "minItems": 0,
+                                "type": "array",
+                            },
+                        },
+                        "required": [
+                            "description",
+                            "lastReviewed",
+                            "maintainers",
+                            "requiredBy",
+                        ],
+                        "type": "object",
+                    },
+                    "parallel": {"minimum": 1, "type": "integer"},
+                    "scheduleExpression": {"type": "string"},
+                    "size": {"type": "string"},
+                    "tags": {"type": "object"},
+                    "timeout": {"minimum": 60, "type": "integer"},
+                },
+                "required": [
+                    "attempts",
+                    "awsRole",
+                    "command",
+                    "enabled",
+                    "environment",
+                    "meta",
+                    "parallel",
+                    "scheduleExpression",
+                    "size",
+                    "tags",
+                    "timeout",
+                ],
+                "type": "object",
+            }
+        },
+        "propertyNames": {"pattern": "^[a-z0-9_]+$"},
+        "type": "object",
+    }
     validate(instance=data, schema=schema)
 
 

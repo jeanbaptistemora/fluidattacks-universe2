@@ -6,7 +6,6 @@ function main {
 
   : \
     && DATA="$(yq -rec "." "__argData__")" \
-    && SCHEMA="$(cat "__argSchema__")" \
     && python "__argSrc__"
 }
 

@@ -36,10 +36,4 @@ in {
     ./parse-terraform/makes.nix
     ./test/makes.nix
   ];
-  lintWithAjv = {
-    "common/compute/schedule" = {
-      schema = "/common/compute/schedule/schema.json";
-      targets = ["/common/compute/schedule/data.yaml"];
-    };
-  };
 }

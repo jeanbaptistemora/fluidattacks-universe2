@@ -88,6 +88,10 @@ workflow:
       when: never
     - when: always
 
+/common/compute/schedule/test:
+  <<: [*makes4, *common_in_dev_branch]
+  stage: test-code
+
 /common/status/check:
   <<: [*makes4, *common_in_prod_branch]
   stage: post-deploy
