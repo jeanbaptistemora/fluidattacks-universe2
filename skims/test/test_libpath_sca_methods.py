@@ -41,6 +41,9 @@ from lib_path.f393.composer import (
     composer_json_dev,
     composer_lock_dev,
 )
+from lib_path.f393.conan import (
+    conan_conanfile_txt_dev,
+)
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
@@ -672,6 +675,37 @@ def test_conan_conanfile_txt() -> None:
     )
     assertion: bool = True
     for line_num in range(1, 13):
+        if pkg_info := conan_dep.search(content[line_num]):
+            pkg_name = pkg_info.group("product")
+            version = pkg_info.group("version")
+
+            try:
+                next_dep = next(generator_dep)
+                pkg_item = itemgetter("item")(next_dep[0])
+                item = itemgetter("item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            if not (pkg_item in pkg_name and version == item):
+                assertion = not assertion
+                break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_conan_conanfile_txt_dev() -> None:
+    conan_dep: re.Pattern[str] = re.compile(
+        r"^(?P<product>[\w\-]+)\/\[?(?P<version>[^\],]+)"
+    )
+    path: str = "skims/test/data/lib_path/f011/conanfile.txt"
+    file_contents: str = get_file_info_from_path(path)
+    content: list[str] = file_contents.splitlines()
+    generator_dep = conan_conanfile_txt_dev.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    for line_num in range(15, 18):
         if pkg_info := conan_dep.search(content[line_num]):
             pkg_name = pkg_info.group("product")
             version = pkg_info.group("version")
