@@ -57,41 +57,6 @@ of open vulnerabilities.
 Number of open vulnerabilities
 categorized by group.
 
-## Vulnerability types by group
-
-![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
-
-Number of vulnerabilities
-categorized by group.
-
-## Vulnerabilities by group
-
-![Vulns By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/vulns_by_group_atarhk.png)
-
-The percentage of vulnerabilities
-that each group has
-compared with the whole portfolio.
-
-## Oldest vulnerability types
-
-![Oldest vulnerability types](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
-
-These graph shows
-the vulnerabilities
-that have been open
-for the highest
-amount of days.
-
-## Tags by groups
-
-![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/tags_by_groups_g8xfjs.png)
-
-Here you can see
-all the tags you have
-and the amount of each one
-that belong to each group
-of your portfolio.
-
 ## Unsolved events by group
 
 ![Unsolved events by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646409172/docs/web/analytics/portfolios/unsolved_events_by_groups.png)
@@ -106,6 +71,41 @@ not been solved yet.
 The above chart shows you how
 many of these are in each of
 your groups.
+
+## Vulnerability types by group
+
+![Vulnerability types by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1647458018/docs/web/analytics/portfolios/portfolio_types_vuln_by_group.png)
+
+Number of vulnerabilities
+categorized by group.
+
+## Oldest vulnerability types
+
+![Oldest vulnerability types](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/top_oldest_findings_ioqeng.png)
+
+These graph shows
+the vulnerabilities
+that have been open
+for the highest
+amount of days.
+
+## Vulnerabilities by group
+
+![Vulns By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443233/docs/web/analytics/portfolios/vulns_by_group_atarhk.png)
+
+The percentage of vulnerabilities
+that each group has
+compared with the whole portfolio.
+
+## Tags by groups
+
+![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/portfolios/tags_by_groups_g8xfjs.png)
+
+Here you can see
+all the tags you have
+and the amount of each one
+that belong to each group
+of your portfolio.
 
 ## Overall availability of groups
 

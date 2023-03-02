@@ -64,15 +64,19 @@ the exposure (CVSSF) of open vulnerabilities.
 Number of open vulnerabilities
 categorized by group.
 
-## Tags by groups
+## Unsolved events by group
 
-![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
+![Unsolved events by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
 
-Here you can see
-all the tags you have
-and the amount of each one
-that belong to each group
-of your organization.
+Unsolved [events](/machine/web/groups/events)
+refer to situations that arise
+within a group that prevent our
+experts from pentesting part of
+the scope —or maybe all of it—
+and have not been solved yet.
+The above chart shows you how
+many of these are in each of
+your groups.
 
 ## Vulnerability types by group
 
@@ -89,20 +93,6 @@ These graph shows the vulnerabilities
 that have been open for the
 highest amount of days.
 
-## Unsolved events by group
-
-![Unsolved events by group](https://res.cloudinary.com/fluid-attacks/image/upload/v1646408695/docs/web/analytics/organizations/org_unsolved_events_groups.png)
-
-Unsolved [events](/machine/web/groups/events)
-refer to situations that arise
-within a group that prevent our
-experts from pentesting part of
-the scope —or maybe all of it—
-and have not been solved yet.
-The above chart shows you how
-many of these are in each of
-your groups.
-
 ## Vulnerabilities by group
 
 ![Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_by_group.png)
@@ -110,6 +100,16 @@ your groups.
 The percentage of vulnerabilities
 that each group has compared with
 the whole organization.
+
+## Tags by groups
+
+![Tags By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443232/docs/web/analytics/organizations/tags_by_groups_jebb7a.png)
+
+Here you can see
+all the tags you have
+and the amount of each one
+that belong to each group
+of your organization.
 
 ## Overall availability of groups
 

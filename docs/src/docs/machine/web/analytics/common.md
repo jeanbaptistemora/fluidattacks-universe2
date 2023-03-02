@@ -426,6 +426,15 @@ for your vulnerabiities,
 for more information
 [click here](/machine/web/vulnerabilities/management/treatments/).
 
+## Accepted vulnerabilities by user
+
+![Accepted Vulns By User](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/accepted_vulns_by_user_pfrrpz.png)
+
+These are the accepted vulnerabilities
+grouped under the user
+with access to them
+that accepted the vulnerabilities.
+
 ## Exposure by assignee
 
 ![Exposure by Assignee](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
@@ -443,15 +452,6 @@ treatments they have given to
 or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
 assigned to them.
-
-## Accepted vulnerabilities by user
-
-![Accepted Vulns By User](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/accepted_vulns_by_user_pfrrpz.png)
-
-These are the accepted vulnerabilities
-grouped under the user
-with access to them
-that accepted the vulnerabilities.
 
 ## Report technique
 
