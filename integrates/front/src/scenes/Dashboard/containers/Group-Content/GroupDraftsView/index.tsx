@@ -16,7 +16,7 @@ import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
@@ -40,7 +40,7 @@ import {
   checkDuplicates,
   formatDrafts,
 } from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/utils";
-import { Col100, HintFieldText } from "styles/styledComponents";
+import { HintFieldText } from "styles/styledComponents";
 import { Have } from "utils/authz/Have";
 import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -312,7 +312,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           {({ dirty, isValid, values }): JSX.Element => (
             <Form>
               <Row>
-                <Col100>
+                <Col>
                   {dataHasDraftsRejected.me.hasDraftsRejected ? (
                     <Alert>{t("group.drafts.error.hasDraftsRejected")}</Alert>
                   ) : (
@@ -333,7 +333,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                       ])}
                     />
                   )}
-                </Col100>
+                </Col>
               </Row>
               {dirty && isValid ? (
                 <React.Fragment>
