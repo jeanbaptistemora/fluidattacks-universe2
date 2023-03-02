@@ -3,13 +3,9 @@ import { useTranslation } from "react-i18next";
 
 import { HeaderContainer } from "./styles";
 
-import { Row } from "components/Layout";
+import { Col, Row } from "components/Layout";
 import { Tag } from "components/Tag";
-import {
-  Col100,
-  EventHeaderGrid,
-  EventHeaderLabel,
-} from "styles/styledComponents";
+import { EventHeaderGrid, EventHeaderLabel } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
 
 interface IEventHeaderProps {
@@ -30,12 +26,12 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = ({
   return (
     <HeaderContainer>
       <Row>
-        <Col100>
+        <Col>
           <h2>{t(castEventType(eventType))}</h2>
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        <Col100>
+        <Col>
           <EventHeaderGrid>
             <EventHeaderLabel>
               {t("searchFindings.tabEvents.id")}
@@ -51,7 +47,7 @@ const EventHeader: (props: IEventHeaderProps) => JSX.Element = ({
               <Tag variant={"gray"}>{t(castEventStatus(eventStatus))}</Tag>
             </EventHeaderLabel>
           </EventHeaderGrid>
-        </Col100>
+        </Col>
       </Row>
     </HeaderContainer>
   );
