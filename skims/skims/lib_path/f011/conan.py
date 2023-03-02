@@ -47,6 +47,13 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
             )
 
 
+def format_conan_dep_info(dep_info: ast.Constant) -> DependencyType:
+    pkg_name, pkg_version = get_dep_info(dep_info.value)
+    line_num = dep_info.lineno
+    col_num = dep_info.col_offset + 1
+    return format_pkg_dep(pkg_name, pkg_version, line_num, line_num, col_num)
+
+
 def get_conanfile_class(content: str) -> Optional[ast.ClassDef]:
     conan_tree = ast.parse(content)
     for ast_object in conan_tree.body:
@@ -65,8 +72,8 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[Tuple[Any, Any]]:
             and attr.targets[0].id == "requires"
             and hasattr(attr.value, "elts")
         ):
-            for dep in attr.value.elts:
-                yield dep.value, dep.lineno
+            for dep_info in attr.value.elts:
+                yield dep_info.value, dep_info.lineno
 
 
 def get_conan_self_requires(
