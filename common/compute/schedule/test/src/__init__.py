@@ -108,6 +108,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
 
 def test_meta_active_maintainers(*, data: dict[str, Any]) -> bool:
     success: bool = True
+    repo: str = "fluidattacks/universe"
     session: Client = Client(
         transport=AIOHTTPTransport(
             url="https://gitlab.com/api/graphql",
@@ -137,7 +138,7 @@ def test_meta_active_maintainers(*, data: dict[str, Any]) -> bool:
     result: dict[str, Any] = dict(
         session.execute(
             query,
-            variable_values={"fullPath": "fluidattacks/universe"},
+            variable_values={"fullPath": repo},
         )
     )
     users: list[str] = [
@@ -149,6 +150,8 @@ def test_meta_active_maintainers(*, data: dict[str, Any]) -> bool:
         if not any(user in users for user in values["meta"]["maintainers"]):
             error(
                 f"No active users found in '{name}.meta.maintainers'."
+                " This means that none of the specified maintainers"
+                f" has access to {repo}."
                 " Schedules must have at least one active maintainer."
             )
             success = False

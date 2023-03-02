@@ -13,7 +13,7 @@ function main {
   export UNIVERSE_API_TOKEN
 
   : \
-    && DATA="$(yq -rec "." "__argSchedules__")" \
+    && DATA="$(cat "__argData__")" \
     && TF_VAR_schedules="$(python "__argParser__")" \
     && TF_VAR_sizes="$(yq -rec "." "__argSizes__")"
 }

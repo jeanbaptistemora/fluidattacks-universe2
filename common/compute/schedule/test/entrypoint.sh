@@ -5,7 +5,7 @@ function main {
   export SCHEMA
 
   : \
-    && DATA="$(yq -rec "." "__argData__")" \
+    && DATA="$(cat "__argData__")" \
     && python "__argSrc__"
 }
 
