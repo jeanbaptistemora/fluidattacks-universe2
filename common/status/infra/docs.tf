@@ -18,7 +18,9 @@ resource "checkly_check" "docs" {
 
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto("https://docs.fluidattacks.com/");
+    await page.goto("https://docs.fluidattacks.com/", {
+      waitUntil: "domcontentloaded"
+    });
     const title = await page.title();
 
     assert.equal(title, "Fluid Attacks Documentation | Fluid Attacks Documentation");
