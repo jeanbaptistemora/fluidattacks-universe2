@@ -4,7 +4,6 @@ from aws.model import (
     AWSEC2,
     AWSElb,
     AWSElbV2,
-    AWSS3Bucket,
 )
 from collections.abc import (
     Iterator,
@@ -29,7 +28,6 @@ from parse_cfn.structure import (
     iter_ec2_instances,
     iter_elb2_load_balancers,
     iter_elb_load_balancers,
-    iter_s3_buckets,
 )
 from typing import (
     Any,
@@ -37,20 +35,6 @@ from typing import (
 from utils.function import (
     get_node_by_keys,
 )
-
-
-def _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
-    file_ext: str,
-    buckets_iterator: Iterator[Node],
-) -> Iterator[AWSS3Bucket]:
-    for bucket in buckets_iterator:
-        logging = bucket.inner.get("LoggingConfiguration")
-        if not isinstance(logging, Node):
-            yield AWSS3Bucket(
-                column=bucket.start_column,
-                data=bucket.data,
-                line=get_line_by_extension(bucket.start_line, file_ext),
-            )
 
 
 def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
@@ -148,23 +132,6 @@ def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
                     data=attrs.data,
                     line=get_line_by_extension(attrs.start_line, file_ext),
                 )
-
-
-def cfn_bucket_has_logging_conf_disabled(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.bucket_has_logging_conf_disabled",
-        iterator=get_cloud_iterator(
-            _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
-                file_ext=file_ext,
-                buckets_iterator=iter_s3_buckets(template=template),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_LOG_CONF_DISABLED,
-    )
 
 
 def cfn_elb_has_access_logging_disabled(

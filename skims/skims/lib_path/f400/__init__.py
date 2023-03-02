@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f400.cloudformation import (
-    cfn_bucket_has_logging_conf_disabled,
     cfn_cf_distribution_has_logging_disabled,
     cfn_ec2_monitoring_disabled,
     cfn_elb2_has_access_logs_s3_disabled,
@@ -22,15 +21,6 @@ from parse_cfn.loader import (
 from typing import (
     Any,
 )
-
-
-@SHIELD_BLOCKING
-def run_cfn_bucket_has_logging_conf_disabled(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_bucket_has_logging_conf_disabled(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
 
 
 @SHIELD_BLOCKING
@@ -93,9 +83,6 @@ def analyze(
         for template in load_templates_blocking(content, fmt=file_extension):
             results = (
                 *results,
-                run_cfn_bucket_has_logging_conf_disabled(
-                    content, file_extension, path, template
-                ),
                 run_cfn_elb_has_access_logging_disabled(
                     content, file_extension, path, template
                 ),

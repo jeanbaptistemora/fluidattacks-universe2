@@ -103,7 +103,7 @@ F400,inputs,arn:aws:iam::aws:loadbalancer/ (namespace),/DistributionConfig/Loggi
   11 | }
      ^ Col 0
 ",aws.cloudfront_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,5,778,skims,400. Traceability Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_bucket_has_logging_disabled.yaml,5,778,skims,400. Traceability Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_root/f400/cfn_bucket_has_logging_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   S3Bucket1:
@@ -121,7 +121,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   15 |         LogFilePrefix: log_prefix
      ^ Col 0
 ",cloudformation.cfn_bucket_has_logging_conf_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,5,778,skims,400. Traceability Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_bucket_has_logging_disabled.yaml.json,5,778,skims,400. Traceability Loss - AWS,Missing LoggingConfiguration property to make traceability in namespace/skims/test/data/lib_root/f400/cfn_bucket_has_logging_disabled.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""S3Bucket1"": {
