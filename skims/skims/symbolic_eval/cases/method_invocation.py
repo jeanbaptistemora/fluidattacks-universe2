@@ -47,6 +47,9 @@ from symbolic_eval.f107.method_invocation import (
 from symbolic_eval.f112.method_invocation import (
     evaluate as evaluate_method_f112,
 )
+from symbolic_eval.f153.method_invocation import (
+    evaluate as evaluate_method_f153,
+)
 from symbolic_eval.f211.method_invocation import (
     evaluate as evaluate_method_f211,
 )
@@ -93,6 +96,7 @@ FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F091: evaluate_method_f091,
     FindingEnum.F107: evaluate_method_f107,
     FindingEnum.F112: evaluate_method_f112,
+    FindingEnum.F153: evaluate_method_f153,
     FindingEnum.F211: evaluate_method_f211,
     FindingEnum.F280: evaluate_method_f280,
     FindingEnum.F338: evaluate_method_f338,
@@ -175,19 +179,16 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     ):
         args.evaluation[args.n_id] = args.generic(args.fork_n_id(el_id)).danger
     else:
+        d_arguments = False
+        d_expression = False
+        d_object = False
+
         if al_id := n_attrs.get("arguments_id"):
             d_arguments = args.generic(args.fork_n_id(al_id)).danger
-        else:
-            d_arguments = False
-
         if expr_id := n_attrs.get("expression_id"):
-            d_expression = evaluate_method_expression(args, expr_id)
-        else:
-            d_expression = False
+            d_expression = args.generic(args.fork_n_id(expr_id)).danger
         if obj_id := n_attrs.get("object_id"):
             d_object = args.generic(args.fork_n_id(obj_id)).danger
-        else:
-            d_object = False
 
         args.evaluation[args.n_id] = d_expression or d_arguments or d_object
 

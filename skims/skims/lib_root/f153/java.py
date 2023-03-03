@@ -64,15 +64,10 @@ def is_vuln_plain(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def is_vuln_chain(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    dang_triggers: set[str] = {"placeholder"}
-
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == dang_triggers
-        ):
+
+        if evaluation and evaluation.danger:
             return True
     return False
 
@@ -95,7 +90,6 @@ def get_vuln_nodes_plain(
 def get_vuln_nodes_chain(
     graph: Graph, method: MethodsEnum, dang_invocations: set[str]
 ) -> Iterator[NId]:
-
     for n_id in get_suspicious_nodes(graph, dang_invocations):
         if check_danger_arguments(graph, n_id) and is_vuln_chain(
             graph, n_id, method
