@@ -1,33 +1,30 @@
+import { Field } from "formik";
 import React from "react";
 
 import type { IRootFieldProps } from "./types";
 
-import type { Root } from "../types";
-import { Select } from "components/Input";
-import { FormGroup } from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
-import { required } from "utils/validations";
+import { composeValidators, required } from "utils/validations";
 
 const RootField: React.FC<IRootFieldProps> = (
   props: IRootFieldProps
 ): JSX.Element => {
   const { roots } = props;
+  const nicknames = roots.map((root): string => root.nickname);
 
   return (
     <FormGroup>
-      <Select
-        label={translate.t("group.toe.inputs.addModal.fields.root")}
-        name={"rootId"}
-        validate={required}
-      >
-        {roots.map((root: Root): JSX.Element => {
-          return (
-            <option key={root.id} value={root.id}>
-              {root.nickname}
-            </option>
-          );
-        })}
-      </Select>
+      <ControlLabel>
+        {translate.t("group.toe.inputs.addModal.fields.root")}
+      </ControlLabel>
+      <Field
+        component={FormikAutocompleteText}
+        name={"rootNickname"}
+        suggestions={nicknames}
+        validate={composeValidators([required])}
+      />
     </FormGroup>
   );
 };

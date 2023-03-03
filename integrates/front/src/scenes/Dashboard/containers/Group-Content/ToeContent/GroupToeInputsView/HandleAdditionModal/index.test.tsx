@@ -1,11 +1,24 @@
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { ADD_TOE_INPUT, GET_ROOTS } from "./queries";
 
 import { HandleAdditionModal } from ".";
+import { msgSuccess } from "utils/notifications";
+
+jest.mock(
+  "../../../../../../../utils/notifications",
+  (): Record<string, unknown> => {
+    const mockedNotifications: Record<string, () => Record<string, unknown>> =
+      jest.requireActual("../../../../../../../utils/notifications");
+    jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
+
+    return mockedNotifications;
+  }
+);
 
 describe("Handle addition modal", (): void => {
   const refetchDataFn: jest.Mock = jest.fn();
@@ -88,7 +101,7 @@ describe("Handle addition modal", (): void => {
     });
   });
 
-  it("should input change", async (): Promise<void> => {
+  it("should submit form", async (): Promise<void> => {
     expect.hasAssertions();
 
     jest.clearAllMocks();
@@ -105,7 +118,7 @@ describe("Handle addition modal", (): void => {
 
     await screen.findByText("group.toe.inputs.addModal.title");
 
-    const rootInput = screen.getByRole("combobox", { name: "rootId" });
+    const rootInput = screen.getByRole("combobox", { name: "rootNickname" });
     const environmentInput = screen.getByRole("combobox", {
       name: "environmentUrl",
     });
@@ -119,9 +132,20 @@ describe("Handle addition modal", (): void => {
     fireEvent.change(componentInput, { target: { value: "test" } });
     fireEvent.change(entryPointInput, { target: { value: "test" } });
 
-    expect(rootInput).toHaveValue("4039d098-ffc5-4984-8ed3-eb17bca98e19");
+    expect(rootInput).toHaveValue("universe");
     expect(environmentInput).toHaveValue("https://app.fluidattacks.com/test");
     expect(componentInput).toHaveValue("test");
     expect(entryPointInput).toHaveValue("test");
+
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+
+    await waitFor((): void => {
+      expect(handleCloseModal).toHaveBeenCalledTimes(1);
+      expect(refetchDataFn).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.toe.inputs.addModal.alerts.success",
+        "groupAlerts.titleSuccess"
+      );
+    });
   });
 });

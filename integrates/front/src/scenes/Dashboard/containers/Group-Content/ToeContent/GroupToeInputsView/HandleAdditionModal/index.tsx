@@ -3,8 +3,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
 
 import { HandleAdditionModalForm } from "./form";
 import { ADD_TOE_INPUT, GET_ROOTS } from "./queries";
@@ -47,13 +48,16 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
       variables: { groupName },
     }
   );
-  const roots: (IGitRootAttr | IURLRootAttr)[] =
-    rootsData === undefined
-      ? []
-      : [
-          ...rootsData.group.roots.filter(isGitRoot).filter(isActiveGitRoot),
-          ...rootsData.group.roots.filter(isURLRoot).filter(isActiveURLRoot),
-        ];
+  const roots: (IGitRootAttr | IURLRootAttr)[] = useMemo(
+    (): (IGitRootAttr | IURLRootAttr)[] =>
+      rootsData === undefined
+        ? []
+        : [
+            ...rootsData.group.roots.filter(isGitRoot).filter(isActiveGitRoot),
+            ...rootsData.group.roots.filter(isURLRoot).filter(isActiveURLRoot),
+          ],
+    [rootsData]
+  );
 
   // GraphQL operations
   const [handleAddToeInput] = useMutation<IAddToeInputResultAttr>(
@@ -101,13 +105,29 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
             component: `${host}${values.path}`,
             entryPoint: values.entryPoint,
             groupName,
-            rootId: values.rootId,
+            rootId:
+              roots.find(
+                (root): boolean => root.nickname === values.rootNickname
+              )?.id ?? "",
           },
         });
       }
     },
-    [groupName, handleAddToeInput, host]
+    [groupName, handleAddToeInput, host, roots]
   );
+
+  const validations = object().shape({
+    rootNickname: string()
+      .oneOf(
+        roots.map((root): string => root.nickname),
+        t("validations.oneOf")
+      )
+      .when("reason", {
+        is: "MISSING_SUPPLIES",
+        otherwise: string().required(),
+        then: string().notRequired(),
+      }),
+  });
 
   return (
     <React.StrictMode>
@@ -124,10 +144,11 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
                   : "",
               path: "",
               rootId: _.isEmpty(roots) ? undefined : roots[0].id,
-              rootNickname: "",
+              rootNickname: _.isEmpty(roots) ? undefined : roots[0].nickname,
             }}
             name={"addToeInput"}
             onSubmit={handleSubmit}
+            validationSchema={validations}
           >
             <HandleAdditionModalForm
               handleCloseModal={handleCloseModal}

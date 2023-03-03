@@ -18,14 +18,14 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   const { handleCloseModal, host, roots, setHost } = props;
 
   const {
-    values: { environmentUrl, rootId },
+    values: { environmentUrl, rootNickname },
     submitForm,
     setFieldValue,
   } = useFormikContext<IFormValues>();
 
-  const selectedRoot = _.isUndefined(rootId)
+  const selectedRoot = _.isUndefined(rootNickname)
     ? undefined
-    : roots.filter((root: Root): boolean => root.id === rootId)[0];
+    : roots.filter((root: Root): boolean => root.nickname === rootNickname)[0];
 
   useEffect((): void => {
     function getNewHost(): string | undefined {
