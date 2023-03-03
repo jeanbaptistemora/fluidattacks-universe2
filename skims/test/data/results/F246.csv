@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,"
   51 |           - AvailabilityZone
   52 |       DBClusterIdentifier:
   53 |         Ref: RDSCluster
@@ -23,7 +23,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   71 |         Ref: password
      ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,"
   54 |       DBInstanceClass: db.r3.xlarge
   55 |       DBParameterGroupName:
   56 |         Ref: RDSDBParameterGroup
@@ -47,7 +47,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   74 |     Type: AWS::RDS::DBCluster
      ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,44,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,44,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,"
   34 |     Properties:
   35 |       DBClusterParameterGroupName:
   36 |         Ref: RDSDBClusterParameterGroup
@@ -71,7 +71,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   54 |       DBInstanceClass: db.r3.xlarge
      ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,76,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,76,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml,"
   66 |         Ref: RDSDBClusterParameterGroup
   67 |       DBSubnetGroupName:
   68 |         Ref: DBSubnetGroup
@@ -95,7 +95,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   86 |       DBSubnetGroupName:
      ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    51 |         ""DBSubnetGroupName"": {
    52 |           ""Ref"": ""DBSubnetGroup""
    53 |         },
@@ -119,7 +119,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
    71 |           ]
       ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    75 |         },
    76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
    77 |         ""DBParameterGroupName"": {
@@ -143,7 +143,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
    95 |           ""Ref"": ""DBSubnetGroup""
       ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    80 |         ""DBSubnetGroupName"": {
    81 |           ""Ref"": ""DBSubnetGroup""
    82 |         },
@@ -167,7 +167,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   100 |         },
       ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+F246,lines,namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
    98 |         ""MasterUserPassword"": {
    99 |           ""Ref"": ""password""
   100 |         },

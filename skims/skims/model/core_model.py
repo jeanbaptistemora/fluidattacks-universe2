@@ -4599,7 +4599,7 @@ class MethodsEnum(Enum):
     CFN_RDS_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_has_unencrypted_storage",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F246,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
