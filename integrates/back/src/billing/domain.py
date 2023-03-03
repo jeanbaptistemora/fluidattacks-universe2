@@ -147,7 +147,7 @@ async def _customer_has_payment_method(
     *,
     org_billing_customer: str,
 ) -> bool:
-    customer: Customer = await dal.get_customer(
+    customer: Customer = dal.get_customer(
         org_billing_customer=org_billing_customer,
     )
     return customer.default_payment_method is not None
@@ -297,7 +297,7 @@ async def update_subscription(
             upgrade=current.type == "machine" and subscription == "squad",
         )
     else:
-        result = await dal.remove_subscription(
+        result = dal.remove_subscription(
             subscription_id=current.id,
             invoice_now=current.type == "squad",
             prorate=True,
@@ -316,7 +316,7 @@ async def get_customer(
     if org_billing_customer is None:
         raise InvalidBillingCustomer()
 
-    return await dal.get_customer(
+    return dal.get_customer(
         org_billing_customer=org_billing_customer,
     )
 
@@ -331,12 +331,12 @@ async def customer_payment_methods(
     payment_methods = []
 
     if org.billing_customer is not None:
-        customer: Customer = await dal.get_customer(
+        customer: Customer = dal.get_customer(
             org_billing_customer=org.billing_customer,
         )
         stripe_payment_methods: list[
             dict[str, Any]
-        ] = await dal.get_customer_payment_methods(
+        ] = dal.get_customer_payment_methods(
             org_billing_customer=org.billing_customer,
             limit=limit,
         )
@@ -417,7 +417,7 @@ async def customer_portal(
         )
         org_billing_customer = customer.id
 
-    return await dal.get_customer_portal(
+    return dal.get_customer_portal(
         org_billing_customer=org_billing_customer,
         org_name=org_name,
     )
@@ -453,7 +453,7 @@ async def create_billing_customer(
             user_email=user_email,
         )
     else:
-        customer = await dal.get_customer(
+        customer = dal.get_customer(
             org_billing_customer=billing_customer,
         )
 
@@ -612,7 +612,7 @@ async def create_credit_card_payment_method(
     # If payment method is the first one registered or selected as default,
     # then make it default
     if not customer.default_payment_method or make_default:
-        await dal.update_default_payment_method(
+        dal.update_default_payment_method(
             payment_method_id=created.id,
             org_billing_customer=customer.id,
         )
@@ -730,7 +730,7 @@ async def update_credit_card_payment_method(
         card_expiration_year=card_expiration_year,
     )
     if make_default:
-        result = result and await dal.update_default_payment_method(
+        result = result and dal.update_default_payment_method(
             payment_method_id=payment_method_id,
             org_billing_customer=org.billing_customer,
         )
@@ -821,7 +821,7 @@ async def _set_default_payment(
             if not payment_method.default
         ]
 
-        result = await dal.update_default_payment_method(
+        result = dal.update_default_payment_method(
             payment_method_id=non_defaults[0].id,
             org_billing_customer=org.billing_customer,
         )
@@ -893,7 +893,7 @@ async def remove_payment_method(
 
         return True
 
-    subscriptions: list[Subscription] = await dal.get_customer_subscriptions(
+    subscriptions: list[Subscription] = dal.get_customer_subscriptions(
         org_billing_customer=org.billing_customer,
         limit=1000,
         status="",

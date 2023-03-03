@@ -95,7 +95,7 @@ async def _pay_squad_authors_to_date(
 ) -> bool:
     """Pay squad authors to date"""
     authors: int = await _get_subscription_usage(subscription=subscription)
-    customer: Customer = await get_customer(
+    customer: Customer = get_customer(
         org_billing_customer=subscription.org_billing_customer,
     )
 
@@ -278,7 +278,7 @@ def get_group_subscriptions(
     ]
 
 
-async def get_customer(
+def get_customer(
     *,
     org_billing_customer: str,
 ) -> Customer:
@@ -312,7 +312,7 @@ async def get_customer(
     )
 
 
-async def get_customer_subscriptions(
+def get_customer_subscriptions(
     *,
     org_billing_customer: str,
     limit: int = 1000,
@@ -343,7 +343,7 @@ async def get_customer_subscriptions(
     ]
 
 
-async def get_customer_payment_methods(
+def get_customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
 ) -> list[dict[str, Any]]:
     """Return list of customer's payment methods"""
@@ -354,7 +354,7 @@ async def get_customer_payment_methods(
     ).data
 
 
-async def get_customer_portal(
+def get_customer_portal(
     *,
     org_billing_customer: str,
     org_name: str,
@@ -385,7 +385,7 @@ def update_payment_method(
     )
 
 
-async def update_default_payment_method(
+def update_default_payment_method(
     *,
     payment_method_id: str,
     org_billing_customer: str | None,
@@ -410,7 +410,7 @@ def remove_payment_method(
     )
 
 
-async def remove_subscription(
+def remove_subscription(
     *,
     subscription_id: str,
     invoice_now: bool,
