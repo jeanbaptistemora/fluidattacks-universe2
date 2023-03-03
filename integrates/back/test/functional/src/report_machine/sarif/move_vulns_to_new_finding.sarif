@@ -1,0 +1,167 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "universe"
+        }
+      },
+      "results": [
+        {
+          "guid": 11646881273487799098,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skims/test/data/lib_path/f011/requirements.txt"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "  1 | boto3\n  2 | jmespath\n  3 | python-dateutil\n  4 | s3transfer\n  5 | six\n    ^ Col 0"
+                  },
+                  "startLine": 0
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {
+              "dependency_name": "urllib3"
+            },
+            "text": "The dependency is not explicitly declared in your requirements.txt in universe/skims/test/data/lib_path/f011/requirements.txt"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "lsaavedra@fluidattacks.com",
+            "source_method": "python.pip_incomplete_dependencies_list",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "002",
+          "taxa": [
+            {
+              "id": "302",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        },
+        {
+          "guid": 11646881273487799098,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skims/test/data/lib_path/f011/requirements.txt"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "  1 | boto3\n  2 | jmespath\n  3 | python-dateutil\n  4 | s3transfer\n  5 | six\n    ^ Col 0"
+                  },
+                  "startLine": 0
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {
+              "dependency_name": "botocore"
+            },
+            "text": "The dependency is not explicitly declared in your requirements.txt in universe/skims/test/data/lib_path/f011/requirements.txt"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "lsaavedra@fluidattacks.com",
+            "source_method": "python.pip_incomplete_dependencies_list",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "002",
+          "taxa": [
+            {
+              "id": "302",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": false,
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [
+            {
+              "fullDescription": {
+                "text": "The usage of third-party software and libraries is very common in modern applications, as it greatly reduces the effort required to develop them. Unfortunately, this software may introduce vulnerabilities into the application, which causes it to require frequent updates. In order to ease the constant update process, instead of directly including third-party software source code in application repositories, it should merely be referenced and managed using a package manager.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/302",
+              "id": "302",
+              "name": "Declare dependencies explicitly",
+              "shortDescription": {
+                "text": "All dependencies (third-party software/libraries) must be explicitly declared (name and specific version) in a file inside the source code repository. Their source code must not be directly included in the repository.\n"
+              }
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "Dependencies are not explicitly declared (name and version) within the source code. They are copied directly into the repositories.\n"
+              },
+              "help": {
+                "text": "All dependencies must be declared and must referenced with a dependency manager (npm, pip, maven). This allows to standardize projects construction and packaging.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/002#details",
+              "id": "002",
+              "name": "Non-upgradable dependencies",
+              "properties": {
+                "auto_approve": "true"
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "lsaavedraatfluid",
+          "repositoryUri": "https://gitlab.com/fluidattacks/universe.git",
+          "revisionId": "6e38c1c855ff9d87f9e51247a23fb17d5ae9b617"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0"
+}

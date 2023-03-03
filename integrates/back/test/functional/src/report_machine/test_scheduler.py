@@ -609,3 +609,94 @@ async def test_has_redirect_url_report(populate: bool) -> None:
 
         assert id_2 == id_1
         assert status_2 == VulnerabilityStateStatus.VULNERABLE
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report_machine")
+async def test_move_vulns_new_finding(populate: bool) -> None:
+    assert populate
+    with open(
+        "back/test/functional/src/report_machine/sarif/"
+        "move_vulns_to_new_finding.sarif",
+        "rb",
+    ) as sarif:
+        sarif_report = json.load(sarif)
+
+    with mock.patch(
+        "server.report_machine.get_config",
+        side_effect=mock.AsyncMock(
+            return_value={
+                "namespace": "nickname",
+                "language": "EN",
+                "path": {"include": ["back/src/"], "exclude": []},
+                "apk": {"include": [], "exclude": []},
+            }
+        ),
+    ):
+        with mock.patch(
+            "server.report_machine.get_sarif_log",
+            side_effect=mock.AsyncMock(return_value=sarif_report),
+        ), mock.patch(
+            "server.report_machine.get_vulns_file",
+            side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
+        ):
+            await process_execution("group1_1234345")
+
+            loaders = get_new_context()
+            group_findings = await loaders.group_drafts_and_findings.load(
+                "group1"
+            )
+            old_finding_002: Finding | None = next(
+                (
+                    finding
+                    for finding in group_findings
+                    if "002" in finding.title
+                    and finding.id == "5b274854-f2b3-4832-bd62-9d14caebdcc3"
+                ),
+                None,
+            )
+            new_finding_002: Finding | None = next(
+                (
+                    finding
+                    for finding in group_findings
+                    if "002" in finding.title
+                    and finding.id != "5b274854-f2b3-4832-bd62-9d14caebdcc3"
+                ),
+                None,
+            )
+            assert new_finding_002 is not None
+            assert old_finding_002 is not None
+            new_integrates_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+                vuln
+                for vuln in await loaders.finding_vulnerabilities.load(
+                    new_finding_002.id
+                )
+                if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
+                and vuln.state.source == Source.MACHINE
+                and vuln.root_id == "88637616-41d4-4242-854a-db8ff7fe1ab6"
+            )
+            assert len(new_integrates_vulnerabilities) == 1
+            old_integrates_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+                vuln
+                for vuln in await loaders.finding_vulnerabilities.load(
+                    old_finding_002.id
+                )
+                if vuln.state.status == VulnerabilityStateStatus.SAFE
+                if vuln.state.source == Source.MACHINE
+                and vuln.root_id == "88637616-41d4-4242-854a-db8ff7fe1ab6"
+            )
+            closed_vuln = await loaders.vulnerability.load(
+                "59fe52fb-d065-4d23-b42b-5988b960dc59"
+            )
+            assert closed_vuln
+            closed_vuln_historic = (
+                await loaders.vulnerability_historic_state.load(
+                    "59fe52fb-d065-4d23-b42b-5988b960dc59"
+                )
+            )
+            assert len(old_integrates_vulnerabilities) == 2
+            assert closed_vuln.state.status == VulnerabilityStateStatus.SAFE
+            assert (
+                closed_vuln_historic[-1].commit
+                == "6e38c1c855ff9d87f9e51247a23fb17d5ae9b617"
+            )
