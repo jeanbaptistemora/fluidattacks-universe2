@@ -63,7 +63,7 @@ def java_insecure_parser(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f052.insecure_connection.description",
+        desc_key="lib_root.f083.generic_xml_parser",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=MethodsEnum.JAVA_XML_PARSER,

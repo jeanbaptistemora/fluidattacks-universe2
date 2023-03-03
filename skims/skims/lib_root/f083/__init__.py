@@ -1,3 +1,6 @@
+from lib_root.f083.java import (
+    java_insecure_parser,
+)
 from lib_root.f083.javascript import (
     js_xml_parser,
 )
@@ -17,4 +20,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, js_xml_parser),
     (FINDING, python_xml_parser),
     (FINDING, ts_xml_parser),
+    (FINDING, java_insecure_parser),
 )
