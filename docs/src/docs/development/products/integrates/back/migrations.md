@@ -128,7 +128,7 @@ Once you know that your migration
 does what it is supposed to do,
 it is recommended to execute it
 using a
-[Batch schedule](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/schedule/schedules.nix):
+[Batch schedule](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/schedule/data.nix):
 
 1. Write your migration.
 1. Create a batch schedule that executes the migration.
@@ -146,7 +146,7 @@ If something goes wrong,
 you have the option to restore data from a backup.
 
 1. Follow the instructions at https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.Tutorial.html
-    to restore a Point In Time into a new table.
+   to restore a Point In Time into a new table.
 1. Restore the data by reading from the recovery table,
    and writing into the main table
 1. Remove the recovery table

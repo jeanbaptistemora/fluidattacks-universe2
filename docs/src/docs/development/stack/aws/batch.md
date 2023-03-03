@@ -109,7 +109,7 @@ Cons:
 
 We use [Batch][batch] for running
 
-- [Production background schedules](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/schedule/schedules.nix)
+- [Production background schedules](https://gitlab.com/fluidattacks/universe/-/blob/e77b8365a6e1d14e5261c62e9c96c34494957392/common/compute/schedule/data.nix)
   for all our products.
 - [ARM background tasks](https://gitlab.com/fluidattacks/universe/blob/37b52839d969fe37b4d583756409349f4154ff53/integrates/back/src/batch/enums.py#L21)
   like cloning roots and refreshing targets of evaluation.
@@ -136,30 +136,60 @@ We use [Batch][batch] for running
 - [Terraform infrastructure](https://gitlab.com/fluidattacks/universe/-/blob/f4def5d3312635b15224d07d840f4aa368b6f93e/common/compute/infra/schedules.tf#L5)
   for such schedule will also be provisioned.
 
-### Local reproducibility in schedules
+### Schedules
 
-Following [this link](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/schedule/schedules.nix),
-you can find all schedules.
-Once a new schedule is
-declared in that file,
-two things happen:
+Schedules are a powerful way to run tasks periodically.
 
-- All the infrastructure is created
-  via Terraform to execute the
-  schedule periodically.
-- A job in Makes is created
-  with the format
-  `computeOnAwsBatch/schedule_<name>`
-  for local reproducibility.
+You can find all schedules [here](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/schedule/data.nix).
+
+#### Creating a new schedule
+
+We highly advise you to take a look
+at the currently existing schedules
+to get an idea of what is required.
+
+Some special considerations are:
+
+1. The `scheduleExpression` option follows
+   the [AWS schedule expression syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html).
+1. The `meta.lastReview` option has
+   a `DD-MM-YYYY` format.
+
+#### Testing the schedules
+
+Schedules are tested by two Makes jobs:
+
+1. `m . /common/compute/schedule/test` Grants that
+   - all schedules comply with a given schema;
+   - all schedules have at least one active maintainer;
+   - every schedule is reviewed by a maintainer on a monthly basis.
+1. `m . /deployTerraform/commonCompute`
+   Tests infrastructure
+   that will be deployed when new
+   schedules are created
+
+#### Deploying schedules to production
+
+Once a schedule reaches production,
+required infrastructure for running it is created.
+
+Technical details can be found [here](https://gitlab.com/fluidattacks/universe/-/blob/trunk/common/compute/infra/schedules.tf).
+
+#### Local reproducibility in schedules
+
+Once a new schedule is declared,
+A Makes job is created
+with the format
+`computeOnAwsBatch/schedule_<name>`
+for local reproducibility.
 
 Generally,
 to run any schedule,
-all that is necessary is to
-export the `UNIVERSE_API_TOKEN`
-variable.
-Bear in mind that `schedules.nix`
-becomes the single source of
-truth regarding schedules.
+all that is necessary
+is to export the `UNIVERSE_API_TOKEN` variable.
+Bear in mind that `data.nix`
+becomes the single source of truth
+regarding schedules.
 Everything is defined there,
 albeit with a few exceptions.
 
