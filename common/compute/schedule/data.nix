@@ -10,7 +10,7 @@
       "gitlab:fluidattacks/universe@trunk"
       "/common/ci/clean-keys"
     ];
-    enable = true;
+    enable = false;
     environment = [
       "CACHIX_AUTH_TOKEN"
     ];
@@ -20,6 +20,7 @@
       '';
       lastReview = "01-03-2023";
       maintainers = [
+        "acuberos"
         "dsalazar"
         "jperez"
       ];
@@ -949,12 +950,12 @@
     ];
     meta = {
       description = ''
-        Report squad usage to Stripe.
+        Report Squad subscription usage to Stripe.
       '';
       lastReview = "02-03-2023";
       maintainers = [
-        "dsalazar"
         "dacevedo"
+        "kcamargo"
       ];
       requiredBy = [
         ''
