@@ -209,11 +209,14 @@ resource "cloudflare_record" "caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
-  value   = "0 issue \"amazon.com\""
+  data {
+    tag   = "issue"
+    value = "amazon.com"
+    flags = "0"
+  }
   ttl     = 3600
   proxied = false
 }
-
 resource "cloudflare_page_rule" "redirect_landing" {
   zone_id  = data.cloudflare_zone.fluidattacks_com.id
   target   = "landing.${data.cloudflare_zone.fluidattacks_com.name}/*"
