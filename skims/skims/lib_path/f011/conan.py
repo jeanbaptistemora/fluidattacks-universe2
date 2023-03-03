@@ -59,7 +59,7 @@ def get_conanfile_class(content: str) -> ast.ClassDef | None:
     return None
 
 
-def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[ast.Constant]:
+def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[DependencyType]:
     for attr in conan_class.body:
         if (
             isinstance(attr, ast.Assign)
@@ -68,7 +68,7 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[ast.Constant]:
             and hasattr(attr.value, "elts")
         ):
             for dep_info in attr.value.elts:
-                yield dep_info
+                yield format_conan_dep_info(dep_info)
 
 
 def get_conan_self_requires(
@@ -88,24 +88,15 @@ def get_conan_self_requires(
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.CONAN, MethodsEnum.CONAN_CONANFILE_PY)
 def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
-    line_deps: bool = False
+    conan_class = get_conanfile_class(content)
+    if conan_class:
+        yield from get_conan_requires(conan_class)
     for line_number, line in enumerate(content.splitlines(), 1):
         if matched := SELF_REQUIRES.search(line):
             pkg_name, pkg_version = get_dep_info(matched.group("pkg"))
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
-        elif CONANFILE_PY_DEP.search(line):
-            line_deps = True
-        elif line_deps:
-            if not line:
-                line_deps = False
-            if matched := re.search(r'"(.*)"', line):
-                line = matched.group(1)
-                pkg_name, pkg_version = get_dep_info(line)
-                yield format_pkg_dep(
-                    pkg_name, pkg_version, line_number, line_number
-                )
 
 
 # pylint: disable=unused-argument
