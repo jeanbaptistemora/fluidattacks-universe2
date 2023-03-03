@@ -135,7 +135,6 @@ from typing import (
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment(
     populate: bool,
     email: str,
@@ -160,15 +159,15 @@ async def test_update_vulnerabilities_treatment(
     assert vulnerability_response["data"]["vulnerability"][
         "historicTreatmentStatus"
     ][-1]["treatment"] == get_inverted_treatment_converted(current)
-
-    result: dict = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment["treatment"],
-        assigned=assigned,
-        acceptance_date=acceptance_date,
-    )
+    with freeze_time("2021-03-31"):
+        result: dict = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment["treatment"],
+            assigned=assigned,
+            acceptance_date=acceptance_date,
+        )
     await sleep(5)
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
@@ -258,7 +257,6 @@ async def test_update_vulnerabilities_treatment(
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment_non_manager(
     populate: bool,
     email: str,
@@ -269,14 +267,15 @@ async def test_update_vulnerabilities_treatment_non_manager(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date=acceptance_date,
-    )
+    with freeze_time("2021-03-31"):
+        result: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date=acceptance_date,
+        )
     assert "errors" not in result
     assert result["data"]["updateVulnerabilitiesTreatment"]["success"]
     vulnerability_response: dict[str, Any] = await get_vulnerability(
@@ -304,7 +303,6 @@ async def test_update_vulnerabilities_treatment_non_manager(
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment_closed(
     populate: bool,
     email: str,
@@ -315,14 +313,15 @@ async def test_update_vulnerabilities_treatment_closed(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date=acceptance_date,
-    )
+    with freeze_time("2021-03-31"):
+        result: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date=acceptance_date,
+        )
     assert "errors" in result
     assert result["errors"][0]["message"] == str(VulnAlreadyClosed())
 
@@ -340,7 +339,6 @@ async def test_update_vulnerabilities_treatment_closed(
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     populate: bool,
     email: str,
@@ -355,15 +353,15 @@ async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
     assert finding
-
-    result_1: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-04-02 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result_1: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-04-02 19:45:11",
+        )
     assert "errors" not in result_1
     assert result_1["data"]["updateVulnerabilitiesTreatment"]["success"]
 
@@ -381,15 +379,15 @@ async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     )
     assert "errors" not in update_policies_1
     assert update_policies_1["data"]["updateOrganizationPolicies"]["success"]
-
-    result_2: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-05-11 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result_2: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-05-11 19:45:11",
+        )
     assert "errors" in result_2
     assert result_2["errors"][0]["message"] == str(
         InvalidAcceptanceDays(
@@ -412,15 +410,15 @@ async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     )
     assert "errors" not in update_policies_2
     assert update_policies_2["data"]["updateOrganizationPolicies"]["success"]
-
-    result_3: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-05-21 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result_3: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-05-21 19:45:11",
+        )
     assert "errors" in result_3
     assert result_3["errors"][0]["message"] == str(
         InvalidAcceptanceSeverity(str(get_severity_score(finding.severity)))
@@ -440,7 +438,6 @@ async def test_update_vulnerabilities_treatment_invalid_organization_policies(
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment_invalid_group_policies(
     populate: bool,
     email: str,
@@ -471,15 +468,15 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
     assert organization_policies["data"]["updateOrganizationPolicies"][
         "success"
     ]
-
-    result_1: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-04-02 19:45:12",
-    )
+    with freeze_time("2021-03-31"):
+        result_1: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-04-02 19:45:12",
+        )
     assert "errors" not in result_1
     assert result_1["data"]["updateVulnerabilitiesTreatment"]["success"]
 
@@ -495,15 +492,15 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
     )
     assert "errors" not in update_policies_1
     assert update_policies_1["data"]["updateGroupPolicies"]["success"]
-
-    result_2: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-05-11 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result_2: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-05-11 19:45:11",
+        )
     assert "errors" in result_2
     assert result_2["errors"][0]["message"] == str(
         InvalidAcceptanceDays(
@@ -524,15 +521,15 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
     )
     assert "errors" not in update_policies_2
     assert update_policies_2["data"]["updateGroupPolicies"]["success"]
-
-    result_3: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=assigned,
-        acceptance_date="2021-05-21 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result_3: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=assigned,
+            acceptance_date="2021-05-21 19:45:11",
+        )
     assert "errors" in result_3
     assert result_3["errors"][0]["message"] == str(
         InvalidAcceptanceSeverity(str(get_severity_score(finding.severity)))
@@ -566,7 +563,6 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
         ),
     ),
 )
-@freeze_time("2021-03-31")
 async def test_update_vulnerabilities_treatment_fail(
     populate: bool,
     email: str,
@@ -575,14 +571,15 @@ async def test_update_vulnerabilities_treatment_fail(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: dict[str, Any] = await put_mutation(
-        user=email,
-        finding=finding_id,
-        vulnerability=vulnerability,
-        treatment=treatment,
-        assigned=email,
-        acceptance_date="2021-03-31 19:45:11",
-    )
+    with freeze_time("2021-03-31"):
+        result: dict[str, Any] = await put_mutation(
+            user=email,
+            finding=finding_id,
+            vulnerability=vulnerability,
+            treatment=treatment,
+            assigned=email,
+            acceptance_date="2021-03-31 19:45:11",
+        )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
 

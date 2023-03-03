@@ -97,7 +97,6 @@ async def _get_vulns(
         ["reattacker@gmail.com"],
     ],
 )
-@freeze_time("2022-02-09")
 async def test_upload_file(
     # pylint: disable=too-many-locals
     populate: bool,
@@ -107,11 +106,12 @@ async def test_upload_file(
     loaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"
-    result: dict[str, Any] = await get_result(
-        user=email,
-        finding=finding_id,
-        yaml_file_name=file_name,
-    )
+    with freeze_time("2022-02-09"):
+        result: dict[str, Any] = await get_result(
+            user=email,
+            finding=finding_id,
+            yaml_file_name=file_name,
+        )
     assert "errors" not in result
     assert result["data"]["uploadFile"]["success"]
     assert await _get_vulns(loaders, finding_id, "group1") == [

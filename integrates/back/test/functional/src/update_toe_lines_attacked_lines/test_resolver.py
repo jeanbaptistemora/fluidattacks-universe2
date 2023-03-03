@@ -20,19 +20,20 @@ from typing import (
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-05-05T07:00:00+00:00")
 async def test_update_toe_lines_attacked_lines_set_lines(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
-        user=email,
-        group_name="group1",
-        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
-        filename="test/test#.config",
-        attacked_lines=180,
-        comments="edited comments 1",
-    )
+    with freeze_time("2021-05-05T07:00:00+00:00"):
+        result: dict[str, Any] = await get_result(
+            user=email,
+            group_name="group1",
+            root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+            filename="test/test#.config",
+            attacked_lines=180,
+            comments="edited comments 1",
+        )
+
     await asyncio.sleep(8)
 
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
@@ -70,19 +71,19 @@ async def test_update_toe_lines_attacked_lines_set_lines(
         ["admin@fluidattacks.com"],
     ],
 )
-@freeze_time("2021-05-06T07:00:00+00:00")
 async def test_update_toe_lines_attacked_lines_not_set_lines(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
-        user=email,
-        group_name="group2",
-        root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-        filename="test2/test.sh",
-        attacked_lines=None,
-        comments="edited comments 2",
-    )
+    with freeze_time("2021-05-06T07:00:00+00:00"):
+        result: dict[str, Any] = await get_result(
+            user=email,
+            group_name="group2",
+            root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+            filename="test2/test.sh",
+            attacked_lines=None,
+            comments="edited comments 2",
+        )
     await asyncio.sleep(8)
 
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
