@@ -12,9 +12,6 @@ from model.core_model import (
     Platform,
 )
 import re
-from typing import (
-    Any,
-)
 
 CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
 SELF_REQUIRES: re.Pattern[str] = re.compile(
@@ -62,7 +59,7 @@ def get_conanfile_class(content: str) -> ast.ClassDef | None:
     return None
 
 
-def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[tuple[Any, Any]]:
+def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[ast.Constant]:
     for attr in conan_class.body:
         if (
             isinstance(attr, ast.Assign)
@@ -71,12 +68,12 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[tuple[Any, Any]]:
             and hasattr(attr.value, "elts")
         ):
             for dep_info in attr.value.elts:
-                yield dep_info.value, dep_info.lineno
+                yield dep_info
 
 
 def get_conan_self_requires(
     conan_class: ast.ClassDef,
-) -> Iterator[tuple[Any, Any]]:
+) -> Iterator[ast.Constant]:
     for node in conan_class.body:
         if isinstance(node, ast.FunctionDef) and node.name == "requirements":
             for req_node in node.body:
@@ -85,8 +82,7 @@ def get_conan_self_requires(
                     and req_node.value.func.value.id == "self"
                     and req_node.value.func.attr == "requires"
                 ):
-                    dep_info = req_node.value.args[0]
-                    yield dep_info.value, dep_info.lineno
+                    yield req_node.value.args[0]
 
 
 # pylint: disable=unused-argument
