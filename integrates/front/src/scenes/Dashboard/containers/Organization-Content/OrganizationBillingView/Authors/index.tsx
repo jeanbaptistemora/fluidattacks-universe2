@@ -91,15 +91,14 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
         );
         const actorName: string = _.capitalize(actor?.name);
         const actorEmail = actor?.email;
-        const activeGroups: string = author.activeGroups
+        const groupsAuthors: string = author.activeGroups
           .map((group: IOrganizationActiveGroupAttr): string => group.name)
           .join(", ");
 
         return {
-          ...author,
-          activeGroups,
           actorEmail,
           actorName,
+          groupsAuthors,
         };
       }
     );
@@ -114,7 +113,7 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       header: t("organization.tabs.billing.authors.headers.authorEmail"),
     },
     {
-      accessorKey: "activeGroups",
+      accessorKey: "groupsAuthors",
       header: t("organization.tabs.billing.authors.headers.activeGroups"),
     },
   ];
@@ -133,8 +132,8 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       type: "text",
     },
     {
-      id: "activeGroups",
-      key: "activeGroups",
+      id: "groupsAuthors",
+      key: "groupsAuthors",
       label: t("organization.tabs.billing.authors.headers.activeGroups"),
       type: "text",
     },
@@ -174,6 +173,12 @@ export const OrganizationAuthors: React.FC<IOrganizationAuthorAttrsProps> = ({
       </Row>
       <Table
         columns={tableColumns}
+        csvHeaders={{
+          groupsAuthors: t(
+            "organization.tabs.billing.authors.headers.activeGroups"
+          ),
+        }}
+        csvName={t("organization.tabs.billing.authors.title")}
         data={filteredDataset}
         exportCsv={true}
         filters={<Filters filters={filters} setFilters={setFilters} />}

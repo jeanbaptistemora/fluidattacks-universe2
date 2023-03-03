@@ -23,8 +23,8 @@ interface IGetOrganizationBilling {
 
 interface IOrganizationAuthorsTable {
   actorName: string;
-  activeGroups: string;
   actorEmail: string | undefined;
+  groupsAuthors: string;
 }
 
 export type {
