@@ -1686,7 +1686,8 @@
       requiredBy = [
         ''
           Internal analytics (Gitlab ETL),
-          since the ETL stops pagination when getting a non terminated job
+          since the ETL stops pagination
+          when getting a non terminated job.
         ''
       ];
     };
@@ -1724,7 +1725,8 @@
         "kcamargo"
       ];
       requiredBy = [
-        "Billing process"
+        "Integrates to show authors consumption"
+        "Integrates to bill clients"
       ];
     };
     parallel = 1;
@@ -1763,7 +1765,10 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        ''
+          Business to track metrics about
+          product and development performance.
+        ''
       ];
     };
     parallel = 1;
@@ -1802,7 +1807,11 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        ''
+          Business to track metrics about
+          web visits to sites like
+          integrates and the airs.
+        ''
       ];
     };
     parallel = 1;
@@ -1840,7 +1849,7 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        "Business to track ARM events"
       ];
     };
     parallel = 1;
@@ -1868,9 +1877,10 @@
     ];
     meta = {
       description = ''
-        Extract data from Timedoctor
-        to feed Redshift
-        for later analytics processing.
+        Extract entire Timedoctor
+        history from s3
+        and update redshift
+        for later analytics usage.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1878,7 +1888,11 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        ''
+          Business to track metrics
+          about employee working time
+          and performance.
+        ''
       ];
     };
     parallel = 1;
@@ -1906,6 +1920,9 @@
     ];
     meta = {
       description = ''
+        Extract Timedoctor history
+        from the last month
+        and add it to S3.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1913,7 +1930,11 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        ''
+          observes_etl_timedoctor
+          as it uses the provided s3 history
+          for populating Redshift.
+        ''
       ];
     };
     parallel = 1;
@@ -1951,7 +1972,11 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics"
+        ''
+          Business to track metrics
+          about opportunities, contracts
+          sales, etc.
+        ''
       ];
     };
     parallel = 1;
@@ -1979,6 +2004,9 @@
     ];
     meta = {
       description = ''
+        Create a request on Zoho CRM
+        to export data that will later
+        be user.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1986,7 +2014,11 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Zoho CRM ETL"
+        ''
+          observes_etl_zoho_crm_fluid
+          as it uses the exported data
+          once it becomes available.
+        ''
       ];
     };
     parallel = 1;
@@ -2015,7 +2047,8 @@
     ];
     meta = {
       description = ''
-        Legacy schedules trigger
+        Runs Python code for legacy custom schedules
+        that have not been migrated yet.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -2023,7 +2056,10 @@
         "rrodriguez"
       ];
       requiredBy = [
-        "Internal analytics (this handles all other ETLs triggers)"
+        ''
+          Old schedules that still require
+          the old scheduler to work.
+        ''
       ];
     };
     parallel = 1;
@@ -2061,7 +2097,9 @@
         "acuberos"
         "drestrepo"
       ];
-      requiredBy = [];
+      requiredBy = [
+        "OWASP Foundation scanners list"
+      ];
     };
     parallel = 1;
     scheduleExpression = "cron(0 11-23/2 * * ? *)";
