@@ -27,6 +27,7 @@
   ];
   bin_deps = [
     nixpkgs.tap-google-sheets
+    nixpkgs.target-redshift
     nixpkgs.sops
   ];
 

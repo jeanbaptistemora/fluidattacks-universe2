@@ -25,13 +25,18 @@
     };
   in
     pkg.env.bin;
+  target-redshift = let
+    root = projectPath observesIndex.target.redshift_2.root;
+    pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath observesIndex;
+  in
+    pkg.env.bin;
 
   out = import ./build {
     inherit python_version;
     nixpkgs =
       nixpkgs
       // {
-        inherit tap-google-sheets utils-logger-src;
+        inherit tap-google-sheets target-redshift utils-logger-src;
       };
     src = nix-filter {
       root = ./.;
