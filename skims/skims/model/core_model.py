@@ -3479,7 +3479,7 @@ class MethodsEnum(Enum):
     CFN_RDS_PUB_ACCESSIBLE = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_is_publicly_accessible",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F073,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

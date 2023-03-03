@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,30,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml,"
+F073,lines,namespace/skims/test/data/lib_root/f073/cfn_rds_is_publicly_accessible.yaml,30,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cfn_rds_is_publicly_accessible.yaml,"
   20 |           - Subnet1
   21 |           - AvailabilityZone
   22 |       DBClusterIdentifier:
@@ -23,7 +23,7 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
   40 |       MasterUserPassword:
      ^ Col 0
 ",cloudformation.cfn_rds_is_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,41,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessible.yaml.json,"
+F073,lines,namespace/skims/test/data/lib_root/f073/cfn_rds_is_publicly_accessible.yaml.json,41,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cfn_rds_is_publicly_accessible.yaml.json,"
    31 |           ""Ref"": ""RDSCluster""
    32 |         },
    33 |         ""DBInstanceClass"": ""db.r3.xlarge"",
