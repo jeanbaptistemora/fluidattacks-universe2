@@ -130,8 +130,8 @@
     skimsTreeSitterYaml = fetchGithub {
       owner = "jgomezb11";
       repo = "tree-sitter-yaml";
-      rev = "22d5085be4f1e17d4b33e0e2c1e679bef85f61ed";
-      sha256 = "ZgHatgSiv87nclDkUthXtf5RS3k6rYaOCnaR1rzl6wA=";
+      rev = "678657afa017fdafecdc222ea9d91bdabb98a8bf";
+      sha256 = "+m8zPyk7cN4ksFZ6aXcwwoYjmshJUo3CxUX85x7qnw4=";
     };
   };
 }

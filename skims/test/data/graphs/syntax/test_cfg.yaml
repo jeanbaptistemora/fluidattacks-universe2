@@ -23,3 +23,12 @@
    double-quotes: ""
    wildcard_in_single_quotes: '*'
    wildcard_in_double_quotes: "*"
+   CustomStatements:
+    [
+      {
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "execute-api:Invoke",
+        "Resource": ["execute-api:/*"],
+      },
+    ]
