@@ -4153,7 +4153,7 @@
     - osstmm3.11_7_2
     - nistssdf.PS_1_1
     - ptes.4_5_3
-    - mvsp.2_9
+    - mvsp.2_8
     - bsafss.EN_2-5
     - owaspmasvs.V1_8
     - nist800171.1_13
@@ -7107,7 +7107,7 @@
     - nistssdf.PS_2_1
     - ptes.7_7
     - owasprisks.P2
-    - mvsp.2_9
+    - mvsp.2_8
     - owaspscp.6
     - bsafss.SM_3-2
     - bsafss.EN_2-5
@@ -11305,7 +11305,7 @@
     - issaf.T_19_1
     - ptes.4_5_3
     - mvsp.2_2
-    - mvsp.2_9
+    - mvsp.2_8
     - owaspscp.9
     - owaspmasvs.V5_1
     - swiftcsc.2_6
@@ -11480,7 +11480,7 @@
     - ptes.4_5_3
     - owasprisks.P14
     - owasprisks.P15
-    - mvsp.2_9
+    - mvsp.2_8
     - owaspscp.9
     - owaspscp.14
     - bsafss.VM_3-2
@@ -12380,7 +12380,7 @@
     - hitrust.01_x
     - fedramp.MP-2
     - ptes.7_7
-    - mvsp.2_9
+    - mvsp.2_8
     - owaspscp.6
     - owaspmasvs.V3_5
     - nist800171.5_1

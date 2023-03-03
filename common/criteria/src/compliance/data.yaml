@@ -6422,37 +6422,37 @@ mvsp:
   definitions:
     "1_6":
       title: Business controls - Compliance
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://www.mvsp.dev/mvsp.en/
     "1_8":
-      title: Business controls - Data sanitization
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Business controls - Data handling
+      link: https://www.mvsp.dev/mvsp.en/
     "2_1":
-      title: Application design - Single Sign-On
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - Single Sign-On
+      link: https://www.mvsp.dev/mvsp.en/
     "2_2":
-      title: Application design - HTTPS only
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - HTTPS only
+      link: https://www.mvsp.dev/mvsp.en/
     "2_3":
-      title: Application design - Content Security Policy
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - Security Headers
+      link: https://www.mvsp.dev/mvsp.en/
     "2_4":
-      title: Application design - Password policy
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - Password policy
+      link: https://www.mvsp.dev/mvsp.en/
     "2_5":
-      title: Application design - Security libraries
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - Security libraries
+      link: https://www.mvsp.dev/mvsp.en/
     "2_7":
-      title: Application design - Logging
-      link: https://owasp.org/www-project-top-10-privacy-risks/
-    "2_9":
-      title: Application design - Encryption
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application design controls - Logging
+      link: https://www.mvsp.dev/mvsp.en/
+    "2_8":
+      title: Application design controls - Encryption
+      link: https://www.mvsp.dev/mvsp.en/
     "3_3":
-      title: Application implementation - Vulnerability prevention
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      title: Application implementation controls - Vulnerability prevention
+      link: https://www.mvsp.dev/mvsp.en/
     "4_2":
       title: Operational controls - Logical access
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://www.mvsp.dev/mvsp.en/
   metadata: {}
 owaspscp:
   title: OWASP SCP
