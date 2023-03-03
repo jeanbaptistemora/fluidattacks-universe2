@@ -211,6 +211,7 @@ resource "cloudflare_record" "caa" {
   type    = "CAA"
   value   = "0 issue \"amazon.com\""
   ttl     = 3600
+  proxied = false
 }
 
 resource "cloudflare_page_rule" "redirect_landing" {
