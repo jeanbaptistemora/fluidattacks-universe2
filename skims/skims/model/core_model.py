@@ -4140,6 +4140,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_ACCEPTS_ANY_MIMETYPE_CHAIN = MethodInfo(
+        file_name="java",
+        name="java_accepts_any_mime_type_chain",
+        module="lib_root",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     XML_ACCEPT_HEADER = MethodInfo(
         file_name="conf_files",
         name="xml_accept_header",
