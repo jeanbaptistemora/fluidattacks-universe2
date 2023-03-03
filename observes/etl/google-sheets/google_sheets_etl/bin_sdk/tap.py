@@ -43,6 +43,9 @@ from pathlib import (
     Path,
 )
 import sys
+from typing import (
+    IO,
+)
 
 
 @dataclass(frozen=True)
@@ -137,7 +140,11 @@ class TapGoogleSheets:
             self.config.to_file().bind(lambda f: f.extract())
         ).path
 
-    def discover(self) -> Cmd[ResultE[None]]:
+    def discover(
+        self,
+        out: IO[str] | None,
+        errors: IO[str] | None,
+    ) -> Cmd[ResultE[None]]:
         cmd = (
             "tap-google-sheets",
             "--config",
@@ -145,7 +152,7 @@ class TapGoogleSheets:
             "--discover",
         )
         process = RunningSubprocess.run_universal_newlines(
-            Subprocess(cmd, None, sys.stdout, Stdout.STDOUT),
+            Subprocess(cmd, None, out, errors),
         )
         return_code = process.bind(lambda p: p.wait(None))
         return return_code.map(
