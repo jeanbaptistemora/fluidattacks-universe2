@@ -393,7 +393,7 @@ export const enTranslations: ResourceKey = {
         button: "Go to the ARM platform",
         subtitle:
           "You will receive a notification by email " +
-          "when we find the first vulnerability. in the meantime, " +
+          "when we find the first vulnerability. In the meantime, " +
           "explore the ARM platform and learn about its main features",
         title:
           "Welcome to the Attack Resistance Management (ARM) platform: " +
