@@ -125,7 +125,7 @@ async def authz_azure(request: Request) -> HTMLResponse:
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
     email = user.get("email", user.get("upn", "")).lower()
-    await analytics.mixpanel_track(email, "LoginAzure")
+    await analytics.mixpanel_track(email.lower(), "LoginAzure")
     response = RedirectResponse(url="/home")
     await handle_user(
         request,
@@ -148,7 +148,9 @@ async def authz_bitbucket(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_bitbucket_oauth_userinfo(client, token)
-    await analytics.mixpanel_track(user.get("email", ""), "LoginBitbucket")
+    await analytics.mixpanel_track(
+        user.get("email", "").lower(), "LoginBitbucket"
+    )
     response = RedirectResponse(url="/home")
     await handle_user(request, response, user)  # type: ignore
     return response  # type: ignore
@@ -167,7 +169,9 @@ async def authz_google(request: Request) -> HTMLResponse:
         LOGGER.exception(ex, extra=dict(extra=locals()))
         return templates_utils.unauthorized(request)
     user = await utils.get_jwt_userinfo(client, request, token)
-    await analytics.mixpanel_track(user.get("email", ""), "LoginGoogle")
+    await analytics.mixpanel_track(
+        user.get("email", "").lower(), "LoginGoogle"
+    )
     response = RedirectResponse(url="/home")
     await handle_user(request, response, user)  # type: ignore
     return response  # type: ignore
@@ -254,6 +258,7 @@ async def handle_user(
 
 
 async def autoenroll_stakeholder(
+    loaders: Dataloaders,
     email: str,
     first_name: str,
     last_name: str,
@@ -263,13 +268,13 @@ async def autoenroll_stakeholder(
         role="user",
         is_register_after_complete=True,
     )
-
     await complete_register(
         email=email,
         first_name=first_name,
         last_name=last_name,
         roles=["user_manager"],
     )
+    await utils.send_autoenroll_mixpanel_event(loaders, email)
 
 
 async def invited_stakeholder(
@@ -293,10 +298,10 @@ async def invited_stakeholder(
                 if group.invitation
             ]
         )
-
     await complete_register(
         email=email, first_name=first_name, last_name=last_name, roles=roles
     )
+    await analytics.mixpanel_track(email, "InvitedStakeholder")
 
 
 async def log_stakeholder_in(
@@ -309,14 +314,15 @@ async def log_stakeholder_in(
     stakeholder = await loaders.stakeholder.load(email)
 
     if stakeholder:
-        if not stakeholder.enrolled:
-            await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
-        if not stakeholder.registration_date:
-            await invited_stakeholder(loaders, email, first_name, last_name)
         if not stakeholder.is_registered:
             await stakeholders_domain.register(email)
+        if not stakeholder.enrolled:
+            await utils.send_autoenroll_mixpanel_event(loaders, email)
+        elif not stakeholder.registration_date:
+            await invited_stakeholder(loaders, email, first_name, last_name)
+        else:
+            await analytics.mixpanel_track(email, "CurrentStakeholder")
 
         await stakeholders_domain.update_last_login(email)
     else:
-        await autoenroll_stakeholder(email, first_name, last_name)
-        await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
+        await autoenroll_stakeholder(loaders, email, first_name, last_name)

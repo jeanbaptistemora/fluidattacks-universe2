@@ -2,11 +2,20 @@ from authlib.integrations.starlette_client import (
     OAuth,
     OAuthError,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     retry_on_exceptions,
 )
+from decorators.utils import (
+    is_personal_email,
+)
 from httpx import (
     ConnectTimeout,
+)
+from newutils import (
+    analytics,
 )
 from starlette.requests import (
     Request,
@@ -63,3 +72,15 @@ async def get_jwt_userinfo(
 
 def get_redirect_url(request: Request, pattern: str) -> Any:
     return request.url_for(pattern).replace("http:", "https:")
+
+
+async def send_autoenroll_mixpanel_event(
+    loaders: Dataloaders, email: str
+) -> None:
+    trial = await loaders.trial.load(email)
+    if await is_personal_email(email):
+        await analytics.mixpanel_track(email, "AutoenrollCorporateOnly")
+    elif trial and trial.completed:
+        await analytics.mixpanel_track(email, "AutoenrollAlreadyInTrial")
+    else:
+        await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
