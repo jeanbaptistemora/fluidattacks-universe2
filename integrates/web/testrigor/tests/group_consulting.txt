@@ -2,4 +2,3 @@ open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups/un
 check that page contains "Now we can post comments on groups"
 open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups/oneshottest/consulting"
 check that page contains "Access denied"
-
