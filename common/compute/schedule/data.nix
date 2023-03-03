@@ -21,6 +21,7 @@
       lastReview = "01-03-2023";
       maintainers = [
         "dsalazar"
+        "jperez"
       ];
       requiredBy = [
         ''
@@ -304,6 +305,7 @@
       lastReview = "02-03-2023";
       maintainers = [
         "jhurtado"
+        "jmesa"
       ];
       requiredBy = [
         ''
@@ -424,6 +426,7 @@
       lastReview = "02-03-2023";
       maintainers = [
         "jhurtado"
+        "jmesa"
       ];
       requiredBy = [
         ''
@@ -1379,6 +1382,7 @@
       lastReview = "02-03-2023";
       maintainers = [
         "acaguirre"
+        "jmesa"
       ];
       requiredBy = [
         ''
@@ -1421,7 +1425,7 @@
       lastReview = "02-03-2023";
       maintainers = [
         "rrodriguez"
-        "mrivera"
+        "dmurcia"
       ];
       requiredBy = [
         ''
@@ -2119,6 +2123,7 @@
       lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
+        "dmurcia"
       ];
       requiredBy = [
       ];
@@ -2154,6 +2159,7 @@
       lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
+        "dmurcia"
       ];
       requiredBy = [
       ];
@@ -2190,6 +2196,7 @@
       lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
+        "dmurcia"
       ];
       requiredBy = [
       ];
@@ -2225,6 +2232,7 @@
       lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
+        "dmurcia"
       ];
       requiredBy = [
       ];
