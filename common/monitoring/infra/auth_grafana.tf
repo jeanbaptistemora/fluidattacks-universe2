@@ -89,6 +89,30 @@ data "aws_iam_policy_document" "grafana_athena_access" {
   }
 }
 
+data "aws_iam_policy_document" "grafana_cloudwatch_access" {
+  statement {
+    actions = [
+      "cloudwatch:DescribeAlarmsForMetric",
+      "cloudwatch:DescribeAlarmHistory",
+      "cloudwatch:DescribeAlarms",
+      "cloudwatch:ListMetrics",
+      "cloudwatch:GetMetricData",
+      "cloudwatch:GetInsightRuleReport",
+      "ec2:DescribeTags",
+      "ec2:DescribeInstances",
+      "ec2:DescribeRegions",
+      "logs:DescribeLogGroups",
+      "logs:GetLogGroupFields",
+      "logs:StartQuery",
+      "logs:StopQuery",
+      "logs:GetQueryResults",
+      "logs:GetLogEvents",
+      "tag:GetResources"
+    ]
+    resources = ["*"]
+  }
+}
+
 data "aws_iam_policy_document" "grafana_redshift_access" {
   statement {
     actions = [
@@ -151,6 +175,7 @@ data "aws_iam_policy_document" "grafana_xray_access" {
       "xray:GetTimeSeriesServiceStatistics",
       "xray:GetInsightSummaries",
       "xray:GetInsight",
+      "xray:GetServiceGraph",
       "ec2:DescribeRegions"
     ]
     effect    = "Allow"
@@ -161,6 +186,7 @@ data "aws_iam_policy_document" "grafana_xray_access" {
 data "aws_iam_policy_document" "grafana" {
   source_policy_documents = [
     data.aws_iam_policy_document.grafana_athena_access.json,
+    data.aws_iam_policy_document.grafana_cloudwatch_access.json,
     data.aws_iam_policy_document.grafana_redshift_access.json,
     data.aws_iam_policy_document.grafana_prometheus_access.json,
     data.aws_iam_policy_document.grafana_xray_access.json

@@ -331,6 +331,30 @@ resource "kubernetes_manifest" "adot_collector" {
   ]
 }
 
+resource "kubernetes_service_v1" "adot_collector_service" {
+  metadata {
+    name      = "adot-collector"
+    namespace = local.namespace
+  }
+
+  spec {
+    selector = {
+      "app.kubernetes.io/name" = "adot-collector-collector"
+    }
+
+    port {
+      name        = "grpc-port"
+      port        = 4317
+      target_port = 4317
+      protocol    = "TCP"
+    }
+  }
+
+  depends_on = [
+    kubernetes_manifest.adot_collector
+  ]
+}
+
 # For some reason, installing node-exporter from the Helm Chart
 # https://artifacthub.io/packages/helm/prometheus-community/prometheus-node-exporter
 # does not work, metrics are not sent to Prometheus and there is no error shown
