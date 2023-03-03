@@ -3,13 +3,25 @@ import { MockedProvider } from "@apollo/client/testing";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
-import { GET_ROOTS } from "./queries";
+import { ADD_TOE_INPUT, GET_ROOTS } from "./queries";
 
 import { HandleAdditionModal } from ".";
 
 describe("Handle addition modal", (): void => {
   const refetchDataFn: jest.Mock = jest.fn();
   const handleCloseModal: jest.Mock = jest.fn();
+  const mocksMutation: MockedResponse = {
+    request: {
+      query: ADD_TOE_INPUT,
+      variables: {
+        component: "https://app.fluidattacks.com/test/test",
+        entryPoint: "test",
+        groupName: "groupname",
+        rootId: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
+      },
+    },
+    result: { data: { addToeInput: { success: true } } },
+  };
   const queryMock: MockedResponse = {
     request: {
       query: GET_ROOTS,
@@ -82,7 +94,7 @@ describe("Handle addition modal", (): void => {
     jest.clearAllMocks();
 
     render(
-      <MockedProvider addTypename={false} mocks={[queryMock]}>
+      <MockedProvider addTypename={false} mocks={[mocksMutation, queryMock]}>
         <HandleAdditionModal
           groupName={"groupname"}
           handleCloseModal={handleCloseModal}
