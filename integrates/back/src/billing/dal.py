@@ -125,7 +125,7 @@ async def _get_subscription_usage(
     )
 
 
-async def attach_payment_method(
+def attach_payment_method(
     *,
     payment_method_id: str,
     org_billing_customer: str,
@@ -217,7 +217,7 @@ def create_payment_method(
     )
 
 
-async def create_subscription(
+def create_subscription(
     **kwargs: Any,
 ) -> bool:
     """Create stripe subscription"""
@@ -225,7 +225,7 @@ async def create_subscription(
     return sub.status in ("active", "trialing")
 
 
-async def get_prices() -> dict[str, Price]:
+def get_prices() -> dict[str, Price]:
     """Get model prices"""
     data = stripe.Price.list(
         lookup_keys=[
@@ -245,7 +245,7 @@ async def get_prices() -> dict[str, Price]:
     }
 
 
-async def get_group_subscriptions(
+def get_group_subscriptions(
     *,
     group_name: str,
     org_billing_customer: str,
@@ -366,7 +366,7 @@ async def get_customer_portal(
     ).url
 
 
-async def update_payment_method(
+def update_payment_method(
     *,
     payment_method_id: str,
     card_expiration_month: int,
@@ -450,7 +450,7 @@ async def update_subscription(
     upgrade: bool,
 ) -> bool:
     """Upgrade or downgrade a subscription"""
-    prices: dict[str, Price] = await get_prices()
+    prices: dict[str, Price] = get_prices()
     data: dict[str, Any] = {
         "items": [],
         "metadata": {"subscription": ""},

@@ -162,7 +162,7 @@ async def _format_create_subscription_data(
     trial: bool,
 ) -> dict[str, Any]:
     """Format create subscription session data according to stripe API"""
-    prices: dict[str, Price] = await dal.get_prices()
+    prices: dict[str, Price] = dal.get_prices()
     now: datetime = datetime_utils.get_utc_now()
 
     result: dict[str, Any] = {
@@ -254,7 +254,7 @@ async def update_subscription(
     ):
         raise BillingCustomerHasNoPaymentMethod()
 
-    subscriptions: list[Subscription] = await dal.get_group_subscriptions(
+    subscriptions: list[Subscription] = dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="all",
@@ -290,7 +290,7 @@ async def update_subscription(
             group_name=group_name,
             trial=trial,
         )
-        result = await dal.create_subscription(**data)
+        result = dal.create_subscription(**data)
     elif subscription != "free":
         result = await dal.update_subscription(
             subscription=current,
@@ -602,7 +602,7 @@ async def create_credit_card_payment_method(
             raise PaymentMethodAlreadyExists()
 
         # Attach payment method to customer
-        result = await dal.attach_payment_method(
+        result = dal.attach_payment_method(
             payment_method_id=created.id,
             org_billing_customer=customer.id,
         )
@@ -724,7 +724,7 @@ async def update_credit_card_payment_method(
     ]:
         raise InvalidBillingPaymentMethod()
 
-    result: bool = await dal.update_payment_method(
+    result: bool = dal.update_payment_method(
         payment_method_id=payment_method_id,
         card_expiration_month=card_expiration_month,
         card_expiration_year=card_expiration_year,
@@ -922,7 +922,7 @@ async def report_subscription_usage(
     org_billing_customer: str,
 ) -> bool:
     """Report group squad usage to Stripe"""
-    subscriptions: list[Subscription] = await dal.get_group_subscriptions(
+    subscriptions: list[Subscription] = dal.get_group_subscriptions(
         group_name=group_name,
         org_billing_customer=org_billing_customer,
         status="active",
@@ -1119,7 +1119,7 @@ async def get_organization_billing(
 
 async def get_prices() -> dict[str, Price]:
     """Get model prices"""
-    return await dal.get_prices()
+    return dal.get_prices()
 
 
 async def webhook(request: Request) -> JSONResponse:
