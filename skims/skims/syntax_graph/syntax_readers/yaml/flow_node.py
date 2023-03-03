@@ -24,6 +24,14 @@ from utils.graph.text_nodes import (
 )
 
 
+def rm_trail_quotes(literal: str) -> str:
+    if len(literal) > 2 and (
+        literal.startswith('"') or literal.startswith("'")
+    ):
+        literal = literal[1:-1]
+    return literal
+
+
 def reader(args: SyntaxGraphArgs) -> NId:
     invalid_types = {
         "[",
@@ -43,7 +51,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
         if literal_type == "boolean_scalar":
             return build_bool_literal_node(args, literal_text)
         if literal_type == "string_scalar":
-            return build_string_literal_node(args, literal_text)
+            return build_string_literal_node(
+                args, rm_trail_quotes(literal_text)
+            )
     if args.ast_graph.nodes[child_id]["label_type"] == "flow_sequence":
         childs_id = adj_ast(
             args.ast_graph,

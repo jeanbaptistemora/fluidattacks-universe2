@@ -128,10 +128,10 @@
       sha256 = "Nx+K7Ic/ePKAXPIMlrRn6zELYE59f/FnnZ/LM5ELaU8=";
     };
     skimsTreeSitterYaml = fetchGithub {
-      owner = "ikatyang";
+      owner = "jgomezb11";
       repo = "tree-sitter-yaml";
-      rev = "0e36bed171768908f331ff7dff9d956bae016efb";
-      sha256 = "bpiT3FraOZhJaoiFWAoVJX1O+plnIi8aXOW2LwyU23M=";
+      rev = "22d5085be4f1e17d4b33e0e2c1e679bef85f61ed";
+      sha256 = "ZgHatgSiv87nclDkUthXtf5RS3k6rYaOCnaR1rzl6wA=";
     };
   };
 }

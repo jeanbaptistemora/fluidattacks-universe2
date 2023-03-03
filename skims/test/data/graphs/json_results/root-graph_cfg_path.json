@@ -6584,6 +6584,22 @@
             "173": {
               "label_ast": "AST",
               "label_index": "4"
+            },
+            "181": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "189": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "197": {
+              "label_ast": "AST",
+              "label_index": "7"
+            },
+            "205": {
+              "label_ast": "AST",
+              "label_index": "8"
             }
           },
           "126": {
@@ -6882,8 +6898,110 @@
               "label_index": "0"
             }
           },
+          "181": {
+            "182": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "185": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "186": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "182": {
+            "183": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "183": {
+            "184": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "186": {
+            "187": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "187": {
+            "188": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "189": {
+            "190": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "193": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "194": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "19": {
             "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "190": {
+            "191": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "191": {
+            "192": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "194": {
+            "195": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "195": {
+            "196": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "197": {
+            "198": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "201": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "202": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "198": {
+            "199": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "199": {
+            "200": {
               "label_ast": "AST",
               "label_index": "0"
             }
@@ -6900,6 +7018,56 @@
           },
           "20": {
             "21": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "202": {
+            "203": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "203": {
+            "204": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "205": {
+            "206": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "209": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "210": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "206": {
+            "207": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "207": {
+            "208": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "210": {
+            "211": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "211": {
+            "212": {
               "label_ast": "AST",
               "label_index": "0"
             }
@@ -7880,10 +8048,117 @@
             "label_text": "two",
             "label_type": "string_scalar"
           },
+          "181": {
+            "label_c": 4,
+            "label_field_key": "182",
+            "label_field_value": "186",
+            "label_l": 22,
+            "label_type": "block_mapping_pair"
+          },
+          "182": {
+            "label_c": 4,
+            "label_l": 22,
+            "label_type": "flow_node"
+          },
+          "183": {
+            "label_c": 4,
+            "label_l": 22,
+            "label_type": "plain_scalar"
+          },
+          "184": {
+            "label_c": 4,
+            "label_l": 22,
+            "label_text": "quotes",
+            "label_type": "string_scalar"
+          },
+          "185": {
+            "label_c": 10,
+            "label_l": 22,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "186": {
+            "label_c": 12,
+            "label_l": 22,
+            "label_type": "flow_node"
+          },
+          "187": {
+            "label_c": 12,
+            "label_l": 22,
+            "label_type": "plain_scalar"
+          },
+          "188": {
+            "label_c": 12,
+            "label_l": 22,
+            "label_text": "''",
+            "label_type": "string_scalar"
+          },
+          "189": {
+            "label_c": 4,
+            "label_field_key": "190",
+            "label_field_value": "194",
+            "label_l": 23,
+            "label_type": "block_mapping_pair"
+          },
           "19": {
             "label_c": 7,
             "label_l": 3,
             "label_type": "flow_node"
+          },
+          "190": {
+            "label_c": 4,
+            "label_l": 23,
+            "label_type": "flow_node"
+          },
+          "191": {
+            "label_c": 4,
+            "label_l": 23,
+            "label_type": "plain_scalar"
+          },
+          "192": {
+            "label_c": 4,
+            "label_l": 23,
+            "label_text": "double-quotes",
+            "label_type": "string_scalar"
+          },
+          "193": {
+            "label_c": 17,
+            "label_l": 23,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "194": {
+            "label_c": 19,
+            "label_l": 23,
+            "label_type": "flow_node"
+          },
+          "195": {
+            "label_c": 19,
+            "label_l": 23,
+            "label_type": "plain_scalar"
+          },
+          "196": {
+            "label_c": 19,
+            "label_l": 23,
+            "label_text": "\"\"",
+            "label_type": "string_scalar"
+          },
+          "197": {
+            "label_c": 4,
+            "label_field_key": "198",
+            "label_field_value": "202",
+            "label_l": 24,
+            "label_type": "block_mapping_pair"
+          },
+          "198": {
+            "label_c": 4,
+            "label_l": 24,
+            "label_type": "flow_node"
+          },
+          "199": {
+            "label_c": 4,
+            "label_l": 24,
+            "label_type": "plain_scalar"
           },
           "2": {
             "label_c": 1,
@@ -7895,10 +8170,83 @@
             "label_l": 3,
             "label_type": "plain_scalar"
           },
+          "200": {
+            "label_c": 4,
+            "label_l": 24,
+            "label_text": "wildcard_in_single_quotes",
+            "label_type": "string_scalar"
+          },
+          "201": {
+            "label_c": 29,
+            "label_l": 24,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "202": {
+            "label_c": 31,
+            "label_l": 24,
+            "label_type": "flow_node"
+          },
+          "203": {
+            "label_c": 31,
+            "label_l": 24,
+            "label_type": "plain_scalar"
+          },
+          "204": {
+            "label_c": 31,
+            "label_l": 24,
+            "label_text": "'*'",
+            "label_type": "string_scalar"
+          },
+          "205": {
+            "label_c": 4,
+            "label_field_key": "206",
+            "label_field_value": "210",
+            "label_l": 25,
+            "label_type": "block_mapping_pair"
+          },
+          "206": {
+            "label_c": 4,
+            "label_l": 25,
+            "label_type": "flow_node"
+          },
+          "207": {
+            "label_c": 4,
+            "label_l": 25,
+            "label_type": "plain_scalar"
+          },
+          "208": {
+            "label_c": 4,
+            "label_l": 25,
+            "label_text": "wildcard_in_double_quotes",
+            "label_type": "string_scalar"
+          },
+          "209": {
+            "label_c": 29,
+            "label_l": 25,
+            "label_text": ":",
+            "label_type": ":"
+          },
           "21": {
             "label_c": 7,
             "label_l": 3,
             "label_text": "a drop of golden sun",
+            "label_type": "string_scalar"
+          },
+          "210": {
+            "label_c": 31,
+            "label_l": 25,
+            "label_type": "flow_node"
+          },
+          "211": {
+            "label_c": 31,
+            "label_l": 25,
+            "label_type": "plain_scalar"
+          },
+          "212": {
+            "label_c": 31,
+            "label_l": 25,
+            "label_text": "\"*\"",
             "label_type": "string_scalar"
           },
           "22": {
@@ -8426,6 +8774,18 @@
             },
             "173": {
               "label_ast": "AST"
+            },
+            "181": {
+              "label_ast": "AST"
+            },
+            "189": {
+              "label_ast": "AST"
+            },
+            "197": {
+              "label_ast": "AST"
+            },
+            "205": {
+              "label_ast": "AST"
             }
           },
           "126": {
@@ -8497,6 +8857,38 @@
               "label_ast": "AST"
             },
             "178": {
+              "label_ast": "AST"
+            }
+          },
+          "181": {
+            "182": {
+              "label_ast": "AST"
+            },
+            "186": {
+              "label_ast": "AST"
+            }
+          },
+          "189": {
+            "190": {
+              "label_ast": "AST"
+            },
+            "194": {
+              "label_ast": "AST"
+            }
+          },
+          "197": {
+            "198": {
+              "label_ast": "AST"
+            },
+            "202": {
+              "label_ast": "AST"
+            }
+          },
+          "205": {
+            "206": {
+              "label_ast": "AST"
+            },
+            "210": {
               "label_ast": "AST"
             }
           },
@@ -8784,9 +9176,69 @@
             "value": "two",
             "value_type": "string"
           },
+          "181": {
+            "key_id": "182",
+            "label_type": "Pair",
+            "value_id": "186"
+          },
+          "182": {
+            "label_type": "Literal",
+            "value": "quotes",
+            "value_type": "string"
+          },
+          "186": {
+            "label_type": "Literal",
+            "value": "''",
+            "value_type": "string"
+          },
+          "189": {
+            "key_id": "190",
+            "label_type": "Pair",
+            "value_id": "194"
+          },
           "19": {
             "label_type": "Literal",
             "value": "a drop of golden sun",
+            "value_type": "string"
+          },
+          "190": {
+            "label_type": "Literal",
+            "value": "double-quotes",
+            "value_type": "string"
+          },
+          "194": {
+            "label_type": "Literal",
+            "value": "\"\"",
+            "value_type": "string"
+          },
+          "197": {
+            "key_id": "198",
+            "label_type": "Pair",
+            "value_id": "202"
+          },
+          "198": {
+            "label_type": "Literal",
+            "value": "wildcard_in_single_quotes",
+            "value_type": "string"
+          },
+          "202": {
+            "label_type": "Literal",
+            "value": "*",
+            "value_type": "string"
+          },
+          "205": {
+            "key_id": "206",
+            "label_type": "Pair",
+            "value_id": "210"
+          },
+          "206": {
+            "label_type": "Literal",
+            "value": "wildcard_in_double_quotes",
+            "value_type": "string"
+          },
+          "210": {
+            "label_type": "Literal",
+            "value": "*",
             "value_type": "string"
           },
           "22": {

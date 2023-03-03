@@ -19,3 +19,7 @@
      count: 1
      location: a pear tree
    turtle-doves: two
+   quotes: ''
+   double-quotes: ""
+   wildcard_in_single_quotes: '*'
+   wildcard_in_double_quotes: "*"
