@@ -1,3 +1,6 @@
+from .conftest import (
+    CRITERIA_VULNERABILITIES,
+)
 from custom_exceptions import (
     InvalidRootComponent,
 )
@@ -59,6 +62,9 @@ async def test_persist_result(populate: bool) -> None:
         with mock.patch(
             "server.report_machine.get_sarif_log",
             side_effect=mock.AsyncMock(return_value=sarif_report),
+        ), mock.patch(
+            "server.report_machine.get_vulns_file",
+            side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
         ):
             await process_execution("group1_1234345")
 
@@ -154,6 +160,9 @@ async def test_report_f120(populate: bool) -> None:
         with mock.patch(
             "server.report_machine.get_sarif_log",
             side_effect=mock.AsyncMock(return_value=sarif_report),
+        ), mock.patch(
+            "server.report_machine.get_vulns_file",
+            side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
         ):
             loaders = get_new_context()
             group_findings = await loaders.group_drafts_and_findings.load(
@@ -226,17 +235,13 @@ async def test_report_f120(populate: bool) -> None:
 async def test_duplicated_reports(populate: bool) -> None:
     assert populate
     with open(
-        (
-            "back/test/functional/src/report_machine/sarif/"
-            "duplicated_report_1.sarif"
-        ),
+        "back/test/functional/src/report_machine/sarif/"
+        "duplicated_report_1.sarif",
         "rb",
     ) as sarif_1:
         with open(
-            (
-                "back/test/functional/src/report_machine/sarif/"
-                "duplicated_report_2.sarif"
-            ),
+            "back/test/functional/src/report_machine/sarif/"
+            "duplicated_report_2.sarif",
             "rb",
         ) as sarif_2:
             sarif_report_1 = json.load(sarif_1)
@@ -260,6 +265,9 @@ async def test_duplicated_reports(populate: bool) -> None:
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report_1, sarif_report_2],
         ),
+    ), mock.patch(
+        "server.report_machine.get_vulns_file",
+        side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
     ):
         await process_execution("group1_")
 
@@ -305,17 +313,12 @@ async def test_duplicated_reports(populate: bool) -> None:
 async def test_updated_advisory_report(populate: bool) -> None:
     assert populate
     with open(
-        (
-            "back/test/functional/src/report_machine/sarif/"
-            "advisorie_report.sarif"
-        ),
+        "back/test/functional/src/report_machine/sarif/advisorie_report.sarif",
         "rb",
     ) as sarif_1:
         with open(
-            (
-                "back/test/functional/src/report_machine/sarif/"
-                "advisorie_change_report.sarif"
-            ),
+            "back/test/functional/src/report_machine/sarif/"
+            "advisorie_change_report.sarif",
             "rb",
         ) as sarif_2:
             sarif_report_1 = json.load(sarif_1)
@@ -339,6 +342,9 @@ async def test_updated_advisory_report(populate: bool) -> None:
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report_1, sarif_report_2],
         ),
+    ), mock.patch(
+        "server.report_machine.get_vulns_file",
+        side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
     ):
         await process_execution("group1_")
 
@@ -408,6 +414,9 @@ async def test_approval(populate: bool) -> None:
     ), mock.patch(
         "server.report_machine.get_sarif_log",
         side_effect=mock.AsyncMock(return_value=sarif_report),
+    ), mock.patch(
+        "server.report_machine.get_vulns_file",
+        side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
     ):
         loaders = get_new_context()
         findings = await loaders.group_drafts_and_findings.load("group1")
@@ -421,7 +430,7 @@ async def test_approval(populate: bool) -> None:
             (fin for fin in findings if fin.title.startswith("237")), None
         )
         assert f_117 is not None
-        assert f_117.severity.confidentiality_impact == Decimal("0.22")
+        assert f_117.severity.confidentiality_impact == Decimal("0.00")
         assert f_237 is None
 
         f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
@@ -492,6 +501,9 @@ async def test_report_inputs(populate: bool) -> None:
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report, invalid_sarif_report]
         ),
+    ), mock.patch(
+        "server.report_machine.get_vulns_file",
+        side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
     ):
         loaders = get_new_context()
         findings = await loaders.group_drafts_and_findings.load("group1")
@@ -550,6 +562,9 @@ async def test_has_redirect_url_report(populate: bool) -> None:
         side_effect=mock.AsyncMock(
             side_effect=[sarif_report_1, sarif_report_2],
         ),
+    ), mock.patch(
+        "server.report_machine.get_vulns_file",
+        side_effect=mock.AsyncMock(return_value=CRITERIA_VULNERABILITIES),
     ):
         await process_execution("group1_")
 

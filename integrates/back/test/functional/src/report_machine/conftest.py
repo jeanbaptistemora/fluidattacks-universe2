@@ -1,4 +1,4 @@
-# pylint: disable=import-error
+# pylint: disable=import-error,too-many-lines
 from back.test import (
     db,
 )
@@ -16,7 +16,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
@@ -62,14 +61,308 @@ from db_model.vulnerabilities.types import (
     VulnerabilityUnreliableIndicators,
     VulnerabilityVerification,
 )
-from decimal import (
-    Decimal,
-)
 import pytest
 import pytest_asyncio
+from server.report_machine import (
+    _get_finding_severity,
+)
 from typing import (
     Any,
 )
+
+CRITERIA_VULNERABILITIES: dict[str, dict[str, Any]] = {
+    "001": {
+        "en": {
+            "title": "SQL injection - C Sharp SQL API",
+            "description": "Description sql",
+            "impact": "Impact sql",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "SQL injection - C Sharp SQL API",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Unexpected Injection",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "15",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "L",
+                "privileges_required": "L",
+                "user_interaction": "N",
+                "scope": "U",
+                "confidentiality": "N",
+                "integrity": "L",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "U",
+                "remediation_level": "O",
+                "report_confidence": "R",
+            },
+        },
+        "requirements": ["169", "173"],
+        "metadata": {"en": {"details": "details test"}},
+    },
+    "011": {
+        "en": {
+            "title": "Use of software with known vulnerabilities",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "Use of software with known vulnerabilities",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Information Collection",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "60",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "H",
+                "privileges_required": "L",
+                "user_interaction": "N",
+                "scope": "U",
+                "confidentiality": "L",
+                "integrity": "L",
+                "availability": "L",
+            },
+            "temporal": {
+                "exploit_code_maturity": "P",
+                "remediation_level": "O",
+                "report_confidence": "C",
+            },
+        },
+        "requirements": ["262"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+    "043": {
+        "en": {
+            "title": (
+                "Insecure or unset HTTP headers - Content-Security-Policy"
+            ),
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": (
+                "Insecure or unset HTTP headers - Content-Security-Policy"
+            ),
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Protocol Manipulation",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "15",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "H",
+                "privileges_required": "N",
+                "user_interaction": "R",
+                "scope": "U",
+                "confidentiality": "L",
+                "integrity": "L",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "P",
+                "remediation_level": "O",
+                "report_confidence": "C",
+            },
+        },
+        "requirements": ["062", "117", "175", "349"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+    "117": {
+        "en": {
+            "title": "Unverifiable files",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "Unverifiable files",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Functionality Abuse",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "15",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "H",
+                "privileges_required": "L",
+                "user_interaction": "N",
+                "scope": "U",
+                "confidentiality": "N",
+                "integrity": "L",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "U",
+                "remediation_level": "X",
+                "report_confidence": "X",
+            },
+        },
+        "requirements": ["323"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+    "120": {
+        "en": {
+            "title": "Improper dependency pinning",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "Improper dependency pinning",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Functionality Abuse",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "30",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "H",
+                "privileges_required": "N",
+                "user_interaction": "N",
+                "scope": "U",
+                "confidentiality": "N",
+                "integrity": "L",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "U",
+                "remediation_level": "X",
+                "report_confidence": "X",
+            },
+        },
+        "requirements": ["302"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+    "237": {
+        "en": {
+            "title": "Technical information leak - Print Functions",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "Technical information leak - Print Functions",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Information Collection",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "15",
+        "score": {
+            "base": {
+                "attack_vector": "L",
+                "attack_complexity": "L",
+                "privileges_required": "H",
+                "user_interaction": "N",
+                "scope": "U",
+                "confidentiality": "L",
+                "integrity": "N",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "P",
+                "remediation_level": "U",
+                "report_confidence": "C",
+            },
+        },
+        "requirements": ["077", "176"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+    "128": {
+        "en": {
+            "title": "Insecurely generated cookies - HttpOnly",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "es": {
+            "title": "Insecurely generated cookies - HttpOnly",
+            "description": "Description",
+            "impact": "Impact",
+            "recommendation": "Recommendation",
+            "threat": "Threat",
+        },
+        "category": "Access Subversion",
+        "examples": {
+            "non_compliant": "non_compliant",
+            "compliant": "compliant",
+        },
+        "remediation_time": "30",
+        "score": {
+            "base": {
+                "attack_vector": "N",
+                "attack_complexity": "H",
+                "privileges_required": "N",
+                "user_interaction": "R",
+                "scope": "U",
+                "confidentiality": "L",
+                "integrity": "N",
+                "availability": "N",
+            },
+            "temporal": {
+                "exploit_code_maturity": "P",
+                "remediation_level": "O",
+                "report_confidence": "X",
+            },
+        },
+        "requirements": ["029"],
+        "metadata": {"en": {"details": "__empty__"}},
+    },
+}
 
 
 @pytest.mark.resolver_test_group("report_machine")
@@ -200,53 +493,38 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     title="001. SQL injection - C Sharp SQL API",
                     recommendation="Updated recommendation",
-                    description="I just have updated the description",
+                    description=CRITERIA_VULNERABILITIES["001"]["en"][
+                        "description"
+                    ],
                     hacker_email="test1@gmail.com",
-                    severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
-                        attack_vector=Decimal("0.2"),
-                        availability_impact=Decimal("0.22"),
-                        availability_requirement=Decimal("1.5"),
-                        confidentiality_impact=Decimal("0.22"),
-                        confidentiality_requirement=Decimal("0.5"),
-                        exploitability=Decimal("0.94"),
-                        integrity_impact=Decimal("0.22"),
-                        integrity_requirement=Decimal("1"),
-                        modified_availability_impact=Decimal("0.22"),
-                        modified_user_interaction=Decimal("0.62"),
-                        modified_integrity_impact=Decimal("0"),
-                        modified_attack_complexity=Decimal("0.44"),
-                        modified_severity_scope=Decimal("0"),
-                        modified_privileges_required=Decimal("0.27"),
-                        modified_attack_vector=Decimal("0.85"),
-                        modified_confidentiality_impact=Decimal("0.22"),
-                        privileges_required=Decimal("0.62"),
-                        severity_scope=Decimal("1.2"),
-                        remediation_level=Decimal("0.95"),
-                        report_confidence=Decimal("1"),
-                        user_interaction=Decimal("0.85"),
+                    severity=_get_finding_severity(
+                        CRITERIA_VULNERABILITIES["001"]
                     ),
                     requirements=(
                         "REQ.0132. Passwords (phrase type) "
                         "must be at least 3 words long."
                     ),
-                    threat="Updated threat",
+                    threat=CRITERIA_VULNERABILITIES["001"]["en"]["threat"],
                     attack_vector_description=(
                         "This is an updated attack vector"
                     ),
                     evidences=FindingEvidences(
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
-                            "evidence5",
+                            url=(
+                                "group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                                "evidence5"
+                            ),
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         records=FindingEvidence(
                             description="records",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
-                            "records",
+                            url=(
+                                "group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                                "records"
+                            ),
                             modified_date=datetime.fromisoformat(
                                 "2111-11-19T13:37:10+00:00"
                             ),
@@ -330,40 +608,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     title="117. Unverifiable files",
                     recommendation="Recommendation",
-                    description="Description",
+                    description=CRITERIA_VULNERABILITIES["117"]["en"][
+                        "description"
+                    ],
                     hacker_email="hacker@fluidattacks.com",
-                    severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
-                        attack_vector=Decimal("0.2"),
-                        availability_impact=Decimal("0.22"),
-                        availability_requirement=Decimal("1.5"),
-                        confidentiality_impact=Decimal("0.22"),
-                        confidentiality_requirement=Decimal("0.5"),
-                        exploitability=Decimal("0.94"),
-                        integrity_impact=Decimal("0.22"),
-                        integrity_requirement=Decimal("1"),
-                        modified_availability_impact=Decimal("0.22"),
-                        modified_user_interaction=Decimal("0.62"),
-                        modified_integrity_impact=Decimal("0"),
-                        modified_attack_complexity=Decimal("0.44"),
-                        modified_severity_scope=Decimal("0"),
-                        modified_privileges_required=Decimal("0.27"),
-                        modified_attack_vector=Decimal("0.85"),
-                        modified_confidentiality_impact=Decimal("0.22"),
-                        privileges_required=Decimal("0.62"),
-                        severity_scope=Decimal("1.2"),
-                        remediation_level=Decimal("0.95"),
-                        report_confidence=Decimal("1"),
-                        user_interaction=Decimal("0.85"),
+                    severity=_get_finding_severity(
+                        CRITERIA_VULNERABILITIES["117"]
                     ),
                     requirements="Requirement",
-                    threat="Threat",
+                    threat=CRITERIA_VULNERABILITIES["117"]["en"]["threat"],
                     attack_vector_description="Attack vector",
                     evidences=FindingEvidences(
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-4629a805-7ce5-4cd1-a39a-4579ec6fd985-"
-                            "evidence5",
+                            url=(
+                                "group1-4629a805-7ce5-4cd1-a39a-4579ec6fd985-"
+                                "evidence5"
+                            ),
                             modified_date=datetime.fromisoformat(
                                 "2022-10-19T05:00:05+00:00"
                             ),
