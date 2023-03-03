@@ -1674,7 +1674,9 @@
     ];
     meta = {
       description = ''
-        Clean possible CI stuck jobs.
+        Stop CI stuck jobs
+        in order to allow
+        the Gitlab ETL to finish properly.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1714,7 +1716,7 @@
     ];
     meta = {
       description = ''
-        Calculates and exports billed authors
+        Calculates Squad plan billed authors for groups.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1751,7 +1753,9 @@
     ];
     meta = {
       description = ''
-        Gitlab full recreation ETL
+        Extract data from GitLab
+        to feed Redshift
+        for later analytics processing.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1788,7 +1792,9 @@
     ];
     meta = {
       description = ''
-        Matomo ETL
+        Extract data from Matomo
+        to feed Redshift
+        for later analytics processing.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1824,7 +1830,9 @@
     ];
     meta = {
       description = ''
-        Mixpanel ETL
+        Extract data from Mixpanel
+        to feed Redshift
+        for later analytics processing.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1860,7 +1868,9 @@
     ];
     meta = {
       description = ''
-        Timedoctor ETL
+        Extract data from Timedoctor
+        to feed Redshift
+        for later analytics processing.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1896,7 +1906,6 @@
     ];
     meta = {
       description = ''
-        Timedoctor ETL backup
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1932,7 +1941,9 @@
     ];
     meta = {
       description = ''
-        Zoho CRM ETL
+        Extract data from Zoho CRM
+        to feed Redshift
+        for later analytics processing.
       '';
       lastReview = "02-03-2023";
       maintainers = [
@@ -1968,7 +1979,6 @@
     ];
     meta = {
       description = ''
-        Zoho CRM ETL preparation phase
       '';
       lastReview = "02-03-2023";
       maintainers = [
