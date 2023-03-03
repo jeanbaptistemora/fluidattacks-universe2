@@ -14,9 +14,6 @@ from boto3.session import (
     Session,
 )
 import bugsnag
-from bugsnag.client import (
-    Client,
-)
 from bugsnag_client import (
     remove_nix_hash as bugsnag_remove_nix_hash,
 )
@@ -109,7 +106,6 @@ LOGGING = {
             "extra_fields": {"extra": ["extra"]},
             "filters": ["require_debug_false"],
             "class": "bugsnag.handlers.BugsnagHandler",
-            "client": Client(asynchronous=True),
             "level": LOG_LEVEL_BUGSNAG or "WARNING",
         },
         "console": {

@@ -6,6 +6,7 @@ from grpc import (
 )
 from opentelemetry import (
     metrics,
+    propagate,
     trace,
 )
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
@@ -40,6 +41,12 @@ from opentelemetry.instrumentation.urllib3 import (
 )
 from opentelemetry.instrumentation.urllib import (
     URLLibInstrumentor,
+)
+from opentelemetry.propagators.aws import (
+    AwsXRayPropagator,
+)
+from opentelemetry.sdk.extension.aws.trace import (
+    AwsXRayIdGenerator,
 )
 from opentelemetry.sdk.metrics._internal import (
     MeterProvider,
@@ -80,10 +87,14 @@ def initialize() -> None:
             SERVICE_NAME: "integrates",
         }
     )
+    propagate.set_global_textmap(AwsXRayPropagator())
 
     span_exporter = OTLPSpanExporter(compression=Compression.Gzip)
     span_processor = BatchSpanProcessor(span_exporter)
-    tracer_provider = TracerProvider(resource=resource)
+    tracer_provider = TracerProvider(
+        id_generator=AwsXRayIdGenerator(),
+        resource=resource,
+    )
     tracer_provider.add_span_processor(span_processor)
     trace.set_tracer_provider(tracer_provider)
 

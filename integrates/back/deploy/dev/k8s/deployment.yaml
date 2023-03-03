@@ -40,7 +40,7 @@ spec:
             - name: DD_AGENT_HOST
               value: "$(HOST_IP)"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://$(HOST_IP):4327"
+              value: "http://$(HOST_IP):4317"
           resources:
             requests:
               cpu: 600m
