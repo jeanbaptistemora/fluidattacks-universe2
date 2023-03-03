@@ -88,9 +88,6 @@ The arguments are:
 > In the case of `--breaking`, the value set in ARM, if set, **caps**
 > the value passed to this CLI option.
 
-[^1]: [Grace period policy](/machine/web/organization/policies#grace-period-where-newly-reported-vulnerabilities-wont-break-the-build)
-[^2]: [Minimum CVSS score policy](/machine/web/organization/policies#minimum-cvss-31-score-of-an-open-vulnerability-for-devsecops)
-
 ## Examples run the Agent on your local machine
 
 Here you will find some examples running
@@ -169,11 +166,13 @@ In `Azure DevOps` add these lines to you configuration file:
 
 ```yaml
 jobs:
-  - forces:
-    container: fluidattacks/forces:new
-    options: --volume "$PWD:/src"
+  - job: Fluidattacks Agent
+    pool:
+      vmImage: "ubuntu-latest"
     steps:
-      - bash: forces --token <your-token> --repo-name <repository name>
+      - script: |
+          docker pull fluidattacks/forces:new \
+            && docker run --volume "$(Build.SourcesDirectory)/src" fluidattacks/forces:new --token <your-token>
 ```
 
 In `Jenkins`, the configuration file should look like this:
