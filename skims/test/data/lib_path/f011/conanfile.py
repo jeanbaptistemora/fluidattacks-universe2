@@ -19,8 +19,14 @@ class ImguiOpencvDemo(ConanFile):
         self.tool_requires("tool_win/0.1@user/stable")
 
     def requirements(self):
+        envir = "test"
         self.requires("opencv/2.2@drl/stable")
-
+        if envir == "prod":
+            self.requires(
+                "closecv/4.2@drl/stable",
+                private=False,
+                override=False,
+            )
     generators = "cmake"
 
     def build(self):

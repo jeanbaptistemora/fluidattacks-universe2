@@ -13,7 +13,6 @@ from model.core_model import (
 )
 import re
 
-CONANFILE_PY_DEP: re.Pattern[str] = re.compile(r'\s+requires\s*=\s*"[^"]*"')
 SELF_REQUIRES: re.Pattern[str] = re.compile(
     r'\s+self\.requires\("(?P<pkg>[^"]+)"[^\)]*\)'
 )
@@ -67,22 +66,25 @@ def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[DependencyType]:
             and attr.targets[0].id == "requires"
             and hasattr(attr.value, "elts")
         ):
-            for dep_info in attr.value.elts:
-                yield format_conan_dep_info(dep_info)
+            yield from (
+                format_conan_dep_info(dep_info) for dep_info in attr.value.elts
+            )
 
 
 def get_conan_self_requires(
     conan_class: ast.ClassDef,
-) -> Iterator[ast.Constant]:
+) -> Iterator[DependencyType]:
     for node in conan_class.body:
         if isinstance(node, ast.FunctionDef) and node.name == "requirements":
-            for req_node in node.body:
+            for child_node in ast.walk(node):
                 if (
-                    hasattr(req_node, "value")
-                    and req_node.value.func.value.id == "self"
-                    and req_node.value.func.attr == "requires"
+                    isinstance(child_node, ast.Expr)
+                    and hasattr(child_node.value, "func")
+                    and hasattr(child_node.value, "args")
+                    and child_node.value.func.value.id == "self"
+                    and child_node.value.func.attr == "requires"
                 ):
-                    yield req_node.value.args[0]
+                    yield format_conan_dep_info(child_node.value.args[0])
 
 
 # pylint: disable=unused-argument
