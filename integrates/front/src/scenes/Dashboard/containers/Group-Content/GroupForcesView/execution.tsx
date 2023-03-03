@@ -8,6 +8,7 @@ import { MemoryRouter, Route, Switch } from "react-router-dom";
 
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
+import { Row } from "components/Layout";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tab, Tabs } from "components/Tabs";
@@ -19,7 +20,7 @@ import type {
   IFoundVulnerabilities,
   IGetForcesExecution,
 } from "scenes/Dashboard/containers/Group-Content/GroupForcesView/types";
-import { Col33, Row, TabContent } from "styles/styledComponents";
+import { Col33, TabContent } from "styles/styledComponents";
 
 const Execution: React.FC<IExecution> = (
   props: Readonly<IExecution>
@@ -181,7 +182,7 @@ const Execution: React.FC<IExecution> = (
   return (
     <div>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.date")}</b>
@@ -192,7 +193,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.status.title")}</b>
@@ -203,7 +204,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.strictness.title")}</b>
@@ -214,7 +215,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.severityThreshold.title")}</b>
@@ -225,7 +226,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.gracePeriod.title")}</b>
@@ -236,7 +237,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.kind.title")}</b>
@@ -247,7 +248,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.gitRepo")}</b>
@@ -258,7 +259,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.identifier")}</b>
@@ -269,7 +270,7 @@ const Execution: React.FC<IExecution> = (
         </Col33>
       </Row>
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <Row className={"nb3"}>
+      <Row>
         <Col33>
           <p>
             <b>{t("group.forces.foundVulnerabilities.title")}</b>
