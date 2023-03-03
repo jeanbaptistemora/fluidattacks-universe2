@@ -3541,7 +3541,7 @@ mitre:
       title: Privileged process integrity
       link: https://attack.mitre.org/mitigations/enterprise/
     M1029:
-      title: Remote data storage and log
+      title: Remote data storage
       link: https://attack.mitre.org/mitigations/enterprise/
     M1022:
       title: Restrict file and directory permissions
