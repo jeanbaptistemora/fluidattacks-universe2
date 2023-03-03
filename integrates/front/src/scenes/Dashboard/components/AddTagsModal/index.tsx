@@ -3,9 +3,8 @@ import type { FC } from "react";
 import React, { Fragment, StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Input, Label } from "components/Input";
+import { Input, InputArray, Label } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { FormikArrayField } from "utils/forms/fields";
 import { composeValidators, required, validTag } from "utils/validations";
 
 interface IAddTagsModalProps {
@@ -51,13 +50,9 @@ const AddTagsModal: FC<IAddTagsModalProps> = ({
         >
           {({ dirty }): JSX.Element => (
             <Form>
-              <FormikArrayField
-                allowEmpty={false}
-                initialValue={""}
-                name={"tags"}
-              >
+              <InputArray initValue={""} name={"tags"}>
                 {renderTagsFields}
-              </FormikArrayField>
+              </InputArray>
               <ModalConfirm
                 disabled={!dirty}
                 id={"portfolio-add-confirm"}
