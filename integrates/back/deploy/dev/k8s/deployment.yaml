@@ -33,14 +33,8 @@ spec:
           env:
             - name: MAKES_K8S_COMPAT
               value: "1"
-            - name: HOST_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-            - name: DD_AGENT_HOST
-              value: "$(HOST_IP)"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://$(HOST_IP):4317"
+              value: "http://adot-collector.kube-system:4317"
           resources:
             requests:
               cpu: 600m
