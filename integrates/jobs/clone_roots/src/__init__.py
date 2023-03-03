@@ -22,7 +22,6 @@ from git.repo.base import (
 import json
 import logging
 import os
-import requests
 from retry import (  # type: ignore
     retry,
 )
@@ -169,36 +168,6 @@ async def get_roots(
     else:
         logging.error("Failed to fetch root info for group %s", group_name)
 
-    return result
-
-
-async def get_root_upload_url(
-    token: str, group_name: str, root_id: str
-) -> Optional[str]:
-    result: Optional[str] = None
-    query = """
-        query GetRootUploadUrl($groupName: String!, $rootId: ID!) {
-            root(groupName: $groupName, rootId: $rootId) {
-                ... on GitRoot {
-                  uploadUrl
-                }
-            }
-        }
-    """
-    payload = {
-        "query": query,
-        "variables": {"groupName": group_name, "rootId": root_id},
-    }
-
-    response = await _request_asm(payload=payload, token=token)
-    if response is not None:
-        result = response["data"]["root"]["uploadUrl"]
-    else:
-        logging.error(
-            "Failed to get upload URL for root %s in group %s",
-            root_id,
-            group_name,
-        )
     return result
 
 
@@ -442,9 +411,8 @@ def create_git_root_tar_file(
 
 @retry(ConnectionError, tries=5, delay=2)
 async def upload_cloned_repo_to_s3_tar(
-    *, repo_path: str, nickname: str, upload_url: str
+    *, repo_path: str, group_name: str, nickname: str
 ) -> bool:
-    success: bool = False
     _, zip_output_path = tempfile.mkstemp()
     if not create_git_root_tar_file(nickname, repo_path, zip_output_path):
         logging.error(
@@ -453,13 +421,13 @@ async def upload_cloned_repo_to_s3_tar(
         )
         os.remove(zip_output_path)
         return False
-    with open(zip_output_path, "rb") as object_file:
-        object_text = object_file.read()
-        response = requests.put(upload_url, data=object_text, timeout=1800)
-        response.raise_for_status()
-        success = True
-    os.remove(zip_output_path)
-    return success
+    cliente_s3 = boto3.client("s3")
+    cliente_s3.upload_file(
+        zip_output_path,
+        "integrates",
+        f"continuous-repositories/{group_name}/{nickname}.tar.gz",
+    )
+    return True
 
 
 @asynccontextmanager
@@ -535,68 +503,62 @@ async def update_root_mirror(
         status="CLONING",
         message="Cloning in progress...",
     )
-    upload_url = await get_root_upload_url(
-        token=api_token, group_name=group_name, root_id=root["id"]
-    )
     mirror_updated: bool = False
 
-    if upload_url is not None:
-        logging.info("Cloning %s", root["nickname"])
+    with suppress(RuntimeError):
+        async with clone_root(
+            group_name=group_name, root=root, api_token=api_token
+        ) as folder_to_clone_root:
+            _repo = Repo(folder_to_clone_root)
+            # remove not required branches
+            for branch in _repo.branches:  # type: ignore
+                if branch.name != root["branch"]:
+                    branch.delete(_repo, branch.name, force=True)
 
-        with suppress(RuntimeError):
-            async with clone_root(
-                group_name=group_name, root=root, api_token=api_token
-            ) as folder_to_clone_root:
-                _repo = Repo(folder_to_clone_root)
-                # remove not required branches
-                for branch in _repo.branches:  # type: ignore
-                    if branch.name != root["branch"]:
-                        branch.delete(_repo, branch.name, force=True)
-
-                success_upload = await upload_cloned_repo_to_s3_tar(
-                    repo_path=folder_to_clone_root,
-                    nickname=root["nickname"],
-                    upload_url=upload_url,
-                )
-                if success_upload:
-                    try:
-                        commit = Repo(
-                            folder_to_clone_root,
-                            search_parent_directories=True,
-                        ).head.object.hexsha
-                        logging.info(
-                            "Cloned %s successfully with commit: %s",
-                            root["nickname"],
-                            commit,
-                        )
-                        await update_root_cloning_status(
-                            token=api_token,
-                            group_name=group_name,
-                            root_id=root["id"],
-                            status="OK",
-                            message="Cloned successfully",
-                            commit=commit,
-                        )
-                        mirror_updated = True
-                        delete_action(action_dynamo_pk=action_key)
-                    except (GitError, AttributeError) as exc:
-                        logging.exception(exc)
-                        await update_root_cloning_status(
-                            token=api_token,
-                            group_name=group_name,
-                            root_id=root["id"],
-                            status="FAILED",
-                            message=str(exc),
-                        )
-
-                else:
+            success_upload = await upload_cloned_repo_to_s3_tar(
+                repo_path=folder_to_clone_root,
+                nickname=root["nickname"],
+                group_name=group_name,
+            )
+            if success_upload:
+                try:
+                    commit = Repo(
+                        folder_to_clone_root,
+                        search_parent_directories=True,
+                    ).head.object.hexsha
+                    logging.info(
+                        "Cloned %s successfully with commit: %s",
+                        root["nickname"],
+                        commit,
+                    )
+                    await update_root_cloning_status(
+                        token=api_token,
+                        group_name=group_name,
+                        root_id=root["id"],
+                        status="OK",
+                        message="Cloned successfully",
+                        commit=commit,
+                    )
+                    mirror_updated = True
+                    delete_action(action_dynamo_pk=action_key)
+                except (GitError, AttributeError) as exc:
+                    logging.exception(exc)
                     await update_root_cloning_status(
                         token=api_token,
                         group_name=group_name,
                         root_id=root["id"],
                         status="FAILED",
-                        message="The repository can not be uploaded",
+                        message=str(exc),
                     )
+
+            else:
+                await update_root_cloning_status(
+                    token=api_token,
+                    group_name=group_name,
+                    root_id=root["id"],
+                    status="FAILED",
+                    message="The repository can not be uploaded",
+                )
     return (root["nickname"], mirror_updated)
 
 
