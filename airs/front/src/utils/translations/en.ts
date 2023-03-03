@@ -698,20 +698,6 @@ const pageTexts: ResourceKey = {
       "secure technology.",
     title: "Hacking software for over 20 years",
   },
-  freeTrial: {
-    button: "Start your Machine Plan",
-    item1: "Automatic SAST, DAST and SCA",
-    item2: "Continuous vulnerability reporting",
-    item3:
-      "Vulnerability management in our " +
-      "Attack Resistance Management platform (+ GraphQL API)",
-    item4: "Control and accelerate vulnerability remediation",
-    item5: "Integration with your CI/CD for stronger control",
-    subtitle: "Enjoy all Machine Plan benefits for 21 days:",
-    title:
-      "Search for vulnerabilities in your application " +
-      "for FREE (21-day trial). No credit card required.",
-  },
   home: {
     clients: {
       title: "We are helping hundreds of companies build secure applications",
