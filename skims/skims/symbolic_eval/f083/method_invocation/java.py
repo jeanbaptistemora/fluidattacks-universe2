@@ -20,9 +20,18 @@ feature_paremeter_entities = (
 )
 
 
+methods_inits = {
+    "createXMLReader",
+    "newInstance",
+    "newDocumentBuilder",
+    "newSAXParser",
+    "DocumentBuilderFactory",
+}
+
+
 def xml_parser(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     graph = args.graph
-    if graph.nodes[args.n_id]["expression"] == "newInstance":
+    if graph.nodes[args.n_id]["expression"] in methods_inits:
         args.evaluation[args.n_id] = True
     if (
         graph.nodes[args.n_id]["expression"] == "setFeature"

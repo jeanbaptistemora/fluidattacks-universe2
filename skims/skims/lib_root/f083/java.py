@@ -57,7 +57,7 @@ def java_insecure_parser(
             for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
                 expression = graph.nodes[nid].get("expression")
                 object_id = graph.nodes[nid].get("object_id")
-                if (expression == "newSAXParser") and get_eval_danger(
+                if (expression == "parse") and get_eval_danger(
                     graph, object_id, method
                 ):
                     yield shard, nid
