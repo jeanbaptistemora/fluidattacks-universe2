@@ -1902,6 +1902,102 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,41
   51 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
+   4 | )
+   5 | from cryptography.hazmat.primitives.ciphers import (
+   6 |     algorithms,
+   7 |     Cipher,
+   8 |     modes,
+   9 | )
+  10 | import os
+  11 |
+  12 | key = os.urandom(16)
+  13 | iv = os.urandom(16)
+  14 |
+  15 | # Noncompliant: vulnerable algorithms
+  16 | tdes4 = Cipher(algorithms.TripleDES(key), mode=None, backend=default_backend())
+  17 | bf3 = Cipher(algorithms.Blowfish(key), mode=None, backend=default_backend())
+  18 | rc42 = Cipher(algorithms.ARC4(key), mode=None, backend=default_backend())
+  19 |
+  20 | # Non Compliant: vulnerable modes
+> 21 | aes = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+  22 |
+  23 | # Compliant
+  24 | aes2 = Cipher(algorithms.AES(key), modes.CFB(iv), backend=default_backend())
+     ^ Col 0
+",python.python_unsafe_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
+   4 | )
+   5 | from cryptography.hazmat.primitives.ciphers import (
+   6 |     algorithms,
+   7 |     Cipher,
+   8 |     modes,
+   9 | )
+  10 | import os
+  11 |
+  12 | key = os.urandom(16)
+  13 | iv = os.urandom(16)
+  14 |
+  15 | # Noncompliant: vulnerable algorithms
+  16 | tdes4 = Cipher(algorithms.TripleDES(key), mode=None, backend=default_backend())
+  17 | bf3 = Cipher(algorithms.Blowfish(key), mode=None, backend=default_backend())
+> 18 | rc42 = Cipher(algorithms.ARC4(key), mode=None, backend=default_backend())
+  19 |
+  20 | # Non Compliant: vulnerable modes
+  21 | aes = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+  22 |
+  23 | # Compliant
+  24 | aes2 = Cipher(algorithms.AES(key), modes.CFB(iv), backend=default_backend())
+     ^ Col 0
+",python.python_unsafe_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
+   4 | )
+   5 | from cryptography.hazmat.primitives.ciphers import (
+   6 |     algorithms,
+   7 |     Cipher,
+   8 |     modes,
+   9 | )
+  10 | import os
+  11 |
+  12 | key = os.urandom(16)
+  13 | iv = os.urandom(16)
+  14 |
+  15 | # Noncompliant: vulnerable algorithms
+  16 | tdes4 = Cipher(algorithms.TripleDES(key), mode=None, backend=default_backend())
+> 17 | bf3 = Cipher(algorithms.Blowfish(key), mode=None, backend=default_backend())
+  18 | rc42 = Cipher(algorithms.ARC4(key), mode=None, backend=default_backend())
+  19 |
+  20 | # Non Compliant: vulnerable modes
+  21 | aes = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+  22 |
+  23 | # Compliant
+  24 | aes2 = Cipher(algorithms.AES(key), modes.CFB(iv), backend=default_backend())
+     ^ Col 0
+",python.python_unsafe_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
+   4 | )
+   5 | from cryptography.hazmat.primitives.ciphers import (
+   6 |     algorithms,
+   7 |     Cipher,
+   8 |     modes,
+   9 | )
+  10 | import os
+  11 |
+  12 | key = os.urandom(16)
+  13 | iv = os.urandom(16)
+  14 |
+  15 | # Noncompliant: vulnerable algorithms
+> 16 | tdes4 = Cipher(algorithms.TripleDES(key), mode=None, backend=default_backend())
+  17 | bf3 = Cipher(algorithms.Blowfish(key), mode=None, backend=default_backend())
+  18 | rc42 = Cipher(algorithms.ARC4(key), mode=None, backend=default_backend())
+  19 |
+  20 | # Non Compliant: vulnerable modes
+  21 | aes = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+  22 |
+  23 | # Compliant
+  24 | aes2 = Cipher(algorithms.AES(key), modes.CFB(iv), backend=default_backend())
+     ^ Col 0
+",python.python_unsafe_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/swift_insecure_cipher.swift,"
    1 | import CommonCrypto
    2 | import IDZSwiftCommonCrypto

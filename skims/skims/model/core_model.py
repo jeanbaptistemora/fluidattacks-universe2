@@ -3164,6 +3164,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_UNSAFE_CIPHER = MethodInfo(
+        file_name="python",
+        name="python_unsafe_cipher",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     APK_BACKUPS_ENABLED = MethodInfo(
         file_name="analyze_bytecodes",
         name="apk_backups_enabled",

@@ -27,7 +27,7 @@ from sast.query import (
 )
 
 
-def ts_insecure_create_cipher(
+def typescript_insecure_create_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_CREATE_CIPHER
@@ -51,7 +51,7 @@ def ts_insecure_create_cipher(
     )
 
 
-def ts_insecure_hash(
+def typescript_insecure_hash(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_HASH
@@ -75,7 +75,7 @@ def ts_insecure_hash(
     )
 
 
-def ts_insecure_encrypt(
+def typescript_insecure_encrypt(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_ENCRYPT

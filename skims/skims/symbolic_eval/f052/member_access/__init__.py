@@ -10,6 +10,9 @@ from symbolic_eval.f052.member_access.common import (
 from symbolic_eval.f052.member_access.kotlin import (
     kt_insecure_cipher_http,
 )
+from symbolic_eval.f052.member_access.python import (
+    python_unsafe_ciphers,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -21,6 +24,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
     MethodsEnum.TS_INSECURE_ENCRYPT: insecure_mode,
     MethodsEnum.KT_INSECURE_CIPHER_HTTP: kt_insecure_cipher_http,
+    MethodsEnum.PYTHON_UNSAFE_CIPHER: python_unsafe_ciphers,
 }
 
 
