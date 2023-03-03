@@ -34,14 +34,14 @@ import { QuestionButton } from "../styles";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { Checkbox, Input, Label, Select } from "components/Input";
+import { Checkbox, Input, InputArray, Label, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { Can } from "utils/authz/Can";
-import { FormikArrayField, FormikDropdown } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { openUrl } from "utils/resourceHelpers";
 import {
@@ -474,18 +474,14 @@ const Repository: FC<IRepositoryProps> = ({
                       {t("group.scope.git.filter.exclude")}
                     </Label>
                     <GitIgnoreAlert gitignore={values.gitignore} />
-                    <FormikArrayField
-                      allowEmpty={true}
-                      initialValue={""}
-                      name={"gitignore"}
-                    >
+                    <InputArray initValue={""} name={"gitignore"}>
                       {(fieldName: string): JSX.Element => (
                         <Input
                           name={fieldName}
                           placeholder={t("group.scope.git.filter.placeholder")}
                         />
                       )}
-                    </FormikArrayField>
+                    </InputArray>
                   </fieldset>
                 </Can>
               )}
