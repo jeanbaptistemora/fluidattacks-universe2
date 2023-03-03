@@ -161,7 +161,8 @@ Schedules are tested by two Makes jobs:
 
 1. `m . /common/compute/schedule/test` Grants that
    - all schedules comply with a given schema;
-   - all schedules have at least one active maintainer;
+   - all schedules have at least one maintainer
+     with access to the universe repository;
    - every schedule is reviewed by a maintainer on a monthly basis.
 1. `m . /deployTerraform/commonCompute`
    Tests infrastructure
