@@ -24,7 +24,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 ZOHO_SUBSCRIPTIONS_URL = "https://www.zohoapis.com/subscriptions/v1/"
-ZOHO_OAUTH_TOKEN_URL = "https://accounts.zoho.com/oauth/v2/token"
+ZOHO_OAUTH_TOKEN_URL = "https://accounts.zoho.com/oauth/v2/token"  # nosec
 ZOHO_SUBSCRIPTIONS_REDIRECT_URI = "http://www.zoho.com/subscriptions"
 
 

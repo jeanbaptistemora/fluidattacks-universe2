@@ -556,7 +556,7 @@ in {
           }
           {
             output = "/securePythonWithBandit/integratesBack";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/testTerraform/integratesInfra";

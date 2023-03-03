@@ -6550,7 +6550,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/integratesBack:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
