@@ -1501,13 +1501,18 @@
     ];
     meta = {
       description = ''
-
+        Update all active groups unreliable indicators in db.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "03-03-2023";
       maintainers = [
+        "slizcano"
         "jmesa"
       ];
       requiredBy = [
+        ''
+          ARM analytics as these preprocessed data is used
+          is generating its charts.
+        ''
       ];
     };
     parallel = 1;
@@ -1539,13 +1544,18 @@
     ];
     meta = {
       description = ''
-
+        Update organizations overview metrics in the
+        unreliable indicators in db.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "03-03-2023";
       maintainers = [
+        "slizcano"
         "jmesa"
       ];
       requiredBy = [
+        ''
+          ARM to display the organization overview metrics.
+        ''
       ];
     };
     parallel = 1;
@@ -1576,13 +1586,19 @@
     ];
     meta = {
       description = ''
-
+        Update integration repositories data for all organizations.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "03-03-2023";
       maintainers = [
+        "slizcano"
         "jmesa"
       ];
       requiredBy = [
+        ''
+          ARM to enable Azure DevOps integrations and to let the
+          customers identify which repositories are not included in
+          Fluid Attacks services.
+        ''
       ];
     };
     parallel = 1;
@@ -1613,13 +1629,18 @@
     ];
     meta = {
       description = ''
-
+        Update all portfolios unreliable indicators in db.
       '';
-      lastReview = "01-03-2023";
+      lastReview = "03-03-2023";
       maintainers = [
+        "slizcano"
         "jmesa"
       ];
       requiredBy = [
+        ''
+          ARM analytics as these preprocessed data is used
+          is generating its charts.
+        ''
       ];
     };
     parallel = 1;
