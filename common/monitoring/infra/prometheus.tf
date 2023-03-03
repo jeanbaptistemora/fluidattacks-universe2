@@ -73,6 +73,11 @@ resource "helm_release" "adot_operator" {
   ]
 }
 
+resource "aws_cloudwatch_log_group" "emf_logs" {
+  name = "/aws/ecs/application/metrics"
+  tags = local.tags
+}
+
 data "aws_iam_policy_document" "prometheus_permissions" {
   statement {
     actions = [
@@ -97,10 +102,24 @@ data "aws_iam_policy_document" "xray_permissions" {
   }
 }
 
+data "aws_iam_policy_document" "logs_permissions" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = [
+      aws_cloudwatch_log_group.emf_logs.arn,
+      "${aws_cloudwatch_log_group.emf_logs.arn}:*"
+    ]
+  }
+}
+
 data "aws_iam_policy_document" "monitoring_permissions" {
   source_policy_documents = [
     data.aws_iam_policy_document.prometheus_permissions.json,
-    data.aws_iam_policy_document.xray_permissions.json
+    data.aws_iam_policy_document.xray_permissions.json,
+    data.aws_iam_policy_document.logs_permissions.json
   ]
 }
 
@@ -215,7 +234,6 @@ resource "kubernetes_manifest" "adot_collector" {
 
         processors:
           batch:
-          k8sattributes:
 
         receivers:
           otlp:
@@ -297,7 +315,7 @@ resource "kubernetes_manifest" "adot_collector" {
           pipelines:
             metrics:
               receivers: [otlp, prometheus, statsd]
-              processors: [batch, k8sattributes]
+              processors: [batch]
               exporters: [awsemf, prometheusremotewrite]
             traces:
               receivers: [otlp]
