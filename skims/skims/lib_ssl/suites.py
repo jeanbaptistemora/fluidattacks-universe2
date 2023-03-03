@@ -6226,7 +6226,7 @@ def get_suites_with_cbc() -> Iterator[SSLSuiteInfo]:
 def get_weak_suites() -> Iterator[SSLSuiteInfo]:
     ignored_vulns = {SSLSuiteVuln.NO_PFS, SSLSuiteVuln.CBC}
     for suite in SSLCipherSuite:
-        if not any(
+        if len(suite.value.vulnerabilities) > 1 and not any(
             vuln in ignored_vulns for vuln in suite.value.vulnerabilities
         ):
             yield suite.value

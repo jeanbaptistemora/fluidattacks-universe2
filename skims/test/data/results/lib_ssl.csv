@@ -1,7 +1,51 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.0,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.0,"
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.0 request offering only key exchange algorithms
+   5 | with PFS support and check if the connection is accepted by the
+   6 | server
+   7 | --------------Request made with the following parameters---------------
+   8 | TLS version: TLSv1.0
+   9 | Key exchange: DHE, ECDHE, SRP, ECCPWD
+  10 | Authentication: ANY
+  11 | Cipher: ANY
+  12 | Hash: ANY
+  13 | ---------------------Response obtained from server---------------------
+  14 | Result: CONNECTION_FAILED
+  15 | Type: ALERT
+  16 | Level: FATAL
+  17 | Description: handshake_failure
+  18 | ------------------------------Conclusion-------------------------------
+  19 | Server refuses connections with PFS support in TLSv1.0
+     ^ Col 0
+",analyze_protocol.pfs_disabled
+F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.1,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.1,"
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.1 request offering only key exchange algorithms
+   5 | with PFS support and check if the connection is accepted by the
+   6 | server
+   7 | --------------Request made with the following parameters---------------
+   8 | TLS version: TLSv1.1
+   9 | Key exchange: DHE, ECDHE, SRP, ECCPWD
+  10 | Authentication: ANY
+  11 | Cipher: ANY
+  12 | Hash: ANY
+  13 | ---------------------Response obtained from server---------------------
+  14 | Result: CONNECTION_FAILED
+  15 | Type: ALERT
+  16 | Level: FATAL
+  17 | Description: handshake_failure
+  18 | ------------------------------Conclusion-------------------------------
+  19 | Server refuses connections with PFS support in TLSv1.1
+     ^ Col 0
+",analyze_protocol.pfs_disabled
 F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.2,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.2,"
    1 | Server: localhost:4446
-   2 | Available versions on server: TLSv1.2
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.2 request offering only key exchange algorithms
    5 | with PFS support and check if the connection is accepted by the
@@ -21,3 +65,283 @@ F133,inputs,https://localhost:4446 (namespace),Server refuses connections with P
   19 | Server refuses connections with PFS support in TLSv1.2
      ^ Col 0
 ",analyze_protocol.pfs_disabled
+F016,inputs,https://localhost:4446 (namespace),Server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,Server accepts connections with TLSv1.0,"
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.0 request offering any cipher suite and check if
+   5 | the server accepts the connection
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.0
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: ANY
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.0
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_256_CBC_SHA
+  16 |     Openssl name: AES256-SHA
+  17 |     Code: 0x0 0x35
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with TLSv1.0
+     ^ Col 0
+",analyze_protocol.tlsv1_enabled
+F016,inputs,https://localhost:4446 (namespace),Server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,Server accepts connections with TLSv1.1,"
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.1 request offering any cipher suite and check if
+   5 | the server accepts the connection
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.1
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: ANY
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.1
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_256_CBC_SHA
+  16 |     Openssl name: AES256-SHA
+  17 |     Code: 0x0 0x35
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with TLSv1.1
+     ^ Col 0
+",analyze_protocol.tlsv1_1_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.0
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.0
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.0 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.0
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.0
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
+  16 |     Openssl name: AES128-SHA
+  17 |     Code: 0x0 0x2f
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.0
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.1
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.1
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.1 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.1
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.1
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
+  16 |     Openssl name: AES128-SHA
+  17 |     Code: 0x0 0x2f
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.1
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.2
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.2
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.2 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.2
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.2
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_128_CBC_SHA
+  16 |     Openssl name: AES128-SHA
+  17 |     Code: 0x0 0x2f
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.2
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.0
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.0
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.0 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.0
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.0
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_256_CBC_SHA
+  16 |     Openssl name: AES256-SHA
+  17 |     Code: 0x0 0x35
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.0
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.1
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.1
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.1 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.1
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.1
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_256_CBC_SHA
+  16 |     Openssl name: AES256-SHA
+  17 |     Code: 0x0 0x35
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.1
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.2
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.2
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.2 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.2
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.2
+  15 | Selected cipher suite: TLS_RSA_WITH_AES_256_CBC_SHA
+  16 |     Openssl name: AES256-SHA
+  17 |     Code: 0x0 0x35
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.2
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.0
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.0
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.0 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.0
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.0
+  15 | Selected cipher suite: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA
+  16 |     Openssl name: CAMELLIA128-SHA
+  17 |     Code: 0x0 0x41
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.0
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.1
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.1
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.1 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.1
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.1
+  15 | Selected cipher suite: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA
+  16 |     Openssl name: CAMELLIA128-SHA
+  17 |     Code: 0x0 0x41
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.1
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
+F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.2
+",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.2
+","
+   1 | Server: localhost:4446
+   2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
+   3 | -------------------------------Intention-------------------------------
+   4 | Perform a TLSv1.2 request offering any cipher suite
+   5 | and check if the connection is accepted by the server
+   6 | --------------Request made with the following parameters---------------
+   7 | TLS version: TLSv1.2
+   8 | Key exchange: ANY
+   9 | Authentication: ANY
+  10 | Cipher: CBC
+  11 | Hash: ANY
+  12 | ---------------------Response obtained from server---------------------
+  13 | Result: CONNECTION_SUCCESS
+  14 | TLS version: TLSv1.2
+  15 | Selected cipher suite: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA
+  16 |     Openssl name: CAMELLIA128-SHA
+  17 |     Code: 0x0 0x41
+  18 |     Vulnerabilities: NO_PFS, CBC, SHA
+  19 | ------------------------------Conclusion-------------------------------
+  20 | Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.2
+  21 |
+     ^ Col 0
+",analyze_protocol.cbc_enabled
