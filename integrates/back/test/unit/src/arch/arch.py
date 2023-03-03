@@ -21,6 +21,7 @@ _dag: tuple[frozenset[str], ...] = (
     frozenset({"reports"}),
     frozenset({"toe"}),
     frozenset({"groups"}),
+    frozenset({"zoho"}),
     frozenset({"group_comments"}),
     frozenset({"events"}),
     frozenset({"vulnerability_files"}),
