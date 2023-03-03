@@ -442,8 +442,7 @@ async def _update_finding_metadata(
         ),
         threat=criteria_vulnerability[language]["threat"],
         title=(
-            f"{vulnerability_id}. "
-            f"{criteria_vulnerability[language]['title']}"
+            f"{vulnerability_id}. {criteria_vulnerability[language]['title']}"
         ),
     )
 
@@ -481,8 +480,7 @@ async def _create_draft(  # pylint: disable = too-many-arguments
         severity=severity_info,
         threat=criteria_vulnerability[language]["threat"],
         title=(
-            f"{vulnerability_id}. "
-            f"{criteria_vulnerability[language]['title']}"
+            f"{vulnerability_id}. {criteria_vulnerability[language]['title']}"
         ),
     )
 
@@ -1079,14 +1077,7 @@ async def _close_vulns_in_non_target(  # pylint: disable = too-many-arguments
         group_name=group_name,
         git_root=git_root,
         finding=finding,
-        stream={
-            "inputs": [
-                *existing_vulns_to_close["inputs"],
-            ],
-            "lines": [
-                *existing_vulns_to_close["lines"],
-            ],
-        },
+        stream=existing_vulns_to_close,
         organization_name=organization_name,
     ):
         await update_unreliable_indicators_by_deps(
@@ -1108,40 +1099,45 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     sarif_log: dict[str, Any],
     execution_config: dict[str, Any],
     organization_name: str,
-    finding: Finding | None = None,
+    same_type_of_findings: tuple[Finding, ...],
     auto_approve: bool = False,
-) -> MachineFindingResult | None:
+) -> None:
     sarif_vulns = [
         vuln
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-
-    if len(sarif_vulns) > 0:
-        if finding is None:
-            finding = await _create_draft(
-                loaders,
-                group_name,
-                vulnerability_id,
-                language,
-                criteria_vulnerability,
-                criteria_requirements,
-            )
-            loaders.group_findings.clear(group_name)
-        else:
-            await _update_finding_metadata(
-                (group_name, vulnerability_id, language),
-                finding,
-                criteria_vulnerability,
-                criteria_requirements,
-            )
-
-    if not finding:
-        return None
+    target_finding, non_target_findings = await _split_target_findings(
+        criteria_vulnerability,
+        language,
+        same_type_of_findings,
+    )
+    if target_finding is None:
+        if len(sarif_vulns) == 0:
+            return
+        target_finding = await _create_draft(
+            loaders,
+            group_name,
+            vulnerability_id,
+            language,
+            criteria_vulnerability,
+            criteria_requirements,
+        )
+    else:
+        await _update_finding_metadata(
+            (group_name, vulnerability_id, language),
+            target_finding,
+            criteria_vulnerability,
+            criteria_requirements,
+        )
+        loaders.group_findings.clear(group_name)
+        loaders.finding.clear(target_finding.id)
 
     existing_open_machine_vulns: tuple[Vulnerability, ...] = tuple(
         vuln
-        for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+        for vuln in await loaders.finding_vulnerabilities.load(
+            target_finding.id
+        )
         if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
         and is_machine_vuln(vuln)
         and vuln.root_id == git_root.id
@@ -1170,7 +1166,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 
     reattack_future = findings_domain.add_reattack_justification(
         loaders,
-        finding.id,
+        target_finding.id,
         _get_vulns_with_reattack(
             new_vulns_to_add, existing_open_machine_vulns, "open"
         ),
@@ -1194,7 +1190,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         loaders=loaders,
         group_name=group_name,
         git_root=git_root,
-        finding=finding,
+        finding=target_finding,
         stream={
             "inputs": [
                 *new_vulns_to_add["inputs"],
@@ -1212,26 +1208,36 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         # Update all finding indicators with latest information
         await update_unreliable_indicators_by_deps(
             EntityDependency.upload_file,
-            finding_ids=[finding.id],
+            finding_ids=[target_finding.id],
             vulnerability_ids=list(persisted_vulns),
         )
     else:
         reattack_future.close()
 
     if should_update_evidence or (
-        finding.evidences.evidence5 is None and len(sarif_vulns) > 0
+        target_finding.evidences.evidence5 is None and len(sarif_vulns) > 0
     ):
-        await upload_evidences(loaders, finding, sarif_vulns)
+        await upload_evidences(loaders, target_finding, sarif_vulns)
 
-    if await _is_machine_finding(loaders, finding.id) and (
+    if await _is_machine_finding(loaders, target_finding.id) and (
         len(new_vulns_to_add) > 0 or len(existing_open_machine_vulns) > 0
     ):
-        await release_finding(loaders, finding.id, auto_approve)
-    return MachineFindingResult(
-        open=len(new_vulns_to_add["lines"]) + len(new_vulns_to_add["inputs"]),
-        modified=len(existing_vulns_to_close["inputs"])
-        + len(existing_vulns_to_close["lines"]),
-        finding=f"F{vulnerability_id}",
+        await release_finding(loaders, target_finding.id, auto_approve)
+
+    await collect(
+        tuple(
+            _close_vulns_in_non_target(
+                loaders,
+                group_name,
+                git_root,
+                sarif_log,
+                execution_config,
+                organization_name,
+                sarif_vulns,
+                finding,
+            )
+            for finding in non_target_findings
+        )
     )
 
 
@@ -1313,14 +1319,13 @@ async def process_execution(
     }
 
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
-    rules_finding: tuple[tuple[str, Finding | None], ...] = ()
+    rules_finding: list[tuple[str, tuple[Finding, ...]]] = []
     for criteria_vuln_id in rules_id:
+        same_type_of_findings = []
         for finding in group_findings:
             if finding.title.startswith(f"{criteria_vuln_id}."):
-                rules_finding = (*rules_finding, (criteria_vuln_id, finding))
-                break
-        else:
-            rules_finding = (*rules_finding, (criteria_vuln_id, None))
+                same_type_of_findings.append(finding)
+        rules_finding.append((criteria_vuln_id, tuple(same_type_of_findings)))
 
     organization_name = (
         await get_organization(
@@ -1335,15 +1340,15 @@ async def process_execution(
                 vulnerability_id=vuln_id,
                 criteria_vulnerability=criteria_vulns[vuln_id],
                 criteria_requirements=criteria_reqs,
-                finding=finding,
-                language=execution_config["language"],
+                same_type_of_findings=same_type_of_findings,
+                language=str(execution_config["language"]).lower(),
                 git_root=git_root,
                 sarif_log=results,
                 execution_config=execution_config,
                 organization_name=organization_name,
                 auto_approve=auto_approve_rules[vuln_id],
             )
-            for vuln_id, finding in rules_finding
+            for vuln_id, same_type_of_findings in rules_finding
         ]
     )
     return True
