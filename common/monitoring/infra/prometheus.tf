@@ -296,6 +296,21 @@ resource "kubernetes_manifest" "adot_collector" {
                     - source_labels: [__meta_kubernetes_pod_node_name]
                       action: replace
                       target_label: instance
+
+                - job_name: 'kubernetes-arm'
+                  scheme: http
+
+                  kubernetes_sd_configs:
+                    - role: endpoints
+
+                  relabel_configs:
+                    - source_labels: [__meta_kubernetes_service_name]
+                      action: keep
+                      regex: integrates-trunk
+                    - source_labels: [__meta_kubernetes_service_name]
+                      action: replace
+                      target_label: service_name
+
           statsd:
 
         exporters:

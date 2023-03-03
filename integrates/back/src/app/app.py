@@ -115,6 +115,10 @@ from starlette.routing import (
 from starlette.staticfiles import (
     StaticFiles,
 )
+from starlette_prometheus import (
+    metrics,
+    PrometheusMiddleware,
+)
 from telemetry import (
     instrumentation,
 )
@@ -369,6 +373,7 @@ APP = Starlette(
         Route("/graphics-for-portfolio", charts.graphics_for_portfolio),
         Route("/graphics-report", charts.graphics_report),
         Route("/invalid_invitation", templates.invalid_invitation),
+        Route("/metrics", metrics),
         Route("/logout", logout),
         Route(
             "/orgs/{org_name:str}/groups/"
@@ -394,6 +399,7 @@ APP = Starlette(
         Middleware(BugsnagMiddleware),
         Middleware(SessionMiddleware, secret_key=FI_STARLETTE_SESSION_KEY),
         Middleware(CustomRequestMiddleware),
+        Middleware(PrometheusMiddleware, filter_unhandled_paths=True),
     ],
     exception_handlers=exception_handlers,
 )

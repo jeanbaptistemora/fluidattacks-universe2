@@ -43,19 +43,23 @@ function serve {
         --workers 1
       )
     elif test "${env}" == 'eph'; then
-      config+=(
-        # The host:port of the statsd server
-        --statsd-host "adot-collector.kube-system:8125"
-        # The number of worker processes for handling requests
-        --workers "${workers}"
-      )
+      export prometheus_multiproc_dir \
+        && prometheus_multiproc_dir="$(mktemp -d)" \
+        && config+=(
+          # The host:port of the statsd server
+          --statsd-host "adot-collector.kube-system:8125"
+          # The number of worker processes for handling requests
+          --workers "${workers}"
+        )
     elif test "${env}" == 'prod'; then
-      config+=(
-        # The host:port of the statsd server
-        --statsd-host "adot-collector.kube-system:8125"
-        # The number of worker processes for handling requests
-        --workers "${workers}"
-      )
+      export prometheus_multiproc_dir \
+        && prometheus_multiproc_dir="$(mktemp -d)" \
+        && config+=(
+          # The host:port of the statsd server
+          --statsd-host "adot-collector.kube-system:8125"
+          # The number of worker processes for handling requests
+          --workers "${workers}"
+        )
     elif test "${env}" == 'prod-local'; then
       config+=(
         # SSL certificate file
