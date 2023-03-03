@@ -1,5 +1,9 @@
+import azureIcon from "./azureIcon.png";
+import bitBucketIcon from "./bitBucketIcon.png";
 import lotCircleXMark from "./circleXMark.json";
 import enrolledUserCase from "./EnrolledUserCase.png";
+import gitHubIcon from "./gitHubIcon.png";
+import gitLabIcon from "./gitLabIcon.png";
 import loginBGR from "./loginBGR.png";
 import loginBitBucketLogo from "./loginBitBucketLogo.png";
 import loginGoogleLogo from "./loginGoogleLogo.png";
@@ -12,11 +16,16 @@ import lotScan from "./scan.json";
 import searchingFindings from "./searchingFindings.png";
 import signUpBGR from "./SignUpBGR.png";
 import signUpLogo from "./SignUpLogo.png";
+import squarePlusIcon from "./squarePlusIcon.png";
 import starMedium from "./StarMedium.png";
 import starSolid from "./StarSolid.png";
 
 export {
+  azureIcon,
+  bitBucketIcon,
   enrolledUserCase,
+  gitHubIcon,
+  gitLabIcon,
   lotCircleXMark,
   lotScan,
   loginBGR,
@@ -32,4 +41,5 @@ export {
   starSolid,
   starMedium,
   signUpLogo,
+  squarePlusIcon,
 };
