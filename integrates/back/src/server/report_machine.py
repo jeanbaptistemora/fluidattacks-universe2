@@ -39,22 +39,10 @@ from db_model.finding_comments.enums import (
     CommentType,
 )
 from db_model.findings.enums import (
-    AttackComplexity,
-    AttackVector,
-    AvailabilityImpact,
-    ConfidentialityImpact,
-    Exploitability,
     FindingStateStatus,
-    IntegrityImpact,
-    PrivilegesRequired,
-    RemediationLevel,
-    ReportConfidence,
-    SeverityScope,
-    UserInteraction,
 )
 from db_model.findings.types import (
     Finding,
-    Finding31Severity,
     FindingMetadataToUpdate,
     SeverityScore,
 )
@@ -108,6 +96,7 @@ import json
 import logging
 from newutils import (
     cvss as cvss_utils,
+    machine as machine_utils,
 )
 from newutils.files import (
     path_is_include,
@@ -357,48 +346,6 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
     return file_object
 
 
-def _get_finding_severity(
-    criteria_vulnerability: dict[str, Any],
-) -> Finding31Severity:
-    return Finding31Severity(
-        attack_complexity=AttackComplexity[
-            criteria_vulnerability["score"]["base"]["attack_complexity"]
-        ].value,
-        attack_vector=AttackVector[
-            criteria_vulnerability["score"]["base"]["attack_vector"]
-        ].value,
-        availability_impact=AvailabilityImpact[
-            criteria_vulnerability["score"]["base"]["availability"]
-        ].value,
-        confidentiality_impact=ConfidentialityImpact[
-            criteria_vulnerability["score"]["base"]["confidentiality"]
-        ].value,
-        exploitability=Exploitability[
-            criteria_vulnerability["score"]["temporal"][
-                "exploit_code_maturity"
-            ]
-        ].value,
-        integrity_impact=IntegrityImpact[
-            criteria_vulnerability["score"]["base"]["integrity"]
-        ].value,
-        privileges_required=PrivilegesRequired[
-            criteria_vulnerability["score"]["base"]["privileges_required"]
-        ].value,
-        remediation_level=RemediationLevel[
-            criteria_vulnerability["score"]["temporal"]["remediation_level"]
-        ].value,
-        report_confidence=ReportConfidence[
-            criteria_vulnerability["score"]["temporal"]["report_confidence"]
-        ].value,
-        severity_scope=SeverityScope[
-            criteria_vulnerability["score"]["base"]["scope"]
-        ].value,
-        user_interaction=UserInteraction[
-            criteria_vulnerability["score"]["base"]["user_interaction"]
-        ].value,
-    )
-
-
 async def _update_finding_metadata(
     finding_data: tuple[str, str, str],
     finding: Finding,
@@ -417,7 +364,9 @@ async def _update_finding_metadata(
         threat=finding.threat,
         title=finding.title,
     )
-    new_severity = _get_finding_severity(criteria_vulnerability)
+    new_severity = machine_utils.get_finding_machine_severity(
+        criteria_vulnerability
+    )
 
     updated_attrs = FindingMetadataToUpdate(
         attack_vector_description=criteria_vulnerability[language]["impact"],
@@ -463,7 +412,9 @@ async def _create_draft(  # pylint: disable = too-many-arguments
     criteria_requirements: dict[str, Any],
 ) -> Finding:
     language = language.lower()
-    severity_info = _get_finding_severity(criteria_vulnerability)
+    severity_info = machine_utils.get_finding_machine_severity(
+        criteria_vulnerability
+    )
 
     draft_info = FindingDraftToAdd(
         attack_vector_description=criteria_vulnerability[language]["impact"],
@@ -1014,20 +965,6 @@ async def upload_snippet(
             break
 
 
-def _has_machine_description(
-    finding: Finding, criteria_vulnerability: dict[str, Any], language: str
-) -> bool:
-    return all(
-        (
-            finding.description.strip()
-            == criteria_vulnerability[language]["description"].strip(),
-            finding.threat.strip()
-            == criteria_vulnerability[language]["threat"].strip(),
-            finding.severity == _get_finding_severity(criteria_vulnerability),
-        )
-    )
-
-
 async def _split_target_findings(
     criteria_vulnerability: dict[str, Any],
     language: str,
@@ -1036,7 +973,9 @@ async def _split_target_findings(
     target_finding = None
     non_target_findings: list[Finding] = []
     for finding in same_type_of_findings:
-        if _has_machine_description(finding, criteria_vulnerability, language):
+        if machine_utils.has_machine_description(
+            finding, criteria_vulnerability, language
+        ):
             target_finding = finding
         else:
             non_target_findings.append(finding)

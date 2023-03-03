@@ -88,6 +88,17 @@ const DescriptionView: React.FC = (): JSX.Element => {
           case "Exception - Invalid characters":
             msgError(t("validations.invalidChar"));
             break;
+          case "Exception - Finding with the same recommendation already exists":
+            msgError(t("validations.addFindingModal.duplicatedRecommendation"));
+            break;
+          case "Exception - Finding with the same description already exists":
+            msgError(t("validations.addFindingModal.duplicatedDescription"));
+            break;
+          case "Exception - Finding with the same description, threat and severity already exists":
+            msgError(
+              t("validations.addFindingModal.duplicatedMachineDescription")
+            );
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(

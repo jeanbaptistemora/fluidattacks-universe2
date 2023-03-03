@@ -1842,3 +1842,12 @@ class RequiredUnfulfilledRequirements(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The unfulfilled requirements are required"
         super(RequiredUnfulfilledRequirements, self).__init__(msg)
+
+
+class RepeatedFindingMachineDescription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = (
+            "Exception - Finding with the same description, threat and"
+            " severity already exists"
+        )
+        super(RepeatedFindingMachineDescription, self).__init__(msg)

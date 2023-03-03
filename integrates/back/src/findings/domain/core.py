@@ -23,6 +23,7 @@ from custom_exceptions import (
     MachineCanNotOperate,
     PermissionDenied,
     RepeatedFindingDescription,
+    RepeatedFindingMachineDescription,
     RepeatedFindingRecommendation,
     RequiredUnfulfilledRequirements,
     RootNotFound,
@@ -104,6 +105,7 @@ from newutils import (
     cvss as cvss_utils,
     datetime as datetime_utils,
     findings as findings_utils,
+    machine as machine_utils,
     validations,
     vulnerabilities as vulns_utils,
 )
@@ -171,22 +173,56 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
     title: str,
     description: str,
     recommendation: str,
-    finding_id: str | None = None,
+    threat: str,
+    severity: Finding20Severity | Finding31Severity,
+    current_finding: Finding | None = None,
 ) -> None:
+    group = await loaders.group.load(group_name)
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
-    same_type_of_findings = [
-        finding
-        for finding in group_findings
-        if finding.id != finding_id
-        and (
-            finding.title.split(".")[0].strip() == title.split(".")[0].strip()
-        )
-    ]
+    same_type_of_findings = (
+        [
+            finding
+            for finding in group_findings
+            if finding.id != current_finding.id
+            and (
+                finding.title.split(".")[0].strip()
+                == title.split(".")[0].strip()
+            )
+        ]
+        if current_finding
+        else [
+            finding
+            for finding in group_findings
+            if finding.title.split(".")[0].strip()
+            == title.split(".")[0].strip()
+        ]
+    )
     for finding in same_type_of_findings:
-        if finding.description.strip() == description.strip():
+        if finding.description.strip() == description.strip() and not (
+            current_finding is not None
+            and current_finding.description.split() == description.split()
+        ):
             raise RepeatedFindingDescription()
         if finding.recommendation.strip() == recommendation.strip():
             raise RepeatedFindingRecommendation()
+
+    criteria_vulnerabilities = await loaders.vulnerabilities_file.load("")
+    criteria_vulnerability: dict[str, Any] = criteria_vulnerabilities[
+        title.split(".")[0].strip()
+    ]
+    duplicated_findings = [
+        finding
+        for finding in same_type_of_findings
+        if machine_utils.has_machine_description(
+            finding._replace(
+                description=description, threat=threat, severity=severity
+            ),
+            criteria_vulnerability,
+            str(group.language.value).lower(),
+        )
+    ]
+    if duplicated_findings:
+        raise RepeatedFindingMachineDescription()
 
 
 @validations.validate_fields_deco(
@@ -237,6 +273,8 @@ async def add_finding(
         attributes.title,
         attributes.description,
         attributes.recommendation,
+        attributes.threat,
+        attributes.severity,
     )
 
     finding = Finding(
@@ -936,7 +974,9 @@ async def update_description(
             description.title or finding.title,
             description.description or finding.description,
             description.recommendation or finding.recommendation,
-            finding_id,
+            description.threat or finding.threat,
+            finding.severity,
+            finding,
         )
 
     if unfulfilled_requirements is not None:
@@ -945,6 +985,7 @@ async def update_description(
             description.title or finding.title,
             unfulfilled_requirements,
         )
+
     metadata = FindingMetadataToUpdate(
         attack_vector_description=description.attack_vector_description,
         description=description.description,
@@ -988,6 +1029,16 @@ async def update_severity(
     else:
         updated_severity = severity
 
+    await _validate_duplicated_finding(
+        loaders,
+        finding.group_name,
+        finding.title,
+        finding.description,
+        finding.recommendation,
+        finding.threat,
+        updated_severity,
+        finding,
+    )
     metadata = FindingMetadataToUpdate(
         severity=updated_severity,
         severity_score=SeverityScore(

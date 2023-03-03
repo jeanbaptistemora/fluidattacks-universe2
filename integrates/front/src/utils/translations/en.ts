@@ -4293,9 +4293,11 @@ export const enTranslations: ResourceKey = {
   validations: {
     addFindingModal: {
       duplicatedDescription:
-        "Another vulnerability, which has the same title, contains the same description",
+        "Another vulnerability, which has the same type, contains the same description",
+      duplicatedMachineDescription:
+        "Another vulnerability, which has the same type, contains the same description, threat and severity",
       duplicatedRecommendation:
-        "Another vulnerability, which has the same title, contains the same recommendation",
+        "Another vulnerability, which has the same type, contains the same recommendation",
       invalidTitle: "The title is not valid",
     },
     alphabetic: "Only alphabetic characters",

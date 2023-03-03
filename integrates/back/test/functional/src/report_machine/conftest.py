@@ -61,11 +61,11 @@ from db_model.vulnerabilities.types import (
     VulnerabilityUnreliableIndicators,
     VulnerabilityVerification,
 )
+from newutils import (
+    machine as machine_utils,
+)
 import pytest
 import pytest_asyncio
-from server.report_machine import (
-    _get_finding_severity,
-)
 from typing import (
     Any,
 )
@@ -538,7 +538,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         "description"
                     ],
                     hacker_email="test1@gmail.com",
-                    severity=_get_finding_severity(
+                    severity=machine_utils.get_finding_machine_severity(
                         CRITERIA_VULNERABILITIES["001"]
                     ),
                     requirements=(
@@ -651,7 +651,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     recommendation="Updated recommendation",
                     description="Another description",
                     hacker_email="test1@gmail.com",
-                    severity=_get_finding_severity(
+                    severity=machine_utils.get_finding_machine_severity(
                         CRITERIA_VULNERABILITIES["002"]
                     ),
                     requirements="",
@@ -763,7 +763,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         "description"
                     ],
                     hacker_email="hacker@fluidattacks.com",
-                    severity=_get_finding_severity(
+                    severity=machine_utils.get_finding_machine_severity(
                         CRITERIA_VULNERABILITIES["117"]
                     ),
                     requirements="Requirement",
