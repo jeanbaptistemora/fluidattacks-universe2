@@ -27,7 +27,16 @@ import utils.graph as g
 def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers
+            != {
+                "featureEntitisSetted",
+                "featureParametterSetted",
+                "featureDoctypeSetted",
+            }
+        ):
             return True
     return False
 
@@ -35,7 +44,7 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 def java_insecure_parser(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_INSECURE_CONNECTION
+    method = MethodsEnum.JAVA_XML_PARSER
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -57,5 +66,5 @@ def java_insecure_parser(
         desc_key="src.lib_path.f052.insecure_connection.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JAVA_INSECURE_CONNECTION,
+        method=MethodsEnum.JAVA_XML_PARSER,
     )
