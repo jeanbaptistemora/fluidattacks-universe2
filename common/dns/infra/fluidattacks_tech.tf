@@ -205,13 +205,13 @@ resource "cloudflare_record" "pic_domainkey" {
 }
 
 # CAA Records
-resource "cloudflare_record" "amazon_caa" {
+resource "cloudflare_record" "gts_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
   data {
     tag   = "issue"
-    value = "amazon.com"
+    value = "pki.goog"
     flags = "0"
   }
   ttl     = 3600
