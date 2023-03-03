@@ -211,7 +211,7 @@ resource "cloudflare_record" "caa" {
   type    = "CAA"
   data {
     tag   = "issue"
-    value = "amazon.com"
+    value = "pki.goog"
     flags = "0"
   }
   ttl     = 3600
