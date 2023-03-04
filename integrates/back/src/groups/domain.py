@@ -1282,7 +1282,7 @@ async def remove_all_stakeholders(
             )
             for access in stakeholders_access
         ),
-        workers=4,
+        workers=1,
     )
 
 
@@ -1383,6 +1383,10 @@ async def remove_resources(
     group_name: str,
     validate_pending_actions: bool = False,
 ) -> None:
+    group: Group = await loaders.group.load(group_name)
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
+    )
     await remove_all_stakeholders(
         loaders=loaders,
         group_name=group_name,
@@ -1420,11 +1424,11 @@ async def remove_resources(
     await _remove_all_toe(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
     await groups_model.remove(group_name=group_name)
-    group: Group = await loaders.group.load(group_name)
+
     reason = (
         group.state.justification
         if group.state.justification
-        else GroupStateJustification.OTHER.value
+        else GroupStateJustification.OTHER
     )
     comments = group.state.comments if group.state.comments else "None"
     await notifications_domain.delete_group(
@@ -1432,8 +1436,18 @@ async def remove_resources(
         deletion_date=datetime_utils.get_utc_now(),
         group_name=group_name,
         requester_email=email,
-        reason=reason,
+        reason=reason.value,
         comments=comments,
+    )
+    LOGGER.info(
+        "Remove group resources completed",
+        extra={
+            "extra": {
+                "group_name": group.name,
+                "organization_id": organization.id,
+                "organization_name": organization.name,
+            }
+        },
     )
 
 

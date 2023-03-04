@@ -297,7 +297,6 @@ async def remove_access(
     loaders: Dataloaders, email: str, group_name: str
 ) -> None:
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
-
     me_vulnerabilities = await loaders.me_vulnerabilities.load(email)
     findings_ids: set[str] = {finding.id for finding in all_findings}
     group_vulnerabilities = list(
@@ -314,7 +313,7 @@ async def remove_access(
             )
             for vulnerability in group_vulnerabilities
         ),
-        workers=8,
+        workers=4,
     )
 
     drafts = filter_non_state_status_findings(
@@ -339,7 +338,7 @@ async def remove_access(
             )
             for draft in group_drafts
         ),
-        workers=8,
+        workers=4,
     )
 
     await group_access_model.remove(email=email, group_name=group_name)

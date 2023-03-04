@@ -734,7 +734,8 @@ async def reassign_stakeholder_credentials(
                 force_update_owner=True,
             )
             for credentials in user_credentials
-        )
+        ),
+        workers=1,
     )
     schedule(
         send_mail_reassigned_credentials_owner(
@@ -773,7 +774,8 @@ async def remove_access(
         tuple(
             group_access_domain.remove_access(loaders, email, group)
             for group in org_group_names
-        )
+        ),
+        workers=1,
     )
     await reassign_stakeholder_credentials(
         loaders=loaders,
@@ -783,21 +785,24 @@ async def remove_access(
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
     stakeholder = await loaders.stakeholder.load(email)
-    if stakeholder:
-        LOGGER.info(
-            "Stakeholder removed from organization",
-            extra={
-                "extra": {
-                    "email": email,
-                    "modified_by": modified_by,
-                    "organization_id": organization_id,
-                    "last_login_date": stakeholder.last_login_date,
-                    "last_api_token_use_date": (
-                        stakeholder.last_api_token_use_date
-                    ),
-                }
-            },
-        )
+    LOGGER.info(
+        "Stakeholder removed from organization",
+        extra={
+            "extra": {
+                "email": email,
+                "modified_by": modified_by,
+                "organization_id": organization_id,
+                "last_login_date": stakeholder.last_login_date
+                if stakeholder
+                else "",
+                "last_api_token_use_date": (
+                    stakeholder.last_api_token_use_date
+                    if stakeholder
+                    else None,
+                ),
+            }
+        },
+    )
 
     loaders = get_new_context()
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
