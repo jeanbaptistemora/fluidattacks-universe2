@@ -7,19 +7,19 @@ from conans import ConanFile, CMake
 
 class ImguiOpencvDemo(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "imgui/1.79",\
-               "glfw/3.3.2",\
-               "glew/2.1.0",\
+    requires = "libde265/1.0.8",\
                "opencv/2.4.13.7",\
                "poco/1.10.1"
 
-    tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+    tool_requires = ["pkg_a/4.5.1",
+                     ("libtiff/3.9.0@user/testing"),
+                     ("glew/2.1.0@dummy/stable", "override"),]
 
     def build_requirements(self):
         self.tool_requires("tool_win/0.1@user/stable")
 
     def requirements(self):
-        envir = "test"
+        envir = "prod"
         self.requires("opencv/2.2@drl/stable")
         if envir == "prod":
             self.requires(
