@@ -8,7 +8,6 @@ from db_model.group_access.enums import (
     GroupInvitiationState,
 )
 from db_model.group_access.types import (
-    GroupAccess,
     GroupAccessRequest,
 )
 from db_model.stakeholders.types import (
@@ -40,21 +39,22 @@ async def resolve(
 
     if entity == "GROUP":
         if await exists(loaders, request_store["group_name"], parent.email):
-            group_access: GroupAccess = await loaders.group_access.load(
+            group_access = await loaders.group_access.load(
                 GroupAccessRequest(
                     group_name=request_store["group_name"], email=parent.email
                 )
             )
             invitation_state = format_invitation_state(
-                invitation=group_access.invitation,
+                invitation=group_access.invitation if group_access else None,
                 is_registered=parent.is_registered,
             )
-            return (
-                group_access.invitation.responsibility
-                if group_access.invitation
-                and invitation_state == GroupInvitiationState.PENDING
-                else group_access.responsibility
-            )
+            if group_access:
+                return (
+                    group_access.invitation.responsibility
+                    if group_access.invitation
+                    and invitation_state == GroupInvitiationState.PENDING
+                    else group_access.responsibility
+                )
 
         return None
 

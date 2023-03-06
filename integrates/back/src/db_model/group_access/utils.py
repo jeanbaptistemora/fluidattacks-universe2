@@ -102,16 +102,16 @@ def merge_group_access_changes(
         if changes.confirm_deletion
         else old_access.confirm_deletion,
         expiration_time=changes.expiration_time
-        if changes.expiration_time is not None
+        if changes.expiration_time
         else old_access.expiration_time,
         has_access=changes.has_access
-        if changes.has_access is not None
+        if changes.has_access
         else old_access.has_access,
         invitation=changes.invitation
         if changes.invitation
         else old_access.invitation,
         responsibility=changes.responsibility
-        if changes.responsibility is not None
+        if changes.responsibility
         else old_access.responsibility,
-        role=changes.role if changes.role is not None else old_access.role,
+        role=changes.role if changes.role else old_access.role,
     )

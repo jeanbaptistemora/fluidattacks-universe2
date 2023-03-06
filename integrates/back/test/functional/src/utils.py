@@ -19,9 +19,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.group_access.types import (
-    GroupAccess,
-    GroupAccessRequest,
+from group_access import (
+    domain as group_access_domain,
 )
 from groups import (
     domain as groups_domain,
@@ -41,8 +40,8 @@ async def complete_register(
     group_name: str,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    group_access: GroupAccess = await loaders.group_access.load(
-        GroupAccessRequest(group_name=group_name, email=email)
+    group_access = await group_access_domain.get_group_access(
+        loaders, group_name=group_name, email=email
     )
     await groups_domain.complete_register_for_group_invitation(
         loaders, group_access
@@ -71,8 +70,8 @@ async def reject_register(
     group_name: str,
 ) -> bool:
     loaders = get_new_context()
-    group_access = await loaders.group_access.load(
-        GroupAccessRequest(group_name=group_name, email=email)
+    group_access = await group_access_domain.get_group_access(
+        loaders, group_name=group_name, email=email
     )
     await groups_domain.reject_register_for_group_invitation(
         get_new_context(), group_access

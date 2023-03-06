@@ -234,11 +234,11 @@ async def test_group_access_changes() -> None:
     await add_access(
         loaders=loaders, email=email, group_name=group_name, role="user"
     )
-    assert await exists(loaders, group_name, email)
+    assert await exists(get_new_context(), group_name, email)
 
     # Adding a new user implies two trips to the db, one of which leaves a
     # cached GroupAccess
-    access: GroupAccess = await loaders.group_access.clear_all().load(
+    access = await loaders.group_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
     historic_access: list[

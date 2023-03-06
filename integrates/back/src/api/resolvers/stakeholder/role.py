@@ -10,7 +10,6 @@ from db_model.group_access.enums import (
 )
 from db_model.group_access.types import (
     GroupAccess,
-    GroupAccessRequest,
     GroupAccessState,
 )
 from db_model.organization_access.enums import (
@@ -27,6 +26,7 @@ from graphql.type.definition import (
 )
 from group_access.domain import (
     exists,
+    get_group_access,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -64,8 +64,8 @@ async def resolve(
                 ),
             )
         else:
-            group_access = await loaders.group_access.load(
-                GroupAccessRequest(group_name=group_name, email=parent.email)
+            group_access = await get_group_access(
+                loaders, group_name, parent.email
             )
         group_invitation_state = format_group_invitation_state(
             invitation=group_access.invitation,

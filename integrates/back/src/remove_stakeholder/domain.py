@@ -134,10 +134,10 @@ async def get_email_from_url_token(
     ):
         return ""
 
-    access_with_deletion: GroupAccess = await loaders.group_access.load(
+    access_with_deletion = await loaders.group_access.load(
         GroupAccessRequest(group_name="confirm_deletion", email=email)
     )
-    if (
+    if access_with_deletion and (
         access_with_deletion.confirm_deletion
         and access_with_deletion.confirm_deletion.url_token == url_token
     ):

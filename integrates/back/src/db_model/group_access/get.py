@@ -17,9 +17,6 @@ from boto3.dynamodb.conditions import (
 from collections.abc import (
     Iterable,
 )
-from custom_exceptions import (
-    StakeholderNotInGroup,
-)
 from db_model import (
     TABLE,
 )
@@ -31,7 +28,7 @@ from dynamodb import (
 
 async def _get_group_access(
     *, requests: Iterable[GroupAccessRequest]
-) -> list[GroupAccess]:
+) -> list[GroupAccess | None]:
     requests_formatted = [
         request._replace(
             group_name=request.group_name.lower().strip(),
@@ -51,25 +48,20 @@ async def _get_group_access(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests_formatted):
-        response = {
-            GroupAccessRequest(
-                group_name=group_access.group_name, email=group_access.email
-            ): group_access
-            for group_access in tuple(
-                format_group_access(item) for item in items
-            )
-        }
-        return [response[request] for request in requests_formatted]
-
-    raise StakeholderNotInGroup()
+    response = {
+        GroupAccessRequest(
+            group_name=group_access.group_name, email=group_access.email
+        ): group_access
+        for group_access in list(format_group_access(item) for item in items)
+    }
+    return [response.get(request) for request in requests_formatted]
 
 
-class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess]):
+class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupAccessRequest]
-    ) -> list[GroupAccess]:
+    ) -> list[GroupAccess | None]:
         return await _get_group_access(requests=requests)
 
 

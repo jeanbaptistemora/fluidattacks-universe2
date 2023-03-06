@@ -1,5 +1,6 @@
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from db_model import (
     forces as forces_model,
@@ -7,12 +8,11 @@ from db_model import (
 from db_model.forces.types import (
     ForcesExecution,
 )
-from db_model.group_access.types import (
-    GroupAccess,
-    GroupAccessRequest,
-)
 from db_model.groups.types import (
     GroupMetadataToUpdate,
+)
+from group_access import (
+    domain as group_access_domain,
 )
 from groups import (
     domain as groups_domain,
@@ -103,8 +103,8 @@ async def add_forces_stakeholder(
     )
 
     # Give permissions directly, no confirmation required
-    group_access: GroupAccess = await loaders.group_access.load(
-        GroupAccessRequest(group_name=group_name, email=forces_email)
+    group_access = await group_access_domain.get_group_access(
+        get_new_context(), group_name, forces_email
     )
     await groups_domain.complete_register_for_group_invitation(
         loaders, group_access

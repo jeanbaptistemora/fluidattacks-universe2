@@ -16,7 +16,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.group_access.types import (
-    GroupAccess,
     GroupAccessRequest,
 )
 from db_model.stakeholders.types import (
@@ -77,14 +76,14 @@ async def mutate(
     new_user_responsibility = kwargs.get("responsibility", "-")
 
     if await exists(loaders, group_name, new_user_email):
-        group_access: GroupAccess = await loaders.group_access.load(
+        group_access = await loaders.group_access.load(
             GroupAccessRequest(group_name=group_name, email=new_user_email)
         )
         # Stakeholder has already accepted the invitation
-        if group_access.has_access:
+        if group_access and group_access.has_access:
             raise StakeholderHasGroupAccess()
         # Too soon to send another email invitation to the same stakeholder
-        if group_access.expiration_time:
+        if group_access and group_access.expiration_time:
             validate_new_invitation_time_limit(group_access.expiration_time)
 
     allowed_roles_to_grant = (

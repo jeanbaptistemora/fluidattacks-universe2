@@ -73,6 +73,17 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_group_access(
+    loaders: Dataloaders, group_name: str, email: str
+) -> GroupAccess:
+    group_access = await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
+    if not group_access:
+        raise StakeholderNotInGroup()
+    return group_access
+
+
 async def add_access(
     loaders: Dataloaders, email: str, group_name: str, role: str
 ) -> None:
@@ -98,9 +109,7 @@ async def get_access_by_url_token(
     except (KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
-    return await loaders.group_access.load(
-        GroupAccessRequest(group_name=group_name, email=email)
-    )
+    return await get_group_access(loaders, group_name, email)
 
 
 async def get_reattackers(
@@ -284,13 +293,11 @@ async def get_stakeholders_email_by_roles(
 
 
 async def exists(loaders: Dataloaders, group_name: str, email: str) -> bool:
-    try:
-        await loaders.group_access.load(
-            GroupAccessRequest(group_name=group_name, email=email)
-        )
+    if await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    ):
         return True
-    except StakeholderNotInGroup:
-        return False
+    return False
 
 
 async def remove_access(
@@ -360,9 +367,7 @@ async def update(
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
     with suppress(StakeholderNotInGroup):
-        old_access: GroupAccess = await loaders.group_access.load(
-            GroupAccessRequest(email=email, group_name=group_name)
-        )
+        old_access = await get_group_access(loaders, group_name, email)
         metadata = merge_group_access_changes(old_access, metadata)
     await group_access_model.update_metadata(
         email=email, group_name=group_name, metadata=metadata
@@ -397,9 +402,7 @@ async def get_stakeholder_role(
             state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         )
     else:
-        group_access = await loaders.group_access.load(
-            GroupAccessRequest(group_name=group_name, email=email)
-        )
+        group_access = await get_group_access(loaders, group_name, email)
     group_invitation_state = format_invitation_state(
         invitation=group_access.invitation,
         is_registered=is_registered,

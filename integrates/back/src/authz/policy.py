@@ -8,7 +8,6 @@ from contextlib import (
 )
 from custom_exceptions import (
     StakeholderNotFound,
-    StakeholderNotInGroup,
 )
 from dataloaders import (
     Dataloaders,
@@ -19,7 +18,6 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.group_access.types import (
-    GroupAccess,
     GroupAccessMetadataToUpdate,
     GroupAccessRequest,
     GroupAccessState,
@@ -118,12 +116,11 @@ async def get_group_level_role(
 ) -> str:
     group_role: str = ""
     # Admins are granted access to all groups
-    with suppress(StakeholderNotInGroup):
-        group_access: GroupAccess = await loaders.group_access.load(
-            GroupAccessRequest(group_name=group_name, email=email)
-        )
-        if group_access.role:
-            group_role = group_access.role
+    group_access = await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
+    if group_access and group_access.role:
+        group_role = group_access.role
 
     # Please always make the query at the end
     if not group_role and await get_user_level_role(loaders, email) == "admin":
@@ -198,13 +195,14 @@ async def grant_group_level_role(
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
     metadata = GroupAccessMetadataToUpdate(
+        has_access=True,
         role=role,
         state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
     )
-    with suppress(StakeholderNotInGroup):
-        group_access: GroupAccess = await loaders.group_access.load(
-            GroupAccessRequest(group_name=group_name, email=email)
-        )
+    group_access = await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
+    if group_access:
         metadata = merge_group_access_changes(
             old_access=group_access, changes=metadata
         )
@@ -265,23 +263,22 @@ async def has_access_to_group(
 async def revoke_group_level_role(
     loaders: Dataloaders, email: str, group_name: str
 ) -> None:
-    with suppress(StakeholderNotInGroup):
-        group_access: GroupAccess = await loaders.group_access.load(
-            GroupAccessRequest(group_name=group_name, email=email)
-        )
-        if group_access.role:
-            metadata = merge_group_access_changes(
-                old_access=group_access,
-                changes=GroupAccessMetadataToUpdate(
-                    role="",
-                    state=GroupAccessState(
-                        modified_date=datetime_utils.get_utc_now()
-                    ),
+    group_access = await loaders.group_access.load(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
+    if group_access and group_access.role:
+        metadata = merge_group_access_changes(
+            old_access=group_access,
+            changes=GroupAccessMetadataToUpdate(
+                role="",
+                state=GroupAccessState(
+                    modified_date=datetime_utils.get_utc_now()
                 ),
-            )
-            await group_access_model.update_metadata(
-                email=email, group_name=group_name, metadata=metadata
-            )
+            ),
+        )
+        await group_access_model.update_metadata(
+            email=email, group_name=group_name, metadata=metadata
+        )
 
 
 async def revoke_organization_level_role(

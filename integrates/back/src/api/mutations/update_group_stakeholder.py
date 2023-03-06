@@ -19,10 +19,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.group_access.types import (
-    GroupAccess,
-    GroupAccessRequest,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -37,6 +33,7 @@ from graphql.type.definition import (
 )
 from group_access.domain import (
     exists,
+    get_group_access,
 )
 import logging
 import logging.config
@@ -75,9 +72,7 @@ async def _update_stakeholder(
     if not await exists(loaders, group.name, modified_email):
         raise StakeholderNotFound()
 
-    group_access: GroupAccess = await loaders.group_access.load(
-        GroupAccessRequest(group_name=group.name, email=modified_email)
-    )
+    group_access = await get_group_access(loaders, group.name, modified_email)
     invitation = group_access.invitation
     email = updated_data["email"]
     responsibility = updated_data["responsibility"]

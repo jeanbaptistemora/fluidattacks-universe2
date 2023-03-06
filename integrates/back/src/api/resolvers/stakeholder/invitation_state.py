@@ -48,7 +48,7 @@ async def resolve(
     if entity == "GROUP":
         group_name = request_store["group_name"]
         if await exists(loaders, group_name, parent.email):
-            group_access: GroupAccess = await loaders.group_access.load(
+            group_access = await loaders.group_access.load(
                 GroupAccessRequest(group_name=group_name, email=parent.email)
             )
         else:
@@ -60,7 +60,7 @@ async def resolve(
                 ),
             )
         return format_group_invitation_state(
-            invitation=group_access.invitation,
+            invitation=group_access.invitation if group_access else None,
             is_registered=parent.is_registered,
         )
 
