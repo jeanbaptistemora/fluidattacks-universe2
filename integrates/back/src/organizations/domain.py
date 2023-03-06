@@ -721,7 +721,7 @@ async def reassign_stakeholder_credentials(
         and not re.match(r"forces\..*@fluidattacks.com", org_access.email)
         and org_access.role == current_owner_role
     ]
-    new_owner = (
+    new_owner_email = (
         email_candidates_to_reassign[0]
         if email_candidates_to_reassign
         else EMAIL_INTEGRATES
@@ -733,10 +733,11 @@ async def reassign_stakeholder_credentials(
                 credential_id=credentials.id,
                 organization_id=organization_id,
                 state=credentials.state._replace(
-                    modified_by=new_owner,
+                    modified_by=EMAIL_INTEGRATES,
                     modified_date=datetime_utils.get_utc_now(),
                 ),
                 force_update_owner=True,
+                new_owner_email=new_owner_email,
             )
             for credentials in user_org_credentials
         ),
@@ -759,7 +760,7 @@ async def reassign_stakeholder_credentials(
                 ],
                 "email": email,
                 "modified_by": modified_by,
-                "new_owner": new_owner,
+                "new_owner": new_owner_email,
                 "organization_id": organization_id,
                 "organization_role": current_owner_role,
             }

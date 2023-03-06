@@ -37,6 +37,7 @@ async def update_credential_state(
     credential_id: str,
     state: CredentialsState,
     force_update_owner: bool = False,
+    new_owner_email: str = "",
 ) -> None:
     validate_secret(state)
     key_structure = TABLE.primary_key
@@ -54,13 +55,13 @@ async def update_credential_state(
         gsi_2_key = keys.build_key(
             facet=OWNER_INDEX_FACET,
             values={
-                "owner": state.modified_by,
+                "owner": new_owner_email or state.modified_by,
                 "id": credential_id,
             },
         )
         credential_item.update(
             {
-                "owner": state.modified_by,
+                "owner": new_owner_email or state.modified_by,
                 gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
                 gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
             }

@@ -21,5 +21,5 @@ async def send_mail_reassigned_credentials_owner(
         tags=GENERAL_TAG,
         subject="[ARM] Credentials update in organization "
         + f'[{context["organization_name"]}]',
-        template_name="updated_policies",
+        template_name="updated_credentials_owner",
     )
