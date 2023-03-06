@@ -63,7 +63,7 @@ async def test_format_vulnerabilities() -> None:
             for vuln in finding_vulns
         ]
     )
-    test_data = await format_vulnerabilities(finding_vulns, vulns_roots)
+    test_data = format_vulnerabilities(finding_vulns, vulns_roots)
     expected_output = {
         "inputs": [
             {

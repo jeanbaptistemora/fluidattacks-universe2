@@ -257,7 +257,7 @@ def _format_tool_item(
     }
 
 
-async def format_vulnerabilities(
+def format_vulnerabilities(
     vulnerabilities: Iterable[Vulnerability],
     vulnerabilities_roots: Iterable[Root | None],
 ) -> dict[str, list[dict[str, str | Item]]]:

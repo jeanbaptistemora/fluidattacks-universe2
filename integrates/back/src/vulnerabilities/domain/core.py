@@ -794,7 +794,7 @@ async def should_send_update_treatment(
                 for vuln in vulns_grouped
             ]
         )
-        vulns_data = await vulns_utils.format_vulnerabilities(
+        vulns_data = vulns_utils.format_vulnerabilities(
             vulns_grouped, vulns_roots
         )
         mail_content = get_updated_manager_mail_content(vulns_data)

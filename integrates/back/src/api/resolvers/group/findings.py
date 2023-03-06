@@ -36,6 +36,6 @@ async def resolve(
     filters: dict[str, Any] | None = kwargs.get("filters")
     findings = await loaders.group_findings.load(group_name)
     if filters:
-        return await utils.filter_findings(findings, filters)
+        return utils.filter_findings(findings, filters)
 
     return findings

@@ -31,7 +31,7 @@ def camelcase_to_snakecase(str_value: str) -> str:
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", my_str).lower()
 
 
-async def filter_findings(
+def filter_findings(
     findings: list[Finding], filters: dict[str, Any]
 ) -> list[Finding]:
     """Return filtered findings according to filters."""
