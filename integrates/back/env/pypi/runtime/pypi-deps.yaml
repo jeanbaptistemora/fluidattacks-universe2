@@ -38,7 +38,7 @@ Jinja2: 3.1.2
 jwcrypto: 1.4.2
 mailchimp-transactional: 1.0.40
 matplotlib: 3.6.3
-mixpanel: 4.9.0
+mixpanel: 4.10.0
 more-itertools: 9.0.0
 opencv-python-headless: 4.7.0.68
 opensearch-py: 2.0.0

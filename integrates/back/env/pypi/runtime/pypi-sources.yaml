@@ -79,7 +79,7 @@ closure:
   mailchimp-transactional: 1.0.40
   markupsafe: 2.1.2
   matplotlib: 3.6.3
-  mixpanel: 4.9.0
+  mixpanel: 4.10.0
   more-itertools: 9.0.0
   msrest: 0.6.21
   multidict: 6.0.4
@@ -846,12 +846,12 @@ links:
   - name: matplotlib-3.6.3.tar.gz
     sha256: 1jdq7hsmcay1z2ghdf9gjl3zys1gjvj4wm2jv465cxqngdq6jk8z
     url: https://files.pythonhosted.org/packages/23/6d/2917ed23b17a8c4d1d59974a574cae0a365c392ba8820c8824b03a02f376/matplotlib-3.6.3.tar.gz
-  - name: mixpanel-4.9.0-py2.py3-none-any.whl
-    sha256: 19fv13rv35pkdnall7f6cr3w4w225m7n3zp50hr2r90w2wh38298
-    url: https://files.pythonhosted.org/packages/ea/13/5a0568551c49763e5fe1d0313fe2422c22bc89a635457c1aa405ce3dc3b3/mixpanel-4.9.0-py2.py3-none-any.whl
-  - name: mixpanel-4.9.0.tar.gz
-    sha256: 174crvvgp78r5f5hc6xh1cql6m69jiw31cz3xa3ww8l6ml575djj
-    url: https://files.pythonhosted.org/packages/1a/e3/f40e7289010081fad3f0f2f2ae1de6408ea4bdbaa0e01c937f8a36c942c7/mixpanel-4.9.0.tar.gz
+  - name: mixpanel-4.10.0-py2.py3-none-any.whl
+    sha256: 139r0my2x9pwcz0kb2k3h47vdym1w2wv8rvb3hg96mlmnzjypxmv
+    url: https://files.pythonhosted.org/packages/3d/13/da8f3969c32cccf021fdaa9e635fd0221d920d00e3fe24dfdab94bf7c9b3/mixpanel-4.10.0-py2.py3-none-any.whl
+  - name: mixpanel-4.10.0.tar.gz
+    sha256: 0fwdm3mv0s4lfdnfva8pg971f8hyww7d35ss4vf4xfv6m4gknww7
+    url: https://files.pythonhosted.org/packages/8e/07/419b8fa71e43149b02142dc665071ac884c8f5dfae171595feee8e82f7a0/mixpanel-4.10.0.tar.gz
   - name: more_itertools-9.0.0-py3-none-any.whl
     sha256: 0h8zbiggm4iziwqca4kd16kdmjccmfpfchnrdg58f30xx3bq63i5
     url: https://files.pythonhosted.org/packages/5d/87/1ec3fcc09d2c04b977eabf8a1083222f82eaa2f46d5a4f85f403bf8e7b30/more_itertools-9.0.0-py3-none-any.whl
