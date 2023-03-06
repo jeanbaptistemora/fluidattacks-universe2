@@ -37,65 +37,7 @@ _bool_type = JSchemaFactory.from_prim_type(bool)
 _float_type = JSchemaFactory.from_prim_type(float)
 
 
-def _core_encoder_fx() -> SingerEncoder[CheckReport]:
-    _mapper: Dict[str, EncodeItem[CheckReport]] = {
-        "check_id": EncodeItem.new(
-            lambda x: x.check_id.id_str,
-            Property(_str_type, True, False),
-            CheckReport,
-        ),
-        "check_type": EncodeItem.new(
-            lambda x: x.check_type,
-            Property(_str_type, False, False),
-            CheckReport,
-        ),
-        "deactivated": EncodeItem.new(
-            lambda x: x.deactivated,
-            Property(_bool_type, False, False),
-            CheckReport,
-        ),
-        "name": EncodeItem.new(
-            lambda x: x.name,
-            Property(_str_type, False, False),
-            CheckReport,
-        ),
-        "avg": EncodeItem.new(
-            lambda x: x.avg,
-            Property(_float_type, False, False),
-            CheckReport,
-        ),
-        "p95": EncodeItem.new(
-            lambda x: x.p95,
-            Property(_float_type, False, False),
-            CheckReport,
-        ),
-        "p99": EncodeItem.new(
-            lambda x: x.p99,
-            Property(_float_type, False, False),
-            CheckReport,
-        ),
-        "success_ratio": EncodeItem.new(
-            lambda x: x.success_ratio,
-            Property(_float_type, False, False),
-            CheckReport,
-        ),
-    }
-    return SingerEncoder.new(
-        SingerStreams.check_reports.value, freeze(_mapper)
-    )
-
-
-_core_encoder = _core_encoder_fx()
-
-
-encoder: ObjEncoder[CheckReport] = ObjEncoder.new(
-    from_flist((_core_encoder.schema,)),
-    lambda x: from_flist((_core_encoder.record(x),)),
-    CheckReport,
-)
-
-
-def _core_encoder_fx_2() -> SingerEncoder[ReportObj]:
+def _core_encoder_fx() -> SingerEncoder[ReportObj]:
     _mapper: Dict[str, EncodeItem[ReportObj]] = {
         "from_date": EncodeItem.new(
             lambda x: x.id_obj.from_date.date_time.isoformat(),
@@ -153,10 +95,10 @@ def _core_encoder_fx_2() -> SingerEncoder[ReportObj]:
     )
 
 
-_core_encoder_2 = _core_encoder_fx_2()
+_core_encoder = _core_encoder_fx()
 
 obj_encoder: ObjEncoder[ReportObj] = ObjEncoder.new(
-    from_flist((_core_encoder_2.schema,)),
-    lambda x: from_flist((_core_encoder_2.record(x),)),
+    from_flist((_core_encoder.schema,)),
+    lambda x: from_flist((_core_encoder.record(x),)),
     ReportObj,
 )

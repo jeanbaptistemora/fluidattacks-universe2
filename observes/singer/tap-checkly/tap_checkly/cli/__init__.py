@@ -2,9 +2,16 @@ from ._emitter import (
     Emitter,
 )
 import click
+from datetime import (
+    datetime,
+)
 from fa_purity import (
     Cmd,
     Maybe,
+)
+from fa_purity.date_time import (
+    DatetimeFactory,
+    DatetimeTZ,
 )
 from fa_purity.json.factory import (
     load,
@@ -43,6 +50,7 @@ def _decode_state(file_path: str) -> Cmd[EtlState]:
 @click.command()  # type: ignore[misc]
 @click.option("--api-user", type=str, required=True)  # type: ignore[misc]
 @click.option("--api-key", type=str, required=True)  # type: ignore[misc]
+@click.option("--reports-start", type=str, required=True)  # type: ignore[misc]
 @click.option("--all-streams", is_flag=True, default=False)  # type: ignore[misc]
 @click.option("--state", type=click.Path(exists=True), default=None)  # type: ignore[misc]
 @click.argument(  # type: ignore[misc]
@@ -59,6 +67,7 @@ def stream(
     api_key: str,
     all_streams: bool,
     state: Optional[str],
+    reports_start: str,
 ) -> NoReturn:
     creds = Credentials(api_user, api_key)
     selection = (
@@ -77,8 +86,13 @@ def stream(
         if state
         else Cmd.from_cmd(lambda: EtlState(empty))
     )
+    _reports_start = DatetimeTZ.assert_tz(
+        datetime.strptime(reports_start, "%Y-%m-%d %H:%M:%S %z")
+    ).unwrap()
     cmd: Cmd[None] = _state.bind(
-        lambda s: Emitter(s, creds).emit_streams(selection)
+        lambda s: Emitter(
+            s, creds, DatetimeFactory.to_utc(_reports_start)
+        ).emit_streams(selection)
     )
     cmd.compute()
 

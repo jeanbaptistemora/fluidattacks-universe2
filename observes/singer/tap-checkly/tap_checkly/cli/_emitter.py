@@ -14,6 +14,7 @@ from fa_purity.cmd import (
 )
 from fa_purity.date_time import (
     DatetimeFactory,
+    DatetimeUTC,
 )
 from fa_purity.pure_iter.factory import (
     pure_map,
@@ -41,6 +42,7 @@ NOW = unsafe_unwrap(DatetimeFactory.date_now())
 class Emitter:
     state: EtlState
     creds: Credentials
+    reports_start: DatetimeUTC
 
     def emit_stream(self, selection: SupportedStreams) -> Cmd[None]:
         _streams = Streams(self.creds, DatetimeFactory.EPOCH_START, NOW)
@@ -59,7 +61,7 @@ class Emitter:
             if item is SupportedStreams.CHECK_STATUS:
                 return _streams.check_status()
             if item is SupportedStreams.REPORTS:
-                return _streams.check_reports()
+                return _streams.check_reports(self.reports_start, NOW)
 
         def _execute(item: SupportedStreams) -> Cmd[None]:
             info = Cmd.from_cmd(lambda: LOG.info("Executing stream: %s", item))

@@ -37,8 +37,7 @@ class ObjsEncoders:
     alerts: ObjEncoder[AlertChannelObj]
     groups: ObjEncoder[CheckGroupObj]
     status: ObjEncoder[CheckStatusObj]
-    report: ObjEncoder[CheckReport]
-    report_2: ObjEncoder[ReportObj]
+    reports: ObjEncoder[ReportObj]
     results: ObjEncoder[CheckResultObj]
 
 
@@ -47,7 +46,6 @@ encoders = ObjsEncoders(
     _alert_channels.encoder,
     _groups.encoder,
     status.encoder,
-    _report.encoder,
     _report.obj_encoder,
     results.encoder,
 )

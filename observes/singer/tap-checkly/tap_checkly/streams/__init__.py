@@ -70,18 +70,12 @@ class Streams:
         client = ChecksClient.new(self.creds, 100)
         return _emit.from_encoder(encoders.checks, client.list_checks())
 
-    def check_reports(self) -> Cmd[None]:
-        client = CheckReportClient.new(self.creds)
-        return client.get_reports_default().bind(
-            lambda i: _emit.from_encoder(encoders.report, from_flist(i))
-        )
-
-    def check_reports_2(
+    def check_reports(
         self, from_date: DatetimeUTC, to_date: DatetimeUTC
     ) -> Cmd[None]:
         client = CheckReportClient.new(self.creds)
         return _emit.from_encoder(
-            encoders.report_2,
+            encoders.reports,
             _reports.daily_reports(client, from_date, to_date),
         )
 

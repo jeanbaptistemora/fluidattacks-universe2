@@ -24,6 +24,7 @@ function start_etl {
       --api-user "${checkly_api_user}" \
       --api-key "${checkly_api_key}" \
       --state "${state_dir}/${state_file}" \
+      --reports-start "2021-01-01 00:00:00 +0000" \
       --all-streams \
       > .singer \
     && echo '[INFO] Running target' \

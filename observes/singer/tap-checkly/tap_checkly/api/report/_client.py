@@ -63,13 +63,6 @@ class CheckReportClient:
             ).to_list()
         )
 
-    def get_reports_default(self) -> Cmd[FrozenList[CheckReport]]:
-        return self._client.get_list("/v1/reporting", FrozenDict({}),).map(
-            lambda l: pure_map(
-                lambda i: CheckReportDecoder(i).decode_report().unwrap(), l
-            ).to_list()
-        )
-
     def get_reports_obj(
         self, from_date: DatetimeUTC, to_date: DatetimeUTC
     ) -> Cmd[FrozenList[ReportObj]]:
