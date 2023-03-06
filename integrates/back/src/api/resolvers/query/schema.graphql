@@ -3,7 +3,7 @@ type Query {
   "Billing entity"
   billing: Billing
 
-  "Environment URL entity"
+  "Environments according to the Git Roots added to them"
   environmentUrl(
     "Name of the group to query"
     groupName: String!
@@ -11,7 +11,7 @@ type Query {
     urlId: String!
   ): GitEnvironmentUrl
 
-  "Event entity"
+  "Identifier that helps us to classify an event individually"
   event(
     "ID of the event to query"
     identifier: String!
@@ -23,7 +23,7 @@ type Query {
     groupName: String
   ): [Event]
 
-  "Finding entity"
+  "The localization of a specific vulnerability"
   finding(
     "ID of the finding to query"
     identifier: String!
@@ -43,7 +43,7 @@ type Query {
     groupName: String
   ): ForcesExecutions
 
-  "Group entity"
+  "Single project to manage their vulnerabilities separately"
   group(
     "Name of the group to query"
     groupName: String!
@@ -58,13 +58,16 @@ type Query {
     userEmail: String!
   ): [Group]
 
-  "Me entity"
+  "The current role that the user has"
   me(
     "User endpoint in use, either API or FRONT"
     callerOrigin: String
   ): Me
 
-  "Organization entity"
+  """
+  Refers to the different macro projects,
+  which are divided into other subprojects (Groups)
+  """
   organization(
     "ID of the organization to query"
     organizationId: String!
@@ -76,7 +79,7 @@ type Query {
     organizationName: String!
   ): Organization
 
-  "Report entity"
+  "Reports generated in the ARM (Executive & Technical)"
   report(
     "Age of the Type in days (last N days) to include"
     age: Int
@@ -138,7 +141,7 @@ type Query {
     userEmail: String!
   ): Stakeholder
 
-  "Tag entity"
+  "How to identify the vulnerability according to the customer"
   tag(
     "Content of the tag to be queried e.g. test-projects"
     tag: String!
@@ -162,7 +165,7 @@ type Query {
     group: String
   ): [Vulnerability]
 
-  "Vulnerability entity"
+  "Type of vulnerability affecting the source code"
   vulnerability(
     "Identifier of the vulnerability to query"
     uuid: String!
