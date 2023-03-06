@@ -218,6 +218,46 @@ resource "cloudflare_record" "gts_caa" {
   proxied = false
 }
 
+resource "cloudflare_record" "godaddy_caa" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = cloudflare_zone.fluidattacks_tech.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "godaddy.com"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+resource "cloudflare_record" "letsencrypt_caa" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = cloudflare_zone.fluidattacks_tech.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "letsencrypt.org"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+resource "cloudflare_record" "sectigo_caa" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = cloudflare_zone.fluidattacks_tech.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "sectigo.com"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+
 resource "cloudflare_page_rule" "redirect_landing" {
   zone_id  = data.cloudflare_zone.fluidattacks_com.id
   target   = "landing.${data.cloudflare_zone.fluidattacks_com.name}/*"
