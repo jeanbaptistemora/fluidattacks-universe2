@@ -14,12 +14,8 @@ from context import (
     FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
 )
-from contextlib import (
-    suppress,
-)
 from datetime import (
     datetime,
-    timezone,
 )
 from db_model import (
     TABLE,
@@ -32,12 +28,10 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRootCloning,
-    MachineFindingResult,
     Root,
     RootEnvironmentCloud,
     RootEnvironmentUrl,
     RootEnvironmentUrlType,
-    RootMachineExecution,
     RootRequest,
     RootState,
     Secret,
@@ -279,137 +273,6 @@ class RootHistoricCloningLoader(DataLoader[str, list[GitRootCloning]]):
                 _get_historic_cloning(root_id=root_id) for root_id in root_ids
             )
         )
-
-
-async def get_machine_executions(
-    *, root_id: str, job_id: str | None = None
-) -> list[RootMachineExecution]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={"uuid": root_id, **({"job_id": job_id} if job_id else {})},
-    )
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & (
-                Key(key_structure.sort_key).eq(primary_key.sort_key)
-                if job_id
-                else Key(key_structure.sort_key).begins_with(
-                    primary_key.sort_key
-                )
-            )
-        ),
-        facets=(TABLE.facets["machine_git_root_execution"],),
-        table=TABLE,
-    )
-    result: list[RootMachineExecution] = []
-    for item in response.items:
-        findings = []
-        with suppress(TypeError):
-            findings = [
-                MachineFindingResult(
-                    finding=x["finding"],
-                    open=x["open"],
-                    modified=x.get("modified", 0),
-                )
-                for x in item["findings_executed"]
-            ]
-            result.append(
-                RootMachineExecution(
-                    job_id=item["sk"].split("#")[-1],
-                    created_at=datetime.fromisoformat(
-                        item["created_at"]
-                    ).astimezone(tz=timezone.utc),
-                    started_at=datetime.fromisoformat(
-                        item["started_at"]
-                    ).astimezone(tz=timezone.utc)
-                    if item.get("started_at")
-                    else None,
-                    stopped_at=datetime.fromisoformat(
-                        item["stopped_at"]
-                    ).astimezone(tz=timezone.utc)
-                    if item.get("stopped_at")
-                    else None,
-                    name=item["name"],
-                    root_id=item["pk"].split("#")[-1],
-                    queue=item["queue"],
-                    findings_executed=findings,
-                    commit=item.get("commit"),
-                    status=item.get("status"),
-                ),
-            )
-
-    return result
-
-
-class RootMachineExecutionsLoader(DataLoader[str, list[RootMachineExecution]]):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: Iterable[str]
-    ) -> list[list[RootMachineExecution]]:
-        machine_executions = await collect(
-            get_machine_executions(root_id=root_id) for root_id in root_ids
-        )
-        return list(
-            list(sorted(execution, key=lambda x: x.created_at, reverse=True))
-            for execution in machine_executions
-        )
-
-
-async def get_machine_executions_by_job_id(
-    *, job_id: str, root_id: str | None = None
-) -> list[RootMachineExecution]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
-    )
-    index = TABLE.indexes["inverted_index"]
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.sort_key).eq(primary_key.sort_key)
-            & Key(key_structure.partition_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
-        facets=(TABLE.facets["machine_git_root_execution"],),
-        table=TABLE,
-        index=index,
-    )
-
-    return [
-        RootMachineExecution(
-            job_id=item["sk"].split("#")[-1],
-            created_at=datetime.fromisoformat(item["created_at"]).astimezone(
-                tz=timezone.utc
-            ),
-            started_at=datetime.fromisoformat(item["started_at"]).astimezone(
-                tz=timezone.utc
-            )
-            if item.get("started_at")
-            else None,
-            stopped_at=datetime.fromisoformat(item["stopped_at"]).astimezone(
-                tz=timezone.utc
-            )
-            if item.get("stopped_at")
-            else None,
-            name=item["name"],
-            queue=item["queue"],
-            root_id=item["pk"].split("#")[-1],
-            findings_executed=[
-                MachineFindingResult(
-                    finding=x["finding"],
-                    open=x["open"],
-                    modified=x.get("modified", 0),
-                )
-                for x in item["findings_executed"]
-            ],
-            commit=item.get("commit", ""),
-            status=item.get("status"),
-        )
-        for item in response.items
-    ]
 
 
 async def get_download_url(group_name: str, root_nickname: str) -> str | None:

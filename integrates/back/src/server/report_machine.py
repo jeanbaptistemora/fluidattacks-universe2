@@ -52,13 +52,8 @@ from db_model.findings.update import (
 from db_model.roots.enums import (
     RootStatus,
 )
-from db_model.roots.get import (
-    get_machine_executions_by_job_id,
-)
 from db_model.roots.types import (
     GitRoot,
-    MachineFindingResult,
-    RootMachineExecution,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -120,9 +115,6 @@ from organizations_finding_policies import (
 )
 import os
 import random
-from roots.domain import (
-    add_machine_execution,
-)
 from s3.resource import (
     get_s3_resource,
 )
@@ -1178,33 +1170,6 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
             for finding in non_target_findings
         )
     )
-
-
-async def get_current_execution(
-    root_id: str,
-    batch_job_id: str,
-    findings_executed: list[MachineFindingResult] | None = None,
-    commit: str | None = None,
-) -> RootMachineExecution | None:
-
-    result = await get_machine_executions_by_job_id(
-        job_id=batch_job_id, root_id=root_id
-    )
-    if not result:
-        if await add_machine_execution(
-            root_id,
-            batch_job_id,
-            findings_executed=findings_executed or [],
-            commit=commit,
-        ):
-            with suppress(IndexError):
-                return (
-                    await get_machine_executions_by_job_id(
-                        job_id=batch_job_id, root_id=root_id
-                    )
-                )[0]
-        return None
-    return result[0]
 
 
 async def process_execution(

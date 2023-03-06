@@ -87,7 +87,6 @@ from db_model.roots.get import (
     RootHistoricCloningLoader,
     RootHistoricStatesLoader,
     RootLoader,
-    RootMachineExecutionsLoader,
     RootSecretsLoader,
 )
 from db_model.stakeholders.get import (
@@ -220,7 +219,6 @@ class Dataloaders(NamedTuple):
     portfolio: PortfolioLoader
     requirements_file: RequirementsFileLoader
     root: RootLoader
-    root_machine_executions: RootMachineExecutionsLoader
     root_historic_cloning: RootHistoricCloningLoader
     root_historic_states: RootHistoricStatesLoader
     root_secrets: RootSecretsLoader
@@ -412,7 +410,6 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         root=root_loader,
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),
-        root_machine_executions=RootMachineExecutionsLoader(),
         root_secrets=RootSecretsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),

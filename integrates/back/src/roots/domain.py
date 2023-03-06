@@ -1,6 +1,5 @@
 # pylint: disable=too-many-lines
 
-import aioboto3
 from aioextensions import (
     collect,
     schedule,
@@ -28,7 +27,6 @@ from collections.abc import (
     Iterable,
 )
 from context import (
-    FI_AWS_REGION_NAME,
     FI_ENVIRONMENT,
 )
 from custom_exceptions import (
@@ -100,7 +98,6 @@ from db_model.roots.types import (
     RootEnvironmentCloud,
     RootEnvironmentUrl,
     RootEnvironmentUrlType,
-    RootMachineExecution,
     RootRequest,
     RootState,
     RootUnreliableIndicators,
@@ -141,7 +138,6 @@ from organizations import (
     utils as orgs_utils,
     validations as orgs_validations,
 )
-import pytz
 import re
 from roots import (
     utils as roots_utils,
@@ -149,9 +145,6 @@ from roots import (
 )
 from s3 import (
     operations as s3_operations,
-)
-from settings.various import (
-    TIME_ZONE,
 )
 from typing import (
     Any,
@@ -1590,49 +1583,6 @@ async def move_root(
     )
 
     return new_root_id
-
-
-async def add_machine_execution(
-    root_id: str,
-    job_id: str,
-    **kwargs: Any,
-) -> bool:
-    tzn = pytz.timezone(TIME_ZONE)
-    options = dict(
-        region_name=FI_AWS_REGION_NAME,
-        service_name="batch",
-    )
-    async with aioboto3.Session().client(**options) as client:
-        response = await client.describe_jobs(jobs=[job_id])
-        jobs = response.get("jobs", [])
-
-    start_date = (
-        kwargs.pop("started_at").astimezone(tzn)
-        if "started_at" in kwargs
-        else None
-    )
-
-    try:
-        current_job = jobs[0]
-    except IndexError:
-        return False
-
-    queue_date = datetime.fromtimestamp(
-        int(current_job["createdAt"] / 1000)
-    ).astimezone(tzn)
-
-    execution = RootMachineExecution(
-        root_id=root_id,
-        job_id=job_id,
-        name=current_job["jobName"],
-        queue=current_job["jobQueue"].split("/")[-1],
-        created_at=queue_date,
-        started_at=start_date,
-        findings_executed=kwargs.pop("findings_executed", []),
-        commit=kwargs.pop("git_commit", ""),
-        status=kwargs.pop("status", "RUNNABLE"),
-    )
-    return await roots_model.add_machine_execution(root_id, execution)
 
 
 async def add_secret(  # pylint: disable=too-many-arguments

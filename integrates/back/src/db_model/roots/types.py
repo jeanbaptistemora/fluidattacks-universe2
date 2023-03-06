@@ -162,26 +162,6 @@ class RootState(NamedTuple):
     status: RootStatus
 
 
-class MachineFindingResult(NamedTuple):
-    open: int
-    modified: int
-    finding: str
-
-
-class RootMachineExecution(NamedTuple):
-    job_id: str
-    name: str
-    findings_executed: list[MachineFindingResult]
-    queue: str
-    root_id: str
-    created_at: datetime
-    started_at: datetime | None = None
-    stopped_at: datetime | None = None
-    commit: str | None = None
-    success: bool = True
-    status: str | None = None
-
-
 class RootRequest(NamedTuple):
     group_name: str
     root_id: str

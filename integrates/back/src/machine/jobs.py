@@ -1,8 +1,4 @@
-from aioextensions import (
-    collect,
-)
 from batch.dal import (
-    describe_jobs,
     get_actions_by_name,
     put_action,
     SkimsBatchQueue,
@@ -12,18 +8,13 @@ from batch.enums import (
     Product,
 )
 from batch.types import (
-    Job,
     PutActionResult,
-    VulnerabilitiesSummary,
 )
 from custom_exceptions import (
     RootAlreadyCloning,
 )
 from dataloaders import (
     Dataloaders,
-)
-from datetime import (
-    datetime,
 )
 from db_model.groups.enums import (
     GroupManaged,
@@ -34,23 +25,13 @@ from db_model.groups.types import (
 from db_model.roots.enums import (
     RootStatus,
 )
-from db_model.roots.get import (
-    get_machine_executions,
-)
 from db_model.roots.types import (
     GitRoot,
-    RootMachineExecution,
 )
 import json
 import logging
 import logging.config
-from more_itertools import (
-    collapse,
-)
 import os
-from roots.domain import (
-    add_machine_execution,
-)
 from settings.logger import (
     LOGGING,
 )
@@ -97,98 +78,6 @@ def get_finding_code_from_title(finding_title: str) -> str | None:
             if finding_title == FINDINGS[finding_code][locale]["title"]:
                 return finding_code
     return None
-
-
-def _get_job_execution_time(
-    job_execution_time: datetime | None,
-    action_time: str,
-    batch_jobs_dict: dict[str, Any],
-    job_execution: RootMachineExecution,
-) -> int | None:
-    if job_execution_time:
-        return int(job_execution_time.timestamp() * 1000)
-    if job_execution.status:
-        return batch_jobs_dict.get(
-            job_execution.job_id, {action_time: None}
-        ).get(action_time)
-    return None
-
-
-async def list_(
-    *,
-    finding_code: str,
-    group_roots: dict[str, str],
-) -> list[Job]:
-    jobs_from_db: tuple[RootMachineExecution, ...] = tuple(
-        execution
-        for execution in collapse(
-            (
-                await collect(
-                    get_machine_executions(root_id=root_id)
-                    for root_id in group_roots.keys()
-                )
-            ),
-            base_type=RootMachineExecution,
-        )
-        if any(
-            find.finding == finding_code
-            for find in execution.findings_executed
-        )
-    )
-    batch_jobs_dict = {
-        item["jobId"]: item
-        for item in await describe_jobs(
-            *{item.job_id for item in jobs_from_db}
-        )
-    }
-    job_items = []
-
-    for job_execution in jobs_from_db:
-        if job_execution.job_id not in batch_jobs_dict or (
-            # prevent terminated job
-            job_execution.status in {"RUNNING", "RUNNABLE"}
-            and batch_jobs_dict[job_execution.job_id]["status"] == "FAILED"
-        ):
-            continue
-        _vulns = [
-            x
-            for x in job_execution.findings_executed
-            if x.finding == finding_code
-        ]
-        job_items.append(
-            Job(
-                created_at=int(job_execution.created_at.timestamp() * 1000),
-                exit_code=0,
-                exit_reason="",
-                id=job_execution.job_id,
-                name=job_execution.name,
-                root_nickname=group_roots[job_execution.root_id],
-                queue=job_execution.queue,
-                started_at=_get_job_execution_time(
-                    job_execution.started_at,
-                    "startedAt",
-                    batch_jobs_dict,
-                    job_execution,
-                ),
-                stopped_at=_get_job_execution_time(
-                    job_execution.stopped_at,
-                    "stoppedAt",
-                    batch_jobs_dict,
-                    job_execution,
-                ),
-                status=job_execution.status
-                or ("SUCCESS" if job_execution.success else "FAILED"),
-                vulnerabilities=VulnerabilitiesSummary(
-                    modified=_vulns[0].modified, open=_vulns[0].open
-                ),
-            )
-        )
-
-    return sorted(
-        job_items,
-        key=lambda job: job.created_at or 0,
-        reverse=True,
-    )
 
 
 async def _queue_sync_git_roots(
@@ -302,29 +191,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
                 subject="integrates@fluidattacks.com",
                 memory=3700,
                 **kwargs,
-            )
-
-            await collect(
-                [
-                    add_machine_execution(
-                        root_id=root.id,
-                        job_id=queue_result.batch_job_id,
-                        createdAt=datetime.now(),
-                        findings_executed=list(
-                            {
-                                "finding": finding,
-                                "open": 0,
-                                "modified": 0,
-                            }
-                            for finding in finding_codes
-                        ),
-                    )
-                    for root in group_git_roots
-                    if (
-                        root.state.nickname in roots
-                        and queue_result.batch_job_id
-                    )
-                ]
             )
 
     return queue_result

@@ -1,6 +1,5 @@
 from .add import (
     add,
-    add_machine_execution,
     add_root_environment_secret,
     add_root_environment_url,
     add_secret,
@@ -20,7 +19,6 @@ from .update import (
 __all__ = [
     # add
     "add",
-    "add_machine_execution",
     "add_root_environment_secret",
     "add_root_environment_url",
     "add_secret",

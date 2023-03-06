@@ -25,11 +25,6 @@ class BatchProcessing(NamedTuple):
     running: bool = False
 
 
-class VulnerabilitiesSummary(NamedTuple):
-    open: int
-    modified: int
-
-
 class Job(NamedTuple):
     created_at: int | None
     exit_code: int | None
@@ -40,7 +35,6 @@ class Job(NamedTuple):
     started_at: int | None
     stopped_at: int | None
     status: str
-    vulnerabilities: VulnerabilitiesSummary | None = None
     root_nickname: str | None = None
 
 

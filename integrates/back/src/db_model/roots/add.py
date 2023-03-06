@@ -10,10 +10,8 @@ from db_model.roots.constants import (
 )
 from db_model.roots.types import (
     GitRoot,
-    MachineFindingResult,
     Root,
     RootEnvironmentUrl,
-    RootMachineExecution,
     Secret,
 )
 from db_model.utils import (
@@ -80,54 +78,6 @@ async def add(*, root: Root) -> None:
         items.append(historic_cloning_item)
 
     await operations.batch_put_item(items=tuple(items), table=TABLE)
-
-
-async def add_machine_execution(
-    root_id: str,
-    execution: RootMachineExecution,
-) -> bool:
-    key_structure = TABLE.primary_key
-    machine_execution_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={"uuid": root_id, "job_id": execution.job_id},
-    )
-    if len(execution.findings_executed) > 0 and isinstance(
-        execution.findings_executed[0], MachineFindingResult
-    ):
-        findings = [
-            {
-                "finding": item.finding,
-                "modified": item.modified,
-                "open": item.open,
-            }
-            for item in execution.findings_executed
-        ]
-    else:
-        findings = execution.findings_executed  # type: ignore
-
-    machine_exectution = {
-        key_structure.partition_key: machine_execution_key.partition_key,
-        key_structure.sort_key: machine_execution_key.sort_key,
-        "created_at": get_as_utc_iso_format(execution.created_at),
-        "started_at": get_as_utc_iso_format(execution.started_at)
-        if execution.started_at
-        else None,
-        "stopped_at": get_as_utc_iso_format(execution.stopped_at)
-        if execution.stopped_at
-        else None,
-        "findings_executed": findings,
-        "queue": execution.queue,
-        "name": execution.name,
-        "commit": execution.commit,
-        "status": execution.status,
-    }
-    with suppress(botocore.exceptions.ClientError):
-        await operations.batch_put_item(
-            items=(machine_exectution,), table=TABLE
-        )
-        return True
-
-    return False
 
 
 async def add_secret(

@@ -199,7 +199,7 @@ async def test_get_group_level_enforcer(
     [
         [
             "integrateshacker@fluidattacks.com",
-            "api_mutations_add_machine_execution_mutate",
+            "api_mutations_submit_group_machine_execution_mutate",
             "api_mutations_update_stakeholder_phone_mutate",
         ],
     ],
