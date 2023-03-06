@@ -76,7 +76,8 @@ async def _filter_non_requeueable_actions(
         if action.retries > 3:
             retried_keys_to_delete.append(action.key)
             LOGGER.error(
-                "Batch action exceeded number of retries",
+                "Batch action exceeded number of retries - %s",
+                action.action_name,
                 extra={
                     "extra": {
                         "action_name": action.action_name,

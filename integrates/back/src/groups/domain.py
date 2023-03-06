@@ -111,6 +111,12 @@ from db_model.vulnerabilities.enums import (
 from decimal import (
     Decimal,
 )
+from decorators import (
+    retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
+)
 from events import (
     domain as events_domain,
 )
@@ -1392,6 +1398,11 @@ async def _remove_all_batch_actions(
     )
 
 
+@retry_on_exceptions(
+    exceptions=(UnavailabilityError,),
+    max_attempts=3,
+    sleep_seconds=10,
+)
 async def remove_resources(
     *,
     loaders: Dataloaders,
@@ -1490,15 +1501,8 @@ async def remove_stakeholder(
     has_org_access = await org_access.has_access(
         loaders, organization_id, email_to_revoke
     )
-    stakeholder_groups_names = await get_groups_by_stakeholder(
-        loaders, email_to_revoke
-    )
-    org_groups_names = set(
-        group.name
-        for group in await loaders.organization_groups.load(organization_id)
-    )
-    stakeholder_org_groups_names = set(stakeholder_groups_names).intersection(
-        org_groups_names
+    stakeholder_org_groups_names = await get_groups_by_stakeholder(
+        loaders, email_to_revoke, organization_id=organization_id
     )
     stakeholder_org_groups = await loaders.group.load_many(
         stakeholder_org_groups_names
@@ -1510,6 +1514,7 @@ async def remove_stakeholder(
         await orgs_domain.remove_access(
             organization_id, email_to_revoke, modified_by
         )
+
     LOGGER.info(
         "Stakeholder removed from group",
         extra={
