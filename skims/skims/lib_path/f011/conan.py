@@ -55,14 +55,14 @@ def get_conanfile_class(content: str) -> ast.ClassDef | None:
 
 
 def get_conan_requires(attr: ast.Assign) -> Iterator[DependencyType]:
-    if (
-        hasattr(attr.targets[0], "id")
-        and attr.targets[0].id == "requires"
-        and hasattr(attr.value, "elts")
-    ):
-        yield from (
-            format_conan_dep_info(dep_info) for dep_info in attr.value.elts
-        )
+    if hasattr(attr.targets[0], "id") and attr.targets[0].id == "requires":
+        requires = attr.value
+        if isinstance(requires, ast.Constant):
+            yield format_conan_dep_info(requires)
+        elif hasattr(requires, "elts"):
+            yield from (
+                format_conan_dep_info(dep_info) for dep_info in requires.elts
+            )
 
 
 def get_conan_self_requires(
