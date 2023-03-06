@@ -1740,6 +1740,171 @@
     };
     timeout = 14400;
   };
+  observes_etl_announcekit = {
+    attempts = 2;
+    awsRole = "prod_observes";
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/announcekit"
+    ];
+    enable = true;
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+    ];
+    meta = {
+      description = ''
+        Extract data from Announcekit
+        to feed Redshift
+        for later analytics processing.
+      '';
+      lastReview = "06-03-2023";
+      maintainers = [
+        "dmurcia"
+        "rrodriguez"
+      ];
+      requiredBy = [
+        ''
+          Business to track metrics about
+          integrates announces.
+        ''
+      ];
+    };
+    parallel = 1;
+    scheduleExpression = "cron(0 22 ? * 1-5 *)";
+    size = "observes_nano";
+    tags = {
+      "Name" = "observes_etl_announcekit";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+    timeout = 18000;
+  };
+  observes_etl_bugsnag = {
+    attempts = 2;
+    awsRole = "prod_observes";
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/bugsnag"
+    ];
+    enable = true;
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+    ];
+    meta = {
+      description = ''
+        Extract data from bugsnag
+        to feed Redshift
+        for later analytics processing.
+      '';
+      lastReview = "06-03-2023";
+      maintainers = [
+        "dmurcia"
+        "rrodriguez"
+      ];
+      requiredBy = [
+        ''
+          Business to track metrics about
+          products errors.
+        ''
+      ];
+    };
+    parallel = 1;
+    scheduleExpression = "cron(0 22 ? * 1-5 *)";
+    size = "observes_nano";
+    tags = {
+      "Name" = "observes_etl_bugsnag";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+    timeout = 18000;
+  };
+  observes_etl_checkly = {
+    attempts = 2;
+    awsRole = "prod_observes";
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/checkly"
+    ];
+    enable = true;
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+    ];
+    meta = {
+      description = ''
+        Extract data from Checkly
+        to feed Redshift
+        for later analytics processing.
+      '';
+      lastReview = "06-03-2023";
+      maintainers = [
+        "dmurcia"
+        "rrodriguez"
+      ];
+      requiredBy = [
+        ''
+          Business to track metrics about
+          web stability to sites like
+          integrates and the airs.
+        ''
+      ];
+    };
+    parallel = 1;
+    scheduleExpression = "cron(0 22 ? * 1-5 *)";
+    size = "observes_nano";
+    tags = {
+      "Name" = "observes_etl_checkly";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+    timeout = 18000;
+  };
+  observes_etl_delighted = {
+    attempts = 2;
+    awsRole = "prod_observes";
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/delighted"
+    ];
+    enable = true;
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+    ];
+    meta = {
+      description = ''
+        Extract data from delighted
+        to feed Redshift
+        for later analytics processing.
+      '';
+      lastReview = "06-03-2023";
+      maintainers = [
+        "dmurcia"
+        "rrodriguez"
+      ];
+      requiredBy = [
+        ''
+          Business to track metrics about
+          products errors.
+        ''
+      ];
+    };
+    parallel = 1;
+    scheduleExpression = "cron(0 22 ? * 1-5 *)";
+    size = "observes_nano";
+    tags = {
+      "Name" = "observes_etl_delighted";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+    timeout = 18000;
+  };
   observes_etl_gitlab_ephemeral = {
     attempts = 1;
     awsRole = "prod_observes";

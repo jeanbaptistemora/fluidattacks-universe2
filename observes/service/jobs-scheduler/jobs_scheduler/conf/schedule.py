@@ -28,12 +28,6 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
             Job.DYNAMO_INTEGRATES_MAIN,
             Job.MIRROR,
         ),
-        weekly(ANY, 3, DaysRange.new(Days.MON, Days.FRI).unwrap()).unwrap(): (
-            Job.ANNOUNCEKIT,
-            Job.BUGSNAG,
-            Job.CHECKLY,
-            Job.DELIGHTED,
-        ),
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),
         work_days(ANY, CronItem.from_range(range(7, 19, 4))).unwrap(): (
             Job.GITLAB_PRODUCT,
