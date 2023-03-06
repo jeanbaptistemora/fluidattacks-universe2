@@ -30,6 +30,12 @@ from state.ephemeral import (
 from typing import (
     Any,
 )
+from urllib3 import (
+    exceptions,
+)
+from urllib3.util.url import (
+    parse_url,
+)
 from utils.function import (
     shield,
 )
@@ -54,7 +60,6 @@ async def analyze_one(
     stores: dict[core_model.FindingEnum, EphemeralStore],
     count: int,
 ) -> None:
-
     await log("info", "Analyzing ssl %s of %s: %s", index, count, ssl_ctx)
 
     for checks in CHECKS:
@@ -65,28 +70,51 @@ async def analyze_one(
                         stores[vulnerability.finding].store(vulnerability)
 
 
+def _get_ssl_targets(urls: set[str]) -> set[tuple[str, int]]:
+    targets: set[tuple[str, int]] = set()
+    default_port = 443
+    for url in urls:
+        with suppress(ValueError, exceptions.HTTPError):
+            parsed_url = parse_url(url)
+            if not parsed_url.host:
+                continue
+
+            if parsed_url.port is None:
+                targets.add((parsed_url.host, default_port))
+            else:
+                targets.add((parsed_url.host, parsed_url.port))
+
+    return targets
+
+
+def _get_ssl_context(host: str, port: int) -> SSLContext:
+    responses: list[SSLServerResponse] = []
+    for v_id in SSLVersionId:
+        with suppress(Exception):
+            if v_id != SSLVersionId.sslv3_0 and (
+                tls_response := analyze_protocol.tls_connect(
+                    host=host,
+                    port=port,
+                    v_id=v_id,
+                )
+            ):
+                responses = [*responses, tls_response]
+
+    return SSLContext(
+        host=host,
+        port=port,
+        tls_responses=tuple(responses),
+    )
+
+
 async def get_ssl_contexts() -> set[SSLContext]:
     ssl_contexts: set[SSLContext] = set()
     for target in CTX.config.dast.ssl.include:
-        responses: list[SSLServerResponse] = []
-        for v_id in SSLVersionId:
-            with suppress(Exception):
-                if v_id != SSLVersionId.sslv3_0 and (
-                    tls_response := analyze_protocol.tls_connect(
-                        host=target.host,
-                        port=target.port,
-                        v_id=v_id,
-                    )
-                ):
-                    responses = [*responses, tls_response]
-        ssl_contexts = {
-            *ssl_contexts,
-            SSLContext(
-                host=target.host,
-                port=target.port,
-                tls_responses=tuple(responses),
-            ),
-        }
+        ssl_contexts.add(_get_ssl_context(target.host, target.port))
+
+    if CTX.config.dast.ssl_checks:
+        for host, port in _get_ssl_targets(set(CTX.config.dast.urls)):
+            ssl_contexts.add(_get_ssl_context(host, port))
 
     return ssl_contexts
 
@@ -95,7 +123,6 @@ async def analyze(
     *,
     stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
-
     if not any(
         finding in CTX.config.checks for checks in CHECKS for finding in checks
     ):

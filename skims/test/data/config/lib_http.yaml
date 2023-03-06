@@ -1,10 +1,10 @@
 ---
 dast:
-  http:
-    include:
-      - https://this.host.should.not.exist
-      - http://localhost:48000/
-      - http://localhost:48000/error
+  urls:
+    - https://this.host.should.not.exist
+    - http://localhost:48000/
+    - http://localhost:48000/error
+  http_checks: true
 language: EN
 namespace: namespace
 output:

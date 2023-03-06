@@ -32,6 +32,9 @@ def create_test_context(
             ssl=core_model.SkimsSslConfig(
                 include=(),
             ),
+            urls=(),
+            http_checks=False,
+            ssl_checks=False,
         ),
         group=None,
         language=LocalesEnum.EN,

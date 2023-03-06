@@ -39,6 +39,7 @@ from utils.function import (
     shield_blocking,
 )
 from utils.html import (
+    get_alternative_protocol_urls,
     get_sameorigin_urls,
     is_html,
 )
@@ -156,6 +157,10 @@ async def get_urls() -> set[URLContext]:
 
     for url in set(CTX.config.dast.http.include):
         urls_pending.put(url)
+
+    if CTX.config.dast.http_checks:
+        for url in get_alternative_protocol_urls(set(CTX.config.dast.urls)):
+            urls_pending.put(url)
 
     while not urls_pending.empty():
         url = urls_pending.get()

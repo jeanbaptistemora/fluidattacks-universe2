@@ -1321,6 +1321,9 @@ class SkimsDastConfig(NamedTuple):
     aws_credentials: list[AwsCredentials | None]
     http: SkimsHttpConfig
     ssl: SkimsSslConfig
+    urls: tuple[str, ...]
+    http_checks: bool
+    ssl_checks: bool
 
 
 class OutputFormat(Enum):

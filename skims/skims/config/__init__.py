@@ -69,6 +69,9 @@ def load(group: str | None, path: str) -> core_model.SkimsConfig:
                                 ),
                             }
                         ),
+                        "urls": confuse.Sequence(confuse.String()),
+                        "ssl_checks": confuse.OneOf([True, False]),
+                        "http_checks": confuse.OneOf([True, False]),
                     }
                 ),
                 "language": confuse.Choice(core_model.LocalesEnum),
@@ -133,6 +136,9 @@ def load(group: str | None, path: str) -> core_model.SkimsConfig:
                         )
                     )
                 ),
+                urls=tuple(url for url in config_dast.get("urls", ())),
+                http_checks=config_dast.get("http_checks", False),
+                ssl_checks=config_dast.get("ssl_checks", False),
             ),
             group=group,
             language=core_model.LocalesEnum(config.pop("language", "EN")),
@@ -199,6 +205,11 @@ def dump_to_yaml(config: core_model.SkimsConfig) -> str:
                         for ssl in config.dast.ssl.include
                     ],
                 },
+                "urls": {
+                    "include": list(config.dast.urls),
+                },
+                "http_checks": config.dast.http_checks,
+                "ssl_checks": config.dast.ssl_checks,
             }
             if config.dast
             else None,

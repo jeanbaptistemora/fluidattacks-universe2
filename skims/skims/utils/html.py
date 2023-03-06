@@ -41,3 +41,18 @@ def get_sameorigin_urls(
             and not url_c.path.endswith((".css", ".js"))
         ):
             yield f"{url_c.scheme}://{url_c.netloc}{url_c.path}"
+
+
+def get_alternative_protocol_urls(include_urls: set[str]) -> set[str]:
+    urls: set[str] = set()
+    urls.update(include_urls)
+    http = "http://"
+    https = "https://"
+    for scope in include_urls:
+        # FP: switch the type of protocol
+        if scope.startswith(http):
+            urls.add(scope.replace(http, https, 1))
+        elif scope.startswith(https):
+            urls.add(scope.replace(https, http, 1))
+
+    return urls

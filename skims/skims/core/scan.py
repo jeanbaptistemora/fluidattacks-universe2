@@ -99,18 +99,25 @@ async def execute_skims(
         analyze_apk(stores=stores)
     if config.path.include:
         analyze_sast(stores=stores)
-
     if config.dast:
-        if config.dast.ssl.include:
+        await execute_dast_analysis(config, stores)
+    report_results(config=config, stores=stores)
+
+    return stores
+
+
+async def execute_dast_analysis(
+    config: core_model.SkimsConfig,
+    stores: dict[core_model.FindingEnum, EphemeralStore],
+) -> None:
+    if config.dast:
+        if config.dast.ssl.include or config.dast.ssl_checks:
             await analyze_ssl(stores=stores)
-        if config.dast.http.include:
+        if config.dast.http.include or config.dast.http_checks:
             await analyze_http(stores=stores)
         for aws_cred in config.dast.aws_credentials:
             if aws_cred:
                 await analyze_dast_aws(credentials=aws_cred, stores=stores)
-    report_results(config=config, stores=stores)
-
-    return stores
 
 
 def report_results(
