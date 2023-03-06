@@ -422,6 +422,28 @@ export const enTranslations: ResourceKey = {
       news: "News",
       toDo: "To-do",
     },
+    repositoriesDropdown: {
+      azureButton: {
+        id: "azure-repository",
+        text: "Azure",
+      },
+      bitbucketButton: {
+        id: "bitbucket-repository",
+        text: "Bitbucket",
+      },
+      gitHubButton: {
+        id: "gitHub-repository",
+        text: "GitHub",
+      },
+      gitLabButton: {
+        id: "gitLab-repository",
+        text: "GitLab",
+      },
+      otherButton: {
+        id: "other-repository",
+        text: "Add other",
+      },
+    },
   },
   configuration: {
     close: "Close",
