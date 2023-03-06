@@ -95,6 +95,43 @@ const GET_ORGANIZATION_AUTHORS_BILLING: DocumentNode = gql`
   }
 `;
 
+const GET_ORGANIZATION_BILLING_BY_DATE: DocumentNode = gql`
+  query GetOrganizationBillingBydate(
+    $date: DateTime
+    $organizationId: String!
+  ) {
+    organization(organizationId: $organizationId) {
+      name
+      billing(date: $date) {
+        authors {
+          actor
+          activeGroups {
+            name
+            tier
+          }
+        }
+      }
+      groups {
+        name
+        hasForces
+        hasMachine
+        hasSquad
+        managed
+        service
+        paymentId
+        permissions
+        tier
+        billing(date: $date) {
+          costsAuthors
+          costsBase
+          costsTotal
+          numberAuthors
+        }
+      }
+    }
+  }
+`;
+
 const REMOVE_PAYMENT_METHOD: DocumentNode = gql`
   mutation removePaymentMethod(
     $organizationId: String!
@@ -195,6 +232,7 @@ export {
   DOWNLOAD_FILE_MUTATION,
   GET_ORGANIZATION_AUTHORS_BILLING,
   GET_ORGANIZATION_BILLING,
+  GET_ORGANIZATION_BILLING_BY_DATE,
   REMOVE_PAYMENT_METHOD,
   UPDATE_CREDIT_CARD_PAYMENT_METHOD,
   UPDATE_GROUP_MUTATION,
