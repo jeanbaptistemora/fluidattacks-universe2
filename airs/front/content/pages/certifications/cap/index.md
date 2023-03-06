@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cap
 alt: Logo CAP
 certification: yes
-certificationid: 38
+certificationid: 39
 ---
 
 [CAP](https://secops.group/product/certified-application-security-practitioner/)

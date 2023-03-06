@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-bscp
 alt: Logo BSCP
 certification: yes
-certificationid: 34
+certificationid: 35
 ---
 
 [BSCP](https://portswigger.net/web-security/certification)
