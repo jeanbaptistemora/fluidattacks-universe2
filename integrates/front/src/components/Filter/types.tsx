@@ -49,6 +49,12 @@ interface IPermanentData {
   rangeValues?: [string, string];
 }
 
+interface IPermanentValuesProps {
+  permaValue: IPermanentData;
+  permaValues: IPermanentData[];
+  setPermaValues?: Dispatch<SetStateAction<IPermanentData[]>>;
+}
+
 interface IFiltersProps<IData extends object> {
   dataset?: IData[];
   permaset?: [IPermanentData[], Dispatch<SetStateAction<IPermanentData[]>>];
@@ -61,5 +67,6 @@ export type {
   IFilterComp,
   IFiltersProps,
   IPermanentData,
+  IPermanentValuesProps,
   ISelectedOptions,
 };
