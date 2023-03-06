@@ -3092,6 +3092,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    KT_INSECURE_INIT_VECTOR = MethodInfo(
+        file_name="kotlin",
+        name="kt_insecure_init_vector",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     KT_INSECURE_KEY_EC = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_key",
