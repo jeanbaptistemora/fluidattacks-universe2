@@ -57,6 +57,10 @@ class ErrorSubscribingStakeholder(_SingleMessageException):
     msg: str = "Unable to subscribe stakeholder"
 
 
+class ErrorUpdatingCredential(_SingleMessageException):
+    msg: str = "Unable to update credential"
+
+
 class ErrorUpdatingGroup(_SingleMessageException):
     msg: str = "Unable to update group"
 

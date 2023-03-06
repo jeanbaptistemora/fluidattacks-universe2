@@ -1,6 +1,9 @@
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from custom_exceptions import (
+    ErrorUpdatingCredential,
+)
 from db_model import (
     TABLE,
 )
@@ -21,7 +24,18 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
+)
+import logging
+import logging.config
+from settings import (
+    LOGGING,
+)
 import simplejson as json
+
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 
 
 async def update_credential_state(
@@ -59,14 +73,18 @@ async def update_credential_state(
                 gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
             }
         )
-    await operations.update_item(
-        condition_expression=(
-            Attr(key_structure.partition_key).exists()
-            & Attr("state.modified_date").eq(
-                get_as_utc_iso_format(current_value.modified_date)
-            )
-        ),
-        item=credential_item,
-        key=credential_key,
-        table=TABLE,
-    )
+    try:
+        await operations.update_item(
+            condition_expression=(
+                Attr(key_structure.partition_key).exists()
+                & Attr("state.modified_date").eq(
+                    get_as_utc_iso_format(current_value.modified_date)
+                )
+            ),
+            item=credential_item,
+            key=credential_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+        raise ErrorUpdatingCredential() from ex
