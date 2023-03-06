@@ -56,7 +56,6 @@ from settings import (
 from typing import (
     Any,
     TypedDict,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -77,11 +76,11 @@ class EventsDataType(TypedDict):
     events: tuple[Event, ...]
     event_comments: dict[str, tuple[EventComment, ...]]
     event_states: dict[str, tuple[EventState, ...]]
-    open_events: list[dict[str, Union[datetime, str]]]
+    open_events: list[dict[str, datetime | str]]
 
 
 def filter_last_instances(
-    instances: Iterable[Union[EventComment, EventState]],
+    instances: Iterable[EventComment | EventState],
 ) -> list[Any]:
     return [
         instance
@@ -170,7 +169,7 @@ async def get_group_event_states(
 
 def get_open_events(
     events: list[Event],
-) -> list[dict[str, Union[datetime, str]]]:
+) -> list[dict[str, datetime | str]]:
     return [
         dict(
             created_date=event.created_date,

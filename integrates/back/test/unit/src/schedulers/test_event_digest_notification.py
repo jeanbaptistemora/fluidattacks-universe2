@@ -36,9 +36,6 @@ from schedulers.event_digest_notification import (
     get_open_events,
     unique_emails,
 )
-from typing import (
-    Tuple,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -372,7 +369,7 @@ async def test_get_event_states(event_id: str) -> None:
 async def test_get_group_event_comments(
     *,
     events: list[Event],
-    outputs: list[dict[str, Tuple[EventComment]]],
+    outputs: list[dict[str, tuple[EventComment]]],
 ) -> None:
     assert (
         await get_group_event_comments(get_new_context(), events) == outputs[0]
@@ -513,7 +510,7 @@ async def test_get_group_event_comments(
 async def test_get_group_event_states(
     *,
     events: list[Event],
-    output: list[dict[str, Tuple[EventState]]],
+    output: list[dict[str, tuple[EventState]]],
 ) -> None:
     assert await get_group_event_states(get_new_context(), events) == output[0]
 
