@@ -13,10 +13,6 @@ from model.core_model import (
 )
 import re
 
-SELF_REQUIRES: re.Pattern[str] = re.compile(
-    r'\s+self\.requires\("(?P<pkg>[^"]+)"[^\)]*\)'
-)
-
 
 def get_dep_info(dep_line: str) -> tuple[str, str]:
     product, version = dep_line.strip().split("@")[0].split("/")
@@ -93,12 +89,7 @@ def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
     conan_class = get_conanfile_class(content)
     if conan_class:
         yield from get_conan_requires(conan_class)
-    for line_number, line in enumerate(content.splitlines(), 1):
-        if matched := SELF_REQUIRES.search(line):
-            pkg_name, pkg_version = get_dep_info(matched.group("pkg"))
-            yield format_pkg_dep(
-                pkg_name, pkg_version, line_number, line_number
-            )
+        yield from get_conan_self_requires(conan_class)
 
 
 # pylint: disable=unused-argument
