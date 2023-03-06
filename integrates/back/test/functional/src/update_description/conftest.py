@@ -55,7 +55,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     description="I just have updated the description",
                     hacker_email="test1@gmail.com",
                     severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
+                        attack_complexity=Decimal("0.14"),
                         attack_vector=Decimal("0.2"),
                         availability_impact=Decimal("0.22"),
                         availability_requirement=Decimal("1.5"),
@@ -143,7 +143,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     description="Duplicated description",
                     hacker_email="test1@gmail.com",
                     severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
+                        attack_complexity=Decimal("0.24"),
                         attack_vector=Decimal("0.2"),
                         availability_impact=Decimal("0.22"),
                         availability_requirement=Decimal("1.5"),
@@ -228,7 +228,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     description="I just have updated the description",
                     hacker_email="test1@gmail.com",
                     severity=Finding31Severity(
-                        attack_complexity=Decimal("0.44"),
+                        attack_complexity=Decimal("0.34"),
                         attack_vector=Decimal("0.2"),
                         availability_impact=Decimal("0.22"),
                         availability_requirement=Decimal("1.5"),

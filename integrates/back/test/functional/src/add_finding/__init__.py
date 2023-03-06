@@ -5,6 +5,12 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.findings.types import (
+    Finding31Severity,
+)
+from decimal import (
+    Decimal,
+)
 from typing import (
     Any,
 )
@@ -18,82 +24,44 @@ async def get_result(
     recommendation: str = "Recommendation",
     attack_vector_description: str = "This is an attack vector",
     min_time_to_remediate: int = 18,
-    severity: float = 1.0,
+    severity: Finding31Severity = Finding31Severity(
+        attack_complexity=Decimal("0.01"),
+        attack_vector=Decimal("0.85"),
+        availability_impact=Decimal("0.22"),
+        confidentiality_impact=Decimal("0.22"),
+        exploitability=Decimal("0.94"),
+        integrity_impact=Decimal("0.22"),
+        privileges_required=Decimal("0.62"),
+        severity_scope=Decimal("0"),
+        remediation_level=Decimal("0.95"),
+        report_confidence=Decimal("1"),
+        user_interaction=Decimal("0.85"),
+    ),
     title: str = "366. Inappropriate coding practices - Transparency Conflict",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
         mutation AddFinding($unfulfilledRequirements: [String!]!){{
             addFinding(
-                attackVector: {severity}
-                attackComplexity: {severity}
+                attackVector: {severity.attack_vector}
+                attackComplexity: {severity.attack_complexity}
                 attackVectorDescription: "{attack_vector_description}"
-                availabilityImpact: {severity}
+                availabilityImpact: {severity.availability_impact}
                 description: "{description}"
                 groupName: "group1"
-                confidentialityImpact: {severity}
-                exploitability: {severity}
-                integrityImpact: {severity}
+                confidentialityImpact: {severity.confidentiality_impact}
+                exploitability: {severity.exploitability}
+                integrityImpact: {severity.integrity_impact}
                 minTimeToRemediate: {min_time_to_remediate}
-                privilegesRequired: {severity}
+                privilegesRequired: {severity.privileges_required}
                 recommendation: "{recommendation}"
-                remediationLevel: {severity}
-                reportConfidence: {severity}
-                severityScope: {severity}
+                remediationLevel: {severity.remediation_level}
+                reportConfidence: {severity.report_confidence}
+                severityScope: {severity.severity_scope}
                 threat: "{threat}"
                 title: "{title}"
                 unfulfilledRequirements: $unfulfilledRequirements
-                userInteraction: {severity}
-            ) {{
-                success
-            }}
-        }}
-    """
-    data: dict[str, Any] = {
-        "query": query,
-        "variables": {"unfulfilledRequirements": unfulfilled_requirements},
-    }
-    return await get_graphql_result(
-        data,
-        stakeholder=user,
-        context=get_new_context(),
-    )
-
-
-async def get_result_new_finding(
-    *,
-    user: str,
-    description: str,
-    threat: str,
-    attack_vector_description: str = "This is an attack vector",
-    min_time_to_remediate: int = 18,
-    recommendation: str = "Recommendation",
-    title: str = "366. Inappropriate coding practices - Transparency Conflict",
-    unfulfilled_requirements: list[str] = ["158"],
-) -> dict[str, Any]:
-    # severity is equivalent to vulnerability 011 in criteria
-    query: str = f"""
-        mutation AddFinding($unfulfilledRequirements: [String!]!){{
-            addFinding(
-                attackVector: 0.85
-                attackComplexity: 0.44
-                attackVectorDescription: "{attack_vector_description}"
-                availabilityImpact: 0.22
-                description: "{description}"
-                groupName: "group1"
-                confidentialityImpact: 0.22
-                exploitability: 0.94
-                integrityImpact: 0.22
-                minTimeToRemediate: {min_time_to_remediate}
-                privilegesRequired: 0.62
-                recommendation: "{recommendation}"
-                remediationLevel: 0.95
-                reportConfidence: 1
-                severityScope: 0
-                threat: "{threat}"
-                title: "{title}"
-                unfulfilledRequirements: $unfulfilledRequirements
-                userInteraction: 0.85
+                userInteraction: {severity.user_interaction}
             ) {{
                 success
             }}

@@ -1836,6 +1836,12 @@ class RepeatedFindingThreat(CustomBaseException):
         super(RepeatedFindingThreat, self).__init__(msg)
 
 
+class RepeatedFindingSeverity(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Finding with the same severity already exists"
+        super(RepeatedFindingSeverity, self).__init__(msg)
+
+
 class RepeatedFindingDescription(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Finding with the same description already exists"

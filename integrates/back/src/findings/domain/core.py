@@ -24,6 +24,7 @@ from custom_exceptions import (
     PermissionDenied,
     RepeatedFindingDescription,
     RepeatedFindingMachineDescription,
+    RepeatedFindingSeverity,
     RepeatedFindingThreat,
     RequiredUnfulfilledRequirements,
     RootNotFound,
@@ -204,6 +205,8 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
             raise RepeatedFindingDescription()
         if finding.threat.strip() == threat.strip():
             raise RepeatedFindingThreat()
+        if finding.severity == severity:
+            raise RepeatedFindingSeverity()
 
     criteria_vulnerabilities = await loaders.vulnerabilities_file.load("")
     criteria_vulnerability: dict[str, Any] = criteria_vulnerabilities[
