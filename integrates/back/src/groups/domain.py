@@ -647,25 +647,25 @@ async def update_group(
     if tier == GroupTier.OTHER:
         tier = GroupTier.FREE
 
-    await update_state(
-        group_name=group_name,
-        organization_id=group.organization_id,
-        state=GroupState(
-            comments=comments,
-            modified_date=datetime_utils.get_utc_now(),
-            has_machine=has_machine,
-            has_squad=has_squad,
-            managed=group.state.managed,
-            justification=justification,
-            modified_by=email,
-            service=service,
-            status=GroupStateStatus.ACTIVE,
-            tags=group.state.tags,
-            tier=tier,
-            type=subscription,
-        ),
-    )
     if has_arm:
+        await update_state(
+            group_name=group_name,
+            organization_id=group.organization_id,
+            state=GroupState(
+                comments=comments,
+                modified_date=datetime_utils.get_utc_now(),
+                has_machine=has_machine,
+                has_squad=has_squad,
+                managed=group.state.managed,
+                justification=justification,
+                modified_by=email,
+                service=service,
+                status=GroupStateStatus.ACTIVE,
+                tags=group.state.tags,
+                tier=tier,
+                type=subscription,
+            ),
+        )
         await notifications_domain.update_group(
             loaders=loaders,
             comments=comments,
@@ -688,7 +688,6 @@ async def update_group(
         justification=justification,
         email=email,
     )
-
     await notifications_domain.delete_group(
         loaders=loaders,
         deletion_date=datetime_utils.get_utc_now(),

@@ -700,7 +700,12 @@ async def reassign_stakeholder_credentials(
     modified_by: str,
     organization_id: str,
 ) -> None:
-    if not (user_credentials := await loaders.user_credentials.load(email)):
+    user_org_credentials: list[Credentials] = [
+        credential
+        for credential in await loaders.user_credentials.load(email)
+        if credential.organization_id == organization_id
+    ]
+    if not user_org_credentials:
         return
 
     current_owner_role = await authz.get_organization_level_role(
@@ -733,7 +738,7 @@ async def reassign_stakeholder_credentials(
                 ),
                 force_update_owner=True,
             )
-            for credentials in user_credentials
+            for credentials in user_org_credentials
         ),
         workers=1,
     )
@@ -750,7 +755,7 @@ async def reassign_stakeholder_credentials(
         extra={
             "extra": {
                 "credentials_ids": [
-                    credentials.id for credentials in user_credentials
+                    credentials.id for credentials in user_org_credentials
                 ],
                 "email": email,
                 "modified_by": modified_by,
