@@ -1,7 +1,7 @@
-from html_ import (
+import pytest
+from utils.html import (
     is_html,
 )
-import pytest
 
 
 @pytest.mark.skims_test_group("unittesting")

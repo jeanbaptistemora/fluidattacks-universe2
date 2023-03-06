@@ -11,10 +11,6 @@ from ctx import (
 from datetime import (
     datetime,
 )
-from html_ import (
-    get_sameorigin_urls,
-    is_html,
-)
 from lib_http import (
     analyze_content,
     analyze_dns,
@@ -41,6 +37,10 @@ from typing import (
 import urllib.parse
 from utils.function import (
     shield_blocking,
+)
+from utils.html import (
+    get_sameorigin_urls,
+    is_html,
 )
 from utils.http import (
     create_session,
@@ -152,7 +152,6 @@ async def get_urls() -> set[URLContext]:
     urls: set[URLContext] = set()
     urls_done: set[str] = set()
     urls_pending: SimpleQueue = SimpleQueue()
-
     ntp_offset: float | None = get_offset()
 
     for url in set(CTX.config.dast.http.include):
