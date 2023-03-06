@@ -1,6 +1,6 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field, Form, useFormikContext } from "formik";
+import { Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,6 @@ import type {
 } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
 import { FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import {
   composeValidators,
   maxLength,
@@ -71,8 +70,11 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     [setFieldValue]
   );
 
-  const handleSquadBtnChange: (withSquad: boolean) => void = useCallback(
-    (withSquad: boolean): void => {
+  const handleSquadBtnChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const withSquad = event.target.checked;
       setFieldValue("squad", withSquad);
       if (withSquad) {
         setFieldValue("machine", true);
@@ -149,15 +151,15 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Col lg={20} md={50} sm={50}>
           <Card>
             <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
-            <Field
-              component={FormikSwitchButton}
+            <Switch
+              checked={values.squad}
               disabled={!canUpdateGroupServices}
-              id={"squadSwitch"}
+              label={{
+                off: t("searchFindings.servicesTable.inactive"),
+                on: t("searchFindings.servicesTable.active"),
+              }}
               name={"squad"}
-              offlabel={t("searchFindings.servicesTable.inactive")}
               onChange={handleSquadBtnChange}
-              onlabel={t("searchFindings.servicesTable.active")}
-              type={"checkbox"}
             />
           </Card>
         </Col>
