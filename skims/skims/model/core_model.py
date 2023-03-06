@@ -4156,6 +4156,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    C_SHARP_ACCEPTS_ANY_MIMETYPE = MethodInfo(
+        file_name="c_sharp",
+        name="c_sharp_accepts_any_mime_type_chain",
+        module="lib_root",
+        finding=FindingEnum.F153,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JAVA_HTTP_REQ_ACCEPTS_ANY_MIMETYPE = MethodInfo(
         file_name="java",
         name="java_http_accepts_any_mime_type",
