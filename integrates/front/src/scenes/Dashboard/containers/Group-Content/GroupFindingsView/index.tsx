@@ -112,7 +112,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const [isAddFindingModalOpen, setIsAddFindingModalOpen] = useState(false);
   const [addFindingInitialValues, setAddFindingInitialValues] = useState({
     description: "",
-    recommendation: "",
+    threat: "",
     title: "",
   });
   const [suggestions, setSuggestions] = useState<
@@ -262,7 +262,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const closeAddFindingModal: () => void = useCallback((): void => {
     setAddFindingInitialValues({
       description: "",
-      recommendation: "",
+      threat: "",
       title: "",
     });
     setIsAddFindingModalOpen(false);
@@ -591,11 +591,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const handleAdd = useCallback(
     async ({
       description,
-      recommendation,
+      threat,
       title,
     }: {
       description: string;
-      recommendation: string;
+      threat: string;
       title: string;
     }): Promise<void> => {
       const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
@@ -612,7 +612,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           ...draftData,
           description,
           groupName,
-          recommendation,
+          threat,
           title,
         },
       });
@@ -714,11 +714,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           description: matchingSuggestion.description.includes("__empty__")
             ? ""
             : matchingSuggestion.description,
-          recommendation: matchingSuggestion.recommendation.includes(
-            "__empty__"
-          )
+          threat: matchingSuggestion.threat.includes("__empty__")
             ? ""
-            : matchingSuggestion.recommendation,
+            : matchingSuggestion.threat,
           title: target.value,
         });
       }
@@ -730,10 +728,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   const maxDescriptionLength: ConfigurableValidator = maxLength(
     MAX_DESCRIPTION_LENGTH
   );
-  const MAX_RECOMENDATION_LENGTH = 300;
-  const maxRecommendationLength: ConfigurableValidator = maxLength(
-    MAX_RECOMENDATION_LENGTH
-  );
+  const MAX_THREAT_LENGTH = 300;
+  const maxThreatLength: ConfigurableValidator = maxLength(MAX_THREAT_LENGTH);
   const titleSuggestions = _.isUndefined(suggestions)
     ? []
     : _.sortBy(
@@ -895,18 +891,16 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col lg={100} md={100} sm={100}>
                     <TextArea
-                      label={t(
-                        "group.findings.addModal.fields.recommendation.label"
-                      )}
-                      name={"recommendation"}
+                      label={t("group.findings.addModal.fields.threat.label")}
+                      name={"threat"}
                       required={true}
                       tooltip={t(
-                        "group.findings.addModal.fields.recommendation.tooltip"
+                        "group.findings.addModal.fields.threat.tooltip"
                       )}
                       validate={composeValidators([
                         required,
                         validTextField,
-                        maxRecommendationLength,
+                        maxThreatLength,
                       ])}
                     />
                   </Col>

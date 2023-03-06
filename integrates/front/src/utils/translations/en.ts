@@ -687,9 +687,10 @@ export const enTranslations: ResourceKey = {
             label: "Description",
             tooltip: "Brief explanation of the vulnerability and how it works",
           },
-          recommendation: {
-            label: "Recommendation",
-            tooltip: "General suggestion to solve the vulnerability",
+          threat: {
+            label: "Threat",
+            tooltip:
+              "Actor and scenery where the vulnerability can be exploited",
           },
           title: { label: "Title", tooltip: "Vulnerability number and name" },
         },
