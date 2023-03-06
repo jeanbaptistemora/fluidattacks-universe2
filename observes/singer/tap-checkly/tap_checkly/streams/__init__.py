@@ -59,8 +59,8 @@ LOG = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class Streams:
     creds: Credentials
-    old_date: datetime
-    now: datetime
+    old_date: DatetimeUTC
+    now: DatetimeUTC
 
     def alert_chs(self) -> Cmd[None]:
         client = AlertChannelsClient.new(self.creds, 100)
@@ -81,7 +81,7 @@ class Streams:
     ) -> Cmd[None]:
         client = CheckReportClient.new(self.creds)
         return _emit.from_encoder(
-            encoders.bulk_reports,
+            encoders.report_2,
             _reports.daily_reports(client, from_date, to_date),
         )
 
@@ -95,9 +95,9 @@ class Streams:
 
     def check_results(self, state: EtlState) -> Cmd[None]:
         start_date = state.results.map(lambda d: d.newest).value_or(
-            self.old_date
+            self.old_date.date_time
         )
-        end_date = self.now
+        end_date = self.now.date_time
         msg1 = Cmd.from_cmd(
             lambda: LOG.info("check_results start date: %s", start_date)
         )

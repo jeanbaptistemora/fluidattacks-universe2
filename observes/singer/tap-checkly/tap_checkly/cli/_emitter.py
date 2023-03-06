@@ -9,6 +9,12 @@ from fa_purity import (
     Cmd,
     FrozenList,
 )
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
+from fa_purity.date_time import (
+    DatetimeFactory,
+)
 from fa_purity.pure_iter.factory import (
     pure_map,
 )
@@ -28,8 +34,7 @@ from tap_checkly.streams import (
 )
 
 LOG = logging.getLogger(__name__)
-OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
-NOW = datetime.now(tz=timezone.utc)
+NOW = unsafe_unwrap(DatetimeFactory.date_now())
 
 
 @dataclass(frozen=True)
@@ -38,7 +43,7 @@ class Emitter:
     creds: Credentials
 
     def emit_stream(self, selection: SupportedStreams) -> Cmd[None]:
-        _streams = Streams(self.creds, OLD_DATE, NOW)
+        _streams = Streams(self.creds, DatetimeFactory.EPOCH_START, NOW)
 
         def stream_mapper(
             item: SupportedStreams,
