@@ -7,7 +7,7 @@
             outputs."/integrates/jobs/clone_roots/env"
           ];
         };
-        python = "3.8";
+        python = "3.11";
         src = "/integrates/jobs/clone_roots/src";
       };
       integratesJobsExecuteMachine = {

@@ -31,11 +31,7 @@ import tarfile
 import tempfile
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 from urllib3.util.url import (
     parse_url,
@@ -62,10 +58,7 @@ class BatchProcessing(NamedTuple):
     queue: str
 
 
-def get_action(
-    *,
-    action_dynamo_pk: str,
-) -> Optional[BatchProcessing]:
+def get_action(*, action_dynamo_pk: str) -> BatchProcessing | None:
     client = boto3.client("dynamodb", "us-east-1")
     query_payload = {
         "TableName": "fi_async_processing",
@@ -112,10 +105,10 @@ def delete_action(
     delay=2,
 )
 async def _request_asm(
-    payload: Dict[str, Any],
+    payload: dict[str, Any],
     token: str,
-) -> Optional[Dict[str, Any]]:
-    result: Optional[Dict[str, Any]] = None
+) -> dict[str, Any] | None:
+    result: dict[str, Any] | None = None
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
@@ -134,8 +127,8 @@ async def _request_asm(
 
 async def get_roots(
     token: str, group_name: str
-) -> Optional[List[Dict[str, Any]]]:
-    result: Optional[List[Dict[str, Any]]] = None
+) -> list[dict[str, Any]] | None:
+    result: list[dict[str, Any]] | None = None
     query = """
         query GetRoots($groupName: String!) {
             group(groupName: $groupName) {
@@ -178,7 +171,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     root_id: str,
     status: str,
     message: str,
-    commit: Optional[str] = None,
+    commit: str | None = None,
 ) -> bool:
     result: bool = False
     query = """
@@ -229,7 +222,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 
 async def submit_group_machine_execution(
     group_name: str,
-    root_nicknames: List[str],
+    root_nicknames: list[str],
     token: str,
 ) -> bool:
     result: bool = False
@@ -283,9 +276,9 @@ def _format_token(
 def _format_https_url(
     *,
     repo_url: str,
-    user: Optional[str] = None,
-    password: Optional[str] = None,
-    token: Optional[str] = None,
+    user: str | None = None,
+    password: str | None = None,
+    token: str | None = None,
     is_oauth: bool = False,
     provider: str = "",
 ) -> str:
@@ -302,7 +295,7 @@ def _format_https_url(
 
 async def ssh_clone(
     *, branch: str, credential_key: str, repo_url: str, temp_dir: str
-) -> Tuple[Optional[str], Optional[str]]:
+) -> tuple[str | None, str | None]:
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
         raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
@@ -353,12 +346,12 @@ async def https_clone(
     branch: str,
     repo_url: str,
     temp_dir: str,
-    password: Optional[str] = None,
-    token: Optional[str] = None,
-    user: Optional[str] = None,
+    password: str | None = None,
+    token: str | None = None,
+    user: str | None = None,
     is_oauth: bool = False,
     provider: str = "",
-) -> Tuple[Optional[str], Optional[str]]:
+) -> tuple[str | None, str | None]:
     url = _format_https_url(
         repo_url=repo_url,
         user=user,
@@ -395,7 +388,7 @@ async def https_clone(
 
 
 def create_git_root_tar_file(
-    root_nickname: str, repo_path: str, output_path: Optional[str] = None
+    root_nickname: str, repo_path: str, output_path: str | None = None
 ) -> bool:
     git_dir = os.path.normpath(f"{repo_path}/.git")
     with tarfile.open(
@@ -432,7 +425,7 @@ async def upload_cloned_repo_to_s3_tar(
 
 @asynccontextmanager
 async def clone_root(
-    *, group_name: str, root: Dict[str, Any], api_token: str
+    *, group_name: str, root: dict[str, Any], api_token: str
 ) -> Any:
     cred = root["credentials"]
     branch = root["branch"]
@@ -494,8 +487,8 @@ async def clone_root(
 
 
 async def update_root_mirror(
-    root: Dict[str, Any], group_name: str, api_token: str, action_key: str
-) -> Tuple[str, bool]:
+    root: dict[str, Any], group_name: str, api_token: str, action_key: str
+) -> tuple[str, bool]:
     await update_root_cloning_status(
         token=api_token,
         group_name=group_name,
