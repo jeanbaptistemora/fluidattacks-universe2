@@ -51,7 +51,7 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                     "meta": {
                         "additionalProperties": False,
                         "properties": {
-                            "description": {"minLength": 0, "type": "string"},
+                            "description": {"minLength": 25, "type": "string"},
                             "lastReview": {
                                 "pattern": "^[0-9]{2}-[0-9]{2}-[0-9]{4}$",
                                 "type": "string",
@@ -61,12 +61,12 @@ def test_data_schema(*, data: dict[str, Any]) -> None:
                                     "pattern": "^[a-z]+$",
                                     "type": "string",
                                 },
-                                "minItems": 1,
+                                "minItems": 2,
                                 "type": "array",
                             },
                             "requiredBy": {
                                 "items": {"minLength": 10, "type": "string"},
-                                "minItems": 0,
+                                "minItems": 1,
                                 "type": "array",
                             },
                         },

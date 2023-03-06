@@ -2090,7 +2090,7 @@
       description = ''
         Skims is executed with the test data provided by the owasp
         benchmark, then the results of the execution are
-        compared with the results expected by the owasp benchmark
+        compared with the results expected by the owasp benchmark.
       '';
       lastReview = "01-03-2023";
       maintainers = [
@@ -2098,7 +2098,7 @@
         "drestrepo"
       ];
       requiredBy = [
-        "OWASP Foundation scanners list"
+        "OWASP Foundation scanners list."
       ];
     };
     parallel = 1;
@@ -2129,7 +2129,7 @@
     meta = {
       description = ''
         Check sca vulnerabilities
-        and update the vulnerability table in dynamo
+        and update the vulnerability table in dynamo.
       '';
       lastReview = "01-03-2023";
       maintainers = [
@@ -2137,7 +2137,7 @@
         "drestrepo"
       ];
       requiredBy = [
-        "Machine executions that query about sca vulnerabilities"
+        "Machine executions that query about sca vulnerabilities."
       ];
     };
     parallel = 1;
@@ -2167,7 +2167,8 @@
     ];
     meta = {
       description = ''
-
+        Compute and update the file's top 5
+        most probable vuln types in the ARM.
       '';
       lastReview = "01-03-2023";
       maintainers = [
@@ -2175,6 +2176,11 @@
         "dmurcia"
       ];
       requiredBy = [
+        ''
+          Sorts,
+          as the product requires the data
+          to be shown in the ARM interface.
+        ''
       ];
     };
     parallel = 15;
@@ -2203,7 +2209,7 @@
     ];
     meta = {
       description = ''
-
+        Update the association rules based in the current available data.
       '';
       lastReview = "01-03-2023";
       maintainers = [
@@ -2211,6 +2217,12 @@
         "dmurcia"
       ];
       requiredBy = [
+        ''
+          sorts_association_execute,
+          since these rules are used to compute
+          the probability of each vulnerability type
+          being present in a determined file.
+        ''
       ];
     };
     parallel = 1;
@@ -2240,7 +2252,7 @@
     ];
     meta = {
       description = ''
-
+        Predict the priority for all present files in the ARM scope.
       '';
       lastReview = "01-03-2023";
       maintainers = [
@@ -2248,6 +2260,10 @@
         "dmurcia"
       ];
       requiredBy = [
+        ''
+          integrates_update_group_toe_priorities
+          since these predictions are its input.
+        ''
       ];
     };
     parallel = 20;
@@ -2275,15 +2291,18 @@
       "UNIVERSE_API_TOKEN"
     ];
     meta = {
-      description = ''
-
-      '';
+      description = "Full Machine Learning pipeline to train sorts.";
       lastReview = "01-03-2023";
       maintainers = [
         "rrodriguez"
         "dmurcia"
       ];
       requiredBy = [
+        ''
+          sorts_execute,
+          since this model is used to calculate
+          the priority for each file.
+        ''
       ];
     };
     parallel = 1;
