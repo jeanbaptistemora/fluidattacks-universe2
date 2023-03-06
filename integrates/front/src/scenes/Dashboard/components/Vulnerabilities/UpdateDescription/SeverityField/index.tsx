@@ -4,8 +4,8 @@ import React from "react";
 
 import type { ISeverityFieldProps } from "./types";
 
+import { Editable, InputNumber } from "components/Input";
 import { authzPermissionsContext } from "utils/authz/config";
-import { EditableField, FormikText } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
   composeValidators,
@@ -35,17 +35,18 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
       isInProgressSelected ||
       !hasNewVulnSelected ? (
         <div className={"mb3 nt2 w-100"}>
-          <EditableField
-            component={FormikText}
+          <Editable
             currentValue={level}
+            isEditing={canUpdateVulnsTreatment}
             label={translate.t(
               "searchFindings.tabDescription.businessCriticality"
             )}
-            name={"severity"}
-            renderAsEditable={canUpdateVulnsTreatment}
-            type={"number"}
-            validate={composeValidators([isValidVulnSeverity, numeric])}
-          />
+          >
+            <InputNumber
+              name={"severity"}
+              validate={composeValidators([isValidVulnSeverity, numeric])}
+            />
+          </Editable>
         </div>
       ) : undefined}
     </React.StrictMode>
