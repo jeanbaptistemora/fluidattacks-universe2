@@ -10,7 +10,7 @@ from graphql.type.definition import (
 
 
 @TAG.field("name")
-async def resolve(
+def resolve(
     parent: Portfolio,
     _info: GraphQLResolveInfo,
     **_kwargs: None,

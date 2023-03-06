@@ -13,7 +13,7 @@ from graphql.type.definition import (
 
 
 @TAG.field("maxOpenSeverity")
-async def resolve(
+def resolve(
     parent: Portfolio,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
