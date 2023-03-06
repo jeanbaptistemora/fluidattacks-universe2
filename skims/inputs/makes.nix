@@ -128,7 +128,7 @@
       sha256 = "Nx+K7Ic/ePKAXPIMlrRn6zELYE59f/FnnZ/LM5ELaU8=";
     };
     skimsTreeSitterYaml = fetchGithub {
-      owner = "jgomezb11";
+      owner = "fluidattacks";
       repo = "tree-sitter-yaml";
       rev = "678657afa017fdafecdc222ea9d91bdabb98a8bf";
       sha256 = "+m8zPyk7cN4ksFZ6aXcwwoYjmshJUo3CxUX85x7qnw4=";

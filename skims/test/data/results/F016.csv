@@ -69,7 +69,22 @@ F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_elb_without_sslpolicy
   11 | }
      ^ Col 0
 ",terraform.tfm_aws_elb_without_sslpolicy
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,"
+   1 | resource ""azurerm_storage_account"" ""example"" {
+   2 |   name                     = ""storageaccountname""
+   3 |   resource_group_name      = azurerm_resource_group.example.name
+   4 |   location                 = azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+>  7 |   min_tls_version          = ""TLS1_0""
+   8 |
+   9 |   tags = {
+  10 |     environment = ""staging""
+  11 |   }
+  12 | }
+     ^ Col 0
+",terraform.tfm_azure_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    7 |         Enabled: 'true'
    8 |         DefaultCacheBehavior:
    9 |           TargetOriginId: def1
@@ -93,7 +108,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   27 |           TargetOriginId: def2
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    8 |         DefaultCacheBehavior:
    9 |           TargetOriginId: def1
   10 |           ForwardedValues:
@@ -117,7 +132,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   28 |           ForwardedValues:
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,19,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,19,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,"
    9 |           TargetOriginId: def1
   10 |           ForwardedValues:
   11 |             QueryString: 'false'
@@ -141,31 +156,31 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   29 |             QueryString: 'false'
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,33,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
-  13 |           Forward: all
-  14 |     Origins:
-  15 |       - CustomOriginConfig:
-  16 |           OriginSSLProtocols:
-  17 |             - SSLv3
-  18 |             - TLSv1
-  19 |             - TLSv1.1
-  20 |             - TLSv1.2
-  21 | stribution2:
-  22 | Type: AWS::CloudFront::Distribution
-  23 | Properties:
-  24 |   DistributionConfig:
-  25 |     Enabled: 'true'
-  26 |     DefaultCacheBehavior:
-  27 |       TargetOriginId: def2
-  28 |       ForwardedValues:
-  29 |         QueryString: 'false'
-  30 |         Cookies:
-  31 |           Forward: all
-  32 |     ViewerCertificate:
-> 33 |       MinimumProtocolVersion: TLSv1
-     ^ Col 4
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,33,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+  13 |               Forward: all
+  14 |         Origins:
+  15 |           - CustomOriginConfig:
+  16 |               OriginSSLProtocols:
+  17 |                 - SSLv3
+  18 |                 - TLSv1
+  19 |                 - TLSv1.1
+  20 |                 - TLSv1.2
+  21 |   distribution2:
+  22 |     Type: AWS::CloudFront::Distribution
+  23 |     Properties:
+  24 |       DistributionConfig:
+  25 |         Enabled: 'true'
+  26 |         DefaultCacheBehavior:
+  27 |           TargetOriginId: def2
+  28 |           ForwardedValues:
+  29 |             QueryString: 'false'
+  30 |             Cookies:
+  31 |               Forward: all
+  32 |         ViewerCertificate:
+> 33 |           MinimumProtocolVersion: TLSv1
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   11 |               ""QueryString"": ""false"",
   12 |               ""Cookies"": {
   13 |                 ""Forward"": ""all""
@@ -189,7 +204,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   31 |     },
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   12 |               ""Cookies"": {
   13 |                 ""Forward"": ""all""
   14 |               }
@@ -213,7 +228,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   32 |     ""distribution2"": {
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
   13 |                 ""Forward"": ""all""
   14 |               }
   15 |             }
@@ -237,45 +252,30 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   33 |       ""Type"": ""AWS::CloudFront::Distribution"",
      ^ Col 0
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
-  33 | ype"": ""AWS::CloudFront::Distribution"",
-  34 | roperties"": {
-  35 | ""DistributionConfig"": {
-  36 |   ""Enabled"": ""true"",
-  37 |   ""DefaultCacheBehavior"": {
-  38 |     ""TargetOriginId"": ""def2"",
-  39 |     ""ForwardedValues"": {
-  40 |       ""QueryString"": ""false"",
-  41 |       ""Cookies"": {
-  42 |         ""Forward"": ""all""
-  43 |       }
-  44 |     }
-  45 |   },
-  46 |   ""ViewerCertificate"": {
-> 47 |     ""MinimumProtocolVersion"": ""TLSv1""
-  48 |   }
-  49 | }
-  50 |
-  51 |
-  52 |
-  53 |
-     ^ Col 8
-",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,"
-   1 | resource ""azurerm_storage_account"" ""example"" {
-   2 |   name                     = ""storageaccountname""
-   3 |   resource_group_name      = azurerm_resource_group.example.name
-   4 |   location                 = azurerm_resource_group.example.location
-   5 |   account_tier             = ""Standard""
-   6 |   account_replication_type = ""GRS""
->  7 |   min_tls_version          = ""TLS1_0""
-   8 |
-   9 |   tags = {
-  10 |     environment = ""staging""
-  11 |   }
-  12 | }
+F016,lines,namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  34 |       ""Properties"": {
+  35 |         ""DistributionConfig"": {
+  36 |           ""Enabled"": ""true"",
+  37 |           ""DefaultCacheBehavior"": {
+  38 |             ""TargetOriginId"": ""def2"",
+  39 |             ""ForwardedValues"": {
+  40 |               ""QueryString"": ""false"",
+  41 |               ""Cookies"": {
+  42 |                 ""Forward"": ""all""
+  43 |               }
+  44 |             }
+  45 |           },
+  46 |           ""ViewerCertificate"": {
+> 47 |             ""MinimumProtocolVersion"": ""TLSv1""
+  48 |           }
+  49 |         }
+  50 |       }
+  51 |     }
+  52 |   }
+  53 | }
      ^ Col 0
-",terraform.tfm_azure_serves_content_over_insecure_protocols
+",cloudformation.cfn_serves_content_over_insecure_protocols
 F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,"
    1 | resource ""aws_cloudfront_distribution"" ""my_distribution"" {
    2 |

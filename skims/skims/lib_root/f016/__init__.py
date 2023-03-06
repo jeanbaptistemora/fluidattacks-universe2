@@ -6,6 +6,7 @@ from lib_root.f016.c_sharp import (
 )
 from lib_root.f016.cloudformation import (
     cfn_elb_without_sslpolicy,
+    cfn_serves_content_over_insecure_protocols,
 )
 from lib_root.f016.terraform import (
     tfm_aws_elb_without_sslpolicy,
@@ -24,6 +25,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_insecure_shared_access_protocol),
     (FINDING, c_sharp_httpclient_no_revocation_list),
     (FINDING, cfn_elb_without_sslpolicy),
+    (FINDING, cfn_serves_content_over_insecure_protocols),
     (FINDING, tfm_aws_elb_without_sslpolicy),
     (FINDING, tfm_aws_serves_content_over_insecure_protocols),
     (FINDING, tfm_azure_serves_content_over_insecure_protocols),
