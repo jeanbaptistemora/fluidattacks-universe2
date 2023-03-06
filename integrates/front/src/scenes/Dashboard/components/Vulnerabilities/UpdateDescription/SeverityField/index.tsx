@@ -43,6 +43,9 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
             )}
           >
             <InputNumber
+              label={translate.t(
+                "searchFindings.tabDescription.businessCriticality"
+              )}
               name={"severity"}
               validate={composeValidators([isValidVulnSeverity, numeric])}
             />
