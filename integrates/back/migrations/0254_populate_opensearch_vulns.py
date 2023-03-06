@@ -40,6 +40,9 @@ import logging.config
 from opensearchpy._async.helpers import (
     async_bulk,
 )
+from opensearchpy.helpers import (
+    BulkIndexError,
+)
 from organizations.domain import (
     get_all_active_group_names,
 )
@@ -61,20 +64,31 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+def _format_vulnerability(vulnerability: dict[str, Any]) -> dict[str, Any]:
+    # Needed as it doesn't fit in OpenSearch long data type (2^63)
+    if "hash" in vulnerability:
+        return {**vulnerability, "hash": str(vulnerability["hash"])}
+    return vulnerability
+
+
 async def process_vulnerabilities(
-    vulnerabilities: tuple[dict[str, Any], ...]
+    group_name: str, vulnerabilities: tuple[dict[str, Any], ...]
 ) -> None:
     actions = [
         {
             "_id": "#".join([vulnerability["pk"], vulnerability["sk"]]),
             "_index": "vulnerabilities",
             "_op_type": "index",
-            "_source": vulnerability,
+            "_source": _format_vulnerability(vulnerability),
         }
         for vulnerability in vulnerabilities
     ]
     client = await get_client()
-    await async_bulk(client=client, actions=actions)
+    try:
+        await async_bulk(client=client, actions=actions)
+    except BulkIndexError as ex:
+        for error in ex.errors:
+            print(group_name, error["index"]["error"]["reason"])
 
 
 async def get_vulns(finding: Finding) -> tuple[dict[str, Any]]:
@@ -107,7 +121,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
         )
         for vuln in finding_vulns
     ]
-    await process_vulnerabilities(vulnerabilities)
+    await process_vulnerabilities(group_name, vulnerabilities)
 
     LOGGER.info(
         "Group processed",

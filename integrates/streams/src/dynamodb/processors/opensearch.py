@@ -66,8 +66,24 @@ def _process(records: tuple[Record, ...], index: str) -> None:
         LOGGER.exception(ex, extra={"extra": {"errors": ex.errors}})
 
 
+def _format_vulns(records: tuple[Record, ...]) -> tuple[Record, ...]:
+    formatted = []
+
+    for record in records:
+        if (
+            record.event_name in {StreamEvent.INSERT, StreamEvent.MODIFY}
+            and record.new_image
+            and "hash" in record.new_image
+        ):
+            # Needed as it doesn't fit in OpenSearch long data type (2^63)
+            record.new_image["hash"] = str(record.new_image["hash"])
+        formatted.append(record)
+    return tuple(formatted)
+
+
 def process_vulns(records: tuple[Record, ...]) -> None:
-    _process(records, "vulnerabilities")
+    formatted = _format_vulns(records)
+    _process(formatted, "vulnerabilities")
 
 
 def process_findings(records: tuple[Record, ...]) -> None:
