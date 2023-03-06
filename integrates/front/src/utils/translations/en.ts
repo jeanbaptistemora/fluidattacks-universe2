@@ -1847,8 +1847,8 @@ export const enTranslations: ResourceKey = {
             authorName: "Author name",
           },
           label:
-            "Below you'll find the authors that have contributed " +
-            "to your organization in the selected month.",
+            "Below you'll find all the information about your organization " +
+            "in the selected month.",
           title: "Authors",
         },
         groups: {

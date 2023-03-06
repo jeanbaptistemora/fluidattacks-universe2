@@ -5,7 +5,7 @@ import { set } from "mockdate";
 import React from "react";
 
 import { OrganizationAuthors } from ".";
-import { GET_ORGANIZATION_AUTHORS_BILLING } from "../queries";
+import { GET_ORGANIZATION_BILLING_BY_DATE } from "../queries";
 
 describe("OrganizationOverview", (): void => {
   const TEST_DATE = 2020;
@@ -23,7 +23,7 @@ describe("OrganizationOverview", (): void => {
     const mockedQueries: MockedResponse[] = [
       {
         request: {
-          query: GET_ORGANIZATION_AUTHORS_BILLING,
+          query: GET_ORGANIZATION_BILLING_BY_DATE,
           variables: {
             date: date.toISOString(),
             organizationId: "ORG#15eebe68-e9ce-4611-96f5-13d6562687e1",
@@ -68,7 +68,30 @@ describe("OrganizationOverview", (): void => {
     render(
       <MockedProvider addTypename={false} mocks={mockedQueries}>
         <OrganizationAuthors
-          organizationId={"ORG#15eebe68-e9ce-4611-96f5-13d6562687e1"}
+          authors={[
+            {
+              activeGroups: [
+                {
+                  name: "continuoustesting",
+                  tier: "SQUAD",
+                },
+                {
+                  name: "unittesting",
+                  tier: "SQUAD",
+                },
+              ],
+              actor: "Dev 1 <dev1@fluidattacks.com>",
+            },
+            {
+              activeGroups: [
+                {
+                  name: "unittesting",
+                  tier: "SQUAD",
+                },
+              ],
+              actor: "Dev 2 <dev1@fluidattacks.com>",
+            },
+          ]}
         />
       </MockedProvider>
     );
