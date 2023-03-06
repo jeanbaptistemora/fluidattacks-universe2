@@ -21,22 +21,22 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation"],
+    ["email", "description", "threat"],
     [
-        ["admin@gmail.com", "This is an attack vector", "Solve this finding"],
+        ["admin@gmail.com", "This is an attack vector", "Threat test"],
         [
             "admin@gmail.com",
             "This is an attack vector 2",
-            "Solve this finding 2",
+            "Threat test 2",
         ],
     ],
 )
 async def test_add_finding(
-    populate: bool, email: str, description: str, recommendation: str
+    populate: bool, email: str, description: str, threat: str
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result_new_finding(
-        user=email, description=description, recommendation=recommendation
+        user=email, description=description, threat=threat
     )
     assert "errors" not in result
     assert "success" in result["data"]["addFinding"]
@@ -46,8 +46,7 @@ async def test_add_finding(
     new_finding = next(
         finding
         for finding in group_findings
-        if finding.description == description
-        and finding.recommendation == recommendation
+        if finding.description == description and finding.threat == threat
     )
     assert new_finding.state.status is FindingStateStatus.CREATED
 
@@ -61,17 +60,17 @@ async def test_add_finding(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation"],
+    ["email", "description", "threat"],
     [
-        ["user@gmail.com", "This is an attack vector", "Solve this finding"],
+        ["user@gmail.com", "This is an attack vector", "Threat test"],
     ],
 )
 async def test_add_finding_access_denied(
-    populate: bool, email: str, description: str, recommendation: str
+    populate: bool, email: str, description: str, threat: str
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(
-        user=email, description=description, recommendation=recommendation
+        user=email, description=description, threat=threat
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
@@ -80,18 +79,18 @@ async def test_add_finding_access_denied(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation", "min_time_to_remediate"],
+    ["email", "description", "threat", "min_time_to_remediate"],
     [
         [
             "admin@gmail.com",
             "min_time_to_remediate",
-            "Solve this finding",
+            "Threat test",
             0,
         ],
         [
             "admin@gmail.com",
             "min_time_to_remediate",
-            "Solve this finding",
+            "Threat test",
             -1,
         ],
     ],
@@ -100,14 +99,14 @@ async def test_add_finding_positive_min_time_to_remediate(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     min_time_to_remediate: int,
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         min_time_to_remediate=min_time_to_remediate,
     )
     assert "errors" in result
@@ -120,24 +119,24 @@ async def test_add_finding_positive_min_time_to_remediate(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation", "unfulfilled_requirements"],
+    ["email", "description", "threat", "unfulfilled_requirements"],
     [
         [
             "admin@gmail.com",
             "unfulfilled_requirements",
-            "Solve this finding",
+            "Threat test",
             ["-21"],
         ],
         [
             "admin@gmail.com",
             "unfulfilled_requirements",
-            "Solve this finding",
+            "Threat test",
             [""],
         ],
         [
             "admin@gmail.com",
             "unfulfilled_requirements",
-            "Solve this finding",
+            "Threat test",
             ["158", "21212121"],
         ],
     ],
@@ -146,14 +145,14 @@ async def test_add_finding_requirements_in_criteria(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     unfulfilled_requirements: list[str],
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         unfulfilled_requirements=unfulfilled_requirements,
     )
     assert "errors" in result
@@ -166,24 +165,24 @@ async def test_add_finding_requirements_in_criteria(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation", "title"],
+    ["email", "description", "threat", "title"],
     [
         [
             "admin@gmail.com",
             "invalid_title",
-            "Solve this finding",
+            "Threat test",
             "F001. Test",
         ],
         [
             "admin@gmail.com",
             "invalid_title",
-            "Solve this finding",
+            "Threat test",
             "Test",
         ],
         [
             "admin@gmail.com",
             "invalid_title",
-            "Solve this finding",
+            "Threat test",
             "001",
         ],
     ],
@@ -192,14 +191,14 @@ async def test_add_finding_invalid_title(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     title: str,
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         title=title,
     )
     assert "errors" in result
@@ -215,25 +214,25 @@ async def test_add_finding_invalid_title(
     [
         "email",
         "description",
-        "recommendation",
+        "threat",
         "title",
         "unfulfilled_requirements",
     ],
     [
         [
             "admin@gmail.com",
-            "duplicated_recommendation",
-            "Updated recommendation",
+            "duplicated_threat",
+            "Updated threat",
             "001. SQL injection - C Sharp SQL API",
             ["169"],
         ],
     ],
 )
-async def test_add_finding_duplicated_recommendation(
+async def test_add_finding_duplicated_threat(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     title: str,
     unfulfilled_requirements: list[str],
 ) -> None:
@@ -241,14 +240,14 @@ async def test_add_finding_duplicated_recommendation(
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         title=title,
         unfulfilled_requirements=unfulfilled_requirements,
     )
     assert "errors" in result
     assert (
         result["errors"][0]["message"]
-        == "Exception - Finding with the same recommendation already exists"
+        == "Exception - Finding with the same threat already exists"
     )
 
 
@@ -258,7 +257,7 @@ async def test_add_finding_duplicated_recommendation(
     [
         "email",
         "description",
-        "recommendation",
+        "threat",
         "title",
         "unfulfilled_requirements",
     ],
@@ -276,7 +275,7 @@ async def test_add_finding_duplicated_description(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     title: str,
     unfulfilled_requirements: list[str],
 ) -> None:
@@ -284,7 +283,7 @@ async def test_add_finding_duplicated_description(
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         title=title,
         unfulfilled_requirements=unfulfilled_requirements,
     )
@@ -298,24 +297,24 @@ async def test_add_finding_duplicated_description(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
-    ["email", "description", "recommendation", "severity"],
+    ["email", "description", "threat", "severity"],
     [
         [
             "admin@gmail.com",
             "invalid_severity",
-            "Solve this finding",
+            "Threat test",
             10.01,
         ],
         [
             "admin@gmail.com",
             "invalid_severity",
-            "Solve this finding",
+            "Threat test",
             -1,
         ],
         [
             "admin@gmail.com",
             "invalid_severity",
-            "Solve this finding",
+            "Threat test",
             -0.01,
         ],
     ],
@@ -324,14 +323,14 @@ async def test_add_finding_invalid_severity(
     populate: bool,
     email: str,
     description: str,
-    recommendation: str,
+    threat: str,
     severity: float,
 ) -> None:
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         description=description,
-        recommendation=recommendation,
+        threat=threat,
         severity=severity,
     )
     assert "errors" in result

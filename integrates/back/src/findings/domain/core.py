@@ -24,7 +24,7 @@ from custom_exceptions import (
     PermissionDenied,
     RepeatedFindingDescription,
     RepeatedFindingMachineDescription,
-    RepeatedFindingRecommendation,
+    RepeatedFindingThreat,
     RequiredUnfulfilledRequirements,
     RootNotFound,
     VulnNotFound,
@@ -172,7 +172,6 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
     group_name: str,
     title: str,
     description: str,
-    recommendation: str,
     threat: str,
     severity: Finding20Severity | Finding31Severity,
     current_finding: Finding | None = None,
@@ -203,8 +202,8 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
             and current_finding.description.split() == description.split()
         ):
             raise RepeatedFindingDescription()
-        if finding.recommendation.strip() == recommendation.strip():
-            raise RepeatedFindingRecommendation()
+        if finding.threat.strip() == threat.strip():
+            raise RepeatedFindingThreat()
 
     criteria_vulnerabilities = await loaders.vulnerabilities_file.load("")
     criteria_vulnerability: dict[str, Any] = criteria_vulnerabilities[
@@ -272,7 +271,6 @@ async def add_finding(
         group_name,
         attributes.title,
         attributes.description,
-        attributes.recommendation,
         attributes.threat,
         attributes.severity,
     )
@@ -964,17 +962,12 @@ async def update_description(
         await findings_utils.is_valid_finding_title(loaders, description.title)
 
     finding = await get_finding(loaders, finding_id)
-    if (
-        description.description is not None
-        or description.recommendation is not None
-        or description.threat is not None
-    ):
+    if description.description is not None or description.threat is not None:
         await _validate_duplicated_finding(
             loaders,
             finding.group_name,
             description.title or finding.title,
             description.description or finding.description,
-            description.recommendation or finding.recommendation,
             description.threat or finding.threat,
             finding.severity,
             finding,
@@ -1035,7 +1028,6 @@ async def update_severity(
         finding.group_name,
         finding.title,
         finding.description,
-        finding.recommendation,
         finding.threat,
         updated_severity,
         finding,

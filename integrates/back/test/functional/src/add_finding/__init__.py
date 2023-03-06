@@ -14,12 +14,12 @@ async def get_result(
     *,
     user: str,
     description: str,
-    recommendation: str,
+    threat: str,
+    recommendation: str = "Recommendation",
     attack_vector_description: str = "This is an attack vector",
     min_time_to_remediate: int = 18,
     severity: float = 1.0,
     title: str = "366. Inappropriate coding practices - Transparency Conflict",
-    threat: str = "Attacker",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     query: str = f"""
@@ -64,11 +64,11 @@ async def get_result_new_finding(
     *,
     user: str,
     description: str,
-    recommendation: str,
+    threat: str,
     attack_vector_description: str = "This is an attack vector",
     min_time_to_remediate: int = 18,
+    recommendation: str = "Recommendation",
     title: str = "366. Inappropriate coding practices - Transparency Conflict",
-    threat: str = "Attacker",
     unfulfilled_requirements: list[str] = ["158"],
 ) -> dict[str, Any]:
     # severity is equivalent to vulnerability 011 in criteria

@@ -1830,10 +1830,10 @@ class InvalidVulnerabilityRequirement(CustomBaseException):
         super(InvalidVulnerabilityRequirement, self).__init__(msg)
 
 
-class RepeatedFindingRecommendation(CustomBaseException):
+class RepeatedFindingThreat(CustomBaseException):
     def __init__(self) -> None:
-        msg = "Exception - Finding with the same recommendation already exists"
-        super(RepeatedFindingRecommendation, self).__init__(msg)
+        msg = "Exception - Finding with the same threat already exists"
+        super(RepeatedFindingThreat, self).__init__(msg)
 
 
 class RepeatedFindingDescription(CustomBaseException):

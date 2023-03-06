@@ -167,7 +167,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         user_interaction=Decimal("0.85"),
                     ),
                     requirements="R359. Avoid using generic exceptions.",
-                    threat="Updated threat",
+                    threat="Duplicated threat",
                     attack_vector_description=(
                         "This is an updated attack vector"
                     ),

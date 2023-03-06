@@ -132,23 +132,21 @@ async def test_update_finding_duplicated_description(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_description")
 @pytest.mark.parametrize(
-    ["email", "recommendation"],
+    ["email", "threat"],
     [
-        ["admin@gmail.com", "Duplicated recommendation"],
-        ["hacker@gmail.com", "Duplicated recommendation"],
+        ["admin@gmail.com", "Duplicated threat"],
+        ["hacker@gmail.com", "Duplicated threat"],
     ],
 )
-async def test_update_finding_duplicated_recommendation(
-    populate: bool, email: str, recommendation: str
+async def test_update_finding_duplicated_threat(
+    populate: bool, email: str, threat: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
-        user=email, recommendation=recommendation
-    )
+    result: dict[str, Any] = await get_result(user=email, threat=threat)
     assert "errors" in result
     assert (
         result["errors"][0]["message"]
-        == "Exception - Finding with the same recommendation already exists"
+        == "Exception - Finding with the same threat already exists"
     )
 
 
