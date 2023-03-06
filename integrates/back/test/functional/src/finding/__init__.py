@@ -81,7 +81,6 @@ async def get_result(
                     }}
                 }}
                 groupName
-                historicState
                 id
                 isExploitable
                 lastStateDate

@@ -113,22 +113,8 @@ type Mutation {
     eventDate: DateTime!
     "The kind of event that happened"
     eventType: EventType!
-    "Evidence file of the event"
-    file: Upload
-      @deprecated(
-        reason: """
-        This field will be removed after 2023/03/06.
-        """
-      )
     "Name of the group linked to the event"
     groupName: String!
-    "Evidence image of the event"
-    image: Upload
-      @deprecated(
-        reason: """
-        This field will be removed after 2023/03/06.
-        """
-      )
     "Id of the root the event is associated with"
     rootId: ID
   ): AddEventPayload!

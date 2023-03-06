@@ -27,14 +27,6 @@ type Finding {
   groupName: String!
   "Hacker responsible for the Finding"
   hacker: String
-  "Previous configurations of the Finding"
-  historicState: [GenericScalar]
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/06. Use
-      `currentState` instead.
-      """
-    )
   "Finding Identifier"
   id: String!
   "Is the Finding still exploitable?"

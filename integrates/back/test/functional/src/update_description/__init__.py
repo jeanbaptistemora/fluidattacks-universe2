@@ -49,7 +49,6 @@ async def get_result(
                     currentState
                     cvssVersion
                     description
-                    historicState
                     id
                     isExploitable
                     lastVulnerability

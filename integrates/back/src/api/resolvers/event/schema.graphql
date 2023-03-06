@@ -19,34 +19,6 @@ type Event {
   eventStatus: String
   "The kind of event that happened"
   eventType: EventType
-  "Filename of the event evidence"
-  evidence: String
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/06.
-      """
-    )
-  "Upload date of evidence image"
-  evidenceDate: String
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/06.
-      """
-    )
-  "Evidence file of the event"
-  evidenceFile: String
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/06.
-      """
-    )
-  "Upload date of evidence file"
-  evidenceFileDate: String
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/06.
-      """
-    )
   "Evidence of the event"
   evidences: EventEvidence!
   "Name of the group linked to the event"

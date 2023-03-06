@@ -24,38 +24,6 @@ async def test_get_finding(
     assert populate
     identifier: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"
-    historic_state = [
-        {
-            "analyst": "test1@gmail.com",
-            "date": "2017-04-07 19:45:11",
-            "source": "asm",
-            "state": "CREATED",
-        },
-        {
-            "analyst": "test1@gmail.com",
-            "date": "2017-04-07 19:45:12",
-            "source": "asm",
-            "state": "SUBMITTED",
-        },
-        {
-            "analyst": "test1@gmail.com",
-            "date": "2017-04-07 19:45:13",
-            "source": "asm",
-            "state": "REJECTED",
-        },
-        {
-            "analyst": "test1@gmail.com",
-            "date": "2017-04-07 19:45:14",
-            "source": "asm",
-            "state": "SUBMITTED",
-        },
-        {
-            "analyst": "test1@gmail.com",
-            "date": "2018-04-07 19:45:15",
-            "source": "asm",
-            "state": "APPROVED",
-        },
-    ]
     release_date: str = "2018-04-07 19:45:15"
     severity: dict[str, float] = {
         "attackComplexity": 0.44,
@@ -187,7 +155,6 @@ async def test_get_finding(
         in result["data"]["finding"]["evidence"]["animation"]["url"]
     )
     assert result["data"]["finding"]["groupName"] == group_name
-    assert result["data"]["finding"]["historicState"] == historic_state
     assert result["data"]["finding"]["id"] == identifier
     assert result["data"]["finding"]["isExploitable"] == is_exploitable
     assert result["data"]["finding"]["lastStateDate"] == last_state_date

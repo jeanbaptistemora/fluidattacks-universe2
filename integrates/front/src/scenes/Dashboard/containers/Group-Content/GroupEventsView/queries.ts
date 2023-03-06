@@ -37,8 +37,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
     $detail: String!
     $eventDate: DateTime!
     $eventType: EventType!
-    $file: Upload
-    $image: Upload
     $groupName: String!
     $rootId: ID
   ) {
@@ -46,8 +44,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
       detail: $detail
       eventDate: $eventDate
       eventType: $eventType
-      file: $file
-      image: $image
       groupName: $groupName
       rootId: $rootId
     ) {

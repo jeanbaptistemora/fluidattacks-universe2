@@ -104,9 +104,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from organizations.utils import (
-    get_organization,
-)
 import pytz
 import random
 from roots import (
@@ -217,32 +214,15 @@ async def add_event(
     loaders: Dataloaders,
     hacker_email: str,
     group_name: str,
-    file: UploadFile | None = None,
-    image: UploadFile | None = None,
     **kwargs: Any,
 ) -> str:
     root_id: str | None = kwargs.get("root_id")
     group: Group = await loaders.group.load(group_name)
-    organization = await get_organization(loaders, group.organization_id)
     if root_id:
         root = await roots_domain.get_root(loaders, root_id, group_name)
         root_id = root.id
         if root.state.status != "ACTIVE":
             raise InvalidParameter(field="rootId")
-    if file:
-        await validate_evidence(
-            group_name=group.name.lower(),
-            organization_name=organization.name.lower(),
-            evidence_id=EventEvidenceId.FILE_1,
-            file=file,
-        )
-    if image:
-        await validate_evidence(
-            group_name=group.name.lower(),
-            organization_name=organization.name.lower(),
-            evidence_id=EventEvidenceId.IMAGE_1,
-            file=image,
-        )
 
     tzn = pytz.timezone(TIME_ZONE)
     event_date: datetime = kwargs["event_date"].astimezone(tzn)
@@ -278,23 +258,6 @@ async def add_event(
             status=EventStateStatus.CREATED,
         ),
     )
-
-    if file:
-        await update_evidence(
-            loaders=loaders,
-            event_id=event.id,
-            evidence_id=EventEvidenceId.FILE_1,
-            file=file,
-            update_date=event_date,
-        )
-    if image:
-        await update_evidence(
-            loaders=loaders,
-            event_id=event.id,
-            evidence_id=EventEvidenceId.IMAGE_1,
-            file=image,
-            update_date=event_date,
-        )
 
     schedule(
         events_mail.send_mail_event_report(

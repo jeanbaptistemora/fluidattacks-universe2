@@ -8,18 +8,11 @@ import type {
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 
-import { GET_FINDING_HEADER } from "../../queries";
-import type { IVulnerabilitiesAttr } from "../types";
-import {
-  getRequestedZeroRiskVulns,
-  getSubmittedVulns,
-  getVulnsPendingOfAcceptance,
-} from "../utils";
+import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import type {
   IAcceptanceVulns,
   IConfirmVulnZeroRiskResultAttr,
   IConfirmVulnerabilitiesResultAttr,
-  IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectVulnerabilitiesResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
@@ -30,81 +23,6 @@ import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Con
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-
-const onTreatmentChangeHelper = (
-  isAcceptedUndefinedSelected: boolean,
-  vulns: IVulnerabilitiesAttr[],
-  setAcceptanceVulns: (pendingVulnsToHandleAcceptance: IVulnDataAttr[]) => void,
-  isConfirmRejectZeroRiskSelected: boolean,
-  isConfirmRejectVulnerabilitySelected: boolean
-): void => {
-  if (isAcceptedUndefinedSelected) {
-    const pendingVulnsToHandleAcceptance: IVulnDataAttr[] =
-      getVulnsPendingOfAcceptance(vulns);
-    setAcceptanceVulns(pendingVulnsToHandleAcceptance);
-  } else if (isConfirmRejectZeroRiskSelected) {
-    const requestedZeroRiskVulns: IVulnDataAttr[] =
-      getRequestedZeroRiskVulns(vulns);
-    setAcceptanceVulns([...requestedZeroRiskVulns]);
-  } else if (isConfirmRejectVulnerabilitySelected) {
-    const submittedVulns: IVulnDataAttr[] = getSubmittedVulns(vulns);
-    setAcceptanceVulns([...submittedVulns]);
-  } else {
-    setAcceptanceVulns([]);
-  }
-};
-
-const acceptanceProps = (
-  refetchData: () => void,
-  handleCloseModal: () => void,
-  findingId?: string
-): MutationHookOptions => {
-  return {
-    onCompleted: (data: IHandleVulnerabilitiesAcceptanceResultAttr): void => {
-      if (data.handleVulnerabilitiesAcceptance.success) {
-        msgSuccess(
-          translate.t("searchFindings.tabVuln.alerts.acceptanceSuccess"),
-          translate.t("groupAlerts.updatedTitle")
-        );
-        refetchData();
-        handleCloseModal();
-      }
-    },
-    onError: (errors: ApolloError): void => {
-      errors.graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - It cant handle acceptance without being requested":
-            msgError(
-              translate.t(
-                "searchFindings.tabVuln.alerts.acceptanceNotRequested"
-              )
-            );
-            break;
-          case "Exception - Vulnerability not found":
-            msgError(translate.t("groupAlerts.noFound"));
-            break;
-          case "Exception - Invalid characters":
-            msgError(translate.t("validations.invalidChar"));
-            break;
-          default:
-            msgError(translate.t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred handling acceptance", error);
-        }
-      });
-    },
-    refetchQueries: (): InternalRefetchQueriesInclude =>
-      findingId === undefined
-        ? []
-        : [
-            {
-              query: GET_FINDING_AND_GROUP_INFO,
-              variables: {
-                findingId,
-              },
-            },
-          ],
-  };
-};
 
 const confirmVulnerabilityHelper = (
   isConfirmRejectVulnerabilitySelected: boolean,
@@ -564,14 +482,12 @@ const rejectVulnerabilityProps = (
 };
 
 export {
-  acceptanceProps,
   confirmVulnerabilityProps,
   confirmZeroRiskProps,
   confirmVulnerabilityHelper,
   isAcceptedUndefinedSelectedHelper,
   isConfirmZeroRiskSelectedHelper,
   isRejectZeroRiskSelectedHelper,
-  onTreatmentChangeHelper,
   rejectVulnerabilityHelper,
   rejectVulnerabilityProps,
   rejectZeroRiskProps,

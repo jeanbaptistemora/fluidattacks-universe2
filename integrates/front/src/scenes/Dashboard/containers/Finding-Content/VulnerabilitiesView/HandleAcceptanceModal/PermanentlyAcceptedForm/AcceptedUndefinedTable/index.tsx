@@ -1,12 +1,11 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 
-import { changeVulnTreatmentFormatter } from "./changeVulnTreatmentFormatter";
-import type { IAcceptedUndefinedTableProps } from "./types";
-
-import type { IVulnDataAttr } from "../../types";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
+import { changeVulnTreatmentFormatter } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/PermanentlyAcceptedForm/AcceptedUndefinedTable/changeVulnTreatmentFormatter";
+import type { IAcceptedUndefinedTableProps } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/PermanentlyAcceptedForm/AcceptedUndefinedTable/types";
+import type { IVulnDataAttr } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
 
 const AcceptedUndefinedTable: React.FC<IAcceptedUndefinedTableProps> = (
   props: IAcceptedUndefinedTableProps
