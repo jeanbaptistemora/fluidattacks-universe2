@@ -41,13 +41,17 @@ def get_suspicious_nodes(
 
 def check_danger_arguments(graph: Graph, n_id: NId) -> bool:
     nodes = graph.nodes
-    return bool(
+    if (
         (args_n_id := nodes[n_id].get("arguments_id"))
         and (args := g.adj_ast(graph, args_n_id))
-        and (len(args) == 2)
-        and (nodes[args[0]].get("value")[1:-1] == "Accept")
-        and (nodes[args[1]].get("value")[1:-1] == "*/*")
-    )
+        and (len(args) > 0 and len(args) % 2 == 0)
+    ):
+        for index in range(0, len(args), 2):
+            if (nodes[args[index]].get("value")[1:-1] == "Accept") and (
+                nodes[args[index + 1]].get("value")[1:-1] == "*/*"
+            ):
+                return True
+    return False
 
 
 def is_vuln_plain(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
@@ -65,9 +69,9 @@ def is_vuln_plain(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 def is_vuln_chain(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-
-        if evaluation and evaluation.danger:
+        if (evaluation := evaluate(method, graph, path, n_id)) and (
+            evaluation.danger
+        ):
             return True
     return False
 
@@ -133,10 +137,7 @@ def java_accepts_any_mime_type_chain(
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_ACCEPTS_ANY_MIMETYPE_CHAIN
 
-    dang_invocations: set[str] = {
-        "header",
-        "setHeader",
-    }
+    dang_invocations: set[str] = {"header", "setHeader", "headers"}
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(

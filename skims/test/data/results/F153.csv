@@ -224,6 +224,56 @@ F153,lines,namespace/skims/test/data/lib_root/f153/java_all_myme_chain.java,35,6
   45 |
      ^ Col 0
 ",java.java_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/java_all_myme_chain.java,46,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_all_myme_chain.java","
+  36 |       .setHeader(""Accept"", ""*/*"")
+  37 |       .uri(new URI(url)).build();
+  38 |
+  39 |     return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+  40 |   }
+  41 |
+  42 |   // Headers method - line 47 should be marked
+  43 |   private HttpRequest urlConnectionTestIII(String url) throws IOException {
+  44 |     HttpClient httpClient = HttpClient.newHttpClient();
+  45 |
+> 46 |     HttpRequest request = HttpRequest.newBuilder(url)
+  47 |       .headers(""Accept"", ""*/*"", ""X-Our-Header-1"", ""value1"", ""X-Our-Header-2"", ""value2"")
+  48 |       .uri(new URI(url)).build();
+  49 |
+  50 |     return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+  51 |   }
+  52 |
+  53 |   // Headers method II -  line 47 should be marked
+  54 |   private HttpRequest urlConnectionTestIII(String url) throws IOException {
+  55 |     HttpClient httpClient = HttpClient.newHttpClient();
+  56 |
+     ^ Col 0
+",java.java_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/java_all_myme_chain.java,57,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/java_all_myme_chain.java","
+  47 |       .headers(""Accept"", ""*/*"", ""X-Our-Header-1"", ""value1"", ""X-Our-Header-2"", ""value2"")
+  48 |       .uri(new URI(url)).build();
+  49 |
+  50 |     return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+  51 |   }
+  52 |
+  53 |   // Headers method II -  line 47 should be marked
+  54 |   private HttpRequest urlConnectionTestIII(String url) throws IOException {
+  55 |     HttpClient httpClient = HttpClient.newHttpClient();
+  56 |
+> 57 |     HttpRequest request = HttpRequest.newBuilder(url)
+  58 |       .headers(""X-Our-Header-1"", ""value1"", ""Accept"", ""*/*"",  ""X-Our-Header-2"", ""value2"")
+  59 |       .uri(new URI(url)).build();
+  60 |
+  61 |     return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+  62 |   }
+  63 |
+  64 |   // No line should be marked
+  65 |   private HttpRequest urlConnectionTestSafe(String url) throws IOException {
+  66 |     HttpClient httpClient = HttpClient.newHttpClient();
+  67 |
+     ^ Col 0
+",java.java_accepts_any_mime_type_chain
 F153,lines,namespace/skims/test/data/lib_root/f153/java_directheaders_all_mime.java,4,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
  in namespace/skims/test/data/lib_root/f153/java_directheaders_all_mime.java","
   1 | public class test112 extends HttpServlet {
