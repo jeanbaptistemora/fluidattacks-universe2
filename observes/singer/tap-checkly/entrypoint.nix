@@ -30,8 +30,8 @@
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
-      rev = "a4599c72b88495161aa57d26216a722b22ced9c6";
-      ref = "refs/tags/v1.28.0";
+      rev = "0920e2dcdd56a51a202f0302200dafa253289d91";
+      ref = "refs/tags/v1.29.0";
     };
   in
     import src {
