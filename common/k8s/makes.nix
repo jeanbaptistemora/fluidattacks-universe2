@@ -46,14 +46,12 @@ in {
     commonK8sDev = {
       vars = [
         "DATADOG_API_KEY"
-        "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/common/secrets/dev.yaml";
     };
     commonK8sProd = {
       vars = [
         "DATADOG_API_KEY"
-        "NEW_RELIC_LICENSE_KEY"
       ];
       manifest = "/common/secrets/prod.yaml";
     };
@@ -69,7 +67,6 @@ in {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       datadogApiKey = "DATADOG_API_KEY";
-      newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
     };
   };
   secureKubernetesWithRbacPolice = {
