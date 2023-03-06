@@ -11,6 +11,7 @@ import { Card } from "components/Card";
 import { Input, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
+import { Switch } from "components/Switch";
 import { Text } from "components/Text";
 import {
   computeConfirmationMessage,
@@ -57,8 +58,11 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     useFormikContext<IFormData>();
   const { t } = useTranslation();
 
-  const handleMachineBtnChange: (withMachine: boolean) => void = useCallback(
-    (withMachine: boolean): void => {
+  const handleMachineBtnChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const withMachine = event.target.checked;
       setFieldValue("machine", withMachine);
       if (!withMachine) {
         setFieldValue("squad", false);
@@ -130,15 +134,15 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         <Col lg={20} md={50} sm={50}>
           <Card>
             <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
-            <Field
-              component={FormikSwitchButton}
+            <Switch
+              checked={values.machine}
               disabled={!canUpdateGroupServices}
-              id={"machineSwitch"}
+              label={{
+                off: t("searchFindings.servicesTable.inactive"),
+                on: t("searchFindings.servicesTable.active"),
+              }}
               name={"machine"}
-              offlabel={t("searchFindings.servicesTable.inactive")}
               onChange={handleMachineBtnChange}
-              onlabel={t("searchFindings.servicesTable.active")}
-              type={"checkbox"}
             />
           </Card>
         </Col>
