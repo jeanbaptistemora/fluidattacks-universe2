@@ -54,33 +54,29 @@ def get_conanfile_class(content: str) -> ast.ClassDef | None:
     return None
 
 
-def get_conan_requires(conan_class: ast.ClassDef) -> Iterator[DependencyType]:
-    for attr in conan_class.body:
-        if (
-            isinstance(attr, ast.Assign)
-            and hasattr(attr.targets[0], "id")
-            and attr.targets[0].id == "requires"
-            and hasattr(attr.value, "elts")
-        ):
-            yield from (
-                format_conan_dep_info(dep_info) for dep_info in attr.value.elts
-            )
+def get_conan_requires(attr: ast.Assign) -> Iterator[DependencyType]:
+    if (
+        hasattr(attr.targets[0], "id")
+        and attr.targets[0].id == "requires"
+        and hasattr(attr.value, "elts")
+    ):
+        yield from (
+            format_conan_dep_info(dep_info) for dep_info in attr.value.elts
+        )
 
 
 def get_conan_self_requires(
-    conan_class: ast.ClassDef,
+    node: ast.FunctionDef,
 ) -> Iterator[DependencyType]:
-    for node in conan_class.body:
-        if isinstance(node, ast.FunctionDef) and node.name == "requirements":
-            for child_node in ast.walk(node):
-                if (
-                    isinstance(child_node, ast.Expr)
-                    and hasattr(child_node.value, "func")
-                    and hasattr(child_node.value, "args")
-                    and child_node.value.func.value.id == "self"
-                    and child_node.value.func.attr == "requires"
-                ):
-                    yield format_conan_dep_info(child_node.value.args[0])
+    for child_node in ast.walk(node):
+        if (
+            isinstance(child_node, ast.Expr)
+            and hasattr(child_node.value, "func")
+            and hasattr(child_node.value, "args")
+            and child_node.value.func.value.id == "self"
+            and child_node.value.func.attr == "requires"
+        ):
+            yield format_conan_dep_info(child_node.value.args[0])
 
 
 # pylint: disable=unused-argument
@@ -88,8 +84,14 @@ def get_conan_self_requires(
 def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
     conan_class = get_conanfile_class(content)
     if conan_class:
-        yield from get_conan_requires(conan_class)
-        yield from get_conan_self_requires(conan_class)
+        for node in conan_class.body:
+            if isinstance(node, ast.Assign):
+                yield from get_conan_requires(node)
+            elif (
+                isinstance(node, ast.FunctionDef)
+                and node.name == "requirements"
+            ):
+                yield from get_conan_self_requires(node)
 
 
 # pylint: disable=unused-argument
