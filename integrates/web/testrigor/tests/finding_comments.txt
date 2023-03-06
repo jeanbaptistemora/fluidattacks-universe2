@@ -1,4 +1,5 @@
 open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups/unittesting/vulns"
+wait 2 sec
 press "Go to the ARM platform" if exists
 check that page contains "060. Insecure service configuration - Host verification"
 press "060. Insecure service configuration - Host verification"
