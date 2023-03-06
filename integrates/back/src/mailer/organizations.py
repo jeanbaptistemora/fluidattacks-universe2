@@ -10,7 +10,7 @@ from typing import (
 )
 
 
-async def send_mail_updated_policies(
+async def send_mail_reassigned_credentials_owner(
     *, loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
 ) -> None:
     context["user_role"] = str(context["user_role"]).replace("_", " ")
@@ -19,7 +19,7 @@ async def send_mail_updated_policies(
         email_to,
         context=context,
         tags=GENERAL_TAG,
-        subject="[ARM] Policies have been changed in "
-        + f'[{context["entity_name"]}]',
+        subject="[ARM] Credentials update in organization "
+        + f'[{context["organization_name"]}]',
         template_name="updated_policies",
     )

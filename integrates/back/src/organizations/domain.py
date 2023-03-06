@@ -800,11 +800,9 @@ async def remove_access(
                 "last_login_date": stakeholder.last_login_date
                 if stakeholder
                 else "",
-                "last_api_token_use_date": (
-                    stakeholder.last_api_token_use_date
-                    if stakeholder
-                    else None,
-                ),
+                "last_api_token_use_date": stakeholder.last_api_token_use_date
+                if stakeholder
+                else None,
             }
         },
     )
@@ -1143,7 +1141,7 @@ async def send_mail_reassigned_credentials_owner(
         )
         in ["customer_manager", "user_manager"]
     ]
-    await orgs_mail.send_mail_updated_policies(
+    await orgs_mail.send_mail_reassigned_credentials_owner(
         loaders=loaders,
         email_to=stakeholders_emails,
         context=email_context,

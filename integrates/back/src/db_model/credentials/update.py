@@ -27,15 +27,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
-import logging
-import logging.config
-from settings import (
-    LOGGING,
-)
 import simplejson as json
-
-logging.config.dictConfig(LOGGING)
-LOGGER = logging.getLogger(__name__)
 
 
 async def update_credential_state(
@@ -86,5 +78,4 @@ async def update_credential_state(
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
         raise ErrorUpdatingCredential() from ex
