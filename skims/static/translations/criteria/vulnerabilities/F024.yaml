@@ -63,3 +63,6 @@ src.lib_path.f024.ec2_has_unrestricted_dns_access:
 src.lib_path.f024.default_seggroup_allows_all_traffic:
   en: Default security groups allows connection to or from anyone.
   es: El grupo Default permiten la conexión hacia o desde cualquier.
+src.lib_path.f024.network_acls_allow_all_ingress_traffic:
+  en: Network ACLs allow all ingress traffic for all ports.
+  es: Las ACL de red permiten todo el tráfico de entrada para todos los puertos.
