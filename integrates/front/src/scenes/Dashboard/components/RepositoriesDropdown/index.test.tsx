@@ -2,9 +2,8 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import { RepositoriesDropdown } from ".";
-import { gitLabIcon } from "resources";
 
-describe("Card", (): void => {
+describe("Dropdown", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof RepositoriesDropdown).toBe("function");
@@ -15,20 +14,35 @@ describe("Card", (): void => {
 
     render(
       <RepositoriesDropdown
-        availableRepositories={[
-          {
-            icon: gitLabIcon,
-            id: "gitlabButton",
+        availableRepositories={{
+          azure: {
             isVisible: true,
             onClick: (): void => undefined,
-            text: "GitLab",
           },
-        ]}
-        dropDownText={"Add credentials"}
+          gitLab: {
+            isVisible: true,
+            onClick: (): void => undefined,
+          },
+        }}
+        dropDownText={"Add credential"}
       />
     );
 
-    expect(screen.queryByText("Add credentials")).toBeInTheDocument();
-    expect(screen.queryByText("GitLab")).toBeInTheDocument();
+    expect(screen.queryByText("Add credential")).toBeInTheDocument();
+    expect(
+      screen.queryByText("components.repositoriesDropdown.gitLabButton.text")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("components.repositoriesDropdown.azureButton.text")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("components.repositoriesDropdown.gitHubButton.text")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("components.repositoriesDropdown.bitbucketButton.text")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("components.repositoriesDropdown.otherButton.text")
+    ).not.toBeInTheDocument();
   });
 });
