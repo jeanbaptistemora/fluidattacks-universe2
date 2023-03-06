@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import type {
   ButtonHTMLAttributes,
   FC,
@@ -25,6 +26,7 @@ interface IButtonProps
 
 const Button: FC<IButtonProps> = ({
   children,
+  className,
   disabled,
   display,
   icon,
@@ -38,6 +40,7 @@ const Button: FC<IButtonProps> = ({
 }: Readonly<IButtonProps>): JSX.Element => {
   return (
     <StyledButton
+      className={className}
       disabled={disabled}
       display={display}
       name={name}

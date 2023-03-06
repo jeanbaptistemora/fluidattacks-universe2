@@ -1,10 +1,11 @@
 /* eslint react/jsx-no-bind:0 */
+/* eslint react/forbid-component-props: 0 */
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import React, { useCallback } from "react";
+import { useWindowSize } from "usehooks-ts";
 
 import type { ICtaBannerProps, IVariant, TVariant } from "./types";
 
-import { useWindowSize } from "../../utils/hooks/useWindowSize";
 import { AirsLink } from "../AirsLink";
 import { Button } from "../Button";
 import { CloudImage } from "../CloudImage";
@@ -16,6 +17,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   button1Text,
   button2Link,
   button2Text,
+  buttonClassName,
   image,
   matomoAction,
   maxWidth,
@@ -105,6 +107,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
             <Container pv={1} width={"auto"} widthSm={"100%"}>
               <AirsLink decoration={"none"} href={button1Link}>
                 <Button
+                  className={buttonClassName}
                   display={"block"}
                   onClick={matomoFreeTrialEvent}
                   variant={"primary"}
@@ -169,6 +172,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
           <Container pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink decoration={"none"} href={button1Link}>
               <Button
+                className={buttonClassName}
                 display={"block"}
                 onClick={matomoFreeTrialEvent}
                 variant={"primary"}
@@ -225,6 +229,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
           <Container mtMd={3} width={"auto"} widthSm={"100%"}>
             <AirsLink decoration={"none"} href={button1Link}>
               <Button
+                className={buttonClassName}
                 display={"block"}
                 onClick={matomoFreeTrialEvent}
                 size={"lg"}
@@ -273,6 +278,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         <Container mtMd={3} width={"auto"} widthSm={"100%"}>
           <AirsLink decoration={"none"} href={button1Link}>
             <Button
+              className={buttonClassName}
               display={"block"}
               onClick={matomoFreeTrialEvent}
               size={"lg"}
