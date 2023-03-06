@@ -4682,7 +4682,7 @@ class MethodsEnum(Enum):
     CFN_EC2_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_unencrypted_volumes",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
