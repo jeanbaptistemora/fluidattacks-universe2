@@ -205,7 +205,15 @@ async def complete_register_for_group_invitation(
 ) -> None:
     invitation = group_access.invitation
     if invitation and invitation.is_used:
-        bugsnag.notify(Exception("Token already used"), severity="warning")
+        bugsnag.notify(
+            Exception("Token already used"),
+            metadata={
+                "extra": {
+                    "group_access": group_access,
+                }
+            },
+            severity="warning",
+        )
         return
 
     group_name = group_access.group_name
@@ -286,8 +294,17 @@ async def reject_register_for_group_invitation(
     group_access: GroupAccess,
 ) -> None:
     invitation = group_access.invitation
+
     if invitation and invitation.is_used:
-        bugsnag.notify(Exception("Token already used"), severity="warning")
+        bugsnag.notify(
+            Exception("Token already used"),
+            metadata={
+                "extra": {
+                    "group_access": group_access,
+                }
+            },
+            severity="warning",
+        )
 
     await group_access_domain.remove_access(
         loaders=loaders,

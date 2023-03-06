@@ -982,10 +982,10 @@ class InvalidUserProvided(CustomBaseException):
 class InvalidVulnsNumber(CustomBaseException):
     """Exception to control number of vulnerabilities provided to upload."""
 
-    def __init__(self) -> None:
+    def __init__(self, number_of_vulns: int = 100) -> None:
         msg = (
             "Exception - You can upload a maximum of "
-            "100 vulnerabilities per file"
+            f"{number_of_vulns} vulnerabilities per file"
         )
         super(InvalidVulnsNumber, self).__init__(msg)
 

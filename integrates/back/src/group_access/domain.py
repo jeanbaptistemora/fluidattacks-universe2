@@ -96,6 +96,11 @@ async def add_access(
             state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         ),
     )
+    loaders.stakeholder.clear(email)
+    loaders.group_access.clear(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
+
     await authz.grant_group_level_role(loaders, email, group_name, role)
 
 

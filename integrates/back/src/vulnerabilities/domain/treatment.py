@@ -5,6 +5,7 @@ from aioextensions import (
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidNotificationRequest,
+    InvalidVulnsNumber,
     SameValues,
     VulnNotFound,
 )
@@ -214,13 +215,24 @@ async def handle_vulnerabilities_acceptance(
 ) -> None:
     today = datetime_utils.get_utc_now()
 
-    all_vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    vulnerabilities = tuple(
-        vuln
-        for vuln in all_vulns
-        if vuln.id in accepted_vulns + rejected_vulns
-    )
-    if not vulnerabilities:
+    all_vulns = accepted_vulns + rejected_vulns
+    max_number_of_vulns = 32
+    if len(all_vulns) > max_number_of_vulns:
+        raise InvalidVulnsNumber(number_of_vulns=max_number_of_vulns)
+
+    all_vulnerabilities = await loaders.vulnerability.load_many(all_vulns)
+    vulnerabilities: list[Vulnerability] = [
+        vulnerability
+        for vulnerability in all_vulnerabilities
+        if vulnerability is not None
+    ]
+    if len(all_vulnerabilities) != len(vulnerabilities):
+        raise VulnNotFound()
+    if any(
+        vulnerability
+        for vulnerability in vulnerabilities
+        if vulnerability.finding_id != finding_id
+    ):
         raise VulnNotFound()
     for vuln in vulnerabilities:
         validate_acceptance(vuln)
