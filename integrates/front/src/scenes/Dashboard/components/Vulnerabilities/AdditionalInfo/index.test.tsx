@@ -133,7 +133,9 @@ describe("AdditionalInfo", (): void => {
             canRetrieveHacker={false}
             canSeeSource={true}
             refetchData={jest.fn()}
-            vulnerability={formatVulnerabilities([mockVuln])[0]}
+            vulnerability={
+              formatVulnerabilities([{ ...mockVuln, state: "SAFE" }])[0]
+            }
           />
         </MockedProvider>
       </MemoryRouter>

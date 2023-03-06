@@ -16,12 +16,14 @@ import {
   getVulnsPendingOfAcceptance,
 } from "../utils";
 import type {
+  IAcceptanceVulns,
   IConfirmVulnZeroRiskResultAttr,
   IConfirmVulnerabilitiesResultAttr,
   IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectVulnerabilitiesResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
+  VulnUpdateResult,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
@@ -299,76 +301,113 @@ const rejectZeroRiskProps = (
   };
 };
 
-const isAcceptedUndefinedSelectedHelper = (
-  isAcceptedUndefinedSelected: boolean,
+const handleSubmitHelper = async (
   handleAcceptance: (
-    options?: MutationFunctionOptions | undefined
-  ) => Promise<FetchResult>,
+    variables: Record<string, unknown>
+  ) => Promise<VulnUpdateResult>,
+  findingId: string,
+  values: { justification: string },
+  vulnerabilitiesList: IAcceptanceVulns[]
+): Promise<VulnUpdateResult[]> => {
+  const maxChunkSize = 64;
+  const minChunkSize = 16;
+  const VulnerabilitiesListChunks: IAcceptanceVulns[][] = _.chunk(
+    vulnerabilitiesList,
+    maxChunkSize
+  );
+  const acceptanceChunks = VulnerabilitiesListChunks.map(
+    (chunkedVulnerabilitiesList): (() => Promise<VulnUpdateResult[]>) =>
+      async (): Promise<VulnUpdateResult[]> => {
+        const chunckedVulnerabilities: IAcceptanceVulns[][] = _.chunk(
+          chunkedVulnerabilitiesList,
+          minChunkSize
+        );
+        const allPromises = chunckedVulnerabilities.map(
+          async (chunkedVulns): Promise<VulnUpdateResult> => {
+            const approvedVulnsId: string[] = chunkedVulns.reduce(
+              (acc: string[], vuln: IAcceptanceVulns): string[] =>
+                vuln.acceptanceStatus === "APPROVED" ? [...acc, vuln.id] : acc,
+              []
+            );
+            const rejectedVulnsId: string[] = chunkedVulns.reduce(
+              (acc: string[], vuln: IAcceptanceVulns): string[] =>
+                vuln.acceptanceStatus === "REJECTED" ? [...acc, vuln.id] : acc,
+              []
+            );
+
+            return handleAcceptance({
+              variables: {
+                acceptedVulnerabilities: approvedVulnsId,
+                findingId,
+                justification: values.justification,
+                rejectedVulnerabilities: rejectedVulnsId,
+              },
+            });
+          }
+        );
+
+        return Promise.all(allPromises);
+      }
+  );
+
+  return acceptanceChunks.reduce(
+    async (previousValue, currentValue): Promise<VulnUpdateResult[]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VulnUpdateResult[]>([])
+  );
+};
+
+const isAcceptedUndefinedSelectedHelper = async (
+  handleAcceptance: (
+    variables: Record<string, unknown>
+  ) => Promise<VulnUpdateResult>,
   acceptedVulns: IVulnDataAttr[],
   values: {
     justification: string;
   },
   rejectedVulns: IVulnDataAttr[]
-): void => {
-  if (isAcceptedUndefinedSelected) {
-    const chunksize = 10;
-    if (!_.isEmpty(acceptedVulns)) {
-      Object.entries(
-        _.groupBy(
-          acceptedVulns,
-          (vuln: IVulnDataAttr): string => vuln.findingId
-        )
-      ).forEach(
-        ([findingId, chunkedVulnerabilities]: [
-          string,
-          IVulnDataAttr[]
-        ]): void => {
-          const acceptedVulnIds: string[] = chunkedVulnerabilities.map(
-            (vuln: IVulnDataAttr): string => vuln.id
-          );
-          const acceptedChunks = _.chunk(acceptedVulnIds, chunksize);
-          acceptedChunks.map(async (acceptVulns): Promise<void> => {
-            await handleAcceptance({
-              variables: {
-                acceptedVulnerabilities: acceptVulns,
-                findingId,
-                justification: values.justification,
-                rejectedVulnerabilities: [],
-              },
-            });
-          });
-        }
-      );
-    }
-    if (!_.isEmpty(rejectedVulns)) {
-      Object.entries(
-        _.groupBy(
-          rejectedVulns,
-          (vuln: IVulnDataAttr): string => vuln.findingId
-        )
-      ).forEach(
-        ([findingId, chunkedVulnerabilities]: [
-          string,
-          IVulnDataAttr[]
-        ]): void => {
-          const rejectedVulnIds: string[] = chunkedVulnerabilities.map(
-            (vuln: IVulnDataAttr): string => vuln.id
-          );
-          const rejectedChunks = _.chunk(rejectedVulnIds, chunksize);
-          rejectedChunks.map(async (rejectVulns): Promise<void> => {
-            await handleAcceptance({
-              variables: {
-                acceptedVulnerabilities: [],
-                findingId,
-                justification: values.justification,
-                rejectedVulnerabilities: rejectVulns,
-              },
-            });
-          });
-        }
-      );
-    }
-  }
+): Promise<VulnUpdateResult[][]> => {
+  const vulnerabilitiesList = [...acceptedVulns, ...rejectedVulns];
+  const acceptedVulnsIds = acceptedVulns.map(
+    (vuln: IVulnDataAttr): string => vuln.id
+  );
+  const vulnerabilitiesByFinding = _.groupBy(
+    vulnerabilitiesList,
+    (vuln: IVulnDataAttr): string => vuln.findingId
+  );
+  const acceptanceChunks = Object.entries(vulnerabilitiesByFinding).map(
+    ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataAttr[]
+      ]): (() => Promise<VulnUpdateResult[][]>) =>
+      async (): Promise<VulnUpdateResult[][]> => {
+        return Promise.all([
+          handleSubmitHelper(
+            handleAcceptance,
+            findingId,
+            values,
+            chunkedVulnerabilities.map(
+              (vuln: IVulnDataAttr): IAcceptanceVulns => ({
+                ...vuln,
+                acceptanceStatus: _.includes(acceptedVulnsIds, vuln.id)
+                  ? "APPROVED"
+                  : "REJECTED",
+              })
+            )
+          ),
+        ]);
+      }
+  );
+
+  return acceptanceChunks.reduce(
+    async (previousValue, currentValue): Promise<VulnUpdateResult[][]> => [
+      ...(await previousValue),
+      ...(await currentValue()),
+    ],
+    Promise.resolve<VulnUpdateResult[][]>([])
+  );
 };
 
 const isConfirmZeroRiskSelectedHelper = (

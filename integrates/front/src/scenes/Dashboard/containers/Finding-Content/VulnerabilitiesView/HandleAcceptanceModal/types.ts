@@ -1,3 +1,5 @@
+import type { ExecutionResult } from "graphql";
+
 import type { IVulnerabilitiesAttr } from "../types";
 
 interface IVulnDataAttr {
@@ -47,6 +49,9 @@ interface IConfirmVulnerabilitiesResultAttr {
   };
 }
 
+type VulnUpdateResult =
+  ExecutionResult<IHandleVulnerabilitiesAcceptanceResultAttr>;
+
 interface IConfirmVulnZeroRiskResultAttr {
   confirmVulnerabilitiesZeroRisk: {
     success: boolean;
@@ -65,6 +70,10 @@ interface IRejectVulnerabilitiesResultAttr {
   };
 }
 
+interface IAcceptanceVulns extends IVulnDataAttr {
+  acceptanceStatus: "APPROVED" | "REJECTED";
+}
+
 export type {
   IConfirmVulnerabilitiesResultAttr,
   IConfirmVulnZeroRiskResultAttr,
@@ -75,4 +84,6 @@ export type {
   IRejectZeroRiskVulnResultAttr,
   IRejectVulnerabilitiesResultAttr,
   IVulnDataAttr,
+  IAcceptanceVulns,
+  VulnUpdateResult,
 };

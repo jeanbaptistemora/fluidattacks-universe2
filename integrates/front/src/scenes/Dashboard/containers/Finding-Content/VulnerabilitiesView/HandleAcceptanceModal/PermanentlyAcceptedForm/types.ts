@@ -1,7 +1,6 @@
 import type { IVulnerabilitiesAttr } from "../../types";
 
 interface IPermanentlyAcceptedFormProps {
-  findingId?: string;
   onCancel: () => void;
   refetchData: () => void;
   vulnerabilities: IVulnerabilitiesAttr[];

@@ -304,7 +304,8 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                         field={
                           <Value
                             value={
-                              _.isNull(data?.vulnerability.closingDate)
+                              _.isNull(data?.vulnerability.closingDate) ||
+                              vulnerability.state !== "SAFE"
                                 ? ""
                                 : data?.vulnerability.closingDate.split(" ")[0]
                             }

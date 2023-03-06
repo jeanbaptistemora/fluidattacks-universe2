@@ -8,6 +8,7 @@ import React from "react";
 
 import { GET_FINDING_HEADER } from "../../queries";
 import type { IVulnerabilitiesAttr } from "../types";
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "scenes/Dashboard/components/Navbar/Tasks/queries";
 import { HandleAcceptanceModal } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/index";
 import {
   CONFIRM_VULNERABILITIES,
@@ -60,6 +61,19 @@ describe("handle vulns acceptance modal", (): void => {
         },
         result: {
           data: { handleVulnerabilitiesAcceptance: { success: true } },
+        },
+      },
+      {
+        request: {
+          query: GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+        },
+        result: {
+          data: {
+            me: {
+              userEmail: "assigned-user-1",
+              vulnerabilitiesAssigned: [],
+            },
+          },
         },
       },
       {
@@ -149,8 +163,8 @@ describe("handle vulns acceptance modal", (): void => {
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        "Indefinite acceptance has been handled",
-        "Correct!"
+        "searchFindings.tabVuln.alerts.acceptanceSuccess",
+        "groupAlerts.updatedTitle"
       );
     });
 
@@ -185,8 +199,6 @@ describe("handle vulns acceptance modal", (): void => {
             new GraphQLError(
               "Exception - It cant handle acceptance without being requested"
             ),
-            new GraphQLError("Exception - Vulnerability not found"),
-            new GraphQLError("Unexpected error"),
           ],
         },
       },
@@ -244,9 +256,8 @@ describe("handle vulns acceptance modal", (): void => {
     });
     await userEvent.click(screen.getByText(btnConfirm));
 
-    const expectedErrorMsgs: number = 3;
     await waitFor((): void => {
-      expect(msgError).toHaveBeenCalledTimes(expectedErrorMsgs);
+      expect(msgError).toHaveBeenCalledTimes(1);
     });
 
     expect(handleRefetchData).not.toHaveBeenCalled();

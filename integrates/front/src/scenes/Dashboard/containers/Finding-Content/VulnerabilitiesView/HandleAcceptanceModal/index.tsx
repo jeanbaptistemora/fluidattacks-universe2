@@ -108,7 +108,6 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
           <br />
           {treatment === "ACCEPTED_UNDEFINED" ? (
             <PermanentlyAcceptedForm
-              findingId={findingId}
               onCancel={handleCloseModal}
               refetchData={refetchData}
               vulnerabilities={vulns}
