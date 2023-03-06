@@ -879,6 +879,46 @@ mocked_responses: dict[str, dict[str, Any]] = {
             ),
         )
     },
+    "db_model.events.get._get_event": {
+        '["418900971"]': [
+            Event(
+                client="Fluid",
+                created_by="unittest@fluidattacks.com",
+                created_date=datetime.fromisoformat(
+                    "2018-06-27T19:40:05+00:00"
+                ),
+                description="Integrates unit test",
+                event_date=datetime.fromisoformat("2018-06-27T12:00:00+00:00"),
+                evidences=EventEvidences(
+                    file_1=None,
+                    image_1=None,
+                    image_2=None,
+                    image_3=None,
+                    image_4=None,
+                    image_5=None,
+                    image_6=None,
+                ),
+                group_name="unittesting",
+                hacker="unittest@fluidattacks.com",
+                id="418900971",
+                state=EventState(
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-06-27T19:40:05+00:00"
+                    ),
+                    status=EventStateStatus.CREATED,
+                    comment_id=None,
+                    other=None,
+                    reason=None,
+                ),
+                type=EventType.OTHER,
+                root_id=None,
+                unreliable_indicators=EventUnreliableIndicators(
+                    unreliable_solving_date=None
+                ),
+            )
+        ],
+    },
     "db_model.findings.get.FindingLoader.load": {
         '["422286126"]': Finding(
             hacker_email="unittest@fluidattacks.com",
