@@ -577,6 +577,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           case "Exception - Finding with the same description already exists":
             msgError(t("validations.addFindingModal.duplicatedDescription"));
             break;
+          case "Exception - Finding with the same severity already exists":
+            msgError(t("validations.addFindingModal.duplicatedSeverity"));
+            break;
           case "Exception - Invalid characters":
             msgError(t("validations.invalidChar"));
             break;

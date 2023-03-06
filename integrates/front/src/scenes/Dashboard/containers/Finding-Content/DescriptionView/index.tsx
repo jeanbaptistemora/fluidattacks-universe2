@@ -91,6 +91,9 @@ const DescriptionView: React.FC = (): JSX.Element => {
           case "Exception - Finding with the same threat already exists":
             msgError(t("validations.addFindingModal.duplicatedThreat"));
             break;
+          case "Exception - Finding with the same severity already exists":
+            msgError(t("validations.addFindingModal.duplicatedSeverity"));
+            break;
           case "Exception - Finding with the same description already exists":
             msgError(t("validations.addFindingModal.duplicatedDescription"));
             break;
