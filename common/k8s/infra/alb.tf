@@ -63,3 +63,13 @@ resource "helm_release" "alb" {
     value = module.alb_oidc_role.iam_role_arn
   }
 }
+
+# https://github.com/foriequal0/pod-graceful-drain#what-is-this
+resource "helm_release" "pod_graceful_drain" {
+  chart       = "pod-graceful-drain"
+  description = "Safely drain deployment pods without triggering 5xx errors."
+  name        = "pod-graceful-drain"
+  namespace   = "kube-system"
+  repository  = "https://foriequal0.github.io/pod-graceful-drain"
+  version     = "0.0.11"
+}
