@@ -571,8 +571,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           case "Exception - The inserted Draft/Finding title is invalid":
             msgError(t("validations.addFindingModal.invalidTitle"));
             break;
-          case "Exception - Finding with the same recommendation already exists":
-            msgError(t("validations.addFindingModal.duplicatedRecommendation"));
+          case "Exception - Finding with the same threat already exists":
+            msgError(t("validations.addFindingModal.duplicatedThreat"));
             break;
           case "Exception - Finding with the same description already exists":
             msgError(t("validations.addFindingModal.duplicatedDescription"));

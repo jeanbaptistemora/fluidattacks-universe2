@@ -4296,8 +4296,8 @@ export const enTranslations: ResourceKey = {
         "Another vulnerability, which has the same type, contains the same description",
       duplicatedMachineDescription:
         "Another vulnerability, which has the same type, contains the same description, threat and severity",
-      duplicatedRecommendation:
-        "Another vulnerability, which has the same type, contains the same recommendation",
+      duplicatedThreat:
+        "Another vulnerability, which has the same type, contains the same threat",
       invalidTitle: "The title is not valid",
     },
     alphabetic: "Only alphabetic characters",
