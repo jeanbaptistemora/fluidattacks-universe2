@@ -967,6 +967,7 @@ async def update_description(
     if (
         description.description is not None
         or description.recommendation is not None
+        or description.threat is not None
     ):
         await _validate_duplicated_finding(
             loaders,
