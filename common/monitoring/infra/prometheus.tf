@@ -299,10 +299,6 @@ resource "kubernetes_manifest" "adot_collector" {
           statsd:
 
         exporters:
-          awsemf:
-            namespace: "ECS/AWSOTel/Application"
-            log_group_name: "/aws/ecs/application/metrics"
-            region: "us-east-1"
           awsxray:
             region: "us-east-1"
           prometheusremotewrite:
@@ -316,7 +312,7 @@ resource "kubernetes_manifest" "adot_collector" {
             metrics:
               receivers: [otlp, prometheus, statsd]
               processors: [batch]
-              exporters: [awsemf, prometheusremotewrite]
+              exporters: [prometheusremotewrite]
             traces:
               receivers: [otlp]
               processors: [batch]
@@ -347,6 +343,13 @@ resource "kubernetes_service_v1" "adot_collector_service" {
       port        = 4317
       target_port = 4317
       protocol    = "TCP"
+    }
+
+    port {
+      name        = "statsd-port"
+      port        = 8125
+      target_port = 8125
+      protocol    = "UDP"
     }
   }
 
