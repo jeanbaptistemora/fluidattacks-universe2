@@ -5,6 +5,16 @@ interface IGroupBilling {
   numberAuthors: number;
 }
 
+interface IOrganizationActiveGroupAttr {
+  name: string;
+  tier: string;
+}
+
+interface IOrganizationAuthorAttr {
+  actor: string;
+  activeGroups: IOrganizationActiveGroupAttr[];
+}
+
 interface IPaymentMethodAttr {
   id: string;
   brand: string;
@@ -36,9 +46,15 @@ interface IOrganizationBilling {
   portal: string;
 }
 
+interface IOrganizationActorAttr {
+  name: string;
+  email: string;
+}
+
 interface IOrganizationAuthorsTable {
-  actor: string;
-  activeGroups: string;
+  actorName: string;
+  actorEmail: string | undefined;
+  groupsAuthors: string;
 }
 
 interface IGroupAttr {
@@ -70,10 +86,23 @@ interface IGetOrganizationBilling {
   };
 }
 
+interface IGetOrganizationBillingByDate {
+  organization: {
+    billing: {
+      authors: IOrganizationAuthorAttr[];
+    };
+    groups: IGroupAttr[];
+  };
+}
+
 export type {
   IFileMetadata,
   IGetOrganizationBilling,
+  IGetOrganizationBillingByDate,
   IGroupAttr,
   IPaymentMethodAttr,
+  IOrganizationActorAttr,
+  IOrganizationAuthorAttr,
   IOrganizationAuthorsTable,
+  IOrganizationActiveGroupAttr,
 };
