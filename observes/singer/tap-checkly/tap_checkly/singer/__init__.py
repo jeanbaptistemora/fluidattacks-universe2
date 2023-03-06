@@ -17,6 +17,9 @@ from ._encoder import (
 from dataclasses import (
     dataclass,
 )
+from fa_purity import (
+    FrozenList,
+)
 from tap_checkly.objs import (
     AlertChannelObj,
     CheckGroupObj,
@@ -34,6 +37,7 @@ class ObjsEncoders:
     groups: ObjEncoder[CheckGroupObj]
     status: ObjEncoder[CheckStatusObj]
     report: ObjEncoder[CheckReport]
+    bulk_reports: ObjEncoder[FrozenList[CheckReport]]
     results: ObjEncoder[CheckResultObj]
 
 
@@ -43,6 +47,7 @@ encoders = ObjsEncoders(
     _groups.encoder,
     status.encoder,
     _report.encoder,
+    _report.bulk_encoder,
     results.encoder,
 )
 

@@ -1,3 +1,6 @@
+from fa_purity import (
+    FrozenList,
+)
 from fa_purity.frozen import (
     freeze,
 )
@@ -87,4 +90,10 @@ encoder: ObjEncoder[CheckReport] = ObjEncoder.new(
     from_flist((_core_encoder.schema,)),
     lambda x: from_flist((_core_encoder.record(x),)),
     CheckReport,
+)
+
+bulk_encoder: ObjEncoder[FrozenList[CheckReport]] = ObjEncoder.new(
+    from_flist((_core_encoder.schema,)),
+    lambda x: from_flist(x).map(_core_encoder.record),
+    FrozenList[CheckReport],
 )

@@ -1,5 +1,6 @@
 from . import (
     _emit,
+    _reports,
 )
 from ._objs import (
     SupportedStreams,
@@ -16,6 +17,9 @@ from datetime import (
 from fa_purity import (
     Cmd,
     Maybe,
+)
+from fa_purity.date_time import (
+    DatetimeUTC,
 )
 import logging
 from tap_checkly._utils import (
@@ -66,6 +70,15 @@ class Streams:
     def check_reports(self) -> Cmd[None]:
         client = CheckReportClient.new(self.creds)
         return _emit.from_encoder(encoders.report, client.reports_stream())
+
+    def check_reports_2(
+        self, from_date: DatetimeUTC, to_date: DatetimeUTC
+    ) -> Cmd[None]:
+        client = CheckReportClient.new(self.creds)
+        return _emit.from_encoder(
+            encoders.bulk_reports,
+            _reports.daily_reports(client, from_date, to_date),
+        )
 
     def check_groups(self) -> Cmd[None]:
         client = CheckGroupClient.new(self.creds, 100)
