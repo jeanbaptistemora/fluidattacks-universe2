@@ -229,23 +229,26 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       groupPermissions.can("has_service_black"),
     variables: { date: authorsDate, groupName },
   });
-  const [grantStakeholderAccess] = useMutation(ADD_STAKEHOLDER_MUTATION, {
-    onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
-      if (mtResult.grantStakeholderAccess.success) {
-        await refetch();
-        mixpanel.track("AddUserAccess");
-        const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
-        msgSuccess(
-          `${t("searchFindings.tabUsers.success")} ${email}`,
-          t("searchFindings.tabUsers.titleSuccess")
-        );
-        setCurrentRow([]);
-      }
-    },
-    onError: (grantError: ApolloError): void => {
-      handleGrantError(grantError);
-    },
-  });
+  const [grantStakeholderAccess, { loading: gratingAccess }] = useMutation(
+    ADD_STAKEHOLDER_MUTATION,
+    {
+      onCompleted: async (mtResult: IAddStakeholderAttr): Promise<void> => {
+        if (mtResult.grantStakeholderAccess.success) {
+          await refetch();
+          mixpanel.track("AddUserAccess");
+          const { email } = mtResult.grantStakeholderAccess.grantedStakeholder;
+          msgSuccess(
+            `${t("searchFindings.tabUsers.success")} ${email}`,
+            t("searchFindings.tabUsers.titleSuccess")
+          );
+          setCurrentRow([]);
+        }
+      },
+      onError: (grantError: ApolloError): void => {
+        handleGrantError(grantError);
+      },
+    }
+  );
 
   const [updateGroupStakeholder] = useMutation(
     UPDATE_GROUP_STAKEHOLDER_MUTATION,
@@ -374,6 +377,28 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     }
   }, [authorsDate, dataAuthor, dateRange]);
 
+  const resendHandler = useCallback(
+    (
+      stakeholder: IStakeholderAttrs
+    ): ((event: React.MouseEvent<HTMLButtonElement>) => Promise<void>) => {
+      return async (
+        event: React.MouseEvent<HTMLButtonElement>
+      ): Promise<void> => {
+        event.preventDefault();
+
+        await grantStakeholderAccess({
+          variables: {
+            email: stakeholder.email,
+            groupName,
+            responsibility: stakeholder.responsibility,
+            role: stakeholder.role.toUpperCase(),
+          },
+        });
+      };
+    },
+    [grantStakeholderAccess, groupName]
+  );
+
   useEffect((): void => {
     if (data !== undefined) {
       const emailStakeholder = data.group.stakeholders.map(
@@ -421,26 +446,14 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
 
   const stakeholdersList = data?.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
-      async function handleResendEmail(
-        event: React.MouseEvent<HTMLButtonElement>
-      ): Promise<void> {
-        event.stopPropagation();
-
-        const resendStakeholder = {
-          ...stakeholder,
-          role: stakeholder.role.toUpperCase(),
-        };
-        setUserModalAction("add");
-        await handleSubmit(resendStakeholder);
-      }
       const isPending = stakeholder.invitationState === "PENDING";
 
       return {
         ...stakeholder,
         invitationResend: (
           <Button
-            disabled={!isPending}
-            onClick={handleResendEmail}
+            disabled={!isPending || loadingStakeholders || gratingAccess}
+            onClick={resendHandler(stakeholder)}
             variant={"secondary"}
           >
             {t("searchFindings.usersTable.resendEmail")}
