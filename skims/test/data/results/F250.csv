@@ -203,7 +203,7 @@ F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ec2_instance_unencrypted_
   28 | }
      ^ Col 0
 ",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+F250,lines,namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
    1 | ---
    2 | Resources:
    3 |   MyEC2Instance:
@@ -227,7 +227,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   21 |             Iops: '200'
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,26,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+F250,lines,namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,26,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
   10 |           Ebs:
   11 |             VolumeType: io1
   12 |             Iops: '200'
@@ -251,7 +251,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   30 |             VolumeSize: '20'
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""MyEC2Instance"": {
@@ -275,7 +275,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   21 |           },
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,35,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,35,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
   25 |               ""Encrypted"": true,
   26 |               ""VolumeType"": ""io1"",
   27 |               ""Iops"": ""200"",

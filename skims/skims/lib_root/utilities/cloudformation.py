@@ -13,19 +13,6 @@ from utils.graph import (
 )
 
 
-def get_list_from_node(graph: Graph, nid: NId | None) -> list:
-    if nid:
-        value_id = graph.nodes[nid]["value_id"]
-        if graph.nodes[value_id]["label_type"] == "ArrayInitializer":
-            child_ids = adj_ast(graph, value_id)
-            result: list = []
-            for c_id in child_ids:
-                result.append(graph.nodes[c_id].get("value"))
-            return result
-        return [graph.nodes[value_id].get("value")]
-    return []
-
-
 def get_key_value(graph: Graph, nid: NId) -> tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]
