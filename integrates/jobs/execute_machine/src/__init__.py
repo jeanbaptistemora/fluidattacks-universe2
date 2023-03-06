@@ -26,12 +26,6 @@ import sys
 from typing import (
     Any,
     cast,
-    Dict,
-    List,
-    Optional,
-    Set,
-    Tuple,
-    Union,
 )
 from urllib3 import (
     exceptions,
@@ -51,7 +45,7 @@ LOGGER.setLevel(logging.INFO)
 LOGGER.propagate = False
 
 
-PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
+PATTERNS: list[dict[str, str | list[dict[str, Any]]]] = [
     {
         "name": ".csproj",
         "description": "visual studio c sharp project",
@@ -174,11 +168,8 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
     tries=5,
     delay=2,
 )
-def _request_asm(
-    payload: Dict[str, Any],
-    token: str,
-) -> Optional[Dict[str, Any]]:
-    result: Optional[Dict[str, Any]] = None
+def _request_asm(payload: dict[str, Any], token: str) -> dict[str, Any] | None:
+    result: dict[str, Any] | None = None
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
@@ -204,8 +195,8 @@ def _request_asm(
     return result
 
 
-def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
-    result: Optional[List[Dict[str, Any]]] = None
+def get_roots(token: str, group_name: str) -> list[dict[str, Any]] | None:
+    result: list[dict[str, Any]] | None = None
     query = """
         query MachineGetGroupRoots(
             $groupName: String!
@@ -242,8 +233,8 @@ def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
     return result
 
 
-def get_group_language(token: str, group_name: str) -> Optional[str]:
-    result: Optional[str] = None
+def get_group_language(token: str, group_name: str) -> str | None:
+    result: str | None = None
     query = """
         query MachineGetGroupLanguage($groupName: String!) {
             group(groupName: $groupName) {
@@ -269,9 +260,9 @@ def get_repo_head_hash(path: str) -> str:
 
 
 def evaluate_requirement(
-    requirement: Dict[str, Any],
-    current_directories: List[str],
-    current_files: List[str],
+    requirement: dict[str, Any],
+    current_directories: list[str],
+    current_files: list[str],
 ) -> bool:
     if requirement.get("optional", False):
         return True
@@ -290,9 +281,9 @@ def evaluate_requirement(
 
 def file_match_expected_patterns(
     file: str,
-    current_directories: List[str],
-    current_files: List[str],
-) -> Optional[Dict[str, Any]]:
+    current_directories: list[str],
+    current_files: list[str],
+) -> dict[str, Any] | None:
     for config in PATTERNS:
         if (
             config["type"] == "file_extension"
@@ -304,7 +295,7 @@ def file_match_expected_patterns(
         if config["type"] == "specific_file" and config["name"] == file:
             # has the name of a configuration file
             if requires := config.get("requires"):
-                requires = cast(List[Dict[str, Any]], requires)
+                requires = cast(list[dict[str, Any]], requires)
                 if all(
                     evaluate_requirement(
                         req, current_directories, current_files
@@ -318,7 +309,7 @@ def file_match_expected_patterns(
     return None
 
 
-def is_additional_path(dirs: List[str], files: List[str]) -> bool:
+def is_additional_path(dirs: list[str], files: list[str]) -> bool:
     for file in files:
         match_config = file_match_expected_patterns(file, dirs, files)
         if match_config is not None:
@@ -327,8 +318,8 @@ def is_additional_path(dirs: List[str], files: List[str]) -> bool:
     return False
 
 
-def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
-    urls: Set[str] = set()
+def get_urls_from_scopes(scopes: set[str]) -> list[str]:
+    urls: set[str] = set()
     urls.update(scopes)
 
     for scope in scopes:
@@ -343,9 +334,9 @@ def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
     return sorted(urls)
 
 
-def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
-    targets: List[Tuple[str, str]] = []
-    parsed_urls: Set[Url] = set()
+def get_ssl_targets(urls: list[str]) -> list[tuple[str, str]]:
+    targets: list[tuple[str, str]] = []
+    parsed_urls: set[Url] = set()
     for url in urls:
         with suppress(ValueError, exceptions.HTTPError):
             parsed_urls = {*parsed_urls, parse_url(url)}
@@ -367,13 +358,13 @@ def generate_config_files(
     *,
     group_name: str,
     root_nickname: str,
-    checks: Tuple[str, ...],
+    checks: tuple[str, ...],
     token: str,
     language: str = "EN",
     working_dir: str = ".",
-) -> List[Dict[str, Any]]:
-    additional_paths: List[str] = []
-    all_configs: List[Dict[str, Any]] = []
+) -> list[dict[str, Any]]:
+    additional_paths: list[str] = []
+    all_configs: list[dict[str, Any]] = []
     for current_dir, dirs, files in os.walk(working_dir):
         if current_dir == working_dir:
             continue
@@ -408,15 +399,15 @@ def generate_config_files(
 def generate_config(  # pylint: disable=too-many-locals
     *,
     group_name: str,
-    git_root: Dict[str, Any],
-    checks: Tuple[str, ...],
+    git_root: dict[str, Any],
+    checks: tuple[str, ...],
     commit: str,
     language: str = "EN",
-    include: Tuple[str, ...] = (),
-    exclude: Tuple[str, ...] = (),
+    include: tuple[str, ...] = (),
+    exclude: tuple[str, ...] = (),
     working_dir: str = ".",
     is_main: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     namespace = git_root["nickname"]
     execution_id = (
         f"{group_name}"
@@ -425,9 +416,9 @@ def generate_config(  # pylint: disable=too-many-locals
         f"_{uuid.uuid4().hex[:8]}"
     )
 
-    urls: List[str] = []
-    ssl_targets: List[Tuple[str, str]] = []
-    dast_config: Optional[Dict[str, Any]] = None
+    urls: list[str] = []
+    ssl_targets: list[tuple[str, str]] = []
+    dast_config: dict[str, Any] | None = None
     if is_main:
         scopes: set[str] = {
             environment_url["url"]

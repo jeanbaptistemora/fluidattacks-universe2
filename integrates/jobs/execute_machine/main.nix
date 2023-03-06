@@ -12,7 +12,7 @@ makeScript {
   };
   searchPaths = {
     bin = [
-      (makePythonVersion "3.9")
+      (makePythonVersion "3.11")
       outputs."/skims"
       outputs."/melts"
       inputs.nixpkgs.nix

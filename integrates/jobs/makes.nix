@@ -16,7 +16,7 @@
             outputs."/integrates/jobs/execute_machine/env"
           ];
         };
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/jobs/execute_machine/src";
       };
     };
