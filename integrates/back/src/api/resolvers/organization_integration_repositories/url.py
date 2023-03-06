@@ -13,7 +13,7 @@ from urllib.parse import (
 
 
 @ORGANIZATION_INTEGRATION_REPOSITORIES.field("url")
-async def resolve(
+def resolve(
     parent: OrganizationIntegrationRepository,
     _info: GraphQLResolveInfo,
 ) -> str:

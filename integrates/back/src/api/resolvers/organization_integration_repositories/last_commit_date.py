@@ -13,7 +13,7 @@ from newutils import (
 
 
 @ORGANIZATION_INTEGRATION_REPOSITORIES.field("lastCommitDate")
-async def resolve(
+def resolve(
     parent: OrganizationIntegrationRepository,
     _info: GraphQLResolveInfo,
 ) -> str | None:
