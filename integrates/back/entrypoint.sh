@@ -41,6 +41,8 @@ function serve {
         --reload
         # The number of worker processes for handling requests
         --workers 1
+        # Time to wait after SIGTERM or Ctrl-C for any remaining requests
+        --graceful-timeout 45
       )
     elif test "${env}" == 'eph'; then
       export prometheus_multiproc_dir \
