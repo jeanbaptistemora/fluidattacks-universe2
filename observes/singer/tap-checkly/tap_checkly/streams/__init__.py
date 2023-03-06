@@ -21,6 +21,9 @@ from fa_purity import (
 from fa_purity.date_time import (
     DatetimeUTC,
 )
+from fa_purity.pure_iter.factory import (
+    from_flist,
+)
 import logging
 from tap_checkly._utils import (
     DateInterval,
@@ -69,7 +72,9 @@ class Streams:
 
     def check_reports(self) -> Cmd[None]:
         client = CheckReportClient.new(self.creds)
-        return _emit.from_encoder(encoders.report, client.reports_stream())
+        return client.get_reports_default().bind(
+            lambda i: _emit.from_encoder(encoders.report, from_flist(i))
+        )
 
     def check_reports_2(
         self, from_date: DatetimeUTC, to_date: DatetimeUTC

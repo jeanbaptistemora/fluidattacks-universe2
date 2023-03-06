@@ -15,6 +15,7 @@ from ._group import (
     CheckId,
 )
 from ._id_objs import (
+    DateRange,
     IndexedObj,
 )
 from ._report import (
@@ -30,6 +31,7 @@ from ._root import (
     CheckStatusObj,
     DashboardId,
     DashboardObj,
+    ReportObj,
 )
 from ._subscriptions import (
     AlertChannelId,
@@ -61,7 +63,9 @@ __all__ = [
     "CheckResultObj",
     "CheckGroupObj",
     "CheckReport",
+    "ReportObj",
     "DashboardObj",
     "DashboardId",
     "Dashboard",
+    "DateRange",
 ]

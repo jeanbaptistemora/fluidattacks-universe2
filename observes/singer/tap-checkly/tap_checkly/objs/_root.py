@@ -13,7 +13,11 @@ from ._group import (
     CheckId,
 )
 from ._id_objs import (
+    DateRange,
     IndexedObj,
+)
+from ._report import (
+    CheckReport,
 )
 from ._subscriptions import (
     AlertChannelId,
@@ -51,3 +55,4 @@ AlertChannelObj = IndexedObj[AlertChannelId, AlertChannel]
 CheckResultObj = IndexedObj[Tuple[CheckId, CheckResultId], CheckResult]
 CheckGroupObj = IndexedObj[CheckGroupId, CheckGroup]
 DashboardObj = IndexedObj[DashboardId, Dashboard]
+ReportObj = IndexedObj[DateRange, CheckReport]

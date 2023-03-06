@@ -34,6 +34,9 @@ from tap_checkly.api._raw import (
 )
 from tap_checkly.objs import (
     CheckReport,
+    DateRange,
+    IndexedObj,
+    ReportObj,
 )
 from typing import (
     Dict,
@@ -67,8 +70,13 @@ class CheckReportClient:
             ).to_list()
         )
 
-    def reports_stream(self) -> Stream[CheckReport]:
-        return unsafe_from_cmd(self.get_reports_default().map(from_flist))
+    def get_reports_obj(
+        self, from_date: DatetimeUTC, to_date: DatetimeUTC
+    ) -> Cmd[FrozenList[ReportObj]]:
+        _id = DateRange(from_date, to_date)
+        return self.get_reports(from_date, to_date).map(
+            lambda items: tuple(IndexedObj(_id, i) for i in items)
+        )
 
     @staticmethod
     def new(

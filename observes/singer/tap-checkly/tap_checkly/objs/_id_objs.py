@@ -1,6 +1,9 @@
 from dataclasses import (
     dataclass,
 )
+from fa_purity.date_time import (
+    DatetimeUTC,
+)
 from typing import (
     Generic,
     TypeVar,
@@ -14,3 +17,9 @@ _T = TypeVar("_T")
 class IndexedObj(Generic[_ID, _T]):
     id_obj: _ID
     obj: _T
+
+
+@dataclass(frozen=True)
+class DateRange:
+    from_date: DatetimeUTC
+    to_date: DatetimeUTC
