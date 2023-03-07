@@ -13,7 +13,6 @@
 /* eslint @typescript-eslint/no-unsafe-member-access: 0*/
 /* eslint @typescript-eslint/no-unsafe-call: 0*/
 /* eslint @typescript-eslint/no-explicit-any: 0*/
-import dayjs from "dayjs";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { decode } from "he";
@@ -26,6 +25,7 @@ import { BlogPage } from "../scenes/BlogPage";
 import { Layout } from "../scenes/Footer/Layout";
 import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
+import { useBlogsDate } from "../utils/hooks/useSafeDate";
 
 const BlogsIndex: React.FC<IQueryData> = ({
   data,
@@ -55,7 +55,8 @@ const BlogsIndex: React.FC<IQueryData> = ({
     title,
     writer,
   } = data.markdownRemark.frontmatter;
-  const fDate = dayjs(new Date(date)).format("MMMM D, YYYY");
+  const fDate = useBlogsDate(date);
+  const fModified = useBlogsDate(modified ? modified : date);
 
   return (
     <React.Fragment>
@@ -74,9 +75,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
       <BlogSeo
         author={author}
         date={fDate}
-        dateModified={
-          modified ? dayjs(new Date(modified)).format("MMMM D, YYYY") : fDate
-        }
+        dateModified={fModified}
         description={description}
         image={image.replace(".webp", ".pn g")}
         title={`${decode(title)} | Fluid Attacks`}
