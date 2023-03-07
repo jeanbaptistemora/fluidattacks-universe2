@@ -957,7 +957,7 @@ async def upload_snippet(
             break
 
 
-async def _split_target_findings(
+def _split_target_findings(
     criteria_vulnerability: dict[str, Any],
     language: str,
     same_type_of_findings: tuple[Finding, ...],
@@ -1038,7 +1038,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-    target_finding, non_target_findings = await _split_target_findings(
+    target_finding, non_target_findings = _split_target_findings(
         criteria_vulnerability,
         language,
         same_type_of_findings,

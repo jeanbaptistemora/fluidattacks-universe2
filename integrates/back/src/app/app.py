@@ -153,7 +153,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
             await groups_domain.complete_register_for_group_invitation(
                 loaders, group_access
             )
-            response = await templates.valid_invitation(
+            response = templates.valid_invitation(
                 request, group_access.group_name
             )
         except (StakeholderNotInGroup, InvalidAuthorization):
@@ -182,7 +182,7 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
                 await remove_stakeholder_domain.complete_deletion(
                     email=user_email
                 )
-                response = await templates.confirm_deletion(request=request)
+                response = templates.confirm_deletion(request=request)
             else:
                 await in_thread(
                     bugsnag.notify,
@@ -218,9 +218,7 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
             organization = await orgs_utils.get_organization(
                 loaders, organization_access.organization_id
             )
-            response = await templates.valid_invitation(
-                request, organization.name
-            )
+            response = templates.valid_invitation(request, organization.name)
         except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
@@ -251,7 +249,7 @@ async def reject_access(request: Request) -> HTMLResponse:
             await groups_domain.reject_register_for_group_invitation(
                 loaders, group_access
             )
-            response = await templates.reject_invitation(
+            response = templates.reject_invitation(
                 request, group_access.group_name
             )
         except (StakeholderNotInGroup, InvalidAuthorization):
@@ -282,9 +280,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
             organization = await orgs_utils.get_organization(
                 loaders, organization_access.organization_id
             )
-            response = await templates.reject_invitation(
-                request, organization.name
-            )
+            response = templates.reject_invitation(request, organization.name)
         except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"

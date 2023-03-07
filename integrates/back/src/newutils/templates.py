@@ -154,7 +154,7 @@ def unauthorized(request: Request) -> HTMLResponse:
     )
 
 
-async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
+def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="valid_invitation.html",
         context={
@@ -164,7 +164,7 @@ async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
     )
 
 
-async def confirm_deletion(*, request: Request) -> HTMLResponse:
+def confirm_deletion(*, request: Request) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="valid_delete_confirmation.html",
         context={
@@ -187,9 +187,7 @@ def invalid_confirm_deletion(
     )
 
 
-async def reject_invitation(
-    request: Request, entity_name: str
-) -> HTMLResponse:
+def reject_invitation(request: Request, entity_name: str) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(  # type: ignore
         name="reject_invitation.html",
         context={
