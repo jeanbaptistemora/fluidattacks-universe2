@@ -899,7 +899,7 @@
       "prod"
       "schedulers.remove_inactive_stakeholders.main"
     ];
-    enable = false;
+    enable = true;
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
