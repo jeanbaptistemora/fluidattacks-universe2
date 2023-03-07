@@ -4818,7 +4818,7 @@ class MethodsEnum(Enum):
     CFN_NOT_POINT_TIME_RECOVERY = MethodInfo(
         file_name="cloudformation",
         name="cfn_has_not_point_in_time_recovery",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F259,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
