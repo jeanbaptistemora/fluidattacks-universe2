@@ -70,14 +70,26 @@ module.exports = {
                   sort: { order: DESC, fields: [frontmatter___date] },
                 ) {
                   nodes {
-                    html
+                    htmlAst
                     fields {
                       slug
                     }
                     frontmatter {
-                      title
-                      description
+                      alt
+                      author
+                      category
                       date
+                      definition
+                      modified
+                      description
+                      image
+                      keywords
+                      slug
+                      subtitle
+                      tags
+                      writer
+                      title
+                      headtitle
                     }
                   }
                 }
