@@ -9,6 +9,7 @@ import asyncio
 from context import (
     FI_ZOHO_SUBSCRIPTIONS_CLIENT_ID,
     FI_ZOHO_SUBSCRIPTIONS_CLIENT_SECRET,
+    FI_ZOHO_SUBSCRIPTIONS_ORG_ID,
     FI_ZOHO_SUBSCRIPTIONS_REFRESH_TOKEN,
 )
 import json
@@ -64,6 +65,42 @@ async def get_access_token() -> str | None:
                     await asyncio.sleep(0.2)
                     continue
 
+                print(f"\n\t access token {result['access_token']}")
                 return result["access_token"]
+
+    return None
+
+
+async def get_all_plans() -> str | None:
+    access_token = await get_access_token()
+    headers: dict[str, str] = {
+        "Authorization": f"Zoho-oauthtoken {access_token}",
+        "X-com-zoho-subscriptions-"
+        + "organizationid": FI_ZOHO_SUBSCRIPTIONS_ORG_ID,
+    }
+    params = dict(filter_by="PlanStatus.ACTIVE")
+
+    retries: int = 0
+    retry: bool = True
+    async with ClientSession(headers=headers) as session:
+        while retry and retries < 5:
+            async with session.get(
+                f"{ZOHO_SUBSCRIPTIONS_URL}/plans", params=params
+            ) as response:
+                try:
+                    result = await response.json()
+                except (
+                    json.decoder.JSONDecodeError,
+                    ClientError,
+                ) as exc:
+                    LOGGER.exception(exc, extra=dict(extra=locals()))
+                    break
+                if not response.ok:
+                    retry = True
+                    retries += 1
+                    await asyncio.sleep(0.2)
+                    continue
+
+                return result
 
     return None
