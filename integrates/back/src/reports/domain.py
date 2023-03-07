@@ -29,6 +29,9 @@ from newutils.reports import (
     sign_url,
     upload_report,
 )
+from reports.report_types.toe_lines import (
+    get_group_toe_lines_report,
+)
 
 
 async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
@@ -125,3 +128,15 @@ async def get_signed_unfulfilled_standard_report_url(
     )
     filename_to_store = await upload_report(filename)
     return await sign_url(filename_to_store, seconds=seconds)
+
+
+async def get_toe_lines_report(
+    *,
+    group_name: str,
+) -> str:
+    loaders: Dataloaders = get_new_context()
+
+    return await get_group_toe_lines_report(
+        loaders=loaders,
+        group_name=group_name,
+    )
