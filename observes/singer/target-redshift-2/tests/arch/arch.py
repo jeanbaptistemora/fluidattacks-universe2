@@ -25,6 +25,7 @@ def _raise_or_return(item: _T | Exception) -> _T:
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "target_redshift": (
         "cli",
+        "from_s3",
         ("input", "output"),
         ("loader", "strategy"),
         ("data_schema", "grouper"),
