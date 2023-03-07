@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-unnecessary-condition:0 */
 import { faFileExcel, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
@@ -151,7 +152,24 @@ export const FilterForm: React.FC<IFilterFormProps> = ({
     _.isEmpty(values.findingTitle) ? undefined : values.findingTitle;
 
   const lastReport = (values: IFormValues): number | undefined =>
-    _.isEmpty(String(values.lastReport)) ? undefined : values.lastReport;
+    values.lastReport === null || _.isEmpty(String(values.lastReport))
+      ? undefined
+      : Number(values.lastReport);
+
+  const getMaxSeverity = (values: IFormValues): number | undefined =>
+    _.isEmpty(String(values.maxSeverity)) || values.maxSeverity === null
+      ? undefined
+      : Number(values.maxSeverity);
+
+  const getMinSeverity = (values: IFormValues): number | undefined =>
+    values.minSeverity === null || _.isEmpty(String(values.minSeverity))
+      ? undefined
+      : Number(values.minSeverity);
+
+  const getAge = (values: IFormValues): number | undefined =>
+    values.age === null || _.isEmpty(String(values.age))
+      ? undefined
+      : values.age;
 
   const location = (values: IFormValues): string | undefined =>
     _.isEmpty(values.location) ? undefined : values.location;
@@ -161,7 +179,7 @@ export const FilterForm: React.FC<IFilterFormProps> = ({
       setVerifyCallbacks(
         (verificationCode: string): void => {
           requestGroupReport(
-            _.isEmpty(String(values.age)) ? undefined : values.age,
+            getAge(values),
             _.isEmpty(values.closingDate) ? undefined : values.closingDate,
             findingTitle(values),
             lastReport(values),
@@ -169,15 +187,11 @@ export const FilterForm: React.FC<IFilterFormProps> = ({
             _.isEmpty(values.maxReleaseDate)
               ? undefined
               : values.maxReleaseDate,
-            _.isEmpty(String(values.maxSeverity))
-              ? undefined
-              : values.maxSeverity,
+            getMaxSeverity(values),
             _.isEmpty(values.minReleaseDate)
               ? undefined
               : values.minReleaseDate,
-            _.isEmpty(String(values.minSeverity))
-              ? undefined
-              : values.minSeverity,
+            getMinSeverity(values),
             values.states,
             _.isEmpty(values.closingDate) ? values.treatments : undefined,
             values.verifications,
