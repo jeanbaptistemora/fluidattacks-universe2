@@ -40,6 +40,7 @@ from db_model import (
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
     EVENT_INDEX_METADATA,
+    GROUP_INDEX_METADATA,
     NEW_ZR_INDEX_METADATA,
     ROOT_INDEX_METADATA,
 )
@@ -308,6 +309,31 @@ async def _get_affected_reattacks(*, event_id: str) -> list[Vulnerability]:
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
         facets=(EVENT_INDEX_METADATA,),
+        table=TABLE,
+        index=index,
+    )
+
+    return [format_vulnerability(item) for item in response.items]
+
+
+async def _get_group_open_vulnerabilities(
+    *, group_name: str
+) -> list[Vulnerability]:
+    primary_key = keys.build_key(
+        facet=GROUP_INDEX_METADATA,
+        values={"group_name": group_name},
+    )
+
+    index = TABLE.indexes["gsi_7"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).eq(
+                "VULN#STATE#vulnerable#TREAT#false#ZR#false"
+            )
+        ),
+        facets=(GROUP_INDEX_METADATA,),
         table=TABLE,
         index=index,
     )
@@ -635,5 +661,20 @@ class VulnerabilityHistoricZeroRiskLoader(
             await collect(
                 _get_historic_zero_risk(vulnerability_id=id)
                 for id in vulnerability_ids
+            )
+        )
+
+
+class GroupOpenVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> list[list[Vulnerability]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_group_open_vulnerabilities(group_name=group_name)
+                    for group_name in group_names
+                )
             )
         )

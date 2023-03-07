@@ -17,6 +17,7 @@ from .utils import (
     format_unreliable_indicators_to_update_item,
     get_assigned,
     get_current_entry,
+    get_group_index_key,
     get_new_zr_index_key_gsi_6,
     get_zr_index_key_gsi_6,
     historic_entry_type_to_str,
@@ -186,6 +187,34 @@ async def update_event_index(
                 key=vulnerability_key,
                 table=TABLE,
             )
+    except ConditionalCheckFailedException as ex:
+        raise VulnNotFound() from ex
+
+
+async def update_group_index(*, vulnerability: Vulnerability) -> None:
+    key_structure = TABLE.primary_key
+    gsi_7_index = TABLE.indexes["gsi_7"]
+
+    try:
+        vulnerability_key = keys.build_key(
+            facet=TABLE.facets["vulnerability_metadata"],
+            values={
+                "finding_id": vulnerability.finding_id,
+                "id": vulnerability.id,
+            },
+        )
+        base_condition = Attr(key_structure.partition_key).exists()
+        gsi_7_key = get_group_index_key(current_value=vulnerability)
+        vulnerability_item = {
+            gsi_7_index.primary_key.partition_key: gsi_7_key.partition_key,
+            gsi_7_index.primary_key.sort_key: gsi_7_key.sort_key,
+        }
+        await operations.update_item(
+            condition_expression=(base_condition),
+            item=vulnerability_item,
+            key=vulnerability_key,
+            table=TABLE,
+        )
     except ConditionalCheckFailedException as ex:
         raise VulnNotFound() from ex
 

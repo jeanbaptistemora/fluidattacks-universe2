@@ -129,6 +129,7 @@ from db_model.vulnerabilities.get import (
     FindingVulnerabilitiesReleasedZeroRiskConnectionLoader,
     FindingVulnerabilitiesReleasedZeroRiskLoader,
     FindingVulnerabilitiesToReattackConnectionLoader,
+    GroupOpenVulnerabilitiesLoader,
     RootVulnerabilitiesLoader,
     VulnerabilityHistoricStateLoader,
     VulnerabilityHistoricTreatmentLoader,
@@ -188,6 +189,7 @@ class Dataloaders(NamedTuple):
     group_findings: GroupFindingsLoader
     group_forces_executions: GroupForcesExecutionsLoader
     group_historic_state: GroupHistoricStateLoader
+    group_open_vulnerabilities: GroupOpenVulnerabilitiesLoader
     group_roots: GroupRootsLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
@@ -371,6 +373,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         group_findings=group_findings_loader,
         group_forces_executions=GroupForcesExecutionsLoader(),
         group_historic_state=GroupHistoricStateLoader(),
+        group_open_vulnerabilities=GroupOpenVulnerabilitiesLoader(),
         group_roots=group_roots_loader,
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
