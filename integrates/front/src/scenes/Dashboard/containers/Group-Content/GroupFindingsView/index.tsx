@@ -593,45 +593,43 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     _.sortBy(typesArray, (arr): string => arr[0])
   );
 
-  const [addFinding, { loading: addingFinding }] = useMutation<
-    IAddFindingMutationResult,
-    Omit<IFindingSuggestionData, "code"> | { groupName: string }
-  >(ADD_FINDING_MUTATION, {
-    onCompleted: async (result: IAddFindingMutationResult): Promise<void> => {
-      if (result.addFinding.success) {
-        msgSuccess(
-          t("group.findings.addModal.alerts.addedFinding"),
-          t("groupAlerts.titleSuccess")
-        );
-        await refetch();
-        closeAddFindingModal();
-      }
-    },
-    onError: (errors: ApolloError): void => {
-      errors.graphQLErrors.forEach((error: GraphQLError): void => {
-        switch (error.message) {
-          case "Exception - The inserted Draft/Finding title is invalid":
-            msgError(t("validations.addFindingModal.invalidTitle"));
-            break;
-          case "Exception - Finding with the same threat already exists":
-            msgError(t("validations.addFindingModal.duplicatedThreat"));
-            break;
-          case "Exception - Finding with the same description already exists":
-            msgError(t("validations.addFindingModal.duplicatedDescription"));
-            break;
-          case "Exception - Finding with the same severity already exists":
-            msgError(t("validations.addFindingModal.duplicatedSeverity"));
-            break;
-          case "Exception - Invalid characters":
-            msgError(t("validations.invalidChar"));
-            break;
-          default:
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.warning("An error occurred adding finding", error);
+  const [addFinding, { loading: addingFinding }] =
+    useMutation<IAddFindingMutationResult>(ADD_FINDING_MUTATION, {
+      onCompleted: async (result: IAddFindingMutationResult): Promise<void> => {
+        if (result.addFinding.success) {
+          msgSuccess(
+            t("group.findings.addModal.alerts.addedFinding"),
+            t("groupAlerts.titleSuccess")
+          );
+          await refetch();
+          closeAddFindingModal();
         }
-      });
-    },
-  });
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - The inserted Draft/Finding title is invalid":
+              msgError(t("validations.addFindingModal.invalidTitle"));
+              break;
+            case "Exception - Finding with the same threat already exists":
+              msgError(t("validations.addFindingModal.duplicatedThreat"));
+              break;
+            case "Exception - Finding with the same description already exists":
+              msgError(t("validations.addFindingModal.duplicatedDescription"));
+              break;
+            case "Exception - Finding with the same severity already exists":
+              msgError(t("validations.addFindingModal.duplicatedSeverity"));
+              break;
+            case "Exception - Invalid characters":
+              msgError(t("validations.invalidChar"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred adding finding", error);
+          }
+        });
+      },
+    });
 
   const handleAdd = useCallback(
     async (values: IAddFindingFormValues): Promise<void> => {
@@ -647,8 +645,40 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       await addFinding({
         variables: {
           ...suggestionData,
-          ...values,
+          attackComplexity: parseFloat(values.attackComplexity),
+          attackVector: parseFloat(values.attackVector),
+          availabilityImpact: parseFloat(values.availabilityImpact),
+          availabilityRequirement: parseFloat(values.availabilityRequirement),
+          confidentialityImpact: parseFloat(values.confidentialityImpact),
+          confidentialityRequirement: parseFloat(
+            values.confidentialityRequirement
+          ),
+          description: values.description,
+          exploitability: parseFloat(values.exploitability),
           groupName,
+          integrityImpact: parseFloat(values.integrityImpact),
+          integrityRequirement: parseFloat(values.integrityRequirement),
+          modifiedAttackComplexity: parseFloat(values.modifiedAttackComplexity),
+          modifiedAttackVector: parseFloat(values.modifiedAttackVector),
+          modifiedAvailabilityImpact: parseFloat(
+            values.modifiedAvailabilityImpact
+          ),
+          modifiedConfidentialityImpact: parseFloat(
+            values.modifiedConfidentialityImpact
+          ),
+          modifiedIntegrityImpact: parseFloat(values.modifiedIntegrityImpact),
+          modifiedPrivilegesRequired: parseFloat(
+            values.modifiedPrivilegesRequired
+          ),
+          modifiedSeverityScope: parseFloat(values.modifiedSeverityScope),
+          modifiedUserInteraction: parseFloat(values.modifiedUserInteraction),
+          privilegesRequired: parseFloat(values.privilegesRequired),
+          remediationLevel: parseFloat(values.remediationLevel),
+          reportConfidence: parseFloat(values.reportConfidence),
+          severityScope: parseFloat(values.severityScope),
+          threat: values.threat,
+          title: values.title,
+          userInteraction: parseFloat(values.userInteraction),
         },
       });
     },

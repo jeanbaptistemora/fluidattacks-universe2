@@ -7,14 +7,25 @@ const ADD_FINDING_MUTATION: DocumentNode = gql`
     $attackVector: Float!
     $attackVectorDescription: String!
     $availabilityImpact: Float!
+    $availabilityRequirement: Float!
     $confidentialityImpact: Float!
+    $confidentialityRequirement: Float!
     $description: String!
     $exploitability: Float!
     $groupName: String!
     $integrityImpact: Float!
+    $integrityRequirement: Float!
     $privilegesRequired: Float!
     $recommendation: String!
     $minTimeToRemediate: Int
+    $modifiedAttackComplexity: Float!
+    $modifiedAttackVector: Float!
+    $modifiedAvailabilityImpact: Float!
+    $modifiedConfidentialityImpact: Float!
+    $modifiedIntegrityImpact: Float!
+    $modifiedPrivilegesRequired: Float!
+    $modifiedSeverityScope: Float!
+    $modifiedUserInteraction: Float!
     $remediationLevel: Float!
     $reportConfidence: Float!
     $severityScope: Float!
@@ -28,14 +39,25 @@ const ADD_FINDING_MUTATION: DocumentNode = gql`
       attackVector: $attackVector
       attackVectorDescription: $attackVectorDescription
       availabilityImpact: $availabilityImpact
+      availabilityRequirement: $availabilityRequirement
       confidentialityImpact: $confidentialityImpact
+      confidentialityRequirement: $confidentialityRequirement
       description: $description
       exploitability: $exploitability
       groupName: $groupName
       integrityImpact: $integrityImpact
+      integrityRequirement: $integrityRequirement
       privilegesRequired: $privilegesRequired
       recommendation: $recommendation
       minTimeToRemediate: $minTimeToRemediate
+      modifiedAttackComplexity: $modifiedAttackComplexity
+      modifiedAttackVector: $modifiedAttackVector
+      modifiedAvailabilityImpact: $modifiedAvailabilityImpact
+      modifiedConfidentialityImpact: $modifiedConfidentialityImpact
+      modifiedIntegrityImpact: $modifiedIntegrityImpact
+      modifiedPrivilegesRequired: $modifiedPrivilegesRequired
+      modifiedSeverityScope: $modifiedSeverityScope
+      modifiedUserInteraction: $modifiedUserInteraction
       remediationLevel: $remediationLevel
       reportConfidence: $reportConfidence
       severityScope: $severityScope
