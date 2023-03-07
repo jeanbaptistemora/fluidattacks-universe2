@@ -1856,7 +1856,7 @@ export const enTranslations: ResourceKey = {
             costsTotal: "Total costs ($)",
             groupName: "Group name",
             managed: "Payment methods",
-            numberAuthors: "Month-To-Date Authors",
+            numberAuthors: "Total authors",
             tier: "Tier",
           },
           managed: {

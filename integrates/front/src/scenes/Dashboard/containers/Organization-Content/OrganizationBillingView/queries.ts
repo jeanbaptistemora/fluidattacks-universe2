@@ -54,43 +54,6 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
           }
         }
       }
-      groups {
-        name
-        hasForces
-        hasMachine
-        hasSquad
-        managed
-        service
-        paymentId
-        permissions
-        tier
-        billing {
-          costsAuthors
-          costsBase
-          costsTotal
-          numberAuthors
-        }
-      }
-    }
-  }
-`;
-
-const GET_ORGANIZATION_AUTHORS_BILLING: DocumentNode = gql`
-  query GetOrganizationAuthorsBilling(
-    $date: DateTime
-    $organizationId: String!
-  ) {
-    organization(organizationId: $organizationId) {
-      name
-      billing(date: $date) {
-        authors {
-          actor
-          activeGroups {
-            name
-            tier
-          }
-        }
-      }
     }
   }
 `;
@@ -230,7 +193,6 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
 
 export {
   DOWNLOAD_FILE_MUTATION,
-  GET_ORGANIZATION_AUTHORS_BILLING,
   GET_ORGANIZATION_BILLING,
   GET_ORGANIZATION_BILLING_BY_DATE,
   REMOVE_PAYMENT_METHOD,
