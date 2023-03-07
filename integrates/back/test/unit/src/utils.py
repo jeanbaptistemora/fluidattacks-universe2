@@ -64,6 +64,9 @@ from db_model.group_access.types import (
     GroupAccessState,
     GroupInvitation,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -403,6 +406,113 @@ mocked_responses: dict[str, dict[str, Any]] = {
                 invitation=None,
                 responsibility="Test",
                 role="hacker",
+            ),
+        ],
+        '["integratesmanager@gmail.com"]': [
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="asgard",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role="admin",
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="barranquilla",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role="admin",
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="gotham",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role="admin",
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="metropolis",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role="admin",
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="monteria",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role="admin",
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="oneshottest",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role=None,
+            ),
+            GroupAccess(
+                email="integratesmanager@gmail.com",
+                group_name="unittesting",
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2020-01-01T20:07:57+00:00"
+                    )
+                ),
+                confirm_deletion=None,
+                expiration_time=None,
+                has_access=True,
+                invitation=None,
+                responsibility="Test",
+                role=None,
             ),
         ],
         '["integratesuser@gmail.com"]': [
@@ -10377,6 +10487,21 @@ mocked_responses: dict[str, dict[str, Any]] = {
     },
     "group_access.domain.update": {
         '["unittest@fluidattacks.com", "unittesting"]': None,
+    },
+    "group_comments.domain.Dataloaders.group_comments": {
+        '["unittesting"]': [
+            GroupComment(
+                group_name="unittesting",
+                id="1545946228675",
+                parent_id="0",
+                creation_date=datetime.fromisoformat(
+                    "2018-12-27T21:30:28+00:00"
+                ),
+                content="Now we can post comments on groups",
+                email="unittest@fluidattacks.com",
+                full_name="Miguel de Orellana",
+            )
+        ]
     },
     "mailer.groups.send_mail_devsecops_agent_token": {
         '["integratesmanager@gmail.com", "unittesting", true]': None,
