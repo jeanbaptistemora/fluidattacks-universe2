@@ -1,12 +1,18 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_module_at_test,
+    set_mocks_return_values,
     set_mocks_side_effects,
+)
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
 )
 from db_model.events.get import (
     EventLoader,
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 import pytest
 from unittest.mock import (
@@ -49,3 +55,36 @@ async def test_eventloader(
     assert not isinstance(event_not_found, Event)
     assert not event_not_found
     assert mock__get_event.call_count == 2
+
+
+@pytest.mark.parametrize(
+    ["group_name"],
+    [["unittesting"]],
+)
+@patch(MODULE_AT_TEST + "_get_group_events", new_callable=AsyncMock)
+async def test_groupeventsloader(
+    mock___get_group_events: AsyncMock,
+    group_name: str,
+) -> None:
+    assert set_mocks_return_values(
+        mocks_args=[[group_name]],
+        mocked_objects=[mock___get_group_events],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["_get_group_events"],
+    )
+    expected_ids = [
+        "418900971",
+        "463578352",
+        "484763304",
+        "538745942",
+        "540462628",
+        "540462638",
+    ]
+
+    loaders: Dataloaders = get_new_context()
+    result = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group_name)
+    )
+
+    assert expected_ids == sorted([event.id for event in result])
+    assert mock___get_group_events.call_count == 1
