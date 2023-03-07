@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f256.cloudformation import (
     cfn_rds_has_not_automated_backups,
-    cfn_rds_has_not_termination_protection,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -30,15 +29,6 @@ def run_cfn_rds_has_not_automated_backups(
 
 
 @SHIELD_BLOCKING
-def run_cfn_rds_has_not_termination_protection(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_rds_has_not_termination_protection(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -53,9 +43,6 @@ def analyze(
             results = (
                 *results,
                 run_cfn_rds_has_not_automated_backups(content, path, template),
-                run_cfn_rds_has_not_termination_protection(
-                    content, file_extension, path, template
-                ),
             )
 
     return results

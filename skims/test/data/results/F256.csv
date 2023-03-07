@@ -420,7 +420,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,41,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,41,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,"
   31 |       Engine: aurora
   32 |       PubliclyAccessible: 'true'
   33 |       StorageEncrypted: true
@@ -444,7 +444,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   51 |       AvailabilityZone:
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,62,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,62,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,"
   52 |         Fn::GetAtt:
   53 |           - Subnet1
   54 |           - AvailabilityZone
@@ -468,7 +468,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   72 |         Ref: DBSubnetGroup
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,68,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,68,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,"
   58 |       DBParameterGroupName:
   59 |         Ref: RDSDBParameterGroup
   60 |       DBSubnetGroupName:
@@ -492,7 +492,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   78 |     Type: AWS::RDS::DBCluster
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,80,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,80,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml,"
   70 |         Ref: RDSDBClusterParameterGroup
   71 |       DBSubnetGroupName:
   72 |         Ref: DBSubnetGroup
@@ -516,7 +516,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   90 |       DBSubnetGroupName:
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,56,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,56,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    46 |       ""Type"": ""AWS::RDS::DBInstance""
    47 |     },
    48 |     ""RDSCluster2"": {
@@ -540,7 +540,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    66 |       ""Type"": ""AWS::RDS::DBCluster""
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,86,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,86,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    76 |         ""DBClusterIdentifier"": {
    77 |           ""Ref"": ""RDSCluster""
    78 |         },
@@ -564,7 +564,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    96 |           ""Ref"": ""RDSDBClusterParameterGroup""
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,"
    84 |           ""Ref"": ""DBSubnetGroup""
    85 |         },
    86 |         ""DeletionProtection"": false,
@@ -588,7 +588,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   104 |         },
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_protection.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_termination_protection.yaml.json,"
   102 |         ""MasterUserPassword"": {
   103 |           ""Ref"": ""password""
   104 |         },

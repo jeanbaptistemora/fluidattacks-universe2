@@ -4722,7 +4722,7 @@ class MethodsEnum(Enum):
     CFN_RDS_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_has_not_termination_protection",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
