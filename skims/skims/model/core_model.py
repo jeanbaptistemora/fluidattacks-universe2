@@ -5906,7 +5906,7 @@ class MethodsEnum(Enum):
     CFN_LOG_NOT_VALIDATED = MethodInfo(
         file_name="cloudformation",
         name="cfn_log_files_not_validated",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F394,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
