@@ -71,7 +71,7 @@ describe("organization credentials view", (): void => {
       },
     ];
 
-    render(
+    const { container } = render(
       <MockedProvider addTypename={false} mocks={mockedQueries}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <OrganizationCredentials
@@ -90,11 +90,13 @@ describe("organization credentials view", (): void => {
       screen.queryByText("profile.credentialsModal.title")
     ).not.toBeInTheDocument();
 
-    await userEvent.click(
-      screen.getByRole("button", {
-        name: "organization.tabs.credentials.actionButtons.addButton.text",
-      })
-    );
+    const repoDropdown = container
+      .querySelectorAll("#repositories-dropdown")[0]
+      .getElementsByTagName("button");
+
+    expect(repoDropdown).toHaveLength(6);
+
+    await userEvent.click(repoDropdown[5]);
 
     await waitFor((): void => {
       expect(
@@ -218,7 +220,7 @@ describe("organization credentials view", (): void => {
       userEmail: "owner@test.com",
       userName: "owner",
     };
-    render(
+    const { container } = render(
       <MockedProvider
         addTypename={false}
         mocks={[...mockedQueries, ...mockedMutations]}
@@ -235,11 +237,14 @@ describe("organization credentials view", (): void => {
     await waitFor((): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
-    await userEvent.click(
-      screen.getByRole("button", {
-        name: "organization.tabs.credentials.actionButtons.addButton.text",
-      })
-    );
+
+    const repoDropdown = container
+      .querySelectorAll("#repositories-dropdown")[0]
+      .getElementsByTagName("button");
+
+    expect(repoDropdown).toHaveLength(6);
+
+    await userEvent.click(repoDropdown[5]);
     await userEvent.type(
       screen.getByRole("textbox", { name: "name" }),
       "New name"
@@ -338,7 +343,7 @@ describe("organization credentials view", (): void => {
       userEmail: "owner@test.com",
       userName: "owner",
     };
-    render(
+    const { container } = render(
       <MockedProvider
         addTypename={false}
         mocks={[...mockedQueries, ...mockedMutations]}
@@ -355,11 +360,14 @@ describe("organization credentials view", (): void => {
     await waitFor((): void => {
       expect(screen.getByText("owner@test.com")).toBeInTheDocument();
     });
-    await userEvent.click(
-      screen.getByRole("button", {
-        name: "organization.tabs.credentials.actionButtons.addButton.text",
-      })
-    );
+
+    const repoDropdown = container
+      .querySelectorAll("#repositories-dropdown")[0]
+      .getElementsByTagName("button");
+
+    expect(repoDropdown).toHaveLength(6);
+
+    await userEvent.click(repoDropdown[5]);
     await userEvent.type(
       screen.getByRole("textbox", { name: "name" }),
       "New name"

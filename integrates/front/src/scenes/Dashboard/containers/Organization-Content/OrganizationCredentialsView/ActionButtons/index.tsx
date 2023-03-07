@@ -1,4 +1,4 @@
-import { faPen, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useMemo } from "react";
@@ -10,6 +10,7 @@ import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
+import { RepositoriesDropdown } from "scenes/Dashboard/components/RepositoriesDropdown";
 import { Can } from "utils/authz/Can";
 import { openUrl } from "utils/resourceHelpers";
 
@@ -83,30 +84,31 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     [onRemove]
   );
 
+  const repositories = {
+    azure: {
+      isVisible: shouldDisplayAzureButton,
+      onClick: openAzureUrl,
+    },
+    bitbucket: {
+      isVisible: shouldDisplayBitbucketButton,
+      onClick: openKetUrl,
+    },
+    gitHub: {
+      isVisible: shouldDisplayGithubButton,
+      onClick: openHubUrl,
+    },
+    gitLab: {
+      isVisible: shouldDisplayGitlabButton,
+      onClick: openLabUrl,
+    },
+    other: {
+      isVisible: true,
+      onClick: onAdd,
+    },
+  };
+
   return (
     <React.StrictMode>
-      <Can do={"api_mutations_add_credentials_mutate"}>
-        <Tooltip
-          disp={"inline-block"}
-          id={
-            "organization.tabs.credentials.actionButtons.addButton.tooltip.id"
-          }
-          tip={t(
-            "organization.tabs.credentials.actionButtons.addButton.tooltip"
-          )}
-        >
-          <Button
-            disabled={disabled}
-            id={"addCredentials"}
-            onClick={onAdd}
-            variant={"secondary"}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            &nbsp;
-            {t("organization.tabs.credentials.actionButtons.addButton.text")}
-          </Button>
-        </Tooltip>
-      </Can>
       <Can do={"api_mutations_update_credentials_mutate"}>
         <Tooltip
           disp={"inline-block"}
@@ -171,110 +173,14 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           }}
         </ConfirmDialog>
       </Can>
-      {shouldDisplayGithubButton ? (
-        <Can do={"api_mutations_add_credentials_mutate"}>
-          <Tooltip
-            disp={"inline-block"}
-            id={
-              "organization.tabs.credentials.actionButtons.githubButton.tooltip.id"
-            }
-            tip={t(
-              "organization.tabs.credentials.actionButtons.githubButton.tooltip"
-            )}
-          >
-            <Button
-              disabled={disabled}
-              id={"githubButtonCredentials"}
-              onClick={openHubUrl}
-              variant={"secondary"}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              &nbsp;
-              {t(
-                "organization.tabs.credentials.actionButtons.githubButton.text"
-              )}
-            </Button>
-          </Tooltip>
-        </Can>
-      ) : undefined}
-      {shouldDisplayGitlabButton ? (
-        <Can do={"api_mutations_add_credentials_mutate"}>
-          <Tooltip
-            disp={"inline-block"}
-            id={
-              "organization.tabs.credentials.actionButtons.gitlabButton.tooltip.id"
-            }
-            tip={t(
-              "organization.tabs.credentials.actionButtons.gitlabButton.tooltip"
-            )}
-          >
-            <Button
-              disabled={disabled}
-              id={"gitlabButtonCredentials"}
-              onClick={openLabUrl}
-              variant={"secondary"}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              &nbsp;
-              {t(
-                "organization.tabs.credentials.actionButtons.gitlabButton.text"
-              )}
-            </Button>
-          </Tooltip>
-        </Can>
-      ) : undefined}
-      {shouldDisplayBitbucketButton ? (
-        <Can do={"api_mutations_add_credentials_mutate"}>
-          <Tooltip
-            disp={"inline-block"}
-            id={
-              "organization.tabs.credentials.actionButtons.bitbucketButton.tooltip.id"
-            }
-            tip={t(
-              "organization.tabs.credentials.actionButtons.bitbucketButton.tooltip"
-            )}
-          >
-            <Button
-              disabled={disabled}
-              id={"bitbucketButtonCredentials"}
-              onClick={openKetUrl}
-              variant={"secondary"}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              &nbsp;
-              {t(
-                "organization.tabs.credentials.actionButtons.bitbucketButton.text"
-              )}
-            </Button>
-          </Tooltip>
-        </Can>
-      ) : undefined}
-      {shouldDisplayAzureButton ? (
-        <Can do={"api_mutations_add_credentials_mutate"}>
-          <Tooltip
-            disp={"inline-block"}
-            id={
-              "organization.tabs.credentials.actionButtons.azureButton.tooltip.id"
-            }
-            tip={t(
-              "organization.tabs.credentials.actionButtons.azureButton.tooltip"
-            )}
-          >
-            <Button
-              disabled={disabled}
-              id={"azureButtonCredentials"}
-              onClick={openAzureUrl}
-              variant={"secondary"}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              &nbsp;
-              {t(
-                "organization.tabs.credentials.actionButtons.azureButton.text"
-              )}
-            </Button>
-          </Tooltip>
-        </Can>
-      ) : undefined}
+      <Can do={"api_mutations_add_credentials_mutate"}>
+        <RepositoriesDropdown
+          availableRepositories={repositories}
+          dropDownText={t(
+            "organization.tabs.credentials.actionButtons.addButton.text"
+          )}
+        />
+      </Can>
     </React.StrictMode>
   );
 };

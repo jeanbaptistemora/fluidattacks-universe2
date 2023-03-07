@@ -2108,29 +2108,10 @@ export const enTranslations: ResourceKey = {
       },
       credentials: {
         actionButtons: {
-          addButton: {
-            text: "Add",
-            tooltip: "Add organization credentials",
-          },
-          azureButton: {
-            text: "Azure",
-            tooltip: "Add Azure OAuth organization credentials",
-          },
-          bitbucketButton: {
-            text: "Bitbucket",
-            tooltip: "Add Bitbucket OAuth organization credentials",
-          },
+          addButton: { text: "Add credential" },
           editButton: {
             text: "Edit",
             tooltip: "Edit credentials of the organization",
-          },
-          githubButton: {
-            text: "Github",
-            tooltip: "Add GitHub OAuth organization credentials",
-          },
-          gitlabButton: {
-            text: "Gitlab",
-            tooltip: "Add GitLab OAuth organization credentials",
           },
           removeButton: {
             confirmMessage:
