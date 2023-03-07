@@ -206,7 +206,7 @@ async def oauth_gitlab(
         response = RedirectResponse(url="/home")
         return response
 
-    name = f'Gitlab OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    name = f'{str(user_info["user_email"]).split("@", maxsplit=1)[0]}(GitLab)'
     credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
         id=credentials_id,
@@ -309,7 +309,7 @@ async def oauth_github(request: Request) -> RedirectResponse:
         response = RedirectResponse(url="/home")
         return response
 
-    name = f'Github OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    name = f'{str(user_info["user_email"]).split("@", maxsplit=1)[0]}(GitHub)'
     credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
         id=credentials_id,
@@ -399,7 +399,9 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
         response = RedirectResponse(url="/home")
         return response
 
-    name = f'BitBucket OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    name = (
+        f'{str(user_info["user_email"]).split("@", maxsplit=1)[0]}(Bitbucket)'
+    )
     credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
         id=credentials_id,
@@ -504,7 +506,7 @@ async def oauth_azure(
         response = RedirectResponse(url="/home")
         return response
 
-    name = f'Azure OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    name = f'{str(user_info["user_email"]).split("@", maxsplit=1)[0]}(Azure)'
     credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
         id=credentials_id,
