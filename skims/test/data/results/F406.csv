@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,19,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
+F406,lines,namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml,19,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml,"
    2 | Resources:
    3 |   FileSystemResource:
    4 |     Type: AWS::EFS::FileSystem
@@ -23,7 +23,7 @@ F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,
   22 |         Status: ENABLED
      ^ Col 0
 ",cloudformation.cfn_aws_efs_unencrypted
-F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,16,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
+F406,lines,namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml,16,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml,"
    2 | Resources:
    3 |   FileSystemResource:
    4 |     Type: AWS::EFS::FileSystem
@@ -47,7 +47,7 @@ F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,
   22 |         Status: ENABLED
      ^ Col 0
 ",cloudformation.cfn_aws_efs_unencrypted
-F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,20,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,"
+F406,lines,namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml.json,20,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml.json,"
   10 |         ""Encrypted"": true
   11 |       }
   12 |     },
@@ -71,7 +71,7 @@ F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.
   30 |       }
      ^ Col 0
 ",cloudformation.cfn_aws_efs_unencrypted
-F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,25,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.json,"
+F406,lines,namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml.json,25,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_root/f406/cfn_aws_efs_unencrypted.yaml.json,"
   13 |     ""FileSystemResource2"": {
   14 |       ""Type"": ""AWS::EFS::FileSystem"",
   15 |       ""Properties"": {
