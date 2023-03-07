@@ -31,7 +31,7 @@ const VULNS_FRAGMENT: DocumentNode = gql`
 `;
 
 const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
-  query GetFindingVulnerabilities(
+  query GetGroupVulnerabilities(
     $after: String
     $first: Int
     $groupName: String!

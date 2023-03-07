@@ -105,7 +105,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        msgError(t("groupAlerts.errorText"));
+        msgError(t("groupAlerts.errorTextsad"));
         Logger.warning("An error occurred getting group data", error);
       });
     },
