@@ -3,12 +3,17 @@ from db_model import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
     VulnerabilityZeroRiskStatus,
 )
 from dynamodb.types import (
     Facet,
 )
 
+ACCEPTED_TREATMENT_STATUSES = {
+    VulnerabilityTreatmentStatus.ACCEPTED,
+    VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
+}
 ZR_FILTER_STATUSES = {
     VulnerabilityZeroRiskStatus.CONFIRMED,
     VulnerabilityZeroRiskStatus.REQUESTED,
@@ -52,4 +57,10 @@ EVENT_INDEX_METADATA = Facet(
     attrs=TABLE.facets["vulnerability_metadata"].attrs,
     pk_alias="EVENT#event_id",
     sk_alias="VULN#vuln_id",
+)
+
+GROUP_INDEX_METADATA = Facet(
+    attrs=TABLE.facets["vulnerability_metadata"].attrs,
+    pk_alias="GROUP#group_name",
+    sk_alias="VULN#STATE#state_status#TREAT#is_accepted#ZR#is_zero_risk",
 )

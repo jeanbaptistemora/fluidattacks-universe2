@@ -22,6 +22,8 @@ from db_model.utils import (
     get_as_utc_iso_format,
 )
 from db_model.vulnerabilities.constants import (
+    ACCEPTED_TREATMENT_STATUSES,
+    GROUP_INDEX_METADATA,
     NEW_ZR_INDEX_METADATA,
     RELEASED_FILTER_STATUSES,
     ZR_FILTER_STATUSES,
@@ -555,3 +557,28 @@ def get_new_zr_index_key_gsi_6(
         )
 
     return new_zr_index_key
+
+
+def get_group_index_key(current_value: Vulnerability) -> PrimaryKey:
+    return keys.build_key(
+        facet=GROUP_INDEX_METADATA,
+        values={
+            "group_name": current_value.group_name,
+            "state_status": get_current_state_converted(
+                current_value.state.status.value
+            ).lower(),
+            "is_accepted": str(
+                bool(
+                    current_value.treatment
+                    and current_value.treatment.status
+                    in ACCEPTED_TREATMENT_STATUSES
+                )
+            ).lower(),
+            "is_zero_risk": str(
+                bool(
+                    current_value.zero_risk
+                    and current_value.zero_risk.status in ZR_FILTER_STATUSES
+                )
+            ).lower(),
+        },
+    )
