@@ -48,6 +48,17 @@ resource "aws_redshift_subnet_group" "main" {
   }
 }
 # Cluster
+
+resource "aws_redshift_parameter_group" "main" {
+  name   = "observes-parameter-group"
+  family = "redshift-1.0"
+
+  parameter {
+    name  = "max_concurrency_scaling_clusters"
+    value = "2"
+  }
+}
+
 resource "aws_redshift_cluster" "main" {
   cluster_identifier = "observes"
   database_name      = "observes"
@@ -76,3 +87,4 @@ resource "aws_redshift_cluster" "main" {
     "management:type"    = "product"
   }
 }
+
