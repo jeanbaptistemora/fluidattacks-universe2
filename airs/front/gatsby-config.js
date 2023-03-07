@@ -56,8 +56,10 @@ module.exports = {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
               return allMarkdownRemark.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
+                  date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
@@ -70,31 +72,21 @@ module.exports = {
                   sort: { order: DESC, fields: [frontmatter___date] },
                 ) {
                   nodes {
-                    htmlAst
+                    html
                     fields {
                       slug
                     }
                     frontmatter {
-                      alt
-                      author
-                      category
-                      date
-                      definition
-                      modified
-                      description
-                      image
-                      keywords
-                      slug
-                      subtitle
-                      tags
-                      writer
                       title
-                      headtitle
+                      description
+                      date
+                      author
                     }
                   }
                 }
               }
             `,
+
             output: "/rss.xml",
             title: "Fluid Attacks RSS Feed",
           },
