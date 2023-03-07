@@ -4570,16 +4570,16 @@
     base:
       attack_vector: N
       attack_complexity: L
-      privileges_required: N
+      privileges_required: L
       user_interaction: N
       scope: U
       confidentiality: N
       integrity: L
-      availability: N
+      availability: L
     temporal:
-      exploit_code_maturity: X
+      exploit_code_maturity: U
       remediation_level: O
-      report_confidence: X
+      report_confidence: C
   requirements: ['266']
   metadata:
     en:
