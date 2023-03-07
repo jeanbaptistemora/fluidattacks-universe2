@@ -23,7 +23,7 @@ type Query {
     groupName: String
   ): [Event]
 
-  "The localization of a specific vulnerability"
+  "Type of a vulnerability"
   finding(
     "ID of the finding to query"
     identifier: String!
@@ -58,7 +58,7 @@ type Query {
     userEmail: String!
   ): [Group]
 
-  "The current role that the user has"
+  "General user information"
   me(
     "User endpoint in use, either API or FRONT"
     callerOrigin: String
@@ -165,7 +165,7 @@ type Query {
     group: String
   ): [Vulnerability]
 
-  "Type of vulnerability affecting the source code"
+  "The specific location where the vulnerability is found"
   vulnerability(
     "Identifier of the vulnerability to query"
     uuid: String!
