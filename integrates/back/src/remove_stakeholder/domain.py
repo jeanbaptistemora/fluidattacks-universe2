@@ -102,7 +102,12 @@ async def remove_stakeholder_all_organizations(
     ]
     await collect(
         tuple(
-            orgs_domain.remove_access(organization_id, email, modified_by)
+            orgs_domain.remove_access(
+                organization_id=organization_id,
+                email=email,
+                modified_by=modified_by,
+                send_reassignment_email=True,
+            )
             for organization_id in organizations_ids
         )
     )

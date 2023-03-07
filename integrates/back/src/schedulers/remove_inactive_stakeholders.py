@@ -111,6 +111,7 @@ async def process_organization(
                 organization_id=organization.id,
                 email=stakeholder.email,
                 modified_by=orgs_domain.EMAIL_INTEGRATES,
+                send_reassignment_email=True,
             )
             for stakeholder in inactive_stakeholders
         ),

@@ -699,6 +699,7 @@ async def reassign_stakeholder_credentials(
     email: str,
     modified_by: str,
     organization_id: str,
+    send_reassignment_email: bool = False,
 ) -> None:
     user_org_credentials: list[Credentials] = [
         credential
@@ -743,14 +744,15 @@ async def reassign_stakeholder_credentials(
         ),
         workers=1,
     )
-    schedule(
-        send_mail_reassigned_credentials_owner(
-            loaders=loaders,
-            organization_id=organization_id,
-            owner_email=email,
-            owner_role=current_owner_role,
+    if send_reassignment_email:
+        schedule(
+            send_mail_reassigned_credentials_owner(
+                loaders=loaders,
+                organization_id=organization_id,
+                owner_email=email,
+                owner_role=current_owner_role,
+            )
         )
-    )
     LOGGER.info(
         "Credentials owner reassigned",
         extra={
@@ -769,7 +771,10 @@ async def reassign_stakeholder_credentials(
 
 
 async def remove_access(
-    organization_id: str, email: str, modified_by: str
+    organization_id: str,
+    email: str,
+    modified_by: str,
+    send_reassignment_email: bool = False,
 ) -> None:
     loaders: Dataloaders = get_new_context()
     if not await orgs_access.has_access(loaders, organization_id, email):
@@ -788,6 +793,7 @@ async def remove_access(
         email=email,
         modified_by=modified_by,
         organization_id=organization_id,
+        send_reassignment_email=send_reassignment_email,
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
     stakeholder = await loaders.stakeholder.load(email)

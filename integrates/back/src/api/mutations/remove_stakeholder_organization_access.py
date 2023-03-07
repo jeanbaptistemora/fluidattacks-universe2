@@ -43,9 +43,10 @@ async def mutate(
     organization = await orgs_utils.get_organization(loaders, organization_id)
 
     await orgs_domain.remove_access(
-        organization_id,
-        user_email.lower(),
-        requester_email,
+        organization_id=organization_id,
+        email=user_email.lower(),
+        modified_by=requester_email,
+        send_reassignment_email=True,
     )
     logs_utils.cloudwatch_log(
         info.context,

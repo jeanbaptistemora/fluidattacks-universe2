@@ -1289,6 +1289,7 @@ async def remove_all_stakeholders(
     loaders: Dataloaders,
     group_name: str,
     modified_by: str,
+    send_reassignment_email: bool = False,
 ) -> None:
     """Revoke stakeholders access to group."""
     stakeholders_access = await loaders.group_stakeholders_access.load(
@@ -1301,6 +1302,7 @@ async def remove_all_stakeholders(
                 email_to_revoke=access.email,
                 group_name=group_name,
                 modified_by=modified_by,
+                send_reassignment_email=send_reassignment_email,
             )
             for access in stakeholders_access
         ),
@@ -1418,6 +1420,7 @@ async def remove_resources(
         loaders=loaders,
         group_name=group_name,
         modified_by=email,
+        send_reassignment_email=validate_pending_actions,
     )
     await _remove_all_batch_actions(
         group_name=group_name,
@@ -1484,6 +1487,7 @@ async def remove_stakeholder(
     email_to_revoke: str,
     group_name: str,
     modified_by: str,
+    send_reassignment_email: bool = False,
 ) -> None:
     """Revoke stakeholder access to group.
     If the stakeholder has no access to other active groups in the
@@ -1512,7 +1516,10 @@ async def remove_stakeholder(
     )
     if has_org_access and not has_groups_in_org:
         await orgs_domain.remove_access(
-            organization_id, email_to_revoke, modified_by
+            organization_id=organization_id,
+            email=email_to_revoke,
+            modified_by=modified_by,
+            send_reassignment_email=send_reassignment_email,
         )
 
     LOGGER.info(
@@ -1552,6 +1559,7 @@ async def unsubscribe_from_group(
         email_to_revoke=email,
         group_name=group_name,
         modified_by=email,
+        send_reassignment_email=True,
     )
     await send_mail_unsubscribed(
         loaders=loaders,

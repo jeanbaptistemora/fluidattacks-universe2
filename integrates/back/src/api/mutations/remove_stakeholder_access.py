@@ -47,6 +47,7 @@ async def mutate(
         email_to_revoke=user_email,
         group_name=group_name,
         modified_by=requester_email,
+        send_reassignment_email=True,
     )
     msg = (
         f"Security: Removed stakeholder: {user_email} from {group_name} "
