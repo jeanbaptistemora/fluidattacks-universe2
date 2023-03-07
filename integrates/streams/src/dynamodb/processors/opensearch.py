@@ -61,7 +61,7 @@ def _process(records: tuple[Record, ...], index: str) -> None:
             actions.append(action)
 
     try:
-        bulk(client=CLIENT, actions=actions)
+        bulk(client=CLIENT, actions=actions, ignore_status=(404,))
     except BulkIndexError as ex:
         LOGGER.exception(ex, extra={"extra": {"errors": ex.errors}})
 
