@@ -470,6 +470,59 @@ resource "cloudflare_record" "stripe_verify" {
   proxied = false
 }
 
+# CAA Records
+
+resource "cloudflare_record" "gts_caa" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "pki.goog"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+resource "cloudflare_record" "amazon_caa" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "amazon.com"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+resource "cloudflare_record" "digicert_caa" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "digicert.com"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
+
+resource "cloudflare_record" "letsencrypt_caa" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "CAA"
+  data {
+    tag   = "issue"
+    value = "letsencrypt.org"
+    flags = "0"
+  }
+  ttl     = 3600
+  proxied = false
+}
 
 # Page Rules
 
