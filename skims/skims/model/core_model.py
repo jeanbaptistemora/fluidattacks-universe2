@@ -2239,6 +2239,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_ACL_ALLOW_EGRESS_TRAFFIC = MethodInfo(
+        file_name="aws",
+        name="network_acls_allow_egress_traffic",
+        module="dast",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_ACL_ALLOW_ALL_INGRESS_TRAFFIC = MethodInfo(
         file_name="aws",
         name="network_acls_allow_all_ingress_traffic",
