@@ -27595,7 +27595,8 @@
           "1021": {
             "label_type": "VariableDeclaration",
             "value_id": "1029",
-            "variable": "db:SQLiteDatabase"
+            "variable": "db",
+            "variable_type": "SQLiteDatabase"
           },
           "1029": {
             "expression": "this",
@@ -27610,7 +27611,8 @@
           "1035": {
             "label_type": "VariableDeclaration",
             "value_id": "1043",
-            "variable": "record:ContentValues"
+            "variable": "record",
+            "variable_type": "ContentValues"
           },
           "1043": {
             "arguments_id": "1046",
@@ -27724,8 +27726,7 @@
           "110": {
             "label_type": "VariableDeclaration",
             "value_id": "117",
-            "variable": "SHIFT",
-            "variable_type": "const"
+            "variable": "SHIFT"
           },
           "1102": {
             "label_type": "ReservedWord",
@@ -27832,8 +27833,7 @@
           "1163": {
             "label_type": "VariableDeclaration",
             "value_id": "1170",
-            "variable": "ASSETS_PATH",
-            "variable_type": "const"
+            "variable": "ASSETS_PATH"
           },
           "117": {
             "label_type": "Literal",
@@ -27848,8 +27848,7 @@
           "1171": {
             "label_type": "VariableDeclaration",
             "value_id": "1178",
-            "variable": "DATABASE_NAME",
-            "variable_type": "const"
+            "variable": "DATABASE_NAME"
           },
           "1178": {
             "label_type": "Literal",
@@ -27859,8 +27858,7 @@
           "1179": {
             "label_type": "VariableDeclaration",
             "value_id": "1186",
-            "variable": "DATABASE_VERSION",
-            "variable_type": "const"
+            "variable": "DATABASE_VERSION"
           },
           "118": {
             "block_id": "129",
@@ -27875,8 +27873,7 @@
           "1187": {
             "label_type": "VariableDeclaration",
             "value_id": "1194",
-            "variable": "TABLE_ACCOUNTS",
-            "variable_type": "const"
+            "variable": "TABLE_ACCOUNTS"
           },
           "1194": {
             "label_type": "Literal",
@@ -27886,8 +27883,7 @@
           "1195": {
             "label_type": "VariableDeclaration",
             "value_id": "1202",
-            "variable": "TABLE_NOTES",
-            "variable_type": "const"
+            "variable": "TABLE_NOTES"
           },
           "1202": {
             "label_type": "Literal",
@@ -27904,14 +27900,13 @@
           },
           "1218": {
             "label_type": "VariableDeclaration",
-            "variable": "listView:ListView",
-            "variable_type": "privatelateinit"
+            "variable": "listView",
+            "variable_type": "ListView"
           },
           "1230": {
             "label_type": "VariableDeclaration",
             "value_id": "1239",
-            "variable": "apiService",
-            "variable_type": "private"
+            "variable": "apiService"
           },
           "1239": {
             "expression": "lazy",
@@ -27933,7 +27928,8 @@
           "1268": {
             "label_type": "VariableDeclaration",
             "value_id": "1276",
-            "variable": "username:String"
+            "variable": "username",
+            "variable_type": "String"
           },
           "1276": {
             "arguments_id": "1283",
@@ -27970,7 +27966,8 @@
           "1291": {
             "label_type": "VariableDeclaration",
             "value_id": "1299",
-            "variable": "account:Account"
+            "variable": "account",
+            "variable_type": "Account"
           },
           "1299": {
             "arguments_id": "1313",
@@ -28003,8 +28000,8 @@
           },
           "131": {
             "label_type": "VariableDeclaration",
-            "variable": "database:DatabaseHelper",
-            "variable_type": "privatelateinit"
+            "variable": "database",
+            "variable_type": "DatabaseHelper"
           },
           "1313": {
             "label_type": "ArgumentList"
@@ -28016,7 +28013,8 @@
           "1318": {
             "label_type": "VariableDeclaration",
             "value_id": "1326",
-            "variable": "basicAuth:String"
+            "variable": "basicAuth",
+            "variable_type": "String"
           },
           "1326": {
             "arguments_id": "1333",
@@ -28060,7 +28058,8 @@
           "1349": {
             "label_type": "VariableDeclaration",
             "value_id": "1357",
-            "variable": "cursor:Cursor"
+            "variable": "cursor",
+            "variable_type": "Cursor"
           },
           "1357": {
             "arguments_id": "1371",
@@ -28133,7 +28132,8 @@
           "1397": {
             "label_type": "VariableDeclaration",
             "value_id": "1405",
-            "variable": "id:Int"
+            "variable": "id",
+            "variable_type": "Int"
           },
           "14": {
             "expression": "android.content.ContentValues",
@@ -28185,13 +28185,13 @@
           "1428": {
             "label_type": "VariableDeclaration",
             "value_id": "1436",
-            "variable": "title:String"
+            "variable": "title",
+            "variable_type": "String"
           },
           "143": {
             "label_type": "VariableDeclaration",
             "value_id": "151",
-            "variable": "ACCOUNTS",
-            "variable_type": "private"
+            "variable": "ACCOUNTS"
           },
           "1436": {
             "arguments_id": "1443",
@@ -28239,7 +28239,8 @@
           "1459": {
             "label_type": "VariableDeclaration",
             "value_id": "1467",
-            "variable": "content:String"
+            "variable": "content",
+            "variable_type": "String"
           },
           "1467": {
             "arguments_id": "1474",
@@ -28287,7 +28288,8 @@
           "1490": {
             "label_type": "VariableDeclaration",
             "value_id": "1498",
-            "variable": "createdAt:String"
+            "variable": "createdAt",
+            "variable_type": "String"
           },
           "1498": {
             "arguments_id": "1505",
@@ -28340,13 +28342,13 @@
           "152": {
             "label_type": "VariableDeclaration",
             "value_id": "160",
-            "variable": "ACCOUNTS_ID",
-            "variable_type": "private"
+            "variable": "ACCOUNTS_ID"
           },
           "1521": {
             "label_type": "VariableDeclaration",
             "value_id": "1529",
-            "variable": "note:Note"
+            "variable": "note",
+            "variable_type": "Note"
           },
           "1529": {
             "arguments_id": "1532",
@@ -28376,7 +28378,8 @@
           "1543": {
             "label_type": "VariableDeclaration",
             "value_id": "1557",
-            "variable": "call:Call<Void>"
+            "variable": "call",
+            "variable_type": "Call<Void>"
           },
           "1557": {
             "arguments_id": "1564",
@@ -28457,8 +28460,7 @@
           "161": {
             "label_type": "VariableDeclaration",
             "value_id": "169",
-            "variable": "sURIMatcher",
-            "variable_type": "private"
+            "variable": "sURIMatcher"
           },
           "1610": {
             "label_type": "SymbolLookup",
@@ -28606,13 +28608,13 @@
           },
           "1727": {
             "label_type": "VariableDeclaration",
-            "variable": "serverIPAddress:String",
-            "variable_type": "privatelateinit"
+            "variable": "serverIPAddress",
+            "variable_type": "String"
           },
           "1739": {
             "label_type": "VariableDeclaration",
-            "variable": "serverPort:String",
-            "variable_type": "privatelateinit"
+            "variable": "serverPort",
+            "variable_type": "String"
           },
           "175": {
             "expression": "UriMatcher",
@@ -28879,7 +28881,8 @@
           "1889": {
             "label_type": "VariableDeclaration",
             "value_id": "1897",
-            "variable": "buttonSave:Button"
+            "variable": "buttonSave",
+            "variable_type": "Button"
           },
           "1897": {
             "arguments_id": "1900",
@@ -29171,7 +29174,8 @@
           },
           "283": {
             "label_type": "VariableDeclaration",
-            "variable": "id:Long"
+            "variable": "id",
+            "variable_type": "Long"
           },
           "290": {
             "label_type": "SwitchBody"
@@ -29362,8 +29366,7 @@
           "388": {
             "label_type": "VariableDeclaration",
             "value_id": "396",
-            "variable": "AUTHORITY",
-            "variable_type": "private"
+            "variable": "AUTHORITY"
           },
           "396": {
             "label_type": "Literal",
@@ -29373,8 +29376,7 @@
           "397": {
             "label_type": "VariableDeclaration",
             "value_id": "405",
-            "variable": "ACCOUNTS_TABLE",
-            "variable_type": "private"
+            "variable": "ACCOUNTS_TABLE"
           },
           "405": {
             "label_type": "Literal",
@@ -29384,7 +29386,8 @@
           "406": {
             "label_type": "VariableDeclaration",
             "value_id": "414",
-            "variable": "CONTENT_URI:Uri"
+            "variable": "CONTENT_URI",
+            "variable_type": "Uri"
           },
           "414": {
             "arguments_id": "421",
@@ -29441,8 +29444,7 @@
           "435": {
             "label_type": "VariableDeclaration",
             "value_id": "443",
-            "variable": "DATABASE_NAME",
-            "variable_type": "private"
+            "variable": "DATABASE_NAME"
           },
           "443": {
             "label_type": "Literal",
@@ -29491,7 +29493,8 @@
           "472": {
             "label_type": "VariableDeclaration",
             "value_id": "480",
-            "variable": "encrypted:String"
+            "variable": "encrypted",
+            "variable_type": "String"
           },
           "480": {
             "label_type": "Literal",
@@ -29518,7 +29521,8 @@
           "492": {
             "label_type": "VariableDeclaration",
             "value_id": "500",
-            "variable": "ascii:Int"
+            "variable": "ascii",
+            "variable_type": "Int"
           },
           "500": {
             "arguments_id": "507",
@@ -29542,7 +29546,8 @@
           "510": {
             "label_type": "VariableDeclaration",
             "value_id": "518",
-            "variable": "lowerBoundary:Int"
+            "variable": "lowerBoundary",
+            "variable_type": "Int"
           },
           "518": {
             "condition_id": "521",
@@ -29778,7 +29783,8 @@
           "624": {
             "label_type": "VariableDeclaration",
             "value_id": "632",
-            "variable": "original:String"
+            "variable": "original",
+            "variable_type": "String"
           },
           "632": {
             "label_type": "Literal",
@@ -29805,7 +29811,8 @@
           "644": {
             "label_type": "VariableDeclaration",
             "value_id": "652",
-            "variable": "ascii:Int"
+            "variable": "ascii",
+            "variable_type": "Int"
           },
           "652": {
             "arguments_id": "659",
@@ -29833,7 +29840,8 @@
           "662": {
             "label_type": "VariableDeclaration",
             "value_id": "670",
-            "variable": "lowerBoundary:Int"
+            "variable": "lowerBoundary",
+            "variable_type": "Int"
           },
           "670": {
             "condition_id": "673",

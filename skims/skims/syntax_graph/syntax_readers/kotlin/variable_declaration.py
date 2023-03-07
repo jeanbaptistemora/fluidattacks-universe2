@@ -22,12 +22,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
     var_type = None
 
     var_dec = match_ast_d(graph, args.n_id, "variable_declaration")
-    var_type_id = match_ast_d(graph, args.n_id, "modifiers")
-
     if var_dec:
-        var_name = node_to_str(graph, var_dec)
-    if var_type_id:
-        var_type = node_to_str(graph, var_type_id)
+        var_name = node_to_str(
+            graph, graph.nodes[var_dec]["label_field_identifier"]
+        )
+        var_type_id = match_ast_d(graph, var_dec, "user_type")
+        if var_type_id:
+            var_type = node_to_str(graph, var_type_id)
 
     value_id = adj_ast(graph, args.n_id)[-1]
     val_id_type = graph.nodes[value_id]["label_type"]

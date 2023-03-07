@@ -320,7 +320,12 @@ def kotlin_insecure_init_vector(
                 label_type="MethodInvocation",
             ):
                 n_attrs = graph.nodes[n_id]
-                if check_method_origin(graph, lib, danger_methods, n_attrs):
+                if (
+                    check_method_origin(graph, lib, danger_methods, n_attrs)
+                    and (al_id := graph.nodes[n_id].get("arguments_id"))
+                    and (arg_id := g.match_ast(graph, al_id).get("__1__"))
+                    and get_eval_result(graph, arg_id, method)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
