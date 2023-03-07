@@ -882,6 +882,93 @@ async def network_acls_allow_all_ingress_traffic(
     return vulns
 
 
+def _acl_check_ports(acl_rule: dict) -> bool:
+    vuln_port = False
+    if "PortRange" not in acl_rule.keys():
+        if (
+            acl_rule["RuleAction"] == "allow"
+            and acl_rule["Protocol"] == "-1"
+            and acl_rule["Egress"]
+        ) or (acl_rule["Egress"] and acl_rule["RuleAction"] == "allow"):
+            vuln_port = True
+    else:
+        if (
+            (
+                int(acl_rule["PortRange"]["To"])
+                - int(acl_rule["PortRange"]["From"])
+                == 0
+                or acl_rule["Protocol"] == "-1"
+            )
+            and acl_rule["RuleAction"] == "allow"
+            and acl_rule["Egress"]
+        ):
+            vuln_port = True
+    return vuln_port
+
+
+def iterate_acls_allow_all_egress_traffic(
+    entry: dict[str, Any],
+    rule: dict[str, Any],
+    vulns: core_model.Vulnerabilities,
+) -> core_model.Vulnerabilities:
+    locations: list[Location] = []
+    method = core_model.MethodsEnum.AWS_ACL_ALLOW_EGRESS_TRAFFIC
+    if _acl_check_ports(entry):
+        locations = [
+            Location(
+                access_patterns=(
+                    "/Egress",
+                    "/Protocol",
+                )
+                if entry["Protocol"] == "-1"
+                else (
+                    "/Egress",
+                    "/PortRange",
+                ),
+                arn=(f"arn:aws:vpc:networkAclId:{rule['NetworkAclId']}:"),
+                values=(
+                    entry["Egress"],
+                    entry["Protocol"],
+                )
+                if entry["Protocol"] == "-1"
+                else (
+                    entry["Egress"],
+                    entry["PortRange"],
+                ),
+                description=t(
+                    "src.lib_path.f024.network_acls_allow_egress_traffic"
+                ),
+            )
+        ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=method,
+                aws_response=entry,
+            ),
+        )
+    return vulns
+
+
+async def network_acls_allow_all_egress_traffic(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_network_acls"
+    )
+    network_acls = response.get("NetworkAcls", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if network_acls:
+        for rule in network_acls:
+            for entry in rule["Entries"]:
+                vulns = iterate_acls_allow_all_egress_traffic(
+                    entry, rule, vulns
+                )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -897,4 +984,5 @@ CHECKS: tuple[
     instances_without_profile,
     insecure_port_range_in_security_group,
     network_acls_allow_all_ingress_traffic,
+    network_acls_allow_all_egress_traffic,
 )
