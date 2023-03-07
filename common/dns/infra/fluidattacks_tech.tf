@@ -205,7 +205,7 @@ resource "cloudflare_record" "pic_domainkey" {
 }
 
 # CAA Records
-resource "cloudflare_record" "gts_caa" {
+resource "cloudflare_record" "tech_gts_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -218,7 +218,7 @@ resource "cloudflare_record" "gts_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "godaddy_caa" {
+resource "cloudflare_record" "tech_godaddy_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -231,7 +231,7 @@ resource "cloudflare_record" "godaddy_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "letsencrypt_caa" {
+resource "cloudflare_record" "tech_letsencrypt_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -244,7 +244,7 @@ resource "cloudflare_record" "letsencrypt_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "sectigo_caa" {
+resource "cloudflare_record" "tech_sectigo_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
