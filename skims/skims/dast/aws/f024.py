@@ -774,6 +774,114 @@ async def insecure_port_range_in_security_group(
     return vulns
 
 
+def _acl_rule_is_public(acl_rule: dict, egress: bool, action: str) -> bool:
+    """Check if an ACL rule allow all ingress traffic."""
+    is_public = False
+    if acl_rule["Egress"] == egress and acl_rule["RuleAction"] == action:
+        if "CidrBlock" in acl_rule.keys():
+            is_public = acl_rule["CidrBlock"] == "0.0.0.0/0"
+        if "Ipv6CidrBlock" in acl_rule.keys():
+            is_public = acl_rule["Ipv6CidrBlock"] == "::/0"
+    return (
+        is_public
+        and "PortRange" not in acl_rule.keys()
+        and acl_rule["Protocol"] == "-1"
+    )
+
+
+async def network_acls_allow_all_ingress_traffic(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_network_acls"
+    )
+    method = core_model.MethodsEnum.AWS_ACL_ALLOW_ALL_INGRESS_TRAFFIC
+    network_acls = response.get("NetworkAcls", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    locations: list[Location] = []
+
+    if network_acls:
+        for rule in network_acls:
+            for entry in rule["Entries"]:
+                if (
+                    not entry["Egress"]
+                    and _acl_rule_is_public(entry, False, "allow")
+                    and entry.get("CidrBlock", "")
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    "/Egress",
+                                    "/CidrBlock",
+                                    "/Protocol",
+                                ),
+                                arn=(
+                                    "arn:aws:vpc:networkAclId:"
+                                    f"{rule['NetworkAclId']}:"
+                                ),
+                                values=(
+                                    entry["Egress"],
+                                    entry["CidrBlock"],
+                                    entry["Protocol"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f024.network_acls_"
+                                    "allow_all_ingress_traffic"
+                                ),
+                            )
+                        ],
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=method,
+                            aws_response=entry,
+                        ),
+                    )
+                elif (
+                    not entry["Egress"]
+                    and _acl_rule_is_public(entry, False, "allow")
+                    and entry.get("Ipv6CidrBlock", "")
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    "/Egress",
+                                    "/Ipv6CidrBlock",
+                                    "/Protocol",
+                                ),
+                                arn=(
+                                    "arn:aws:vpc:networkAclId:"
+                                    f"{rule['NetworkAclId']}:"
+                                ),
+                                values=(
+                                    entry["Egress"],
+                                    entry["Ipv6CidrBlock"],
+                                    entry["Protocol"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f024.network_acls_"
+                                    "allow_all_ingress_traffic"
+                                ),
+                            )
+                        ],
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=method,
+                            aws_response=entry,
+                        ),
+                    )
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -788,4 +896,5 @@ CHECKS: tuple[
     default_seggroup_allows_all_traffic,
     instances_without_profile,
     insecure_port_range_in_security_group,
+    network_acls_allow_all_ingress_traffic,
 )
