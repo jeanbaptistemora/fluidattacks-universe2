@@ -1,3 +1,4 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -80,9 +81,16 @@ const RepositoriesDropdown: React.FC<IRepositoriesDropdownProps> = ({
   return (
     <Dropdown
       align={"left"}
-      button={<Button variant={"primary"}>{dropDownText}</Button>}
+      border={false}
+      button={
+        <Button icon={faPlus} iconSide={"right"} variant={"primary"}>
+          {dropDownText}
+        </Button>
+      }
       id={"repositories-dropdown"}
-      minWidth={"420px"}
+      minWidth={"max-content"}
+      mt={"5px"}
+      shadow={true}
     >
       <Row align={"center"} justify={"center"}>
         {repositories.map((repo): JSX.Element | undefined => {

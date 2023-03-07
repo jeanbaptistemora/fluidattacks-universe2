@@ -1,5 +1,4 @@
 import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -125,12 +124,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               _.isUndefined(selectedCredentials) ||
               selectedCredentials.type === "OAUTH"
             }
+            icon={faPen}
             id={"editCredentials"}
             onClick={onEdit}
-            variant={"secondary"}
           >
-            <FontAwesomeIcon icon={faPen} />
-            &nbsp;
             {t("organization.tabs.credentials.actionButtons.editButton.text")}
           </Button>
         </Tooltip>
@@ -158,12 +155,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               >
                 <Button
                   disabled={disabled || _.isUndefined(selectedCredentials)}
+                  icon={faTrashAlt}
                   id={"removeCredentials"}
                   onClick={handleClick(confirm)}
-                  variant={"secondary"}
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                  &nbsp;
                   {t(
                     "organization.tabs.credentials.actionButtons.removeButton.text"
                   )}

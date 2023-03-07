@@ -22,20 +22,30 @@ interface IDropdownProps extends Partial<IDropdownContainerProps> {
 const Dropdown: FC<IDropdownProps> = ({
   align = "center",
   bgColor = "#f4f4f6",
+  border = true,
   button,
   children,
   id,
   maxHeight,
   minWidth = "240px",
+  mt,
   pb = "8px",
   pl = "8px",
   pr = "8px",
   pt = "8px",
+  shadow = false,
   zIndex = 100,
 }: Readonly<IDropdownProps>): JSX.Element => (
   <Wrapper id={id}>
     {button}
-    <DropdownContainer align={align} bgColor={bgColor} zIndex={zIndex}>
+    <DropdownContainer
+      align={align}
+      bgColor={bgColor}
+      border={border}
+      mt={mt}
+      shadow={shadow}
+      zIndex={zIndex}
+    >
       <Container
         maxHeight={maxHeight}
         minWidth={minWidth}
