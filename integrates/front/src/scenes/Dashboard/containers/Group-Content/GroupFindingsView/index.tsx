@@ -39,6 +39,7 @@ import {
   GET_ROOTS,
 } from "./queries";
 import type {
+  IAddFindingFormValues,
   IAddFindingMutationResult,
   IFindingSuggestionData,
   IGroupVulnerabilities,
@@ -57,6 +58,22 @@ import {
 } from "./utils";
 
 import { REMOVE_FINDING_MUTATION } from "../../Finding-Content/queries";
+import {
+  attackComplexityOptions,
+  attackVectorOptions,
+  availabilityImpactOptions,
+  availabilityRequirement,
+  castPrivileges,
+  confidentialityImpactOptions,
+  confidentialityRequirement,
+  exploitabilityOptions,
+  integrityImpactOptions,
+  integrityRequirement,
+  remediationLevelOptions,
+  reportConfidenceOptions,
+  severityScopeOptions,
+  userInteractionOptions,
+} from "../../Finding-Content/SeverityView/utils";
 import { formatPercentage } from "../ToeContent/GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import { Empty } from "components/Empty";
@@ -110,11 +127,40 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   // State management
   const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
   const [isAddFindingModalOpen, setIsAddFindingModalOpen] = useState(false);
-  const [addFindingInitialValues, setAddFindingInitialValues] = useState({
-    description: "",
-    threat: "",
-    title: "",
-  });
+  const defaultAddFindingInitialValues = useMemo(
+    (): IAddFindingFormValues => ({
+      attackComplexity: "",
+      attackVector: "",
+      availabilityImpact: "",
+      availabilityRequirement: "",
+      confidentialityImpact: "",
+      confidentialityRequirement: "",
+      description: "",
+      exploitability: "",
+      integrityImpact: "",
+      integrityRequirement: "",
+      modifiedAttackComplexity: "",
+      modifiedAttackVector: "",
+      modifiedAvailabilityImpact: "",
+      modifiedConfidentialityImpact: "",
+      modifiedIntegrityImpact: "",
+      modifiedPrivilegesRequired: "",
+      modifiedSeverityScope: "",
+      modifiedUserInteraction: "",
+      privilegesRequired: "",
+      remediationLevel: "",
+      reportConfidence: "",
+      severityScope: "",
+      threat: "",
+      title: "",
+      userInteraction: "",
+    }),
+    []
+  );
+  const [addFindingInitialValues, setAddFindingInitialValues] = useState(
+    defaultAddFindingInitialValues
+  );
+
   const [suggestions, setSuggestions] = useState<
     IFindingSuggestionData[] | undefined
   >(undefined);
@@ -260,13 +306,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       }
     }, [suggestions]);
   const closeAddFindingModal: () => void = useCallback((): void => {
-    setAddFindingInitialValues({
-      description: "",
-      threat: "",
-      title: "",
-    });
+    setAddFindingInitialValues(defaultAddFindingInitialValues);
     setIsAddFindingModalOpen(false);
-  }, []);
+  }, [defaultAddFindingInitialValues]);
   const openReportsModal: () => void = useCallback((): void => {
     setIsReportsModalOpen(true);
   }, []);
@@ -592,31 +634,21 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   });
 
   const handleAdd = useCallback(
-    async ({
-      description,
-      threat,
-      title,
-    }: {
-      description: string;
-      threat: string;
-      title: string;
-    }): Promise<void> => {
+    async (values: IAddFindingFormValues): Promise<void> => {
       const [matchingSuggestion]: IFindingSuggestionData[] = _.isUndefined(
         suggestions
       )
         ? []
         : suggestions.filter(
             (suggestion: IFindingSuggestionData): boolean =>
-              `${suggestion.code}. ${suggestion.title}` === title
+              `${suggestion.code}. ${suggestion.title}` === values.title
           );
-      const draftData = _.omit(matchingSuggestion, ["code"]);
+      const suggestionData = _.omit(matchingSuggestion, ["code"]);
       await addFinding({
         variables: {
-          ...draftData,
-          description,
+          ...suggestionData,
+          ...values,
           groupName,
-          threat,
-          title,
         },
       });
     },
@@ -714,13 +746,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       if (!_.isUndefined(matchingSuggestion)) {
         setAddFindingInitialValues({
           ...addFindingInitialValues,
-          description: matchingSuggestion.description.includes("__empty__")
-            ? ""
-            : matchingSuggestion.description,
-          threat: matchingSuggestion.threat.includes("__empty__")
-            ? ""
-            : matchingSuggestion.threat,
+          attackComplexity: matchingSuggestion.attackComplexity,
+          attackVector: matchingSuggestion.attackVector,
+          availabilityImpact: matchingSuggestion.availabilityImpact,
+          confidentialityImpact: matchingSuggestion.confidentialityImpact,
+          description: matchingSuggestion.description,
+          exploitability: matchingSuggestion.exploitability,
+          integrityImpact: matchingSuggestion.integrityImpact,
+          privilegesRequired: matchingSuggestion.privilegesRequired,
+          remediationLevel: matchingSuggestion.remediationLevel,
+          reportConfidence: matchingSuggestion.reportConfidence,
+          severityScope: matchingSuggestion.severityScope,
+          threat: matchingSuggestion.threat,
           title: target.value,
+          userInteraction: matchingSuggestion.userInteraction,
         });
       }
     },
@@ -839,6 +878,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         userRole={data?.group.userRole ?? "user"}
       />
       <Modal
+        minWidth={500}
         onClose={closeAddFindingModal}
         open={isAddFindingModalOpen}
         title={t("group.findings.addModal.title")}
@@ -849,7 +889,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           name={"addFinding"}
           onSubmit={handleAdd}
         >
-          {(): JSX.Element => {
+          {({ values }): JSX.Element => {
             return (
               <Form>
                 <Row>
@@ -906,6 +946,445 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         maxThreatLength,
                       ])}
                     />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.attackComplexity.label"
+                      )}
+                      name={"attackComplexity"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(attackComplexityOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t("searchFindings.tabSeverity.attackVector.label")}
+                      name={"attackVector"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(attackVectorOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.availabilityImpact.label"
+                      )}
+                      name={"availabilityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(availabilityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.availabilityRequirement.label"
+                      )}
+                      name={"availabilityRequirement"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(availabilityRequirement).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.confidentialityImpact.label"
+                      )}
+                      name={"confidentialityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(confidentialityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.confidentialityRequirement.label"
+                      )}
+                      name={"confidentialityRequirement"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(confidentialityRequirement).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.exploitability.label"
+                      )}
+                      name={"exploitability"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(exploitabilityOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.integrityImpact.label"
+                      )}
+                      name={"integrityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(integrityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.integrityRequirement.label"
+                      )}
+                      name={"integrityRequirement"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(integrityRequirement).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedAttackComplexity"
+                      )}
+                      name={"modifiedAttackComplexity"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(attackComplexityOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedAttackVector"
+                      )}
+                      name={"modifiedAttackVector"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(attackVectorOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedAvailabilityImpact"
+                      )}
+                      name={"modifiedAvailabilityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(availabilityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedConfidentialityImpact"
+                      )}
+                      name={"modifiedConfidentialityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(confidentialityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedIntegrityImpact"
+                      )}
+                      name={"modifiedIntegrityImpact"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(integrityImpactOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedPrivilegesRequired"
+                      )}
+                      name={"modifiedPrivilegesRequired"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(castPrivileges(values.severityScope)).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedUserInteraction"
+                      )}
+                      name={"modifiedUserInteraction"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(userInteractionOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.modifiedSeverityScope"
+                      )}
+                      name={"modifiedSeverityScope"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(severityScopeOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.privilegesRequired.label"
+                      )}
+                      name={"privilegesRequired"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(castPrivileges(values.severityScope)).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.remediationLevel.label"
+                      )}
+                      name={"remediationLevel"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(remediationLevelOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.reportConfidence.label"
+                      )}
+                      name={"reportConfidence"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(reportConfidenceOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.severityScope.label"
+                      )}
+                      name={"severityScope"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(severityScopeOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </Col>
+                  <Col lg={50} md={50} sm={100}>
+                    <Select
+                      label={t(
+                        "searchFindings.tabSeverity.userInteraction.label"
+                      )}
+                      name={"userInteraction"}
+                      required={true}
+                      validate={required}
+                    >
+                      <option value={""} />
+                      {Object.entries(userInteractionOptions).map(
+                        ([value, label]): JSX.Element => (
+                          <option key={value} value={value}>
+                            {t(label)}
+                          </option>
+                        )
+                      )}
+                    </Select>
                   </Col>
                 </Row>
                 <ModalConfirm

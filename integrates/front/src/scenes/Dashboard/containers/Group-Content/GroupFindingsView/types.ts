@@ -86,25 +86,25 @@ interface IRoot {
 }
 
 interface IFindingSuggestionData {
-  attackComplexity: number;
-  attackVector: number;
+  attackComplexity: string;
+  attackVector: string;
   attackVectorDescription: string;
-  availabilityImpact: number;
+  availabilityImpact: string;
   code: string;
-  confidentialityImpact: number;
+  confidentialityImpact: string;
   description: string;
-  exploitability: number;
-  integrityImpact: number;
-  privilegesRequired: number;
+  exploitability: string;
+  integrityImpact: string;
+  privilegesRequired: string;
   recommendation: string;
   minTimeToRemediate: number | null;
-  remediationLevel: number;
-  reportConfidence: number;
-  severityScope: number;
+  remediationLevel: string;
+  reportConfidence: string;
+  severityScope: string;
   threat: string;
   title: string;
   unfulfilledRequirements: string[];
-  userInteraction: number;
+  userInteraction: string;
 }
 
 interface IVulnerabilityLanguage {
@@ -142,6 +142,34 @@ interface IVulnerabilityCriteriaData {
   metadata: Record<string, unknown>;
 }
 
+interface IAddFindingFormValues {
+  attackComplexity: string;
+  attackVector: string;
+  availabilityImpact: string;
+  availabilityRequirement: string;
+  confidentialityImpact: string;
+  confidentialityRequirement: string;
+  description: string;
+  exploitability: string;
+  integrityImpact: string;
+  integrityRequirement: string;
+  modifiedAttackComplexity: string;
+  modifiedAttackVector: string;
+  modifiedAvailabilityImpact: string;
+  modifiedConfidentialityImpact: string;
+  modifiedIntegrityImpact: string;
+  modifiedPrivilegesRequired: string;
+  modifiedSeverityScope: string;
+  modifiedUserInteraction: string;
+  privilegesRequired: string;
+  remediationLevel: string;
+  reportConfidence: string;
+  severityScope: string;
+  threat: string;
+  title: string;
+  userInteraction: string;
+}
+
 interface IAddFindingMutationResult {
   addFinding: {
     success: boolean;
@@ -149,6 +177,7 @@ interface IAddFindingMutationResult {
 }
 
 export type {
+  IAddFindingFormValues,
   IAddFindingMutationResult,
   IRoot,
   IGroupFindingsAttr,

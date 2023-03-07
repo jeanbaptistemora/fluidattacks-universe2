@@ -376,51 +376,57 @@ async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
     );
     const attackVector =
       attackVectorRaw in ATTACK_VECTOR_OPTIONS
-        ? ATTACK_VECTOR_OPTIONS[attackVectorRaw]
-        : 0;
+        ? ATTACK_VECTOR_OPTIONS[attackVectorRaw].toString()
+        : "";
     const attackComplexityRaw = validateNotEmpty(
       vulnsData[key].score.base.attack_complexity
     );
     const attackComplexity =
       attackComplexityRaw in ATTACK_COMPLEXITY_OPTIONS
-        ? ATTACK_COMPLEXITY_OPTIONS[attackComplexityRaw]
-        : 0;
+        ? ATTACK_COMPLEXITY_OPTIONS[attackComplexityRaw].toString()
+        : "";
     const availabilityRaw = validateNotEmpty(
       vulnsData[key].score.base.availability
     );
     const availabilityImpact =
       availabilityRaw in AVAILABILITY_IMPACT_OPTIONS
-        ? AVAILABILITY_IMPACT_OPTIONS[availabilityRaw]
-        : 0;
+        ? AVAILABILITY_IMPACT_OPTIONS[availabilityRaw].toString()
+        : "";
     const confidentialityRaw = validateNotEmpty(
       vulnsData[key].score.base.confidentiality
     );
     const confidentialityImpact =
       confidentialityRaw in CONFIDENTIAL_IMPACT_OPTIONS
-        ? CONFIDENTIAL_IMPACT_OPTIONS[confidentialityRaw]
-        : 0;
+        ? CONFIDENTIAL_IMPACT_OPTIONS[confidentialityRaw].toString()
+        : "";
     const exploitabilityRaw = validateNotEmpty(
       vulnsData[key].score.temporal.exploit_code_maturity
     );
     const exploitability =
       exploitabilityRaw in EXPLOTABILITY_OPTIONS
-        ? EXPLOTABILITY_OPTIONS[exploitabilityRaw]
-        : 0;
+        ? EXPLOTABILITY_OPTIONS[exploitabilityRaw].toString()
+        : "";
     const integrityRaw = validateNotEmpty(vulnsData[key].score.base.integrity);
     const integrityImpact =
       integrityRaw in INTEGRITY_IMPACT_OPTIONS
-        ? INTEGRITY_IMPACT_OPTIONS[integrityRaw]
-        : 0;
+        ? INTEGRITY_IMPACT_OPTIONS[integrityRaw].toString()
+        : "";
     const scopeRaw = validateNotEmpty(vulnsData[key].score.base.scope);
     const severityScope =
-      scopeRaw in SEVERITY_SCOPE_OPTIONS ? SEVERITY_SCOPE_OPTIONS[scopeRaw] : 0;
+      scopeRaw in SEVERITY_SCOPE_OPTIONS
+        ? SEVERITY_SCOPE_OPTIONS[scopeRaw].toString()
+        : "";
     const privilegesRequiredRaw = validateNotEmpty(
       vulnsData[key].score.base.privileges_required
     );
     const privilegesRequired =
+      !_.isUndefined(severityScope) &&
       privilegesRequiredRaw in PRIVILEGES_REQUIRED_SCOPE
-        ? getPrivilegesRequired(severityScope, privilegesRequiredRaw)
-        : 0;
+        ? getPrivilegesRequired(
+            parseFloat(severityScope),
+            privilegesRequiredRaw
+          ).toString()
+        : "";
     const minTimeToRemediateRaw = validateNotEmpty(
       vulnsData[key].remediation_time
     );
@@ -432,22 +438,22 @@ async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
     );
     const remediationLevel =
       remediationLevelRaw in REMEDIATION_LEVEL_OPTIONS
-        ? REMEDIATION_LEVEL_OPTIONS[remediationLevelRaw]
-        : 0;
+        ? REMEDIATION_LEVEL_OPTIONS[remediationLevelRaw].toString()
+        : "";
     const reportConfidenceRaw = validateNotEmpty(
       vulnsData[key].score.temporal.report_confidence
     );
     const reportConfidence =
       reportConfidenceRaw in REPORT_CONFIDENCE_OPTIONS
-        ? REPORT_CONFIDENCE_OPTIONS[reportConfidenceRaw]
-        : 0;
+        ? REPORT_CONFIDENCE_OPTIONS[reportConfidenceRaw].toString()
+        : "";
     const userInteractionRaw = validateNotEmpty(
       vulnsData[key].score.base.user_interaction
     );
     const userInteraction =
       userInteractionRaw in USER_INTERACTIONS_OPTIONS
-        ? USER_INTERACTIONS_OPTIONS[userInteractionRaw]
-        : 0;
+        ? USER_INTERACTIONS_OPTIONS[userInteractionRaw].toString()
+        : "";
     const { requirements } = vulnsData[key];
 
     return {
@@ -475,6 +481,18 @@ async function getFindingSuggestions(): Promise<IFindingSuggestionData[]> {
 }
 
 export {
+  ATTACK_COMPLEXITY_OPTIONS,
+  ATTACK_VECTOR_OPTIONS,
+  AVAILABILITY_IMPACT_OPTIONS,
+  CONFIDENTIAL_IMPACT_OPTIONS,
+  EXPLOTABILITY_OPTIONS,
+  INTEGRITY_IMPACT_OPTIONS,
+  SEVERITY_SCOPE_OPTIONS,
+  PRIVILEGES_REQUIRED_SCOPE,
+  PRIVILEGES_REQUIRED_NO_SCOPE,
+  REMEDIATION_LEVEL_OPTIONS,
+  REPORT_CONFIDENCE_OPTIONS,
+  USER_INTERACTIONS_OPTIONS,
   filterAssigned,
   formatFindings,
   formatState,

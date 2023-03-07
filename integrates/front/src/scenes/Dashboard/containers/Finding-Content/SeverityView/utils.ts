@@ -153,6 +153,24 @@ const userInteractionOptions: Record<string, string> = {
   0.85: "searchFindings.tabSeverity.userInteraction.options.none.label",
 };
 
+const confidentialityRequirement: Record<string, string> = {
+  0.5: "searchFindings.tabSeverity.confidentialityRequirement.options.low.label",
+  1: "searchFindings.tabSeverity.confidentialityRequirement.options.medium.label",
+  1.5: "searchFindings.tabSeverity.confidentialityRequirement.options.high.label",
+};
+
+const integrityRequirement: Record<string, string> = {
+  0.5: "searchFindings.tabSeverity.integrityRequirement.options.low.label",
+  1: "searchFindings.tabSeverity.integrityRequirement.options.medium.label",
+  1.5: "searchFindings.tabSeverity.integrityRequirement.options.high.label",
+};
+
+const availabilityRequirement: Record<string, string> = {
+  0.5: "searchFindings.tabSeverity.availabilityRequirement.options.low.label",
+  1: "searchFindings.tabSeverity.availabilityRequirement.options.medium.label",
+  1.5: "searchFindings.tabSeverity.availabilityRequirement.options.high.label",
+};
+
 /**
  * Values were taken from:
  * @see https://www.first.org/cvss/specification-document#7-4-Metric-Values
@@ -236,24 +254,6 @@ const castFieldsCVSS3: (
       title: translate.t("searchFindings.tabSeverity.privilegesRequired.label"),
     },
   ];
-
-  const confidentialityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.confidentialityRequirement.options.low.label",
-    1: "searchFindings.tabSeverity.confidentialityRequirement.options.medium.label",
-    1.5: "searchFindings.tabSeverity.confidentialityRequirement.options.high.label",
-  };
-
-  const integrityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.integrityRequirement.options.low.label",
-    1: "searchFindings.tabSeverity.integrityRequirement.options.medium.label",
-    1.5: "searchFindings.tabSeverity.integrityRequirement.options.high.label",
-  };
-
-  const availabilityRequirement: Record<string, string> = {
-    0.5: "searchFindings.tabSeverity.availabilityRequirement.options.low.label",
-    1: "searchFindings.tabSeverity.availabilityRequirement.options.medium.label",
-    1.5: "searchFindings.tabSeverity.availabilityRequirement.options.high.label",
-  };
 
   const environmentFields: ISeverityField[] = [
     {
@@ -353,14 +353,17 @@ export {
   attackVectorOptions,
   availabilityImpactBgColor,
   availabilityImpactOptions,
+  availabilityRequirement,
   castFieldsCVSS3,
   castPrivileges,
   confidentialityImpactBgColor,
   confidentialityImpactOptions,
   exploitabilityBgColor,
+  confidentialityRequirement,
   exploitabilityOptions,
   integrityImpactBgColor,
   integrityImpactOptions,
+  integrityRequirement,
   privilegesRequiredBgColor,
   remediationLevelBgColor,
   remediationLevelOptions,
