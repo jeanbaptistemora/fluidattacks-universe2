@@ -1,3 +1,6 @@
+from lib_root.f407.cloudformation import (
+    cfn_aws_ebs_volumes_unencrypted,
+)
 from lib_root.f407.terraform import (
     tfm_aws_ebs_volumes_unencrypted,
 )
@@ -7,4 +10,7 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F407
-QUERIES: graph_model.Queries = ((FINDING, tfm_aws_ebs_volumes_unencrypted),)
+QUERIES: graph_model.Queries = (
+    (FINDING, cfn_aws_ebs_volumes_unencrypted),
+    (FINDING, tfm_aws_ebs_volumes_unencrypted),
+)

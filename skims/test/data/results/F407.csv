@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,13,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
+F407,lines,namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml,13,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
    3 |   myLaunchConfig:
    4 |     Type: AWS::AutoScaling::LaunchConfiguration
    5 |     Properties:
@@ -23,7 +23,7 @@ F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypt
   23 |             VolumeSize: 100
      ^ Col 0
 ",cloudformation.cfn_aws_ebs_volumes_unencrypted
-F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,25,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
+F407,lines,namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml,25,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml,"
    5 |     Properties:
    6 |       ImageId: !Ref LatestAmiId
    7 |       SecurityGroups:
@@ -47,7 +47,7 @@ F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypt
 > 25 |             Encrypted: false
      ^ Col 0
 ",cloudformation.cfn_aws_ebs_volumes_unencrypted
-F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,20,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
+F407,lines,namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,20,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
   10 |           {
   11 |             ""Ref"": ""myEC2SecurityGroup""
   12 |           }
@@ -71,7 +71,7 @@ F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypt
   30 |               ""Encrypted"": true
      ^ Col 0
 ",cloudformation.cfn_aws_ebs_volumes_unencrypted
-F407,lines,namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,38,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_path/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
+F407,lines,namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,38,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property BlockDeviceMappings.Ebs.Encrypted should be enabled in namespace/skims/test/data/lib_root/f407/cfn_aws_ebs_volumes_unencrypted.yaml.json,"
   25 |           {
   26 |             ""DeviceName"": ""/dev/sdm"",
   27 |             ""Ebs"": {
