@@ -73,8 +73,9 @@ resource "aws_redshift_cluster" "main" {
   encrypted            = true
   enhanced_vpc_routing = true
 
-  cluster_subnet_group_name = aws_redshift_subnet_group.main.name
-  vpc_security_group_ids    = [aws_security_group.expose-redshift.id]
+  cluster_parameter_group_name = aws_redshift_parameter_group.main.name
+  cluster_subnet_group_name    = aws_redshift_subnet_group.main.name
+  vpc_security_group_ids       = [aws_security_group.expose-redshift.id]
 
   preferred_maintenance_window        = "sun:04:00-sun:05:00"
   automated_snapshot_retention_period = 7
