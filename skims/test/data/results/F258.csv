@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,20,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,20,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   10 |           Value: true
   11 |         - Key: access_logs.s3.bucket
   12 |           Value: bk
@@ -23,7 +23,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   30 |           Value: bk
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,33,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,33,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   15 |     Properties:
   16 |       Name: test-Application-Load-Balancer
   17 |       IpAddressType: String
@@ -47,7 +47,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   35 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml,"
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml,"
   15 |     Properties:
   16 |       Name: test-Application-Load-Balancer
   17 |       IpAddressType: String
@@ -71,7 +71,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   35 |       IpAddressType: String
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,28,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   18 |       }
   19 |     },
   20 |     ""LoadBalancer2"": {
@@ -95,31 +95,31 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
-  32 |         ""Value"": ""bk""
-  33 |       }
-  34 |     ]
-  35 |   }
-  36 | },
-  37 | ""LoadBalancer3"": {
-  38 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
-  39 |   ""Properties"": {
-  40 |     ""Name"": ""test-Application-Load-Balancer"",
-  41 |     ""IpAddressType"": ""String"",
-> 42 |     ""LoadBalancerAttributes"": [
-  43 |       {
-  44 |         ""Key"": ""access_logs.s3.bucket"",
-  45 |         ""Value"": ""bk""
-  46 |       }
-  47 |     ]
-  48 |   }
-  49 | },
-  50 | ""LoadBalancer4"": {
-  51 |   ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
-  52 |   ""Properties"": {
-     ^ Col 4
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,42,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+  32 |             ""Value"": ""bk""
+  33 |           }
+  34 |         ]
+  35 |       }
+  36 |     },
+  37 |     ""LoadBalancer3"": {
+  38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  39 |       ""Properties"": {
+  40 |         ""Name"": ""test-Application-Load-Balancer"",
+  41 |         ""IpAddressType"": ""String"",
+> 42 |         ""LoadBalancerAttributes"": [
+  43 |           {
+  44 |             ""Key"": ""access_logs.s3.bucket"",
+  45 |             ""Value"": ""bk""
+  46 |           }
+  47 |         ]
+  48 |       }
+  49 |     },
+  50 |     ""LoadBalancer4"": {
+  51 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
+  52 |       ""Properties"": {
+     ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
+F258,lines,namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,52,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/cfn_elb2_has_not_deletion_protection.yaml.json,"
   38 |       ""Type"": ""AWS::ElasticLoadBalancingV2::LoadBalancer"",
   39 |       ""Properties"": {
   40 |         ""Name"": ""test-Application-Load-Balancer"",
