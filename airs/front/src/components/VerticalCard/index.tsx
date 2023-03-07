@@ -1,10 +1,10 @@
-import dayjs from "dayjs";
 import { decode } from "he";
 import React from "react";
 
 import { CardFooter, Separator } from "./styledComponents";
 import type { IVerticalCard } from "./types";
 
+import { useBlogsDate } from "../../utils/hooks/useSafeDate";
 import { AirsLink } from "../AirsLink";
 import { Button } from "../Button";
 import { CloudImage } from "../CloudImage";
@@ -35,7 +35,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   widthMd,
   widthSm,
 }): JSX.Element => {
-  const fDate = dayjs(new Date(date)).format("MMMM D, YYYY");
+  const fDate = useBlogsDate(date);
 
   if (author && date && subtitle) {
     return (
