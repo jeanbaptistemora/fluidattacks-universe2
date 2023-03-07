@@ -23,7 +23,7 @@ from virtualenv import (
 
 
 def create_venv_install_requirements(filename: str) -> str:
-    with suppress(FileNotFoundError):
+    with suppress(FileNotFoundError, RuntimeError):
         cli_run(["venv"])
         subprocess.call(  # nosec
             ["python", "venv/bin/activate_this.py"], shell=False
@@ -60,13 +60,15 @@ def _get_name(dependencies: requirements.requirement.Requirement) -> str:
 def pip_incomplete_dependencies_list(
     content: str, path: str
 ) -> Vulnerabilities:
-    build_requirements_path = (
-        create_venv_install_requirements(path) + "/requirements_2.txt"
-    )
-    get_requirements = get_file_content_block(build_requirements_path)
-    subprocess.call(  # nosec
-        ["rm", "-rf", build_requirements_path], shell=False
-    )
+    get_requirements = ""
+    with suppress(FileNotFoundError):
+        build_requirements_path = (
+            create_venv_install_requirements(path) + "/requirements_2.txt"
+        )
+        get_requirements = get_file_content_block(build_requirements_path)
+        subprocess.call(  # nosec
+            ["rm", "-rf", build_requirements_path], shell=False
+        )
 
     def iterator() -> Iterator[str]:
         dependencies_names = list(

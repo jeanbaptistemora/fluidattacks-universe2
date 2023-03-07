@@ -1,5 +1,5 @@
 from lib_root.f428.conf_files import (
-    unapropiated_comment as json_unapropiated_comment,
+    json_invalid_file,
 )
 from model import (
     core_model,
@@ -7,4 +7,4 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F428
-QUERIES: graph_model.Queries = ((FINDING, json_unapropiated_comment),)
+QUERIES: graph_model.Queries = ((FINDING, json_invalid_file),)

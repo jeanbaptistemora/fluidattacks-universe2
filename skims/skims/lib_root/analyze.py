@@ -113,7 +113,6 @@ from lib_root import (
     f414,
     f416,
     f423,
-    f428,
 )
 from lib_sast.types import (
     Paths,
@@ -232,7 +231,6 @@ QUERIES: graph_model.Queries = (
     *f414.QUERIES,
     *f416.QUERIES,
     *f423.QUERIES,
-    *f428.QUERIES,
 )
 
 

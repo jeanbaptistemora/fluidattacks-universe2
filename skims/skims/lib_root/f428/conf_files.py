@@ -18,7 +18,7 @@ from utils import (
 )
 
 
-def unapropiated_comment(
+def json_invalid_file(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_INAPPROPRIATE_ELEMENTS
