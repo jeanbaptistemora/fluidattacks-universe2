@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,37,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,37,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   27 |       DBParameterGroupName:
   28 |         Ref: RDSDBParameterGroup
   29 |       DBSubnetGroupName:
@@ -23,7 +23,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   47 |       StorageEncrypted: false
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,51,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,51,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   41 |         Ref: DBSubnetGroup
   42 |       Engine: aurora
   43 |       MasterUserPassword:
@@ -47,53 +47,53 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   61 |       DBSubnetGroupName:
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,50,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
-   40 |        ""Ref"": ""DBSubnetGroup""
-   41 |      },
-   42 |      ""Engine"": ""aurora"",
-   43 |      ""PubliclyAccessible"": ""true"",
-   44 |      ""StorageEncrypted"": true
-   45 |    },
-   46 |    ""Type"": ""AWS::RDS::DBInstance""
-   47 |  },
-   48 |  ""RDSCluster2"": {
-   49 |    ""Properties"": {
->  50 |      ""BackupRetentionPeriod"": 0,
-   51 |      ""DBClusterParameterGroupName"": {
-   52 |        ""Ref"": ""RDSDBClusterParameterGroup""
-   53 |      },
-   54 |      ""DBSubnetGroupName"": {
-   55 |        ""Ref"": ""DBSubnetGroup""
-   56 |      },
-   57 |      ""Engine"": ""aurora"",
-   58 |      ""MasterUserPassword"": {
-   59 |        ""Ref"": ""password""
-   60 |      },
-      ^ Col 3
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,50,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   40 |           ""Ref"": ""DBSubnetGroup""
+   41 |         },
+   42 |         ""Engine"": ""aurora"",
+   43 |         ""PubliclyAccessible"": ""true"",
+   44 |         ""StorageEncrypted"": true
+   45 |       },
+   46 |       ""Type"": ""AWS::RDS::DBInstance""
+   47 |     },
+   48 |     ""RDSCluster2"": {
+   49 |       ""Properties"": {
+>  50 |         ""BackupRetentionPeriod"": 0,
+   51 |         ""DBClusterParameterGroupName"": {
+   52 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   53 |         },
+   54 |         ""DBSubnetGroupName"": {
+   55 |           ""Ref"": ""DBSubnetGroup""
+   56 |         },
+   57 |         ""Engine"": ""aurora"",
+   58 |         ""MasterUserPassword"": {
+   59 |           ""Ref"": ""password""
+   60 |         },
+      ^ Col 0
 ",cloudformation.cfn_rds_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,70,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
-   60 |      },
-   61 |      ""MasterUsername"": {
-   62 |        ""Ref"": ""username""
-   63 |      },
-   64 |      ""StorageEncrypted"": false
-   65 |    },
-   66 |    ""Type"": ""AWS::RDS::DBCluster""
-   67 |  },
-   68 |  ""RDSDBInstance2"": {
-   69 |    ""Properties"": {
->  70 |      ""BackupRetentionPeriod"": 0,
-   71 |      ""AvailabilityZone"": {
-   72 |        ""Fn::GetAtt"": [
-   73 |          ""Subnet1"",
-   74 |          ""AvailabilityZone""
-   75 |        ]
-   76 |      },
-   77 |      ""DBClusterIdentifier"": {
-   78 |        ""Ref"": ""RDSCluster""
-   79 |      },
-   80 |      ""DBInstanceClass"": ""db.r3.xlarge"",
-      ^ Col 3
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,70,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+   60 |         },
+   61 |         ""MasterUsername"": {
+   62 |           ""Ref"": ""username""
+   63 |         },
+   64 |         ""StorageEncrypted"": false
+   65 |       },
+   66 |       ""Type"": ""AWS::RDS::DBCluster""
+   67 |     },
+   68 |     ""RDSDBInstance2"": {
+   69 |       ""Properties"": {
+>  70 |         ""BackupRetentionPeriod"": 0,
+   71 |         ""AvailabilityZone"": {
+   72 |           ""Fn::GetAtt"": [
+   73 |             ""Subnet1"",
+   74 |             ""AvailabilityZone""
+   75 |           ]
+   76 |         },
+   77 |         ""DBClusterIdentifier"": {
+   78 |           ""Ref"": ""RDSCluster""
+   79 |         },
+   80 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
 ",cloudformation.cfn_rds_has_not_automated_backups
 F256,lines,namespace/skims/test/data/lib_root/f256/db_no_backup_test.tf,10,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/db_no_backup_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
@@ -132,7 +132,7 @@ F256,inputs,arn:aws:iam::123456789012:db/mydb (namespace),/BackupRetentionPeriod
   6 | }
     ^ Col 0
 ",aws.rds_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,36,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,36,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   26 |       DBInstanceClass: db.r3.xlarge
   27 |       DBParameterGroupName:
   28 |         Ref: RDSDBParameterGroup
@@ -156,7 +156,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   46 |         Ref: username
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,68,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,68,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   58 |       DBInstanceClass: db.r3.xlarge
   59 |       DBParameterGroupName:
   60 |         Ref: RDSDBParameterGroup
@@ -180,7 +180,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   78 |     Type: AWS::RDS::DBCluster
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
    1 | ---
    2 | Resources:
    3 |   RDSCluster1:
@@ -204,7 +204,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   21 |         Fn::GetAtt:
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,18,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,18,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
    8 |       DBSubnetGroupName:
    9 |         Ref: DBSubnetGroup
   10 |       Engine: aurora
@@ -228,7 +228,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   28 |         Ref: RDSDBParameterGroup
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,50,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,50,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   40 |       DBSubnetGroupName:
   41 |         Ref: DBSubnetGroup
   42 |       Engine: aurora
@@ -252,7 +252,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   60 |         Ref: RDSDBParameterGroup
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,80,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,80,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml,"
   70 |         Ref: RDSDBClusterParameterGroup
   71 |       DBSubnetGroupName:
   72 |         Ref: DBSubnetGroup
@@ -276,7 +276,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   90 |       DBSubnetGroupName:
      ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,4,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
     1 | {
     2 |   ""Resources"": {
     3 |     ""RDSCluster1"": {
@@ -300,7 +300,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    21 |       ""Type"": ""AWS::RDS::DBCluster""
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,24,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,24,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    14 |           ""Ref"": ""password""
    15 |         },
    16 |         ""MasterUsername"": {
@@ -324,7 +324,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    34 |         },
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,49,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,49,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    39 |         ""DBSubnetGroupName"": {
    40 |           ""Ref"": ""DBSubnetGroup""
    41 |         },
@@ -348,7 +348,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    59 |           ""Ref"": ""password""
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,69,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,69,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    59 |           ""Ref"": ""password""
    60 |         },
    61 |         ""MasterUsername"": {
@@ -372,7 +372,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    79 |         },
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,94,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
    84 |         ""DBSubnetGroupName"": {
    85 |           ""Ref"": ""DBSubnetGroup""
    86 |         },
@@ -396,7 +396,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
   104 |         },
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_backups.yaml.json,"
+F256,lines,namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,112,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/cfn_rds_has_not_automated_backups.yaml.json,"
   102 |         ""MasterUserPassword"": {
   103 |           ""Ref"": ""password""
   104 |         },

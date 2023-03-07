@@ -4714,7 +4714,7 @@ class MethodsEnum(Enum):
     CFN_RDS_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="cloudformation",
         name="cfn_rds_has_not_automated_backups",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
