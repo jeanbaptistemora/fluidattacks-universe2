@@ -60,9 +60,12 @@ def get_conan_requires(attr: ast.Assign) -> Iterator[DependencyType]:
         if isinstance(requires, ast.Constant):
             yield format_conan_dep_info(requires)
         elif hasattr(requires, "elts"):
-            yield from (
-                format_conan_dep_info(dep_info) for dep_info in requires.elts
-            )
+            for dep_info in requires.elts:
+                if isinstance(dep_info, ast.Constant):
+                    print(dep_info.value)
+                    yield format_conan_dep_info(dep_info)
+                elif hasattr(dep_info, "elts"):
+                    yield format_conan_dep_info(dep_info.elts[0])
 
 
 def get_conan_self_requires(
