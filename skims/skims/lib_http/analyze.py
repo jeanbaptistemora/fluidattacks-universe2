@@ -110,6 +110,17 @@ async def get_url(
     *,
     ntp_offset: float | None,
 ) -> URLContext | None:
+    # Urls for common attached file extensions should be excluded from analysis
+    ignored_ext = (
+        "css",
+        "js",
+        "jpg",
+        "jpeg",
+        "png",
+    )
+    if url.endswith(ignored_ext):
+        return None
+
     async with create_session() as session:  # type: ignore
         if response := await request(session, "GET", url):
             redirect_url = str(response.url)  # Update with the redirected URL

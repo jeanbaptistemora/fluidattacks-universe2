@@ -205,9 +205,7 @@ def dump_to_yaml(config: core_model.SkimsConfig) -> str:
                         for ssl in config.dast.ssl.include
                     ],
                 },
-                "urls": {
-                    "include": list(config.dast.urls),
-                },
+                "urls": list(config.dast.urls),
                 "http_checks": config.dast.http_checks,
                 "ssl_checks": config.dast.ssl_checks,
             }

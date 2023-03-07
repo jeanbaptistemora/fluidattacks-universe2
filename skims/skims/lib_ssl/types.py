@@ -118,6 +118,7 @@ class SSLContext(NamedTuple):
     host: str = "localhost"
     port: int = 443
     tls_responses: tuple[SSLServerResponse, ...] = ()
+    original_url: str | None = None
 
     def get_tls_response(self, v_id: SSLVersionId) -> SSLServerResponse | None:
         for tls_response in self.tls_responses:
@@ -136,6 +137,8 @@ class SSLContext(NamedTuple):
         )
 
     def __str__(self) -> str:
+        if self.original_url:
+            return self.original_url
         return f"{self.host}:{self.port}"
 
 

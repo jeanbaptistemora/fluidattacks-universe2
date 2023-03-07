@@ -70,8 +70,8 @@ async def analyze_one(
                         stores[vulnerability.finding].store(vulnerability)
 
 
-def _get_ssl_targets(urls: set[str]) -> set[tuple[str, int]]:
-    targets: set[tuple[str, int]] = set()
+def _get_ssl_targets(urls: set[str]) -> set[tuple[str, int, str]]:
+    targets: set[tuple[str, int, str]] = set()
     default_port = 443
     for url in urls:
         with suppress(ValueError, exceptions.HTTPError):
@@ -80,14 +80,18 @@ def _get_ssl_targets(urls: set[str]) -> set[tuple[str, int]]:
                 continue
 
             if parsed_url.port is None:
-                targets.add((parsed_url.host, default_port))
+                targets.add((parsed_url.host, default_port, url))
             else:
-                targets.add((parsed_url.host, parsed_url.port))
+                targets.add((parsed_url.host, parsed_url.port, url))
 
     return targets
 
 
-def _get_ssl_context(host: str, port: int) -> SSLContext:
+def _get_ssl_context(
+    host: str,
+    port: int,
+    url: str | None,
+) -> SSLContext:
     responses: list[SSLServerResponse] = []
     for v_id in SSLVersionId:
         with suppress(Exception):
@@ -103,6 +107,7 @@ def _get_ssl_context(host: str, port: int) -> SSLContext:
     return SSLContext(
         host=host,
         port=port,
+        original_url=url,
         tls_responses=tuple(responses),
     )
 
@@ -110,11 +115,11 @@ def _get_ssl_context(host: str, port: int) -> SSLContext:
 async def get_ssl_contexts() -> set[SSLContext]:
     ssl_contexts: set[SSLContext] = set()
     for target in CTX.config.dast.ssl.include:
-        ssl_contexts.add(_get_ssl_context(target.host, target.port))
+        ssl_contexts.add(_get_ssl_context(target.host, target.port, None))
 
     if CTX.config.dast.ssl_checks:
-        for host, port in _get_ssl_targets(set(CTX.config.dast.urls)):
-            ssl_contexts.add(_get_ssl_context(host, port))
+        for host, port, url in _get_ssl_targets(set(CTX.config.dast.urls)):
+            ssl_contexts.add(_get_ssl_context(host, port, url))
 
     return ssl_contexts
 
