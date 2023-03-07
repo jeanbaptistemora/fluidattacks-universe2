@@ -4770,7 +4770,7 @@ class MethodsEnum(Enum):
     CFN_EC2_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_not_termination_protection",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F257,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

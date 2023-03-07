@@ -32,7 +32,7 @@ def _has_not_termination_protection(graph: Graph, nid: NId) -> NId | None:
     return None
 
 
-def ec2_has_not_termination_protection(
+def tfm_ec2_has_not_termination_protection(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.EC2_NOT_TERMINATION_PROTEC
