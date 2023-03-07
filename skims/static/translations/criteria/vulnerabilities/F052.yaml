@@ -47,3 +47,6 @@ lib_root.f052.insec_message_auth_mechanism:
     brute force attacks.
   es: El uso de mecanismos de autenticación de mensajes vulnerables
     abre la posibilidad a ataques de fuerza bruta.
+lib_root.f052.init_vector_is_hcoded:
+  en: Initialization vector is using a static value.
+  es: Vector de inicializacion essta usando un valor estatico.

@@ -329,7 +329,7 @@ def kotlin_insecure_init_vector(
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f052.insecure_key.description",
+        desc_key="lib_root.f052.init_vector_is_hcoded",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

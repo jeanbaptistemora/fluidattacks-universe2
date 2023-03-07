@@ -11,6 +11,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypt
   9 | }
     ^ Col 0
 ",c_sharp.c_sharp_disabled_strong_crypto
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_counter_mode.kt,10,310,skims,052. Insecure encryption algorithm,Initialization vector is using a static value. in namespace/skims/test/data/lib_root/f052/kotlin_insecure_counter_mode.kt,"
+   1 | import java.security.SecureRandom
+   2 | import javax.crypto.Cipher
+   3 | import javax.crypto.spec.GCMParameterSpec
+   4 | import javax.crypto.spec.SecretKeySpec
+   5 |
+   6 |
+   7 | fun encrypt(key: ByteArray, ptxt: ByteArray) {
+   8 |     val nonce: ByteArray = ""7cVgr5cbdCZV"".toByteArray() // The initialization vector is a static value
+   9 |
+> 10 |     val gcmSpec  = GCMParameterSpec(128, nonce) // The initialization vector is configured here
+  11 |     val skeySpec = SecretKeySpec(key, ""AES"")
+  12 |
+  13 |     val cipher: Cipher = Cipher.getInstance(""AES/GCM/NoPadding"")
+  14 |     cipher.init(Cipher.ENCRYPT_MODE, skeySpec, gcmSpec) // Noncompliant
+  15 | }
+  16 |
+  17 |
+  18 | fun encrypt(key: ByteArray, ptxt: ByteArray) {
+  19 |         val random: SecureRandom = SecureRandom()
+  20 |         val nonce: ByteArray     = ByteArray(12)
+  21 |         random.nextBytes(nonce) // Random 96 bit IV
+     ^ Col 0
+",kotlin.kt_insecure_init_vector
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,10,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,"
     1 | async function first_test() {
     2 |   const jose = require(""jose"");

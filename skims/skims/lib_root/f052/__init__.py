@@ -41,6 +41,7 @@ from lib_root.f052.kotlin import (
     kotlin_insecure_cipher_ssl,
     kotlin_insecure_hash,
     kotlin_insecure_hash_instance,
+    kotlin_insecure_init_vector,
     kotlin_insecure_key_ec,
     kotlin_insecure_key_rsa,
 )
@@ -107,6 +108,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, kotlin_insecure_hash_instance),
     (FINDING, kotlin_insecure_key_ec),
     (FINDING, kotlin_insecure_key_rsa),
+    (FINDING, kotlin_insecure_init_vector),
     (FINDING, python_insecure_cipher),
     (FINDING, swift_insecure_cipher),
     (FINDING, swift_insecure_crypto),
