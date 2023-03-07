@@ -19,9 +19,13 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.roots.types import (
+    GitRoot,
+    Root,
+)
 from db_model.toe_lines.types import (
-    GroupToeLinesRequest,
-    ToeLinesConnection,
+    RootToeLinesRequest,
+    ToeLines,
 )
 import logging
 import logging.config
@@ -85,35 +89,49 @@ async def get_group_toe_lines_report_url(
             "loc",
             "rootId",
             "rootNickname",
+            "modifiedDate",
         ]
     ]
-    group_toe_lines: ToeLinesConnection = await loaders.group_toe_lines.load(
-        GroupToeLinesRequest(group_name=group_name)
-    )
-    group_roots = await loaders.group_roots.load(group_name)
+    group_roots: list[Root] = await loaders.group_roots.load(group_name)
     root_nickname_by_id: defaultdict[str, str] = defaultdict(str)
 
     for root in group_roots:
         root_nickname_by_id[root.id.lower()] = root.state.nickname
 
-    for toe_line in group_toe_lines.edges:
+    roots_toe_lines = await loaders.root_toe_lines.load_many(
+        [
+            RootToeLinesRequest(group_name=group_name, root_id=root.id)
+            for root in group_roots
+            if isinstance(root, GitRoot)
+        ]
+    )
+
+    group_toe_lines: list[ToeLines] = [
+        edge.node
+        for connection in roots_toe_lines
+        for edge in connection.edges
+    ]
+
+    for toe_line in group_toe_lines:
         rows.append(
             [
-                str(toe_line.node.state.be_present),
-                _get_valid_field(toe_line.node.filename),
-                str(toe_line.node.state.has_vulnerabilities),
-                _get_valid_field(toe_line.node.state.last_author),
-                _get_valid_field(toe_line.node.state.last_commit),
-                str(toe_line.node.state.loc),
-                toe_line.node.root_id,
+                str(toe_line.state.be_present),
+                _get_valid_field(toe_line.filename),
+                str(toe_line.state.has_vulnerabilities),
+                _get_valid_field(toe_line.state.last_author),
+                _get_valid_field(toe_line.state.last_commit),
+                str(toe_line.state.loc),
+                toe_line.root_id,
                 _get_valid_field(
-                    root_nickname_by_id[toe_line.node.root_id.lower()]
+                    root_nickname_by_id[toe_line.root_id.lower()]
                 ),
+                str(toe_line.state.last_commit_date),
             ]
         )
 
     date: str = get_as_str(get_now(), date_format="%Y-%m-%dT%H-%M-%S")
     csv_filename = f"{group_name}-{date}.csv"
+
     with tempfile.TemporaryDirectory() as directory:
         with open(
             os.path.join(directory, csv_filename),
