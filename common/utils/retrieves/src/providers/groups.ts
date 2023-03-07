@@ -34,8 +34,10 @@ class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
   }
 
   public getChildren(element?: GroupTreeItem): Thenable<TreeItems> {
-    if (element) {
+    if (element && element.contextValue === "group") {
       return Promise.resolve(getGitRoots(element.label));
+    } else if (element) {
+      return Promise.resolve([]);
     }
 
     return Promise.resolve(this.getGroupsItems());

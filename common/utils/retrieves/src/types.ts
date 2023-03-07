@@ -31,6 +31,7 @@ interface IToeLineNode {
   comments: string;
   modifiedDate: string;
   loc: number;
+  fileExists?: boolean;
 }
 interface IEdge {
   node: IToeLineNode;

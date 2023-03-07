@@ -19,7 +19,8 @@ const ToeLinesRow: React.FC<IToeLinesRowProps> = ({
   rootId,
   groupName,
 }: IToeLinesRowProps): JSX.Element => {
-  const { filename, attackedLines, loc, modifiedDate, comments } = node;
+  const { filename, attackedLines, loc, modifiedDate, comments, fileExists } =
+    node;
   const useOpenFile = useCallback(
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     (name: string) => (): void => {
@@ -52,7 +53,7 @@ const ToeLinesRow: React.FC<IToeLinesRowProps> = ({
             gridColumn={index + 1}
             key={undefined}
           >
-            {index === 0 ? (
+            {index === 0 && (fileExists ?? false) ? (
               <VSCodeLink
                 href={cell}
                 // eslint-disable-next-line line-comment-position, no-inline-comments, react-hooks/rules-of-hooks

@@ -1,3 +1,4 @@
+import { existsSync } from "fs";
 import { join } from "path";
 
 import type { MessageHandlerData } from "@estruyf/vscode";
@@ -35,7 +36,7 @@ const getToeLines = async (
   // eslint-disable-next-line fp/no-let
   let { edges } = result;
   // eslint-disable-next-line fp/no-let
-  let { hasNextPage } = result.pageInfo;
+  let { hasNextPage, endCursor } = result.pageInfo;
   // eslint-disable-next-line fp/no-loops
   while (hasNextPage) {
     // eslint-disable-next-line no-await-in-loop
@@ -43,7 +44,7 @@ const getToeLines = async (
       API_CLIENT.query({
         query: GET_TOE_LINES,
         variables: {
-          after: result.pageInfo.endCursor,
+          after: endCursor,
           first: 500,
           groupName,
           rootId,
@@ -57,6 +58,8 @@ const getToeLines = async (
     edges = [...edges, ...next.edges];
     // eslint-disable-next-line fp/no-mutation, prefer-destructuring
     hasNextPage = next.pageInfo.hasNextPage;
+    // eslint-disable-next-line fp/no-mutation, prefer-destructuring
+    endCursor = next.pageInfo.endCursor;
   }
 
   return edges;
@@ -93,7 +96,16 @@ const toeLines = (context: ExtensionContext, node: GitRootTreeItem): void => {
         case "GET_DATA_TOE_LINES": {
           void getToeLines(node.groupName, node.rootId).then((toe): void => {
             const nodes = toe.map((edge): IToeLineNode => {
-              return edge.node;
+              const rootPath = join(
+                getGroupsPath(),
+                node.groupName,
+                node.nickname
+              );
+              const uri = Uri.parse(
+                `file://${join(rootPath, edge.node.filename)}`
+              );
+
+              return { ...edge.node, fileExists: existsSync(uri.fsPath) };
             });
             void panel.webview.postMessage({
               command,
