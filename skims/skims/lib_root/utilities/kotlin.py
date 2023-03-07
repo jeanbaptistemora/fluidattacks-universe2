@@ -18,20 +18,24 @@ def check_method_origin(
     graph: Graph, import_lib: str, danger_methods: set, n_attrs: dict
 ) -> bool:
     imps = get_all_imports_exp(graph)
-    expr_id = n_attrs["expression_id"]
-    if (
-        graph.nodes[expr_id]["label_type"] == "MemberAccess"
-        and (member := graph.nodes[expr_id]["member"])
-        and member in danger_methods
-        and (expression := graph.nodes[expr_id]["expression"])
-        and expression == import_lib
-    ):
-        return True
-    if (
-        graph.nodes[expr_id]["label_type"] == "SymbolLookup"
-        and (symbol := graph.nodes[expr_id]["symbol"])
-        and symbol in danger_methods
-        and import_lib + "." + symbol in imps
-    ):
-        return True
+    for method in danger_methods:
+        method_set = method.split(".")
+        if (
+            n_attrs["expression"] == method
+            and import_lib + "." + method_set[0] in imps
+        ):
+            return True
+        if len(method_set) == 1:
+            expr_id = n_attrs["expression_id"]
+            if (
+                graph.nodes[expr_id]["label_type"] == "MemberAccess"
+                and (member := graph.nodes[expr_id]["member"])
+                and member == method
+                and (expression := graph.nodes[expr_id]["expression"])
+                and expression == import_lib
+            ):
+                return True
+        if len(method_set) == 2:
+            if n_attrs["expression"] == import_lib + "." + method:
+                return True
     return False
