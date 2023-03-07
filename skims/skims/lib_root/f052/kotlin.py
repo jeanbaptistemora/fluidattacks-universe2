@@ -334,3 +334,32 @@ def kotlin_insecure_init_vector(
         graph_shard_nodes=n_ids(),
         method=method,
     )
+
+
+def kotlin_insecure_hostname_ver(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.KT_INSECURE_HOST_VERIFICATION
+    danger_methods = {"OkHttpClient.Builder"}
+    lib = "okhttp3"
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.matching_nodes(
+                graph,
+                label_type="MethodInvocation",
+            ):
+                n_attrs = graph.nodes[n_id]
+                if check_method_origin(graph, lib, danger_methods, n_attrs):
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f052.init_vector_is_hcoded",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )

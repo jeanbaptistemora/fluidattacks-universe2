@@ -3111,6 +3111,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    KT_INSECURE_HOST_VERIFICATION = MethodInfo(
+        file_name="kotlin",
+        name="kt_insecure_host_verification",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     KT_INSECURE_KEY_EC = MethodInfo(
         file_name="kotlin",
         name="kotlin_insecure_key",
