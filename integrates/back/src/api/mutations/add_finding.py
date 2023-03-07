@@ -100,11 +100,44 @@ async def mutate(  # pylint: disable=too-many-arguments
                     availability_impact=Decimal(
                         str(kwargs["availability_impact"])
                     ),
+                    availability_requirement=Decimal(
+                        str(kwargs["availability_requirement"])
+                    ),
                     confidentiality_impact=Decimal(
                         str(kwargs["confidentiality_impact"])
                     ),
+                    confidentiality_requirement=Decimal(
+                        str(kwargs["confidentiality_requirement"])
+                    ),
                     exploitability=Decimal(str(kwargs["exploitability"])),
                     integrity_impact=Decimal(str(kwargs["integrity_impact"])),
+                    integrity_requirement=Decimal(
+                        str(kwargs["integrity_requirement"])
+                    ),
+                    modified_attack_complexity=Decimal(
+                        str(kwargs["modified_attack_complexity"])
+                    ),
+                    modified_attack_vector=Decimal(
+                        str(kwargs["modified_attack_vector"])
+                    ),
+                    modified_availability_impact=Decimal(
+                        str(kwargs["modified_availability_impact"])
+                    ),
+                    modified_confidentiality_impact=Decimal(
+                        str(kwargs["modified_confidentiality_impact"])
+                    ),
+                    modified_integrity_impact=Decimal(
+                        str(kwargs["modified_integrity_impact"])
+                    ),
+                    modified_privileges_required=Decimal(
+                        str(kwargs["modified_privileges_required"])
+                    ),
+                    modified_severity_scope=Decimal(
+                        str(kwargs["modified_severity_scope"])
+                    ),
+                    modified_user_interaction=Decimal(
+                        str(kwargs["modified_user_interaction"])
+                    ),
                     privileges_required=Decimal(
                         str(kwargs["privileges_required"])
                     ),

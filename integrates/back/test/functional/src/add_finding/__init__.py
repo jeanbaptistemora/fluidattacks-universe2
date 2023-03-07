@@ -47,12 +47,27 @@ async def get_result(
                 attackComplexity: {severity.attack_complexity}
                 attackVectorDescription: "{attack_vector_description}"
                 availabilityImpact: {severity.availability_impact}
+                availabilityRequirement: {severity.availability_requirement}
                 description: "{description}"
                 groupName: "group1"
                 confidentialityImpact: {severity.confidentiality_impact}
+                confidentialityRequirement:
+                {severity.confidentiality_requirement}
                 exploitability: {severity.exploitability}
                 integrityImpact: {severity.integrity_impact}
+                integrityRequirement: {severity.integrity_requirement}
                 minTimeToRemediate: {min_time_to_remediate}
+                modifiedAttackComplexity: {severity.modified_attack_complexity}
+                modifiedAttackVector: {severity.modified_attack_vector}
+                modifiedAvailabilityImpact:
+                {severity.modified_availability_impact}
+                modifiedConfidentialityImpact:
+                {severity.modified_confidentiality_impact}
+                modifiedIntegrityImpact: {severity.modified_integrity_impact}
+                modifiedPrivilegesRequired:
+                {severity.modified_privileges_required}
+                modifiedSeverityScope: {severity.modified_severity_scope}
+                modifiedUserInteraction: {severity.modified_user_interaction}
                 privilegesRequired: {severity.privileges_required}
                 recommendation: "{recommendation}"
                 remediationLevel: {severity.remediation_level}

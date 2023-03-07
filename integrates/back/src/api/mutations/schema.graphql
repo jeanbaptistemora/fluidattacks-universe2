@@ -154,10 +154,20 @@ type Mutation {
     """
     availabilityImpact: Float!
     """
+    Modifies the environmental score by measuring the modified availability
+    impact against the other modified impacts
+    """
+    availabilityRequirement: Float!
+    """
     Measure of the sensible/restricted information (e.g. password,
     encryption keys) the attacker could gather from the breached component
     """
     confidentialityImpact: Float!
+    """
+    Modifies the environmental score by measuring the modified
+    confidentiality impact metric against the other modified impacts
+    """
+    confidentialityRequirement: Float!
     "Brief explanation of the vulnerability and how it works"
     description: String!
     """
@@ -174,10 +184,54 @@ type Mutation {
     """
     integrityImpact: Float!
     """
+    Modifies the environmental score by measuring the modified
+    integrity impact metric against the other modified impacts.
+    """
+    integrityRequirement: Float!
+    """
     Minimum time in minutes to remediate a typical vulnerability in this
     Finding
     """
     minTimeToRemediate: Int
+    """
+    Describes the conditions beyond the attacker’s control that must exist
+    in order to exploit the vulnerability in this Finding
+    """
+    modifiedAttackComplexity: Float!
+    """
+    Reflects the context by which vulnerability exploitation is possible in
+    this Finding
+    """
+    modifiedAttackVector: Float!
+    """
+    Measures the impact to the availability of the impacted component resulting
+    from the successfully exploited vulnerability
+    """
+    modifiedAvailabilityImpact: Float!
+    """
+    Measures the impact to the confidentiality of the information resources
+    managed by a software component due to the successfully exploited
+    vulnerability
+    """
+    modifiedConfidentialityImpact: Float!
+    """
+    Measures the impact to integrity of a successfully exploited vulnerability
+    """
+    modifiedIntegrityImpact: Float!
+    """
+    Describes the level of privileges an attacker must possess before
+    successfully exploiting the vulnerability
+    """
+    modifiedPrivilegesRequired: Float!
+    """
+    If the attack impacts a component different than the vulnerable component
+    """
+    modifiedSeverityScope: Float!
+    """
+    Captures the requirement for a user, other than the attacker, to
+    participate in the successful compromise the vulnerable component
+    """
+    modifiedUserInteraction: Float!
     "Privileges required by the attacker to exploit the vulnerabilities"
     privilegesRequired: Float!
     "Recommended course of action to close the vulnerabilities"
