@@ -473,7 +473,7 @@ resource "cloudflare_record" "stripe_verify" {
 
 # CAA Records
 
-resource "cloudflare_record" "gts_caa" {
+resource "cloudflare_record" "main_gts_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -486,7 +486,7 @@ resource "cloudflare_record" "gts_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "amazon_caa" {
+resource "cloudflare_record" "main_amazon_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -499,7 +499,7 @@ resource "cloudflare_record" "amazon_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "digicert_caa" {
+resource "cloudflare_record" "main_digicert_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
@@ -512,7 +512,7 @@ resource "cloudflare_record" "digicert_caa" {
   proxied = false
 }
 
-resource "cloudflare_record" "letsencrypt_caa" {
+resource "cloudflare_record" "main_letsencrypt_caa" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = cloudflare_zone.fluidattacks_tech.zone
   type    = "CAA"
