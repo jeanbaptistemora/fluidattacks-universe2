@@ -6390,24 +6390,6 @@ owasprisks:
     P10:
       title: Collection of data not required for the user-consented purpose
       link: https://owasp.org/www-project-top-10-privacy-risks/
-    P12:
-      title: Sharing of data with third party
-      link: https://owasp.org/www-project-top-10-privacy-risks/
-    P14:
-      title: Insecure data transfer
-      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
-    P15:
-      title: Transfer or processing through third party
-      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
-    P16:
-      title: Misleading content
-      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
-    P17:
-      title: Collection without consent
-      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
-    P20:
-      title: Form field design issues
-      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
   metadata: {}
 mvsp:
   title: MVSP

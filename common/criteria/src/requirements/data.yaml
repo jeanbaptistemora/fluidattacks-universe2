@@ -127,7 +127,6 @@
     - iec62443.CR-3_1-RE_1
     - wassec.6_2_2_5
     - osstmm3.10_7_2
-    - owasprisks.P14
     - owaspscp.9
     - owaspmasvs.V4_2
   metadata: {}
@@ -427,7 +426,6 @@
     - issaf.T_19_1
     - issaf.V_10
     - ptes.5_2_3_1
-    - owasprisks.P17
     - mvsp.2_2
     - mvsp.3_3
     - owaspscp.4
@@ -535,7 +533,6 @@
     - wasc.A_37
     - wasc.W_47
     - issaf.T_19_1
-    - owasprisks.P17
     - mvsp.3_3
     - owaspscp.4
     - owaspmasvs.V4_2
@@ -5037,7 +5034,6 @@
     - issaf.T_6_4
     - issaf.Y_3_1
     - ptes.5_5_7
-    - owasprisks.P15
     - owaspmasvs.V7_6
     - cwe25.276
     - cwe25.476
@@ -5659,7 +5655,6 @@
     - wassec.6_1_2
     - wassec.6_2_3_5
     - wasc.A_09
-    - owasprisks.P20
     - mvsp.3_3
     - cwe25.352
     - swiftcsc.2_1
@@ -5947,7 +5942,6 @@
     - wasc.W_13
     - nistssdf.PS_3_1
     - ptes.7_4_4_2
-    - owasprisks.P20
     - owaspscp.8
     - asvs.8_1_2
   metadata: {}
@@ -6194,7 +6188,6 @@
     - ptes.3_6_1_3_2
     - ptes.6_7_4
     - ptes.7_4_4_2
-    - owasprisks.P14
     - owaspscp.9
     - bsafss.SM_3-2
     - bsafss.VM_3-2
@@ -6631,7 +6624,6 @@
     - lgpd.26
     - owasprisks.P4
     - owasprisks.P10
-    - owasprisks.P16
     - asvs.8_3_3
     - siglite.SL_154
     - sig.P_1_5_3
@@ -8488,8 +8480,6 @@
     - nistssdf.PW_4_4
     - ptes.4_3_4
     - ptes.5_2_3_3
-    - owasprisks.P12
-    - owasprisks.P15
     - owaspscp.10
     - owaspscp.14
     - bsafss.SM_2-1
@@ -9409,7 +9399,6 @@
     - lgpd.18_VI
     - owasprisks.P4
     - owasprisks.P10
-    - owasprisks.P17
     - siglite.SL_154
     - sig.P_3_1
   metadata: {}
@@ -9686,8 +9675,6 @@
     - lgpd.14-2
     - lgpd.18_I
     - lgpd.19
-    - owasprisks.P12
-    - owasprisks.P15
     - pci.3_3_1
     - sig.D_4_4
     - sig.P_2
@@ -9812,9 +9799,6 @@
     - owasprisks.P5
     - owasprisks.P6
     - owasprisks.P10
-    - owasprisks.P12
-    - owasprisks.P15
-    - owasprisks.P17
     - owaspmasvs.V2_4
     - asvs.8_3_4
     - pci.3_3_1
@@ -11478,8 +11462,6 @@
     - issaf.A_2_7
     - ptes.2_17_1
     - ptes.4_5_3
-    - owasprisks.P14
-    - owasprisks.P15
     - mvsp.2_8
     - owaspscp.9
     - owaspscp.14
