@@ -38,7 +38,7 @@ locals {
       aws = {
         ObservesGeneralAccess = [
           {
-            Sid    = "dynamoWrite"
+            Sid    = "terraformStateWrite"
             Effect = "Allow"
             Action = [
               "dynamodb:DeleteItem",
@@ -143,111 +143,17 @@ locals {
         ]
         ObservesRedshift = [
           {
-            # required to rename tags
-            Sid    = "redshiftTags"
-            Effect = "Allow"
-            Action = [
-              "redshift:CreateTags",
-              "redshift:DeleteTags",
-              "redshift:DescribeTags",
-            ]
-            Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:subnetgroup:observes",
-            ]
-          },
-          {
-            Sid    = "redshiftWrite"
+            Sid    = "redshiftManager"
             Effect = "Allow"
             Action = [
               "redshift:*",
-            ]
-            Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
-            ]
-          },
-          {
-            Sid    = "redshiftClustersRead"
-            Effect = "Allow"
-            Action = [
-              "redshift:DescribeClusterSubnetGroups",
-              "redshift:DescribeEvents",
-              "redshift:DescribeClusters",
-              "redshift:DescribeClusterSnapshots",
-              "redshift:DescribeUsageLimits",
-              "redshift:DescribeSnapshotSchedules",
-            ]
-            Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:subnetgroup:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:event:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:snapshot:*/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:snapshotschedule:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:usagelimit:*",
-            ]
-          },
-          {
-            # required for some redshift front views
-            Sid    = "redshiftGeneralRead"
-            Effect = "Allow"
-            Action = [
-              "redshift:DescribeReservedNodes",
-              "redshift:DescribeClusterDbRevisions",
-              "redshift:DescribeScheduledActions",
-              "redshift:DescribeHsmConfigurations",
-              "redshift:DescribePartners",
+              "redshift-data:*",
+              "redshift-serverless:*",
+              "sqlworkbench:*",
             ]
             Resource = [
               "*",
             ]
-          },
-          {
-            Sid    = "redshiftReadSecrets"
-            Effect = "Allow"
-            Action = [
-              "redshift:GetClusterCredentials",
-            ]
-            Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbname:observes/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbuser:observes/*",
-            ]
-          },
-          {
-            Sid    = "redshiftSavedQueries"
-            Effect = "Allow"
-            Action = [
-              "redshift:CreateSavedQuery",
-              "redshift:ModifySavedQuery",
-              "redshift:DeleteSavedQueries",
-              "redshift:DescribeSavedQueries",
-              "redshift:ListSavedQueries",
-            ]
-            Resource = ["*"]
-          },
-          {
-            Sid    = "redshiftExecuteSqlOnConsole"
-            Effect = "Allow"
-            Action = [
-              "redshift-data:BatchExecuteStatement",
-              "redshift-data:DescribeTable",
-              "redshift-data:ExecuteStatement",
-              "redshift-data:ListDatabases",
-              "redshift-data:ListSchemas",
-              "redshift-data:ListTables",
-            ]
-            Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
-            ]
-          },
-          {
-            Sid    = "redshiftExecuteSqlOnConsole2"
-            Effect = "Allow"
-            Action = [
-              "redshift-data:CancelStatement",
-              "redshift-data:DescribeStatement",
-              "redshift-data:GetStatementResult",
-              "redshift-data:ListStatements",
-            ]
-            Resource = ["*"]
           },
         ]
         ObservesKinesis = [
