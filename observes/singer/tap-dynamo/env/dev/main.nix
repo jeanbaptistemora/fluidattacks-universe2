@@ -12,11 +12,8 @@
   };
   env = pkg.env.dev;
 in
-  makeTemplate {
+  import (projectPath "/observes/common/auto-conf") {
+    inherit inputs makeTemplate env;
+    bins = [];
     name = "observes-singer-tap-dynamo-env-dev";
-    searchPaths = {
-      bin = [
-        env
-      ];
-    };
   }
