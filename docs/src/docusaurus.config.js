@@ -87,7 +87,7 @@ const config = {
             type: "html",
             position: "right",
             value:
-              '<a target="_blank" rel="noopener noreferrer" href="https://fluidattacks.com/free-trial/"><button class="trial-button">Start your free trial</button></a>',
+              '<a target="_blank" rel="noopener noreferrer" href="https://app.fluidattacks.com/SignUp"><button class="trial-button">Start your free trial</button></a>',
           },
         ],
       },

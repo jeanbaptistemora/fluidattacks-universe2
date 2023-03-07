@@ -102,7 +102,7 @@ In order to do so, you need to:
 :::tip free trial
 **Search for vulnerabilities in your apps for free
 with our automated security testing!**
-Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+Start your [21-day free trial](https://app.fluidattacks.com/SignUp)
 and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
 [Machine Plan](https://fluidattacks.com/plans/).
 If you prefer a full service
