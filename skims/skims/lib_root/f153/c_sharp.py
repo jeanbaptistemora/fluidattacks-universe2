@@ -66,7 +66,7 @@ def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> Iterator[NId]:
             yield n_id
 
 
-def java_accepts_any_mime_type(
+def c_sharp_accepts_any_mime_type(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.C_SHARP_ACCEPTS_ANY_MIMETYPE
