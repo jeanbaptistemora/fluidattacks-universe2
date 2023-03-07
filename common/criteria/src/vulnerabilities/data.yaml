@@ -11522,8 +11522,8 @@
       availability: N
     temporal:
       exploit_code_maturity: U
-      remediation_level: X
-      report_confidence: X
+      remediation_level: O
+      report_confidence: C
   requirements: ['302']
   metadata:
     en:
