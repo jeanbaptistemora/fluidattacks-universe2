@@ -316,13 +316,12 @@ async def log_stakeholder_in(
     if stakeholder:
         if not stakeholder.is_registered:
             await stakeholders_domain.register(email)
-        if not stakeholder.enrolled:
-            await utils.send_autoenroll_mixpanel_event(loaders, email)
-        elif not stakeholder.registration_date:
+        if not stakeholder.registration_date:
             await invited_stakeholder(loaders, email, first_name, last_name)
         else:
-            await analytics.mixpanel_track(email, "CurrentStakeholder")
-
+            await utils.send_autoenroll_mixpanel_event(
+                loaders, email, stakeholder
+            )
         await stakeholders_domain.update_last_login(email)
     else:
         await autoenroll_stakeholder(loaders, email, first_name, last_name)

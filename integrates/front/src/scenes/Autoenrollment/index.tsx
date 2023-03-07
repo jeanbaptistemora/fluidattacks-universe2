@@ -327,8 +327,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   }
 
   if (trial) {
-    mixpanel.track("AutoenrollAlreadyInTrial");
-
     return <Announce message={t("autoenrollment.alreadyInTrial")} />;
   }
 
