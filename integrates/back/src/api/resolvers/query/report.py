@@ -96,7 +96,7 @@ class EncodeDecimal(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
-def _filter_unique_report(
+def filter_unique_report(
     *,
     old_additional_info: str,
     new_type: str,
@@ -155,7 +155,7 @@ async def _get_url_group_report(
     if list(
         filter(
             lambda x: x.subject.lower() == user_email.lower()
-            and _filter_unique_report(
+            and filter_unique_report(
                 old_additional_info=x.additional_info,
                 new_type=report_type,
                 new_treatments=treatments,

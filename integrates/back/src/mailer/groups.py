@@ -1,3 +1,4 @@
+# pylint:disable=too-many-lines
 from .common import (
     COMMENTS_TAG,
     GENERAL_TAG,
@@ -351,15 +352,21 @@ async def send_mail_group_alert(
 
 
 async def send_mail_group_report(
-    loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
+    *,
+    loaders: Dataloaders,
+    email_to: list[str],
+    context: dict[str, Any],
+    report: bool = True,
 ) -> None:
     await send_mails_async(
         loaders,
         email_to,
         context=context,
         tags=GENERAL_TAG,
-        subject=f'[ARM] {context["filetype"]} report for '
-        + f'[{context["group_name"]}]',
+        subject=(
+            f'[ARM] {context["filetype"]}{" report" if report else ""} for '
+            f'[{context["group_name"]}]'
+        ),
         template_name="group_report",
     )
 

@@ -346,9 +346,9 @@ async def new_password_protected_report(
         f'{file_type}{" Report for" if include_report else ""} [{group_name}]'
     )
     await groups_mail.send_mail_group_report(
-        loaders,
-        [user_email],
-        {
+        loaders=loaders,
+        email_to=[user_email],
+        context={
             "filetype": file_type,
             "fname": fname,
             "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
@@ -358,6 +358,7 @@ async def new_password_protected_report(
             "subject": subject,
             "filelink": file_link,
         },
+        report=include_report,
     )
 
 
