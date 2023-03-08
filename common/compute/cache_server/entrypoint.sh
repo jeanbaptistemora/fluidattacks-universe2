@@ -33,7 +33,7 @@ function main {
     && mkdir -p "${HOME}/.local/share/attic/storage" \
     && sqlite3 "${HOME}/.local/share/attic/server.db" "VACUUM;" \
     && generateConfig "sqlite://${HOME}/.local/share/attic/server.db" "${HOME}/.local/share/attic/storage" > "${configPath}" \
-    && atticadm -f "${configPath}" make-token --sub compute --validity '1 year' --pull 'alice-*' --push 'alice-*' --create-cache 'alice-*' \
+    && atticadm -f "${configPath}" make-token --sub compute --validity '1 year' --pull 'compute' --push 'compute' --create-cache 'compute' \
     && atticd --config "${configPath}"
 }
 
