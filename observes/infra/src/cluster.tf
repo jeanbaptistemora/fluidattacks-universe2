@@ -57,6 +57,23 @@ resource "aws_redshift_parameter_group" "main" {
     name  = "max_concurrency_scaling_clusters"
     value = "2"
   }
+  parameter {
+    name = "wlm_json_configuration"
+    value = jsonencode([
+      {
+        name                  = "dynamo_etl_wlm_queue"
+        auto_wlm              = false
+        concurrency_scaling   = "auto"
+        query_concurrency     = 5
+        query_group           = "dynamo_etl"
+        memory_percent_to_use = 90
+      },
+      {
+        auto_wlm            = true
+        concurrency_scaling = "auto"
+      },
+    ])
+  }
 }
 
 resource "aws_redshift_cluster" "main" {
