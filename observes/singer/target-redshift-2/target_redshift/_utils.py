@@ -6,8 +6,15 @@ from dataclasses import (
     dataclass,
 )
 from fa_purity import (
+    Cmd,
+    FrozenDict,
     Result,
     ResultE,
+)
+from redshift_client.sql_client import (
+    Query,
+    QueryValues,
+    SqlClient,
 )
 
 
@@ -36,3 +43,9 @@ class S3FileObjURI:
 
     def __repr__(self) -> str:
         return "/".join([self.bucket, self.file_path])
+
+
+def set_queue_group(client: SqlClient, group: str) -> Cmd[None]:
+    statement = "SET query_group TO %(group)s"
+    args = QueryValues(FrozenDict({"group": group}))
+    return client.execute(Query.new_query(statement), args)

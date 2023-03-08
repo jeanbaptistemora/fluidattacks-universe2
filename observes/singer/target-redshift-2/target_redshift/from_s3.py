@@ -4,6 +4,7 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 import logging
 from mypy_boto3_s3 import (
@@ -28,6 +29,9 @@ from redshift_client.table.client import (
 )
 from target_redshift import (
     loader,
+)
+from target_redshift._utils import (
+    set_queue_group,
 )
 from target_redshift.input import (
     InputEmitter,
@@ -63,6 +67,7 @@ class FromS3Executor:
     prefix: str
     role: str
     ignore_failed: bool
+    wlm_queue: Maybe[str]
 
     def _upload_schema(
         self, client: SqlClient, table_client: TableClient, target: SchemaId
@@ -80,13 +85,16 @@ class FromS3Executor:
         )
 
     def _main(self, new_client: Cmd[SqlClient]) -> Cmd[None]:
+        _set_wlm = self.wlm_queue.map(
+            lambda q: new_client.bind(lambda c: set_queue_group(c, q))
+        ).value_or(Cmd.from_cmd(lambda: None))
         _schema = SchemaId(self.schema_name)
         table_client = new_client.map(TableClient)
         strategy: Cmd[LoadingStrategy] = new_client.map(Strategies).map(
             lambda s: s.recreate_all_schema(_schema)
         )
 
-        return strategy.bind(
+        return _set_wlm + strategy.bind(
             lambda ls: table_client.bind(
                 lambda tc: ls.main(
                     lambda s: new_client.bind(

@@ -5,6 +5,7 @@ from ._core import (
 import click
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 from target_redshift.from_s3 import (
     FromS3Executor,
@@ -40,6 +41,13 @@ from typing import (
     help="arn of an iam role for S3 access",
 )
 @click.option(
+    "--wlm-queue",
+    type=str,
+    required=False,
+    default=None,
+    help="redshift wlm queue group for the executed queries",
+)
+@click.option(
     "--ignore-failed",
     type=bool,
     is_flag=True,
@@ -52,10 +60,18 @@ def from_s3(
     bucket: str,
     prefix: str,
     role: str,
+    wlm_queue: str | None,
     ignore_failed: bool,
 ) -> NoReturn:
     executor = FromS3Executor(
-        ctx.db_id, ctx.creds, schema_name, bucket, prefix, role, ignore_failed
+        ctx.db_id,
+        ctx.creds,
+        schema_name,
+        bucket,
+        prefix,
+        role,
+        ignore_failed,
+        Maybe.from_optional(wlm_queue),
     )
     cmd: Cmd[None] = executor.execute()
     cmd.compute()
