@@ -1,62 +1,61 @@
 let securityHeaders = {
-  "Content-Security-Policy" : "script-src "
-                              + "'self' "
-                              + "'unsafe-inline' "
-                              + "fluidattacks.matomo.cloud "
-                              + "*.app-us1.com "
-                              + "*.cloudflareinsights.com "
-                              + "*.cookiebot.com "
-                              + "*.google-analytics.com "
-                              + "*.googletagmanager.com "
-                              + "*.hotjar.com "
-                              + "*.typekit.net "
-                              + "*.youtube.com "
-                              + "*.zoho.com "
-                              + "*.zohocdn.com "
-                              + "*.zohopublic.com "
-                              + "*.zohostatic.com "
-                              + "trackcmp.net "
-                              + "ajax.cloudflare.com "
-                              + "cdnjs.cloudflare.com/ajax/libs/highlight.js/ "
-                              + "connect.facebook.net/en_US/fbevents.js "
-                              + "connect.facebook.net/signals/config/ "
-                              + "googleads.g.doubleclick.net/pagead/viewthroughconversion/ "
-                              + "snap.licdn.com "
-                              + "static1.clutch.co/api/widget.js "
-                              + "widget.clutch.co/static/js/widget.js "
-                              + "www.googleadservices.com/pagead/; "
-                              + "frame-ancestors "
-                              + "'self'; "
-                              + "object-src "
-                              + "'none'; "
-                              + "upgrade-insecure-requests;",
-  "Strict-Transport-Security" : "max-age=31536000",
-  "X-Xss-Protection" : "0",
-  "X-Frame-Options" : "DENY",
-  "X-Content-Type-Options" : "nosniff",
+  "Content-Security-Policy":
+    "script-src " +
+    "'self' " +
+    "'unsafe-inline' " +
+    "fluidattacks.matomo.cloud " +
+    "*.app-us1.com " +
+    "*.cloudflareinsights.com " +
+    "*.cookiebot.com " +
+    "*.google-analytics.com " +
+    "*.googletagmanager.com " +
+    "*.hotjar.com " +
+    "*.typekit.net " +
+    "*.youtube.com " +
+    "*.zoho.com " +
+    "*.zohocdn.com " +
+    "*.zohopublic.com " +
+    "*.zohostatic.com " +
+    "trackcmp.net " +
+    "ajax.cloudflare.com " +
+    "cdnjs.cloudflare.com/ajax/libs/highlight.js/ " +
+    "connect.facebook.net/en_US/fbevents.js " +
+    "connect.facebook.net/signals/config/ " +
+    "googleads.g.doubleclick.net/pagead/viewthroughconversion/ " +
+    "snap.licdn.com " +
+    "static1.clutch.co/api/widget.js " +
+    "widget.clutch.co/static/js/widget.js " +
+    "www.googleadservices.com/pagead/; " +
+    "frame-ancestors " +
+    "'self'; " +
+    "object-src " +
+    "'none'; " +
+    "upgrade-insecure-requests;",
+  "Strict-Transport-Security": "max-age=31536000",
+  "X-Xss-Protection": "0",
+  "X-Content-Type-Options": "nosniff",
   "X-Permitted-Cross-Domain-Policies": "none",
-  "Referrer-Policy" : "strict-origin-when-cross-origin",
-  "Permissions-Policy" : "geolocation=(self), "
-                          + "midi=(self), "
-                          + "push=(self), "
-                          + "sync-xhr=(self), "
-                          + "microphone=(self), "
-                          + "camera=(self), "
-                          + "magnetometer=(self), "
-                          + "gyroscope=(self), "
-                          + "speaker=(self), "
-                          + "vibrate=(self), "
-                          + "fullscreen=(self), "
-                          + "payment=(self)",
-}
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy":
+    "geolocation=(self), " +
+    "midi=(self), " +
+    "push=(self), " +
+    "sync-xhr=(self), " +
+    "microphone=(self), " +
+    "camera=(self), " +
+    "magnetometer=(self), " +
+    "gyroscope=(self), " +
+    "speaker=(self), " +
+    "vibrate=(self), " +
+    "fullscreen=(self), " +
+    "payment=(self)",
+};
 
-let sanitiseHeaders = {}
+let sanitiseHeaders = {};
 
-let removeHeaders = [
-  "Public-Key-Pins",
-]
+let removeHeaders = ["Public-Key-Pins"];
 
-const homeURL = 'https://fluidattacks.com/';
+const homeURL = "https://fluidattacks.com/";
 const redirectMap = new Map([
   ["/products/defends/apache/desactivar-http-trace/", homeURL],
   ["/products/defends/java/prevenir-sqli/", homeURL],
@@ -215,7 +214,10 @@ const redirectMap = new Map([
   ["/faq/list/", homeURL],
   ["/products/rules/list/348/", homeURL],
   ["/products/defends/aspnet/comprender-programacion/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.iam/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.iam/",
+    homeURL,
+  ],
   ["/products/defends/apache/restringir-banner/", homeURL],
   ["/products/rules/list/046/", homeURL],
   ["/products/rules/list/135/", homeURL],
@@ -319,7 +321,10 @@ const redirectMap = new Map([
   ["/products/defends/cobol/prevenir-xss/", homeURL],
   ["/blog/index3.html", homeURL],
   ["/products/defends/php/manejar-excepciones/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.fsx/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.fsx/",
+    homeURL,
+  ],
   ["/products/defends/aspnet/registrar-eventos-bitacoras/", homeURL],
   ["/products/rules/findings/103/", homeURL],
   ["/products/defends/aspnet/evitar-codigo-muerto/", homeURL],
@@ -350,7 +355,10 @@ const redirectMap = new Map([
   ["/products/defends/cobol/establecer-sent-seguras/", homeURL],
   ["/resources/doc/asserts/fluidasserts.proto.ssh/", homeURL],
   ["/products/defends/aspnet/prevenir-pagina-cache/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.services/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.services/",
+    homeURL,
+  ],
   ["/products/rules/findings/007/", homeURL],
   ["/products/rules/list/083/", homeURL],
   ["/products/rules/list/084/", homeURL],
@@ -456,8 +464,14 @@ const redirectMap = new Map([
   ["/products/rules/list/061/", homeURL],
   ["/products/rules/list/194/", homeURL],
   ["/resources/doc/skims/utils/function.html", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.azure.network_security_groups/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.azure.storage_accounts/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.azure.network_security_groups/",
+    homeURL,
+  ],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.azure.storage_accounts/",
+    homeURL,
+  ],
   ["/resources/doc/asserts/fluidasserts.cloud.kubernetes.pods/", homeURL],
   ["/resources/doc/skims/parse_hcl2/structure.html", homeURL],
   ["/products/rules/list/280/", homeURL],
@@ -475,7 +489,10 @@ const redirectMap = new Map([
   ["/products/defends/java/usar-procedimientos/", homeURL],
   ["/blog/tags/cybersecurity/index2.html", homeURL],
   ["/products/rules/findings/025/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.cloudtrail/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.cloudtrail/",
+    homeURL,
+  ],
   ["/products/rules/findings/111/", homeURL],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.eks/", homeURL],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.s3/", homeURL],
@@ -526,7 +543,10 @@ const redirectMap = new Map([
   ["/products/defends/aspnet/usar-cookies-httponly/", homeURL],
   ["/road-to-functional-python/", homeURL],
   ["/rules/123/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.cloudfront/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.cloudfront/",
+    homeURL,
+  ],
   ["/products/defends/aix/conocer-privilegios-rbac/", homeURL],
   ["/products/rules/list/232/", homeURL],
   ["/products/rules/list/147/", homeURL],
@@ -544,7 +564,10 @@ const redirectMap = new Map([
   ["/blog/index10.html", homeURL],
   ["/products/rules/list/101/", homeURL],
   ["/products/rules/list/016/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.rds/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.rds/",
+    homeURL,
+  ],
   ["/products/defends/java/ubicar-codigo-fuente/src/cli.java", homeURL],
   ["/resources/doc/skims/parse_hcl2/index.html", homeURL],
   ["/blog/tags/business/index3.html", homeURL],
@@ -576,10 +599,16 @@ const redirectMap = new Map([
   ["/resources/doc/skims/zone/index.html", homeURL],
   ["/resources/doc/skims/utils/logs.html", homeURL],
   ["/resources/doc/skims/parse_babel/index.html", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.dynamodb/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.dynamodb/",
+    homeURL,
+  ],
   ["/products/rules/list/206/", homeURL],
   ["/products/rules/list/339/", homeURL],
-  ["/products/defends/csharp/proteger-aplicacion-xss/src/default.aspx.cs", homeURL],
+  [
+    "/products/defends/csharp/proteger-aplicacion-xss/src/default.aspx.cs",
+    homeURL,
+  ],
   ["/products/rules/list/207/", homeURL],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.route53/", homeURL],
   ["/products/rules/findings/108/", homeURL],
@@ -622,7 +651,10 @@ const redirectMap = new Map([
   ["/blog/tags/security/index4.html", homeURL],
   ["/products/rules/findings/013/", homeURL],
   ["/rules/174/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.loader/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.loader/",
+    homeURL,
+  ],
   ["/products/defends/iis/negar-acceso-consola-admin/", homeURL],
   ["/findings/035/", homeURL],
   ["/products/defends/linux/remover-metadatos/", homeURL],
@@ -645,7 +677,10 @@ const redirectMap = new Map([
   ["/rules/178/", homeURL],
   ["/findings/083/", homeURL],
   ["/resources/doc/asserts/fluidasserts.db.mssql/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.elb2/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.elb2/",
+    homeURL,
+  ],
   ["/products/defends/aspnet/lineamientos-seguridad/", homeURL],
   ["/products/rules/findings/010/", homeURL],
   ["/products/rules/list/154/", homeURL],
@@ -653,11 +688,17 @@ const redirectMap = new Map([
   ["/resources/doc/skims/lib_path/f037.html", homeURL],
   ["/resources/doc/asserts/fluidasserts.helper.ssl/", homeURL],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.dynamodb/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.elb/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.elb/",
+    homeURL,
+  ],
   ["/products/rules/list/240/", homeURL],
   ["/resources/doc/asserts/genindex/", homeURL],
   ["/products/rules/findings/055/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.kms/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.kms/",
+    homeURL,
+  ],
   ["/search.html?q=OWASP", homeURL],
   ["/products/rules/list/241/", homeURL],
   ["/products/rules/list/289/", homeURL],
@@ -681,7 +722,10 @@ const redirectMap = new Map([
   ["/resources/doc/skims/benchmark/index.html", homeURL],
   ["/blog/authors/jonathan-armas/index2.html", homeURL],
   ["/resources/doc/skims/nvd/local.html", homeURL],
-  ["/products/defends/aspnet/evitar-sesion-concurrente/src/session-control.cs", homeURL],
+  [
+    "/products/defends/aspnet/evitar-sesion-concurrente/src/session-control.cs",
+    homeURL,
+  ],
   ["/resources/doc/skims/", homeURL],
   ["/rules/133/", homeURL],
   ["/resources/doc/skims/utils/fs.html", homeURL],
@@ -707,7 +751,10 @@ const redirectMap = new Map([
   ["/products/rules/list/249/", homeURL],
   ["/resources/doc/asserts/fluidasserts.helper.banner/", homeURL],
   ["/products/rules/findings/096/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.terraform.dynamodb/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.terraform.dynamodb/",
+    homeURL,
+  ],
   ["/products/rules/list/335/", homeURL],
   ["/products/rules/list/117/", homeURL],
   ["/rules/313/", homeURL],
@@ -808,7 +855,10 @@ const redirectMap = new Map([
   ["/resources/doc/asserts/fluidasserts.cloud.aws.elb2/", homeURL],
   ["/products/defends/csharp/definir-opciones-seguras/", homeURL],
   ["/resources/doc/skims/parse_antlr/parse.html", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.terraform.cloudfront/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.terraform.cloudfront/",
+    homeURL,
+  ],
   ["/products/defends/aspnet/usar-recaptcha/", homeURL],
   ["/products/rules/list/032/", homeURL],
   ["/products/defends/java/limitar-vida-variable/", homeURL],
@@ -820,7 +870,10 @@ const redirectMap = new Map([
   ["/products/defends/aspnet/registrar-eventos-web/", homeURL],
   ["/products/defends/scala/limitar-vida-recurso/", homeURL],
   ["/products/rules/findings/046/", homeURL],
-  ["/products/defends/java/implementar-mod-autenticacion/src/countfiles.java", homeURL],
+  [
+    "/products/defends/java/implementar-mod-autenticacion/src/countfiles.java",
+    homeURL,
+  ],
   ["/resources/doc/skims/cli/index.html", homeURL],
   ["/resources/doc/skims/aws/model.html", homeURL],
   ["/products/defends/cobol/evitar-msg-autenticacion/", homeURL],
@@ -849,7 +902,10 @@ const redirectMap = new Map([
   ["/resources/doc/skims/parse_common/types.html", homeURL],
   ["/findings/050/", homeURL],
   ["/rules/148/", homeURL],
-  ["/defends/java/comprobar-identidad-servlets/src/testremoteuserdata.java", homeURL],
+  [
+    "/defends/java/comprobar-identidad-servlets/src/testremoteuserdata.java",
+    homeURL,
+  ],
   ["/defends/aspnet/realizar-peticiones-https/src/mypolicy.cs", homeURL],
   ["/resources/doc/asserts/fluidasserts.helper.lang/", homeURL],
   ["/products/defends/java/firmar-arreglo/src/cli.java", homeURL],
@@ -868,7 +924,10 @@ const redirectMap = new Map([
   ["/products/rules/list/210/", homeURL],
   ["/products/rules/list/343/", homeURL],
   ["/products/rules/list/258/", homeURL],
-  ["/products/defends/java/implementar-mod-autenticacion/src/simpleloginmodule.java", homeURL],
+  [
+    "/products/defends/java/implementar-mod-autenticacion/src/simpleloginmodule.java",
+    homeURL,
+  ],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.terraform.elb/", homeURL],
   ["/blog/index6.html", homeURL],
   ["/products/rules/findings/085/", homeURL],
@@ -890,7 +949,10 @@ const redirectMap = new Map([
   ["/rules/101/", homeURL],
   ["/about-us/partners/gamma-ingenieros/", homeURL],
   ["/products/rules/list/128/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.secretsmanager/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.secretsmanager/",
+    homeURL,
+  ],
   ["/resources/doc/asserts/fluidasserts.proto.graphql/", homeURL],
   ["/products/rules/findings/084/", homeURL],
   ["/products/rules/list/214/", homeURL],
@@ -908,7 +970,10 @@ const redirectMap = new Map([
   ["/rules/105/", homeURL],
   ["/network-hacking/", homeURL],
   ["/products/defends/redhat/actualizar-software/", homeURL],
-  ["/products/defends/aspnet/verificar-tamano-extension/src/example.cs", homeURL],
+  [
+    "/products/defends/aspnet/verificar-tamano-extension/src/example.cs",
+    homeURL,
+  ],
   ["/findings/091/", homeURL],
   ["/resources/doc/asserts/fluidasserts.helper.winrm/", homeURL],
   ["/blog/tags/security/index3.html", homeURL],
@@ -920,7 +985,10 @@ const redirectMap = new Map([
   ["/resources/doc/skims/state/cache.html", homeURL],
   ["/about-us/partners/agt/", homeURL],
   ["/products/rules/list/316/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.azure.active_directory/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.azure.active_directory/",
+    homeURL,
+  ],
   ["/resources/doc/asserts/fluidasserts.format/", homeURL],
   ["/products/rules/list/317/", homeURL],
   ["/resources/doc/asserts/fluidasserts.lang.php/", homeURL],
@@ -944,7 +1012,10 @@ const redirectMap = new Map([
   ["/resources/doc/asserts/fluidasserts.cloud.aws.vpc/", homeURL],
   ["/products/defends/java/definir-permisos/", homeURL],
   ["/products/rules/list/095/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.azure.virtual_machines/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.azure.virtual_machines/",
+    homeURL,
+  ],
   ["/resources/doc/asserts/fluidasserts.cloud.aws.iam/", homeURL],
   ["/partners/gamma-ingenieros/", homeURL],
   ["/findings/105/", homeURL],
@@ -1014,7 +1085,10 @@ const redirectMap = new Map([
   ["/rules/159/", homeURL],
   ["/resources/doc/asserts/fluidasserts.iot.camera/", homeURL],
   ["/resources/doc/asserts/fluidasserts.format.apk/", homeURL],
-  ["/products/defends/java/usar-ejb-time-service/src/timeservlet.java", homeURL],
+  [
+    "/products/defends/java/usar-ejb-time-service/src/timeservlet.java",
+    homeURL,
+  ],
   ["/resources/doc/skims/integrates/graphql.html", homeURL],
   ["/products/rules/list/352/", homeURL],
   ["/products/rules/findings/078/", homeURL],
@@ -1071,7 +1145,10 @@ const redirectMap = new Map([
   ["/resources/doc/skims/core/entrypoint.html", homeURL],
   ["/resources/doc/skims/parse_java_properties/index.html", homeURL],
   ["/resources/doc/asserts/fluidasserts.sca.nuget/", homeURL],
-  ["/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.ec2/", homeURL],
+  [
+    "/resources/doc/asserts/fluidasserts.cloud.aws.cloudformation.ec2/",
+    homeURL,
+  ],
   ["/products/rules/list/314/", homeURL],
   ["/products/rules/list/229/", homeURL],
   ["/search.html?q=bsimm9", homeURL],
@@ -1079,42 +1156,141 @@ const redirectMap = new Map([
   ["/solutions/security-testing/partners/choucair/", homeURL],
   ["/solutions/security-testing/about-us/people/dcardona/", homeURL],
   ["/partners/gamma-ingenieros/", homeURL],
-  ["/blog/what-is-devsecops", "https://fluidattacks.com/blog/devsecops-concept/"],
-  ["/blog/what-is-devsecops/", "https://fluidattacks.com/blog/devsecops-concept/"],
-  ["/web/blog/updating-belief", "https://fluidattacks.com/blog/updating-belief/"],
-  ["/web/blog/updating-belief/", "https://fluidattacks.com/blog/updating-belief/"],
-  ["/web/blog/reversing-mortals/image3.png", "https://fluidattacks.com/blog/reversing-mortals/"],
-  ["/web/blog/reversing-mortals", "https://fluidattacks.com/blog/reversing-mortals/"],
-  ["/web/blog/reversing-mortals/", "https://fluidattacks.com/blog/reversing-mortals/"],
+  [
+    "/blog/what-is-devsecops",
+    "https://fluidattacks.com/blog/devsecops-concept/",
+  ],
+  [
+    "/blog/what-is-devsecops/",
+    "https://fluidattacks.com/blog/devsecops-concept/",
+  ],
+  [
+    "/web/blog/updating-belief",
+    "https://fluidattacks.com/blog/updating-belief/",
+  ],
+  [
+    "/web/blog/updating-belief/",
+    "https://fluidattacks.com/blog/updating-belief/",
+  ],
+  [
+    "/web/blog/reversing-mortals/image3.png",
+    "https://fluidattacks.com/blog/reversing-mortals/",
+  ],
+  [
+    "/web/blog/reversing-mortals",
+    "https://fluidattacks.com/blog/reversing-mortals/",
+  ],
+  [
+    "/web/blog/reversing-mortals/",
+    "https://fluidattacks.com/blog/reversing-mortals/",
+  ],
   ["/security-testing", "https://fluidattacks.com/solutions/security-testing/"],
-  ["/security-testing/", "https://fluidattacks.com/solutions/security-testing/"],
+  [
+    "/security-testing/",
+    "https://fluidattacks.com/solutions/security-testing/",
+  ],
   ["/products/defends/java/validar-correo-electronico", homeURL],
   ["/products/defends/java/validar-correo-electronico/", homeURL],
-  ["/blog/gherkin-steroids/local-file-inclusion.feature/","https://fluidattacks.com/blog/gherkin-steroids/local-file-inclusion.feature"],
-  ["/blog/libssh-bypass-cve/cve201810933.zip/","https://fluidattacks.com/blog/libssh-bypass-cve/cve201810933.zip"],
-  ["/blog/my-heart-bleeds/openssl-fragment.c/","https://fluidattacks.com/blog/my-heart-bleeds/openssl-fragment.c"],
-  ["/blog/pars-orationis-secura/results.txt/","https://fluidattacks.com/blog/pars-orationis-secura/results.txt"],
-  ["/blog/pars-orationis-secura/sqli-parser.py/","https://fluidattacks.com/blog/pars-orationis-secura/sqli-parser.py"],
-  ["/blog/pars-orationis-secura/redux-sqli-7.php/","https://fluidattacks.com/blog/pars-orationis-secura/redux-sqli-7.php"],
-  ["/blog/pars-orationis-secura/test-cases.lst/", "https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst"],
-  ["/services/one-shot-hacking/", "https://fluidattacks.com/services/continuous-hacking/"],
-  ["/services/comparative/", "https://fluidattacks.com/services/continuous-hacking/"],
-  ["/blog/amsi-bypass-python/amsibypass.py/", "https://fluidattacks.com/blog/amsi-bypass-python/amsibypass.py"],
-  ["/blog/netscan-exploit/exploit.py/", "https://fluidattacks.com/blog/netscan-exploit/exploit.py"],
-  ["/blog/offensive-hyperv-directx-1/sample1.c/", "https://fluidattacks.com/blog/offensive-hyperv-directx-1/sample1.c"],
-  ["/blog/quantitative-python/events-redux.csv/", "https://fluidattacks.com/blog/quantitative-python/events-redux.csv"],
-  ["/blog/quantitative-python/quant.ipynb/", "https://fluidattacks.com/blog/quantitative-python/quant.ipynb"],
-  ["/blog/quantitative-python/quant.py/", "https://fluidattacks.com/blog/quantitative-python/quant.py"],
-  ["/blog/quantitative-python/events.csv/", "https://fluidattacks.com/blog/quantitative-python/events.csv"],
-  ["/blog/quickzip-exploit/exploit.py/", "https://fluidattacks.com/blog/quickzip-exploit/exploit.py"],
-  ["/blog/vulnserver-gmon/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gmon/exploit.py"],
-  ["/blog/vulnserver-gter-no-egghunter/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gter-no-egghunter/exploit.py"],
-  ["/blog/vulnserver-gter/exploit.py/", "https://fluidattacks.com/blog/vulnserver-gter/exploit.py"],
-  ["/blog/vulnserver-kstet-alternative/exploit.py/", "https://fluidattacks.com/blog/vulnserver-kstet-alternative/exploit.py"],
-  ["/blog/vulnserver-kstet/exploit.py/", "https://fluidattacks.com/blog/vulnserver-kstet/exploit.py"],
-  ["/blog/vulnserver-lter-seh/exploit.py/", "https://fluidattacks.com/blog/vulnserver-lter-seh/exploit.py"],
-  ["/blog/vulnserver-trun-rop/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun-rop/exploit.py"],
-  ["/blog/vulnserver-trun/exploit.py/", "https://fluidattacks.com/blog/vulnserver-trun/exploit.py"],
+  [
+    "/blog/gherkin-steroids/local-file-inclusion.feature/",
+    "https://fluidattacks.com/blog/gherkin-steroids/local-file-inclusion.feature",
+  ],
+  [
+    "/blog/libssh-bypass-cve/cve201810933.zip/",
+    "https://fluidattacks.com/blog/libssh-bypass-cve/cve201810933.zip",
+  ],
+  [
+    "/blog/my-heart-bleeds/openssl-fragment.c/",
+    "https://fluidattacks.com/blog/my-heart-bleeds/openssl-fragment.c",
+  ],
+  [
+    "/blog/pars-orationis-secura/results.txt/",
+    "https://fluidattacks.com/blog/pars-orationis-secura/results.txt",
+  ],
+  [
+    "/blog/pars-orationis-secura/sqli-parser.py/",
+    "https://fluidattacks.com/blog/pars-orationis-secura/sqli-parser.py",
+  ],
+  [
+    "/blog/pars-orationis-secura/redux-sqli-7.php/",
+    "https://fluidattacks.com/blog/pars-orationis-secura/redux-sqli-7.php",
+  ],
+  [
+    "/blog/pars-orationis-secura/test-cases.lst/",
+    "https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst",
+  ],
+  [
+    "/services/one-shot-hacking/",
+    "https://fluidattacks.com/services/continuous-hacking/",
+  ],
+  [
+    "/services/comparative/",
+    "https://fluidattacks.com/services/continuous-hacking/",
+  ],
+  [
+    "/blog/amsi-bypass-python/amsibypass.py/",
+    "https://fluidattacks.com/blog/amsi-bypass-python/amsibypass.py",
+  ],
+  [
+    "/blog/netscan-exploit/exploit.py/",
+    "https://fluidattacks.com/blog/netscan-exploit/exploit.py",
+  ],
+  [
+    "/blog/offensive-hyperv-directx-1/sample1.c/",
+    "https://fluidattacks.com/blog/offensive-hyperv-directx-1/sample1.c",
+  ],
+  [
+    "/blog/quantitative-python/events-redux.csv/",
+    "https://fluidattacks.com/blog/quantitative-python/events-redux.csv",
+  ],
+  [
+    "/blog/quantitative-python/quant.ipynb/",
+    "https://fluidattacks.com/blog/quantitative-python/quant.ipynb",
+  ],
+  [
+    "/blog/quantitative-python/quant.py/",
+    "https://fluidattacks.com/blog/quantitative-python/quant.py",
+  ],
+  [
+    "/blog/quantitative-python/events.csv/",
+    "https://fluidattacks.com/blog/quantitative-python/events.csv",
+  ],
+  [
+    "/blog/quickzip-exploit/exploit.py/",
+    "https://fluidattacks.com/blog/quickzip-exploit/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-gmon/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-gmon/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-gter-no-egghunter/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-gter-no-egghunter/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-gter/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-gter/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-kstet-alternative/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-kstet-alternative/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-kstet/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-kstet/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-lter-seh/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-lter-seh/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-trun-rop/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-trun-rop/exploit.py",
+  ],
+  [
+    "/blog/vulnserver-trun/exploit.py/",
+    "https://fluidattacks.com/blog/vulnserver-trun/exploit.py",
+  ],
   ["/product-overview/", "https://fluidattacks.com/platform/"],
   ["/categories/arm/", "https://fluidattacks.com/platform/arm/"],
   ["/categories/sast/", "https://fluidattacks.com/product/sast/"],
@@ -1125,21 +1301,39 @@ const redirectMap = new Map([
   ["/categories/mast/", "https://fluidattacks.com/product/mast/"],
   ["/about-us/clients/", " https://fluidattacks.com/clients/"],
   ["/about-us/certifications/", "https://fluidattacks.com/certifications/"],
-  ["/blog/product/attacks/", "https://fluidattacks.com/blog/categories/attacks/"],
-  ["/blog/product/development/", "https://fluidattacks.com/blog/categories/development/"],
-  ["/blog/product/interview/", "https://fluidattacks.com/blog/categories/interview/"],
-  ["/blog/product/opinions/", "https://fluidattacks.com/blog/categories/opinions/"],
-  ["/blog/product/philosophy/", "https://fluidattacks.com/blog/categories/philosophy/"],
-  ["/blog/product/politics/", "https://fluidattacks.com/blog/categories/politics/"],
+  [
+    "/blog/product/attacks/",
+    "https://fluidattacks.com/blog/categories/attacks/",
+  ],
+  [
+    "/blog/product/development/",
+    "https://fluidattacks.com/blog/categories/development/",
+  ],
+  [
+    "/blog/product/interview/",
+    "https://fluidattacks.com/blog/categories/interview/",
+  ],
+  [
+    "/blog/product/opinions/",
+    "https://fluidattacks.com/blog/categories/opinions/",
+  ],
+  [
+    "/blog/product/philosophy/",
+    "https://fluidattacks.com/blog/categories/philosophy/",
+  ],
+  [
+    "/blog/product/politics/",
+    "https://fluidattacks.com/blog/categories/politics/",
+  ],
 ]);
 
-addEventListener('fetch', event => {
-  event.respondWith(addHeaders(event.request))
-})
+addEventListener("fetch", (event) => {
+  event.respondWith(addHeaders(event.request));
+});
 
 async function addHeaders(req) {
-  const response = await fetch(req)
-  const newHdrs = new Headers(response.headers)
+  const response = await fetch(req);
+  const newHdrs = new Headers(response.headers);
 
   const requestURL = new URL(response.url);
   const path = requestURL.pathname;
@@ -1149,12 +1343,15 @@ async function addHeaders(req) {
     return Response.redirect(location, 301);
   }
 
-  if (newHdrs.has("Content-Type") && !newHdrs.get("Content-Type").includes("text/html")) {
-    return new Response(response.body , {
+  if (
+    newHdrs.has("Content-Type") &&
+    !newHdrs.get("Content-Type").includes("text/html")
+  ) {
+    return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
-      headers: newHdrs
-    })
+      headers: newHdrs,
+    });
   }
 
   Object.keys(securityHeaders).forEach((name) => {
@@ -1165,13 +1362,13 @@ async function addHeaders(req) {
     newHdrs.set(name, sanitiseHeaders[name]);
   });
 
-  removeHeaders.forEach(function(name){
-    newHdrs.delete(name)
-  })
+  removeHeaders.forEach(function (name) {
+    newHdrs.delete(name);
+  });
 
-  return new Response(response.body , {
+  return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
-    headers: newHdrs
-  })
+    headers: newHdrs,
+  });
 }
