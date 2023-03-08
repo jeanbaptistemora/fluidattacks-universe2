@@ -6450,53 +6450,53 @@ owaspscp:
       Its implementation will mitigate
       most common software vulnerabilities.
       The version used in this
-      section is OWASP SCP v2.0,
-      November 2010.
+      section is OWASP SCP v2.0.1,
+      December 2022.
   es:
     summary: __empty__
   definitions:
     "1":
       title: Input validation
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "2":
       title: Output encoding
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "3":
       title: Authentication and password management
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "4":
       title: Session management
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "5":
       title: Access control
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "6":
       title: Cryptographic practices
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "7":
       title: Error handling and logging
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "8":
       title: Data protection
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "9":
       title: Communication security
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "10":
       title: System configuration
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "11":
       title: Database security
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "12":
       title: File management
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "13":
       title: Memory management
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
     "14":
       title: General coding practices
-      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+      link: https://github.com/OWASP/secure-coding-practices-quick-reference-guide/releases/download/v2.0.1/OWASP_SCP_Quick_Reference_Guide.en-US.pdf
   metadata: {}
 bsafss:
   title: BSAFSS
