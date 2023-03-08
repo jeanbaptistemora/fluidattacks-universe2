@@ -392,6 +392,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivati
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_obsolete_key_derivation
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_ssl_certification.kt,20,310,skims,052. Insecure encryption algorithm,TLS libraries provide built-in certificate validation functions that should be used. in namespace/skims/test/data/lib_root/f052/kt_insecure_ssl_certification.kt,"
+   5 |   @Throws(CertificateException::class)
+   6 |   override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
+   7 |   } // Noncompliant (s4830)
+   8 |
+   9 |   @Throws(CertificateException::class)
+  10 |   override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
+  11 |   } // Noncompliant (s4830)
+  12 |
+  13 |   override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> {
+  14 |    return arrayOf()
+  15 |   }
+  16 |  })
+  17 |
+  18 | // Install the all-trusting trust manager
+  19 | val sslContext = SSLContext.getInstance(""TLSv1.2"")
+> 20 | sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+  21 |
+  22 |
+  23 |
+  24 | val sslContextSafe = SSLContext.getInstance(""TLSv1.2"")
+  25 | sslContextSafe.init(null, null, java.security.SecureRandom())
+     ^ Col 0
+",kotlin.kt_insecure_certificate_validation
 F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_hostname_verifier.kt,7,310,skims,052. Insecure encryption algorithm,TLS/SSL libraries provide built-in hostname verification functions that should be used. in namespace/skims/test/data/lib_root/f052/kotlin_insecure_hostname_verifier.kt,"
    1 | import javax.net.ssl.HostnameVerifier
    2 | import javax.net.ssl.SSLSession

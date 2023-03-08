@@ -36,6 +36,7 @@ from lib_root.f052.javascript import (
     javascript_jwt_insec_sign_algorithm,
 )
 from lib_root.f052.kotlin import (
+    kotlin_insecure_certification,
     kotlin_insecure_cipher,
     kotlin_insecure_cipher_http,
     kotlin_insecure_cipher_ssl,
@@ -111,6 +112,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, kotlin_insecure_key_rsa),
     (FINDING, kotlin_insecure_init_vector),
     (FINDING, kotlin_insecure_hostname_ver),
+    (FINDING, kotlin_insecure_certification),
     (FINDING, python_insecure_cipher),
     (FINDING, swift_insecure_cipher),
     (FINDING, swift_insecure_crypto),

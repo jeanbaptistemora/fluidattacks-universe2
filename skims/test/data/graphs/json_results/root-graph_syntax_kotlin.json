@@ -28436,7 +28436,8 @@
             "label_type": "ArgumentList"
           },
           "1588": {
-            "label_type": "Object"
+            "label_type": "Object",
+            "name": "Callback<Void>"
           },
           "160": {
             "label_type": "Literal",

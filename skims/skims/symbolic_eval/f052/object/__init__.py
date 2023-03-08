@@ -5,6 +5,9 @@ from symbolic_eval.f052.object.common import (
     insecure_encrypt,
     insecure_sign,
 )
+from symbolic_eval.f052.object.kotlin import (
+    kt_insecure_cert,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -16,6 +19,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_INSECURE_ENCRYPT: insecure_encrypt,
     MethodsEnum.JS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
     MethodsEnum.TS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
+    MethodsEnum.KT_INSECURE_CERTIFICATE_VALIDATION: kt_insecure_cert,
 }
 
 

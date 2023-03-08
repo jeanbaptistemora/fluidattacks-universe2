@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from symbolic_eval.f052.argument_list import (
+    evaluate as evaluate_argument_list_f052,
+)
 from symbolic_eval.f153.argument_list import (
     evaluate as evaluate_argument_list_f153,
 )
@@ -15,6 +18,7 @@ from utils import (
 
 FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F153: evaluate_argument_list_f153,
+    FindingEnum.F052: evaluate_argument_list_f052,
 }
 
 

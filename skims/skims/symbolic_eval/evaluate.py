@@ -77,6 +77,7 @@ EVALUATORS: dict[str, Evaluator] = {
     "Break": not_dangerous.evaluate,
     "Comment": not_dangerous.evaluate,
     "Continue": not_dangerous.evaluate,
+    "ClassBody": not_dangerous.evaluate,
     "BinaryOperation": binary_operation.evaluate,
     "CastExpression": cast_expression.evaluate,
     "ElementAccess": element_access.evaluate,
