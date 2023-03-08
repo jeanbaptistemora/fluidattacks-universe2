@@ -1,11 +1,16 @@
 import asyncio
 from collections.abc import (
+    Callable,
     Generator,
 )
+import json
 import logging
 import pytest
 from settings import (
     LOGGING,
+)
+from typing import (
+    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -115,3 +120,19 @@ def dynamodb_tables_args() -> dict:
         )
     )
     return tables
+
+
+@pytest.fixture()
+def resolve_mocked_data() -> Any:
+    def _resolve_mocked_data(
+        mocked_data: dict[str, dict[str, Any]],
+        mock_path: str,
+        mock_args: list[Any],
+        module_at_test: str,
+    ) -> Callable[[dict[str, dict[str, Any]], str, list[Any], str], Any]:
+
+        args_as_str = json.dumps(mock_args, default=str)
+        mocked_path = module_at_test + mock_path
+        return mocked_data[mocked_path][args_as_str]
+
+    return _resolve_mocked_data
