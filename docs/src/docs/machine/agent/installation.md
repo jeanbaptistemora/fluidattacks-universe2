@@ -140,6 +140,18 @@ To run the container. Here you have some examples:
   docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token> --breaking 4.5
   ```
 
+Note that you can have the agent's
+[arguments](/machine/agent/installation/#arguments-to-run-your-agent)
+in your container by running the following commands:
+
+```sh
+  docker run --rm -ti fluidattacks/forces:new forces --help
+```
+
+```sh
+  docker run --rm -ti fluidattacks/forces:new forces
+```
+
 :::tip
 The `--rm` and
 `--ti` parameters are optional.
