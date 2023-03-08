@@ -4,6 +4,7 @@ from collections.abc import (
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
+    get_conan_dep_info,
     pkg_deps_to_vulns,
 )
 from model.core_model import (
@@ -15,14 +16,6 @@ import re
 SELF_TOOL_DEPS: re.Pattern[str] = re.compile(
     r'\s+self\.(tool|build)_requires\("(?P<pkg>[^"]+)"[^\)]*\)'
 )
-TOOL_DEPS: re.Pattern[str] = re.compile(r'"([^"]+)"[,\s]*')
-
-
-def get_dep_info(dep_line: str) -> tuple[str, str]:
-    product, version = dep_line.lstrip().split("@")[0].split("/")
-    if "[" in version:
-        version = re.sub(r"[\[\]]", "", version).split(",")[0]
-    return product, version
 
 
 # pylint: disable=unused-argument
@@ -37,16 +30,7 @@ def conan_conanfile_txt_dev(
         elif line_deps:
             if not line or line.startswith("["):
                 break
-            pkg_name, pkg_version = get_dep_info(line)
-            yield format_pkg_dep(
-                pkg_name, pkg_version, line_number, line_number
-            )
-
-
-def get_tools_deps(line: str, line_number: int) -> Iterator[DependencyType]:
-    if matched := TOOL_DEPS.findall(line):
-        for match in matched:
-            pkg_name, pkg_version = get_dep_info(match)
+            pkg_name, pkg_version = get_conan_dep_info(line)
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
@@ -59,13 +43,10 @@ def conan_conanfile_py_dev(
 ) -> Iterator[DependencyType]:
     for line_number, line in enumerate(content.splitlines(), 1):
         if matched := SELF_TOOL_DEPS.search(line):
-            pkg_name, pkg_version = get_dep_info(matched.group("pkg"))
+            pkg_name, pkg_version = get_conan_dep_info(matched.group("pkg"))
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
-        if re.search(r"\s+(tool|build)_requires[\s=]+", line):
-            for dep in get_tools_deps(line, line_number):
-                yield dep
 
 
 # pylint: disable=unused-argument
@@ -80,7 +61,7 @@ def conan_conaninfo_txt_dev(
         elif line_deps:
             if not line:
                 break
-            pkg_name, pkg_version = get_dep_info(line)
+            pkg_name, pkg_version = get_conan_dep_info(line)
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
