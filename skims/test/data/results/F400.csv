@@ -239,7 +239,7 @@ F400,lines,namespace/skims/test/data/lib_root/f400/tfm_lambda_trace_disabled.tf,
   52 | }
      ^ Col 0
 ",terraform.tfm_lambda_tracing_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,18,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml,18,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml,"
    8 |         S3BucketName: bkname
    9 |       Listeners:
   10 |         - InstancePort: '80'
@@ -263,7 +263,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   28 |       Listeners:
      ^ Col 0
 ",cloudformation.cfn_elb_has_access_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,27,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml,27,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml,"
   12 |           LoadBalancerPort: '443'
   13 |           Protocol: HTTPS
   14 |   LoadBalancer2:
@@ -287,7 +287,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   32 |           Protocol: HTTPS
      ^ Col 0
 ",cloudformation.cfn_elb_has_access_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml.json,24,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
   14 |             ""LoadBalancerPort"": ""443"",
   15 |             ""Protocol"": ""HTTPS""
   16 |           }
@@ -311,7 +311,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   34 |         ]
      ^ Col 0
 ",cloudformation.cfn_elb_has_access_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml.json,39,778,skims,400. Traceability Loss - AWS,The AccessLoggingPolicy property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_elb_has_access_logging_disabled.yaml.json,"
   29 |             ""InstancePort"": ""80"",
   30 |             ""InstanceProtocol"": ""HTTP"",
   31 |             ""LoadBalancerPort"": ""443"",

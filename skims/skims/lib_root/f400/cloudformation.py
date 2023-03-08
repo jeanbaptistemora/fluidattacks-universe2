@@ -100,6 +100,53 @@ def _trails_not_multiregion(graph: Graph, nid: NId) -> Iterator[NId]:
         yield trail_id
 
 
+def _elb_has_access_logging_disabled(graph: Graph, nid: NId) -> Iterator[NId]:
+    _, _, prop_id = get_attribute(graph, nid, "Properties")
+    val_id = graph.nodes[prop_id]["value_id"]
+    access_log, _, access_log_id = get_attribute(
+        graph, val_id, "AccessLoggingPolicy"
+    )
+    if not access_log:
+        yield prop_id
+    else:
+        val_id = graph.nodes[access_log_id]["value_id"]
+        enabled, enabled_val, enabled_id = get_attribute(
+            graph, val_id, "Enabled"
+        )
+        if not enabled:
+            yield access_log_id
+        elif enabled_val in FALSE_OPTIONS:
+            yield enabled_id
+
+
+def cfn_elb_has_access_logging_disabled(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_ELB_ACCESS_LOG_DISABLED
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(
+                graph, "AWS::ElasticLoadBalancing::LoadBalancer"
+            ):
+                for report in _elb_has_access_logging_disabled(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f400.elb_has_access_logging_disabled",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_trails_not_multiregion(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

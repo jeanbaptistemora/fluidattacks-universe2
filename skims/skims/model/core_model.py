@@ -6034,7 +6034,7 @@ class MethodsEnum(Enum):
     CFN_ELB_ACCESS_LOG_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb_has_access_logging_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
