@@ -2,7 +2,6 @@ from aws.model import (
     AWSCTrail,
     AWSEC2,
     AWSElb,
-    AWSElbV2,
 )
 from collections.abc import (
     Iterator,
@@ -24,7 +23,6 @@ from model.core_model import (
 from parse_cfn.structure import (
     iter_cloudtrail_trail,
     iter_ec2_instances,
-    iter_elb2_load_balancers,
     iter_elb_load_balancers,
 )
 from typing import (
@@ -83,37 +81,6 @@ def _cfn_ec2_monitoring_disabled_iterate_vulnerabilities(
             yield monitoring
 
 
-def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
-    file_ext: str,
-    load_balancers_iterator: Iterator[Node],
-) -> Iterator[AWSElbV2 | Node]:
-    for elb in load_balancers_iterator:
-        attrs = elb.inner.get("LoadBalancerAttributes")
-        if not isinstance(attrs, Node):
-            yield AWSElbV2(
-                column=elb.start_column,
-                data=elb.data,
-                line=get_line_by_extension(elb.start_line, file_ext),
-            )
-        else:
-            key_vals = [
-                attr
-                for attr in attrs.data
-                if hasattr(attr, "raw")
-                and attr.raw.get("Key") == "access_logs.s3.enabled"
-            ]
-            if key_vals:
-                key = key_vals[0]
-                if hasattr(key, "raw") and key.raw["Value"] in FALSE_OPTIONS:
-                    yield key.inner["Value"]
-            else:
-                yield AWSElbV2(
-                    column=attrs.start_column,
-                    data=attrs.data,
-                    line=get_line_by_extension(attrs.start_line, file_ext),
-                )
-
-
 def cfn_elb_has_access_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -164,23 +131,4 @@ def cfn_ec2_monitoring_disabled(
         ),
         path=path,
         method=MethodsEnum.CFN_EC2_MONITORING_DISABLED,
-    )
-
-
-def cfn_elb2_has_access_logs_s3_disabled(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.elb2_has_access_logs_s3_disabled",
-        iterator=get_cloud_iterator(
-            _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
-                file_ext=file_ext,
-                load_balancers_iterator=iter_elb2_load_balancers(
-                    template=template
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_ELB2_LOGS_S3_DISABLED,
     )

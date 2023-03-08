@@ -1,6 +1,7 @@
 from lib_root.f400.cloudformation import (
     cfn_bucket_has_logging_conf_disabled,
     cfn_cf_distribution_has_logging_disabled,
+    cfn_elb2_has_access_logs_s3_disabled,
 )
 from lib_root.f400.terraform import (
     tfm_distribution_has_logging_disabled,
@@ -18,6 +19,7 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F400
 QUERIES: graph_model.Queries = (
     (FINDING, cfn_bucket_has_logging_conf_disabled),
     (FINDING, cfn_cf_distribution_has_logging_disabled),
+    (FINDING, cfn_elb2_has_access_logs_s3_disabled),
     (FINDING, tfm_distribution_has_logging_disabled),
     (FINDING, tfm_ec2_monitoring_disabled),
     (FINDING, tfm_elb_logging_disabled),

@@ -6066,7 +6066,7 @@ class MethodsEnum(Enum):
     CFN_ELB2_LOGS_S3_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_has_access_logs_s3_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
