@@ -31,6 +31,7 @@ class GroupStateJustification(str, Enum):
     NO_SYSTEM: str = "NO_SYSTEM"
     OTHER: str = "OTHER"
     RENAME: str = "RENAME"
+    TRIAL_FINALIZATION: str = "TRIAL_FINALIZATION"
 
 
 class GroupStateStatus(str, Enum):

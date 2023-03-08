@@ -10,6 +10,7 @@ from dataloaders import (
 )
 from db_model.groups.enums import (
     GroupManaged,
+    GroupStateJustification,
 )
 from db_model.groups.types import (
     Group,
@@ -35,25 +36,36 @@ from trials import (
     domain as trials_domain,
 )
 
+EMAIL_INTEGRATES = "integrates@fluidattacks.com"
 REMOVAL_AFTER_EXPIRATION_DAYS = 30
 
 
 async def remove_expired_groups_data(
+    loaders: Dataloaders,
     group: Group,
     trial: Trial,
 ) -> None:
     if (
         days_since_expiration := trials_domain.get_days_since_expiration(trial)
-        > REMOVAL_AFTER_EXPIRATION_DAYS
+        <= REMOVAL_AFTER_EXPIRATION_DAYS
     ):
-        info(
-            "Removing data for group %s, created_by %s, start_date %s,"
-            " days since expiration: %d",
-            group.name,
-            group.created_by,
-            trial.start_date,
-            days_since_expiration,
-        )
+        return
+
+    info(
+        "Removing data for group %s, created_by %s, start_date %s,"
+        " days since expiration: %d",
+        group.name,
+        group.created_by,
+        trial.start_date,
+        days_since_expiration,
+    )
+    await groups_domain.remove_group(
+        loaders=loaders,
+        email=EMAIL_INTEGRATES,
+        group_name=group.name,
+        justification=GroupStateJustification.TRIAL_FINALIZATION,
+        validate_pending_actions=False,
+    )
 
 
 async def _expire(
@@ -75,8 +87,9 @@ async def _expire(
         await groups_domain.update_group_managed(
             loaders=loaders,
             comments="Trial period has expired",
-            email="integrates@fluidattacks.com",
+            email=EMAIL_INTEGRATES,
             group_name=group.name,
+            justification=GroupStateJustification.TRIAL_FINALIZATION,
             managed=GroupManaged.UNDER_REVIEW,
         )
         await groups_mail.send_mail_free_trial_over(
@@ -108,7 +121,7 @@ async def main() -> None:
 
     await collect(
         tuple(
-            remove_expired_groups_data(group, trial)
+            remove_expired_groups_data(loaders, group, trial)
             for group, trial in zip(groups, trials)
             if group.state.managed == GroupManaged.UNDER_REVIEW
             and trial

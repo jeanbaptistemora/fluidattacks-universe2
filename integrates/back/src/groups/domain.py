@@ -549,6 +549,7 @@ async def update_group_managed(
     email: str,
     group_name: str,
     managed: GroupManaged,
+    justification: GroupStateJustification = GroupStateJustification.NONE,
 ) -> None:
     group = await get_group(loaders, group_name)
 
@@ -571,7 +572,7 @@ async def update_group_managed(
                     has_squad=group.state.has_squad,
                     managed=managed,
                     payment_id=group.state.payment_id,
-                    justification=GroupStateJustification.NONE,
+                    justification=justification,
                     modified_by=email,
                     service=group.state.service,
                     status=GroupStateStatus.ACTIVE,
@@ -583,7 +584,7 @@ async def update_group_managed(
         else:
             raise InvalidManagedChange()
 
-        if managed == "MANAGED":
+        if managed == GroupManaged.MANAGED:
             organization = await orgs_utils.get_organization(
                 loaders, group.organization_id
             )
