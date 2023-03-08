@@ -5930,7 +5930,7 @@ class MethodsEnum(Enum):
     CFN_KMS_KEY_ROTATION_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_kms_key_is_key_rotation_absent_or_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F396,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
