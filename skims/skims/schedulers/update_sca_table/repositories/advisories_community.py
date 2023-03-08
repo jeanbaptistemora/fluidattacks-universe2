@@ -5,7 +5,7 @@ import glob
 import re
 import yaml
 
-RE_RANGES: re.Pattern[str] = re.compile(r"(?=[\(\[]).?(?<=[\)\]])")
+RE_RANGES: re.Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")  # NOSONAR
 URL_ADVISORIES_COMMUNITY: str = (
     "https://gitlab.com/gitlab-org/advisories-community.git"
 )
