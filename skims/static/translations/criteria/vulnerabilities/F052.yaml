@@ -53,3 +53,6 @@ lib_root.f052.init_vector_is_hcoded:
 lib_root.f052.insec_hostname_verifier:
   en: TLS/SSL libraries provide built-in hostname verification functions that should be used.
   es: las librerias TLS/SSL proporcionan funciones de verificación de nombre de host integradas que deben usarse.
+lib_root.f052.insec_certificate:
+  en: TLS libraries provide built-in certificate validation functions that should be used.
+  es: las librerias TLS/SSL proporcionan funciones de validacion del certificado integradas que deben usarse.
