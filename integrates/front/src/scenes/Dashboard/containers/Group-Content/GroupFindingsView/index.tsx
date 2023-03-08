@@ -101,6 +101,7 @@ import type { IVulnerabilitiesContext } from "scenes/Dashboard/group/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { Have } from "utils/authz/Have";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -864,20 +865,22 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           expandedRow={handleRowExpand}
           extraButtons={
             <React.Fragment>
-              <Can I={"api_mutations_add_finding_mutate"}>
-                <Tooltip
-                  id={"group.findings.buttons.add.tooltip.id"}
-                  tip={t("group.findings.buttons.add.tooltip")}
-                >
-                  <Button
-                    icon={faPlus}
-                    id={"addFinding"}
-                    onClick={openAddFindingModal}
+              <Have I={"can_report_vulnerabilities"}>
+                <Can I={"api_mutations_add_finding_mutate"}>
+                  <Tooltip
+                    id={"group.findings.buttons.add.tooltip.id"}
+                    tip={t("group.findings.buttons.add.tooltip")}
                   >
-                    {t("group.findings.buttons.add.text")}
-                  </Button>
-                </Tooltip>
-              </Can>
+                    <Button
+                      icon={faPlus}
+                      id={"addFinding"}
+                      onClick={openAddFindingModal}
+                    >
+                      {t("group.findings.buttons.add.text")}
+                    </Button>
+                  </Tooltip>
+                </Can>
+              </Have>
               <Can do={"api_mutations_remove_finding_mutate"}>
                 <Tooltip
                   id={"group.findings.buttons.delete.tooltip"}
