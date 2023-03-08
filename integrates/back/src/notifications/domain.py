@@ -329,15 +329,19 @@ async def request_managed(
 
 
 async def new_password_protected_report(
+    *,
     loaders: Dataloaders,
     user_email: str,
     group_name: str,
     file_type: str,
     file_link: str = "",
+    include_report: bool = True,
 ) -> None:
     today = datetime_utils.get_now()
     fname = await _get_recipient_first_name_async(loaders, user_email)
-    subject = f"{file_type} Report for [{group_name}]"
+    subject = (
+        f'{file_type}{" Report for" if include_report else ""} [{group_name}]'
+    )
     await groups_mail.send_mail_group_report(
         loaders,
         [user_email],
