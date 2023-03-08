@@ -34,7 +34,6 @@ import { castFieldsCVSS3 } from "scenes/Dashboard/containers/Finding-Content/Sev
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { calcCVSSv3 } from "utils/cvss";
-import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
@@ -208,24 +207,28 @@ const SeverityView: React.FC = (): JSX.Element => {
                             {t("searchFindings.tabSeverity.update")}
                           </Button>
                         </ButtonToolbarRow>
-                        <Row>
-                          <Editable
-                            currentValue={"3.1"}
-                            isEditing={isEditing}
-                            label={t("searchFindings.tabSeverity.cvssVersion")}
-                          >
-                            <Select
+                        <div className={"w-25"}>
+                          <Row>
+                            <Editable
+                              currentValue={"3.1"}
+                              isEditing={isEditing}
                               label={t(
                                 "searchFindings.tabSeverity.cvssVersion"
                               )}
-                              name={"cvssVersion"}
-                              validate={required}
                             >
-                              <option value={""} />
-                              <option value={"3.1"}>{"3.1"}</option>
-                            </Select>
-                          </Editable>
-                        </Row>
+                              <Select
+                                label={t(
+                                  "searchFindings.tabSeverity.cvssVersion"
+                                )}
+                                name={"cvssVersion"}
+                                validate={required}
+                              >
+                                <option value={""} />
+                                <option value={"3.1"}>{"3.1"}</option>
+                              </Select>
+                            </Editable>
+                          </Row>
+                        </div>
                       </React.Fragment>
                     ) : undefined}
                     {castFieldsCVSS3(
@@ -238,31 +241,38 @@ const SeverityView: React.FC = (): JSX.Element => {
                           field.options[field.currentValue];
 
                         return (
-                          <Row key={field.name}>
-                            <EditableField
-                              alignField={"horizontal"}
-                              component={FormikDropdown}
-                              currentValue={`${Number(
-                                field.currentValue
-                              ).toFixed(2)} | ${t(currentOption)}`}
-                              id={`Row${index}`}
-                              label={field.title}
-                              name={field.name}
-                              renderAsEditable={isEditing}
-                              tooltip={tooltipPropHelper(currentOption)}
-                              validate={required}
-                            >
-                              <option value={""} />
-                              {_.map(
-                                field.options,
-                                (text: string, value: string): JSX.Element => (
-                                  <option key={text} value={value}>
-                                    {t(text)}
-                                  </option>
-                                )
-                              )}
-                            </EditableField>
-                          </Row>
+                          <div className={"w-25"} key={field.name}>
+                            <Row>
+                              <Editable
+                                currentValue={`${Number(
+                                  field.currentValue
+                                ).toFixed(2)} | ${t(currentOption)}`}
+                                isEditing={isEditing}
+                                label={field.title}
+                                tooltip={tooltipPropHelper(currentOption)}
+                              >
+                                <Select
+                                  id={`Row${index}`}
+                                  label={field.title}
+                                  name={field.name}
+                                  validate={required}
+                                >
+                                  <option value={""} />
+                                  {_.map(
+                                    field.options,
+                                    (
+                                      text: string,
+                                      value: string
+                                    ): JSX.Element => (
+                                      <option key={text} value={value}>
+                                        {t(text)}
+                                      </option>
+                                    )
+                                  )}
+                                </Select>
+                              </Editable>
+                            </Row>
+                          </div>
                         );
                       }
                     )}
