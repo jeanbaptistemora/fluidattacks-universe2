@@ -1263,7 +1263,7 @@ class FindingEnum(Enum):
         requirements=[181],
     )
     F428: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F428",
         cwe=1006,
         execution_queue=ExecutionQueue.control,

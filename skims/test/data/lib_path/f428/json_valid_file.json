@@ -1,0 +1,16 @@
+{
+  // A comment is not necessarily a vulnerability since most parsers support them nowadays
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./**/*.ts"
+  ],
+  "typeAcquisition": {
+    "enable": false
+  }
+}
