@@ -3,6 +3,7 @@ from lib_root.f400.cloudformation import (
     cfn_cf_distribution_has_logging_disabled,
     cfn_ec2_monitoring_disabled,
     cfn_elb2_has_access_logs_s3_disabled,
+    cfn_trails_not_multiregion,
 )
 from lib_root.f400.terraform import (
     tfm_distribution_has_logging_disabled,
@@ -22,6 +23,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, cfn_cf_distribution_has_logging_disabled),
     (FINDING, cfn_ec2_monitoring_disabled),
     (FINDING, cfn_elb2_has_access_logs_s3_disabled),
+    (FINDING, cfn_trails_not_multiregion),
     (FINDING, tfm_distribution_has_logging_disabled),
     (FINDING, tfm_ec2_monitoring_disabled),
     (FINDING, tfm_elb_logging_disabled),

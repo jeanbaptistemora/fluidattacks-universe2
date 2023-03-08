@@ -88,6 +88,44 @@ def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> Iterator[NId]:
         yield monitoring_id
 
 
+def _trails_not_multiregion(graph: Graph, nid: NId) -> Iterator[NId]:
+    _, _, prop_id = get_attribute(graph, nid, "Properties")
+    val_id = graph.nodes[prop_id]["value_id"]
+    trail, trail_val, trail_id = get_attribute(
+        graph, val_id, "IsMultiRegionTrail"
+    )
+    if not trail:
+        yield prop_id
+    elif trail_val in FALSE_OPTIONS:
+        yield trail_id
+
+
+def cfn_trails_not_multiregion(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_TRAILS_NOT_MULTIREGION
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "AWS::CloudTrail::Trail"):
+                for report in _trails_not_multiregion(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f400.trails_not_multiregion",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_ec2_monitoring_disabled(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

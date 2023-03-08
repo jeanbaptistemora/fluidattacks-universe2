@@ -335,7 +335,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_elb_has_access_logging_di
   49 |     }
      ^ Col 0
 ",cloudformation.cfn_elb_has_access_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,13,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml,13,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml,"
    1 | ---
    2 | Resources:
    3 |   trail1:
@@ -356,7 +356,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   18 |       IsMultiRegionTrail: true
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,5,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml,5,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml,"
    1 | ---
    2 | Resources:
    3 |   trail1:
@@ -377,7 +377,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   18 |       IsMultiRegionTrail: true
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,5,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml.json,5,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""trail1"": {
@@ -401,7 +401,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   21 |         ""IsLogging"": true,
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,15,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml.json,15,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/cfn_trails_not_multiregion.yaml.json,"
    5 |       ""Properties"": {
    6 |         ""IsLogging"": true,
    7 |         ""EnableLogFileValidation"": true

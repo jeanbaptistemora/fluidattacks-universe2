@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f400.cloudformation import (
     cfn_elb_has_access_logging_disabled,
-    cfn_trails_not_multiregion,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -30,15 +29,6 @@ def run_cfn_elb_has_access_logging_disabled(
 
 
 @SHIELD_BLOCKING
-def run_cfn_trails_not_multiregion(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_trails_not_multiregion(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -54,9 +44,6 @@ def analyze(
             results = (
                 *results,
                 run_cfn_elb_has_access_logging_disabled(
-                    content, file_extension, path, template
-                ),
-                run_cfn_trails_not_multiregion(
                     content, file_extension, path, template
                 ),
             )

@@ -1,5 +1,4 @@
 from aws.model import (
-    AWSCTrail,
     AWSElb,
 )
 from collections.abc import (
@@ -19,7 +18,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.structure import (
-    iter_cloudtrail_trail,
     iter_elb_load_balancers,
 )
 from typing import (
@@ -46,22 +44,6 @@ def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
             yield access_log
 
 
-def _cfn_trails_not_multiregion_iterate_vulnerabilities(
-    file_ext: str,
-    trails_iterator: Iterator[Node],
-) -> Iterator[AWSCTrail | Node]:
-    for trail in trails_iterator:
-        multi_reg = trail.inner.get("IsMultiRegionTrail")
-        if not isinstance(multi_reg, Node):
-            yield AWSCTrail(
-                column=trail.start_column,
-                data=trail.data,
-                line=get_line_by_extension(trail.start_line, file_ext),
-            )
-        elif multi_reg.raw in FALSE_OPTIONS:
-            yield multi_reg
-
-
 def cfn_elb_has_access_logging_disabled(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -78,21 +60,4 @@ def cfn_elb_has_access_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.CFN_ELB_ACCESS_LOG_DISABLED,
-    )
-
-
-def cfn_trails_not_multiregion(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.trails_not_multiregion",
-        iterator=get_cloud_iterator(
-            _cfn_trails_not_multiregion_iterate_vulnerabilities(
-                file_ext=file_ext,
-                trails_iterator=iter_cloudtrail_trail(template=template),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_TRAILS_NOT_MULTIREGION,
     )
