@@ -21,25 +21,39 @@ from db_model.trials.types import (
 from groups import (
     domain as groups_domain,
 )
-import logging
-import logging.config
 from mailer import (
     groups as groups_mail,
 )
 from organizations import (
     domain as orgs_domain,
 )
-from settings import (
-    LOGGING,
+from schedulers.common import (
+    error,
+    info,
 )
 from trials import (
     domain as trials_domain,
 )
 
-logging.config.dictConfig(LOGGING)
+REMOVAL_AFTER_EXPIRATION_DAYS = 30
 
-# Constants
-LOGGER = logging.getLogger(__name__)
+
+async def remove_expired_groups_data(
+    group: Group,
+    trial: Trial,
+) -> None:
+    if (
+        days_since_expiration := trials_domain.get_days_since_expiration(trial)
+        > REMOVAL_AFTER_EXPIRATION_DAYS
+    ):
+        info(
+            "Removing data for group %s, created_by %s, start_date %s,"
+            " days since expiration: %d",
+            group.name,
+            group.created_by,
+            trial.start_date,
+            days_since_expiration,
+        )
 
 
 async def _expire(
@@ -48,7 +62,7 @@ async def _expire(
     trial: Trial,
 ) -> None:
     try:
-        LOGGER.info(
+        info(
             "Will expire group %s, created_by %s, start_date %s",
             group.name,
             group.created_by,
@@ -71,7 +85,7 @@ async def _expire(
             group_name=group.name,
         )
     except InvalidManagedChange:
-        LOGGER.exception(
+        error(
             "Couldn't expire group %s, managed %s",
             group.name,
             group.state.managed,
@@ -90,4 +104,15 @@ async def main() -> None:
             for group, trial in zip(groups, trials)
             if trial and trials_domain.has_expired(trial)
         )
+    )
+
+    await collect(
+        tuple(
+            remove_expired_groups_data(group, trial)
+            for group, trial in zip(groups, trials)
+            if group.state.managed == GroupManaged.UNDER_REVIEW
+            and trial
+            and trial.completed
+        ),
+        workers=1,
     )

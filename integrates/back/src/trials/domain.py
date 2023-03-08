@@ -35,6 +35,23 @@ def get_status(trial: Trial) -> TrialStatus:
     return TrialStatus.TRIAL
 
 
+def get_days_since_expiration(trial: Trial) -> int:
+    if not trial.completed:
+        return 0
+
+    if trial.extension_date:
+        return (
+            datetime_utils.get_days_since(trial.extension_date)
+            - trial.extension_days
+        )
+    if trial.start_date:
+        return (
+            datetime_utils.get_days_since(trial.start_date) - FREE_TRIAL_DAYS
+        )
+
+    return 0
+
+
 def get_remaining_days(trial: Trial) -> int:
     days = 0
 
