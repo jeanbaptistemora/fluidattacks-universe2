@@ -506,16 +506,17 @@
     ];
     meta = {
       description = ''
-        Send emails notifying the trial period has expired
-        for all trial groups and update their group state.
+        Validate expiration date for trial groups updating their state
+        and clean data for already expired groups.
       '';
-      lastReview = "02-03-2023";
+      lastReview = "08-03-2023";
       maintainers = [
         "dacevedo"
-        "kcamargo"
+        "jmesa"
       ];
       requiredBy = [
-        "ARM autoenrollment as the trial expiration needs to be automatic."
+        "ARM autoenrollment flow as the free trial expiration
+        needs to be automatic."
       ];
     };
     parallel = 1;
