@@ -4,21 +4,16 @@ from collections.abc import (
 )
 from lib_path.common import (
     DependencyType,
+    format_conan_dep_info,
     format_pkg_dep,
+    get_conan_dep_info,
+    get_conanfile_class,
     pkg_deps_to_vulns,
 )
 from model.core_model import (
     MethodsEnum,
     Platform,
 )
-import re
-
-
-def get_dep_info(dep_line: str) -> tuple[str, str]:
-    product, version = dep_line.strip().split("@")[0].split("/")
-    if "[" in version:
-        version = re.sub(r"[\[\]]", "", version).split(",")[0]
-    return product, version
 
 
 # pylint: disable=unused-argument
@@ -31,27 +26,10 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
         elif line_deps:
             if not line or line.startswith("["):
                 break
-            pkg_name, pkg_version = get_dep_info(line)
+            pkg_name, pkg_version = get_conan_dep_info(line)
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
-
-
-def format_conan_dep_info(dep_info: ast.Constant) -> DependencyType:
-    pkg_name, pkg_version = get_dep_info(dep_info.value)
-    line_num = dep_info.lineno
-    col_num = dep_info.col_offset + 1
-    return format_pkg_dep(pkg_name, pkg_version, line_num, line_num, col_num)
-
-
-def get_conanfile_class(content: str) -> ast.ClassDef | None:
-    conan_tree = ast.parse(content)
-    for ast_object in conan_tree.body:
-        if isinstance(ast_object, ast.ClassDef):
-            for param in ast_object.bases:
-                if hasattr(param, "id") and param.id == "ConanFile":
-                    return ast_object
-    return None
 
 
 def get_conan_requires(attr: ast.Assign) -> Iterator[DependencyType]:
@@ -106,7 +84,7 @@ def conan_conaninfo_txt(content: str, path: str) -> Iterator[DependencyType]:
         elif line_deps:
             if not line:
                 break
-            pkg_name, pkg_version = get_dep_info(line)
+            pkg_name, pkg_version = get_conan_dep_info(line)
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )

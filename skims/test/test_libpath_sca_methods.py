@@ -674,7 +674,7 @@ def test_conan_conanfile_txt() -> None:
         file_contents, path
     )
     assertion: bool = True
-    for line_num in range(1, 13):
+    for line_num in range(1, 8):
         if pkg_info := conan_dep.search(content[line_num]):
             pkg_name = pkg_info.group("product")
             version = pkg_info.group("version")

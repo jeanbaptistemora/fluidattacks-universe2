@@ -51,6 +51,7 @@ from pyparsing import (
     QuotedString,
     Word,
 )
+import re
 from sca import (
     get_vulnerabilities,
 )
@@ -525,6 +526,31 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
                         tree = run_over_subdeps(subdeps, tree, yarn_dict)
         enumerated_tree = add_lines_enumeration(windower, tree)
     return enumerated_tree
+
+
+def get_conan_dep_info(dep_line: str) -> tuple[str, str]:
+    product, version = dep_line.strip().split("@")[0].split("/")
+    if "[" in version:
+        brack_removed = version[1 : len(version) - 1]
+        version = re.sub(r",(?=[<>=])", " ", brack_removed).split(",")[0]
+    return product, version
+
+
+def format_conan_dep_info(dep_info: ast.Constant) -> DependencyType:
+    pkg_name, pkg_version = get_conan_dep_info(dep_info.value)
+    line_num = dep_info.lineno
+    col_num = dep_info.col_offset + 1
+    return format_pkg_dep(pkg_name, pkg_version, line_num, line_num, col_num)
+
+
+def get_conanfile_class(content: str) -> ast.ClassDef | None:
+    conan_tree = ast.parse(content)
+    for ast_object in conan_tree.body:
+        if isinstance(ast_object, ast.ClassDef):
+            for param in ast_object.bases:
+                if hasattr(param, "id") and param.id == "ConanFile":
+                    return ast_object
+    return None
 
 
 def format_pkg_dep(
