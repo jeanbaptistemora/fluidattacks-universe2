@@ -149,7 +149,7 @@ Thus, you can define the best way according to your context.
 ## Examples run the Agent on your CI/CD
 
 If you want to run forces from your
-development infrastructure,
+Repository's pipeline,
 we present the following examples:
 
 In `GitLab` add these lines to your `.gitlab-ci.yml`
