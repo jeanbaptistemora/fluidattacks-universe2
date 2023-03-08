@@ -275,5 +275,5 @@ with `Fluid Attacks`.
 
 Unsure?
 Give our automated security testing a try
-for [free for 21 days](../../free-trial/).
+for [free for 21 days](https://app.fluidattacks.com/SignUp).
 You can upgrade anytime to add manual security testing.

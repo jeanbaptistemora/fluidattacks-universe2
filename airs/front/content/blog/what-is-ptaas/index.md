@@ -296,5 +296,5 @@ if you are interested
 in experiencing the benefits of our pentesting as a service ([PTaaS](../../product/ptaas/)).
 If you want to get started
 with our security testing services by automatic tools,
-we have [a 21-day free trial](../../free-trial/)
+we have [a 21-day free trial](https://app.fluidattacks.com/SignUp)
 of our Machine Plan at your disposal.

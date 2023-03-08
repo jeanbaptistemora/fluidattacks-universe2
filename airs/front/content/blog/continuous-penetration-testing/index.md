@@ -235,7 +235,7 @@ to receive our continuous penetration testing proposal.
 Our Penetration Testing solution is part of our [Continuous Hacking](../../services/continuous-hacking/)
 [Squad Plan](../../plans/).
 **You can**
-[**try now for free our Continuous Hacking Machine Plan**](../../free-trial/),
+[**try now for free our Continuous Hacking Machine Plan**](https://app.fluidattacks.com/SignUp),
 which involves only automated security testing,
 to find deterministic vulnerabilities in your systems
 and get introduced with our platform.

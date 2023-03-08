@@ -333,7 +333,7 @@ but also to face the growing cybersecurity risks and threats
 that are creating so much havoc in the world.
 Just [contact us](../../contact-us/)!
 (If you want,
-start by trying our [21-day free trial](../../free-trial/)
+start by trying our [21-day free trial](https://app.fluidattacks.com/SignUp)
 of security testing
 with our automated tools.)
 

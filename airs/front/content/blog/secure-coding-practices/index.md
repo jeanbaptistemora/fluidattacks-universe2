@@ -373,7 +373,7 @@ such as dynamic application security testing ([DAST](../../product/dast/)).
 if you want to find out
 what your development teams are overlooking
 and what is putting your organization at risk.
-[Register here](../../free-trial/)
+[Register here](https://app.fluidattacks.com/SignUp)
 if you want to start
 with a 21-day free trial of continuous security testing
 by our automated tools.

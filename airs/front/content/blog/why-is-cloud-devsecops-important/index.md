@@ -225,4 +225,4 @@ All this and more,
 using our [Continuous Hacking](../../services/continuous-hacking/) solution.
 
 Don't hesitate any longer
-to start the [21-day free trial](../../free-trial/).
+to start the [21-day free trial](https://app.fluidattacks.com/SignUp).

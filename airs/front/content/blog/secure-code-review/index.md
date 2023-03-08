@@ -282,5 +282,5 @@ and [reverse engineering](../../product/re/).
 Do not hesitate to [contact us](../../contact-us/)
 if you want more information about our Secure Code Review
 and other solutions in our Continuous Hacking service.
-[Click here](../../free-trial/)
+[Click here](https://app.fluidattacks.com/SignUp)
 to try our Continuous Hacking Machine Plan free for **21 days**.

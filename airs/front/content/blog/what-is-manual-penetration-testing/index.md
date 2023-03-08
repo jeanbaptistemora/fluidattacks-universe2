@@ -397,7 +397,7 @@ by experts
 that vulnerability scanning cannot replace.
 (If you want to take the first step in security
 by trying a scan with our automated tools,
-request our [21-day free trial](../../free-trial/)).
+request our [21-day free trial](https://app.fluidattacks.com/SignUp)).
 It is striking how many believe that both are the same thing.
 But there are indeed scammers in the market,
 and they can tell you that they do penetration testing when,

@@ -305,5 +305,5 @@ with `Fluid Attacks`,
 
 If you're still on the fence
 and want to try our automated security testing first,
-start your [21-day free trial](../../free-trial/).
+start your [21-day free trial](https://app.fluidattacks.com/SignUp).
 You can upgrade anytime to add manual security testing.

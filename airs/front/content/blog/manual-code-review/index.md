@@ -345,7 +345,7 @@ within an integral service called [Continuous Hacking](../../services/continuous
 This service is not limited to [static application security testing](../../product/sast/)
 and [software composition analysis](../../product/sca/).
 Beyond the intervention of our automated tools
-(we invite you to use them for [21 days for free](../../free-trial/)),
+(we invite you to use them for [21 days for free](https://app.fluidattacks.com/SignUp)),
 which also perform [dynamic application security testing](../../product/dast/),
 we employ methods such as [manual penetration testing](../../solutions/penetration-testing/)
 and [reverse engineering](../../product/re/)

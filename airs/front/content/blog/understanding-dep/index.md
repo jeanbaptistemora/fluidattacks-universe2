@@ -270,7 +270,7 @@ to find weaknesses.
 We do that in research
 but also perform [red teaming](../../solutions/red-teaming/) operations
 for software development companies.
-Right now we offer a [21-day free trial](../../free-trial/)
+Right now we offer a [21-day free trial](https://app.fluidattacks.com/SignUp)
 of our vulnerability scanning.
 You can upgrade at any time
 to include manual security testing by our hackers.

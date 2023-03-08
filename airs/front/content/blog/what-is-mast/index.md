@@ -271,4 +271,4 @@ to get more information about MAST at `Fluid Attacks`
 and its capabilities.
 And if you want to start enjoying our automatic tests,
 you can request the 21-day free trial
-of our [Continuous Hacking Machine Plan here](../../free-trial).
+of our [Continuous Hacking Machine Plan here](https://app.fluidattacks.com/SignUp).

@@ -260,7 +260,7 @@ you can assign remediation to developers in your team,
 ask our hackers for guidance
 and request reattacks to verify the effectiveness of your remediation efforts.
 
-Start your [21-day free trial](../../free-trial/)
+Start your [21-day free trial](https://app.fluidattacks.com/SignUp)
 of Continuous Hacking Machine Plan today.
 
 > **Note:**

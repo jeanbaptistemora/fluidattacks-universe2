@@ -179,6 +179,6 @@ That's why we recommend you go beyond automation
 and favor security testing done through the eyes of attackers.
 
 If you'd like a taste of our solution,
-start your [21-day free trial](../../free-trial/)
+start your [21-day free trial](https://app.fluidattacks.com/SignUp)
 of Machine Plan
 and upgrade to Squad Plan whenever you want.

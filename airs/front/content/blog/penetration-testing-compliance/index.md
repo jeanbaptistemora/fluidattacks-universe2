@@ -350,7 +350,7 @@ Continuous Hacking includes access
 to our [Attack Resistance Management](../../platform/) (ARM) platform.
 There,
 users can see how well they comply with several standards.
-Start your [**21-day free trial**](../../free-trial/)
+Start your [**21-day free trial**](https://app.fluidattacks.com/SignUp)
 to leverage our automated security testing
 and explore the platform.
 You can upgrade to include penetration testing.

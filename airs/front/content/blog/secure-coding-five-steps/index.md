@@ -346,4 +346,4 @@ we invite you to enjoy [SAST](../../product/sast/),
 [DAST](../../product/dast/)
 and [SCA](../../product/sca/) techniques
 with our automated tools
-in our [21-day free trial](../../free-trial/).
+in our [21-day free trial](https://app.fluidattacks.com/SignUp).

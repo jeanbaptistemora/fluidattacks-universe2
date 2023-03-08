@@ -318,7 +318,7 @@ and also ensure compliance with security requirements
 based on international standards.
 
 If you are interested in trying our ARM platform for free,
-we offer you our [21-day free trial](../../free-trial/)
+we offer you our [21-day free trial](https://app.fluidattacks.com/SignUp)
 in which you can enjoy continuous security testing
 with our automated tools
 (Machine Plan).

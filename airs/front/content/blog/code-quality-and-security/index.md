@@ -321,7 +321,7 @@ we contribute from the security field
 so that your code and applications are of high quality
 and keep their risk exposure as low as possible.
 
-We invite you to try our [21-day free trial](../../free-trial/)
+We invite you to try our [21-day free trial](https://app.fluidattacks.com/SignUp)
 with assessment through our automated machines
 as an introduction to the comprehensive service you can receive
 when you decide to become one of our customers.

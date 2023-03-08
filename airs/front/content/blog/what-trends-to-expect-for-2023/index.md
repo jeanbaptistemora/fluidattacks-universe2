@@ -422,7 +422,7 @@ and don't let threat actors catch you by surprise in 2023
 (or even right now).
 Do you want to be part of the trend in cybersecurity implementation?
 Get started now for free!
-[Try our 21-day free trial](../../free-trial/),
+[Try our 21-day free trial](https://app.fluidattacks.com/SignUp),
 in which our tools will detect vulnerabilities in your software
 and report them in our Attack Resistance Management platform (ARM).
 The main goal is for you

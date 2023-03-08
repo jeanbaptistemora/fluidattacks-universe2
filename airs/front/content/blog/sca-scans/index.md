@@ -332,6 +332,6 @@ and false negatives in final reports.
 
 If you are interested in detecting vulnerabilities
 with our SAST, DAST and SCA tools,
-we invite you to subscribe to our [21-day free trial](../../free-trial/).
+we invite you to subscribe to our [21-day free trial](https://app.fluidattacks.com/SignUp).
 If you have any questions,
 do not hesitate to [contact us](../../contact-us/).

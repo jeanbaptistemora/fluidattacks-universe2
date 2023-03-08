@@ -209,6 +209,6 @@ red team have obtained, you can follow this
 Contact us
 if you want our red team to search for complex vulnerabilities
 in your software.
-Or enjoy our offer now of a [21-day free trial](../../free-trial/)
+Or enjoy our offer now of a [21-day free trial](https://app.fluidattacks.com/SignUp)
 of security testing with our automated tools.
 You can upgrade at any time to include red team operations.

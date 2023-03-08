@@ -386,7 +386,7 @@ we help you comply with [several security standards](https://docs.fluidattacks.c
 and [reduce remediation costs](https://try.fluidattacks.tech/us/ebook/)
 by up to 90%.
 
-Click [here](../../free-trial/)
+Click [here](https://app.fluidattacks.com/SignUp)
 to learn about the **21-day free trial**
 of our Continuous Hacking Machine Plan,
 which lets you try our automated security testing,

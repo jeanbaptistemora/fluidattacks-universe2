@@ -362,7 +362,7 @@ This way we empower you
 to commit fully to developing secure software at speed.
 
 Wanna try Continuous Hacking Machine Plan?
-[Click here](../../free-trial/)
+[Click here](https://app.fluidattacks.com/SignUp)
 to unbox a **21-day free trial**.
 [Contact us](../../contact-us/)
 if you want more information.

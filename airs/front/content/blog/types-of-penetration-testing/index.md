@@ -235,7 +235,7 @@ and help you secure your software continuously as you develop it.
 Our service is [Continuous Hacking](../../services/continuous-hacking/),
 and its most comprehensive [plan](../../plans/) includes penetration testing.
 
-You can start your [**21-day free trial of Continuous Hacking**](../../free-trial/),
+You can start your [**21-day free trial of Continuous Hacking**](https://app.fluidattacks.com/SignUp),
 which includes only our automated security testing.
 Try it
 and upgrade whenever you want

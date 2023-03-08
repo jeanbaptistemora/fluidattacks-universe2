@@ -297,7 +297,7 @@ Are you interested in securing your product
 with the best solution?
 [Contact us](../../contact-us/).
 If you just want to explore `Fluid Attacks'` ARM,
-get the [21-day free trial](../../free-trial/)
+get the [21-day free trial](https://app.fluidattacks.com/SignUp)
 of Continuous Hacking Machine Plan
 and see the results of automated security tests
 performed to assess your product,

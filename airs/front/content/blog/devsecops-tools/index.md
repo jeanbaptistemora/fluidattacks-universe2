@@ -270,7 +270,7 @@ several times a day
 without sacrificing speed and security.
 
 Want to try our DevSecOps tools free for 21 days?
-Check out our [free trial](../../free-trial/)
+Check out our [free trial](https://app.fluidattacks.com/SignUp)
 of Continuous Hacking Machine Plan.
 If you have any questions,
 [contact us](../../contact-us/)\!

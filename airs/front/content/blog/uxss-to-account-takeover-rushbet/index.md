@@ -287,7 +287,7 @@ via a malicious app installed on their device.
 At Fluid Attacks,
 we search for complex vulnerabilities in software.
 You can secure your technology
-by starting your [21-day free trial](../../free-trial/)
+by starting your [21-day free trial](https://app.fluidattacks.com/SignUp)
 of our automated security testing.
 Upgrade at any time
 to include assessments by our ethical hackers.

@@ -302,7 +302,7 @@ not thinking about numbers, but risk.
 ## Secure against cyberattack trends with Fluid Attacks
 
 Want some help implementing the above preventive security measures?
-We offer a [21-day free trial](../../free-trial/)
+We offer a [21-day free trial](https://app.fluidattacks.com/SignUp)
 of our Continuous Hacking Machine Plan,
 which can help you find vulnerable software dependencies
 and proprietary code,
