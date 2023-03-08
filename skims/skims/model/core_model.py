@@ -6058,7 +6058,7 @@ class MethodsEnum(Enum):
     CFN_EC2_MONITORING_DISABLED = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_monitoring_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

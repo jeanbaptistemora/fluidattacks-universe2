@@ -473,7 +473,7 @@ F400,lines,namespace/skims/test/data/lib_root/f400/tfm_trails_not_multiregion.tf
   22 | }
      ^ Col 0
 ",terraform.tfm_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   MyEC2Instance:
@@ -495,7 +495,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.y
   19 |       KeyName: testkey
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,14,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml,14,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml,"
    1 | ---
    2 | Resources:
    3 |   MyEC2Instance:
@@ -517,7 +517,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.y
   19 |       KeyName: testkey
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,16,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml.json,16,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml.json,"
    6 |         ""ImageId"": ""ami-79fd7eee"",
    7 |         ""KeyName"": ""testkey"",
    8 |         ""Monitoring"": true
@@ -541,7 +541,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.y
   26 |   }
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,21,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml.json,21,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_root/f400/cfn_ec2_monitoring_disabled.yaml.json,"
    7 |         ""KeyName"": ""testkey"",
    8 |         ""Monitoring"": true
    9 |       }

@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f400.cloudformation import (
-    cfn_ec2_monitoring_disabled,
     cfn_elb_has_access_logging_disabled,
     cfn_trails_not_multiregion,
 )
@@ -40,15 +39,6 @@ def run_cfn_trails_not_multiregion(
 
 
 @SHIELD_BLOCKING
-def run_cfn_ec2_monitoring_disabled(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_ec2_monitoring_disabled(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -67,9 +57,6 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_trails_not_multiregion(
-                    content, file_extension, path, template
-                ),
-                run_cfn_ec2_monitoring_disabled(
                     content, file_extension, path, template
                 ),
             )

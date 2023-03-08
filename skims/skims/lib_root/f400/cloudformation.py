@@ -6,6 +6,7 @@ from itertools import (
 )
 from lib_path.common import (
     FALSE_OPTIONS,
+    TRUE_OPTIONS,
 )
 from lib_root.utilities.cloudformation import (
     get_attribute,
@@ -73,6 +74,44 @@ def _elb2_has_access_logs_s3_disabled(graph: Graph, nid: NId) -> Iterator[NId]:
                     yield value_id
         if not key_exist:
             yield load_id
+
+
+def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> Iterator[NId]:
+    _, _, prop_id = get_attribute(graph, nid, "Properties")
+    val_id = graph.nodes[prop_id]["value_id"]
+    monitoring, monitoring_val, monitoring_id = get_attribute(
+        graph, val_id, "Monitoring"
+    )
+    if not monitoring:
+        yield prop_id
+    elif monitoring_val not in TRUE_OPTIONS:
+        yield monitoring_id
+
+
+def cfn_ec2_monitoring_disabled(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_EC2_MONITORING_DISABLED
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "AWS::EC2::Instance"):
+                for report in _ec2_monitoring_disabled(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f400.has_monitoring_disabled",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def cfn_elb2_has_access_logs_s3_disabled(
