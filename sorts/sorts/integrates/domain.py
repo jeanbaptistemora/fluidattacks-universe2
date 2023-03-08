@@ -17,13 +17,17 @@ from sorts.utils.static import (
     read_allowed_names,
 )
 import time
+from typing import (
+    List,
+    Set,
+)
 
 
 def filter_allowed_files(
-    vuln_files: list[str], ignore_repos: list[str]
-) -> list[str]:
+    vuln_files: List[str], ignore_repos: List[str]
+) -> List[str]:
     """Leave files with allowed names and filter out from ignored repos"""
-    allowed_vuln_files: list[str] = []
+    allowed_vuln_files: List[str] = []
     extensions, composites = read_allowed_names()
     for vuln_file in vuln_files:
         vuln_repo: str = vuln_file.split(os.path.sep)[0]
@@ -40,9 +44,9 @@ def filter_allowed_files(
     return allowed_vuln_files
 
 
-def get_unique_vuln_files(group: str) -> list[str]:
+def get_unique_vuln_files(group: str) -> List[str]:
     """Removes repeated files from group vulnerabilities"""
-    open_vulnerability_files: list[str] = [
+    open_vulnerability_files: List[str] = [
         vuln.where
         for vuln in get_vulnerable_lines(group)
         if (
@@ -50,16 +54,16 @@ def get_unique_vuln_files(group: str) -> list[str]:
             and vuln.current_state == "VULNERABLE"
         )
     ]
-    unique_vuln_files: set[str] = set(open_vulnerability_files)
+    unique_vuln_files: Set[str] = set(open_vulnerability_files)
 
     return sorted(unique_vuln_files)
 
 
-def get_vulnerable_files(group: str, ignore_repos: list[str]) -> list[str]:
+def get_vulnerable_files(group: str, ignore_repos: List[str]) -> List[str]:
     """Gets vulnerable files to fill the training DataFrame"""
     timer: float = time.time()
-    unique_vuln_files: list[str] = get_unique_vuln_files(group)
-    allowed_vuln_files: list[str] = filter_allowed_files(
+    unique_vuln_files: List[str] = get_unique_vuln_files(group)
+    allowed_vuln_files: List[str] = filter_allowed_files(
         unique_vuln_files, ignore_repos
     )
     log(
@@ -70,10 +74,10 @@ def get_vulnerable_files(group: str, ignore_repos: list[str]) -> list[str]:
     return allowed_vuln_files
 
 
-def get_vulnerable_lines(group: str) -> list[Vulnerability]:
+def get_vulnerable_lines(group: str) -> List[Vulnerability]:
     """Fetches the vulnerable files from a group"""
-    vulnerabilities: list[Vulnerability] = []
-    finding_ids: list[str] = get_finding_ids(group)
+    vulnerabilities: List[Vulnerability] = []
+    finding_ids: List[str] = get_finding_ids(group)
     with ThreadPoolExecutor(max_workers=8) as executor:
         for finding_vulnerabilities in executor.map(
             get_vulnerabilities, finding_ids

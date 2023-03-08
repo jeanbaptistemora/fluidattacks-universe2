@@ -1,6 +1,3 @@
-from collections.abc import (
-    Callable,
-)
 import functools
 from gql import (
     gql,
@@ -27,6 +24,10 @@ from sorts.utils.logs import (
 import time
 from typing import (
     Any,
+    Callable,
+    Dict,
+    List,
+    Optional,
 )
 
 
@@ -62,10 +63,10 @@ def _execute(
     *,
     query: str,
     operation: str,
-    variables: dict[str, Any],
-) -> dict[str, Any]:
+    variables: Dict[str, Any],
+) -> Dict[str, Any]:
     """Sends query to the backend"""
-    response: dict[str, Any] = {}
+    response: Dict[str, Any] = {}
     with graphql_client() as client:
         try:
             response = client.execute(
@@ -86,9 +87,9 @@ def _execute(
     return response
 
 
-def get_vulnerabilities(finding_id: str) -> list[Vulnerability]:
+def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
     """Fetches all reported vulnerabilities in a finding, open or closed"""
-    vulnerabilities: list[Vulnerability] = []
+    vulnerabilities: List[Vulnerability] = []
     query = """
         query SortsGetVulnerabilities(
             $after: String
@@ -178,8 +179,8 @@ def get_user_email() -> str:
     return result["me"]["userEmail"]
 
 
-def get_toe_lines_sorts(group_name: str) -> list[ToeLines]:
-    group_toe_lines: list[ToeLines] = []
+def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
+    group_toe_lines: List[ToeLines] = []
     result = _execute(
         query="""
             query SortsGetToeLines($group_name: String!) {
@@ -273,7 +274,7 @@ def update_toe_lines_sorts(
     root_nickname: str,
     filename: str,
     risk_level_date: str,
-    risk_level: int | None = None,
+    risk_level: Optional[int] = None,
 ) -> bool:
     result = _execute(
         query="""
@@ -315,7 +316,7 @@ def update_toe_lines_suggestions(
     group_name: str,
     root_nickname: str,
     filename: str,
-    sorts_suggestions: list[dict],
+    sorts_suggestions: List[Dict],
 ) -> bool:
     result = _execute(
         query="""
@@ -347,9 +348,9 @@ def update_toe_lines_suggestions(
     return result["updateToeLinesSorts"]["success"]
 
 
-def get_finding_ids(group: str) -> list[str]:
+def get_finding_ids(group: str) -> List[str]:
     """Fetches all finding ids for a group"""
-    finding_ids: list[str] = []
+    finding_ids: List[str] = []
     result = _execute(
         query="""
             query SortsGetFindingIds(
