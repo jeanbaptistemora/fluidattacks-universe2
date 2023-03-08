@@ -142,11 +142,11 @@ pytestmark = [
         ),
     ),
 )
-async def test_customer_payment_methods(
+def test_customer_payment_methods(
     organization: Organization, expected_result: list
 ) -> None:
 
-    result = await customer_payment_methods(org=organization)
+    result = customer_payment_methods(org=organization)
     assert result == expected_result
 
 

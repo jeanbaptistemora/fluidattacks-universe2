@@ -143,7 +143,7 @@ async def get_document_link(
     )
 
 
-async def _customer_has_payment_method(
+def _customer_has_payment_method(
     *,
     org_billing_customer: str,
 ) -> bool:
@@ -211,7 +211,7 @@ async def _format_create_subscription_data(
     return result
 
 
-async def _has_subscription(
+def _has_subscription(
     *,
     statuses: list[str],
     subscriptions: list[Subscription],
@@ -222,7 +222,7 @@ async def _has_subscription(
     return False
 
 
-async def _get_active_subscription(
+def _get_active_subscription(
     *,
     subscriptions: list[Subscription],
 ) -> Subscription | None:
@@ -249,7 +249,7 @@ async def update_subscription(
         raise InvalidBillingCustomer()
 
     # Raise exception if customer does not have a payment method
-    if not await _customer_has_payment_method(
+    if not _customer_has_payment_method(
         org_billing_customer=org_billing_customer,
     ):
         raise BillingCustomerHasNoPaymentMethod()
@@ -261,13 +261,13 @@ async def update_subscription(
     )
 
     # Raise exception if group has incomplete, past_due or unpaid subscriptions
-    if await _has_subscription(
+    if _has_subscription(
         statuses=["incomplete", "past_due", "unpaid"],
         subscriptions=subscriptions,
     ):
         raise CouldNotUpdateSubscription()
 
-    current: Subscription | None = await _get_active_subscription(
+    current: Subscription | None = _get_active_subscription(
         subscriptions=subscriptions
     )
 
@@ -279,7 +279,7 @@ async def update_subscription(
 
     result: bool = False
     if current is None:
-        trial: bool = not await _has_subscription(
+        trial: bool = not _has_subscription(
             statuses=["canceled"],
             subscriptions=subscriptions,
         )
@@ -308,7 +308,7 @@ async def update_subscription(
     return result
 
 
-async def get_customer(
+def get_customer(
     *,
     org_billing_customer: str,
 ) -> Customer:
@@ -321,7 +321,7 @@ async def get_customer(
     )
 
 
-async def customer_payment_methods(
+def customer_payment_methods(
     *,
     org: Organization,
     limit: int = 100,
@@ -582,7 +582,7 @@ async def create_credit_card_payment_method(
 
     result: bool = False
     # get actual payment methods
-    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -715,7 +715,7 @@ async def update_credit_card_payment_method(
         raise InvalidBillingCustomer()
 
     # Raise exception if payment method does not belong to organization
-    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -752,7 +752,7 @@ async def update_other_payment_method(
     state: str,
 ) -> bool:
     # Raise exception if payment method does not belong to organization
-    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -838,7 +838,7 @@ async def remove_payment_method(
     if org.billing_customer is None:
         raise InvalidBillingCustomer()
 
-    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+    payment_methods: list[PaymentMethod] = customer_payment_methods(
         org=org,
         limit=1000,
     )
@@ -901,7 +901,7 @@ async def remove_payment_method(
 
     # Raise exception if payment method is the last one
     # and there are active or trialing subscriptions
-    if len(payment_methods) == 1 and await _has_subscription(
+    if len(payment_methods) == 1 and _has_subscription(
         statuses=["active", "trialing"], subscriptions=subscriptions
     ):
         raise BillingCustomerHasActiveSubscription()

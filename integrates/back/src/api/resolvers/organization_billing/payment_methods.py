@@ -30,7 +30,7 @@ async def resolve(
         loaders, parent.organization
     )
 
-    return await billing_domain.customer_payment_methods(
+    return billing_domain.customer_payment_methods(
         org=organization,
         limit=100,
     )

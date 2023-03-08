@@ -73,7 +73,7 @@ async def mutate(
     user_email = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
     org = await get_organization(loaders, group.organization_id)
-    payment_methods = await billing_domain.customer_payment_methods(org=org)
+    payment_methods = billing_domain.customer_payment_methods(org=org)
     payment_method: PaymentMethod = list(
         filter(
             lambda method: method.id == payment_id,
