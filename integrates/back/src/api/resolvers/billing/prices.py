@@ -20,4 +20,4 @@ from graphql.type.definition import (
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> dict[str, Price]:
-    return await billing_domain.get_prices()
+    return billing_domain.get_prices()

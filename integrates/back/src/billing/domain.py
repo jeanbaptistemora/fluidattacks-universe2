@@ -793,7 +793,7 @@ async def update_other_payment_method(
     return True
 
 
-async def _set_default_payment(
+def _set_default_payment(
     payment_methods: list[PaymentMethod],
     payment_method_id: str,
     org: Organization,
@@ -906,7 +906,7 @@ async def remove_payment_method(
     ):
         raise BillingCustomerHasActiveSubscription()
 
-    update_default_payment = await _set_default_payment(
+    update_default_payment = _set_default_payment(
         payment_methods, payment_method_id, org
     )
     result = update_default_payment and dal.remove_payment_method(
@@ -946,7 +946,7 @@ async def get_group_billing(
     )
     number_authors: int = len(group_authors)
 
-    prices: dict[str, Price] = await get_prices()
+    prices: dict[str, Price] = get_prices()
     org_authors: dict[str, OrganizationAuthor] = {
         author.actor: author
         for author in await get_organization_authors(
@@ -1093,7 +1093,7 @@ async def get_organization_billing(
         )
     )
 
-    prices: dict[str, Price] = await get_prices()
+    prices: dict[str, Price] = get_prices()
     costs_base: int = int(
         prices["machine"].amount
         * (len(groups_squad) + len(groups_machine))
@@ -1117,7 +1117,7 @@ async def get_organization_billing(
     )
 
 
-async def get_prices() -> dict[str, Price]:
+def get_prices() -> dict[str, Price]:
     """Get model prices"""
     return dal.get_prices()
 
