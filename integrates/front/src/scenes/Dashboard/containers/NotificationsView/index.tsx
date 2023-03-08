@@ -16,6 +16,7 @@ import {
   UPDATE_NOTIFICATIONS_PREFERENCES,
 } from "scenes/Dashboard/containers/NotificationsView/queries";
 import type {
+  INotificationsPreferences,
   ISubscriptionName,
   ISubscriptionsNames,
 } from "scenes/Dashboard/containers/NotificationsView/types";
@@ -69,6 +70,19 @@ const NotificationsView: React.FC = (): JSX.Element => {
     [updateSubscription]
   );
 
+  const onChangeSeverity = useCallback(
+    (
+      listSubscription: INotificationsPreferences
+    ): ((newValue: number | undefined) => void) => {
+      return (newValue: number | undefined): void => {
+        if (!_.isUndefined(newValue)) {
+          handleSubmit(listSubscription.email, newValue, listSubscription.sms);
+        }
+      };
+    },
+    [handleSubmit]
+  );
+
   const subscriptions: ISubscriptionName[] =
     _.isUndefined(dataEnum) || _.isEmpty(dataEnum)
       ? []
@@ -85,16 +99,6 @@ const NotificationsView: React.FC = (): JSX.Element => {
               isSubscribe(listSub)
                 ? listSub.filter((sub: string): boolean => !isSubscribe(sub))
                 : [subscription.name, ...listSub];
-
-            function onChangeSeverity(newValue: number | undefined): void {
-              if (!_.isUndefined(newValue)) {
-                handleSubmit(
-                  listSubscription.email,
-                  newValue,
-                  listSubscription.sms
-                );
-              }
-            }
 
             const onChangeMail = (listSub: string[]): (() => void) => {
               const newListMail = (): void => {
@@ -122,7 +126,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
                   defaultValue={severity}
                   max={10}
                   min={0}
-                  onEnter={onChangeSeverity}
+                  onEnter={onChangeSeverity(listSubscription)}
                 />
               ),
               name: t(`searchFindings.enumValues.${subscription.name}.name`),

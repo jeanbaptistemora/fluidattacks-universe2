@@ -24,4 +24,8 @@ interface ISubscriptionsNames {
   };
 }
 
-export type { ISubscriptionName, ISubscriptionsNames };
+export type {
+  INotificationsPreferences,
+  ISubscriptionName,
+  ISubscriptionsNames,
+};
