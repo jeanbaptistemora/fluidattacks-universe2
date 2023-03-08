@@ -55,8 +55,8 @@ const MenuFootContainer = styled.div.attrs({
   fixed
   fadein
   `,
-})<{ display: boolean }>`
-  display: ${({ display }): string => (display ? "flex" : "none")};
+})<{ isShown: boolean }>`
+  display: ${({ isShown }): string => (isShown ? "flex" : "none")};
   background-color: #f4f4f6;
   align-content: center;
   justify-content: center;
@@ -67,8 +67,8 @@ const ContainerWithSlide = styled.div.attrs({
   classname: `
   w-auto
   `,
-})<{ display: boolean }>`
-  display: ${({ display }): string => (display ? "block" : "none")};
+})<{ isShown: boolean }>`
+  display: ${({ isShown }): string => (isShown ? "block" : "none")};
 
   @keyframes fadeInRight {
     from {
@@ -84,9 +84,9 @@ const ContainerWithSlide = styled.div.attrs({
 
 const SlideMenu = styled.div.attrs({
   classname: ``,
-})<{ display: boolean; status: number }>`
+})<{ isShown: boolean; status: number }>`
   height: 300px;
-  display: ${({ display }): string => (display ? "block" : "none")};
+  display: ${({ isShown }): string => (isShown ? "block" : "none")};
   @keyframes fadeInLeft {
     from {
       opacity: 0;

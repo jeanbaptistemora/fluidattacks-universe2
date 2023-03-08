@@ -1,8 +1,8 @@
 import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import hljs from "highlight.js";
 import React, { useCallback, useEffect } from "react";
+import { useWindowSize } from "usehooks-ts";
 
-import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 import { DesktopFooter } from "../DesktopFooter";
 import { MediumFooter } from "../MediumFooter";
 import { MobileFooter } from "../MobileFooter";

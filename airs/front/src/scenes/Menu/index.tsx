@@ -5,6 +5,7 @@ import React, { createRef, useCallback, useState } from "react";
 import type { RefObject } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
+import { useWindowSize } from "usehooks-ts";
 
 import { CompanyMenu } from "./Categories/Company";
 import { PlatformMenu } from "./Categories/Platform";
@@ -22,22 +23,25 @@ import {
   NavbarInnerContainer,
   NavbarList,
 } from "../../styles/styledComponents";
-import { useWindowSize } from "../../utils/hooks/useWindowSize";
 
 export const NavbarComponent: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
   const { width } = useWindowSize();
   const [menuStatus, setMenuStatus] = useState(0);
-  const [categoryServices, setCategoryServices] = useState(false);
-  const [categoryResources, setCategoryResources] = useState(false);
-  const [categoryPlatform, setCategoryPlatform] = useState(false);
-  const [categoryCompany, setCategoryCompany] = useState(false);
+  const [categoryShown, setCategoryShown] = useState(0);
 
+  const handleScreen = useCallback((): string => {
+    if (width < 1241 && width > 720) {
+      return "medium";
+    } else if (width < 720 && width > 10) {
+      return "mobile";
+    }
+
+    return "desktop";
+  }, [width]);
+  const screen = handleScreen();
   const resetState = useCallback((): void => {
-    setCategoryResources(false);
-    setCategoryServices(false);
-    setCategoryPlatform(false);
-    setCategoryCompany(false);
+    setCategoryShown(0);
   }, []);
   const [menu, setMenu] = useState(false);
   const menuRef: RefObject<HTMLDivElement> = createRef();
@@ -51,27 +55,28 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
       document.body.setAttribute("style", "overflow-y: hidden;");
     }
   }, [menu, menuStatus]);
+  const contents: JSX.Element[] = [
+    <div key={"close"} />,
+    <ServiceMenu display={"block"} key={"services"} />,
+    <PlatformMenu display={"block"} key={"platform"} />,
+    <ResourcesMenu display={"block"} key={"resources"} />,
+    <CompanyMenu display={"block"} key={"company"} />,
+  ];
   const handleClickButton = useCallback(
     (category: string): (() => void) =>
       (): void => {
         resetState();
         if (category === "services") {
-          setCategoryServices(!categoryServices);
+          setCategoryShown(1);
         } else if (category === "resources") {
-          setCategoryResources(!categoryResources);
+          setCategoryShown(3);
         } else if (category === "platform") {
-          setCategoryPlatform(!categoryPlatform);
+          setCategoryShown(2);
         } else {
-          setCategoryCompany(!categoryCompany);
+          setCategoryShown(4);
         }
       },
-    [
-      categoryServices,
-      categoryResources,
-      categoryCompany,
-      categoryPlatform,
-      resetState,
-    ]
+    [resetState]
   );
   const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({ action: "free-trial-click", category: "navbar" });
@@ -80,6 +85,111 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
   useClickOutside(menuRef, (): void => {
     resetState();
   });
+  handleScreen();
+
+  if (screen === "mobile") {
+    return (
+      <NavbarContainer id={"navbar"} ref={menuRef}>
+        <NavbarInnerContainer id={"inner_navbar"}>
+          <NavbarList className={"poppins"} id={"navbar_list"}>
+            <div className={"w-auto flex flex-nowrap"}>
+              <li>
+                <Link className={"db tc pa1 no-underline"} to={"/"}>
+                  <Container display={"block"} ph={3} pv={2} width={"160px"}>
+                    <CloudImage
+                      alt={"Fluid Attacks logo navbar"}
+                      src={"airs/menu/Logo.png"}
+                    />
+                  </Container>
+                </Link>
+              </li>
+            </div>
+            <Container
+              display={"flex"}
+              justify={"center"}
+              justifyMd={"end"}
+              justifySm={"end"}
+              maxWidth={"90%"}
+            >
+              <Button onClick={handleClick} variant={"ghost"}>
+                <FiMenu size={width > 960 ? 20 : 25} />
+              </Button>
+            </Container>
+          </NavbarList>
+        </NavbarInnerContainer>
+        {contents[categoryShown]}
+        <DropdownMenu
+          display={menu ? "block" : "none"}
+          handleClick={handleClick}
+          setStatus={setMenuStatus}
+          status={menuStatus}
+        />
+      </NavbarContainer>
+    );
+  } else if (screen === "medium") {
+    return (
+      <NavbarContainer id={"navbar"} ref={menuRef}>
+        <NavbarInnerContainer id={"inner_navbar"}>
+          <NavbarList className={"poppins"} id={"navbar_list"}>
+            <div className={"w-auto flex flex-nowrap"}>
+              <li>
+                <Link className={"db tc pa1 no-underline"} to={"/"}>
+                  <Container display={"block"} ph={3} pv={2} width={"160px"}>
+                    <CloudImage
+                      alt={"Fluid Attacks logo navbar"}
+                      src={"airs/menu/Logo.png"}
+                    />
+                  </Container>
+                </Link>
+              </li>
+            </div>
+            <Container
+              display={"flex"}
+              justify={"end"}
+              minWidth={"447px"}
+              width={"80%"}
+              wrap={"nowrap"}
+            >
+              <AirsLink href={"/contact-us/"}>
+                <Button variant={"secondary"}>{"Contact now"}</Button>
+              </AirsLink>
+              <Container maxWidth={"142px"} ml={2} mr={2}>
+                <AirsLink href={"https://app.fluidattacks.com/SignUp"}>
+                  <Button onClick={matomoFreeTrialEvent} variant={"primary"}>
+                    {"Start free trial"}
+                  </Button>
+                </AirsLink>
+              </Container>
+              <AirsLink href={"https://app.fluidattacks.com/"}>
+                <Button variant={"ghost"}>
+                  <BsFillPersonFill />
+                  {"Log in"}
+                </Button>
+              </AirsLink>
+            </Container>
+            <Container
+              display={"flex"}
+              justify={"center"}
+              justifyMd={"end"}
+              justifySm={"end"}
+              maxWidth={"50px"}
+            >
+              <Button onClick={handleClick} variant={"ghost"}>
+                <FiMenu size={width > 960 ? 20 : 25} />
+              </Button>
+            </Container>
+          </NavbarList>
+        </NavbarInnerContainer>
+        {contents[categoryShown]}
+        <DropdownMenu
+          display={menu ? "block" : "none"}
+          handleClick={handleClick}
+          setStatus={setMenuStatus}
+          status={menuStatus}
+        />
+      </NavbarContainer>
+    );
+  }
 
   return (
     <NavbarContainer id={"navbar"} ref={menuRef}>
@@ -88,7 +198,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
           <div className={"w-auto flex flex-nowrap"}>
             <li>
               <Link className={"db tc pa1 no-underline"} to={"/"}>
-                <Container ph={3} pv={2} width={"160px"}>
+                <Container display={"block"} ph={3} pv={2} width={"160px"}>
                   <CloudImage
                     alt={"Fluid Attacks logo navbar"}
                     src={"airs/menu/Logo.png"}
@@ -97,11 +207,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               </Link>
             </li>
           </div>
-          <Container
-            center={true}
-            display={width > 1240 ? "flex" : "none"}
-            width={"auto"}
-          >
+          <Container center={true} display={"flex"} width={"auto"}>
             <Button
               onClick={handleClickButton("services")}
               size={"md"}
@@ -142,10 +248,10 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             </Button>
           </Container>
           <Container
-            display={width < 720 ? "none" : "flex"}
+            display={"flex"}
             justify={"end"}
             minWidth={"447px"}
-            width={width > 1240 ? "auto" : "80%"}
+            width={"auto"}
             wrap={"nowrap"}
           >
             <AirsLink href={"/contact-us/"}>
@@ -165,29 +271,9 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               </Button>
             </AirsLink>
           </Container>
-          <Container
-            display={width < 1241 ? "flex" : "none"}
-            justify={"center"}
-            justifyMd={"end"}
-            justifySm={"end"}
-            maxWidth={width > 720 ? "50px" : "90%"}
-          >
-            <Button onClick={handleClick} variant={"ghost"}>
-              <FiMenu size={width > 960 ? 20 : 25} />
-            </Button>
-          </Container>
         </NavbarList>
       </NavbarInnerContainer>
-      <ServiceMenu display={categoryServices ? "flex" : "none"} />
-      <PlatformMenu display={categoryPlatform ? "block" : "none"} />
-      <ResourcesMenu display={categoryResources ? "block" : "none"} />
-      <CompanyMenu display={categoryCompany ? "block" : "none"} />
-      <DropdownMenu
-        display={menu ? "block" : "none"}
-        handleClick={handleClick}
-        setStatus={setMenuStatus}
-        status={menuStatus}
-      />
+      {contents[categoryShown]}
     </NavbarContainer>
   );
 };

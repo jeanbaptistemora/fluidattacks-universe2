@@ -9,6 +9,7 @@ import {
   BsFillPersonFill,
 } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
+import { useWindowSize } from "usehooks-ts";
 
 import { Search } from "./Search";
 
@@ -22,7 +23,6 @@ import {
   NavbarInnerContainer,
   NavbarList,
 } from "../../../styles/styledComponents";
-import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 import { CompanyMenu } from "../Categories/Company";
 import { PlatformMenu } from "../Categories/Platform";
 import { ResourcesMenu } from "../Categories/Resources";
@@ -51,10 +51,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
   const [categoryShowed, setCategoryShowed] = useState(0);
   const contents: JSX.Element[] = [
     <div key={"close"} />,
-    <ServiceMenu
-      display={categoryShowed === 1 ? "flex" : "none"}
-      key={"services"}
-    />,
+    <ServiceMenu display={"block"} key={"services"} />,
     <PlatformMenu display={"block"} key={"platform"} />,
     <ResourcesMenu display={"block"} key={"resources"} />,
     <CompanyMenu display={"block"} key={"company"} />,
@@ -153,7 +150,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
         position={"absolute"}
         width={"100%"}
       >
-        <SlideMenu display={categoryShowed === 0} status={status}>
+        <SlideMenu isShown={categoryShowed === 0} status={status}>
           <Search indices={searchIndices} />
           <Container ph={4} width={"auto"} widthSm={"100%"}>
             <Button
@@ -300,7 +297,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
             </Button>
           </Container>
         </SlideMenu>
-        <MenuFootContainer display={categoryShowed === 0} id={"menufoot"}>
+        <MenuFootContainer id={"menufoot"} isShown={categoryShowed === 0}>
           <Container
             align={"center"}
             bgColor={"#aaaaa"}
@@ -333,7 +330,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
             </Container>
           </Container>
         </MenuFootContainer>
-        <ContainerWithSlide display={categoryShowed !== 0}>
+        <ContainerWithSlide isShown={categoryShowed !== 0}>
           <Container borderBottomColor={"#2e2e38"} mb={3}>
             <Button
               icon={

@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
+import { useWindowSize } from "usehooks-ts";
 
 import { AirsLink } from "../../../../components/AirsLink";
 import { Container } from "../../../../components/Container";
 import type { TDisplay } from "../../../../components/Container/types";
 import { Grid } from "../../../../components/Grid";
 import { Text } from "../../../../components/Typography";
-import { useWindowSize } from "../../../../utils/hooks/useWindowSize";
 import { translate } from "../../../../utils/translations/translate";
 
 interface IPlatformProps {

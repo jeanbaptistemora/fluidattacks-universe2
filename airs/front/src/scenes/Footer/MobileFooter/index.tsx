@@ -1,5 +1,4 @@
 /* eslint react/forbid-component-props: 0 */
-import dayjs from "dayjs";
 import React from "react";
 import {
   FaFacebookSquare,
@@ -13,10 +12,11 @@ import { AirsLink } from "../../../components/AirsLink";
 import { CloudImage } from "../../../components/CloudImage";
 import { Container } from "../../../components/Container";
 import { Text } from "../../../components/Typography";
+import { useDateYear } from "../../../utils/hooks/useSafeDate";
 import { translate } from "../../../utils/translations/translate";
 
 const MobileFooter: React.FC = (): JSX.Element => {
-  const currentYear = dayjs().year();
+  const currentYear = useDateYear();
 
   return (
     <Container align={"end"}>
@@ -105,7 +105,7 @@ const MobileFooter: React.FC = (): JSX.Element => {
                   size={"medium"}
                   weight={"bold"}
                 >
-                  {"SCANNING AND ANALYSIS  PRODUCTS"}
+                  {"SCANNING AND ANALYSIS PRODUCTS"}
                 </Text>
                 <AirsLink hoverColor={"#b0b0bf"} href={"/product/sast/"}>
                   <Text color={"#ffffff"} mb={3} size={"small"}>
