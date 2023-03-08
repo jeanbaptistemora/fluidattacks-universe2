@@ -392,6 +392,23 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivati
   14 | }
      ^ Col 0
 ",c_sharp.c_sharp_obsolete_key_derivation
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_hostname_verifier.kt,7,310,skims,052. Insecure encryption algorithm,TLS/SSL libraries provide built-in hostname verification functions that should be used. in namespace/skims/test/data/lib_root/f052/kotlin_insecure_hostname_verifier.kt,"
+   1 | import javax.net.ssl.HostnameVerifier
+   2 | import javax.net.ssl.SSLSession
+   3 | import okhttp3.OkHttpClient
+   4 |
+   5 |
+   6 | val builderNotSafe = OkHttpClient.Builder()
+>  7 | builderNotSafe.hostnameVerifier(object : HostnameVerifier {
+   8 |   override fun verify(hostname: String?, session: SSLSession?): Boolean {
+   9 |     return true // Noncompliant (s5527)
+  10 |   }
+  11 | })
+  12 |
+  13 |
+  14 | val builderSafe = okhttp3.OkHttpClient.Builder()
+     ^ Col 0
+",kotlin.kt_insecure_host_verification
 F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,"
    1 | @Component
    2 | public class InsecureConnection {

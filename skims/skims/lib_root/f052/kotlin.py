@@ -336,6 +336,23 @@ def kotlin_insecure_init_vector(
     )
 
 
+def search_host_verifier(graph: Graph, n_id: NId) -> str | None:
+    var = g.pred_ast(graph, n_id)[0]
+    if (
+        var
+        and (label_type := graph.nodes[var].get("label_type"))
+        and label_type == "VariableDeclaration"
+    ):
+        var_name = graph.nodes[var]["variable"]
+        expression = g.matching_nodes(graph, expression=var_name)
+        if (
+            expression
+            and graph.nodes[expression[0]]["member"] == "hostnameVerifier"
+        ):
+            return expression[0]
+    return None
+
+
 def kotlin_insecure_hostname_ver(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -354,11 +371,13 @@ def kotlin_insecure_hostname_ver(
                 label_type="MethodInvocation",
             ):
                 n_attrs = graph.nodes[n_id]
-                if check_method_origin(graph, lib, danger_methods, n_attrs):
-                    yield shard, n_id
+                if check_method_origin(
+                    graph, lib, danger_methods, n_attrs
+                ) and (verifier := search_host_verifier(graph, n_id)):
+                    yield shard, verifier
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f052.init_vector_is_hcoded",
+        desc_key="lib_root.f052.insec_hostname_verifier",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
