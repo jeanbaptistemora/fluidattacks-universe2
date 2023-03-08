@@ -982,9 +982,7 @@ async def _close_vulns_in_non_target(  # pylint: disable = too-many-arguments
     group_name: str,
     git_root: GitRoot,
     sarif_log: dict[str, Any],
-    execution_config: dict[str, Any],
     organization_name: str,
-    sarif_vulns: list,
     finding: Finding,
 ) -> None:
     existing_open_machine_vulns = tuple(
@@ -995,11 +993,7 @@ async def _close_vulns_in_non_target(  # pylint: disable = too-many-arguments
         and vuln.root_id == git_root.id
     )
     existing_vulns_to_close = _build_vulnerabilities_stream_from_integrates(
-        _machine_vulns_to_close(
-            sarif_vulns,
-            existing_open_machine_vulns,
-            execution_config,
-        ),
+        existing_open_machine_vulns,
         git_root,
         state="closed",
         commit=sarif_log["runs"][0]["versionControlProvenance"][0][
@@ -1165,9 +1159,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
                 group_name,
                 git_root,
                 sarif_log,
-                execution_config,
                 organization_name,
-                sarif_vulns,
                 finding,
             )
             for finding in non_target_findings
