@@ -17,7 +17,7 @@ import type {
   IUpdateEventAttr,
 } from "./types";
 
-import { Input, Select } from "components/Input";
+import { Editable, Input, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
@@ -586,15 +586,16 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     ) : undefined}
                     <Row>
                       <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
+                        <Editable
                           currentValue={data.event.detail}
+                          isEditing={false}
                           label={t("searchFindings.tabEvents.description")}
-                          name={"detail"}
-                          renderAsEditable={false}
-                          type={"text"}
-                        />
+                        >
+                          <Input
+                            label={t("searchFindings.tabEvents.description")}
+                            name={"detail"}
+                          />
+                        </Editable>
                       </Col50>
                       <Col50>
                         <EditableField
