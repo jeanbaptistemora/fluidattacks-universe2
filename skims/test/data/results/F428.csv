@@ -1,1 +1,15 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F428,lines,namespace/skims/test/data/lib_path/f428/json_invalid_file.json,0,1006,skims,428. Inappropriate coding practices - invalid file,The file cannot be verified because there are elements in its content that do not comply with json standards. in namespace/skims/test/data/lib_path/f428/json_invalid_file.json,"
+   1 | [
+   2 |
+   3 |   {
+   4 |     ""character"": ""0"",
+   5 |     ""int"": 123,
+   6 |     ""name"": ""example document//whhtas"",
+   7 |     ""notation"": -1.23123,
+   8 |     ""unicode"": ""♥"",
+   9 |     ""test"": ""http://test.test"",
+  10 |   },
+  11 | ]
+     ^ Col 0
+",conf_files.json_inappropriate_elements
