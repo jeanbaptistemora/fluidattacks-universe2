@@ -16,7 +16,7 @@
     "gatsby": "4.22.0",
     "gatsby-cli": "4.18.0",
     "gatsby-plugin-algolia": "0.26.0",
-    "gatsby-plugin-feed" : "4.25.0",
+    "gatsby-plugin-feed": "4.25.0",
     "gatsby-plugin-google-tagmanager": "4.18.0",
     "gatsby-plugin-image": "2.18.0",
     "gatsby-plugin-matomo": "0.13.0",
@@ -162,6 +162,9 @@
     "sanitize-html": "2.7.1",
     "trim": "0.0.3",
     "unset-value": "2.0.1",
+    "watchpack-chokidar2": {
+      "chokidar": "3.5.3"
+    },
     "xmlhttprequest-ssl": "2.0.0"
   },
   "repository": {
