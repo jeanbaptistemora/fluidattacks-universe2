@@ -32,6 +32,7 @@ from redshift_client.table.client import (
 )
 from target_redshift._utils import (
     S3FileObjURI,
+    set_queue_group,
 )
 from target_redshift.input import (
     InputEmitter,
@@ -70,6 +71,7 @@ class DestroyUploadExecutor:
     records_limit: int
     state: Maybe[S3FileObjURI]
     persistent: Maybe[FrozenSet[str]]
+    wlm_queue: Maybe[str]
     ignore_failed: bool
 
     @property
@@ -97,8 +99,11 @@ class DestroyUploadExecutor:
         ).main()
 
     def _main(self, new_client: Cmd[SqlClient]) -> Cmd[None]:
+        _set_wlm = self.wlm_queue.map(
+            lambda q: new_client.bind(lambda c: set_queue_group(c, q))
+        ).value_or(Cmd.from_cmd(lambda: None))
         table_client = new_client.map(TableClient)
-        return new_client.bind(
+        return _set_wlm + new_client.bind(
             lambda sql: table_client.bind(
                 lambda table: self._new_keeper.bind(
                     lambda k: self._upload(sql, table, k)

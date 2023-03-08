@@ -75,6 +75,13 @@ from typing import (
     help="set of table names (separated by comma) that would not be recreated but will also receive new data",
 )
 @click.option(
+    "--wlm-queue",
+    type=str,
+    required=False,
+    default=None,
+    help="redshift wlm queue group for the executed queries",
+)
+@click.option(
     "--ignore-failed",
     type=bool,
     is_flag=True,
@@ -90,6 +97,7 @@ def destroy_and_upload(
     threads: int,
     s3_state: Optional[str],
     persistent_tables: Optional[str],
+    wlm_queue: str | None,
     ignore_failed: bool,
 ) -> NoReturn:
     target = SchemaId(schema_name)
@@ -116,6 +124,7 @@ def destroy_and_upload(
         records_limit,
         state,
         persistent,
+        Maybe.from_optional(wlm_queue),
         ignore_failed,
     ).execute()
     cmd.compute()

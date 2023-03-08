@@ -7,6 +7,9 @@ from fa_purity import (
     Cmd,
     Maybe,
 )
+from redshift_client.id_objs import (
+    SchemaId,
+)
 from target_redshift.from_s3 import (
     FromS3Executor,
 )
@@ -66,7 +69,7 @@ def from_s3(
     executor = FromS3Executor(
         ctx.db_id,
         ctx.creds,
-        schema_name,
+        SchemaId(schema_name),
         bucket,
         prefix,
         role,

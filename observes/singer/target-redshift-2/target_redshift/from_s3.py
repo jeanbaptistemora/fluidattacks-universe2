@@ -62,7 +62,7 @@ def _new_s3_resource() -> Cmd[S3ServiceResource]:
 class FromS3Executor:
     db_id: DatabaseId
     db_creds: Credentials
-    schema_name: str
+    schema: SchemaId
     bucket: str
     prefix: str
     role: str
@@ -88,10 +88,9 @@ class FromS3Executor:
         _set_wlm = self.wlm_queue.map(
             lambda q: new_client.bind(lambda c: set_queue_group(c, q))
         ).value_or(Cmd.from_cmd(lambda: None))
-        _schema = SchemaId(self.schema_name)
         table_client = new_client.map(TableClient)
         strategy: Cmd[LoadingStrategy] = new_client.map(Strategies).map(
-            lambda s: s.recreate_all_schema(_schema)
+            lambda s: s.recreate_all_schema(self.schema)
         )
 
         return _set_wlm + strategy.bind(
