@@ -152,6 +152,14 @@ type Query {
     organizationId: String
   ): Tag
 
+  "Toe lines report generated in the ARM"
+  toeLinesReport(
+    "Name of the group to which the report belongs"
+    groupName: String!
+    "OTP code to verify the stakeholder"
+    verificationCode: String!
+  ): Report
+
   "Get the url for the unfulfilled standard report"
   unfulfilledStandardReportUrl(
     "Name of the group to which the report belongs"
