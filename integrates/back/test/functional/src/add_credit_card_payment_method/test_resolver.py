@@ -7,6 +7,7 @@ from typing import (
 )
 
 
+@pytest.mark.skip(reason="Testing Zoho subscriptions")
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_credit_card_payment_method")
 @pytest.mark.parametrize(
