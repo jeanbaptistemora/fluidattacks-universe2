@@ -50,18 +50,51 @@ def check_danger_arguments(graph: Graph, n_id: NId) -> bool:
     return False
 
 
-def get_suspicious_nodes(graph: Graph) -> Iterator[NId]:
+def get_dang_instances(
+    graph: Graph,
+) -> set[str]:
     def predicate_matcher(node: dict[str, str]) -> bool:
-        return bool((node.get("label_type") == "PLACEHOLDER"))
+        return bool(
+            (node.get("label_type") == "VariableDeclaration")
+            and (node.get("variable_type") in dang_classes)
+        )
 
-    for n_id in g.filter_nodes(graph, graph.nodes, predicate_matcher):
-        yield n_id
+    nodes = graph.nodes
+    dang_instances: set[str] = set()
+    dang_classes = {"HttpClient", "HttpRequestMessage", "WebClient"}
+
+    for n_id in g.filter_nodes(graph, nodes, predicate_matcher):
+        if var_name := nodes[n_id].get("variable"):
+            dang_instances.add(var_name)
+
+    return dang_instances
+
+
+def get_dang_callings(graph: Graph) -> set[str]:
+    dang_callings: set[str] = set()
+    dang_invocations = {
+        "DefaultRequestHeaders.Add",
+        "DefaultRequestHeaders.Accept.Add",
+    }
+    for invocation in dang_invocations:
+        for inst_name in get_dang_instances(graph):
+            dang_callings.add(f"{inst_name}.{invocation}")
+
+    return dang_callings
 
 
 def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> Iterator[NId]:
-    for n_id in get_suspicious_nodes(graph):
-        if check_danger_arguments(graph, n_id) and is_vuln(
-            graph, n_id, method
+    def predicate_matcher(node: dict[str, str]) -> bool:
+        return bool(
+            (node.get("label_type") == "MethodInvocation")
+            and (node.get("expression") in dang_callings)
+        )
+
+    nodes = graph.nodes
+    dang_callings = get_dang_callings(graph)
+    for n_id in g.filter_nodes(graph, nodes, predicate_matcher):
+        if (args_id := nodes[n_id].get("arguments_id")) and is_vuln(
+            graph, args_id, method
         ):
             yield n_id
 
