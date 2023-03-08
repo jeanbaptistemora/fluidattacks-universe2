@@ -5,6 +5,9 @@ from authlib.integrations.starlette_client import (
     OAuth,
     OAuthError,
 )
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -37,7 +40,6 @@ from starlette.requests import (
 )
 from typing import (
     Any,
-    Iterable,
 )
 
 VALID_MANAGED = [
