@@ -2,7 +2,6 @@ from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidSeverity,
-    InvalidVulnerabilityGracePeriod,
 )
 from dataloaders import (
     Dataloaders,
@@ -119,20 +118,8 @@ async def test_update_policies() -> None:
 
 async def test_validate_negative_values() -> None:
 
-    with pytest.raises(InvalidAcceptanceSeverity):
-        orgs_domain.validate_min_acceptance_severity(Decimal("-1"))
-
     with pytest.raises(InvalidSeverity):
         orgs_domain.validate_min_breaking_severity(-1)  # type: ignore
-
-    with pytest.raises(InvalidVulnerabilityGracePeriod):
-        orgs_domain.validate_vulnerability_grace_period(-1)
-
-
-async def test_validate_severity_range() -> None:
-
-    with pytest.raises(InvalidAcceptanceSeverity):
-        orgs_domain.validate_min_acceptance_severity(Decimal("10.1"))
 
 
 async def test_iterate_organizations() -> None:

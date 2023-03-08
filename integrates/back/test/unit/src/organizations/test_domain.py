@@ -13,6 +13,7 @@ from custom_exceptions import (
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    InvalidVulnerabilityGracePeriod,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
@@ -51,6 +52,7 @@ from organizations.domain import (
     validate_max_acceptance_days,
     validate_max_acceptance_severity,
     validate_max_number_acceptances,
+    validate_vulnerability_grace_period,
 )
 import pytest
 from unittest.mock import (
@@ -648,3 +650,18 @@ def test_validate_max_number_acceptances(
     assert validate_max_number_acceptances(value=value_good)
     with pytest.raises(InvalidNumberAcceptances):
         validate_max_number_acceptances(value=value_bad)
+
+
+@pytest.mark.parametrize(
+    ["grace_period", "grace_period_to_raise_exception"],
+    [[10, -10]],
+)
+def test_validate_vulnerability_grace_period(
+    grace_period: int,
+    grace_period_to_raise_exception: int,
+) -> None:
+    assert validate_vulnerability_grace_period(value=grace_period)
+    with pytest.raises(InvalidVulnerabilityGracePeriod):
+        validate_vulnerability_grace_period(
+            value=grace_period_to_raise_exception
+        )
