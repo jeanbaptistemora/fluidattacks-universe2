@@ -131,10 +131,12 @@ async def get_signed_unfulfilled_standard_report_url(
 async def get_toe_lines_report(
     *,
     group_name: str,
+    email: str,
 ) -> str:
     loaders: Dataloaders = get_new_context()
 
     return await get_group_toe_lines_report(
         loaders=loaders,
         group_name=group_name,
+        email=email,
     )

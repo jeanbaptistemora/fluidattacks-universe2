@@ -300,6 +300,7 @@ async def _get_group_toe_lines_report(*, item: BatchProcessing) -> str:
     try:
         report_file_name = await reports_domain.get_toe_lines_report(
             group_name=item.entity,
+            email=item.subject,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
