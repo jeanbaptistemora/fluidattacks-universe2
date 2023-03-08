@@ -29,7 +29,10 @@ type Query {
     identifier: String!
   ): Finding
 
-  "Get Forces execution"
+  """
+  Get a specific execution of forces where you specify
+  that one according to the ID
+  """
   forcesExecution(
     "Name of the group where Forces was executed"
     groupName: String
@@ -37,7 +40,7 @@ type Query {
     executionId: String!
   ): ForcesExecution
 
-  "Get Forces executions from a time period"
+  "Get several runs of the forces related to the group"
   forcesExecutions(
     "Name of the group where Forces was executed"
     groupName: String
@@ -73,7 +76,7 @@ type Query {
     organizationId: String!
   ): Organization
 
-  "Gets an organization ID from its name"
+  "Get complete organization data from its name"
   organizationId(
     "Name of the organization to query"
     organizationName: String!
@@ -115,7 +118,7 @@ type Query {
     verificationCode: String!
   ): Report
 
-  "Get resource metadata from group"
+  "Get resource file and the metadata from group"
   resources(
     "Name of the Group containing the files to be queried"
     groupName: String
