@@ -82,6 +82,7 @@ locals {
               "logs:List*",
               "s3:Get*",
               "s3:List*",
+              "tag:GetResources",
             ]
             Resource = ["*"]
           },
