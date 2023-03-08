@@ -598,15 +598,16 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         </Editable>
                       </Col50>
                       <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
+                        <Editable
                           currentValue={data.event.client}
+                          isEditing={false}
                           label={t("searchFindings.tabEvents.client")}
-                          name={"client"}
-                          renderAsEditable={false}
-                          type={"text"}
-                        />
+                        >
+                          <Input
+                            label={t("searchFindings.tabEvents.client")}
+                            name={"client"}
+                          />
+                        </Editable>
                       </Col50>
                     </Row>
                     <Row>
