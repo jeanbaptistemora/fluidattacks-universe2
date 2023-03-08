@@ -26,9 +26,6 @@ from contextlib import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.integration_repositories.remove import (
     remove,
 )
@@ -46,6 +43,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 import hashlib
 from machine.availability import (
@@ -102,7 +102,7 @@ async def mutate(
         loaders, user_email, required_credentials=True, **kwargs
     )
     group_name = root.group_name
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
     if (
         kwargs.get("credentials")
         and (

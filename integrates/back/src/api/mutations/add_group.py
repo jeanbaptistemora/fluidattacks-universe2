@@ -10,6 +10,7 @@ from ariadne import (
 import authz
 from dataloaders import (
     Dataloaders,
+    get_new_context,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -86,8 +87,9 @@ async def mutate(
         service=service,
         subscription=subscription_type,
     )
+    update_loaders: Dataloaders = get_new_context()
     await forces_domain.add_forces_stakeholder(
-        loaders=loaders, group_name=group_name, modified_by=email
+        loaders=update_loaders, group_name=group_name, modified_by=email
     )
     logs_utils.cloudwatch_log(
         info.context,

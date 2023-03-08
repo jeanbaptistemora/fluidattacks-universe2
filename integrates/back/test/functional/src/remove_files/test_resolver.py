@@ -9,7 +9,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.groups.types import (
-    Group,
     GroupFile,
 )
 import pytest
@@ -31,7 +30,8 @@ async def test_remove_files(populate: bool, email: str) -> None:
     group_name: str = "group1"
     file_name: str = "test.zip"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.files
     assert len(group.files) == 4
     file_to_remove: GroupFile = next(
@@ -48,7 +48,8 @@ async def test_remove_files(populate: bool, email: str) -> None:
     assert result["data"]["removeFiles"]["success"]
 
     loaders.group.clear(group_name)
-    group_updated: Group = await loaders.group.load(group_name)
+    group_updated = await loaders.group.load(group_name)
+    assert group_updated
     assert group_updated.files
     assert len(group_updated.files) == 3
     file_removed: GroupFile | None = next(

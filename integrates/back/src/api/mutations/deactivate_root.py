@@ -23,9 +23,6 @@ from dataloaders import (
 from db_model.enums import (
     GitCloningStatus,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -47,6 +44,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 from mailer import (
     groups as groups_mail,
@@ -165,7 +165,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
                 ],
             )
 
-            group: Group = await loaders.group.load(group_name)
+            group = await groups_domain.get_group(loaders, group_name)
             key = batch_dal.generate_key_to_dynamod(
                 action_name=Action.UPDATE_ORGANIZATION_OVERVIEW.value,
                 additional_info="*",

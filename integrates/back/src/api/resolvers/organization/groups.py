@@ -1,6 +1,9 @@
 from .schema import (
     ORGANIZATION,
 )
+from aioextensions import (
+    collect,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -36,6 +39,11 @@ async def resolve(
     stakeholder_group_names = await groups_domain.get_groups_by_stakeholder(
         loaders, email, organization_id=parent.id
     )
-    stakeholder_groups = await loaders.group.load_many(stakeholder_group_names)
+    stakeholder_groups = await collect(
+        [
+            groups_domain.get_group(loaders, stakeholder_group_name)
+            for stakeholder_group_name in stakeholder_group_names
+        ]
+    )
 
     return groups_utils.filter_active_groups(stakeholder_groups)

@@ -41,6 +41,11 @@ async def resolve(
         ]
     )
     stakeholder_group_names: list[str] = active + inactive
-    groups = await loaders.group.load_many(stakeholder_group_names)
+    groups = await collect(
+        [
+            groups_domain.get_group(loaders, stakeholder_group_name)
+            for stakeholder_group_name in stakeholder_group_names
+        ]
+    )
 
     return groups_utils.filter_active_groups(groups)

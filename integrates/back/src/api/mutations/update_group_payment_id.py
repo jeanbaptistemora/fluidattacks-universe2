@@ -22,9 +22,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupManaged,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -71,7 +68,7 @@ async def mutate(
     group_name = group_name.lower()
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
     org = await get_organization(loaders, group.organization_id)
     payment_methods = billing_domain.customer_payment_methods(org=org)
     payment_method: PaymentMethod = list(

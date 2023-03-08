@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from context import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -14,6 +17,9 @@ from db_model.stakeholders.types import (
 )
 from db_model.trials.types import (
     Trial,
+)
+from groups.domain import (
+    get_group,
 )
 import logging
 from mailer import (
@@ -52,7 +58,9 @@ async def send_reminder_notification() -> None:
             if group_name not in FI_TEST_PROJECTS.split(",")
         ]
 
-    groups = await loaders.group.load_many(group_names)
+    groups = await collect(
+        [get_group(loaders, group_name) for group_name in group_names]
+    )
     orgs_ids: set[str] = set(group.organization_id for group in groups)
 
     inactive_stakeholders: list[Stakeholder] = [

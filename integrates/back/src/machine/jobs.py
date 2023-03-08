@@ -19,9 +19,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupManaged,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -129,9 +126,10 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
     **kwargs: Any,
 ) -> PutActionResult | None:
     queue_result: PutActionResult | None = None
-    group: Group = await dataloaders.group.load(group_name)
+    group = await dataloaders.group.load(group_name)
     if (
-        group.state.has_machine
+        group
+        and group.state.has_machine
         and group.state.managed != GroupManaged.UNDER_REVIEW
     ):
         group_roots = await dataloaders.group_roots.load(group_name)

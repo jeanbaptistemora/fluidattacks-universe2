@@ -16,9 +16,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -31,6 +28,9 @@ from findings import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 from newutils import (
     files as files_utils,
@@ -75,7 +75,7 @@ async def mutate(
         allowed_mime_type = await files_utils.assert_uploaded_file_mime(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
-        group: Group = await loaders.group.load(finding.group_name)
+        group = await groups_domain.get_group(loaders, finding.group_name)
         organization = await get_organization(loaders, group.organization_id)
         finding_policy = await policies_domain.get_finding_policy_by_name(
             loaders=loaders,

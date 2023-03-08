@@ -9,9 +9,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 from organizations.utils import (
     get_organization,
 )
@@ -209,7 +206,8 @@ async def test_get_group_policies_inheritance(
             == organization.policies.vulnerability_grace_period
         )
     else:
-        group: Group = await loaders.group.load(group_name)
+        group = await loaders.group.load(group_name)
+        assert group
         assert group.policies
         assert (
             result["data"]["group"]["maxAcceptanceDays"]

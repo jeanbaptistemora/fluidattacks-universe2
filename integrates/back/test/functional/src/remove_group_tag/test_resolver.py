@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 from typing import (
     Any,
@@ -32,7 +29,8 @@ async def test_remove_group_tag(
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.state.tags and tag_name in group.state.tags
 
     result: dict[str, Any] = await get_result(
@@ -44,6 +42,7 @@ async def test_remove_group_tag(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
+    assert group
     if group.state.tags:
         assert tag_name not in group.state.tags
     else:

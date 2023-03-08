@@ -36,9 +36,6 @@ from datetime import (
 from db_model import (
     utils as db_model_utils,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -208,10 +205,10 @@ async def generate_one(
     loaders: Dataloaders,
     group_name: str,
 ) -> FormatSprint:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
     current_sprint_date = get_last_sprint_start_date(
-        sprint_start_date=group.sprint_start_date,
-        sprint_length=group.sprint_duration,
+        sprint_start_date=group.sprint_start_date if group else None,
+        sprint_length=group.sprint_duration if group else 1,
     )
     findings = await loaders.group_findings.load(group_name)
     findings_cvssf: dict[str, Decimal] = {

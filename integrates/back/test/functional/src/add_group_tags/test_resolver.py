@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 from typing import (
     Any,
@@ -32,8 +29,8 @@ async def test_add_group_tags(
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
-    if group.state.tags:
+    group = await loaders.group.load(group_name)
+    if group and group.state.tags:
         assert tag_to_add not in group.state.tags
 
     result: dict[str, Any] = await get_result(
@@ -47,6 +44,7 @@ async def test_add_group_tags(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
+    assert group
     if group.state.tags:
         assert tag_to_add in group.state.tags
     else:

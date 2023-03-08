@@ -10,9 +10,6 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.utils import (
     format_policies_to_update,
 )
@@ -23,6 +20,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from groups.domain import (
+    get_group,
     update_policies,
 )
 from newutils import (
@@ -48,7 +46,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_data = await sessions_domain.get_jwt_content(info.context)
     email = user_data["user_email"]
-    group: Group = await loaders.group.load(group_name.lower())
+    group = await get_group(loaders, group_name.lower())
     policies_to_update = format_policies_to_update(kwargs)
 
     await update_policies(

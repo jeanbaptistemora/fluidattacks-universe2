@@ -8,8 +8,10 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.types import (
-    Group,
     GroupUnreliableIndicators,
+)
+from groups import (
+    domain as groups_domain,
 )
 import jinja2
 from jinja2.utils import (
@@ -77,7 +79,7 @@ class StandardReportCreator(CreatorPdf):
         selected_unfulfilled_standards: set[str] | None = None,
     ) -> None:
         """Fetch information and fill out the context."""
-        group: Group = await loaders.group.load(group_name)
+        group = await groups_domain.get_group(loaders, group_name)
         words = self.wordlist[lang]
         fluid_tpl_content = self.make_content(words)
         group_indicators: GroupUnreliableIndicators = (

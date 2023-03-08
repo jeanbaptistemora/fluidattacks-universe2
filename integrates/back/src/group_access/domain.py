@@ -6,6 +6,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
+    GroupNotFound,
     InvalidAuthorization,
     RequestedInvitationTooSoon,
     StakeholderNotInGroup,
@@ -245,6 +246,8 @@ async def get_stakeholders_email_by_preferences(
     only_fluid_staff: bool = False,
 ) -> list[str]:
     group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     trial = (
         await loaders.trial.load(group.created_by)
         if "@" in group.created_by

@@ -32,6 +32,7 @@ from context import (
 from custom_exceptions import (
     CredentialNotFound,
     FileNotFound,
+    GroupNotFound,
     HasVulns,
     InvalidField,
     InvalidParameter,
@@ -267,7 +268,9 @@ async def add_git_root(  # pylint: disable=too-many-locals
     **kwargs: Any,
 ) -> GitRoot:
     group_name = str(kwargs["group_name"]).lower()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     url: str = roots_utils.format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     loaders.group_roots.clear(group_name)
@@ -383,7 +386,9 @@ async def add_ip_root(
     if not validations.is_valid_ip(address):
         raise InvalidParameter()
 
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
     )
@@ -470,7 +475,9 @@ async def add_url_root(  # pylint: disable=too-many-locals
     port = str(url_attributes.port) if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
 
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if protocol == "FILE":
         fragment = None
         query = None
@@ -750,7 +757,9 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
 ) -> Root:
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     root: GitRoot = cast(GitRoot, await get_root(loaders, root_id, group_name))
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
@@ -1083,7 +1092,7 @@ async def send_mail_root_cloning_failed(
         raise InvalidParameter()
 
     loaders.group.clear(group_name)
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
     is_failed_status_cloning: bool = await is_failed_cloning(loaders, root.id)
     is_failed: bool = (
         status == GitCloningStatus.FAILED and is_failed_status_cloning
@@ -1093,7 +1102,8 @@ async def send_mail_root_cloning_failed(
         and root.cloning.status == GitCloningStatus.FAILED
     )
     if (
-        not root.state.use_vpn
+        group
+        and not root.state.use_vpn
         and group.state.status == GroupStateStatus.ACTIVE
         and (is_cloning or is_failed)
     ):
@@ -1153,7 +1163,9 @@ async def activate_root(
     new_status = RootStatus.ACTIVE
 
     if root.state.status != new_status:
-        group: Group = await loaders.group.load(group_name)
+        group = await loaders.group.load(group_name)
+        if not group:
+            raise GroupNotFound()
         organization = await orgs_utils.get_organization(
             loaders, group.organization_id
         )
@@ -1489,9 +1501,11 @@ async def move_root(
     target_group_name: str,
 ) -> str:
     root = await get_root(loaders, root_id, group_name)
-    source_group: Group = await loaders.group.load(group_name)
+    source_group = await loaders.group.load(group_name)
+    target_group = await loaders.group.load(target_group_name)
+    if not source_group or not target_group:
+        raise GroupNotFound()
     source_org_id = source_group.organization_id
-    target_group: Group = await loaders.group.load(target_group_name)
 
     if (
         root.state.status != RootStatus.ACTIVE
@@ -2067,7 +2081,9 @@ async def queue_sync_git_roots(
     queue_with_vpn: bool = False,
     from_scheduler: bool = False,
 ) -> PutActionResult | None:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if roots is None:
         roots = tuple(
             root

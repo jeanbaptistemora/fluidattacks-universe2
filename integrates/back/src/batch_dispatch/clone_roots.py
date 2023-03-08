@@ -18,14 +18,14 @@ from db_model.credentials.types import (
 from db_model.enums import (
     GitCloningStatus,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
     GitRoot,
+)
+from groups.domain import (
+    get_group,
 )
 import json
 from json import (
@@ -73,7 +73,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         for root in await loaders.group_roots.load(group_name)
         if root.state.status == RootStatus.ACTIVE
     )
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
 
     # In the off case there are multiple roots with the same nickname
     root_ids = tuple(

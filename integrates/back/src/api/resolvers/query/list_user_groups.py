@@ -49,6 +49,11 @@ async def resolve(
         ]
     )
     user_groups = active + inactive
-    groups = await loaders.group.load_many(user_groups)
+    groups = await collect(
+        [
+            groups_domain.get_group(loaders, user_group)
+            for user_group in user_groups
+        ]
+    )
 
     return groups_utils.filter_active_groups(groups)

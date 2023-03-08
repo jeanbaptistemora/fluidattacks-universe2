@@ -22,9 +22,6 @@ from datetime import (
     datetime,
     timezone,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -164,10 +161,10 @@ async def _get_mean_time_to_reattack(
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
-    group_: Group = await loaders.group.load(group)
+    group_ = await loaders.group.load(group)
     findings = await loaders.group_findings.load(group)
 
-    if not group_.state.has_squad:
+    if group_ and not group_.state.has_squad:
         return Decimal("Infinity")
 
     all_vulnerabilities = (

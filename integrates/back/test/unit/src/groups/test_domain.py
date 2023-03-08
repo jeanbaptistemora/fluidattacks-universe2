@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
@@ -39,6 +42,7 @@ from freezegun import (
 from groups.domain import (
     add_group,
     get_closed_vulnerabilities,
+    get_group,
     get_groups_by_stakeholder,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
@@ -142,7 +146,12 @@ async def test_get_groups_by_stakeholder() -> None:
     user_groups_names = await get_groups_by_stakeholder(
         loaders, "integratesmanager@gmail.com"
     )
-    groups = await loaders.group.load_many(user_groups_names)
+    groups = await collect(
+        [
+            get_group(loaders, user_group_name)
+            for user_group_name in user_groups_names
+        ]
+    )
     groups_filtered = filter_active_groups(groups)
     assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_groups
@@ -153,7 +162,12 @@ async def test_get_groups_by_stakeholder() -> None:
     user_org_groups_names = await get_groups_by_stakeholder(
         loaders, "integratesmanager@gmail.com", organization_id=org_id
     )
-    groups = await loaders.group.load_many(user_org_groups_names)
+    groups = await collect(
+        [
+            get_group(loaders, user_org_group_name)
+            for user_org_group_name in user_org_groups_names
+        ]
+    )
     groups_filtered = filter_active_groups(groups)
     assert sorted([group.name for group in groups_filtered]) == sorted(
         expected_org_groups

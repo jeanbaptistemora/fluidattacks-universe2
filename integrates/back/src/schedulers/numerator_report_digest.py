@@ -27,9 +27,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
@@ -584,9 +581,11 @@ async def _generate_numerator_report(
 
     for data in content.values():
         for group_name in data["groups"]:
-            group_data: Group = await loaders.group.load(group_name)
+            group_data = await loaders.group.load(group_name)
             data["groups"][group_name]["subscription"] = (
-                "o" if group_data.state.type == "ONESHOT" else "c"
+                "o"
+                if group_data and group_data.state.type == "ONESHOT"
+                else "c"
             )
 
     LOGGER.info("- general report successfully generated")

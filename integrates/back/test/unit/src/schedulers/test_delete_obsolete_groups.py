@@ -1,15 +1,9 @@
-from custom_exceptions import (
-    GroupNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model.groups.enums import (
     GroupStateStatus,
-)
-from db_model.groups.types import (
-    Group,
 )
 from organizations import (
     domain as orgs_domain,
@@ -46,9 +40,9 @@ async def test_remove_obsolete_groups() -> None:
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names
 
-    test_group_1: Group = await loaders.group.load(test_group_name_1)
+    test_group_1 = await loaders.group.load(test_group_name_1)
+    assert test_group_1
     assert test_group_1.state.status == GroupStateStatus.ACTIVE
     assert test_group_1.state.pending_deletion_date
 
-    with pytest.raises(GroupNotFound):
-        await loaders.group.load(test_group_name_2)
+    assert not await loaders.group.load(test_group_name_2)

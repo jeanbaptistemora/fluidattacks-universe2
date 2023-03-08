@@ -11,9 +11,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -63,7 +60,7 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
             reverse=True,
         )
     )
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
 
     if report_type == "XLS":
         return await technical_report.generate_xls_file(
@@ -83,32 +80,33 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
             max_release_date=max_release_date,
             location=location,
         )
-    if report_type == "PDF":
-        return await technical_report.generate_pdf_file(
-            loaders=loaders,
-            description=group.description,
-            findings_ord=findings_ord,
-            group_name=group_name,
-            lang=str(group.language.value).lower(),
-            user_email=user_email,
-        )
-    if report_type == "CERT":
-        return await cert_report.generate_cert_file(
-            loaders=loaders,
-            description=group.description,
-            findings_ord=findings_ord,
-            group_name=group_name,
-            lang=str(group.language.value).lower(),
-            user_email=user_email,
-        )
-    if report_type == "DATA":
-        return await data_report.generate(
-            loaders=loaders,
-            findings_ord=findings_ord,
-            group=group_name,
-            group_description=group.description,
-            requester_email=user_email,
-        )
+    if group:
+        if report_type == "PDF":
+            return await technical_report.generate_pdf_file(
+                loaders=loaders,
+                description=group.description,
+                findings_ord=findings_ord,
+                group_name=group_name,
+                lang=str(group.language.value).lower(),
+                user_email=user_email,
+            )
+        if report_type == "CERT":
+            return await cert_report.generate_cert_file(
+                loaders=loaders,
+                description=group.description,
+                findings_ord=findings_ord,
+                group_name=group_name,
+                lang=str(group.language.value).lower(),
+                user_email=user_email,
+            )
+        if report_type == "DATA":
+            return await data_report.generate(
+                loaders=loaders,
+                findings_ord=findings_ord,
+                group=group_name,
+                group_description=group.description,
+                requester_email=user_email,
+            )
 
     return None
 

@@ -4,9 +4,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupManaged,
 )
-from db_model.groups.types import (
-    Group,
-)
 from freezegun import (
     freeze_time,
 )
@@ -63,8 +60,9 @@ async def test_expire_free_trial(*, populate: bool) -> None:
 
     for case in cases:
         trial_before = await loaders.trial.load(str(case["email"]))
-        group_before: Group = await loaders.group.load(str(case["group_name"]))
+        group_before = await loaders.group.load(str(case["group_name"]))
         assert trial_before
+        assert group_before
         assert trial_before.completed == case["completed_before"]
         assert group_before.state.managed == case["managed_before"]
 
@@ -74,7 +72,8 @@ async def test_expire_free_trial(*, populate: bool) -> None:
 
     for case in cases:
         trial_after = await loaders.trial.load(str(case["email"]))
-        group_after: Group = await loaders.group.load(str(case["group_name"]))
+        group_after = await loaders.group.load(str(case["group_name"]))
         assert trial_after
+        assert group_after
         assert trial_after.completed == case["completed_after"]
         assert group_after.state.managed == case["managed_after"]

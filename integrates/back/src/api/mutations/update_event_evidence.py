@@ -13,9 +13,6 @@ from dataloaders import (
 from db_model.events.enums import (
     EventEvidenceId,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -27,6 +24,9 @@ from events import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 from newutils.datetime import (
     get_now,
@@ -56,7 +56,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     evidence_id = EventEvidenceId[evidence_type]
     event = await events_domain.get_event(loaders, event_id)
-    group: Group = await loaders.group.load(event.group_name)
+    group = await groups_domain.get_group(loaders, event.group_name)
     organization = await get_organization(loaders, group.organization_id)
     await events_domain.validate_evidence(
         group_name=group.name.lower(),

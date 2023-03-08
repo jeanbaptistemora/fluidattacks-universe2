@@ -18,6 +18,7 @@ from contextlib import (
 )
 from custom_exceptions import (
     FindingNotFound,
+    GroupNotFound,
     InvalidCommentParent,
     InvalidSeverityScore,
     InvalidVulnerabilityRequirement,
@@ -180,6 +181,8 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
     current_finding: Finding | None = None,
 ) -> None:
     group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
     same_type_of_findings = (
         [

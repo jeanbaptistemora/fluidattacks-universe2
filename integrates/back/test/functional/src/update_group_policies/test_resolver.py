@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decimal import (
     Decimal,
 )
@@ -43,7 +40,8 @@ async def test_update_group_policies(populate: bool, email: str) -> None:
     assert result["data"]["updateGroupPolicies"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.policies
     assert group.policies.max_acceptance_days == 30
     assert group.policies.max_acceptance_severity == Decimal("6.9")

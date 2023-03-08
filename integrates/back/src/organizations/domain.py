@@ -18,7 +18,6 @@ from context import (
     BASE_URL,
 )
 from custom_exceptions import (
-    GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
@@ -586,11 +585,9 @@ async def get_stakeholders(
 async def has_group(
     loaders: Dataloaders, organization_id: str, group_name: str
 ) -> bool:
-    try:
-        group: Group = await loaders.group.load(group_name)
+    if group := await loaders.group.load(group_name):
         return group.organization_id == organization_id
-    except GroupNotFound:
-        return False
+    return False
 
 
 @validate_email_address_deco("email")

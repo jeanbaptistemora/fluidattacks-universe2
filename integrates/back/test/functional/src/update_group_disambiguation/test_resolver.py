@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 
 
@@ -39,7 +36,8 @@ async def test_update_group_info(
     assert result["data"]["updateGroupDisambiguation"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.disambiguation == disambiguation
 
 
@@ -58,8 +56,9 @@ async def test_update_group_info_clear_field(
     assert populate
     loaders: Dataloaders = get_new_context()
     group_name: str = "group1"
-    group: Group = await loaders.group.load(group_name)
-    assert group.disambiguation is not None
+    group = await loaders.group.load(group_name)
+    assert group
+    assert group.disambiguation
 
     result: dict = await get_result(
         user=email,
@@ -72,7 +71,8 @@ async def test_update_group_info_clear_field(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
-    assert group.disambiguation is None
+    assert group
+    assert not group.disambiguation
 
 
 @pytest.mark.asyncio

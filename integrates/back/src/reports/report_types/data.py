@@ -7,12 +7,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+)
+from groups import (
+    domain as groups_domain,
 )
 from magic import (
     Magic,
@@ -89,7 +89,7 @@ async def _append_pdf_report(
     group_description: str,
     requester_email: str,
 ) -> None:
-    _group: Group = await loaders.group.load(group)
+    _group = await groups_domain.get_group(loaders, group)
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
         loaders=loaders,

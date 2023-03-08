@@ -61,7 +61,9 @@ async def resolve(
     if not user_group_names_filtered:
         raise TagNotFound()
 
-    group = await loaders.group.load(user_group_names_filtered[0])
+    group = await groups_domain.get_group(
+        loaders, user_group_names_filtered[0]
+    )
     organization_id = kwargs.get("organizationId") or group.organization_id
     organization = await orgs_utils.get_organization(loaders, organization_id)
     org_group_names_filtered = [

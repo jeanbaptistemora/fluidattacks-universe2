@@ -28,8 +28,8 @@ from db_model.events.types import (
     Event,
     GroupEventsRequest,
 )
-from db_model.groups.types import (
-    Group,
+from groups import (
+    domain as groups_domain,
 )
 from newutils.datetime import (
     get_utc_now,
@@ -53,7 +53,7 @@ async def get_data_one_group(
     *, group_name: str, loaders: Dataloaders
 ) -> EventsAvailability:
     current_date: date = get_utc_now().date()
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
     creation_date = group.created_date.date()
     events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)

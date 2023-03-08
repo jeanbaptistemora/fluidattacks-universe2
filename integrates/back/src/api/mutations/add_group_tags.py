@@ -66,7 +66,7 @@ async def mutate(
     await groups_domain.add_tags(
         loaders=loaders,
         email=email,
-        group=await loaders.group.load(group_name),
+        group=await groups_domain.get_group(loaders, group_name),
         tags_to_add=set(tags),
     )
     logs_utils.cloudwatch_log(
@@ -75,6 +75,6 @@ async def mutate(
     )
 
     loaders.group.clear(group_name)
-    group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
 
     return SimpleGroupPayload(success=True, group=group)

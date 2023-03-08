@@ -11,6 +11,7 @@ from context import (
 )
 from custom_exceptions import (
     FindingNotFound,
+    GroupNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -111,7 +112,9 @@ async def delete_group(
     comments: str,
     attempt: bool | None = False,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     org_id = group.organization_id
     organization = await get_organization(loaders, org_id)
     org_name = organization.name
@@ -394,7 +397,9 @@ async def request_vulnerability_zero_risk(
     finding_title = finding.title
     group_name = finding.group_name
 
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     org_id = group.organization_id
     organization = await get_organization(loaders, org_id)
     org_name = organization.name

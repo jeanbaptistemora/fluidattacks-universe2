@@ -10,9 +10,6 @@ from db_model.groups.enums import (
     GroupSubscriptionType,
     GroupTier,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 from typing import (
     Any,
@@ -31,7 +28,8 @@ async def test_update_group(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.state.type == GroupSubscriptionType.CONTINUOUS
     assert group.state.has_machine is False
     assert group.state.has_squad is True

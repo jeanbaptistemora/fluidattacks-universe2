@@ -6,6 +6,7 @@ from collections.abc import (
     Iterable,
 )
 from custom_exceptions import (
+    GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidNumberAcceptances,
@@ -31,9 +32,6 @@ from db_model.constants import (
 )
 from db_model.enums import (
     Source,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -77,7 +75,9 @@ from vulnerabilities.domain.utils import (
 async def get_policy_max_acceptance_days(
     *, loaders: Dataloaders, group_name: str
 ) -> int | None:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if group.policies:
         return group.policies.max_acceptance_days
 
@@ -89,7 +89,9 @@ async def get_policy_max_acceptance_days(
 async def get_policy_max_number_acceptances(
     *, loaders: Dataloaders, group_name: str
 ) -> int | None:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if group.policies:
         return group.policies.max_number_acceptances
 
@@ -101,7 +103,9 @@ async def get_policy_max_number_acceptances(
 async def get_policy_max_acceptance_severity(
     *, loaders: Dataloaders, group_name: str
 ) -> Decimal:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if group.policies:
         return (
             group.policies.max_acceptance_severity
@@ -121,7 +125,9 @@ async def get_policy_max_acceptance_severity(
 async def get_policy_min_acceptance_severity(
     *, loaders: Dataloaders, group_name: str
 ) -> Decimal:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if group.policies:
         return group.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
 

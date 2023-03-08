@@ -23,9 +23,6 @@ from db_model.enums import (
 from db_model.groups.enums import (
     GroupStateStatus,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
     SubscriptionFrequency,
@@ -133,8 +130,8 @@ async def _send_mail_analytics(
     loaders: Dataloaders = get_new_context()
     if entity == SubscriptionEntity.GROUP:
         group_name = subject.lower()
-        group: Group = await loaders.group.load(group_name)
-        if group.state.status == GroupStateStatus.DELETED:
+        group = await loaders.group.load(group_name)
+        if group and group.state.status == GroupStateStatus.DELETED:
             await subscriptions_model.remove(
                 entity=entity,
                 subject=subject,

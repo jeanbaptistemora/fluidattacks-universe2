@@ -8,14 +8,14 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsRequest,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.roots.types import (
     GitRoot,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 
 
@@ -24,7 +24,7 @@ async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
 ) -> Credentials | None:
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group.load(parent.group_name)
+    group = await groups_domain.get_group(loaders, parent.group_name)
     if parent.state.credential_id:
         request = CredentialsRequest(
             id=parent.state.credential_id,

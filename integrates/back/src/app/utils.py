@@ -100,7 +100,9 @@ async def get_group_valid_managed(
     loaders: Dataloaders, group_name: str
 ) -> bool:
     group = await loaders.group.load(group_name)
-    return group.state.managed in VALID_MANAGED
+    if group:
+        return group.state.managed in VALID_MANAGED
+    return False
 
 
 async def get_is_autoenroll_user(

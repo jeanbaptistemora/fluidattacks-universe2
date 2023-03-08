@@ -10,6 +10,9 @@ from context import (
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
 )
+from custom_exceptions import (
+    GroupNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -30,9 +33,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     DraftRejection,
     Finding,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -73,7 +73,9 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     is_finding_released: bool,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
     type_ = comment_data.comment_type

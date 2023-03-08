@@ -13,9 +13,6 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.groups.types import (
-    Group,
-)
 from findings import (
     domain as findings_domain,
 )
@@ -200,7 +197,7 @@ class CertificateCreator(CreatorPdf):
             [format_finding(loaders, finding, words) for finding in findings]
         )
         remediation_table = make_remediation_table(context_findings, words)
-        group: Group = await loaders.group.load(group_name)
+        group = await groups_domain.get_group(loaders, group_name)
         oldest_vuln_date: (
             datetime | None
         ) = await groups_domain.get_oldest_finding_date(loaders, group_name)

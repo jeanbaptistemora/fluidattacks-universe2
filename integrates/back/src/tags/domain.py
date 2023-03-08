@@ -9,6 +9,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
+    GroupNotFound,
     PortfolioNotFound,
 )
 from dataloaders import (
@@ -28,12 +29,21 @@ from organizations import (
 )
 
 
+async def get_group(loaders: Dataloaders, name_group: str) -> Group:
+    group = await loaders.group.load(name_group)
+    if group:
+        return group
+    raise GroupNotFound()
+
+
 async def filter_allowed_tags(
     loaders: Dataloaders,
     organization_name: str,
     group_names: list[str],
 ) -> list[str]:
-    groups = await loaders.group.load_many(group_names)
+    groups = await collect(
+        [get_group(loaders, group_name) for group_name in group_names]
+    )
     all_tags = {
         str(tag).lower()
         for group in groups

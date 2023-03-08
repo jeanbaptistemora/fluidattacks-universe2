@@ -8,9 +8,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupManaged,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 from typing import (
     Any,
@@ -29,7 +26,8 @@ async def test_update_group_managed(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.state.has_squad is True
     assert group.state.managed is GroupManaged["MANAGED"]
 
@@ -44,7 +42,8 @@ async def test_update_group_managed(populate: bool, email: str) -> None:
     assert result["data"]["updateGroupManaged"]["success"]
 
     loaders.group.clear(group_name)
-    group_updated: Group = await loaders.group.load(group_name)
+    group_updated = await loaders.group.load(group_name)
+    assert group_updated
     assert group_updated.state.has_squad is True
     assert group_updated.state.managed is GroupManaged["UNDER_REVIEW"]
 

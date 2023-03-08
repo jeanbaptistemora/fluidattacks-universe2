@@ -17,9 +17,6 @@ from db_model.groups.enums import (
     GroupSubscriptionType,
     GroupTier,
 )
-from db_model.groups.types import (
-    Group,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -56,7 +53,8 @@ async def test_add_group(populate: bool, email: str) -> None:
     assert result["data"]["addGroup"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.agent_token is None
     assert group.language == GroupLanguage.EN
     assert group.organization_id == org_id

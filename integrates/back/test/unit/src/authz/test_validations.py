@@ -18,6 +18,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from groups.domain import (
+    get_group,
+)
 import pytest
 from typing import (
     NamedTuple,
@@ -31,8 +34,9 @@ pytestmark = [
 async def test_validate_fluidattacks_staff_on_group() -> None:
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load("oneshottest")
+    group = await loaders.group.load("oneshottest")
 
+    assert group
     assert validate_fluidattacks_staff_on_group(
         group, "test@fluidattacks.com", "hacker"
     )
@@ -46,7 +50,7 @@ async def test_validate_fluidattacks_staff_on_group() -> None:
 async def test_validate_fluidattacks_staff_on_group_deco() -> None:
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load("oneshottest")
+    group = await get_group(loaders, "oneshottest")
 
     @validate_fluidattacks_staff_on_group_deco("group", "email", "role")
     def decorated_func(

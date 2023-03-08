@@ -13,6 +13,7 @@ from custom_exceptions import (
     EventNotFound,
     EventVerificationAlreadyRequested,
     EventVerificationNotRequested,
+    GroupNotFound,
     InvalidCommentParent,
     InvalidDate,
     InvalidEventSolvingReason,
@@ -60,9 +61,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     FindingVerification,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -217,7 +215,9 @@ async def add_event(
     **kwargs: Any,
 ) -> str:
     root_id: str | None = kwargs.get("root_id")
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     if root_id:
         root = await roots_domain.get_root(loaders, root_id, group_name)
         root_id = root.id

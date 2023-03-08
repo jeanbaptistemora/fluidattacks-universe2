@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    GroupNotFound,
     OrganizationNotFound,
 )
 from dataloaders import (
@@ -73,7 +74,9 @@ async def get_org_rol(loaders: Dataloaders, email: str, org_id: str) -> str:
 async def get_organization_country(
     loaders: Dataloaders, group_name: str
 ) -> str | None:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     organization = await loaders.organization.load(group.organization_id)
     if not organization:
         raise OrganizationNotFound()
@@ -81,7 +84,9 @@ async def get_organization_country(
 
 
 async def get_organization_name(loaders: Dataloaders, group_name: str) -> str:
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
     organization = await loaders.organization.load(group.organization_id)
     if not organization:
         raise OrganizationNotFound()

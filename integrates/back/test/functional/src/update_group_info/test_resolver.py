@@ -11,9 +11,6 @@ from datetime import (
 from db_model.groups.enums import (
     GroupLanguage,
 )
-from db_model.groups.types import (
-    Group,
-)
 import pytest
 from typing import (
     Any,
@@ -57,7 +54,8 @@ async def test_update_group_info(
     assert result["data"]["updateGroupInfo"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     assert group.business_id == business_id
     assert group.business_name == business_name
     assert group.description == description

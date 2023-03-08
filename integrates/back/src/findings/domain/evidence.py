@@ -6,6 +6,7 @@ from backports import (
 )
 from custom_exceptions import (
     EvidenceNotFound,
+    GroupNotFound,
     InvalidFileName,
     InvalidFileSize,
     InvalidFileType,
@@ -23,9 +24,6 @@ from db_model.findings.types import (
     Finding,
     FindingEvidence,
     FindingEvidenceToUpdate,
-)
-from db_model.groups.types import (
-    Group,
 )
 from findings import (
     storage as findings_storage,
@@ -133,7 +131,9 @@ async def remove_evidence(
 async def validate_filename(
     loaders: Dataloaders, filename: str, finding: Finding
 ) -> None:
-    group: Group = await loaders.group.load(finding.group_name)
+    group = await loaders.group.load(finding.group_name)
+    if not group:
+        raise GroupNotFound()
     organization = await get_organization(loaders, group.organization_id)
     filename = filename.lower()
     validate_evidencename(

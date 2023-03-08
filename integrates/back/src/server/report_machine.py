@@ -84,6 +84,9 @@ from findings.types import (
 from functools import (
     partial,
 )
+from groups.domain import (
+    get_group,
+)
 from io import (
     BytesIO,
 )
@@ -1233,7 +1236,7 @@ async def process_execution(
 
     organization_name = (
         await get_organization(
-            loaders, (await loaders.group.load(group_name)).organization_id
+            loaders, (await get_group(loaders, group_name)).organization_id
         )
     ).name
     await collect(

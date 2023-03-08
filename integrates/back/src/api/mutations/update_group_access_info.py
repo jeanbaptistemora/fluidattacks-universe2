@@ -14,7 +14,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.types import (
-    Group,
     GroupMetadataToUpdate,
 )
 from decorators import (
@@ -53,7 +52,7 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
     try:
         group_context = validations_utils.validate_markdown(
             kwargs.get("group_context", "")

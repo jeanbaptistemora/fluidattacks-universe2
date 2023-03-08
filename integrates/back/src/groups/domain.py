@@ -193,13 +193,20 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_group(loaders: Dataloaders, group_name: str) -> Group:
+    group = await loaders.group.load(group_name)
+    if not group:
+        raise GroupNotFound()
+    return group
+
+
 async def _has_repeated_tags(
     loaders: Dataloaders, group_name: str, tags: list[str]
 ) -> bool:
     has_repeated_tags = len(tags) != len(set(tags))
     if not has_repeated_tags:
-        group: Group = await loaders.group.load(group_name)
-        existing_tags = group.state.tags
+        group = await loaders.group.load(group_name)
+        existing_tags = group.state.tags if group else None
         all_tags = list(existing_tags or {}) + tags
         has_repeated_tags = len(all_tags) != len(set(all_tags))
     return has_repeated_tags
@@ -257,7 +264,7 @@ async def complete_register_for_group_invitation(
             ),
         )
     )
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     organization_id = group.organization_id
     if not await org_access.has_access(loaders, organization_id, email):
         coroutines.append(
@@ -498,7 +505,7 @@ async def remove_group(
     remove_group_resources.
     """
     loaders.group.clear(group_name)
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
@@ -543,7 +550,7 @@ async def update_group_managed(
     group_name: str,
     managed: GroupManaged,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
 
     if managed != group.state.managed:
         if (
@@ -642,7 +649,7 @@ async def update_group(
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
     )
@@ -1027,7 +1034,7 @@ async def invite_to_group(
     group_name: str,
     modified_by: str,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
 
     expiration_time, url_token = generate_invitation_token(
         group=group,
@@ -1093,7 +1100,7 @@ async def exists(
     group_name: str,
 ) -> bool:
     try:
-        await loaders.group.load(group_name)
+        await get_group(loaders, group_name)
         return True
     except GroupNotFound:
         return False
@@ -1104,8 +1111,8 @@ async def is_valid(
     group_name: str,
 ) -> bool:
     if await exists(loaders, group_name):
-        group: Group = await loaders.group.load(group_name)
-        if group.state.status == GroupStateStatus.ACTIVE:
+        group = await loaders.group.load(group_name)
+        if group and group.state.status == GroupStateStatus.ACTIVE:
             return True
     return False
 
@@ -1114,7 +1121,7 @@ async def mask_files(
     loaders: Dataloaders,
     group_name: str,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     resources_files = await resources_utils.search_file(f"{group_name}/")
     if resources_files:
         await collect(
@@ -1176,7 +1183,7 @@ async def add_file(
     file_name: str,
     group_name: str,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     modified_date = datetime_utils.get_utc_now()
     group_file_to_add = validate_file_data(
         description=description,
@@ -1215,7 +1222,7 @@ async def remove_file(
     file_name: str,
     group_name: str,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     if not group.files:
         raise ErrorUpdatingGroup.new()
 
@@ -1412,7 +1419,7 @@ async def remove_resources(
     group_name: str,
     validate_pending_actions: bool = False,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
     )
@@ -1500,7 +1507,7 @@ async def remove_stakeholder(
     )
 
     loaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     organization_id = group.organization_id
     has_org_access = await org_access.has_access(
         loaders, organization_id, email_to_revoke
@@ -1508,8 +1515,11 @@ async def remove_stakeholder(
     stakeholder_org_groups_names = await get_groups_by_stakeholder(
         loaders, email_to_revoke, organization_id=organization_id
     )
-    stakeholder_org_groups = await loaders.group.load_many(
-        stakeholder_org_groups_names
+    stakeholder_org_groups = await collect(
+        [
+            get_group(loaders, stakeholder_org_group_name)
+            for stakeholder_org_group_name in stakeholder_org_groups_names
+        ]
     )
     has_groups_in_org = bool(
         groups_utils.filter_active_groups(stakeholder_org_groups)
@@ -1537,8 +1547,11 @@ async def remove_stakeholder(
     stakeholder_groups_names = await get_groups_by_stakeholder(
         loaders, email_to_revoke
     )
-    all_groups_by_stakeholder = await loaders.group.load_many(
-        stakeholder_groups_names
+    all_groups_by_stakeholder = await collect(
+        [
+            get_group(loaders, stakeholder_group_name)
+            for stakeholder_group_name in stakeholder_groups_names
+        ]
     )
     all_active_groups_by_stakeholder = groups_utils.filter_active_groups(
         all_groups_by_stakeholder
@@ -1643,7 +1656,7 @@ async def update_group_info(
     metadata: GroupMetadataToUpdate,
     email: str,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
 
     stakeholders_email = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
@@ -1677,7 +1690,7 @@ async def update_forces_access_token(
     expiration_time: int,
     responsible: str,
 ) -> str:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
     had_token: bool = bool(group.agent_token)
 
     result = await stakeholders_domain.update_access_token(
@@ -1778,7 +1791,7 @@ async def update_group_tags(
     email: str,
     updated_tags: set[str],
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await get_group(loaders, group_name)
 
     if updated_tags != group.state.tags:
         await update_state(
@@ -1929,7 +1942,9 @@ async def request_upgrade(
     ):
         raise GroupNotFound()
 
-    groups = await loaders.group.load_many(group_names)
+    groups = await collect(
+        [get_group(loaders, group_name) for group_name in group_names]
+    )
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
@@ -2067,7 +2082,7 @@ async def send_mail_policies(
     new_policies: dict[str, Any],
     responsible: str,
 ) -> None:
-    group_data: Group = await loaders.group.load(group_name)
+    group_data = await get_group(loaders, group_name)
     organization_data = await orgs_utils.get_organization(
         loaders, group_data.organization_id
     )

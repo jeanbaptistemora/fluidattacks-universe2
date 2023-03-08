@@ -1,5 +1,4 @@
 from custom_exceptions import (
-    GroupNotFound,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidSeverity,
@@ -8,9 +7,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -58,12 +54,12 @@ async def test_get_id_for_group() -> None:
     group_name = "unittesting"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     loaders: Dataloaders = get_new_context()
-    group: Group = await loaders.group.load(group_name)
+    group = await loaders.group.load(group_name)
+    assert group
     org_id = group.organization_id
     assert org_id == expected_org_id
 
-    with pytest.raises(GroupNotFound):
-        await loaders.group.load("madeup-group")
+    assert not await loaders.group.load("madeup-group")
 
 
 async def test_get_stakeholder_organizations() -> None:

@@ -13,9 +13,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     enforce_group_level_auth_async,
 )
@@ -51,7 +48,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_info = await sessions_domain.get_jwt_content(info.context)
     responsible = user_info["user_email"]
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
 
     email = forces_domain.format_forces_email(group_name)
     if not await stakeholders_domain.exists(loaders, email):

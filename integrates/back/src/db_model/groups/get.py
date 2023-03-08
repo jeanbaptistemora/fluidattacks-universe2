@@ -20,9 +20,6 @@ from boto3.dynamodb.conditions import (
 from collections.abc import (
     Iterable,
 )
-from custom_exceptions import (
-    GroupNotFound,
-)
 from db_model import (
     TABLE,
 )
@@ -35,7 +32,7 @@ from dynamodb import (
 )
 
 
-async def _get_group(*, group_name: str) -> Group:
+async def _get_group(*, group_name: str) -> Group | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"name": group_name},
@@ -53,14 +50,16 @@ async def _get_group(*, group_name: str) -> Group:
     )
 
     if not response.items:
-        raise GroupNotFound()
+        return None
 
     return format_group(response.items[0])
 
 
-class GroupLoader(DataLoader[str, Group]):
+class GroupLoader(DataLoader[str, Group | None]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, group_names: Iterable[str]) -> list[Group]:
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> list[Group | None]:
         return list(
             await collect(
                 tuple(

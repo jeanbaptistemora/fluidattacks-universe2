@@ -28,9 +28,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.groups.types import (
-    Group,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -48,6 +45,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups.domain import (
+    get_group,
 )
 import json
 from newutils.datetime import (
@@ -280,7 +280,7 @@ async def resolve(  # pylint: disable=too-many-locals
     user_email: str = user_info["user_email"]
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":
-        group: Group = await loaders.group.load(group_name)
+        group = await get_group(loaders, group_name)
         if not group.state.has_machine:
             raise RequestedReportError(
                 expr="Group must have Machine enabled to generate Certificates"

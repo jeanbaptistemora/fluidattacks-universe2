@@ -35,6 +35,9 @@ from group_access.domain import (
     exists,
     get_group_access,
 )
+from groups import (
+    domain as groups_domain,
+)
 import logging
 import logging.config
 from newutils import (
@@ -114,7 +117,7 @@ async def mutate(
     user_email = user_data["user_email"]
 
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(

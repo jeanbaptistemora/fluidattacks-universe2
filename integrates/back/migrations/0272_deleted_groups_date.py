@@ -21,14 +21,14 @@ from db_model import (
 from db_model.groups.enums import (
     GroupStateStatus,
 )
-from db_model.groups.types import (
-    Group,
-)
 from dynamodb import (
     operations,
 )
 from dynamodb.types import (
     PrimaryKey,
+)
+from groups import (
+    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -49,7 +49,7 @@ LOGGER = logging.getLogger(__name__)
 async def process_group(
     loaders: Dataloaders, group_name: str, org_id: str
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
 
     if group.state.status == GroupStateStatus.DELETED:
         historic = await loaders.group_historic_state.load(group_name)

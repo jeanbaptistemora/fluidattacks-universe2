@@ -54,9 +54,6 @@ from db_model.findings.types import (
     FindingEvidence,
     FindingEvidenceToUpdate,
 )
-from db_model.groups.types import (
-    Group,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -73,6 +70,9 @@ from findings.domain.evidence import (
 )
 from findings.storage import (
     save_evidence,
+)
+from groups import (
+    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -569,7 +569,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    group = await groups_domain.get_group(loaders, group_name)
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
     )

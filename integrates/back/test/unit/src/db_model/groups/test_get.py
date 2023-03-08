@@ -40,6 +40,7 @@ async def test_grouploader(
     group = GroupLoader()
     assert isinstance(group, GroupLoader)
     test_group = await group.load(group_name)
+    assert test_group
     assert test_group.name is group_name
     assert mock__get_group.called is True
     with pytest.raises(GroupNotFound):

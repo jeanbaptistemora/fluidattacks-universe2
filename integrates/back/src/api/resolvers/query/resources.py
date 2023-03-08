@@ -8,7 +8,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.types import (
-    Group,
     GroupFile,
 )
 from decorators import (
@@ -19,6 +18,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from groups import (
+    domain as groups_domain,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -57,7 +59,7 @@ async def resolve(
 ) -> Resources:
     group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group.load(group_name.lower())
+    group = await groups_domain.get_group(loaders, group_name.lower())
 
     return {
         "files": _format_group_files(group.files) if group.files else None,
