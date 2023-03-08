@@ -18,7 +18,7 @@ import {
   REQUEST_GROUP_REPORT,
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
@@ -43,6 +43,9 @@ describe("groupFindingsView", (): void => {
         data: {
           group: {
             __typename: "Group",
+            businessId: "id",
+            businessName: "name",
+            description: "description",
             findings: [
               {
                 __typename: "Finding",
@@ -74,7 +77,9 @@ describe("groupFindingsView", (): void => {
                 verified: false,
               },
             ],
+            hasMachine: false,
             name: "TEST",
+            userRole: "user-role",
           },
         },
       },
@@ -415,7 +420,7 @@ describe("groupFindingsView", (): void => {
     expect(screen.getByText("Assignees")).toBeInTheDocument();
   });
 
-  it.skip("should add finding", async (): Promise<void> => {
+  it("should add finding", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockedFetch: FetchMockStatic = fetch as FetchMockStatic &
@@ -474,15 +479,26 @@ describe("groupFindingsView", (): void => {
             attackVector: 0.85,
             attackVectorDescription: "",
             availabilityImpact: 0,
+            availabilityRequirement: 0,
             confidentialityImpact: 0,
+            confidentialityRequirement: 0,
             description: "Description.\n",
-            exploitability: 0.94,
+            exploitability: 1,
             groupName: "TEST",
-            integrityImpact: 0.22,
+            integrityImpact: 0,
+            integrityRequirement: 0,
             minTimeToRemediate: null,
-            privilegesRequired: 0.85,
+            modifiedAttackComplexity: 0,
+            modifiedAttackVector: 0,
+            modifiedAvailabilityImpact: 0,
+            modifiedConfidentialityImpact: 0,
+            modifiedIntegrityImpact: 0,
+            modifiedPrivilegesRequired: 0,
+            modifiedSeverityScope: 0,
+            modifiedUserInteraction: 0,
+            privilegesRequired: 0.27,
             recommendation: "Recommendation.\n",
-            remediationLevel: 0.95,
+            remediationLevel: 1,
             reportConfidence: 0.96,
             severityScope: 0,
             threat: "Threat.\n",
@@ -500,15 +516,19 @@ describe("groupFindingsView", (): void => {
     render(
       <MemoryRouter initialEntries={["/groups/TEST/vulns"]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <MockedProvider
-            addTypename={true}
-            mocks={[...apolloDataMock, ...mockedMutations, ...apolloDataMock]}
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
           >
-            <Route
-              component={GroupFindingsView}
-              path={"/groups/:groupName/vulns"}
-            />
-          </MockedProvider>
+            <MockedProvider
+              addTypename={true}
+              mocks={[...apolloDataMock, ...mockedMutations, ...apolloDataMock]}
+            >
+              <Route
+                component={GroupFindingsView}
+                path={"/groups/:groupName/vulns"}
+              />
+            </MockedProvider>
+          </authzGroupContext.Provider>
         </authzPermissionsContext.Provider>
       </MemoryRouter>
     );
@@ -526,6 +546,22 @@ describe("groupFindingsView", (): void => {
     await userEvent.type(
       screen.getByRole("combobox", { name: /title/iu }),
       "001. Title test"
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "exploitability" }),
+      ["searchFindings.tabSeverity.exploitability.options.high.label"]
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "integrityImpact" }),
+      ["searchFindings.tabSeverity.integrityImpact.options.none.label"]
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "privilegesRequired" }),
+      ["searchFindings.tabSeverity.privilegesRequired.options.high.label"]
+    );
+    await userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "remediationLevel" }),
+      ["searchFindings.tabSeverity.remediationLevel.options.unavailable.label"]
     );
     await userEvent.click(
       screen.getByRole("button", {
