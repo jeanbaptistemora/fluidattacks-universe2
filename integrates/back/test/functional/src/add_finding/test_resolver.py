@@ -350,6 +350,53 @@ async def test_add_finding_duplicated_severity(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_finding")
 @pytest.mark.parametrize(
+    ["email", "description", "threat", "severity"],
+    [
+        [
+            "admin@gmail.com",
+            "duplicated_severity",
+            "Updated threat",
+            Finding31Severity(
+                attack_complexity=Decimal("0.44"),
+                attack_vector=Decimal("0.85"),
+                availability_impact=Decimal("0.22"),
+                confidentiality_impact=Decimal("0.22"),
+                exploitability=Decimal("0.94"),
+                integrity_impact=Decimal("0.22"),
+                privileges_required=Decimal("0.62"),
+                severity_scope=Decimal("0"),
+                remediation_level=Decimal("0.95"),
+                report_confidence=Decimal("1"),
+                user_interaction=Decimal("0.85"),
+                modified_user_interaction=Decimal("0.00001"),
+            ),
+        ],
+    ],
+)
+async def test_add_finding_duplicated_severity_score(
+    populate: bool,
+    email: str,
+    description: str,
+    threat: str,
+    severity: Finding31Severity,
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        description=description,
+        threat=threat,
+        severity=severity,
+    )
+    assert "errors" in result
+    assert (
+        result["errors"][0]["message"]
+        == "Exception - Finding with the same severity score already exists"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_finding")
+@pytest.mark.parametrize(
     [
         "email",
         "description",
