@@ -7,8 +7,5 @@ module "github_makes" {
   token       = var.githubToken
   topics      = ["build", "cd", "ci", "devops", "devsecops", "nix"]
 
-  enable_pages = true
-
-  secrets = {
-  }
+  secrets = {}
 }

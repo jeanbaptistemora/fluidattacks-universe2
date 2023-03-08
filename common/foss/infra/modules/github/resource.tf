@@ -48,13 +48,4 @@ resource "github_repository" "repo" {
   topics                 = var.topics
   vulnerability_alerts   = false
   visibility             = "public"
-
-  dynamic "pages" {
-    for_each = var.enable_pages ? [1] : []
-    content {
-      source {
-        branch = "docs"
-      }
-    }
-  }
 }
