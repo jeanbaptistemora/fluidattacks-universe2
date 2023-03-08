@@ -6,6 +6,7 @@ import type { IInputNumberProps } from "../Formik/FormikNumber";
 import { FormikNumber } from "../Formik/FormikNumber";
 
 const InputNumber: FC<IInputNumberProps> = ({
+  decimalPlaces = 0,
   disabled,
   id,
   label,
@@ -24,6 +25,7 @@ const InputNumber: FC<IInputNumberProps> = ({
 }: Readonly<IInputNumberProps>): JSX.Element => (
   <Field
     component={FormikNumber}
+    decimalPlaces={decimalPlaces}
     disabled={disabled}
     id={id}
     label={label}

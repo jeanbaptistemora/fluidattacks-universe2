@@ -302,6 +302,7 @@ export const FilterForm: React.FC<IFilterFormProps> = ({
                 <Row align={"start"} justify={"between"}>
                   <Col lg={45} md={45} sm={45}>
                     <InputNumber
+                      decimalPlaces={1}
                       label={t("group.findings.report.minSeverity.text")}
                       max={10}
                       min={0}
@@ -323,6 +324,7 @@ export const FilterForm: React.FC<IFilterFormProps> = ({
                   </Col>
                   <Col lg={45} md={45} sm={45}>
                     <InputNumber
+                      decimalPlaces={1}
                       label={t("group.findings.report.maxSeverity.text")}
                       max={10}
                       min={0}
