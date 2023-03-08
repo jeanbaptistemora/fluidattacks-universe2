@@ -19,7 +19,6 @@ in {
           searchPaths
           outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
-          outputs."/secretsForEnvFromSops/commonK8sProd"
           outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
         src = "/common/k8s/infra";
@@ -34,26 +33,11 @@ in {
           searchPaths
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForEnvFromSops/commonK8sDev"
           outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
         src = "/common/k8s/infra";
         version = "1.0";
       };
-    };
-  };
-  secretsForEnvFromSops = {
-    commonK8sDev = {
-      vars = [
-        "DATADOG_API_KEY"
-      ];
-      manifest = "/common/secrets/dev.yaml";
-    };
-    commonK8sProd = {
-      vars = [
-        "DATADOG_API_KEY"
-      ];
-      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForKubernetesConfigFromAws = {
@@ -66,7 +50,6 @@ in {
     commonK8s = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
-      datadogApiKey = "DATADOG_API_KEY";
     };
   };
   secureKubernetesWithRbacPolice = {
@@ -85,7 +68,6 @@ in {
           searchPaths
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForEnvFromSops/commonK8sDev"
           outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
         src = "/common/k8s/infra";

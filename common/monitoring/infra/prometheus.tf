@@ -315,6 +315,7 @@ resource "kubernetes_manifest" "adot_collector" {
 
         exporters:
           awsxray:
+            indexed_attributes: ["deployment.environment"]
             region: "us-east-1"
           prometheusremotewrite:
             endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-e60ff23e-bccf-4df2-bf46-745c50b45c70/api/v1/remote_write
