@@ -1842,6 +1842,12 @@ class RepeatedFindingSeverity(CustomBaseException):
         super(RepeatedFindingSeverity, self).__init__(msg)
 
 
+class RepeatedFindingSeverityScore(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Finding with the same severity score already exists"
+        super(RepeatedFindingSeverityScore, self).__init__(msg)
+
+
 class RepeatedFindingDescription(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Finding with the same description already exists"
@@ -1861,3 +1867,9 @@ class RepeatedFindingMachineDescription(CustomBaseException):
             " severity already exists"
         )
         super(RepeatedFindingMachineDescription, self).__init__(msg)
+
+
+class InvalidSeverityScore(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Severity score is invalid"
+        super(InvalidSeverityScore, self).__init__(msg)

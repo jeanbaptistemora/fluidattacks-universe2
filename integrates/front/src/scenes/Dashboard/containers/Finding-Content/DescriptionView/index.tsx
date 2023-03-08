@@ -102,6 +102,12 @@ const DescriptionView: React.FC = (): JSX.Element => {
               t("validations.addFindingModal.duplicatedMachineDescription")
             );
             break;
+          case "Exception - Finding with the same severity score already exists":
+            msgError(t("validations.addFindingModal.duplicatedSeverityScore"));
+            break;
+          case "Exception - Severity score is invalid":
+            msgError(t("validations.addFindingModal.invalidSeverityScore"));
+            break;
           default:
             msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(

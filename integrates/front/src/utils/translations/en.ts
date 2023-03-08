@@ -4302,8 +4302,11 @@ export const enTranslations: ResourceKey = {
         "Another vulnerability, which has the same type, contains the same description, threat and severity",
       duplicatedSeverity:
         "Another vulnerability, which has the same type, contains the same severity",
+      duplicatedSeverityScore:
+        "Another vulnerability, which has the same type, generates the same severity score",
       duplicatedThreat:
         "Another vulnerability, which has the same type, contains the same threat",
+      invalidSeverityScore: "The computed severity score is not greater than 0",
       invalidTitle: "The title is not valid",
     },
     alphabetic: "Only alphabetic characters",

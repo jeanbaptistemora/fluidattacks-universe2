@@ -19,12 +19,14 @@ from contextlib import (
 from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
+    InvalidSeverityScore,
     InvalidVulnerabilityRequirement,
     MachineCanNotOperate,
     PermissionDenied,
     RepeatedFindingDescription,
     RepeatedFindingMachineDescription,
     RepeatedFindingSeverity,
+    RepeatedFindingSeverityScore,
     RepeatedFindingThreat,
     RequiredUnfulfilledRequirements,
     RootNotFound,
@@ -207,6 +209,10 @@ async def _validate_duplicated_finding(  # pylint: disable=too-many-arguments
             raise RepeatedFindingThreat()
         if finding.severity == severity:
             raise RepeatedFindingSeverity()
+        if get_severity_score(finding.severity) == get_severity_score(
+            severity
+        ):
+            raise RepeatedFindingSeverityScore()
 
     criteria_vulnerabilities = await loaders.vulnerabilities_file.load("")
     criteria_vulnerability: dict[str, Any] = criteria_vulnerabilities[
@@ -277,6 +283,8 @@ async def add_finding(
         attributes.threat,
         attributes.severity,
     )
+    if get_severity_score(attributes.severity) <= Decimal(0):
+        raise InvalidSeverityScore()
 
     finding = Finding(
         hacker_email=stakeholder_email,

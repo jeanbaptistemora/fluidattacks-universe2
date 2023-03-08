@@ -102,12 +102,25 @@ const SeverityView: React.FC = (): JSX.Element => {
     }
   };
 
-  const handleMtError: (error: ApolloError) => void = ({
-    graphQLErrors,
-  }: ApolloError): void => {
-    graphQLErrors.forEach((error: GraphQLError): void => {
-      msgError(t("groupAlerts.errorTextsad"));
-      Logger.warning("An error occurred updating severity", error);
+  const handleMtError = (errors: ApolloError): void => {
+    errors.graphQLErrors.forEach((error: GraphQLError): void => {
+      switch (error.message) {
+        case "Exception - Finding with the same severity already exists":
+          msgError(t("validations.addFindingModal.duplicatedSeverity"));
+          break;
+        case "Exception - Finding with the same severity score already exists":
+          msgError(t("validations.addFindingModal.duplicatedSeverityScore"));
+          break;
+        case "Exception - Severity score is invalid":
+          msgError(t("validations.addFindingModal.invalidSeverityScore"));
+          break;
+        case "Exception - Invalid characters":
+          msgError(t("validations.invalidChar"));
+          break;
+        default:
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred updating severity", error);
+      }
     });
   };
 

@@ -620,6 +620,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             case "Exception - Finding with the same severity already exists":
               msgError(t("validations.addFindingModal.duplicatedSeverity"));
               break;
+            case "Exception - Finding with the same severity score already exists":
+              msgError(
+                t("validations.addFindingModal.duplicatedSeverityScore")
+              );
+              break;
+            case "Exception - Severity score is invalid":
+              msgError(t("validations.addFindingModal.invalidSeverityScore"));
+              break;
             case "Exception - Invalid characters":
               msgError(t("validations.invalidChar"));
               break;
@@ -648,30 +656,55 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           attackComplexity: parseFloat(values.attackComplexity),
           attackVector: parseFloat(values.attackVector),
           availabilityImpact: parseFloat(values.availabilityImpact),
-          availabilityRequirement: parseFloat(values.availabilityRequirement),
+          availabilityRequirement: _.defaultTo(
+            parseFloat(values.availabilityRequirement),
+            0
+          ),
           confidentialityImpact: parseFloat(values.confidentialityImpact),
-          confidentialityRequirement: parseFloat(
-            values.confidentialityRequirement
+          confidentialityRequirement: _.defaultTo(
+            parseFloat(values.confidentialityRequirement),
+            0
           ),
           description: values.description,
           exploitability: parseFloat(values.exploitability),
           groupName,
           integrityImpact: parseFloat(values.integrityImpact),
-          integrityRequirement: parseFloat(values.integrityRequirement),
-          modifiedAttackComplexity: parseFloat(values.modifiedAttackComplexity),
-          modifiedAttackVector: parseFloat(values.modifiedAttackVector),
-          modifiedAvailabilityImpact: parseFloat(
-            values.modifiedAvailabilityImpact
+          integrityRequirement: _.defaultTo(
+            parseFloat(values.integrityRequirement),
+            0
           ),
-          modifiedConfidentialityImpact: parseFloat(
-            values.modifiedConfidentialityImpact
+          modifiedAttackComplexity: _.defaultTo(
+            parseFloat(values.modifiedAttackComplexity),
+            0
           ),
-          modifiedIntegrityImpact: parseFloat(values.modifiedIntegrityImpact),
-          modifiedPrivilegesRequired: parseFloat(
-            values.modifiedPrivilegesRequired
+          modifiedAttackVector: _.defaultTo(
+            parseFloat(values.modifiedAttackVector),
+            0
           ),
-          modifiedSeverityScope: parseFloat(values.modifiedSeverityScope),
-          modifiedUserInteraction: parseFloat(values.modifiedUserInteraction),
+          modifiedAvailabilityImpact: _.defaultTo(
+            parseFloat(values.modifiedAvailabilityImpact),
+            0
+          ),
+          modifiedConfidentialityImpact: _.defaultTo(
+            parseFloat(values.modifiedConfidentialityImpact),
+            0
+          ),
+          modifiedIntegrityImpact: _.defaultTo(
+            parseFloat(values.modifiedIntegrityImpact),
+            0
+          ),
+          modifiedPrivilegesRequired: _.defaultTo(
+            parseFloat(values.modifiedPrivilegesRequired),
+            0
+          ),
+          modifiedSeverityScope: _.defaultTo(
+            parseFloat(values.modifiedSeverityScope),
+            0
+          ),
+          modifiedUserInteraction: _.defaultTo(
+            parseFloat(values.modifiedUserInteraction),
+            0
+          ),
           privilegesRequired: parseFloat(values.privilegesRequired),
           remediationLevel: parseFloat(values.remediationLevel),
           reportConfidence: parseFloat(values.reportConfidence),
@@ -1042,8 +1075,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.availabilityRequirement.label"
                       )}
                       name={"availabilityRequirement"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(availabilityRequirement).map(
@@ -1056,7 +1087,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                     </Select>
                   </Col>
                 </Row>
-
                 <Row>
                   <Col lg={50} md={50} sm={100}>
                     <Select
@@ -1083,8 +1113,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.confidentialityRequirement.label"
                       )}
                       name={"confidentialityRequirement"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(confidentialityRequirement).map(
@@ -1144,8 +1172,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.integrityRequirement.label"
                       )}
                       name={"integrityRequirement"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(integrityRequirement).map(
@@ -1163,8 +1189,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedAttackComplexity"
                       )}
                       name={"modifiedAttackComplexity"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(attackComplexityOptions).map(
@@ -1184,8 +1208,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedAttackVector"
                       )}
                       name={"modifiedAttackVector"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(attackVectorOptions).map(
@@ -1203,8 +1225,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedAvailabilityImpact"
                       )}
                       name={"modifiedAvailabilityImpact"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(availabilityImpactOptions).map(
@@ -1224,8 +1244,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedConfidentialityImpact"
                       )}
                       name={"modifiedConfidentialityImpact"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(confidentialityImpactOptions).map(
@@ -1243,10 +1261,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedIntegrityImpact"
                       )}
                       name={"modifiedIntegrityImpact"}
-                      required={true}
-                      validate={required}
                     >
-                      <option value={""} />
                       {Object.entries(integrityImpactOptions).map(
                         ([value, label]): JSX.Element => (
                           <option key={value} value={value}>
@@ -1254,6 +1269,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                           </option>
                         )
                       )}
+                      <option value={""} />
                     </Select>
                   </Col>
                 </Row>
@@ -1264,8 +1280,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedPrivilegesRequired"
                       )}
                       name={"modifiedPrivilegesRequired"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(castPrivileges(values.severityScope)).map(
@@ -1283,8 +1297,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedUserInteraction"
                       )}
                       name={"modifiedUserInteraction"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(userInteractionOptions).map(
@@ -1304,8 +1316,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                         "searchFindings.tabSeverity.modifiedSeverityScope"
                       )}
                       name={"modifiedSeverityScope"}
-                      required={true}
-                      validate={required}
                     >
                       <option value={""} />
                       {Object.entries(severityScopeOptions).map(
