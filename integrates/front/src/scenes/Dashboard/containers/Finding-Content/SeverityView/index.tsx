@@ -16,6 +16,7 @@ import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
+import { Editable, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
@@ -208,18 +209,22 @@ const SeverityView: React.FC = (): JSX.Element => {
                           </Button>
                         </ButtonToolbarRow>
                         <Row>
-                          <EditableField
-                            alignField={"horizontal"}
-                            component={FormikDropdown}
+                          <Editable
                             currentValue={"3.1"}
+                            isEditing={isEditing}
                             label={t("searchFindings.tabSeverity.cvssVersion")}
-                            name={"cvssVersion"}
-                            renderAsEditable={isEditing}
-                            validate={required}
                           >
-                            <option value={""} />
-                            <option value={"3.1"}>{"3.1"}</option>
-                          </EditableField>
+                            <Select
+                              label={t(
+                                "searchFindings.tabSeverity.cvssVersion"
+                              )}
+                              name={"cvssVersion"}
+                              validate={required}
+                            >
+                              <option value={""} />
+                              <option value={"3.1"}>{"3.1"}</option>
+                            </Select>
+                          </Editable>
                         </Row>
                       </React.Fragment>
                     ) : undefined}
