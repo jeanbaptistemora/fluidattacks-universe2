@@ -153,7 +153,7 @@ def _customer_has_payment_method(
     return customer.default_payment_method is not None
 
 
-async def _format_create_subscription_data(
+def _format_create_subscription_data(
     *,
     subscription: str,
     org_billing_customer: str,
@@ -283,7 +283,7 @@ async def update_subscription(
             statuses=["canceled"],
             subscriptions=subscriptions,
         )
-        data: dict[str, Any] = await _format_create_subscription_data(
+        data: dict[str, Any] = _format_create_subscription_data(
             subscription=subscription,
             org_billing_customer=org_billing_customer,
             org_name=org_name,
