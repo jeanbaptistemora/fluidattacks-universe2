@@ -36,6 +36,7 @@ function dynamodb_etl {
       --bucket 'observes.etl-data' \
       --prefix "dynamodb/part_${segment}/" \
       --role 'arn:aws:iam::205810638802:role/observes_redshift_cluster' \
+      --wlm-queue "dynamo_etl" \
       < .singer \
     && rm .singer
 }
