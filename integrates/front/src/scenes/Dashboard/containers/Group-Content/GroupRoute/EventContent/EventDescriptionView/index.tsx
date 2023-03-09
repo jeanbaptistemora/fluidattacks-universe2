@@ -626,21 +626,24 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         </Can>
                       </Col50>
                       <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
+                        <Editable
                           currentValue={
                             _.isEmpty(data.event.affectedReattacks)
                               ? "0"
                               : String(data.event.affectedReattacks.length)
                           }
+                          isEditing={false}
                           label={t(
                             "searchFindings.tabEvents.affectedReattacks"
                           )}
-                          name={"affectedReattacks"}
-                          renderAsEditable={false}
-                          type={"text"}
-                        />
+                        >
+                          <Input
+                            label={t(
+                              "searchFindings.tabEvents.affectedReattacks"
+                            )}
+                            name={"affectedReattacks"}
+                          />
+                        </Editable>
                       </Col50>
                     </Row>
                     {data.event.eventStatus === "SOLVED" ? (
