@@ -8,9 +8,6 @@ from contextlib import (
 from custom_exceptions import (
     UnavailabilityError,
 )
-from decimal import (
-    Decimal,
-)
 from dynamodb.resource import (
     get_resource,
     RESOURCE_OPTIONS,
@@ -102,21 +99,6 @@ async def scan(table: str, scan_attrs: dict[str, Any]) -> list[Any]:
     return response_items
 
 
-def serialize(object_: Any) -> Any:
-    """Convert an object so it can be serialized to dynamodb."""
-    if isinstance(object_, (float, int)):
-        object_ = Decimal(str(object_))
-    elif isinstance(object_, dict):
-        for key, value in object_.items():
-            object_[key] = serialize(value)
-    elif isinstance(object_, (list, set, tuple)):
-        for value in object_:
-            value = serialize(value)
-    else:
-        return object_
-    return object_
-
-
 async def update_item(table: str, update_attrs: dict[str, Any]) -> bool:
     success: bool = False
     dynamodb_resource = await get_resource()
@@ -124,18 +106,3 @@ async def update_item(table: str, update_attrs: dict[str, Any]) -> bool:
     response = await dynamo_table.update_item(**update_attrs)
     success = response["ResponseMetadata"]["HTTPStatusCode"] == 200
     return success
-
-
-def deserialize(object_: Any) -> Any:
-    """Convert a Dynamo element so it can be serialized to json."""
-    if isinstance(object_, Decimal):
-        object_ = float(str(object_))
-    elif isinstance(object_, dict):
-        for key, value in object_.items():
-            object_[key] = deserialize(value)
-    elif isinstance(object_, (list, set, tuple)):
-        for value in object_:
-            value = deserialize(value)
-    else:
-        return object_
-    return object_
