@@ -5,7 +5,6 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import { EventsTaskView } from "./Events.py";
 
 import { Tab, Tabs } from "components/Tabs";
-import { TasksDrafts } from "scenes/Dashboard/containers/Tasks-Content/Drafts";
 import { TasksReattacks } from "scenes/Dashboard/containers/Tasks-Content/Reattacks";
 import type { ITasksContent } from "scenes/Dashboard/containers/Tasks-Content/types";
 import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities";
@@ -34,15 +33,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
           {t("todoList.tabs.vulnerabilities")}
         </Tab>
         <authzPermissionsContext.Provider value={userLevelPermissions}>
-          <Can do={"front_can_retrieve_todo_drafts"}>
-            <Tab
-              id={"tasksDrafts"}
-              link={`${url}/drafts`}
-              tooltip={t("todoList.tooltip.drafts")}
-            >
-              {t("todoList.tabs.drafts.title")}
-            </Tab>
-          </Can>
           <Can do={"front_can_retrieve_todo_reattacks"}>
             <Tab
               id={"tasksReattacks"}
@@ -67,9 +57,6 @@ export const TasksContent: React.FC<ITasksContent> = ({
         <Switch>
           <Route path={`${path}/vulns`}>
             <TasksVulnerabilities setUserRole={setUserRole} />
-          </Route>
-          <Route path={`${path}/drafts`}>
-            <TasksDrafts />
           </Route>
           <Route path={`${path}/reattacks`}>
             <TasksReattacks />
