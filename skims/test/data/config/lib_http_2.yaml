@@ -2,9 +2,9 @@
 checks:
   - F182
 dast:
-  http:
-    include:
-      - http://fluidattacks.com
+  urls:
+    - http://fluidattacks.com
+  http_checks: true
 language: EN
 namespace: namespace
 output:

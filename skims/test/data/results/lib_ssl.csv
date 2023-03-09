@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
 F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.0,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.0,"
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.0 request offering only key exchange algorithms
@@ -22,7 +22,7 @@ F133,inputs,https://localhost:4446 (namespace),Server refuses connections with P
      ^ Col 0
 ",analyze_protocol.pfs_disabled
 F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.1,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.1,"
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.1 request offering only key exchange algorithms
@@ -44,7 +44,7 @@ F133,inputs,https://localhost:4446 (namespace),Server refuses connections with P
      ^ Col 0
 ",analyze_protocol.pfs_disabled
 F133,inputs,https://localhost:4446 (namespace),Server refuses connections with PFS support in TLSv1.2,310,"home,socket-send,socket-response",133. Insecure encryption algorithm - Perfect Forward Secrecy,Server refuses connections with PFS support in TLSv1.2,"
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.2 request offering only key exchange algorithms
@@ -66,7 +66,7 @@ F133,inputs,https://localhost:4446 (namespace),Server refuses connections with P
      ^ Col 0
 ",analyze_protocol.pfs_disabled
 F016,inputs,https://localhost:4446 (namespace),Server accepts connections with TLSv1.0,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,Server accepts connections with TLSv1.0,"
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.0 request offering any cipher suite and check if
@@ -89,7 +89,7 @@ F016,inputs,https://localhost:4446 (namespace),Server accepts connections with T
      ^ Col 0
 ",analyze_protocol.tlsv1_enabled
 F016,inputs,https://localhost:4446 (namespace),Server accepts connections with TLSv1.1,326,"home,socket-send,socket-response",016. Insecure encryption algorithm - SSL/TLS,Server accepts connections with TLSv1.1,"
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.1 request offering any cipher suite and check if
@@ -114,7 +114,7 @@ F016,inputs,https://localhost:4446 (namespace),Server accepts connections with T
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.0
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.0
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.0 request offering any cipher suite
@@ -140,7 +140,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.1
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.1
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.1 request offering any cipher suite
@@ -166,7 +166,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.2
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_128_CBC_SHA, that supports CBC in TLSv1.2
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.2 request offering any cipher suite
@@ -192,7 +192,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.0
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.0
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.0 request offering any cipher suite
@@ -218,7 +218,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.1
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.1
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.1 request offering any cipher suite
@@ -244,7 +244,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.2
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_AES_256_CBC_SHA, that supports CBC in TLSv1.2
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.2 request offering any cipher suite
@@ -270,7 +270,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.0
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.0
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.0 request offering any cipher suite
@@ -296,7 +296,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.1
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.1
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.1 request offering any cipher suite
@@ -322,7 +322,7 @@ F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with 
 F094,inputs,https://localhost:4446 (namespace),"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.2
 ",757,"home,socket-send,socket-response",094. Insecure encryption algorithm - Cipher Block Chaining,"Server accepts connections with weak cipher method: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA, that supports CBC in TLSv1.2
 ","
-   1 | Server: localhost:4446
+   1 | Server: https://localhost:4446
    2 | Available versions on server: TLSv1.0, TLSv1.1, TLSv1.2
    3 | -------------------------------Intention-------------------------------
    4 | Perform a TLSv1.2 request offering any cipher suite

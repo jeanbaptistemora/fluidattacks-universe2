@@ -1,15 +1,11 @@
 ---
 dast:
-  ssl:
-    include:
-      - host: localhost
-        port: 4445
-      - host: localhost
-        port: 4446
-      - host: localhost
-        port: 9999
-      - host: wrong
-        port: 9999
+  urls:
+    - https://localhost:4445
+    - https://localhost:4446
+    - https://localhost:9999
+    - https://wrong:9999
+  ssl_checks: true
 language: EN
 namespace: namespace
 output:
