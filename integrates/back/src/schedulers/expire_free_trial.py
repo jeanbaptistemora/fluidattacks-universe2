@@ -47,8 +47,7 @@ async def _remove_expired_groups_data(
 ) -> None:
     if (
         days_since_expiration := trials_domain.get_days_since_expiration(trial)
-        <= REMOVAL_AFTER_EXPIRATION_DAYS
-    ):
+    ) <= REMOVAL_AFTER_EXPIRATION_DAYS:
         return
 
     info(

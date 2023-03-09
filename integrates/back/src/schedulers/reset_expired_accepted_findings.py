@@ -165,7 +165,7 @@ async def reset_expired_accepted_findings() -> None:
             )
             for count, group_name in enumerate(group_names)
         ),
-        workers=1,
+        workers=4,
     )
 
 
