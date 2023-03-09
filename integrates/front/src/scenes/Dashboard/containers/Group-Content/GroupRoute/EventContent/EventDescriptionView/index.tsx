@@ -681,20 +681,24 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                   {values.solvingReason === "OTHER" ? (
                                     <Fragment>
                                       <br />
-                                      <EditableField
-                                        component={FormikText}
+                                      <Editable
                                         currentValue={
                                           _.isNil(data.event.otherSolvingReason)
                                             ? ""
                                             : data.event.otherSolvingReason
                                         }
+                                        isEditing={isEditing}
                                         label={t(
                                           "searchFindings.tabSeverity.common.deactivation.other"
                                         )}
-                                        name={"otherSolvingReason"}
-                                        renderAsEditable={isEditing}
-                                        type={"text"}
-                                      />
+                                      >
+                                        <Input
+                                          label={t(
+                                            "searchFindings.tabSeverity.common.deactivation.other"
+                                          )}
+                                          name={"otherSolvingReason"}
+                                        />
+                                      </Editable>
                                     </Fragment>
                                   ) : undefined}
                                 </Col50>
