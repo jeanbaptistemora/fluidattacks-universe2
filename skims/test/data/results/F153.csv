@@ -1,4 +1,129 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F153,lines,namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs,7,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs","
+   1 | public class TestHttpAccept
+   2 | {
+   3 |
+   4 |  public HttpClientMustFail()
+   5 |  {
+   6 |   HttpClient = new HttpClient();
+>  7 |   HttpClient.DefaultRequestHeaders.Add(""Accept"", ""*/*"");
+   8 |  }
+   9 |
+  10 |   public HttpClientMustFailII()
+  11 |  {
+  12 |   HttpClientII = new HttpClient();
+  13 |   HttpClientII.DefaultRequestHeaders.Accept.Clear();
+  14 |     HttpClientII.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  15 |  }
+  16 |   public RequestMessageMustFail()
+  17 |  {
+  18 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  19 |     request.Headers.Accept.Clear();
+  20 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  21 |
+     ^ Col 0
+",c_sharp.c_sharp_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs,14,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs","
+   4 |  public HttpClientMustFail()
+   5 |  {
+   6 |   HttpClient = new HttpClient();
+   7 |   HttpClient.DefaultRequestHeaders.Add(""Accept"", ""*/*"");
+   8 |  }
+   9 |
+  10 |   public HttpClientMustFailII()
+  11 |  {
+  12 |   HttpClientII = new HttpClient();
+  13 |   HttpClientII.DefaultRequestHeaders.Accept.Clear();
+> 14 |     HttpClientII.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  15 |  }
+  16 |   public RequestMessageMustFail()
+  17 |  {
+  18 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  19 |     request.Headers.Accept.Clear();
+  20 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  21 |
+  22 |  }
+  23 |   public RequestMessageMustFailII()
+  24 |  {
+     ^ Col 0
+",c_sharp.c_sharp_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs,20,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs","
+  10 |   public HttpClientMustFailII()
+  11 |  {
+  12 |   HttpClientII = new HttpClient();
+  13 |   HttpClientII.DefaultRequestHeaders.Accept.Clear();
+  14 |     HttpClientII.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  15 |  }
+  16 |   public RequestMessageMustFail()
+  17 |  {
+  18 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  19 |     request.Headers.Accept.Clear();
+> 20 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  21 |
+  22 |  }
+  23 |   public RequestMessageMustFailII()
+  24 |  {
+  25 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  26 |     request.Headers.Accept.Clear();
+  27 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  28 |
+  29 |  }
+  30 |
+     ^ Col 0
+",c_sharp.c_sharp_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs,27,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs","
+  17 |  {
+  18 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  19 |     request.Headers.Accept.Clear();
+  20 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  21 |
+  22 |  }
+  23 |   public RequestMessageMustFailII()
+  24 |  {
+  25 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  26 |     request.Headers.Accept.Clear();
+> 27 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  28 |
+  29 |  }
+  30 |
+  31 |  public WebClientMustFail()
+  32 |  {
+  33 |   WebClient client = new WebClient();
+  34 |   client.Headers.Clear();
+  35 |   client.Headers.Add(""Accept"", ""*/*"");
+  36 |
+  37 |  }
+     ^ Col 0
+",c_sharp.c_sharp_accepts_any_mime_type_chain
+F153,lines,namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs,35,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
+ in namespace/skims/test/data/lib_root/f153/c_sharp_accepts_all_myme_types.cs","
+  18 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  19 |     request.Headers.Accept.Clear();
+  20 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  21 |
+  22 |  }
+  23 |   public RequestMessageMustFailII()
+  24 |  {
+  25 |   HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, ""https://www.example.com"");
+  26 |     request.Headers.Accept.Clear();
+  27 |     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(""*/*""));
+  28 |
+  29 |  }
+  30 |
+  31 |  public WebClientMustFail()
+  32 |  {
+  33 |   WebClient client = new WebClient();
+  34 |   client.Headers.Clear();
+> 35 |   client.Headers.Add(""Accept"", ""*/*"");
+  36 |
+  37 |  }
+  38 | }
+     ^ Col 0
+",c_sharp.c_sharp_accepts_any_mime_type_chain
 F153,lines,namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java,11,644,skims,153. Insecure or unset HTTP headers - Accept,"The Accept header is not properly configured and allows any MIME type in the request.
  in namespace/skims/test/data/lib_root/f153/java_accepts_all_myme_types.java","
    1 | import java.util.Random;

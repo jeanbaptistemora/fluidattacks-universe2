@@ -55,8 +55,14 @@ def get_dang_instances(
 ) -> set[str]:
     def predicate_matcher(node: dict[str, str]) -> bool:
         return bool(
-            (node.get("label_type") == "VariableDeclaration")
-            and (node.get("variable_type") in dang_classes)
+            (
+                (node.get("label_type") == "VariableDeclaration")
+                and (node.get("variable_type") in dang_classes)
+            )
+            or (
+                (node.get("label_type") == "ObjectCreation")
+                and (node.get("name") in dang_classes)
+            )
         )
 
     nodes = graph.nodes
@@ -64,7 +70,11 @@ def get_dang_instances(
     dang_classes = {"HttpClient", "HttpRequestMessage", "WebClient"}
 
     for n_id in g.filter_nodes(graph, nodes, predicate_matcher):
-        if var_name := nodes[n_id].get("variable"):
+        if (var_name := nodes[n_id].get("variable")) or (
+            (p_id := g.pred_ast(graph, n_id))
+            and (v_id := nodes[p_id[0]].get("variable_id"))
+            and (var_name := nodes[v_id].get("symbol"))
+        ):
             dang_instances.add(var_name)
 
     return dang_instances
@@ -75,6 +85,8 @@ def get_dang_callings(graph: Graph) -> set[str]:
     dang_invocations = {
         "DefaultRequestHeaders.Add",
         "DefaultRequestHeaders.Accept.Add",
+        "Headers.Add",
+        "Headers.Accept.Add",
     }
     for invocation in dang_invocations:
         for inst_name in get_dang_instances(graph):
