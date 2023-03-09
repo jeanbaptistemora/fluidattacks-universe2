@@ -40,7 +40,7 @@ EMAIL_INTEGRATES = "integrates@fluidattacks.com"
 REMOVAL_AFTER_EXPIRATION_DAYS = 30
 
 
-async def remove_expired_groups_data(
+async def _remove_expired_groups_data(
     loaders: Dataloaders,
     group: Group,
     trial: Trial,
@@ -121,7 +121,7 @@ async def main() -> None:
 
     await collect(
         tuple(
-            remove_expired_groups_data(loaders, group, trial)
+            _remove_expired_groups_data(loaders, group, trial)
             for group, trial in zip(groups, trials)
             if group.state.managed == GroupManaged.UNDER_REVIEW
             and trial

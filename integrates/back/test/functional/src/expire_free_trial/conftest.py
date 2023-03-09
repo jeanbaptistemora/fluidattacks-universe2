@@ -80,6 +80,24 @@ async def populate() -> bool:
                     "2022-10-21T15:58:31.280182+00:00"
                 ),
             ),
+            Trial(
+                email="atoriyama@atoriyama.com",
+                completed=True,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-09-20T15:58:31.280182+00:00"
+                ),
+            ),
+            Trial(
+                email="hanno@hanno.com",
+                completed=True,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-09-21T15:58:31.280182+00:00"
+                ),
+            ),
         ],
         "groups": [
             {
@@ -174,6 +192,56 @@ async def populate() -> bool:
                         modified_by="abuendia@abuendia.com",
                         modified_date=datetime.fromisoformat(
                             "2022-10-21T15:58:31.280182+00:00"
+                        ),
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="atoriyama@atoriyama.com",
+                    created_date=datetime.fromisoformat(
+                        "2022-09-20T15:58:31.280182+00:00"
+                    ),
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup5",
+                    organization_id="5399f49f-6e2c-4712-af72-5ea6e34cf155",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.UNDER_REVIEW,
+                        modified_by="atoriyama@atoriyama.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-20T15:58:31.280182+00:00"
+                        ),
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                ),
+            },
+            {
+                "group": Group(
+                    created_by="hanno@hanno.com",
+                    created_date=datetime.fromisoformat(
+                        "2022-09-21T15:58:31.280182+00:00"
+                    ),
+                    description="test description",
+                    language=GroupLanguage.EN,
+                    name="testgroup6",
+                    organization_id="5399f49f-6e2c-4712-af72-5ea6e34cf156",
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=False,
+                        managed=GroupManaged.UNDER_REVIEW,
+                        modified_by="hanno@hanno.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-21T15:58:31.280182+00:00"
                         ),
                         service=GroupService.WHITE,
                         status=GroupStateStatus.ACTIVE,
@@ -280,6 +348,54 @@ async def populate() -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    created_by="atoriyama@atoriyama.com",
+                    created_date=datetime.fromisoformat(
+                        "2022-09-20T15:58:31.280182+00:00"
+                    ),
+                    country="Colombia",
+                    id="5399f49f-6e2c-4712-af72-5ea6e34cf155",
+                    name="testorg5",
+                    policies=Policies(
+                        modified_by="atoriyama@atoriyama.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-20T15:58:31.280182+00:00"
+                        ),
+                    ),
+                    state=OrganizationState(
+                        modified_by="atoriyama@atoriyama.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-20T15:58:31.280182+00:00"
+                        ),
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+            {
+                "organization": Organization(
+                    created_by="hanno@hanno.com",
+                    created_date=datetime.fromisoformat(
+                        "2022-09-21T15:58:31.280182+00:00"
+                    ),
+                    country="Colombia",
+                    id="5399f49f-6e2c-4712-af72-5ea6e34cf156",
+                    name="testorg6",
+                    policies=Policies(
+                        modified_by="hanno@hanno.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-21T15:58:31.280182+00:00"
+                        ),
+                    ),
+                    state=OrganizationState(
+                        modified_by="hanno@hanno.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-09-21T15:58:31.280182+00:00"
+                        ),
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "stakeholders": [
             Stakeholder(
@@ -305,6 +421,18 @@ async def populate() -> bool:
                 first_name="Amaranta",
                 is_registered=True,
                 last_name="Buendia",
+            ),
+            Stakeholder(
+                email="atoriyama@atoriyama.com",
+                first_name="Akira",
+                is_registered=True,
+                last_name="Toriyama",
+            ),
+            Stakeholder(
+                email="hanno@hanno.com",
+                first_name="Hideaki",
+                is_registered=True,
+                last_name="Anno",
             ),
         ],
     }

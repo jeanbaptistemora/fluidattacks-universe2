@@ -1,4 +1,6 @@
+# pylint: disable=import-error
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.groups.enums import (
@@ -7,7 +9,13 @@ from db_model.groups.enums import (
 from freezegun import (
     freeze_time,
 )
+from groups import (
+    domain as groups_domain,
+)
 import pytest
+from pytest_mock import (
+    MockerFixture,
+)
 from schedulers import (
     expire_free_trial,
 )
@@ -16,9 +24,12 @@ from schedulers import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("expire_free_trial")
 @freeze_time("2022-11-11T15:58:31.280182")
-async def test_expire_free_trial(*, populate: bool) -> None:
+async def test_expire_free_trial(
+    *, populate: bool, mocker: MockerFixture
+) -> None:
+    mocker.patch.object(groups_domain, "mask_files", return_value=False)
     assert populate
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     cases = [
         # Reached trial limit
         {
@@ -56,6 +67,24 @@ async def test_expire_free_trial(*, populate: bool) -> None:
             "completed_after": True,
             "managed_after": GroupManaged.MANAGED,
         },
+        # With trial expired and group's resources to be removed from db
+        {
+            "email": "atoriyama@atoriyama.com",
+            "group_name": "testgroup5",
+            "completed_before": True,
+            "managed_before": GroupManaged.UNDER_REVIEW,
+            "completed_after": True,
+            "managed_after": None,  # Group not found
+        },
+        # With trial expired but group's resources still to be kept in db
+        {
+            "email": "hanno@hanno.com",
+            "group_name": "testgroup6",
+            "completed_before": True,
+            "managed_before": GroupManaged.UNDER_REVIEW,
+            "completed_after": True,
+            "managed_after": GroupManaged.UNDER_REVIEW,
+        },
     ]
 
     for case in cases:
@@ -72,8 +101,12 @@ async def test_expire_free_trial(*, populate: bool) -> None:
 
     for case in cases:
         trial_after = await loaders.trial.load(str(case["email"]))
-        group_after = await loaders.group.load(str(case["group_name"]))
         assert trial_after
-        assert group_after
         assert trial_after.completed == case["completed_after"]
-        assert group_after.state.managed == case["managed_after"]
+
+        group_after = await loaders.group.load(str(case["group_name"]))
+        if case["managed_after"] is not None:
+            assert group_after
+            assert group_after.state.managed == case["managed_after"]
+        else:
+            assert group_after is None
