@@ -311,6 +311,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         entry=deletion_state,
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
+        force_update=True,
     )
     finding = await get_finding(loaders, finding_id)
     if finding.approval is None:
@@ -546,6 +547,7 @@ async def mask_vulnerability(
             ),
             finding_id=finding_id,
             vulnerability_id=vulnerability.id,
+            force_update=True,
         )
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
@@ -1076,6 +1078,7 @@ async def close_by_exclusion(
                 reasons=[VulnerabilityStateReason.EXCLUSION],
                 where=vulnerability.state.where,
             ),
+            force_update=True,
         )
         if vulns_utils.is_reattack_requested(
             vulnerability
