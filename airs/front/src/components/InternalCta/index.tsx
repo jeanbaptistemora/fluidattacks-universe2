@@ -40,7 +40,10 @@ const InternalCta: React.FC<IInternalCta> = ({
         >
           {description}
         </Paragraph>
-        <Link className={"no-underline"} to={"/free-trial/"}>
+        <Link
+          className={"no-underline"}
+          to={"https://app.fluidattacks.com/SignUp"}
+        >
           <NewRegularRedButton
             className={"mb0-ns mb3 fl mr2-ns w-auto-ns w-100"}
           >

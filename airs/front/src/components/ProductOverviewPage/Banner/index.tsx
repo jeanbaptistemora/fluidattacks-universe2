@@ -38,7 +38,10 @@ const Banner: React.FC = (): JSX.Element => {
         >
           {translate.t("plansPage.portrait.paragraph")}
         </Paragraph>
-        <Link onClick={matomoFreeTrialEvent} to={"/free-trial/"}>
+        <Link
+          onClick={matomoFreeTrialEvent}
+          to={"https://app.fluidattacks.com/SignUp"}
+        >
           <NewRegularRedButton className={"mh2 mv3"}>
             {translate.t("productOverview.mainButton1")}
           </NewRegularRedButton>

@@ -85,7 +85,7 @@ const Hero: React.FC<IHeroProps> = ({
               wrap={"wrap"}
             >
               <Container pv={1} width={"auto"} widthSm={"100%"}>
-                <AirsLink href={button1Link}>
+                <AirsLink decoration={"none"} href={button1Link}>
                   <Button
                     display={"block"}
                     onClick={matomoFreeTrialEvent}
@@ -157,7 +157,7 @@ const Hero: React.FC<IHeroProps> = ({
             wrap={"wrap"}
           >
             <Container pv={1} width={"auto"} widthSm={"100%"}>
-              <AirsLink href={button1Link}>
+              <AirsLink decoration={"none"} href={button1Link}>
                 <Button
                   display={"block"}
                   onClick={matomoFreeTrialEvent}

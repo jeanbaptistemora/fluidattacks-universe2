@@ -8,7 +8,7 @@ const HomeCta: React.FC = (): JSX.Element => {
   return (
     <Container bgColor={"#ffffff"} ph={4} pv={4}>
       <CtaBanner
-        button1Link={"/free-trial/"}
+        button1Link={"https://app.fluidattacks.com/SignUp"}
         button1Text={"Start free trial"}
         button2Link={"/contact-us/"}
         button2Text={"Contact now"}

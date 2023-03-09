@@ -54,7 +54,10 @@ const Portrait: React.FC = (): JSX.Element => {
             {translate.t("plansPage.portrait.paragraph")}
           </Paragraph>
           <FlexCenterItemsContainer className={"flex-wrap"}>
-            <Link onClick={matomoFreeTrialEvent} to={"/free-trial/"}>
+            <Link
+              onClick={matomoFreeTrialEvent}
+              to={"https://app.fluidattacks.com/SignUp"}
+            >
               <NewRegularRedButton className={"mh2 mv3"}>
                 {"Start free trial"}
               </NewRegularRedButton>

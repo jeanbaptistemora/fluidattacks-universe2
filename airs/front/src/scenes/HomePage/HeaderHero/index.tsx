@@ -6,7 +6,7 @@ import { translate } from "../../../utils/translations/translate";
 const HeaderHero: React.FC = (): JSX.Element => {
   return (
     <Hero
-      button1Link={"/free-trial/"}
+      button1Link={"https://app.fluidattacks.com/SignUp"}
       button1Text={"Start free trial"}
       button2Link={"/contact-us/"}
       button2Text={"Contact now"}

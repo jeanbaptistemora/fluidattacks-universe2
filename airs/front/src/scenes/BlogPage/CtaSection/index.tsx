@@ -7,7 +7,7 @@ import { translate } from "../../../utils/translations/translate";
 const CtaSection: React.FC = (): JSX.Element => (
   <Container bgColor={"#dddde3"} ph={4} pv={5}>
     <CtaBanner
-      button1Link={"/free-trial/"}
+      button1Link={"https://app.fluidattacks.com/SignUp"}
       button1Text={"Start free trial"}
       button2Link={"/services/continuous-hacking/"}
       button2Text={"Learn more"}

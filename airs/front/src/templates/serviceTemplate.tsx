@@ -110,7 +110,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
               color={"#fff"}
               matomoEvent={matomoFreeTrialEvent}
               text={"Start free trial"}
-              to={"/free-trial/"}
+              to={"https://app.fluidattacks.com/SignUp"}
               yPosition={"50%"}
             />
           </PageArticle>

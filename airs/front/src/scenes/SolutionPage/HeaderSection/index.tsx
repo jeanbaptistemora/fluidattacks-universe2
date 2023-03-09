@@ -45,7 +45,10 @@ const HeaderSection: React.FC<IHeaderProps> = ({
         </Text>
         <Container display={"flex"} justify={"center"} mv={3} wrap={"wrap"}>
           <Container pv={1} width={"auto"} widthSm={"100%"}>
-            <AirsLink href={"/free-trial/"}>
+            <AirsLink
+              decoration={"none"}
+              href={"https://app.fluidattacks.com/SignUp"}
+            >
               <Button
                 display={"block"}
                 onClick={matomoFreeTrialEvent}
