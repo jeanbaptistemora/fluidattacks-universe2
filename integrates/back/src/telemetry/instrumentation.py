@@ -71,6 +71,9 @@ from starlette.applications import (
 from telemetry.aiobotocore import (
     AioBotocoreInstrumentor,
 )
+from telemetry.graphql import (
+    GraphQLCoreInstrumentor,
+)
 
 
 def initialize() -> None:
@@ -107,15 +110,20 @@ def initialize() -> None:
     metrics.set_meter_provider(meter_provider)
 
 
-def instrument(app: Starlette) -> None:
+def instrument_app(app: Starlette) -> None:
+    """Initializes the OpenTelemetry instrumentation"""
+    StarletteInstrumentor.instrument_app(app)
+
+
+def instrument_libraries() -> None:
     """Initializes the OpenTelemetry instrumentation"""
     AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()
     BotocoreInstrumentor().instrument()
+    GraphQLCoreInstrumentor().instrument()
     HTTPXClientInstrumentor().instrument()
     Jinja2Instrumentor().instrument()
     Psycopg2Instrumentor().instrument()
     RequestsInstrumentor().instrument()
-    StarletteInstrumentor.instrument_app(app)
     URLLibInstrumentor().instrument()
     URLLib3Instrumentor().instrument()

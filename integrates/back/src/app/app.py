@@ -400,4 +400,4 @@ APP = Starlette(
     exception_handlers=exception_handlers,
 )
 
-instrumentation.instrument(APP)
+instrumentation.instrument_app(APP)
