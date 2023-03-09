@@ -21,6 +21,7 @@ from dast.aws.utils import (
     build_vulnerabilities,
     run_boto3_fun,
 )
+import json
 from model import (
     core_model,
 )
@@ -912,6 +913,54 @@ async def users_with_password_and_access_keys(
     return vulns
 
 
+async def vpc_endpoints_exposed(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_vpc_endpoints"
+    )
+    vpc_endpoints = response.get("VpcEndpoints", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    method = core_model.MethodsEnum.AWS_VPC_ENDPOINTS_EXPOSED
+    for endpoint in vpc_endpoints:
+        locations: list[Location] = []
+        if endpoint["VpcEndpointType"] != "Interface":
+            policy_document = json.loads(endpoint["PolicyDocument"])
+            for index, sts in enumerate(policy_document["Statement"]):
+                if (
+                    sts["Principal"] in ["*", {"AWS": "*"}]
+                    and "Condition" not in sts.keys()
+                ):
+                    locations = [
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Statement/{index}/Principal",
+                                ),
+                                arn=(
+                                    f"arn:aws:ec2::VpcEndpointId:"
+                                    f"{endpoint['VpcEndpointId']}"
+                                ),
+                                values=(sts["Principal"],),
+                                description=t(
+                                    "src.lib_path.f031.vpc_endpoints_exposed"
+                                ),
+                            )
+                        ],
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=method,
+                            aws_response=policy_document,
+                        ),
+                    )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -928,4 +977,5 @@ CHECKS: tuple[
     policies_attached_to_users,
     has_permissive_role_policies,
     users_with_password_and_access_keys,
+    vpc_endpoints_exposed,
 )
