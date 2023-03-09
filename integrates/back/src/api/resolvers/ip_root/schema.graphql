@@ -1,4 +1,7 @@
-"IP Root type definition"
+"""
+The IP address who is the unique identifier
+on the Internet or a local network
+"""
 type IPRoot implements IRoot {
   "IP address of the environment to test"
   address: String!

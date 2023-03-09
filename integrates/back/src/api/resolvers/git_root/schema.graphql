@@ -1,4 +1,4 @@
-"Git Root type definition"
+"Git repositories composed of code"
 type GitRoot implements IRoot {
   "Repository branch to be tested"
   branch: String!

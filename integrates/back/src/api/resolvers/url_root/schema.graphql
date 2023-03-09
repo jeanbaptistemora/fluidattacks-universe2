@@ -1,4 +1,7 @@
-"URL Root type definition"
+"""
+Roots whose identifier is the URL of an environment,
+to perform dynamic application security testing (DAST)
+"""
 type URLRoot implements IRoot {
   "Domain name or IP of the environment to test"
   host: String!
