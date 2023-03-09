@@ -84,3 +84,17 @@ def kt_insecure_key_ec(
         args.evaluation[args.n_id] = crypto.insecure_elliptic_curve(key_value)
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def kt_insecure_key_gen(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    args.evaluation[args.n_id] = False
+    n_attrs = args.graph.nodes[args.n_id]
+    if n_attrs["value_type"] == "number":
+        key_value = n_attrs["value"]
+        with suppress(TypeError):
+            key_length = int(key_value)
+            args.evaluation[args.n_id] = key_length < 128
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

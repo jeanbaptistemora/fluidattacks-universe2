@@ -1967,6 +1967,44 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,41
   51 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,"
+   1 | val keyPairGen1 = KeyPairGenerator.getInstance(""RSA"")
+   2 | keyPairGen1.initialize(1024) // Noncompliant
+   3 |
+   4 |
+   5 | val keyGen1 = KeyGenerator.getInstance(""AES"")
+   6 | keyGen1.init(64) // Noncompliant
+   7 |
+   8 |
+   9 |
+  10 |
+> 11 | val keyPairGen6 = KeyPairGenerator.getInstance(""RSA"")
+  12 | keyPairGen6.initialize(2048) // Compliant
+  13 |
+  14 |
+  15 | val keyGen2safe = KeyGenerator.getInstance(""AES"")
+  16 | keyGen2safe.init(128) // Compliant
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,1,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,"
+>  1 | val keyPairGen1 = KeyPairGenerator.getInstance(""RSA"")
+   2 | keyPairGen1.initialize(1024) // Noncompliant
+   3 |
+   4 |
+   5 | val keyGen1 = KeyGenerator.getInstance(""AES"")
+   6 | keyGen1.init(64) // Noncompliant
+   7 |
+   8 |
+   9 |
+  10 |
+  11 | val keyPairGen6 = KeyPairGenerator.getInstance(""RSA"")
+  12 | keyPairGen6.initialize(2048) // Compliant
+  13 |
+  14 |
+  15 | val keyGen2safe = KeyGenerator.getInstance(""AES"")
+  16 | keyGen2safe.init(128) // Compliant
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
    4 | )
    5 | from cryptography.hazmat.primitives.ciphers import (
@@ -3130,6 +3168,25 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,38
   48 |                     .build()
      ^ Col 0
 ",kotlin.kotlin_insecure_key
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,"
+   1 | val keyPairGen1 = KeyPairGenerator.getInstance(""RSA"")
+   2 | keyPairGen1.initialize(1024) // Noncompliant
+   3 |
+   4 |
+   5 | val keyGen1 = KeyGenerator.getInstance(""AES"")
+>  6 | keyGen1.init(64) // Noncompliant
+   7 |
+   8 |
+   9 |
+  10 |
+  11 | val keyPairGen6 = KeyPairGenerator.getInstance(""RSA"")
+  12 | keyPairGen6.initialize(2048) // Compliant
+  13 |
+  14 |
+  15 | val keyGen2safe = KeyGenerator.getInstance(""AES"")
+  16 | keyGen2safe.init(128) // Compliant
+     ^ Col 0
+",kotlin.kt_insecure_key_gen
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
    1 | import { Router } from ""express"";
    2 | const router = Router();

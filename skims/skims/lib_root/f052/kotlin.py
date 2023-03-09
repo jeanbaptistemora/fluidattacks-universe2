@@ -444,10 +444,16 @@ def kt_insecure_key_generator(
                 label_type="MemberAccess",
             ):
                 n_attrs = graph.nodes[n_id]
+                parent = g.pred_ast(graph, n_id)
+                arg_list = graph.nodes[parent[0]].get("arguments_id")
+
                 if (
                     n_attrs["member"] == "init"
                     and (child := g.adj_ast(graph, n_id)[0])
-                ) and get_eval_result(graph, child, method):
+                    and get_eval_result(graph, child, method)
+                    and arg_list
+                    and get_eval_result(graph, arg_list, method)
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
