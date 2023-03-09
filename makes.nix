@@ -2,10 +2,16 @@
 # https://github.com/fluidattacks/makes
 {fetchNixpkgs, ...}: {
   cache = {
-    readAndWrite = {
-      enable = true;
-      name = "fluidattacks";
-      pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+    readNixos = true;
+    extra = {
+      fluidattacks = {
+        enable = true;
+        pubKey = "fluidattacks.cachix.org-1:upiUCP8kWnr7NxVSJtTOM+SBqL0pZhZnUoqPG04sBv0=";
+        token = "CACHIX_AUTH_TOKEN";
+        type = "cachix";
+        url = "https://fluidattacks.cachix.org";
+        write = true;
+      };
     };
   };
   extendingMakesDirs = ["/"];

@@ -1,0 +1,7 @@
+closure:
+  concurrent-ruby: 1.1.6
+links:
+  - name: concurrent-ruby-1.1.6.gem
+    sha256: 094387x4yasb797mv07cs3g6f08y56virc2rjcpb1k79rzaj3nhl
+    url: https://rubygems.org/downloads/concurrent-ruby-1.1.6.gem
+ruby: "2.7"

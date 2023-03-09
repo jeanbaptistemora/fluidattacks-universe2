@@ -34,7 +34,7 @@ workflow:
     - when: always
 
 .makes4: &makes4
-  image: ghcr.io/fluidattacks/makes:22.11
+  image: ghcr.io/fluidattacks/makes:23.04
   needs: []
   interruptible: true
   script:

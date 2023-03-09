@@ -43,5 +43,5 @@ cd universe
 1. [Create a GPG key and configure the key in your Gitlab](https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/).
 1. [Install nix](https://nixos.org/download.html). Choose Single user installation
 1. Install makes with this command
-   nix-env -if https://github.com/fluidattacks/makes/archive/22.11.tar.gz
+   nix-env -if https://github.com/fluidattacks/makes/archive/latest.tar.gz
 1. [Read the guide to do a local test with makes](https://docs.fluidattacks.com/development/stack/makes/).

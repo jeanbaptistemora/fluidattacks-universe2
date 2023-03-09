@@ -21,7 +21,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: back
-          image: ghcr.io/fluidattacks/makes:22.11@sha256:07e6dac6271fb1ec5854f9c8b6dea48c3e7739f09c077618deeaf65691fa08f2
+          image: ghcr.io/fluidattacks/makes:latest@sha256:0cb3b7dffac29dbc1aa68033555a081618230f9b97dcf0e28ac1415cd3607636
           imagePullPolicy: Always
           command: [sh]
           args:
@@ -76,7 +76,7 @@ spec:
             failureThreshold: 10
             timeoutSeconds: 60
         - name: db
-          image: ghcr.io/fluidattacks/makes:22.11@sha256:07e6dac6271fb1ec5854f9c8b6dea48c3e7739f09c077618deeaf65691fa08f2
+          image: ghcr.io/fluidattacks/makes:latest@sha256:0cb3b7dffac29dbc1aa68033555a081618230f9b97dcf0e28ac1415cd3607636
           imagePullPolicy: Always
           command: [m]
           args:

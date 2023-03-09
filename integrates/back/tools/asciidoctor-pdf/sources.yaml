@@ -1,0 +1,99 @@
+closure:
+  Ascii85: 1.1.0
+  addressable: 2.8.0
+  afm: 0.2.2
+  asciidoctor: 2.0.16
+  asciidoctor-pdf: 2.2.0
+  concurrent-ruby: 1.1.9
+  css_parser: 1.10.0
+  hashery: 2.1.2
+  matrix: 0.4.2
+  pdf-core: 0.9.0
+  pdf-reader: 2.5.0
+  polyglot: 0.3.5
+  prawn: 2.4.0
+  prawn-icon: 3.0.0
+  prawn-svg: 0.32.0
+  prawn-table: 0.2.2
+  prawn-templates: 0.1.2
+  public_suffix: 4.0.6
+  rexml: 3.2.5
+  ruby-rc4: 0.1.5
+  safe_yaml: 1.0.5
+  thread_safe: 0.3.6
+  treetop: 1.6.11
+  ttfunk: 1.7.0
+links:
+  - name: Ascii85-1.1.0.gem
+    sha256: 1ds4v9xgsyvijnlflak4dzf1qwmda9yd5bv8jwsb56nngd399rlw
+    url: https://rubygems.org/downloads/Ascii85-1.1.0.gem
+  - name: addressable-2.8.0.gem
+    sha256: 022r3m9wdxljpbya69y2i3h9g3dhhfaqzidf95m6qjzms792jvgp
+    url: https://rubygems.org/downloads/addressable-2.8.0.gem
+  - name: afm-0.2.2.gem
+    sha256: 06kj9hgd0z8pj27bxp2diwqh6fv7qhwwm17z64rhdc4sfn76jgn8
+    url: https://rubygems.org/downloads/afm-0.2.2.gem
+  - name: asciidoctor-2.0.16.gem
+    sha256: 10h4pmmkbcrpy7bn76wxzkb0hriabh1k3ii1g8lm0mdji5drlhq2
+    url: https://rubygems.org/downloads/asciidoctor-2.0.16.gem
+  - name: asciidoctor-pdf-2.2.0.gem
+    sha256: 14x5v6s4gwykrlv3gbrjsq07pkprrqk8s72m2j2jg9hhjbpblba9
+    url: https://rubygems.org/downloads/asciidoctor-pdf-2.2.0.gem
+  - name: concurrent-ruby-1.1.9.gem
+    sha256: 0nwad3211p7yv9sda31jmbyw6sdafzmdi2i2niaz6f0wk5nq9h0f
+    url: https://rubygems.org/downloads/concurrent-ruby-1.1.9.gem
+  - name: css_parser-1.10.0.gem
+    sha256: 1q8gj3wkc2mbzsqw5zcsr3kyzrrb2pda03pi769rjbvqr94g3bm5
+    url: https://rubygems.org/downloads/css_parser-1.10.0.gem
+  - name: hashery-2.1.2.gem
+    sha256: 0qj8815bf7q6q7llm5rzdz279gzmpqmqqicxnzv066a020iwqffj
+    url: https://rubygems.org/downloads/hashery-2.1.2.gem
+  - name: matrix-0.4.2.gem
+    sha256: 1h2cgkpzkh3dd0flnnwfq6f3nl2b1zff9lvqz8xs853ssv5kq23i
+    url: https://rubygems.org/downloads/matrix-0.4.2.gem
+  - name: pdf-core-0.9.0.gem
+    sha256: 1fz0yj4zrlii2j08kaw11j769s373ayz8jrdhxwwjzmm28pqndjg
+    url: https://rubygems.org/downloads/pdf-core-0.9.0.gem
+  - name: pdf-reader-2.5.0.gem
+    sha256: 14cxj3ra9nnn334qpm2vsx9s0zk3095s8ih6cwcp47h3hv03c73y
+    url: https://rubygems.org/downloads/pdf-reader-2.5.0.gem
+  - name: polyglot-0.3.5.gem
+    sha256: 1bqnxwyip623d8pr29rg6m8r0hdg08fpr2yb74f46rn1wgsnxmjr
+    url: https://rubygems.org/downloads/polyglot-0.3.5.gem
+  - name: prawn-2.4.0.gem
+    sha256: 1g9avv2rprsjisdk137s9ljr05r7ajhm78hxa1vjsv0jyx22f1l2
+    url: https://rubygems.org/downloads/prawn-2.4.0.gem
+  - name: prawn-icon-3.0.0.gem
+    sha256: 1xdnjik5zinnkjavmybbh2s52wzcpb8hzaqckiv0mxp0vs0x9j6s
+    url: https://rubygems.org/downloads/prawn-icon-3.0.0.gem
+  - name: prawn-svg-0.32.0.gem
+    sha256: 0mbxzw7r7hv43db9422flc24ib9d8bdy1nasbni2h998jc5a5lb6
+    url: https://rubygems.org/downloads/prawn-svg-0.32.0.gem
+  - name: prawn-table-0.2.2.gem
+    sha256: 1nxd6qmxqwl850icp18wjh5k0s3amxcajdrkjyzpfgq0kvilcv9k
+    url: https://rubygems.org/downloads/prawn-table-0.2.2.gem
+  - name: prawn-templates-0.1.2.gem
+    sha256: 1w9irn3rllm992c6j7fsx81gg539i7yy8zfddyw7q53hnlys0yhi
+    url: https://rubygems.org/downloads/prawn-templates-0.1.2.gem
+  - name: public_suffix-4.0.6.gem
+    sha256: 1xqcgkl7bwws1qrlnmxgh8g4g9m10vg60bhlw40fplninb3ng6d9
+    url: https://rubygems.org/downloads/public_suffix-4.0.6.gem
+  - name: rexml-3.2.5.gem
+    sha256: 08ximcyfjy94pm1rhcx04ny1vx2sk0x4y185gzn86yfsbzwkng53
+    url: https://rubygems.org/downloads/rexml-3.2.5.gem
+  - name: ruby-rc4-0.1.5.gem
+    sha256: 00vci475258mmbvsdqkmqadlwn6gj9m01sp7b5a3zd90knil1k00
+    url: https://rubygems.org/downloads/ruby-rc4-0.1.5.gem
+  - name: safe_yaml-1.0.5.gem
+    sha256: 0j7qv63p0vqcd838i2iy2f76c3dgwzkiz1d1xkg7n0pbnxj2vb56
+    url: https://rubygems.org/downloads/safe_yaml-1.0.5.gem
+  - name: thread_safe-0.3.6.gem
+    sha256: 0nmhcgq6cgz44srylra07bmaw99f5271l0dpsvl5f75m44l0gmwy
+    url: https://rubygems.org/downloads/thread_safe-0.3.6.gem
+  - name: treetop-1.6.11.gem
+    sha256: 0697qz1akblf8r3wi0s2dsjh468hfsd57fb0mrp93z35y2ni6bhh
+    url: https://rubygems.org/downloads/treetop-1.6.11.gem
+  - name: ttfunk-1.7.0.gem
+    sha256: 15iaxz9iak5643bq2bc0jkbjv8w2zn649lxgvh5wg48q9d4blw13
+    url: https://rubygems.org/downloads/ttfunk-1.7.0.gem
+ruby: "2.7"
