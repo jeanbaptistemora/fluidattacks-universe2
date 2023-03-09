@@ -40,6 +40,7 @@ from organizations.domain import (
     add_group_access,
     add_organization,
     add_stakeholder,
+    get_all_active_group_names,
     get_group_names,
     get_stakeholders,
     get_stakeholders_emails,
@@ -55,6 +56,9 @@ from organizations.domain import (
     validate_vulnerability_grace_period,
 )
 import pytest
+from typing import (
+    Any,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -250,6 +254,38 @@ async def test_add_organization(  # pylint: disable=too-many-arguments
             country=country,
         )
     assert str(invalid.value) == "Invalid name"
+
+
+@patch(MODULE_AT_TEST + "get_all_active_groups", new_callable=AsyncMock)
+async def test_get_all_active_group_names(
+    mock_get_all_active_groups: AsyncMock,
+    mocked_data_for_module: Any,
+) -> None:
+    mock_get_all_active_groups.return_value = mocked_data_for_module(
+        mock_path="get_all_active_groups",
+        mock_args=[],
+        module_at_test=MODULE_AT_TEST,
+    )
+
+    loaders: Dataloaders = get_new_context()
+    test_data = await get_all_active_group_names(loaders)
+    expected_output = [
+        "asgard",
+        "barranquilla",
+        "continuoustesting",
+        "deletegroup",
+        "deleteimamura",
+        "gotham",
+        "lubbock",
+        "kurome",
+        "metropolis",
+        "monteria",
+        "oneshottest",
+        "setpendingdeletion",
+        "sheele",
+        "unittesting",
+    ]
+    assert sorted(list(test_data)) == sorted(expected_output)
 
 
 async def test_get_group_names() -> None:

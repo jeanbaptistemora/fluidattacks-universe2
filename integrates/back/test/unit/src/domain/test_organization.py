@@ -148,25 +148,3 @@ async def test_iterate_organizations_and_groups() -> None:
             expected_organizations_and_groups.pop(org_id)[org_name]
         )
     assert not expected_organizations_and_groups
-
-
-async def test_get_all_active_group() -> None:
-    loaders: Dataloaders = get_new_context()
-    test_data = await orgs_domain.get_all_active_group_names(loaders)
-    expected_output = [
-        "asgard",
-        "barranquilla",
-        "continuoustesting",
-        "deletegroup",
-        "deleteimamura",
-        "gotham",
-        "lubbock",
-        "kurome",
-        "metropolis",
-        "monteria",
-        "oneshottest",
-        "setpendingdeletion",
-        "sheele",
-        "unittesting",
-    ]
-    assert sorted(list(test_data)) == sorted(expected_output)
