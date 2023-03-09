@@ -137,30 +137,6 @@ def _cidr_iter_vulnerabilities(
                 yield rule.inner["CidrIpv6"]
 
 
-def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
-    ec2_iterator: Iterator[Node],
-) -> Iterator[AWSEC2 | Node]:
-    for ec2_res in ec2_iterator:
-        cidr = (
-            (
-                ec2_res.raw.get("CidrIp", None)
-                or ec2_res.raw.get("CidrIpv6", None)
-            )
-            if hasattr(ec2_res, "raw")
-            else None
-        )
-        is_public_cidr = cidr in (
-            "::/0",
-            "0.0.0.0/0",
-        )
-        from_port = ec2_res.inner.get("FromPort")
-        to_port = ec2_res.inner.get("ToPort")
-        if not is_public_cidr or not from_port or not to_port:
-            continue
-        if float(from_port.raw) == 0 and float(to_port.raw) == 65535:
-            yield from_port
-
-
 def cfn_allows_anyone_to_admin_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -217,24 +193,4 @@ def cfn_unrestricted_cidrs(
         ),
         path=path,
         method=MethodsEnum.CFN_UNRESTRICTED_CIDRS,
-    )
-
-
-def cfn_ec2_has_open_all_ports_to_the_public(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f024.ec2_has_open_all_ports_to_the_public"
-        ),
-        iterator=get_cloud_iterator(
-            _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
-                ec2_iterator=iter_ec2_ingress_egress(
-                    template=template, ingress=True, egress=True
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_EC2_OPEN_ALL_PORTS_PUBLIC,
     )

@@ -103,6 +103,56 @@ def _ec2_has_unrestricted_dns_access(graph: Graph, nid: NId) -> Iterator[NId]:
             yield from_port_id
 
 
+def _ec2_has_open_all_ports_to_the_public(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    public_cidrs = {
+        "::/0",
+        "0.0.0.0/0",
+    }
+    cidr, cidr_val, _ = get_attribute(graph, nid, "CidrIp")
+    if not cidr:
+        cidr, cidr_val, _ = get_attribute(graph, nid, "CidrIpv6")
+    is_public_cidr = cidr_val in public_cidrs
+    from_port, from_port_val, from_port_id = get_attribute(
+        graph, nid, "FromPort"
+    )
+    to_port, to_port_val, _ = get_attribute(graph, nid, "ToPort")
+    if is_public_cidr and to_port and from_port:
+        if float(from_port_val) == 0 and float(to_port_val) == 65535:
+            yield from_port_id
+
+
+def cfn_ec2_has_open_all_ports_to_the_public(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_EC2_OPEN_ALL_PORTS_PUBLIC
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(
+                graph, is_ingress=True, is_egress=True
+            ):
+                for report in _ec2_has_open_all_ports_to_the_public(
+                    graph, nid
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024.ec2_has_open_all_ports_to_the_public",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_ec2_has_unrestricted_dns_access(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
