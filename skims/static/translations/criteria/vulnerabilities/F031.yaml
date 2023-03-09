@@ -34,3 +34,6 @@ src.lib_path.f031.users_with_password_and_access_keys:
   en: Users must not have both password and access keys activated
   es: >
     Los usuarios no deben tener contraseña y clave de acceso activados al tiempo
+src.lib_path.f031.vpc_endpoints_exposed:
+  en: Users or IAM service must not have access to the VPC endpoint.
+  es: Los usuarios o el servio IAM no deben tener acceso a los endpoints de las VPC

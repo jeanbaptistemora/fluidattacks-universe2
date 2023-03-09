@@ -2423,6 +2423,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_VPC_ENDPOINTS_EXPOSED = MethodInfo(
+        file_name="aws",
+        name="vpc_endpoints_exposed",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_GROUP_WITH_INLINE_POLICY = MethodInfo(
         file_name="aws",
         name="group_with_inline_policies",
