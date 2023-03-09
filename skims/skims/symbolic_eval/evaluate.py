@@ -59,6 +59,9 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
+from symbolic_eval.utils import (
+    get_backward_paths,
+)
 from typing import (
     cast,
 )
@@ -153,3 +156,17 @@ def evaluate(
     except MissingSymbolicEval as error:
         logs.log_blocking("debug", cast(str, error))
         return None
+
+
+def get_node_evaluation_results(
+    graph: Graph, n_id: NId, danger_set: set[str], method: MethodsEnum
+) -> bool:
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if (
+            evaluation
+            and evaluation.danger
+            and evaluation.triggers == danger_set
+        ):
+            return True
+    return False

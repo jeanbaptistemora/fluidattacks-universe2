@@ -6,33 +6,19 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
-
-
-def get_eval_danger(graph: Graph, n_id: NId) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_AUTHENTICATION
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
 
 
 def insecure_authentication(
@@ -51,7 +37,9 @@ def insecure_authentication(
 
             for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 expr = graph.nodes[n_id].get("expression")
-                if expr in insecure_methods and get_eval_danger(graph, n_id):
+                if expr in insecure_methods and get_node_evaluation_results(
+                    graph, n_id, set(), method
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

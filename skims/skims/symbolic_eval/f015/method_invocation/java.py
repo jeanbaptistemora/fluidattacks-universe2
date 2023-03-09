@@ -7,5 +7,4 @@ from symbolic_eval.types import (
 def java_insecure_authentication(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id]["expression"] == "getHeaders":
         args.evaluation[args.n_id] = True
-        args.triggers.add("getHeaders")
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
