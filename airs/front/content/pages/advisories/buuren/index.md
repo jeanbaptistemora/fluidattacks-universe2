@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: buuren
 product: deep-parse-json 1.0.2 - Prototype Pollution
-date: 2022-10-19 03:00 COT
+date: 2022-10-19 15:00 COT
 cveid: CVE-2022-42743
 severity: 7.3
 description: deep-parse-json 1.0.2     -    Prototype Pollution

@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: avicii
 product: Zettlr 2.3.0
-date: 2022-09-26 03:30 COT
+date: 2022-09-26 15:30 COT
 cveid: CVE-2022-40276
 severity: 5.5
 description: Zettlr 2.3.0  -  Local File Read - Insecure or unset HTTP headers

@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: harlow
 product: Badaso 2.6.0 - RCE
-date: 2022-10-18 01:00 COT
+date: 2022-10-18 13:00 COT
 cveid: CVE-2022-41711
 severity: 10.0
 description: Badaso 2.6.0    -    Remote Command Execution (RCE)

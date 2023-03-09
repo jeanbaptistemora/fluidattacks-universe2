@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: marshmello
 product: Gridea 0.9.3
-date: 2022-09-26 02:30 COT
+date: 2022-09-26 14:30 COT
 cveid: CVE-2022-40274
 severity: 8.6
 description: Gridea 0.9.3  -  RCE via nodeIntegration feature - Remote command execution

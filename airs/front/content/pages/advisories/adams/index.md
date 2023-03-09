@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: adams
 product: Markdownify 1.4.1 - RCE
-date: 2022-10-14 03:30 COT
+date: 2022-10-14 15:30 COT
 cveid: CVE-2022-41709
 severity: 8.6
 description: Markdownify 1.4.1    -    Remote Command Execution

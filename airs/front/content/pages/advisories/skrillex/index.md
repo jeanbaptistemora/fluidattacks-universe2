@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: skrillex
 product: Joplin 2.8.8
-date: 2022-09-26 05:00 COT
+date: 2022-09-26 17:00 COT
 cveid: CVE-2022-40277
 severity: 7.7
 description: Joplin 2.8.8  -  Remote Command Execution - Remote command execution

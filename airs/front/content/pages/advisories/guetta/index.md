@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: guetta
 product: fastest-json-copy 1.0.1 - Prototype Pollution
-date: 2022-10-19 01:30 COT
+date: 2022-10-19 13:30 COT
 cveid: CVE-2022-41714
 severity: 7.3
 description: fastest-json-copy 1.0.1    -    Prototype Pollution

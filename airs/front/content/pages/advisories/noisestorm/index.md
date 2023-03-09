@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: noisestorm
 product: Markdownify 1.4.1 - Local File Read
-date: 2022-10-18 07:00 COT
+date: 2022-10-18 19:00 COT
 cveid: CVE-2022-41710
 severity: 5.5
 description: Markdownify 1.4.1        -         Local File Read

@@ -5,7 +5,7 @@ authors: Carlos Bello
 writer: cbello
 codename: walker
 product: AppLock 7.9.29
-date: 2022-09-26 06:00 COT
+date: 2022-09-26 18:00 COT
 cveid: CVE-2022-1959
 severity: 5.5
 description: AppLock 7.9.29  -  Improper Access Control - Fingerprint
