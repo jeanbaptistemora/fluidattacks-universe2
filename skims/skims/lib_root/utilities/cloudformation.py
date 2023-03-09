@@ -1,6 +1,14 @@
 from collections.abc import (
     Iterator,
 )
+from contextlib import (
+    suppress,
+)
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
 from model.graph_model import (
     Graph,
     NId,
@@ -11,6 +19,18 @@ from utils import (
 from utils.graph import (
     adj_ast,
 )
+
+
+def is_cidr(cidr: str) -> bool:
+    """Validate if a string is a valid CIDR."""
+    result = False
+    with suppress(AddressValueError, ValueError):
+        IPv4Network(cidr, strict=False)
+        result = True
+    with suppress(AddressValueError, ValueError):
+        IPv6Network(cidr, strict=False)
+        result = True
+    return result
 
 
 def get_key_value(graph: Graph, nid: NId) -> tuple[str, str]:

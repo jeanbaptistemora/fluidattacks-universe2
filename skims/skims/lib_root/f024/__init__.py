@@ -1,5 +1,6 @@
 from lib_root.f024.cloudformation import (
     cfn_ec2_has_open_all_ports_to_the_public,
+    cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
     cfn_ec2_has_unrestricted_dns_access,
     cfn_ec2_has_unrestricted_ftp_access,
     cfn_ec2_has_unrestricted_ports,
@@ -27,6 +28,7 @@ from model import (
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F024
 QUERIES: graph_model.Queries = (
     (FINDING, cfn_ec2_has_open_all_ports_to_the_public),
+    (FINDING, cfn_ec2_has_security_groups_ip_ranges_in_rfc1918),
     (FINDING, cfn_ec2_has_unrestricted_dns_access),
     (FINDING, cfn_ec2_has_unrestricted_ftp_access),
     (FINDING, cfn_ec2_has_unrestricted_ports),

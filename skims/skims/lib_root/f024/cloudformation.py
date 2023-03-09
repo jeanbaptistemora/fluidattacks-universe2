@@ -6,6 +6,7 @@ from itertools import (
 )
 from lib_root.utilities.cloudformation import (
     get_attribute,
+    is_cidr,
     iterate_ec2_egress_ingress,
     iterate_resource,
 )
@@ -121,6 +122,53 @@ def _ec2_has_open_all_ports_to_the_public(
     if is_public_cidr and to_port and from_port:
         if float(from_port_val) == 0 and float(to_port_val) == 65535:
             yield from_port_id
+
+
+def _ec2_has_security_groups_ip_ranges_in_rfc1918(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    rfc1918 = {
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+    }
+    cidr, cidr_val, cidr_id = get_attribute(graph, nid, "CidrIp")
+    if not cidr:
+        cidr, cidr_val, cidr_id = get_attribute(graph, nid, "CidrIpv6")
+    if is_cidr(cidr_val) and cidr_val in rfc1918:
+        yield cidr_id
+
+
+def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_EC2_SEC_GROUPS_RFC1918
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(
+                graph, is_ingress=True, is_egress=True
+            ):
+                for report in _ec2_has_security_groups_ip_ranges_in_rfc1918(
+                    graph, nid
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key=(
+            "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
+        ),
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def cfn_ec2_has_open_all_ports_to_the_public(

@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f024.cloudformation import (
     cfn_allows_anyone_to_admin_ports,
-    cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
     cfn_unrestricted_cidrs,
 )
 from model.core_model import (
@@ -43,15 +42,6 @@ def run_cfn_allows_anyone_to_admin_ports(
 
 
 @SHIELD_BLOCKING
-def run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -72,7 +62,6 @@ def analyze(
                     for fun in (
                         run_cfn_unrestricted_cidrs,
                         run_cfn_allows_anyone_to_admin_ports,
-                        run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
                     )
                 ),
             )

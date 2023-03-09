@@ -156,26 +156,6 @@ def cfn_allows_anyone_to_admin_ports(
     )
 
 
-def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
-        ),
-        iterator=get_cloud_iterator(
-            _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
-                ec2_iterator=iter_ec2_ingress_egress(
-                    template=template, ingress=True, egress=True
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_EC2_SEC_GROUPS_RFC1918,
-    )
-
-
 def cfn_unrestricted_cidrs(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
