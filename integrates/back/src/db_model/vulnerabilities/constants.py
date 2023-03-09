@@ -23,15 +23,6 @@ RELEASED_FILTER_STATUSES = {
     VulnerabilityStateStatus.VULNERABLE,
 }
 
-ZR_INDEX_METADATA = Facet(
-    attrs=TABLE.facets["vulnerability_metadata"].attrs,
-    pk_alias="FIN#finding_id",
-    sk_alias=(
-        "VULN#DELETED#is_deleted#ZR#is_zero_risk#STATE#state_status#VERIF#"
-        "verification_status"
-    ),
-)
-
 NEW_ZR_INDEX_METADATA = Facet(
     attrs=TABLE.facets["vulnerability_metadata"].attrs,
     pk_alias="FIN#finding_id",
@@ -62,5 +53,5 @@ EVENT_INDEX_METADATA = Facet(
 GROUP_INDEX_METADATA = Facet(
     attrs=TABLE.facets["vulnerability_metadata"].attrs,
     pk_alias="GROUP#group_name",
-    sk_alias="VULN#STATE#state_status#TREAT#is_accepted#ZR#is_zero_risk",
+    sk_alias="VULN#ZR#is_zero_risk#STATE#state_status#TREAT#is_accepted",
 )

@@ -31,8 +31,8 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.constants import (
+    NEW_ZR_INDEX_METADATA,
     ZR_FILTER_STATUSES,
-    ZR_INDEX_METADATA,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -77,7 +77,7 @@ async def populate_zr_index_by_vuln(current_item: dict) -> None:
     gsi_5_index = TABLE.indexes["gsi_5"]
     vulnerability = format_vulnerability(current_item)
     gsi_5_key = keys.build_key(
-        facet=ZR_INDEX_METADATA,
+        facet=NEW_ZR_INDEX_METADATA,  # originally ZR_INDEX_METADATA
         values={
             "finding_id": vulnerability.finding_id,
             "vuln_id": vulnerability.id,

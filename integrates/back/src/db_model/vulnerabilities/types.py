@@ -180,6 +180,13 @@ class FindingVulnerabilitiesZrRequest(NamedTuple):
     verification_status: VulnerabilityVerificationStatus | None = None
 
 
+class GroupVulnerabilitiesRequest(NamedTuple):
+    group_name: str
+    after: str | None = None
+    first: int | None = None
+    paginate: bool = False
+
+
 class FindingVulnerabilitiesRequest(NamedTuple):
     finding_id: str
     after: str | None = None

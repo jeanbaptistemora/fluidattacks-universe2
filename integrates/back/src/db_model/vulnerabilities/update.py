@@ -193,7 +193,7 @@ async def update_event_index(
 
 async def update_group_index(*, vulnerability: Vulnerability) -> None:
     key_structure = TABLE.primary_key
-    gsi_7_index = TABLE.indexes["gsi_7"]
+    gsi_5_index = TABLE.indexes["gsi_5"]
 
     try:
         vulnerability_key = keys.build_key(
@@ -204,10 +204,10 @@ async def update_group_index(*, vulnerability: Vulnerability) -> None:
             },
         )
         base_condition = Attr(key_structure.partition_key).exists()
-        gsi_7_key = get_group_index_key(current_value=vulnerability)
+        gsi_5_key = get_group_index_key(vulnerability)
         vulnerability_item = {
-            gsi_7_index.primary_key.partition_key: gsi_7_key.partition_key,
-            gsi_7_index.primary_key.sort_key: gsi_7_key.sort_key,
+            gsi_5_index.primary_key.partition_key: gsi_5_key.partition_key,
+            gsi_5_index.primary_key.sort_key: gsi_5_key.sort_key,
         }
         await operations.update_item(
             condition_expression=(base_condition),

@@ -27,7 +27,6 @@ from db_model.vulnerabilities.constants import (
     NEW_ZR_INDEX_METADATA,
     RELEASED_FILTER_STATUSES,
     ZR_FILTER_STATUSES,
-    ZR_INDEX_METADATA,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -425,27 +424,26 @@ def get_assigned(*, treatment: VulnerabilityTreatment | None) -> str:
     return treatment.assigned
 
 
-def get_zr_index_key(current_value: Vulnerability) -> PrimaryKey:
+def get_group_index_key(vulnerability: Vulnerability) -> PrimaryKey:
     return keys.build_key(
-        facet=ZR_INDEX_METADATA,
+        facet=GROUP_INDEX_METADATA,
         values={
-            "finding_id": current_value.finding_id,
-            "vuln_id": current_value.id,
-            "is_deleted": str(
-                current_value.state.status is VulnerabilityStateStatus.DELETED
-            ).lower(),
+            "group_name": vulnerability.group_name,
             "is_zero_risk": str(
                 bool(
-                    current_value.zero_risk
-                    and current_value.zero_risk.status in ZR_FILTER_STATUSES
+                    vulnerability.zero_risk
+                    and vulnerability.zero_risk.status in ZR_FILTER_STATUSES
                 )
             ).lower(),
             "state_status": get_current_state_converted(
-                current_value.state.status.value
+                vulnerability.state.status.value
             ).lower(),
-            "verification_status": str(
-                current_value.verification
-                and current_value.verification.status.value
+            "is_accepted": str(
+                bool(
+                    vulnerability.treatment
+                    and vulnerability.treatment.status
+                    in ACCEPTED_TREATMENT_STATUSES
+                )
             ).lower(),
         },
     )
@@ -557,28 +555,3 @@ def get_new_zr_index_key_gsi_6(
         )
 
     return new_zr_index_key
-
-
-def get_group_index_key(current_value: Vulnerability) -> PrimaryKey:
-    return keys.build_key(
-        facet=GROUP_INDEX_METADATA,
-        values={
-            "group_name": current_value.group_name,
-            "state_status": get_current_state_converted(
-                current_value.state.status.value
-            ).lower(),
-            "is_accepted": str(
-                bool(
-                    current_value.treatment
-                    and current_value.treatment.status
-                    in ACCEPTED_TREATMENT_STATUSES
-                )
-            ).lower(),
-            "is_zero_risk": str(
-                bool(
-                    current_value.zero_risk
-                    and current_value.zero_risk.status in ZR_FILTER_STATUSES
-                )
-            ).lower(),
-        },
-    )
