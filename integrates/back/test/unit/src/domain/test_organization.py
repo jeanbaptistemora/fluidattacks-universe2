@@ -30,18 +30,6 @@ pytestmark = [
 ]
 
 
-async def test_get_id_for_group() -> None:
-    group_name = "unittesting"
-    expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    loaders: Dataloaders = get_new_context()
-    group = await loaders.group.load(group_name)
-    assert group
-    org_id = group.organization_id
-    assert org_id == expected_org_id
-
-    assert not await loaders.group.load("madeup-group")
-
-
 async def test_get_stakeholder_organizations() -> None:
     loaders: Dataloaders = get_new_context()
     stakeholder_email = "integratesmanager@gmail.com"

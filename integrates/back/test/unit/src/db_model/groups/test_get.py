@@ -22,15 +22,23 @@ pytestmark = [
 
 
 @pytest.mark.parametrize(
-    ["group_name", "group_name_bad"],
-    [["unittesting", "does-not-exist"]],
+    ["group_name", "expected_org_id", "group_name_bad"],
+    [
+        [
+            "unittesting",
+            "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            "does-not-exist",
+        ]
+    ],
 )
 @patch(MODULE_AT_TEST + "_get_group", new_callable=AsyncMock)
 async def test_grouploader(
     mock__get_group: AsyncMock,
     group_name: str,
+    expected_org_id: str,
     group_name_bad: str,
 ) -> None:
+
     assert set_mocks_side_effects(
         mocks_args=[[group_name, group_name_bad]],
         mocked_objects=[mock__get_group],
@@ -42,6 +50,7 @@ async def test_grouploader(
     test_group = await group.load(group_name)
     assert test_group
     assert test_group.name is group_name
+    assert test_group.organization_id == expected_org_id
     assert mock__get_group.called is True
     with pytest.raises(GroupNotFound):
         await group.load(group_name_bad)
