@@ -2314,7 +2314,7 @@ class MethodsEnum(Enum):
     CFN_EC2_UNRESTRICTED_DNS = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_unrestricted_dns_access",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

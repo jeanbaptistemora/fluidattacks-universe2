@@ -9,7 +9,6 @@ from lib_path.f024.cloudformation import (
     cfn_allows_anyone_to_admin_ports,
     cfn_ec2_has_open_all_ports_to_the_public,
     cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
-    cfn_ec2_has_unrestricted_dns_access,
     cfn_unrestricted_cidrs,
 )
 from model.core_model import (
@@ -54,15 +53,6 @@ def run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
 
 
 @SHIELD_BLOCKING
-def run_cfn_ec2_has_unrestricted_dns_access(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_ec2_has_unrestricted_dns_access(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_cfn_ec2_has_open_all_ports_to_the_public(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -93,7 +83,6 @@ def analyze(
                         run_cfn_unrestricted_cidrs,
                         run_cfn_allows_anyone_to_admin_ports,
                         run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
-                        run_cfn_ec2_has_unrestricted_dns_access,
                         run_cfn_ec2_has_open_all_ports_to_the_public,
                     )
                 ),
