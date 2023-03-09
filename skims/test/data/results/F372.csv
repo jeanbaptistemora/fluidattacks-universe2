@@ -95,149 +95,149 @@ F372,lines,namespace/skims/test/data/lib_root/f372/tfm_azure_kv_only_accessible_
   21 |   resource_group_name        = azurerm_resource_group.example.name
      ^ Col 0
 ",terraform.tfm_azure_kv_only_accessible_over_https
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,14,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-   4 |   Type: AWS::CloudFront::Distribution
-   5 |   Properties:
-   6 |     DistributionConfig:
-   7 |       Enabled: 'true'
-   8 |       DefaultCacheBehavior:
-   9 |         TargetOriginId: def1
-  10 |         ForwardedValues:
-  11 |           QueryString: 'false'
-  12 |           Cookies:
-  13 |             Forward: all
-> 14 |         ViewerProtocolPolicy: allow-all
-  15 |       CacheBehaviors:
-  16 |         - TargetOriginId: cache11
-  17 |           ForwardedValues:
-  18 |             QueryString: 'true'
-  19 |             Cookies:
-  20 |               Forward: none
-  21 |           ViewerProtocolPolicy: https-only
-  22 |           PathPattern: images1/*.jpg
-  23 |         - TargetOriginId: cache12
-  24 |           ForwardedValues:
-     ^ Col 2
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,14,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,"
+   4 |     Type: AWS::CloudFront::Distribution
+   5 |     Properties:
+   6 |       DistributionConfig:
+   7 |         Enabled: 'true'
+   8 |         DefaultCacheBehavior:
+   9 |           TargetOriginId: def1
+  10 |           ForwardedValues:
+  11 |             QueryString: 'false'
+  12 |             Cookies:
+  13 |               Forward: all
+> 14 |           ViewerProtocolPolicy: allow-all
+  15 |         CacheBehaviors:
+  16 |           - TargetOriginId: cache11
+  17 |             ForwardedValues:
+  18 |               QueryString: 'true'
+  19 |               Cookies:
+  20 |                 Forward: none
+  21 |             ViewerProtocolPolicy: https-only
+  22 |             PathPattern: images1/*.jpg
+  23 |           - TargetOriginId: cache12
+  24 |             ForwardedValues:
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,28,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-  18 |           QueryString: 'true'
-  19 |           Cookies:
-  20 |             Forward: none
-  21 |         ViewerProtocolPolicy: https-only
-  22 |         PathPattern: images1/*.jpg
-  23 |       - TargetOriginId: cache12
-  24 |         ForwardedValues:
-  25 |           QueryString: 'true'
-  26 |           Cookies:
-  27 |             Forward: none
-> 28 |         ViewerProtocolPolicy: allow-all
-  29 |         PathPattern: images2/*.jpg
-  30 | stribution2:
-  31 | Type: AWS::CloudFront::Distribution
-  32 | Properties:
-  33 |   DistributionConfig:
-  34 |     Enabled: 'true'
-  35 |     DefaultCacheBehavior:
-  36 |       TargetOriginId: def2
-  37 |       ForwardedValues:
-  38 |         QueryString: 'false'
-     ^ Col 4
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,28,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,"
+  18 |               QueryString: 'true'
+  19 |               Cookies:
+  20 |                 Forward: none
+  21 |             ViewerProtocolPolicy: https-only
+  22 |             PathPattern: images1/*.jpg
+  23 |           - TargetOriginId: cache12
+  24 |             ForwardedValues:
+  25 |               QueryString: 'true'
+  26 |               Cookies:
+  27 |                 Forward: none
+> 28 |             ViewerProtocolPolicy: allow-all
+  29 |             PathPattern: images2/*.jpg
+  30 |   distribution2:
+  31 |     Type: AWS::CloudFront::Distribution
+  32 |     Properties:
+  33 |       DistributionConfig:
+  34 |         Enabled: 'true'
+  35 |         DefaultCacheBehavior:
+  36 |           TargetOriginId: def2
+  37 |           ForwardedValues:
+  38 |             QueryString: 'false'
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,48,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml,"
-  36 |       TargetOriginId: def2
-  37 |       ForwardedValues:
-  38 |         QueryString: 'false'
-  39 |         Cookies:
-  40 |           Forward: all
-  41 |       ViewerProtocolPolicy: https-only
-  42 |     CacheBehaviors:
-  43 |       - TargetOriginId: cache21
-  44 |         ForwardedValues:
-  45 |           QueryString: 'true'
-  46 |           Cookies:
-  47 |             Forward: none
-> 48 |         ViewerProtocolPolicy: allow-all
-  49 |         PathPattern: images1/*.jpg
-  50 |       - TargetOriginId: cache22
-  51 |         ForwardedValues:
-  52 |           QueryString: 'true'
-  53 |           Cookies:
-  54 |             Forward: none
-  55 |         ViewerProtocolPolicy: https-only
-  56 |         PathPattern: images2/*.jpg
-     ^ Col 4
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,48,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml,"
+  36 |           TargetOriginId: def2
+  37 |           ForwardedValues:
+  38 |             QueryString: 'false'
+  39 |             Cookies:
+  40 |               Forward: all
+  41 |           ViewerProtocolPolicy: https-only
+  42 |         CacheBehaviors:
+  43 |           - TargetOriginId: cache21
+  44 |             ForwardedValues:
+  45 |               QueryString: 'true'
+  46 |               Cookies:
+  47 |                 Forward: none
+> 48 |             ViewerProtocolPolicy: allow-all
+  49 |             PathPattern: images1/*.jpg
+  50 |           - TargetOriginId: cache22
+  51 |             ForwardedValues:
+  52 |               QueryString: 'true'
+  53 |               Cookies:
+  54 |                 Forward: none
+  55 |             ViewerProtocolPolicy: https-only
+  56 |             PathPattern: images2/*.jpg
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-   6 |   ""DistributionConfig"": {
-   7 |     ""Enabled"": ""true"",
-   8 |     ""DefaultCacheBehavior"": {
-   9 |       ""TargetOriginId"": ""def1"",
-  10 |       ""ForwardedValues"": {
-  11 |         ""QueryString"": ""false"",
-  12 |         ""Cookies"": {
-  13 |           ""Forward"": ""all""
-  14 |         }
-  15 |       },
-> 16 |       ""ViewerProtocolPolicy"": ""allow-all""
-  17 |     },
-  18 |     ""CacheBehaviors"": [
-  19 |       {
-  20 |         ""TargetOriginId"": ""cache11"",
-  21 |         ""ForwardedValues"": {
-  22 |           ""QueryString"": ""true"",
-  23 |           ""Cookies"": {
-  24 |             ""Forward"": ""none""
-  25 |           }
-  26 |         },
-     ^ Col 6
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,16,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,"
+   6 |         ""DistributionConfig"": {
+   7 |           ""Enabled"": ""true"",
+   8 |           ""DefaultCacheBehavior"": {
+   9 |             ""TargetOriginId"": ""def1"",
+  10 |             ""ForwardedValues"": {
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             },
+> 16 |             ""ViewerProtocolPolicy"": ""allow-all""
+  17 |           },
+  18 |           ""CacheBehaviors"": [
+  19 |             {
+  20 |               ""TargetOriginId"": ""cache11"",
+  21 |               ""ForwardedValues"": {
+  22 |                 ""QueryString"": ""true"",
+  23 |                 ""Cookies"": {
+  24 |                   ""Forward"": ""none""
+  25 |                 }
+  26 |               },
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-  28 |       ""PathPattern"": ""images1/*.jpg""
-  29 |     },
-  30 |     {
-  31 |       ""TargetOriginId"": ""cache12"",
-  32 |       ""ForwardedValues"": {
-  33 |         ""QueryString"": ""true"",
-  34 |         ""Cookies"": {
-  35 |           ""Forward"": ""none""
-  36 |         }
-  37 |       },
-> 38 |       ""ViewerProtocolPolicy"": ""allow-all"",
-  39 |       ""PathPattern"": ""images2/*.jpg""
-  40 |     }
-  41 |   ]
-  42 | }
-  43 |
-  44 |
-  45 | tribution2"": {
-  46 | ype"": ""AWS::CloudFront::Distribution"",
-  47 | roperties"": {
-  48 | ""DistributionConfig"": {
-     ^ Col 8
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,38,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,"
+  28 |               ""PathPattern"": ""images1/*.jpg""
+  29 |             },
+  30 |             {
+  31 |               ""TargetOriginId"": ""cache12"",
+  32 |               ""ForwardedValues"": {
+  33 |                 ""QueryString"": ""true"",
+  34 |                 ""Cookies"": {
+  35 |                   ""Forward"": ""none""
+  36 |                 }
+  37 |               },
+> 38 |               ""ViewerProtocolPolicy"": ""allow-all"",
+  39 |               ""PathPattern"": ""images2/*.jpg""
+  40 |             }
+  41 |           ]
+  42 |         }
+  43 |       }
+  44 |     },
+  45 |     ""distribution2"": {
+  46 |       ""Type"": ""AWS::CloudFront::Distribution"",
+  47 |       ""Properties"": {
+  48 |         ""DistributionConfig"": {
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.yaml.json,"
-  59 |   },
-  60 |   ""CacheBehaviors"": [
-  61 |     {
-  62 |       ""TargetOriginId"": ""cache21"",
-  63 |       ""ForwardedValues"": {
-  64 |         ""QueryString"": ""true"",
-  65 |         ""Cookies"": {
-  66 |           ""Forward"": ""none""
-  67 |         }
-  68 |       },
-> 69 |       ""ViewerProtocolPolicy"": ""allow-all"",
-  70 |       ""PathPattern"": ""images1/*.jpg""
-  71 |     },
-  72 |     {
-  73 |       ""TargetOriginId"": ""cache22"",
-  74 |       ""ForwardedValues"": {
-  75 |         ""QueryString"": ""true"",
-  76 |         ""Cookies"": {
-  77 |           ""Forward"": ""none""
-  78 |         }
-  79 |       },
-     ^ Col 8
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,69,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/cfn_serves_content_over_http.yaml.json,"
+  59 |           },
+  60 |           ""CacheBehaviors"": [
+  61 |             {
+  62 |               ""TargetOriginId"": ""cache21"",
+  63 |               ""ForwardedValues"": {
+  64 |                 ""QueryString"": ""true"",
+  65 |                 ""Cookies"": {
+  66 |                   ""Forward"": ""none""
+  67 |                 }
+  68 |               },
+> 69 |               ""ViewerProtocolPolicy"": ""allow-all"",
+  70 |               ""PathPattern"": ""images1/*.jpg""
+  71 |             },
+  72 |             {
+  73 |               ""TargetOriginId"": ""cache22"",
+  74 |               ""ForwardedValues"": {
+  75 |                 ""QueryString"": ""true"",
+  76 |                 ""Cookies"": {
+  77 |                   ""Forward"": ""none""
+  78 |                 }
+  79 |               },
+     ^ Col 0
 ",cloudformation.cfn_serves_content_over_http
 F372,lines,namespace/skims/test/data/lib_root/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/test.tf,"
   27 |     target_origin_id = local.s3_origin_id

@@ -1,5 +1,6 @@
 from lib_root.f372.cloudformation import (
     cfn_elb2_uses_insecure_protocol,
+    cfn_serves_content_over_http,
 )
 from lib_root.f372.conf_files import (
     https_flag_missing as json_https_flag_missing,
@@ -19,6 +20,7 @@ from model import (
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F372
 QUERIES: graph_model.Queries = (
     (FINDING, cfn_elb2_uses_insecure_protocol),
+    (FINDING, cfn_serves_content_over_http),
     (FINDING, json_https_flag_missing),
     (FINDING, tfm_aws_sec_group_using_http),
     (FINDING, tfm_azure_kv_only_accessible_over_https),
