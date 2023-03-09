@@ -47,6 +47,44 @@ def iterate_resource(graph: Graph, expected_type: str) -> Iterator[NId]:
             yield nid
 
 
+def aux_iterate_ec2_egress_ingress(
+    graph: Graph, is_ingress: bool, is_egress: bool
+) -> Iterator[NId]:
+    if is_ingress:
+        for nid in iterate_resource(graph, "AWS::EC2::SecurityGroupIngress"):
+            _, _, prop_id = get_attribute(graph, nid, "Properties")
+            val_id = graph.nodes[prop_id]["value_id"]
+            yield val_id
+    if is_egress:
+        for nid in iterate_resource(graph, "AWS::EC2::SecurityGroupEgress"):
+            _, _, prop_id = get_attribute(graph, nid, "Properties")
+            val_id = graph.nodes[prop_id]["value_id"]
+            yield val_id
+
+
+def iterate_ec2_egress_ingress(
+    graph: Graph, is_ingress: bool, is_egress: bool
+) -> Iterator[NId]:
+    for nid in iterate_resource(graph, "AWS::EC2::SecurityGroup"):
+        _, _, prop_id = get_attribute(graph, nid, "Properties")
+        val_id = graph.nodes[prop_id]["value_id"]
+        ingress, _, ingress_id = get_attribute(
+            graph, val_id, "SecurityGroupIngress"
+        )
+        if ingress and is_ingress:
+            ingress_attrs = graph.nodes[ingress_id]["value_id"]
+            for c_id in adj_ast(graph, ingress_attrs):
+                yield c_id
+        egress, _, egress_id = get_attribute(
+            graph, val_id, "SecurityGroupEgress"
+        )
+        if egress and is_egress:
+            ingress_attrs = graph.nodes[egress_id]["value_id"]
+            for c_id in adj_ast(graph, ingress_attrs):
+                yield c_id
+    yield from aux_iterate_ec2_egress_ingress(graph, is_ingress, is_egress)
+
+
 def list_has_string(graph: Graph, nid: NId, value: str) -> bool:
     child_ids = adj_ast(graph, nid)
     for c_id in child_ids:

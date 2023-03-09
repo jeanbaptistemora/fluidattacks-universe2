@@ -152,16 +152,6 @@ def _cidr_iter_vulnerabilities(
                 yield rule.inner["CidrIpv6"]
 
 
-def _protocol_iter_vulnerabilities(
-    rules_iterator: Iterator[Node],
-) -> Iterator[Node]:
-    for rule in rules_iterator:
-        rule_raw = rule.raw if hasattr(rule, "raw") else {}
-        with suppress(ValueError, KeyError):
-            if rule_raw["IpProtocol"] in ("-1", -1):
-                yield rule.inner["IpProtocol"]
-
-
 def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[AWSEC2 | Node]:
@@ -311,26 +301,6 @@ def cfn_unrestricted_cidrs(
         ),
         path=path,
         method=MethodsEnum.CFN_UNRESTRICTED_CIDRS,
-    )
-
-
-def cfn_unrestricted_ip_protocols(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.unrestricted_protocols",
-        iterator=get_cloud_iterator(
-            _protocol_iter_vulnerabilities(
-                rules_iterator=iter_ec2_ingress_egress(
-                    template=template,
-                    ingress=True,
-                    egress=True,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_UNRESTRICTED_IP_PROTO,
     )
 
 

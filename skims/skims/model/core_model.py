@@ -2298,7 +2298,7 @@ class MethodsEnum(Enum):
     CFN_UNRESTRICTED_IP_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_unrestricted_ip_protocols",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

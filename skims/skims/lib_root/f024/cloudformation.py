@@ -6,6 +6,7 @@ from itertools import (
 )
 from lib_root.utilities.cloudformation import (
     get_attribute,
+    iterate_ec2_egress_ingress,
     iterate_resource,
 )
 from model.core_model import (
@@ -38,6 +39,42 @@ def _groups_without_egress(graph: Graph, nid: NId) -> Iterator[NId]:
     egress, _, _ = get_attribute(graph, val_id, "SecurityGroupEgress")
     if not egress:
         yield prop_id
+
+
+def _unrestricted_ip_protocols(graph: Graph, nid: NId) -> Iterator[NId]:
+    ip_protocol, ip_protocol_val, ip_protocol_id = get_attribute(
+        graph, nid, "IpProtocol"
+    )
+    if ip_protocol and ip_protocol_val in (-1, "-1"):
+        yield ip_protocol_id
+
+
+def cfn_unrestricted_ip_protocols(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_UNRESTRICTED_IP_PROTO
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(
+                graph, is_ingress=True, is_egress=True
+            ):
+                for report in _unrestricted_ip_protocols(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024_aws.unrestricted_protocols",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def cfn_groups_without_egress(

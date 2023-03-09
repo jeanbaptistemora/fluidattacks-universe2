@@ -13,7 +13,6 @@ from lib_path.f024.cloudformation import (
     cfn_ec2_has_unrestricted_ftp_access,
     cfn_ec2_has_unrestricted_ports,
     cfn_unrestricted_cidrs,
-    cfn_unrestricted_ip_protocols,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -43,17 +42,6 @@ def run_cfn_allows_anyone_to_admin_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_allows_anyone_to_admin_ports(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_cfn_unrestricted_ip_protocols(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag W40 Security Groups egress with an IpProtocol of -1 found
-    # cfn_nag W42 Security Groups ingress with an ipProtocol of -1 found
-    return cfn_unrestricted_ip_protocols(
         content=content, path=path, template=template
     )
 
@@ -124,7 +112,6 @@ def analyze(
                     for fun in (
                         run_cfn_unrestricted_cidrs,
                         run_cfn_allows_anyone_to_admin_ports,
-                        run_cfn_unrestricted_ip_protocols,
                         run_cfn_ec2_has_security_groups_ip_ranges_in_rfc1918,
                         run_cfn_ec2_has_unrestricted_ports,
                         run_cfn_ec2_has_unrestricted_dns_access,
