@@ -245,6 +245,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
     finding_id: str,
     entry: VulnerabilityHistoricEntry,
     vulnerability_id: str,
+    force_update: bool = False,
 ) -> None:
     key_structure = TABLE.primary_key
     gsi_6_index = TABLE.indexes["gsi_6"]
@@ -265,18 +266,20 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
                 gsi_6_index.primary_key.sort_key
             ] = new_zr_index_key.sort_key
 
-        base_condition = Attr(key_structure.partition_key).exists() & Attr(
-            gsi_6_index.primary_key.sort_key
-        ).eq(current_zr_index_key.sort_key)
-        await operations.update_item(
-            condition_expression=(
-                base_condition
-                & Attr(f"{entry_type}.modified_date").eq(
+        condition_expression = Attr(key_structure.partition_key).exists()
+        if not force_update:
+            condition_expression &= Attr(gsi_6_index.primary_key.sort_key).eq(
+                current_zr_index_key.sort_key
+            )
+            condition_expression &= (
+                Attr(f"{entry_type}.modified_date").eq(
                     get_as_utc_iso_format(current_entry.modified_date)
                 )
                 if current_entry
-                else base_condition & Attr(entry_type).not_exists()
-            ),
+                else condition_expression & Attr(entry_type).not_exists()
+            )
+        await operations.update_item(
+            condition_expression=condition_expression,
             item=vulnerability_item,
             key=vulnerability_key,
             table=TABLE,
