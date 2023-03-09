@@ -40,8 +40,8 @@ lib_root.f052.c_sharp_obsolete_key_derivation:
   es: >-
     {expression} se utiliza para generar una derivación de clave débil
 lib_root.f052.jwt_insecure_signing_algorithm:
-  en: JWT is signed with an insecure algorithm.
-  es: JWT es firmado con un algoritmo seguro.
+  en: JWT is signed with an insecure algorithm, such as HS256
+  es: JWT es firmado con un algoritmo inseguro, como por ejemplo HS256
 lib_root.f052.insec_message_auth_mechanism:
   en: Using vulnerable message authentication mechanisms could lead to
     brute force attacks.

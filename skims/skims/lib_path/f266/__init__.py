@@ -2,7 +2,6 @@ from collections.abc import (
     Callable,
 )
 from lib_path.common import (
-    EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
 )
@@ -13,9 +12,6 @@ from lib_path.f266.docker import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from parse_cfn.loader import (
-    load_templates_blocking,
 )
 from typing import (
     Any,
@@ -43,7 +39,6 @@ def run_container_with_user_root(content: str, path: str) -> Vulnerabilities:
 
 def analyze(
     content_generator: Callable[[], str],
-    file_extension: str,
     file_name: str,
     path: str,
     **_: None,
@@ -59,14 +54,4 @@ def analyze(
             run_container_with_user_root(content, path),
         )
 
-    if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:
-        results = (
-            *results,
-            *(
-                run_docker_compose_without_user(content, path, template)
-                for template in load_templates_blocking(
-                    content, fmt=file_extension
-                )
-            ),
-        )
     return results
