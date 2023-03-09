@@ -2,7 +2,8 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f052.method_invocation.kotlin import (
-    kt_insecure_certification,
+    kt_insec_key_gen,
+    kt_insecure_cert,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -11,7 +12,8 @@ from symbolic_eval.types import (
 )
 
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.KT_INSECURE_CERTIFICATE_VALIDATION: kt_insecure_certification,
+    MethodsEnum.KT_INSECURE_CERTIFICATE_VALIDATION: kt_insecure_cert,
+    MethodsEnum.KT_INSECURE_KEY_GEN: kt_insec_key_gen,
 }
 
 

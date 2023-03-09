@@ -146,6 +146,7 @@ def kotlin_insecure_cipher(
         {
             "javax.crypto.Cipher.getInstance",
             "javax.crypto.KeyGenerator.getInstance",
+            "javax.crypto.KeyPairGenerator.getInstance",
         }
     )
 
@@ -421,6 +422,36 @@ def kotlin_insecure_certification(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f052.insec_certificate",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def kt_insecure_key_generator(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.KT_INSECURE_KEY_GEN
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.matching_nodes(
+                graph,
+                label_type="MemberAccess",
+            ):
+                n_attrs = graph.nodes[n_id]
+                if (
+                    n_attrs["member"] == "init"
+                    and (child := g.adj_ast(graph, n_id)[0])
+                ) and get_eval_result(graph, child, method):
+                    yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f052.insecure_key.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
