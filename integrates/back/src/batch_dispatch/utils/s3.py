@@ -26,7 +26,6 @@ from git.repo.base import (
 import logging
 from newutils.files import (
     iter_rel_paths,
-    match_file,
 )
 import os
 from os import (
@@ -109,18 +108,18 @@ async def upload_cloned_repo_to_s3_tar(
 
 
 def _delete_out_of_scope_files(git_ignore: list[str], repo_path: str) -> bool:
-    # Get the expected repo name from the URL
     spec_ignore = pathspec.PathSpec.from_lines("gitwildmatch", git_ignore)
     # Compute what files should be deleted according to the scope rules
-    for file_path in iter_rel_paths(repo_path):
-        if match_file(spec_ignore.patterns, file_path):
-            if file_path.startswith(".git/"):
-                continue
-            path_to_delete = path.join(repo_path, file_path)
-            if path.isfile(path_to_delete):
+    for file_path in spec_ignore.match_files(iter_rel_paths(repo_path)):
+        if file_path.startswith(".git/"):
+            continue
+        path_to_delete = path.join(repo_path, file_path)
+        if os.path.isfile(path_to_delete):
+            with suppress(FileNotFoundError):
                 os.unlink(path_to_delete)
-            elif path.isdir(path_to_delete):
-                shutil.rmtree(path_to_delete)
+        elif os.path.isdir(path_to_delete):
+            shutil.rmtree(path_to_delete, ignore_errors=True)
+
     return True
 
 
