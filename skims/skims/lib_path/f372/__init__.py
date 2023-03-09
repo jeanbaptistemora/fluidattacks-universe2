@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f372.cloudformation import (
-    cfn_elb2_uses_insecure_protocol,
     cfn_serves_content_over_http,
 )
 from model.core_model import (
@@ -30,15 +29,6 @@ def run_cfn_serves_content_over_http(
 
 
 @SHIELD_BLOCKING
-def run_cfn_elb2_uses_insecure_protocol(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_elb2_uses_insecure_protocol(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -53,9 +43,6 @@ def analyze(
             results = (
                 *results,
                 run_cfn_serves_content_over_http(content, path, template),
-                run_cfn_elb2_uses_insecure_protocol(
-                    content, file_extension, path, template
-                ),
             )
 
     return results

@@ -349,7 +349,7 @@ F372,lines,namespace/skims/test/data/lib_root/f372/json_https_flag_missing.json,
   17 | }
      ^ Col 0
 ",conf_files.json_https_flag_missing
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,26,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml,26,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   16 |       Name: MyTargets
   17 |       Protocol: HTTP
   18 |       TargetType: lambda
@@ -373,7 +373,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   36 |       Targets:
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,35,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml,35,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml,"
   25 |       Name: MyTargets
   26 |       Protocol: HTTP
   27 |       TargetType: ip
@@ -397,7 +397,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   45 |         - Id: [MyLambdaFunction, Arn]
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,42,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml.json,42,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   32 |             ]
   33 |           }
   34 |         ]
@@ -421,7 +421,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   52 |       }
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
-F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,59,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
+F372,lines,namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml.json,59,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_root/f372/cfn_elb2_uses_insecure_protocol.yaml.json,"
   49 |             ]
   50 |           }
   51 |         ]

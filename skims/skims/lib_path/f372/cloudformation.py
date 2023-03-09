@@ -1,12 +1,8 @@
-from aws.model import (
-    AWSElbV2,
-)
 from collections.abc import (
     Iterator,
 )
 from lib_path.common import (
     get_cloud_iterator,
-    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
 )
 from metaloaders.model import (
@@ -18,13 +14,9 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iter_cloudfront_distributions,
-    iter_elb2_load_target_groups,
 )
 from typing import (
     Any,
-)
-from utils.function import (
-    get_node_by_keys,
 )
 
 
@@ -64,29 +56,6 @@ def _cfn_content_over_http_iterate_vulnerabilities(
             yield from _cfn_get_node_vulnerabilities(dist_config)
 
 
-def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
-    file_ext: str,
-    t_groups_iterator: Iterator[Node],
-) -> Iterator[AWSElbV2 | Node]:
-    for t_group in t_groups_iterator:
-        protocol_node = get_node_by_keys(t_group, ["Protocol"])
-        target_type = get_node_by_keys(t_group, ["TargetType"])
-
-        if (protocol_node and protocol_node.data != "HTTP") or (
-            target_type and target_type.data == "lambda"
-        ):
-            continue
-
-        if isinstance(protocol_node, Node):
-            yield protocol_node
-        else:
-            yield AWSElbV2(
-                column=t_group.start_column,
-                data=t_group.data,
-                line=get_line_by_extension(t_group.start_line, file_ext),
-            )
-
-
 def cfn_serves_content_over_http(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -102,23 +71,4 @@ def cfn_serves_content_over_http(
         ),
         path=path,
         method=MethodsEnum.CFN_CONTENT_HTTP,
-    )
-
-
-def cfn_elb2_uses_insecure_protocol(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f372.elb2_uses_insecure_protocol",
-        iterator=get_cloud_iterator(
-            _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
-                file_ext=file_ext,
-                t_groups_iterator=iter_elb2_load_target_groups(
-                    template=template
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_ELB2_INSEC_PROTO,
     )

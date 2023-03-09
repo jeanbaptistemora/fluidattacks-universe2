@@ -5714,7 +5714,7 @@ class MethodsEnum(Enum):
     CFN_ELB2_INSEC_PROTO = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_uses_insecure_protocol",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
