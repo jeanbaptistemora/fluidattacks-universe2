@@ -1,6 +1,7 @@
 from .types import (
     FindingVulnerabilitiesRequest,
     FindingVulnerabilitiesZrRequest,
+    GroupVulnerabilitiesRequest,
     VulnerabilitiesConnection,
     Vulnerability,
     VulnerabilityState,
@@ -316,29 +317,39 @@ async def _get_affected_reattacks(*, event_id: str) -> list[Vulnerability]:
     return [format_vulnerability(item) for item in response.items]
 
 
-async def _get_group_open_vulnerabilities(
-    *, group_name: str
-) -> list[Vulnerability]:
+async def _get_group_vulnerabilities(
+    *,
+    request: GroupVulnerabilitiesRequest,
+) -> VulnerabilitiesConnection:
     primary_key = keys.build_key(
         facet=GROUP_INDEX_METADATA,
-        values={"group_name": group_name},
+        values={"group_name": request.group_name},
     )
 
-    index = TABLE.indexes["gsi_7"]
-    key_structure = index.primary_key
+    group_index = TABLE.indexes["gsi_5"]
+    key_structure = group_index.primary_key
     response = await operations.query(
+        after=request.after,
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).eq(
-                "VULN#STATE#vulnerable#TREAT#false#ZR#false"
+                "VULN#ZR#false#STATE#vulnerable#TREAT#false"
             )
         ),
-        facets=(GROUP_INDEX_METADATA,),
+        facets=(TABLE.facets["vulnerability_metadata"],),
+        index=group_index,
+        limit=request.first,
+        paginate=request.paginate,
         table=TABLE,
-        index=index,
     )
 
-    return [format_vulnerability(item) for item in response.items]
+    return VulnerabilitiesConnection(
+        edges=tuple(
+            format_vulnerability_edge(group_index, item, TABLE)
+            for item in response.items
+        ),
+        page_info=response.page_info,
+    )
 
 
 class VulnerabilityLoader(DataLoader[str, Vulnerability | None]):
@@ -665,16 +676,18 @@ class VulnerabilityHistoricZeroRiskLoader(
         )
 
 
-class GroupOpenVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
+class GroupOpenVulnerabilitiesLoader(
+    DataLoader[GroupVulnerabilitiesRequest, VulnerabilitiesConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> list[list[Vulnerability]]:
+        self, requests: Iterable[GroupVulnerabilitiesRequest]
+    ) -> list[VulnerabilitiesConnection]:
         return list(
             await collect(
                 tuple(
-                    _get_group_open_vulnerabilities(group_name=group_name)
-                    for group_name in group_names
+                    _get_group_vulnerabilities(request=request)
+                    for request in requests
                 )
             )
         )
