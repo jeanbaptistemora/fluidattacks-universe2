@@ -613,15 +613,16 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     <Row>
                       <Col50>
                         <Can do={"api_resolvers_event_hacker_resolve"}>
-                          <EditableField
-                            alignField={"horizontalWide"}
-                            component={FormikText}
+                          <Editable
                             currentValue={data.event.hacker}
+                            isEditing={false}
                             label={t("searchFindings.tabEvents.hacker")}
-                            name={"hacker"}
-                            renderAsEditable={false}
-                            type={"text"}
-                          />
+                          >
+                            <Input
+                              label={t("searchFindings.tabEvents.hacker")}
+                              name={"hacker"}
+                            />
+                          </Editable>
                         </Can>
                       </Col50>
                       <Col50>
