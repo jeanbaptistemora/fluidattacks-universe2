@@ -314,8 +314,12 @@ enum RemoveGroupReason {
   NO_SYSTEM
   "Other reason not mentioned above"
   OTHER
+  "PoC Over"
+  POC_OVER
   "Group rename"
   RENAME
+  "Testing Request Cancelled"
+  TR_CANCELLED
 }
 
 "Language for Group Reports enum definition"

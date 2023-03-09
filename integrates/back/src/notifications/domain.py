@@ -96,6 +96,8 @@ def translate_group_reason(reason: str) -> str:
         GroupReason.NO_SYSTEM.value: "System will be deprecated",
         GroupReason.OTHER.value: "Other reason not mentioned",
         GroupReason.RENAME.value: "Group rename",
+        GroupReason.POC_OVER.value: "Proof of concept over",
+        GroupReason.TR_CANCELLED.value: "Testing request cancelled",
     }
     if reason in translation:
         return translation[reason]

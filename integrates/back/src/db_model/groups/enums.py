@@ -30,7 +30,9 @@ class GroupStateJustification(str, Enum):
     NO_SECTST: str = "NO_SECTST"
     NO_SYSTEM: str = "NO_SYSTEM"
     OTHER: str = "OTHER"
+    POC_OVER: str = "POC_OVER"
     RENAME: str = "RENAME"
+    TR_CANCELLED: str = "TR_CANCELLED"
     TRIAL_FINALIZATION: str = "TRIAL_FINALIZATION"
 
 

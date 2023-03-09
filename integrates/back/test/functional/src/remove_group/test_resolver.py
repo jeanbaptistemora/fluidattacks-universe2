@@ -69,7 +69,7 @@ async def test_remove_group_fail(populate: bool, email: str) -> None:
         comments="",
         email=email,
         group=group_name,
-        reason=GroupStateJustification.NO_SYSTEM.value,
+        reason=GroupStateJustification.POC_OVER.value,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

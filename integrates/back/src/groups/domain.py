@@ -1420,6 +1420,7 @@ async def remove_resources(
     group_name: str,
     validate_pending_actions: bool = False,
 ) -> None:
+    loaders.group.clear(group_name)
     group = await get_group(loaders, group_name)
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
