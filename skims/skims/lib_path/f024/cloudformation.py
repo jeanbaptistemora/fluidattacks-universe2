@@ -26,7 +26,6 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iter_ec2_ingress_egress,
-    iter_ec2_security_groups,
 )
 from typing import (
     Any,
@@ -124,17 +123,6 @@ def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
             and abs(int(to_port.raw) - int(from_port.raw)) > 25
         ):
             yield from_port
-
-
-def _groups_without_egress_iter_vulnerabilities(
-    groups_iterators: Iterator[Node],
-) -> Iterator[Node]:
-    yield from (
-        group
-        for group in groups_iterators
-        if hasattr(group, "raw")
-        and not group.raw.get("SecurityGroupEgress", None)
-    )
 
 
 def _cidr_iter_vulnerabilities(
@@ -303,24 +291,6 @@ def cfn_ec2_has_unrestricted_ports(
         ),
         path=path,
         method=MethodsEnum.CFN_EC2_UNRESTRICTED_PORTS,
-    )
-
-
-def cfn_groups_without_egress(
-    content: str,
-    path: str,
-    template: Any,
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.security_group_without_egress",
-        iterator=get_cloud_iterator(
-            _groups_without_egress_iter_vulnerabilities(
-                groups_iterators=iter_ec2_security_groups(template=template)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_GROUPS_WITHOUT_EGRESS,
     )
 
 

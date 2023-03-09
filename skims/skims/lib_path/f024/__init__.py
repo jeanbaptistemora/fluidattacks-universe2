@@ -12,7 +12,6 @@ from lib_path.f024.cloudformation import (
     cfn_ec2_has_unrestricted_dns_access,
     cfn_ec2_has_unrestricted_ftp_access,
     cfn_ec2_has_unrestricted_ports,
-    cfn_groups_without_egress,
     cfn_unrestricted_cidrs,
     cfn_unrestricted_ip_protocols,
 )
@@ -78,16 +77,6 @@ def run_cfn_ec2_has_unrestricted_ports(
 
 
 @SHIELD_BLOCKING
-def run_cfn_groups_without_egress(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag F1000 Missing egress rule means all traffic is allowed outbound
-    return cfn_groups_without_egress(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_cfn_ec2_has_unrestricted_dns_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -141,7 +130,6 @@ def analyze(
                         run_cfn_ec2_has_unrestricted_dns_access,
                         run_cfn_ec2_has_unrestricted_ftp_access,
                         run_cfn_ec2_has_open_all_ports_to_the_public,
-                        run_cfn_groups_without_egress,
                     )
                 ),
             )

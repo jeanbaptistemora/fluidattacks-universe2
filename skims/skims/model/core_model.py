@@ -2274,7 +2274,7 @@ class MethodsEnum(Enum):
     CFN_GROUPS_WITHOUT_EGRESS = MethodInfo(
         file_name="cloudformation",
         name="cfn_groups_without_egress",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
