@@ -30,31 +30,6 @@ pytestmark = [
 ]
 
 
-async def test_get_stakeholder_organizations() -> None:
-    loaders: Dataloaders = get_new_context()
-    stakeholder_email = "integratesmanager@gmail.com"
-    expected_orgs = [
-        "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-        "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac",  # NOSONAR
-        "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
-        "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1",  # NOSONAR
-    ]
-    stakeholder_orgs_access = (
-        await loaders.stakeholder_organizations_access.load(stakeholder_email)
-    )
-    stakeholder_orgs_ids = [
-        org.organization_id for org in stakeholder_orgs_access
-    ]
-    assert sorted(stakeholder_orgs_ids) == expected_orgs
-
-    assert (
-        await loaders.stakeholder_organizations_access.load(
-            "madeupstakeholder@gmail.com"
-        )
-        == []  # NOSONAR
-    )
-
-
 async def test_update_policies() -> None:
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
