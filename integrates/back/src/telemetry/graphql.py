@@ -2,6 +2,7 @@ import graphql
 from graphql import (
     DocumentNode,
     get_operation_ast,
+    GraphQLError,
     Source,
 )
 from graphql.language.parser import (
@@ -25,6 +26,8 @@ from typing import (
     Any,
     Callable,
     Collection,
+    List,
+    Optional,
     Union,
 )
 from wrapt import (
@@ -53,6 +56,11 @@ class GraphQLCoreInstrumentor(BaseInstrumentor):
             self._patched_parse,
         )
         wrap_function_wrapper(
+            graphql.validation,
+            "validate",
+            self._patched_validate,
+        )
+        wrap_function_wrapper(
             graphql,
             "execute",
             self._patched_execute,
@@ -60,6 +68,7 @@ class GraphQLCoreInstrumentor(BaseInstrumentor):
 
     def _uninstrument(self, **kwargs: Any) -> None:
         unwrap(graphql, "parse")
+        unwrap(graphql.validation, "validate")
         unwrap(graphql, "execute")
 
     def _patched_parse(
@@ -71,10 +80,24 @@ class GraphQLCoreInstrumentor(BaseInstrumentor):
     ) -> Any:
         with self._tracer.start_as_current_span("graphql.parse") as span:
             source_arg: SourceType = args[0]
-            source = _format_source(source_arg)
-            span.set_attribute("graphql.document", source)
+            _set_document_attr(span, source_arg)
 
             return original_func(*args, **kwargs)
+
+    def _patched_validate(
+        self,
+        original_func: Callable[..., Any],
+        _instance: Any,
+        args: tuple[Any, ...],
+        kwargs: dict[str, Any],
+    ) -> Any:
+        with self._tracer.start_as_current_span("graphql.validate") as span:
+            document_arg: DocumentNode = args[1]
+            _set_document_attr(span, document_arg)
+
+            errors = original_func(*args, **kwargs)
+            _set_errors(span, errors)
+            return errors
 
     def _patched_execute(
         self,
@@ -85,7 +108,7 @@ class GraphQLCoreInstrumentor(BaseInstrumentor):
     ) -> Any:
         with self._tracer.start_as_current_span("graphql.execute") as span:
             document_arg: DocumentNode = args[1]
-            _set_execute_span(span, document_arg)
+            _set_operation_attrs(span, document_arg)
 
             result = original_func(*args, **kwargs)
 
@@ -95,17 +118,38 @@ class GraphQLCoreInstrumentor(BaseInstrumentor):
                     with self._tracer.start_as_current_span(
                         "graphql.execute.await"
                     ) as span:
-                        _set_execute_span(span, document_arg)
-                        return await result
+                        _set_operation_attrs(span, document_arg)
+                        async_result = await result
+                        _set_errors(span, async_result.errors)
+                        return async_result
 
                 return await_result()
+            _set_errors(span, result.errors)
             return result
 
 
-def _set_execute_span(span: Span, document: DocumentNode) -> None:
-    if document.loc:
-        source = _format_source(document.loc.source)
-        span.set_attribute("graphql.document", source)
+def _format_source(obj: Union[DocumentNode, Source, str]) -> str:
+    if isinstance(obj, str):
+        value = obj
+    elif isinstance(obj, Source):
+        value = obj.body
+    elif isinstance(obj, DocumentNode) and obj.loc:
+        value = obj.loc.source.body
+    else:
+        value = ""
+
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _set_document_attr(
+    span: Span, obj: Union[DocumentNode, Source, str]
+) -> None:
+    source = _format_source(obj)
+    span.set_attribute("graphql.document", source)
+
+
+def _set_operation_attrs(span: Span, document: DocumentNode) -> None:
+    _set_document_attr(span, document)
 
     operation_definition = get_operation_ast(document)
 
@@ -122,12 +166,7 @@ def _set_execute_span(span: Span, document: DocumentNode) -> None:
             )
 
 
-def _format_source(source: Union[Source, str]) -> str:
-    if isinstance(source, str):
-        value = source
-    elif isinstance(source, Source):
-        value = source.body
-    else:
-        value = ""
-
-    return re.sub(r"\s+", " ", value).strip()
+def _set_errors(span: Span, errors: Optional[List[GraphQLError]]) -> None:
+    if errors:
+        for error in errors:
+            span.record_exception(error)
