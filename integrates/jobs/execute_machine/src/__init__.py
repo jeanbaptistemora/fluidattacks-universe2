@@ -1,7 +1,4 @@
 import click
-from contextlib import (
-    suppress,
-)
 from datetime import (
     datetime,
 )
@@ -26,13 +23,6 @@ import sys
 from typing import (
     Any,
     cast,
-)
-from urllib3 import (
-    exceptions,
-)
-from urllib3.util.url import (
-    parse_url,
-    Url,
 )
 import uuid
 import yaml  # type: ignore
@@ -318,42 +308,6 @@ def is_additional_path(dirs: list[str], files: list[str]) -> bool:
     return False
 
 
-def get_urls_from_scopes(scopes: set[str]) -> list[str]:
-    urls: set[str] = set()
-    urls.update(scopes)
-
-    for scope in scopes:
-        # FP: switch the type of protocol
-        for from_, to_ in (
-            ("http://", "https://"),  # NOSONAR
-            ("https://", "http://"),  # NOSONAR
-        ):
-            if scope.startswith(from_):
-                urls.add(scope.replace(from_, to_, 1))
-
-    return sorted(urls)
-
-
-def get_ssl_targets(urls: list[str]) -> list[tuple[str, str]]:
-    targets: list[tuple[str, str]] = []
-    parsed_urls: set[Url] = set()
-    for url in urls:
-        with suppress(ValueError, exceptions.HTTPError):
-            parsed_urls = {*parsed_urls, parse_url(url)}
-    for parsed_url in parsed_urls:
-        if parsed_url.port is None:
-            if (parsed_url.host, "443") not in targets:
-                targets.append((parsed_url.host, "443"))  # type: ignore
-        else:
-            if (parsed_url.host, str(parsed_url.port)) not in targets:
-                targets.append(
-                    (parsed_url.host, str(parsed_url.port))  # type: ignore
-                )
-    targets.sort(key=lambda x: x[0])
-
-    return targets
-
-
 def generate_config_files(
     *,
     group_name: str,
@@ -396,7 +350,7 @@ def generate_config_files(
     return all_configs
 
 
-def generate_config(  # pylint: disable=too-many-locals
+def generate_config(
     *,
     group_name: str,
     git_root: dict[str, Any],
@@ -416,17 +370,17 @@ def generate_config(  # pylint: disable=too-many-locals
         f"_{uuid.uuid4().hex[:8]}"
     )
 
-    urls: list[str] = []
-    ssl_targets: list[tuple[str, str]] = []
     dast_config: dict[str, Any] | None = None
     if is_main:
-        scopes: set[str] = {
+        env_urls: set[str] = {
             environment_url["url"]
             for environment_url in git_root["gitEnvironmentUrls"]
             if environment_url["urlType"] == "URL"
         }
-        urls = get_urls_from_scopes(scopes)
-        ssl_targets = get_ssl_targets(urls)
+        enable_dast_checks = False
+        if len(env_urls) > 0:
+            enable_dast_checks = True
+
         secrets = {
             secret["key"]: secret["value"]
             for environment_url in git_root["gitEnvironmentUrls"]
@@ -447,18 +401,9 @@ def generate_config(  # pylint: disable=too-many-locals
                 )
                 else []
             ),
-            "http": {
-                "include": urls,
-            },
-            "ssl": {
-                "include": [
-                    {
-                        "host": host,
-                        "port": int(port),
-                    }
-                    for host, port in ssl_targets
-                ],
-            },
+            "urls": list(env_urls),
+            "http_checks": enable_dast_checks,
+            "ssl_checks": enable_dast_checks,
         }
     return {
         "apk": {
