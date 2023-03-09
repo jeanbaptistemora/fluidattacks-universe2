@@ -136,17 +136,19 @@ def delete_out_of_scope_files(group: str) -> bool:
                 shutil.rmtree(path_to_repo)
                 continue
 
-        for path in (
-            path
-            for path in utils.file.iter_rel_paths(path_to_repo)
-            if not path.startswith(".git/")
+        for path in spec_ignore.match_files(
+            (
+                path
+                for path in utils.file.iter_rel_paths(path_to_repo)
+                if not path.startswith(".git/")
+            )
         ):
-            if match_file(spec_ignore.patterns, path):
-                path_to_delete = os.path.join(path_to_fusion, nickname, path)
-                if os.path.isfile(path_to_delete):
+            path_to_delete = os.path.join(path_to_fusion, nickname, path)
+            if os.path.isfile(path_to_delete):
+                with suppress(FileNotFoundError):
                     os.unlink(path_to_delete)
-                elif os.path.isdir(path_to_delete):
-                    shutil.rmtree(path_to_delete)
+            elif os.path.isdir(path_to_delete):
+                shutil.rmtree(path_to_delete, ignore_errors=True)
 
     # Delete cloned repositories that are not expected to be cloned
     cloned_repositories: Set[str] = set()
