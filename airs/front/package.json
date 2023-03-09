@@ -111,6 +111,11 @@
     "@mdx-js/react": {
       "react": "18.1.0"
     },
+    "@storybook/core-server": {
+      "default-browser-id": {
+        "meow": "3.3.0"
+      }
+    },
     "ansi-html": "0.0.9",
     "async": "3.2.2",
     "cross-fetch": "3.1.5",
