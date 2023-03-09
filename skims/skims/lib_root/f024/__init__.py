@@ -1,4 +1,5 @@
 from lib_root.f024.cloudformation import (
+    cfn_ec2_has_unrestricted_ports,
     cfn_groups_without_egress,
     cfn_instances_without_profile,
     cfn_unrestricted_ip_protocols,
@@ -22,6 +23,7 @@ from model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F024
 QUERIES: graph_model.Queries = (
+    (FINDING, cfn_ec2_has_unrestricted_ports),
     (FINDING, cfn_instances_without_profile),
     (FINDING, cfn_groups_without_egress),
     (FINDING, cfn_unrestricted_ip_protocols),

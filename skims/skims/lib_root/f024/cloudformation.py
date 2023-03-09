@@ -49,6 +49,48 @@ def _unrestricted_ip_protocols(graph: Graph, nid: NId) -> Iterator[NId]:
         yield ip_protocol_id
 
 
+def _ec2_has_unrestricted_ports(graph: Graph, nid: NId) -> Iterator[NId]:
+    from_port, from_port_val, from_port_id = get_attribute(
+        graph, nid, "FromPort"
+    )
+    to_port, to_port_val, _ = get_attribute(graph, nid, "ToPort")
+    if (
+        from_port
+        and to_port
+        and int(from_port_val) != int(to_port_val)
+        and abs(int(to_port_val) - int(from_port_val)) > 25
+    ):
+        yield from_port_id
+
+
+def cfn_ec2_has_unrestricted_ports(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_EC2_UNRESTRICTED_PORTS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(
+                graph, is_ingress=True, is_egress=True
+            ):
+                for report in _ec2_has_unrestricted_ports(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024.ec2_has_unrestricted_ports",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_unrestricted_ip_protocols(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

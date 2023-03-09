@@ -110,21 +110,6 @@ def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
             yield cidr
 
 
-def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
-    ec2_iterator: Iterator[Node],
-) -> Iterator[AWSEC2 | Node]:
-    for ec2_res in ec2_iterator:
-        from_port = ec2_res.inner.get("FromPort")
-        to_port = ec2_res.inner.get("ToPort")
-        if (
-            hasattr(from_port, "raw")
-            and hasattr(to_port, "raw")
-            and int(from_port.raw) != int(to_port.raw)
-            and abs(int(to_port.raw) - int(from_port.raw)) > 25
-        ):
-            yield from_port
-
-
 def _cidr_iter_vulnerabilities(
     rules_iterator: Iterator[Node],
 ) -> Iterator[Node]:
@@ -263,24 +248,6 @@ def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(
         ),
         path=path,
         method=MethodsEnum.CFN_EC2_SEC_GROUPS_RFC1918,
-    )
-
-
-def cfn_ec2_has_unrestricted_ports(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("src.lib_path.f024.ec2_has_unrestricted_ports"),
-        iterator=get_cloud_iterator(
-            _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
-                ec2_iterator=iter_ec2_ingress_egress(
-                    template=template, ingress=True, egress=True
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_EC2_UNRESTRICTED_PORTS,
     )
 
 
