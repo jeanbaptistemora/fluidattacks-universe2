@@ -1,17 +1,23 @@
 "Stakeholder type definition"
 type Stakeholder {
-  "Email address"
+  "The email address of the user who is part of the organization/group in ARM"
   email: String
   "Datetime of the first login to ARM"
   firstLogin: String
   "Groups the stakeholder has access to"
   groups: [Group]
-  "Current invitation state"
+  "Current invitation state which can be: Pending, Registered or Unregistered"
   invitationState: InvitationState
   "Datetime of the latest login to ARM"
   lastLogin: String
-  "Responsibility"
+  """
+  The stakeholder responsibility or position in the organization/group
+  (actions executed in the project)
+  """
   responsibility: String
-  "Role"
+  """
+  The stakeholder role in the organization/group
+  could be: User, User manager or Vulnerability Manager
+  """
   role: String
 }
