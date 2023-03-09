@@ -111,7 +111,7 @@ F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   21 |                     ],
      ^ Col 0
 ",aws.has_defined_user_data
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,7,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,7,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,"
    1 | ---
    2 | Resources:
    3 |   myLaunchTemplate:
@@ -135,7 +135,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_a
   21 |         Placement:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,7,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,7,16,skims,333. Insecure service configuration - EC2,Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""myLaunchTemplate"": {
@@ -228,101 +228,101 @@ F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   43 |     ],
      ^ Col 0
 ",aws.ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,37,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
-  27 | pe: AWS::EC2::Instance
-  28 | operties:
-  29 | ImageId:
-  30 |   Fn::FindInMap:
-  31 |     - RegionMap
-  32 |     - Ref: AWS::Region
-  33 |     - AMI
-  34 | KeyName:
-  35 |   Ref: KeyName
-  36 | NetworkInterfaces:
-> 37 |   - AssociatePublicIpAddress: 'true'
-  38 |     DeviceIndex: '0'
-  39 |     GroupSet:
-  40 |       - Ref: myVPCEC2SecurityGroup
-  41 |     SubnetId:
-  42 |       Ref: PublicSubnet
-  43 |   - AssociatePublicIpAddress: false
-  44 |     DeviceIndex: '0'
-  45 |     GroupSet:
-  46 |       - Ref: myVPCEC2SecurityGroup
-  47 |     SubnetId:
-     ^ Col 6
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,37,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,"
+  27 |     Type: AWS::EC2::Instance
+  28 |     Properties:
+  29 |       ImageId:
+  30 |         Fn::FindInMap:
+  31 |           - RegionMap
+  32 |           - Ref: AWS::Region
+  33 |           - AMI
+  34 |       KeyName:
+  35 |         Ref: KeyName
+  36 |       NetworkInterfaces:
+> 37 |         - AssociatePublicIpAddress: 'true'
+  38 |           DeviceIndex: '0'
+  39 |           GroupSet:
+  40 |             - Ref: myVPCEC2SecurityGroup
+  41 |           SubnetId:
+  42 |             Ref: PublicSubnet
+  43 |         - AssociatePublicIpAddress: false
+  44 |           DeviceIndex: '0'
+  45 |           GroupSet:
+  46 |             - Ref: myVPCEC2SecurityGroup
+  47 |           SubnetId:
+     ^ Col 0
 ",cloudformation.cfn_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,10,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
-   1 |
-   2 | s:
-   3 | chTemplate:
-   4 | : AWS::EC2::LaunchTemplate
-   5 | erties:
-   6 | unchTemplateName: ${AWS::StackName}-launch-template-for-auto-scaling
-   7 | unchTemplateData:
-   8 | NetworkInterfaces:
-   9 |   - DeviceIndex: 0
-> 10 |     AssociatePublicIpAddress: true
-  11 |     Groups:
-  12 |       - sg-7c2270198example
-  13 |       - sg-903004f88example
-  14 |     DeleteOnTermination: true
-  15 |   - DeviceIndex: 0
-  16 |     AssociatePublicIpAddress: false
-  17 |     Groups:
-  18 |       - sg-7c2270198example
-  19 |       - sg-903004f88example
-  20 |     DeleteOnTermination: true
-  21 | Placement:
-     ^ Col 8
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,10,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   myLaunchTemplate:
+   4 |     Type: AWS::EC2::LaunchTemplate
+   5 |     Properties:
+   6 |       LaunchTemplateName: ${AWS::StackName}-launch-template-for-auto-scaling
+   7 |       LaunchTemplateData:
+   8 |         NetworkInterfaces:
+   9 |           - DeviceIndex: 0
+> 10 |             AssociatePublicIpAddress: true
+  11 |             Groups:
+  12 |               - sg-7c2270198example
+  13 |               - sg-903004f88example
+  14 |             DeleteOnTermination: true
+  15 |           - DeviceIndex: 0
+  16 |             AssociatePublicIpAddress: false
+  17 |             Groups:
+  18 |               - sg-7c2270198example
+  19 |               - sg-903004f88example
+  20 |             DeleteOnTermination: true
+  21 |         Placement:
+     ^ Col 0
 ",cloudformation.cfn_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,11,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
-   1 |
-   2 | "": {
-   3 | hTemplate"": {
-   4 | : ""AWS::EC2::LaunchTemplate"",
-   5 | rties"": {
-   6 | nchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
-   7 | nchTemplateData"": {
-   8 | etworkInterfaces"": [
-   9 | {
-  10 |   ""DeviceIndex"": 0,
-> 11 |   ""AssociatePublicIpAddress"": true,
-  12 |   ""Groups"": [
-  13 |     ""sg-7c2270198example"",
-  14 |     ""sg-903004f88example""
-  15 |   ],
-  16 |   ""DeleteOnTermination"": true
-  17 | },
-  18 | {
-  19 |   ""DeviceIndex"": 0,
-  20 |   ""AssociatePublicIpAddress"": false,
-  21 |   ""Groups"": [
-     ^ Col 12
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,11,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""myLaunchTemplate"": {
+   4 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+   5 |       ""Properties"": {
+   6 |         ""LaunchTemplateName"": ""${AWS::StackName}-launch-template-for-auto-scaling"",
+   7 |         ""LaunchTemplateData"": {
+   8 |           ""NetworkInterfaces"": [
+   9 |             {
+  10 |               ""DeviceIndex"": 0,
+> 11 |               ""AssociatePublicIpAddress"": true,
+  12 |               ""Groups"": [
+  13 |                 ""sg-7c2270198example"",
+  14 |                 ""sg-903004f88example""
+  15 |               ],
+  16 |               ""DeleteOnTermination"": true
+  17 |             },
+  18 |             {
+  19 |               ""DeviceIndex"": 0,
+  20 |               ""AssociatePublicIpAddress"": false,
+  21 |               ""Groups"": [
+     ^ Col 0
 ",cloudformation.cfn_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,54,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
-  44 |     ""Ref"": ""AWS::Region""
-  45 |   },
-  46 |   ""AMI""
-  47 | ]
-  48 |
-  49 | eyName"": {
-  50 | ""Ref"": ""KeyName""
-  51 |
-  52 | etworkInterfaces"": [
-  53 | {
-> 54 |   ""AssociatePublicIpAddress"": ""true"",
-  55 |   ""DeviceIndex"": ""0"",
-  56 |   ""GroupSet"": [
-  57 |     {
-  58 |       ""Ref"": ""myVPCEC2SecurityGroup""
-  59 |     }
-  60 |   ],
-  61 |   ""SubnetId"": {
-  62 |     ""Ref"": ""PublicSubnet""
-  63 |   }
-  64 | },
-     ^ Col 10
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,54,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+  44 |               ""Ref"": ""AWS::Region""
+  45 |             },
+  46 |             ""AMI""
+  47 |           ]
+  48 |         },
+  49 |         ""KeyName"": {
+  50 |           ""Ref"": ""KeyName""
+  51 |         },
+  52 |         ""NetworkInterfaces"": [
+  53 |           {
+> 54 |             ""AssociatePublicIpAddress"": ""true"",
+  55 |             ""DeviceIndex"": ""0"",
+  56 |             ""GroupSet"": [
+  57 |               {
+  58 |                 ""Ref"": ""myVPCEC2SecurityGroup""
+  59 |               }
+  60 |             ],
+  61 |             ""SubnetId"": {
+  62 |               ""Ref"": ""PublicSubnet""
+  63 |             }
+  64 |           },
+     ^ Col 0
 ",cloudformation.cfn_ec2_associate_public_ip_address
 F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace),/NetworkInterfaces/0/Association/PublicIp: 127.0.0.0,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured,"
    1 | {
@@ -415,7 +415,7 @@ F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_has_not_an_iam_instan
   38 | }
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,28,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,28,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml,"
   18 |               - sg-7c2270198example
   19 |               - sg-903004f88example
   20 |             DeleteOnTermination: true
@@ -439,7 +439,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_a
   38 |           DeviceIndex: '0'
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,39,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/cfn_ec2_associate_public_ip_address.yaml.json,"
   29 |             ""Tenancy"": ""dedicated""
   30 |           },
   31 |           ""ImageId"": ""ami-04d5cc9b88example"",

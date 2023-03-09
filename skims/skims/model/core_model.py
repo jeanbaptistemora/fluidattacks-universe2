@@ -5330,7 +5330,7 @@ class MethodsEnum(Enum):
     CFN_EC2_ASSOC_PUB_IP = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_associate_public_ip_address",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
