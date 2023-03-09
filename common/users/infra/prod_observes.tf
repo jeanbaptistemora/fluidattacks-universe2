@@ -144,6 +144,14 @@ locals {
         ]
         ObservesRedshift = [
           {
+            Sid    = "PassClusterRole"
+            Effect = "Allow"
+            Action = ["iam:PassRole"]
+            Resource = [
+              module.observes_redshift_aws.role.arn
+            ]
+          },
+          {
             Sid    = "redshiftManager"
             Effect = "Allow"
             Action = [

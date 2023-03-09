@@ -68,3 +68,7 @@ resource "aws_iam_role" "main" {
   max_session_duration = "32400"
   tags                 = var.tags
 }
+
+output "role" {
+  value = aws_iam_role.main
+}
