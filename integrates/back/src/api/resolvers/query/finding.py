@@ -23,6 +23,14 @@ from findings import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Any,
+)
+
+
+@enforce_group_level_auth_async
+def _get_draft(finding: Finding, **_kwargs: Any) -> Finding:
+    return finding
 
 
 @QUERY.field("finding")
@@ -38,4 +46,6 @@ async def resolve(
     finding_id: str = kwargs["finding_id"]
     loaders: Dataloaders = info.context.loaders
     finding = await findings_domain.get_finding(loaders, finding_id)
+    if finding.approval is None:
+        return await _get_draft(finding, info=info)  # type: ignore
     return finding

@@ -34,7 +34,7 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     filters: dict[str, Any] | None = kwargs.get("filters")
-    findings = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_findings.load(group_name)
     if filters:
         return utils.filter_findings(findings, filters)
 

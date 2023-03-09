@@ -1,6 +1,9 @@
 from .schema import (
     GROUP,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -36,7 +39,7 @@ LOGGER = logging.getLogger(__name__)
 @GROUP.field("vulnerabilities")
 async def resolve(
     parent: Group,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
     vulnerabilities_filters: dict[str, Any] = vulnerabilities_filter(**kwargs)
@@ -54,6 +57,10 @@ async def resolve(
         query=kwargs.get("search"),
     )
 
+    loaders: Dataloaders = info.context.loaders
+    draft_ids = tuple(
+        draft.id for draft in await loaders.group_drafts.load(parent.name)
+    )
     vulnerabilities = tuple(
         format_vulnerability(result) for result in results.items
     )
@@ -65,6 +72,7 @@ async def resolve(
                 node=vulnerability,
             )
             for vulnerability in vulnerabilities
+            if vulnerability.finding_id not in draft_ids
         ),
         page_info=results.page_info,
         total=results.total,
