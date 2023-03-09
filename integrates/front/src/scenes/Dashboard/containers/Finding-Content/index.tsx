@@ -5,13 +5,14 @@ import { useAbility } from "@casl/react";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
   Switch,
   useHistory,
+  useLocation,
   useParams,
   useRouteMatch,
 } from "react-router-dom";
@@ -69,6 +70,7 @@ const FindingContent: React.FC = (): JSX.Element => {
   const { featurePreview } = useContext(featurePreviewContext);
   const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+  const { pathname } = useLocation();
   const { replace } = useHistory();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
@@ -230,6 +232,31 @@ const FindingContent: React.FC = (): JSX.Element => {
     },
     [removeFinding, findingId]
   );
+
+  useEffect((): void => {
+    if (!_.isUndefined(headerData) && !_.isEmpty(headerData)) {
+      const [currentTab] = pathname.split("/").slice(-1);
+      if (_.isEmpty(headerData.finding.releaseDate)) {
+        const properPath: string = `/orgs/${organizationName}/groups/${groupName}/drafts/${findingId}`;
+        if (properPath !== url) {
+          replace(`${properPath}/${currentTab}`);
+        }
+      } else {
+        const properPath: string = `/orgs/${organizationName}/groups/${groupName}/vulns/${findingId}`;
+        if (properPath !== url) {
+          replace(`${properPath}/${currentTab}`);
+        }
+      }
+    }
+  }, [
+    findingId,
+    groupName,
+    headerData,
+    organizationName,
+    pathname,
+    replace,
+    url,
+  ]);
 
   const handleQryErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
