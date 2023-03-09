@@ -177,7 +177,7 @@ async def _send_mail_analytics(
     elif entity == SubscriptionEntity.PORTFOLIO:
         subject = subject.split("PORTFOLIO#")[-1]
 
-    await analytics_mail.send_mail_analytics(
+    analytics_mail.send_mail_analytics(
         loaders,
         email,
         date=str(datetime_utils.get_now().date()),

@@ -6,7 +6,7 @@ from dataloaders import (
 )
 
 
-async def send_mail_analytics(
+def send_mail_analytics(
     _loaders: Dataloaders, *_email_to: str, **context: str
 ) -> None:
     _mail_content = context
