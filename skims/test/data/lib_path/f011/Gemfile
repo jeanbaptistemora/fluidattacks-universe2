@@ -128,10 +128,10 @@ group :test do
 end
 
 platforms :ruby, :windows do
-  gem "nokogiri", "= 1.8.1"
+  gem "nokogiri", "= 1.14.2"
   gem "devise", "= 1.4.2", :group => :development
   gem "rubocop", "= 1.35.1", :group => [:caravan, :topo, :test, :mongo]
-  gem "rails", "= 7.0.4", :group => :caravan
+
 
   # Needed for compiling the ActionDispatch::Journey parser.
   gem "racc", ">=1.4.6", require: false

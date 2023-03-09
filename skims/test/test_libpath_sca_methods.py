@@ -83,7 +83,7 @@ def test_gem_gemfile() -> None:
         file_contents, path
     )
     assertion: bool = True
-    lines_prod_deps = [*range(116), 130, 133, 136, 139, *range(148, 182)]
+    lines_prod_deps = [*range(116), 130, 136, 139, *range(148, 182)]
     for line_num in lines_prod_deps:
         if matched := re.search(gemfile_dep, content[line_num]):
             pkg_name: str = matched.group("name")

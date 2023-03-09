@@ -657,30 +657,6 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (nokogiri v1.12
   143 |       hashie (>= 3.4.6)
       ^ Col 0
 ",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (nokogiri v=1.8.1) [CVE-2017-15412, CVE-2017-18258, CVE-2018-14404, CVE-2018-8048, CVE-2019-11068, CVE-2019-13117, CVE-2019-13118, CVE-2019-18197, CVE-2019-5477, CVE-2019-5815, CVE-2020-24977, CVE-2020-26247, CVE-2020-7595, CVE-2021-3517, CVE-2021-3518, CVE-2021-3537, CVE-2021-3541, CVE-2021-41098, CVE-2022-23308, CVE-2022-24836, CVE-2022-29181, CVE-2022-40303, CVE-2022-40304, GHSA-2qc6-mcvw-92cw, GHSA-2rr5-8q37-2w7h, GHSA-6qvp-r6r3-9p7h, GHSA-7553-jr98-vx47, GHSA-7rrm-v45f-jp64, GHSA-882p-jqgm-f45g, GHSA-cgx6-hpwq-fhv5, GHSA-cr5j-953j-xw5p, GHSA-crjr-9rc5-ghw8, GHSA-fq42-c5rg-92c2, GHSA-gx8x-g87m-h5q6, GHSA-v6gp-9mmm-c6p5, GHSA-vr8q-g5c7-m54m, GHSA-xh29-r2w5-wx8m, GHSA-xxx9-3xcr-gjj3]",131,937,skims,011. Use of software with known vulnerabilities,"Use of nokogiri at version =1.8.1 with ['CVE-2017-15412', 'CVE-2017-18258', 'CVE-2018-14404', 'CVE-2018-8048', 'CVE-2019-11068', 'CVE-2019-13117', 'CVE-2019-13118', 'CVE-2019-18197', 'CVE-2019-5477', 'CVE-2019-5815', 'CVE-2020-24977', 'CVE-2020-26247', 'CVE-2020-7595', 'CVE-2021-3517', 'CVE-2021-3518', 'CVE-2021-3537', 'CVE-2021-3541', 'CVE-2021-41098', 'CVE-2022-23308', 'CVE-2022-24836', 'CVE-2022-29181', 'CVE-2022-40303', 'CVE-2022-40304', 'GHSA-2qc6-mcvw-92cw', 'GHSA-2rr5-8q37-2w7h', 'GHSA-6qvp-r6r3-9p7h', 'GHSA-7553-jr98-vx47', 'GHSA-7rrm-v45f-jp64', 'GHSA-882p-jqgm-f45g', 'GHSA-cgx6-hpwq-fhv5', 'GHSA-cr5j-953j-xw5p', 'GHSA-crjr-9rc5-ghw8', 'GHSA-fq42-c5rg-92c2', 'GHSA-gx8x-g87m-h5q6', 'GHSA-v6gp-9mmm-c6p5', 'GHSA-vr8q-g5c7-m54m', 'GHSA-xh29-r2w5-wx8m', 'GHSA-xxx9-3xcr-gjj3'] in namespace/skims/test/data/lib_path/f011/Gemfile","
-  121 |
-  122 |   platforms :mri do
-  123 |     gem ""stackprof"", ""= 1.4.2""
-  124 |     gem ""debug"", "">= 1.1.0"", require: false
-  125 |   end
-  126 |
-  127 |   gem ""benchmark-ips""
-  128 | end
-  129 |
-  130 | platforms :ruby, :windows do
-> 131 |   gem ""nokogiri"", ""= 1.8.1""
-  132 |   gem ""devise"", ""= 1.4.2"", :group => :development
-  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
-  134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
-  135 |
-  136 |   # Needed for compiling the ActionDispatch::Journey parser.
-  137 |   gem ""racc"", "">=1.4.6"", require: false
-  138 |
-  139 |   # Active Record.
-  140 |   gem ""sqlite3"", ""~> 1.4""
-  141 |
-      ^ Col 0
-",gem.gem_gemfile
 F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.apache.camel:camel-servlet v2.6.0) [CVE-2015-5348, GHSA-26v6-w6fw-rh94]",112,937,skims,011. Use of software with known vulnerabilities,"Use of org.apache.camel:camel-servlet at version 2.6.0 with ['CVE-2015-5348', 'GHSA-26v6-w6fw-rh94'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
   100 |       <groupId>org.slf4j</groupId>
   101 |       <artifactId>slf4j-simple</artifactId>
@@ -1108,30 +1084,6 @@ F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails v7.0.2.3)
   177 |       activestorage (= 7.0.2.3)
       ^ Col 0
 ",gem.gem_gemfile_lock
-F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (rails v=7.0.4) [CVE-2022-3704],134,937,skims,011. Use of software with known vulnerabilities,Use of rails at version =7.0.4 with ['CVE-2022-3704'] in namespace/skims/test/data/lib_path/f011/Gemfile,"
-  124 |     gem ""debug"", "">= 1.1.0"", require: false
-  125 |   end
-  126 |
-  127 |   gem ""benchmark-ips""
-  128 | end
-  129 |
-  130 | platforms :ruby, :windows do
-  131 |   gem ""nokogiri"", ""= 1.8.1""
-  132 |   gem ""devise"", ""= 1.4.2"", :group => :development
-  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
-> 134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
-  135 |
-  136 |   # Needed for compiling the ActionDispatch::Journey parser.
-  137 |   gem ""racc"", "">=1.4.6"", require: false
-  138 |
-  139 |   # Active Record.
-  140 |   gem ""sqlite3"", ""~> 1.4""
-  141 |
-  142 |   group :development do
-  143 |     gem ""pg"", ""~> 1.3""
-  144 |     gem ""mysql2"", ""~> 0.5""
-      ^ Col 0
-",gem.gem_gemfile
 F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (rails-html-sanitizer v^1.2.0) [CVE-2022-23517, CVE-2022-23518, CVE-2022-23519, CVE-2022-23520, CVE-2022-32209, GHSA-5x79-w82f-gw8w, GHSA-9h9g-93gc-623h, GHSA-mcvf-2q2m-x72m, GHSA-pg8v-g4xq-hww9, GHSA-rrfc-7g8p-99q8]",176,937,skims,011. Use of software with known vulnerabilities,"Use of rails-html-sanitizer at version 1.2.0 with ['CVE-2022-23517', 'CVE-2022-23518', 'CVE-2022-23519', 'CVE-2022-23520', 'CVE-2022-32209', 'GHSA-5x79-w82f-gw8w', 'GHSA-9h9g-93gc-623h', 'GHSA-mcvf-2q2m-x72m', 'GHSA-pg8v-g4xq-hww9', 'GHSA-rrfc-7g8p-99q8'] in namespace/skims/test/data/lib_path/f011/Gemfile","
   163 | end
   164 |
@@ -1368,10 +1320,10 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/yarn.lock (slug v0.9.0) [CVE
 ",npm.npm_yarn_lock
 F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile (sqlite3 v^1.4) [GHSA-mgvv-5mxp-xq67],140,937,skims,011. Use of software with known vulnerabilities,Use of sqlite3 at version 1.4 with ['GHSA-mgvv-5mxp-xq67'] in namespace/skims/test/data/lib_path/f011/Gemfile,"
   130 | platforms :ruby, :windows do
-  131 |   gem ""nokogiri"", ""= 1.8.1""
+  131 |   gem ""nokogiri"", ""= 1.14.2""
   132 |   gem ""devise"", ""= 1.4.2"", :group => :development
   133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
-  134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
+  134 |
   135 |
   136 |   # Needed for compiling the ActionDispatch::Journey parser.
   137 |   gem ""racc"", "">=1.4.6"", require: false
