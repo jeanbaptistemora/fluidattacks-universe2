@@ -1,6 +1,7 @@
 import { PureAbility } from "@casl/ability";
 import { render, screen } from "@testing-library/react";
 import React from "react";
+import { MemoryRouter, Route } from "react-router-dom";
 
 import { ActionButtons } from ".";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -16,16 +17,20 @@ describe("ToelinesActionButtons", (): void => {
 
     render(
       <authzPermissionsContext.Provider value={new PureAbility([])}>
-        <ActionButtons
-          areToeLinesDatasSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={true}
-          isVerifying={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onVerify={jest.fn()}
-        />
+        <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+          <Route path={"/:groupName/surface/lines"}>
+            <ActionButtons
+              areToeLinesDatasSelected={true}
+              isAdding={false}
+              isEditing={false}
+              isInternal={true}
+              isVerifying={false}
+              onAdd={jest.fn()}
+              onEdit={jest.fn()}
+              onVerify={jest.fn()}
+            />
+          </Route>
+        </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
 
@@ -40,16 +45,20 @@ describe("ToelinesActionButtons", (): void => {
     ]);
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areToeLinesDatasSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={false}
-          isVerifying={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onVerify={jest.fn()}
-        />
+        <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+          <Route path={"/:groupName/surface/lines"}>
+            <ActionButtons
+              areToeLinesDatasSelected={true}
+              isAdding={false}
+              isEditing={false}
+              isInternal={false}
+              isVerifying={false}
+              onAdd={jest.fn()}
+              onEdit={jest.fn()}
+              onVerify={jest.fn()}
+            />
+          </Route>
+        </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
 
@@ -65,16 +74,20 @@ describe("ToelinesActionButtons", (): void => {
 
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areToeLinesDatasSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={true}
-          isVerifying={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onVerify={jest.fn()}
-        />
+        <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+          <Route path={"/:groupName/surface/lines"}>
+            <ActionButtons
+              areToeLinesDatasSelected={true}
+              isAdding={false}
+              isEditing={false}
+              isInternal={true}
+              isVerifying={false}
+              onAdd={jest.fn()}
+              onEdit={jest.fn()}
+              onVerify={jest.fn()}
+            />
+          </Route>
+        </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
 
@@ -91,16 +104,20 @@ describe("ToelinesActionButtons", (): void => {
     ]);
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areToeLinesDatasSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={true}
-          isVerifying={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onVerify={jest.fn()}
-        />
+        <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+          <Route path={"/:groupName/surface/lines"}>
+            <ActionButtons
+              areToeLinesDatasSelected={true}
+              isAdding={false}
+              isEditing={false}
+              isInternal={true}
+              isVerifying={false}
+              onAdd={jest.fn()}
+              onEdit={jest.fn()}
+              onVerify={jest.fn()}
+            />
+          </Route>
+        </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
 
@@ -119,16 +136,20 @@ describe("ToelinesActionButtons", (): void => {
 
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areToeLinesDatasSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={true}
-          isVerifying={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onVerify={jest.fn()}
-        />
+        <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+          <Route path={"/:groupName/surface/lines"}>
+            <ActionButtons
+              areToeLinesDatasSelected={true}
+              isAdding={false}
+              isEditing={false}
+              isInternal={true}
+              isVerifying={false}
+              onAdd={jest.fn()}
+              onEdit={jest.fn()}
+              onVerify={jest.fn()}
+            />
+          </Route>
+        </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
 

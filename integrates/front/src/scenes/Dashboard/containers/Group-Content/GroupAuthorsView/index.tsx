@@ -256,6 +256,31 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [stackHolderData]
   );
 
+  const handleSendInvitation = useCallback(
+    (
+      actorEmail: string
+    ): ((event: React.MouseEvent<HTMLButtonElement>) => Promise<void>) => {
+      return async (
+        event: React.MouseEvent<HTMLButtonElement>
+      ): Promise<void> => {
+        event.stopPropagation();
+
+        const resendStakeholder = {
+          email: actorEmail.toLocaleLowerCase(),
+          groupName,
+          responsibility: "",
+          role: "USER",
+        };
+        await grantAccess({
+          variables: {
+            ...resendStakeholder,
+          },
+        });
+      };
+    },
+    [grantAccess, groupName]
+  );
+
   const dataset: IAuthors[] = useMemo(
     (): IAuthors[] =>
       data === undefined
@@ -286,24 +311,6 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
               };
             }
 
-            async function handleSendInvitation(
-              event: React.MouseEvent<HTMLButtonElement>
-            ): Promise<void> {
-              event.stopPropagation();
-
-              const resendStakeholder = {
-                email: actorEmail.toLocaleLowerCase(),
-                groupName,
-                responsibility: "",
-                role: "USER",
-              };
-              await grantAccess({
-                variables: {
-                  ...resendStakeholder,
-                },
-              });
-            }
-
             return {
               ...value,
               invitation: (
@@ -316,7 +323,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                       <div className={"nl2"}>
                         <Button
                           disabled={loading || loadingStakeholders}
-                          onClick={handleSendInvitation}
+                          onClick={handleSendInvitation(actorEmail)}
                           variant={"secondary"}
                         >
                           {t("group.authors.sendInvitation")}
@@ -331,8 +338,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [
       data,
       formatInvitation,
-      grantAccess,
-      groupName,
+      handleSendInvitation,
       loading,
       loadingStakeholders,
       stackHolderData,

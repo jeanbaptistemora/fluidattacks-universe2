@@ -673,7 +673,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         columnVisibilityState={columnVisibility}
         columns={tablecolumns}
         data={filteredToeLines}
-        exportCsv={true}
+        exportCsv={false}
         extraButtons={
           <ActionButtons
             areToeLinesDatasSelected={selectedToeLinesDatas.length > 0}
