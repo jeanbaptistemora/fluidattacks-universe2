@@ -82,12 +82,14 @@ def get_last_sprint_start_date(
     start_date: datetime = (
         sprint_start_date.astimezone(tz=timezone.utc)
         if sprint_start_date
-        else db_model_utils.get_first_day_iso_date()
+        else db_model_utils.get_first_day_iso_date().astimezone(
+            tz=timezone.utc
+        )
     )
 
     sprint_dates: DatetimeIndex = date_range(
         start=start_date.isoformat(),
-        end=end_date,
+        end=end_date.isoformat(),
         freq=f'{sprint_length}W-{start_date.strftime("%A")[:3].upper()}',
     )
 

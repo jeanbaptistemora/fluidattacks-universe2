@@ -83,6 +83,7 @@ from unittest import (
 def get_account_names(
     *,
     tokens: tuple[str, ...],  # pylint: disable=unused-argument
+    credentials: list[Credentials],  # pylint: disable=unused-argument
 ) -> tuple[tuple[str, ...], ...]:
     return tuple([tuple(["testorg1"])])
 

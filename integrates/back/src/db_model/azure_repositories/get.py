@@ -260,6 +260,7 @@ def _get_bitbucket_repositories(*, token: str) -> tuple[BasicRepoData, ...]:
 async def get_account_names(
     *,
     tokens: tuple[str, ...],
+    credentials: list[Credentials],
 ) -> tuple[tuple[str, ...], ...]:
     profiles: tuple[Profile, ...] = await collect(
         tuple(
@@ -271,6 +272,13 @@ async def get_account_names(
         workers=1,
     )
 
+    for profile, credential in zip(profiles, credentials):
+        if profile is None:
+            LOGGER.info(
+                "Empty profile response",
+                extra=dict(extra=dict(credential_id=credential.id)),
+            )
+
     accounts = await collect(
         tuple(
             in_thread(
@@ -280,6 +288,7 @@ async def get_account_names(
                 public_alias=profile.additional_properties["publicAlias"],
             )
             for profile, token in zip(profiles, tokens)
+            if profile is not None
         ),
         workers=1,
     )

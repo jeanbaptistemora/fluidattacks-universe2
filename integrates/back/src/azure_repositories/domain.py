@@ -410,7 +410,7 @@ async def get_azure_credentials_authors_stats(
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
-    ouath_tokens: tuple[str, ...] = await collect(
+    oauth_tokens: tuple[str, ...] = await collect(
         tuple(
             _get_azure_credentials_tokens(
                 credential=credential, loaders=loaders
@@ -420,11 +420,18 @@ async def get_azure_credentials_authors_stats(
         ),
         workers=1,
     )
-    accounts_names = await get_account_names(tokens=ouath_tokens)
+    accounts_names = await get_account_names(
+        tokens=oauth_tokens,
+        credentials=[
+            credential
+            for credential in credentials
+            if isinstance(credential.state.secret, OauthAzureSecret)
+        ],
+    )
     all_repositories: tuple[list[list[GitRepository]], ...] = await collect(
         tuple(
             get_oauth_repositories(token=token, accounts_names=_accounts_names)
-            for token, _accounts_names in zip(ouath_tokens, accounts_names)
+            for token, _accounts_names in zip(oauth_tokens, accounts_names)
         ),
         workers=1,
     )
@@ -433,7 +440,7 @@ async def get_azure_credentials_authors_stats(
             token=token, repository=repository, account_name=account_name
         )
         for token, _accounts_names, _all_repositories in zip(
-            ouath_tokens, accounts_names, all_repositories
+            oauth_tokens, accounts_names, all_repositories
         )
         for _repositories, account_name in zip(
             _all_repositories, _accounts_names
@@ -903,7 +910,14 @@ async def get_azure_credentials_stats(
         ),
         workers=1,
     )
-    accounts_names = await get_account_names(tokens=ouath_tokens)
+    accounts_names = await get_account_names(
+        tokens=ouath_tokens,
+        credentials=[
+            credential
+            for credential in credentials
+            if isinstance(credential.state.secret, OauthAzureSecret)
+        ],
+    )
     all_repositories: tuple[list[list[GitRepository]], ...] = await collect(
         tuple(
             get_oauth_repositories(token=token, accounts_names=_accounts_names)
