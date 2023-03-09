@@ -1031,13 +1031,13 @@ F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/I
   21 |                 {
      ^ Col 0
 ",aws.default_seggroup_allows_all_traffic
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_instances_without_profile.yaml,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_root/f024/cfn_ec2_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
    4 |     Type: AWS::EC2::Instance
-   5 |     Properties:
->  6 |       ImageId: ami-79fd7eee
+>  5 |     Properties:
+   6 |       ImageId: ami-79fd7eee
    7 |       KeyName: testkey
    8 |       BlockDeviceMappings:
    9 |         - DeviceName: /dev/sdm
@@ -1055,7 +1055,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_root/f024/cfn_ec2_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {

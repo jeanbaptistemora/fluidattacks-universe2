@@ -26,7 +26,6 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iter_ec2_ingress_egress,
-    iter_ec2_instances,
     iter_ec2_security_groups,
 )
 from typing import (
@@ -136,18 +135,6 @@ def _groups_without_egress_iter_vulnerabilities(
         if hasattr(group, "raw")
         and not group.raw.get("SecurityGroupEgress", None)
     )
-
-
-def _instances_without_role_iter_vulns(
-    instaces_iterator: Iterator[Any | Node],
-) -> Iterator[Any | Node]:
-    for instance in instaces_iterator:
-        if (
-            hasattr(instance, "raw")
-            and isinstance(instance, Node)
-            and not instance.raw.get("IamInstanceProfile", None)
-        ):
-            yield instance
 
 
 def _cidr_iter_vulnerabilities(
@@ -334,22 +321,6 @@ def cfn_groups_without_egress(
         ),
         path=path,
         method=MethodsEnum.CFN_GROUPS_WITHOUT_EGRESS,
-    )
-
-
-def cfn_instances_without_profile(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.instances_without_profile",
-        iterator=get_cloud_iterator(
-            _instances_without_role_iter_vulns(
-                instaces_iterator=iter_ec2_instances(template=template)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_INST_WITHOUT_PROFILE,
     )
 
 

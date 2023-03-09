@@ -2282,7 +2282,7 @@ class MethodsEnum(Enum):
     CFN_INST_WITHOUT_PROFILE = MethodInfo(
         file_name="cloudformation",
         name="cfn_instances_without_profile",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

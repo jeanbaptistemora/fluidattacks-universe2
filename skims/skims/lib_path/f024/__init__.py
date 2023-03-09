@@ -13,7 +13,6 @@ from lib_path.f024.cloudformation import (
     cfn_ec2_has_unrestricted_ftp_access,
     cfn_ec2_has_unrestricted_ports,
     cfn_groups_without_egress,
-    cfn_instances_without_profile,
     cfn_unrestricted_cidrs,
     cfn_unrestricted_ip_protocols,
 )
@@ -26,15 +25,6 @@ from parse_cfn.loader import (
 from typing import (
     Any,
 )
-
-
-@SHIELD_BLOCKING
-def run_cfn_instances_without_profile(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_instances_without_profile(
-        content=content, path=path, template=template
-    )
 
 
 @SHIELD_BLOCKING
@@ -143,7 +133,6 @@ def analyze(
                 *(
                     fun(content, path, template)
                     for fun in (
-                        run_cfn_instances_without_profile,
                         run_cfn_unrestricted_cidrs,
                         run_cfn_allows_anyone_to_admin_ports,
                         run_cfn_unrestricted_ip_protocols,
