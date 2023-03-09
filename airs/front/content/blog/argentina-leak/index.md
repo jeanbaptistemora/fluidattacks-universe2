@@ -118,12 +118,13 @@ and there was no massive leak.
 Yikes\!
 What was found later proved that was not the case.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
 />
+</div>
 
 ## And the attacker’s name is…​
 

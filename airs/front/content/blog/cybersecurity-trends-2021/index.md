@@ -119,12 +119,13 @@ The global annual cost of cybercrime [is predicted](https://cybersecurityventure
 to be $6 trillion this year and increase 15% per year,
 reaching $10.5 trillion by 2025.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/penetration-testing/"
+title="Get started with Fluid Attacks' Penetration Testing solution right now"
 />
+</div>
 
 ## Prevention trends in 2021
 
@@ -158,20 +159,20 @@ Regarding advances in threat detection,
 organizations are [increasingly turning](https://www.kaspersky.com/resource-center/preemptive-safety/cyber-security-trends)
 to AI and machine learning to analyze great volumes of data.
 In addition to those techniques,
-organizations are soliciting [manual pentesting](../../solutions/penetration-testing/)
+organizations are soliciting [manual pentesting](../what-is-manual-penetration-testing/)
 as a way to find more complex and severe types of vulnerabilities.
 They are also in need of [attack surface management platforms](../../platform/arm/)
 that help the prioritization of risks and fixes.
-Besides, the [Breach and Attack Simulation](../../solutions/attack-simulation/)
+Besides, the [breach and attack simulation](../what-is-breach-attack-simulation/)
 solution is gaining recognition
 as a method to assess how prepared an organization is for preventing,
 identifying and responding to real threats.
-`Fluid Attacks` offers these solutions,
-testing systems' security configurations and responses continuously.
+Fluid Attacks offers its [Penetration Testing solution](../../solutions/penetration-testing/),
+assessing systems' security configurations and responses continuously.
 These technologies and methods have been,
 and are expected to be,
 implemented by many teams
-starting from the early phases of the Software Development Lifecycle.
+starting from the early phases of the software development lifecycle.
 
 ## Another couple of predictions for the years ahead
 

@@ -78,7 +78,7 @@ to check whether security defenses can be bypassed.
 Some providers liken the latter tools' capabilities
 to the work of a [purple team](../purple-team/)
 by articulating red and blue team exercises (though automated).
-We will expand on this in a future blog post.
+We expand on this in [another blog post](../bas-vs-pentesting-vs-red-teaming/).
 
 Breach and attack simulation tools may produce results faster than humans,
 but accuracy is a concern.
@@ -106,6 +106,14 @@ And their assessments might not be limited
 to the controls from the MITRE ATT&CK (adversarial tactics,
 techniques and common knowledge) framework
 and the NVD (National Vulnerability Database).
+
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+</div>
 
 ## Why do organizations conduct breach and attack simulations?
 

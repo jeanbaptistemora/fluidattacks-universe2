@@ -125,12 +125,13 @@ overcoming the ancient use of beacons for elementary messages).
 For material objects were no longer being delivered
 but *only* information.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/red-teaming/"
+title="Get started with Fluid Attacks' Red Teaming solution right now"
 />
+</div>
 
 Each message could straightforwardly travel through the network.
 Via a telescope,

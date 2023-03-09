@@ -102,12 +102,13 @@ assessment for one of Epik’s users. He said that "with all the data in
 the leak \[…​\] any attacker could easily take over the websites of
 countless Epik customers."
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
 />
+</div>
 
 ## WHOIS compromised?
 

@@ -133,12 +133,13 @@ as Cordero pointed out,
 they have taken advantage of the low IT security culture
 in Costa Rica.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
 />
+</div>
 
 [The attacks](https://www.elfinancierocr.com/tecnologia/gobierno-emite-directriz-para-enfrentar-a-hackers/LQL2IWCVF5EMDAN7U3MO5D4TDM/story/),
 especially on the Ministerio de Hacienda,

@@ -65,12 +65,13 @@ Russian cyberattackers must be involved according to his company’s
 investigations. No doubt, by suggesting that number, he lends weight to
 the idea that this means *war*.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/red-teaming/"
+title="Get started with Fluid Attacks' Red Teaming solution right now"
 />
+</div>
 
 A Russian intelligence agency is allegedly implicated in all of this.
 Perhaps it is the same agency credited with developing a similar tactic

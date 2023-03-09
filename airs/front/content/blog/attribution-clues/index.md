@@ -124,12 +124,13 @@ They may install [devices](../human-security-sensor/)
 inside the company's facilities
 or leave behind malware-carrying [USB flash drives](https://hackcontrol.org/cases/thumb-drive-awareness-lost-usb-attacks-explained/).
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/red-teaming/"
+title="Get started with Fluid Attacks' Red Teaming solution right now"
 />
+</div>
 
 **Exploitation artifacts** address questions
 like the number of techniques that had to be applied

@@ -218,12 +218,13 @@ DOWNLOADED: 9224 - FOUND: 4
 As we can see, there is an admin site to which we do not have access,
 and a normal site to search for products.
 
+<div>
 <cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
 />
+</div>
 
 ## SSRF attacks
 
