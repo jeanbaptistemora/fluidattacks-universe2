@@ -405,6 +405,12 @@ def rebase(
         ),
         path,
     )
+    new_path = (
+        new_path.encode("latin-1")
+        .decode("unicode-escape")
+        .encode("latin-1")
+        .decode("utf-8")
+    ).strip('"')
 
     if new_rev == rev_a or (new_line == line and new_path == path):
         # We did not rebase anything
