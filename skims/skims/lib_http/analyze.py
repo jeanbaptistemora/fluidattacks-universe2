@@ -188,7 +188,6 @@ async def get_urls() -> set[URLContext]:
         for child_url in get_sameorigin_urls(url_ctx.components, url_ctx.soup):
             if child_url not in urls_done:
                 log_blocking("info", "Discovered url: %s", child_url)
-                urls_pending.put(child_url)
 
     return urls
 

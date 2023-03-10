@@ -4,6 +4,14 @@ dast:
     - https://this.host.should.not.exist
     - http://localhost:48000/
     - http://localhost:48000/error
+    - http://localhost:48000/f015_dast_basic_2
+    - http://localhost:48000/f023_0
+    - http://localhost:48000/f036_0
+    - http://localhost:48000/f042_httponly_2
+    - http://localhost:48000/f043_dast_csp_1
+    - http://localhost:48000/f064_server_clock_1
+    - http://localhost:48000/f086_0
+    - http://localhost:48000/f343_breach_possible_1
   http_checks: true
 language: EN
 namespace: namespace
