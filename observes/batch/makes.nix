@@ -175,7 +175,7 @@ in {
       name = "dynamo_etl_determine_schema";
       size = "observes_large";
       attempts = 3;
-      timeout = 48 * 3600;
+      timeout = 1 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo_etl_conf/jobs/determine-schema"];
     };
 
