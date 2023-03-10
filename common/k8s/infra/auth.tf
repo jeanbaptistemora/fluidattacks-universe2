@@ -72,8 +72,11 @@ resource "kubernetes_cluster_role" "main" {
   }
   rule {
     api_groups = [""]
-    resources  = ["secrets"]
-    verbs      = ["list"]
+    resources = [
+      "customresourcedefinitions",
+      "secrets"
+    ]
+    verbs = ["list"]
   }
 }
 
