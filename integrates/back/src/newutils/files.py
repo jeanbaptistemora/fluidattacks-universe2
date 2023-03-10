@@ -9,14 +9,17 @@ from collections.abc import (
 )
 import magic
 import os
-from pathspec.patterns.gitwildmatch import (
-    GitWildMatchPattern,
+from pathspec import (
+    PathSpec,
 )
 from starlette.concurrency import (
     run_in_threadpool,
 )
 from starlette.datastructures import (
     UploadFile,
+)
+from typing import (
+    Iterable,
 )
 from wcmatch import (
     glob as w_glob,
@@ -128,13 +131,6 @@ def iter_rel_paths(starting_path: str) -> Iterator[str]:
     )
 
 
-def match_file(patterns: list[GitWildMatchPattern], file: str) -> bool:
-    matches = []
-    for pattern in patterns:
-        if pattern.include is not None:
-            if file in pattern.match((file,)):
-                matches.append(pattern.include)
-            elif not pattern.include:
-                matches.append(True)
-
-    return all(matches) if matches else False
+def match_files(patterns: list[str], files: Iterable[str]) -> Iterator[str]:
+    pattern = PathSpec.from_lines("gitwildmatch", patterns)
+    yield from pattern.match_files(files)

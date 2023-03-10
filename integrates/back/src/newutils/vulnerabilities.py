@@ -90,6 +90,9 @@ from dynamodb.types import (
 )
 import html
 import itertools
+from newutils.files import (
+    match_files,
+)
 import re
 from typing import (
     Any,
@@ -863,7 +866,21 @@ async def validate_vulnerability_in_toe_lines(
     index: int,
     raises: bool = True,
 ) -> ToeLines | None:
-    if vulnerability.root_id:
+    if (
+        vulnerability.root_id
+        and (
+            git_root := await loaders.root.load(
+                RootRequest(
+                    group_name=vulnerability.group_name,
+                    root_id=vulnerability.root_id,
+                )
+            )
+        )
+        and isinstance(git_root, GitRoot)
+    ):
+        if list(match_files(git_root.state.gitignore, [where])):
+            raise VulnerabilityPathDoesNotExistInToeLines(index=f"{index}")
+
         toe_lines: ToeLines | None = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=where,
@@ -874,17 +891,15 @@ async def validate_vulnerability_in_toe_lines(
         if not toe_lines and raises:
             raise VulnerabilityPathDoesNotExistInToeLines(index=f"{index}")
 
-        if toe_lines:
-            if not (
-                0 <= int(vulnerability.state.specific) <= toe_lines.state.loc
-            ):
-                if raises:
-                    raise LineDoesNotExistInTheLinesOfCodeRange(
-                        line=vulnerability.state.specific, index=f"{index}"
-                    )
-                return None
-            return toe_lines
-        raise ToeLinesNotFound()
+        if not toe_lines:
+            raise ToeLinesNotFound()
+        if not 0 <= int(vulnerability.state.specific) <= toe_lines.state.loc:
+            if raises:
+                raise LineDoesNotExistInTheLinesOfCodeRange(
+                    line=vulnerability.state.specific, index=f"{index}"
+                )
+            return None
+        return toe_lines
     return None
 
 

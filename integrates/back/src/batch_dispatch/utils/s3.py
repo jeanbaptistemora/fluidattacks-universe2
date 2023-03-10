@@ -26,12 +26,12 @@ from git.repo.base import (
 import logging
 from newutils.files import (
     iter_rel_paths,
+    match_files,
 )
 import os
 from os import (
     path,
 )
-import pathspec
 from settings.logger import (
     LOGGING,
 )
@@ -108,9 +108,8 @@ async def upload_cloned_repo_to_s3_tar(
 
 
 def _delete_out_of_scope_files(git_ignore: list[str], repo_path: str) -> bool:
-    spec_ignore = pathspec.PathSpec.from_lines("gitwildmatch", git_ignore)
     # Compute what files should be deleted according to the scope rules
-    for file_path in spec_ignore.match_files(iter_rel_paths(repo_path)):
+    for file_path in match_files(git_ignore, iter_rel_paths(repo_path)):
         if file_path.startswith(".git/"):
             continue
         path_to_delete = path.join(repo_path, file_path)
