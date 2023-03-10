@@ -1,12 +1,14 @@
 import click
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 from tap_dynamo import (
     extractor,
 )
 from tap_dynamo.client import (
-    new_client,
+    Client,
+    DynamoConf,
 )
 from typing import (
     NoReturn,
@@ -29,8 +31,42 @@ from utils_logger_2 import (
     default=1,
     help="tables segmentation for fast extraction",
 )
-def stream(tables: str, segments: int) -> NoReturn:
-    cmd: Cmd[None] = start_session() + new_client().bind(
+@click.option(
+    "--endpoint-url",
+    type=str,
+    default=None,
+    help="dynamo endpoint url",
+)
+@click.option(
+    "--region-name",
+    type=str,
+    default=None,
+    help="dynamo region name",
+)
+@click.option(
+    "--use-ssl",
+    type=bool,
+    default=None,
+    help="dynamo use ssl",
+)
+@click.option(
+    "--verify",
+    type=bool,
+    default=None,
+    help="dynamo verify",
+)
+def stream(
+    tables: str,
+    segments: int,
+    endpoint_url: str | None,
+    region_name: str | None,
+    use_ssl: bool | None,
+    verify: bool | None,
+) -> NoReturn:
+    conf = DynamoConf(endpoint_url, region_name, use_ssl, verify)
+    cmd: Cmd[None] = start_session() + Client.new_client(
+        Maybe.from_value(conf)
+    ).bind(
         lambda client: extractor.stream_tables(
             client, tuple(tables.split()), segments
         )
@@ -58,7 +94,7 @@ def stream(tables: str, segments: int) -> NoReturn:
     help="total table segments",
 )
 def stream_segment(table: str, current: int, total: int) -> NoReturn:
-    cmd: Cmd[None] = start_session() + new_client().bind(
+    cmd: Cmd[None] = start_session() + Client.new_client(Maybe.empty()).bind(
         lambda client: extractor.stream_segment(
             client, extractor.TableSegment(table, current, total)
         )

@@ -1,6 +1,14 @@
+from __future__ import (
+    annotations,
+)
+
 import boto3
 from dataclasses import (
     dataclass,
+    field,
+)
+from fa_purity import (
+    Maybe,
 )
 from fa_purity.cmd import (
     Cmd,
@@ -24,6 +32,11 @@ LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
+class _Private:
+    pass
+
+
+@dataclass(frozen=True)
 class ScanArgs:
     limit: int
     consistent_read: bool
@@ -44,14 +57,9 @@ class ScanArgs:
 
 
 @dataclass(frozen=True)
-class _TableClient:
+class TableClient:
+    _private: _Private = field(repr=False, hash=False, compare=False)
     _raw_client: DynamoTable
-
-
-@dataclass(frozen=True)
-class TableClient(_TableClient):
-    def __init__(self, obj: _TableClient) -> None:
-        super().__init__(obj._raw_client)
 
     def _scan_action(self, args: ScanArgs) -> FrozenDict[str, Any]:
         # pylint: disable=assignment-from-no-return
@@ -65,22 +73,35 @@ class TableClient(_TableClient):
 
 
 @dataclass(frozen=True)
-class _Client:
-    _raw_client: DynamoDBServiceResource
+class DynamoConf:
+    endpoint_url: str | None
+    region_name: str | None
+    use_ssl: bool | None
+    verify: bool | None
 
 
 @dataclass(frozen=True)
-class Client(_Client):
-    def __init__(self, obj: _Client) -> None:
-        super().__init__(obj._raw_client)
+class Client:
+    _private: _Private = field(repr=False, hash=False, compare=False)
+    _raw_client: DynamoDBServiceResource
 
     def table(self, table_name: str) -> TableClient:
-        _table = _TableClient(self._raw_client.Table(table_name))
-        return TableClient(_table)
+        return TableClient(_Private(), self._raw_client.Table(table_name))
 
-
-def new_client() -> Cmd[Client]:
-    # This impure procedure gets inputs (credentials) through the environment
-    # e.g. AWS_DEFAULT_REGION
-    raw = Cmd.from_cmd(lambda: boto3.resource("dynamodb"))
-    return raw.map(lambda d: Client(_Client(d)))
+    @staticmethod
+    def new_client(conf: Maybe[DynamoConf]) -> Cmd[Client]:
+        # This impure procedure gets inputs through the
+        # environment when settings are `None` or not set
+        # e.g. AWS_ACCESS_KEY_ID, AWS_DEFAULT_REGION
+        raw = conf.map(
+            lambda c: Cmd.from_cmd(
+                lambda: boto3.resource(
+                    "dynamodb",
+                    c.region_name,
+                    endpoint_url=c.endpoint_url,
+                    use_ssl=c.use_ssl,
+                    verify=c.verify,
+                )
+            )
+        ).value_or(Cmd.from_cmd(lambda: boto3.resource("dynamodb")))
+        return raw.map(lambda r: Client(_Private(), r))
