@@ -82,6 +82,14 @@ With the application presented by Revuelta —the Kiuwan Local Analyzer—
 the client’s source code is analyzed locally, on his company’s network.
 Then, the encrypted results are sent to the Kiuwan cloud.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/secure-code-review/"
+title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+</div>
+
 Once the client runs the Kiuwan app on his system, he can choose one by
 one the applications to be analyzed. SAST and SCA can be performed
 individually or together. The program can be opened several times at the

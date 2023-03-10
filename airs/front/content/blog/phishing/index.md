@@ -114,6 +114,14 @@ mixing HTML and PHP are available today, living for about [36 hours or
 so before being detected and
 deleted](https://www.akamai.com/us/en/multimedia/documents/white-paper/phishing-is-no-longer-just-email-its-social-white-paper.pdf).
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/red-teaming/"
+title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+</div>
+
 In addition, [phishers can be difficult to
 detect](https://www.researchgate.net/publication/322823383_Phishing_-_challenges_and_solutions)
 since they succeed in hiding the location of their servers. They have

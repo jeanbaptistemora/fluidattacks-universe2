@@ -78,9 +78,18 @@ many can be guided by the methodology of focusing first
 on vulnerabilities classified as critical.
 This method can sometimes be an effective way of handling the situation.
 But as the authors of the webinar suggest,
-the act of [understanding vulnerabilities](../../solutions/vulnerability-management/)
+the act of understanding vulnerabilities
 and their different attributes and impact
 is fundamental.
+
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/vulnerability-management/"
+title="Get started with Fluid Attacks' Vulnerability Management solution
+right now"
+/>
+</div>
 
 The severity of software vulnerabilities is usually calculated with the
 Common Vulnerability Scoring System

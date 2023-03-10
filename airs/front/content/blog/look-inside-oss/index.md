@@ -104,6 +104,14 @@ maintained. On the other hand, as
 says: "If a program is free but not copylefted, some copies or modified
 versions may not be free at all."
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/secure-code-review/"
+title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+</div>
+
 On the security side, we must be clear that vulnerabilities and gaps are
 present in both open and closed source software. According to a post by
 [Maryna &

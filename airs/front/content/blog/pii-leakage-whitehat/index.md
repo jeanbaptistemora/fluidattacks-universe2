@@ -100,6 +100,14 @@ the users of our applications. From there, the risk increases because of
 the ways of sharing, and in itself the traffic that this information
 has.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/security-testing/"
+title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+</div>
+
 ## Recommendations
 
 It is then indicated as recommended for risk reduction with user data

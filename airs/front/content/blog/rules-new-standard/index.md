@@ -62,7 +62,16 @@ The delimitation will depend on what each client wants to test
 and on the concepts of risk and vulnerability that they handle.
 The requirements that are chosen determine the stringency
 and extent of pentesting,
-thus establishing conditions for [vulnerability management](../../solutions/vulnerability-management/).
+thus establishing conditions for vulnerability management.
+
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/vulnerability-management/"
+title="Get started with Fluid Attacks' Vulnerability Management solution
+right now"
+/>
+</div>
 
 Hackers have in Rules, as Paula Vélez, Security Architect at `Fluid Attacks`
 suggests, "_a performance guide, because if a requirement is

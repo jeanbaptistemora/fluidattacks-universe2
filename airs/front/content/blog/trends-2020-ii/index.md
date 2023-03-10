@@ -118,6 +118,14 @@ fact, it is often an afterthought in cloud deployments,*" says the
 [World Economic
 Forum](https://www.weforum.org/agenda/2020/01/these-will-be-the-main-cybersecurity-trends-in-2020/).
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/devsecops/"
+title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+</div>
+
 It seems that organizations will change their beliefs about cloud
 security very soon. In line with the ransomware trend, cloud providers
 have been impacted recently.
@@ -167,7 +175,7 @@ Wharton](https://knowledge.wharton.upenn.edu/article/america-plans-close-skills-
 have also referred to this issue. Some have blamed academia for this
 shortage of skilled talent. However, it is not that simple.
 In a [previous post](../training-basic/)
-in which we interviewed a [DevOps](../../solutions/devsecops/) engineer,
+in which we interviewed a DevOps engineer,
 it was discussed that academia,
 in cybersecurity,
 is not capable of keeping up with the pace of the industry.

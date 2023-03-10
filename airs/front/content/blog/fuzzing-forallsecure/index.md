@@ -88,8 +88,16 @@ a process that goes beyond one-pass checks.
 While people use the software
 and hackers try to find the vulnerabilities,
 [continuous hacking](../../services/continuous-hacking/)
-is conducted as a [security testing](../../solutions/security-testing/),
+is conducted as a security testing,
 and it is performed as the software evolves.
+
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/security-testing/"
+title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+</div>
 
 Concerning the negative testing, we can then mention **continuous
 fuzzing**. As [Ispoglou et al.

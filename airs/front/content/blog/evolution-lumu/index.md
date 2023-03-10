@@ -86,6 +86,14 @@ At least assuming the alteration of some controllable variables.
 And hoping that some methods result even more predictable and successful,
 always to the benefit of the user.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/security-testing/"
+title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+</div>
+
 Therefore,
 it is established that
 we cannot conclude that

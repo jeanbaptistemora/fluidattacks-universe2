@@ -85,6 +85,14 @@ service.
 As Daniel says,
 hacking skills are still not replaceable by machines.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+</div>
+
 **And the other variant?**
 
 1. [Cryptojacking](../cryptojacking-malware/). Capturing machines, so

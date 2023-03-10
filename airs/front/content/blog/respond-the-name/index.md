@@ -135,6 +135,14 @@ git clone https://github.com/SpiderLabs/Responder
 
 We are ready to go.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/penetration-testing/"
+title="Get started with Fluid Attacks' Penetration Testing solution right now"
+/>
+</div>
+
 ## Starting the poisoner
 
 The only thing we need to do is to run `Responder` as a root. We can do

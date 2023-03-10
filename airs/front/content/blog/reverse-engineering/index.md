@@ -88,6 +88,14 @@ This process emerged from software maintenance and support, [largely
 from malware
 analysis](https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6).
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/ethical-hacking/"
+title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+</div>
+
 We can separate SRE [into two
 phases](https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley\(2005\).pdf):
 The first one can be seen as a large scale observation to determine the

@@ -87,6 +87,14 @@ a portal where they can enter all of the organization’s systems. From
 this portal, a record is kept of who accessed what, and the
 system-system keys are rotated without impacting the users.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/devsecops/"
+title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+</div>
+
 It only remains to mention that our approach to product in the last
 decade makes us operate on a system that, consistent with our
 convictions, is totally in the cloud and in the most outsourced mode

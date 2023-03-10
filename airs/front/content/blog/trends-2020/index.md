@@ -104,6 +104,14 @@ budget"](https://securityboulevard.com/2020/01/10-cybersecurity-trends-in-2020-y
 does not imply fear only, but an array of reasons. We think the most
 plausible is that some cybersecurity investments pay off.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/devsecops/"
+title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+</div>
+
 In another place, we found this "trend": ["Information security
 technology remains
 important."](https://www.hoxhunt.com/blog/10-cybersecurity-trends-2020/)

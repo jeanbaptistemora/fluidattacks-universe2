@@ -172,6 +172,14 @@ As we see, it shows us the file, line, and content of that line of code,
 if we have a big source code, this is useful to locate potential files
 that could contain clear text credentials in them.
 
+<div>
+<cta-banner
+buttontxt="Read more"
+link="/solutions/secure-code-review/"
+title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+</div>
+
 Next, we can search for the history of that file using `git`:
 
 **history git.**
