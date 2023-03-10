@@ -1104,7 +1104,7 @@ F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_role_policy
   80 |
      ^ Col 0
 ",terraform.tfm_iam_excessive_role_policy
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml,"
    3 |   MyPolicy:
    4 |     Type: AWS::IAM::Policy
    5 |     Properties:
@@ -1128,7 +1128,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ss
   23 |         Statement:
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml,"
   15 |             Resource: '*'
   16 |   CreateTestDBPolicy:
   17 |     Type: AWS::IAM::ManagedPolicy
@@ -1152,7 +1152,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ss
   35 |                 rds:DatabaseClass: db.t2.micro
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
    4 |       ""Type"": ""AWS::IAM::Policy"",
    5 |       ""Properties"": {
    6 |         ""PolicyName"": ""CFNUsers"",
@@ -1176,7 +1176,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ss
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
   23 |     ""CreateTestDBPolicy"": {
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
   25 |       ""Properties"": {

@@ -2554,7 +2554,7 @@ class MethodsEnum(Enum):
     CFN_IAM_FULL_ACCESS_SSM = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_has_full_access_to_ssm",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

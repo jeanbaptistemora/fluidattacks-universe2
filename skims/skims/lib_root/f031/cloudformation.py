@@ -7,6 +7,7 @@ from itertools import (
 from lib_root.utilities.cloudformation import (
     get_attribute,
     iterate_group_resources,
+    iterate_iam_policy_documents,
     iterate_resource,
 )
 from model.core_model import (
@@ -51,6 +52,45 @@ def _admin_policy_attached(graph: Graph, nid: NId) -> Iterator[NId]:
     value = graph.nodes[nid]["value"]
     if value.split("/")[-1] in elevated_policies:
         yield nid
+
+
+def _iam_has_full_access_to_ssm(graph: Graph, nid: NId) -> Iterator[NId]:
+    effect, effect_val, _ = get_attribute(graph, nid, "Effect")
+    action, action_val, action_id = get_attribute(graph, nid, "Action")
+    if effect and action and effect_val == "Allow":
+        action_attrs = graph.nodes[action_id]["value_id"]
+        if graph.nodes[action_attrs]["label_type"] == "ArrayInitializer":
+            for act in adj_ast(graph, action_attrs):
+                if graph.nodes[act]["value"] == "ssm:*":
+                    yield act
+        elif action_val == "ssm:*":
+            yield action_id
+
+
+def cfn_iam_has_full_access_to_ssm(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_FULL_ACCESS_SSM
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_iam_policy_documents(graph):
+                for report in _iam_has_full_access_to_ssm(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f031.iam_has_full_access_to_ssm",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def cfn_admin_policy_attached(

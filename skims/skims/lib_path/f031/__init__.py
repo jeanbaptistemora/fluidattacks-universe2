@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f031.cloudformation import (
     cfn_bucket_policy_allows_public_access,
-    cfn_iam_has_full_access_to_ssm,
     cfn_negative_statement,
 )
 from model.core_model import (
@@ -48,15 +47,6 @@ def run_cfn_negative_statement(
 
 
 @SHIELD_BLOCKING
-def run_cfn_iam_has_full_access_to_ssm(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_has_full_access_to_ssm(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -75,7 +65,6 @@ def analyze(
                     for fun in (
                         run_cfn_bucket_policy_allows_public_access,
                         run_cfn_negative_statement,
-                        run_cfn_iam_has_full_access_to_ssm,
                     )
                 ),
             )
