@@ -159,14 +159,18 @@ def evaluate(
 
 
 def get_node_evaluation_results(
-    graph: Graph, n_id: NId, danger_set: set[str], method: MethodsEnum
+    method: MethodsEnum,
+    graph: Graph,
+    n_id: NId,
+    triggers_goal: set[str],
+    danger_goal: bool = True,
 ) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if (
             evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
+            and evaluation.danger == danger_goal
+            and evaluation.triggers == triggers_goal
         ):
             return True
     return False

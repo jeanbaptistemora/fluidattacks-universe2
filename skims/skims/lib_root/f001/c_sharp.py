@@ -21,10 +21,7 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
@@ -32,16 +29,13 @@ from utils import (
 
 
 def is_sql_injection(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    al_id = graph.nodes[n_id].get("arguments_id")
-    if not al_id:
-        return False
-    test_nid = g.adj_ast(graph, al_id)[0]
-
-    for path in get_backward_paths(graph, test_nid):
-        evaluation = evaluate(method, graph, path, test_nid)
-        if evaluation and evaluation.danger:
-            return True
-
+    if (
+        (al_id := graph.nodes[n_id].get("arguments_id"))
+        and (args_ids := g.adj_ast(graph, al_id))
+        and len(args_ids) > 0
+        and get_node_evaluation_results(method, graph, args_ids[0], set())
+    ):
+        return True
     return False
 
 
@@ -55,14 +49,15 @@ def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
         "ExecuteScalarAsync",
         "ExecuteReaderAsync",
     }
-    danger_params = {"UserParams"}
-    if graph.nodes[n_id].get("member") not in danger_methods:
-        return False
-    test_nid = graph.nodes[n_id].get("expression_id")
-    for path in get_backward_paths(graph, test_nid):
-        evaluation = evaluate(method, graph, path, test_nid)
-        if evaluation and evaluation.triggers == danger_params:
-            return True
+    danger_set = {"UserParams"}
+    if (
+        graph.nodes[n_id].get("member") in danger_methods
+        and (test_id := graph.nodes[n_id].get("expression_id"))
+        and get_node_evaluation_results(
+            method, graph, test_id, danger_set, False
+        )
+    ):
+        return True
     return False
 
 
