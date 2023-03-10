@@ -29,6 +29,7 @@ function main {
     remove_group
     remove_toe_port
     report_machine
+    report_toe_lines
     subscribe_to_entity_report
     sync_git_root
     unfulfilled_standard_report_url

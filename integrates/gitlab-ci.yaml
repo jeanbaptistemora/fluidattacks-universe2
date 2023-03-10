@@ -2555,6 +2555,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__report_toe_lines:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:23.04
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'report_toe_lines'
+  stage: test-code
+  tags:
+    - integrates-small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__request_event_verification:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4643,6 +4672,7 @@
   interruptible: true
   needs:
     - /integrates/back/test/functional__report_machine
+    - /integrates/back/test/functional__report_toe_lines
     - /integrates/back/test/functional__request_event_verification
     - /integrates/back/test/functional__request_vulnerabilities_hold
     - /integrates/back/test/functional__request_vulnerabilities_verification
@@ -4681,7 +4711,6 @@
     - /integrates/back/test/functional__update_group_managed
     - /integrates/back/test/functional__update_group_policies
     - /integrates/back/test/functional__update_group_stakeholder
-    - /integrates/back/test/functional__update_ip_root
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4710,6 +4739,7 @@
   image: ghcr.io/fluidattacks/makes:23.04
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_ip_root
     - /integrates/back/test/functional__update_notification_preferences
     - /integrates/back/test/functional__update_organization_policies
     - /integrates/back/test/functional__update_organization_stakeholder
