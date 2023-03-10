@@ -16,11 +16,18 @@ function determine_schemas {
     && aws_login "prod_observes" "3600" \
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
+    && echo '[INFO] Starting local dynamo...' \
+    && { DAEMON=true dynamodb & } \
+    && sleep 60 \
+    && echo '[INFO] Local dynamo runing' \
     && export_notifier_key \
     && echo '[INFO] Determining data schemas from data...' \
     && tap-dynamo stream \
       --tables "${tables}" \
       --segments "${segments}" \
+      --endpoint-url "http://localhost:8022" \
+      --use-ssl "true" \
+      --verify "true" \
     | tap-json \
       --date-formats '%Y-%m-%d %H:%M:%S' \
       --schema-folder "${schemas}" \
