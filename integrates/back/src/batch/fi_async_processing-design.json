@@ -21,8 +21,63 @@
           "AttributeType": "S"
         }
       },
-      "NonKeyAttributes": [],
-      "TableFacets": [],
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "action_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "additional_info",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "batch_job_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "entity",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "queue",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "retries",
+          "AttributeType": "N"
+        },
+        {
+          "AttributeName": "subject",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "time",
+          "AttributeType": "S"
+        }
+      ],
+      "TableFacets": [
+        {
+          "FacetName": "action_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "pk",
+            "SortKeyAlias": "ACTION#all"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "action_name",
+            "additional_info",
+            "batch_job_id",
+            "entity",
+            "queue",
+            "retries",
+            "subject",
+            "time"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        }
+      ],
       "GlobalSecondaryIndexes": [],
       "DataAccess": {
         "MySql": {}
