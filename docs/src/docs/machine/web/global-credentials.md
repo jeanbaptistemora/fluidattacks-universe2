@@ -166,7 +166,7 @@ you can do it in the
 [Outside](/machine/web/outside)
 section.
 
-![outside](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282098/docs/web/credentials/out_of_scope.png)
+![outside](https://res.cloudinary.com/fluid-attacks/image/upload/v1678472033/docs/web/credentials/outside.png)
 
 > **Note:** The list of repositories that are listed
 > in this view are repositories that are not associated

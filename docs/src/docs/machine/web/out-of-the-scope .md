@@ -25,7 +25,7 @@ we invite you to enter the
 section,
 going to the Add repositories via OAuth section.
 
-![OAuth view](https://res.cloudinary.com/fluid-attacks/image/upload/v1676300113/docs/web/azure/Four_providers.png)
+![OAuth view](https://res.cloudinary.com/fluid-attacks/image/upload/v1678472332/docs/web/credentials/providers.png)
 
 Once the connectivity and permissions
 authorization is completed,
@@ -36,7 +36,7 @@ will be listed in this section.
 Keep in mind that listing the information will
 take about **30 to 1 hour**.
 
-![azure credentials view](https://res.cloudinary.com/fluid-attacks/image/upload/v1676313865/docs/web/azure/out_of_scope.png)
+![outside view](https://res.cloudinary.com/fluid-attacks/image/upload/v1678472157/docs/web/outside/outside.png)
 
 With the repositories listed,
 you decide which ones you want to
@@ -47,7 +47,7 @@ You can add them in bulk or by unit.
 You must click on the **plus symbol**
 in the action column to add a single repository.
 
-![single repository](https://res.cloudinary.com/fluid-attacks/image/upload/v1676314104/docs/web/azure/adding_by_unit.png)
+![single repository](https://res.cloudinary.com/fluid-attacks/image/upload/v1678472191/docs/web/outside/adding_by_unit.png)
 
 When you click on it,
 you can specify to which group
@@ -67,7 +67,7 @@ To **add several repositories,**
 select them with the check box on the left,
 followed by the add new roots button.
 
-![add several](https://res.cloudinary.com/fluid-attacks/image/upload/v1676314539/docs/web/azure/adding_bu_bulk.png)
+![add several](https://res.cloudinary.com/fluid-attacks/image/upload/v1678472687/docs/web/outside/adding_by_bulk.png)
 
 You will get a pop-up window asking
 which selected roots will be part of the group.
