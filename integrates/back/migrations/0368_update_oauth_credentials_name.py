@@ -1,24 +1,21 @@
 # pylint: disable=invalid-name
 """
-Add welcome tour attribute to stakeholders
+Update credentials name to a new format
 
-Execution Time:    2023-02-27 at 20:51:06 UTC
-Finalization Time: 2023-02-27 at 20:51:22 UTC
+Execution Time:
+Finalization Time:
 """
 
 from aioextensions import (
     collect,
     run,
 )
-from boto3.dynamodb.conditions import (
-    Attr,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model import (
-    TABLE,
+from datetime import (
+    datetime,
 )
 from db_model.credentials.types import (
     Credentials,
@@ -26,17 +23,19 @@ from db_model.credentials.types import (
     OauthGithubSecret,
     OauthGitlabSecret,
 )
+from db_model.credentials.update import (
+    update_credential_state,
+)
 from db_model.enums import (
     CredentialType,
-)
-from dynamodb import (
-    keys,
-    operations,
 )
 from organizations import (
     domain as orgs_domain,
 )
 import time
+from typing import (
+    Any,
+)
 
 
 async def exist_new_name(
@@ -67,15 +66,6 @@ async def process_oauth_credential(
         + f"({credential_provider})"
     )
 
-    key_structure = TABLE.primary_key
-    primary_key = keys.build_key(
-        facet=TABLE.facets["credentials_metadata"],
-        values={
-            "organization_id": oauth_credential.organization_id,
-            "id": oauth_credential.organization_id,
-        },
-    )
-
     if exist_new_name(
         organization_credentials=organization_credentials,
         new_name=new_credential_name,
@@ -83,12 +73,16 @@ async def process_oauth_credential(
         raise Exception("Duplicated name found")
 
     print(f"changing {oauth_credential.state.name} to {new_credential_name}")
-    condition_expression = Attr(key_structure.partition_key).exists()
-    await operations.update_item(
-        condition_expression=condition_expression,
-        item={"state.name": new_credential_name},
-        key=primary_key,
-        table=TABLE,
+
+    await update_credential_state(
+        current_value=oauth_credential.state,
+        organization_id=oauth_credential.organization_id,
+        credential_id=oauth_credential.id,
+        state=oauth_credential.state._replace(
+            modified_by="faristizabal@fluidattacks.com",
+            modified_date=datetime.utcnow(),
+            name=new_credential_name,
+        ),
     )
 
 
@@ -124,12 +118,12 @@ async def process_organizations_credentials(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     count = 0
-    async for org_id, org_name, _ in (
-        orgs_domain.iterate_organizations_and_groups(loaders)
-    ):
+    futures: Any = []
+    async for org in (orgs_domain.iterate_organizations()):
         count += 1
-        print(count, org_name)
-        await process_organizations_credentials(org_id, loaders)
+        print(count, org.name)
+        futures.append(process_organizations_credentials(org.id, loaders))
+    await collect(futures, workers=10)
 
 
 if __name__ == "__main__":
