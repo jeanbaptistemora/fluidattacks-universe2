@@ -28,50 +28,6 @@ from fluidasserts.utils.decorators import (
 
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def has_public_instances(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if RDS DB instances are publicly accessible.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    instances = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="rds",
-        func="describe_db_instances",
-        param="DBInstances",
-        retry=retry,
-    )
-
-    msg_open: str = "RDS instances are publicly accessible"
-    msg_closed: str = "RDS instances are not publicly accessible"
-
-    vulns, safes = [], []
-
-    if instances:
-        for instance in instances:
-            instance_arn = instance["DBInstanceArn"]
-
-            (vulns if instance["PubliclyAccessible"] else safes).append(
-                (instance_arn, "Must not be publicly accessible")
-            )
-
-    return _get_result_as_tuple(
-        service="RDS",
-        objects="instances",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def has_public_snapshots(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
