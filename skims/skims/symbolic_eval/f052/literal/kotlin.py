@@ -98,3 +98,14 @@ def kt_insecure_key_gen(
             args.evaluation[args.n_id] = key_length < 128
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def kt_insecure_parm_espec(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    args.evaluation[args.n_id] = False
+    n_attrs = args.graph.nodes[args.n_id]
+    if n_attrs["value_type"] == "string":
+        args.evaluation[args.n_id] = True
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

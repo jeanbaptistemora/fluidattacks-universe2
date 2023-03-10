@@ -30,6 +30,7 @@ from symbolic_eval.f052.literal.kotlin import (
     kt_insecure_key,
     kt_insecure_key_ec,
     kt_insecure_key_gen,
+    kt_insecure_parm_espec,
 )
 from symbolic_eval.f052.literal.swift import (
     swift_insecure_crypto,
@@ -62,6 +63,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.KT_INSECURE_KEY: kt_insecure_key,
     MethodsEnum.KT_INSECURE_KEY_EC: kt_insecure_key_ec,
     MethodsEnum.KT_INSECURE_KEY_GEN: kt_insecure_key_gen,
+    MethodsEnum.KT_INSECURE_PARAMETER_SPEC: kt_insecure_parm_espec,
     MethodsEnum.TS_INSECURE_CREATE_CIPHER: insecure_create_cipher,
     MethodsEnum.TS_INSECURE_EC_KEYPAIR: insecure_key_pair,
     MethodsEnum.TS_INSECURE_HASH: insecure_hash,
