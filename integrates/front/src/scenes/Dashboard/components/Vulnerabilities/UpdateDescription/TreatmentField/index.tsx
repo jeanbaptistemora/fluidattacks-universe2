@@ -11,6 +11,7 @@ import { formatDropdownField } from "utils/formatHelpers";
 import { required } from "utils/validations";
 
 const TreatmentField: React.FC<ITreatmentFieldProps> = ({
+  areSelectedSubmittedVulnerabilities,
   isTreatmentPristine,
   lastTreatment,
 }: ITreatmentFieldProps): JSX.Element => {
@@ -20,7 +21,8 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRequestZeroRiskVuln: boolean =
     permissions.can("api_mutations_request_vulnerabilities_zero_risk_mutate") &&
-    attributes.can("can_report_vulnerabilities");
+    attributes.can("can_report_vulnerabilities") &&
+    !areSelectedSubmittedVulnerabilities;
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );

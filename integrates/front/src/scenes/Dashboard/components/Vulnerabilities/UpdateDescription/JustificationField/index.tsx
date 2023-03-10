@@ -22,12 +22,16 @@ const maxTreatmentJustificationLength: ConfigurableValidator = maxLength(
 const JustificationField: React.FC<IJustificationFieldProps> = (
   props: IJustificationFieldProps
 ): JSX.Element => {
-  const { isTreatmentPristine, lastTreatment } = props;
+  const {
+    areSelectedSubmittedVulnerabilities,
+    isTreatmentPristine,
+    lastTreatment,
+  } = props;
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_vulnerabilities_zero_risk_mutate"
-  );
+  const canRequestZeroRiskVuln: boolean =
+    permissions.can("api_mutations_request_vulnerabilities_zero_risk_mutate") &&
+    !areSelectedSubmittedVulnerabilities;
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );

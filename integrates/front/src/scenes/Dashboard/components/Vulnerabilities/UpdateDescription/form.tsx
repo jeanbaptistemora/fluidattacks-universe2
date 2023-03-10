@@ -121,6 +121,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     (vulnerability: IVulnDataTypeAttr): boolean =>
       vulnerability.state === "SAFE"
   );
+  const areSelectedSubmittedVulnerabilities = vulnerabilities.some(
+    (vulnerability: IVulnDataTypeAttr): boolean =>
+      vulnerability.state === "SUBMITTED"
+  );
   const { refetchIds }: IAssignedVulnerabilitiesContext = useContext(
     assignedVulnerabilitiesContext
   );
@@ -464,6 +468,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             <div className={"flex flex-wrap pt3"}>
               <Col>
                 <TreatmentField
+                  areSelectedSubmittedVulnerabilities={
+                    areSelectedSubmittedVulnerabilities
+                  }
                   isTreatmentPristine={isTreatmentPristine}
                   lastTreatment={lastTreatment}
                 />
@@ -491,6 +498,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             <Row>
               <Col>
                 <JustificationField
+                  areSelectedSubmittedVulnerabilities={
+                    areSelectedSubmittedVulnerabilities
+                  }
                   isTreatmentPristine={isTreatmentPristine}
                   lastTreatment={lastTreatment}
                 />
@@ -553,6 +563,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       {hasNewVulnsAlert(
         vulnerabilities,
         areSelectedClosedVulnerabilities,
+        areSelectedSubmittedVulnerabilities,
         hasNewVulns,
         isAcceptedSelected,
         isAcceptedUndefinedSelected,
