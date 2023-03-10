@@ -40,9 +40,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   const canUpdateEvent: boolean = permissions.can(
     "api_mutations_update_event_mutate"
   );
-  const canUpdateEventSolvingReason: boolean = permissions.can(
-    "api_mutations_update_event_solving_reason_mutate"
-  );
 
   const DisplayButtons = useCallback((): JSX.Element | null => {
     if (!(isEditing || eventStatus === "SOLVED")) {
@@ -80,7 +77,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     return null;
   }, [eventStatus, isEditing, openRejectSolutionModal, openSolvingModal, t]);
 
-  if ((canUpdateEvent || canUpdateEventSolvingReason) && isEditing) {
+  if (canUpdateEvent && isEditing) {
     return (
       <Row>
         <ButtonToolbarStartRow>
@@ -117,7 +114,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <Row>
       <ButtonToolbarStartRow>
         <DisplayButtons />
-        {canUpdateEvent || canUpdateEventSolvingReason ? (
+        {canUpdateEvent ? (
           <Tooltip
             id={"group.events.description.edit.tooltip.btn"}
             tip={t("group.events.description.edit.tooltip")}

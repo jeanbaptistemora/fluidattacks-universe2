@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
 import { Input, Select, TextArea } from "components/Input";
+import { Row } from "components/Layout/Row";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel } from "styles/styledComponents";
 import {
@@ -74,65 +75,85 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
         >
           {({ submitForm, isValid, dirty }): JSX.Element => (
             <Fragment>
-              <ControlLabel>
-                {t("searchFindings.servicesTable.deleteGroup.warningTitle")}
-              </ControlLabel>
-              <Alert>
-                {t("searchFindings.servicesTable.deleteGroup.warningBody")}
-              </Alert>
-              <ControlLabel>
-                {t("searchFindings.servicesTable.deleteGroup.typeGroupName")}
-              </ControlLabel>
-              <Input
-                name={"confirmation"}
-                placeholder={groupName.toLowerCase()}
-                type={"text"}
-                validate={required}
-              />
-              <Select
-                label={t(
-                  "searchFindings.servicesTable.deleteGroup.reason.title"
-                )}
-                name={"reason"}
-                tooltip={t(
-                  "searchFindings.servicesTable.deleteGroup.reason.tooltip"
-                )}
-              >
-                <option value={"NO_SYSTEM"}>
-                  {t(
-                    "searchFindings.servicesTable.deleteGroup.reason.noSystem"
+              <Row>
+                <ControlLabel>
+                  {t("searchFindings.servicesTable.deleteGroup.warningTitle")}
+                </ControlLabel>
+                <Alert>
+                  {t("searchFindings.servicesTable.deleteGroup.warningBody")}
+                </Alert>
+                <ControlLabel>
+                  {t("searchFindings.servicesTable.deleteGroup.typeGroupName")}
+                </ControlLabel>
+              </Row>
+              <Row>
+                <Input
+                  name={"confirmation"}
+                  placeholder={groupName.toLowerCase()}
+                  type={"text"}
+                  validate={required}
+                />
+              </Row>
+              <Row>
+                <Select
+                  label={t(
+                    "searchFindings.servicesTable.deleteGroup.reason.title"
                   )}
-                </option>
-                <option value={"NO_SECTST"}>
-                  {t(
-                    "searchFindings.servicesTable.deleteGroup.reason.noSectst"
+                  name={"reason"}
+                  tooltip={t(
+                    "searchFindings.servicesTable.deleteGroup.reason.tooltip"
                   )}
-                </option>
-                <option value={"DIFF_SECTST"}>
-                  {t(
-                    "searchFindings.servicesTable.deleteGroup.reason.diffSectst"
+                >
+                  <option value={"NO_SYSTEM"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.noSystem"
+                    )}
+                  </option>
+                  <option value={"NO_SECTST"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.noSectst"
+                    )}
+                  </option>
+                  <option value={"DIFF_SECTST"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.diffSectst"
+                    )}
+                  </option>
+                  <option value={"RENAME"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.rename"
+                    )}
+                  </option>
+                  <option value={"MIGRATION"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.migration"
+                    )}
+                  </option>
+                  <option value={"POC_OVER"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.pocOver"
+                    )}
+                  </option>
+                  <option value={"TR_CANCELLED"}>
+                    {t(
+                      "searchFindings.servicesTable.deleteGroup.reason.trCancelled"
+                    )}
+                  </option>
+                  <option value={"OTHER"}>
+                    {t("searchFindings.servicesTable.deleteGroup.reason.other")}
+                  </option>
+                </Select>
+              </Row>
+              <Row>
+                <TextArea
+                  label={t("searchFindings.servicesTable.modal.observations")}
+                  name={"comments"}
+                  placeholder={t(
+                    "searchFindings.servicesTable.modal.observationsPlaceholder"
                   )}
-                </option>
-                <option value={"RENAME"}>
-                  {t("searchFindings.servicesTable.deleteGroup.reason.rename")}
-                </option>
-                <option value={"MIGRATION"}>
-                  {t(
-                    "searchFindings.servicesTable.deleteGroup.reason.migration"
-                  )}
-                </option>
-                <option value={"OTHER"}>
-                  {t("searchFindings.servicesTable.deleteGroup.reason.other")}
-                </option>
-              </Select>
-              <TextArea
-                label={t("searchFindings.servicesTable.modal.observations")}
-                name={"comments"}
-                placeholder={t(
-                  "searchFindings.servicesTable.modal.observationsPlaceholder"
-                )}
-                validate={composeValidators([validTextField, maxLength250])}
-              />
+                  validate={composeValidators([validTextField, maxLength250])}
+                />
+              </Row>
               <ModalConfirm
                 disabled={!dirty || !isValid}
                 onCancel={onClose}
