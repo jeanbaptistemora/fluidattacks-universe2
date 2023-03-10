@@ -2530,7 +2530,7 @@ class MethodsEnum(Enum):
     CFN_IAM_MISSING_SECURITY = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_user_missing_role_based_security",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

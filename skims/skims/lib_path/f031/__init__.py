@@ -9,7 +9,6 @@ from lib_path.f031.cloudformation import (
     cfn_admin_policy_attached,
     cfn_bucket_policy_allows_public_access,
     cfn_iam_has_full_access_to_ssm,
-    cfn_iam_user_missing_role_based_security,
     cfn_negative_statement,
 )
 from model.core_model import (
@@ -38,15 +37,6 @@ def run_cfn_bucket_policy_allows_public_access(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_bucket_policy_allows_public_access(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_cfn_iam_user_missing_role_based_security(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_user_missing_role_based_security(
         content=content, path=path, template=template
     )
 
@@ -96,7 +86,6 @@ def analyze(
                     for fun in (
                         run_cfn_admin_policy_attached,
                         run_cfn_bucket_policy_allows_public_access,
-                        run_cfn_iam_user_missing_role_based_security,
                         run_cfn_negative_statement,
                         run_cfn_iam_has_full_access_to_ssm,
                     )

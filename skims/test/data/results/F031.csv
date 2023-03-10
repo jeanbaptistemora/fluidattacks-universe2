@@ -672,7 +672,7 @@ F031,inputs,rol-018de572ae43404d8 (namespace),Effect: Allow; Action: ['*'],250,s
   9 | ]
     ^ Col 0
 ",aws.has_permissive_role_policies
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml,"
    1 | ---
    2 | Resources:
    3 |   myuser:
@@ -696,7 +696,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_bas
   21 |                   - sqs:*
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,24,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml,24,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml,"
   14 |               - Effect: Allow
   15 |                 Action:
   16 |                   - sqs:*
@@ -720,7 +720,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_bas
   34 |                 Action:
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,12,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml.json,12,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""myuser"": {
    4 |       ""Type"": ""AWS::IAM::User"",
@@ -744,7 +744,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_bas
   22 |                     {
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,48,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml.json,48,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_root/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
   38 |                         ""myqueue"",
   39 |                         ""Arn""
   40 |                       ]

@@ -21,23 +21,12 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.structure import (
-    iter_iam_users,
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
     iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
 from typing import (
     Any,
 )
-
-
-def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
-    users_iterator: Iterator[Node],
-) -> Iterator[AWSIamManagedPolicy | Node]:
-    for user in users_iterator:
-        policies_node = user.inner.get("Policies", None)
-        if policies_node:
-            for policy in policies_node.data:
-                yield policy.inner.get("PolicyName", "")
 
 
 def _iam_yield_full_access_ssm_vuln(
@@ -100,24 +89,6 @@ def cfn_bucket_policy_allows_public_access(
         ),
         path=path,
         method=MethodsEnum.CFN_BUCKET_ALLOWS_PUBLIC,
-    )
-
-
-def cfn_iam_user_missing_role_based_security(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f031.iam_user_missing_role_based_security"
-        ),
-        iterator=get_cloud_iterator(
-            _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
-                users_iterator=iter_iam_users(template=template),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_IAM_MISSING_SECURITY,
     )
 
 

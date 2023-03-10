@@ -1,3 +1,6 @@
+from lib_root.f031.cloudformation import (
+    cfn_iam_user_missing_role_based_security,
+)
 from lib_root.f031.terraform import (
     tfm_admin_policy_attached,
     tfm_bucket_policy_allows_public_access,
@@ -15,6 +18,7 @@ from model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F031
 QUERIES: graph_model.Queries = (
+    (FINDING, cfn_iam_user_missing_role_based_security),
     (FINDING, tfm_admin_policy_attached),
     (FINDING, tfm_bucket_policy_allows_public_access),
     (FINDING, tfm_iam_excessive_privileges),
