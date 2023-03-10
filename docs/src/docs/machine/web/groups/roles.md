@@ -171,7 +171,7 @@ edit or remove users.
   Connection between the providers
   GitLab - GitHub - Bitbucket - Azure
   with the ARM platform.
-- **Add repositories Out of Scope:**
+- **Add Outside repositories:**
   Repositories that are not yet part of any
   group of the organization.
   You can add them in bulk or as a unit
@@ -184,40 +184,40 @@ we specify
 what functions are enabled
 for each role.
 
-|                     |User|Vulnerability manager|User manager|
-|---------------------|:--:|:-------------------:|:----------:|
-|Add roots            |X   |                     |X           |
-|Add tags             |X   |X                    |X           |
-|Add users            |    |                     |X           |
-|Approve treatments   |    |X                    |X           |
-|Change treatments    |X   |X                    |X           |
-|Deactivate/Activate root |      |               |X           |
-|Delete groups        |    |                     |X           |
-|Edit roots           |X   |                     |X           |
-|Edit users           |    |                     |X           |
-|Exclusions           |    |                     |X           |
-|Generate a report    |    |X                    |X           |
-|Group policies       |    |                     |X           |
-|Receive notifications|X   |X                    |X           |
-|Request reattack     |X   |X                    |X           |
-|View vulnerabilities |X   |X                    |X           |
-|ORG vulnerabilities download |    |             |X           |
-|support channels     |X   |X                    |X           |
-|OAuth connection     |    |                     |X           |
-|Add repositories Out of Scope|    |             |X           |
-|Compliance Report    |X   |X                    |X           |
-|Add ORG credentials  |    |                     |X           |
-|ORG policies         |    |                     |X           |
-|Add new group        |X   |X                    |X           |
-|Notify button        |    |                     |X           |
-|Consulting           |X   |X                    |X           |
-|Assign vulnerabilities |X   |X                  |X           |
-|Agent installation   |X   |X                    |X           |
-|Request verification events |X   |X             |X           |
-|Create portfolio     |X   |X                    |X           |
-|Add secrets          |    |                     |X           |
-|Unsubscribe groups   |X   |X                    |X           |
-|Generate API token   |X   |X                    |X           |
+|                              | User | Vulnerability manager | User manager |
+| ---------------------------- | :--: | :-------------------: | :----------: |
+| Add roots                    |  X   |                       |      X       |
+| Add tags                     |  X   |           X           |      X       |
+| Add users                    |      |                       |      X       |
+| Approve treatments           |      |           X           |      X       |
+| Change treatments            |  X   |           X           |      X       |
+| Deactivate/Activate root     |      |                       |      X       |
+| Delete groups                |      |                       |      X       |
+| Edit roots                   |  X   |                       |      X       |
+| Edit users                   |      |                       |      X       |
+| Exclusions                   |      |                       |      X       |
+| Generate a report            |      |           X           |      X       |
+| Group policies               |      |                       |      X       |
+| Receive notifications        |  X   |           X           |      X       |
+| Request reattack             |  X   |           X           |      X       |
+| View vulnerabilities         |  X   |           X           |      X       |
+| ORG vulnerabilities download |      |                       |      X       |
+| support channels             |  X   |           X           |      X       |
+| OAuth connection             |      |                       |      X       |
+| Add Outside repositories     |      |                       |      X       |
+| Compliance Report            |  X   |           X           |      X       |
+| Add ORG credentials          |      |                       |      X       |
+| ORG policies                 |      |                       |      X       |
+| Add new group                |  X   |           X           |      X       |
+| Notify button                |      |                       |      X       |
+| Consulting                   |  X   |           X           |      X       |
+| Assign vulnerabilities       |  X   |           X           |      X       |
+| Agent installation           |  X   |           X           |      X       |
+| Request verification events  |  X   |           X           |      X       |
+| Create portfolio             |  X   |           X           |      X       |
+| Add secrets                  |      |                       |      X       |
+| Unsubscribe groups           |  X   |           X           |      X       |
+| Generate API token           |  X   |           X           |      X       |
 
 ## Internal roles
 
@@ -300,22 +300,22 @@ we specify what functions are
 enabled for each role:
 
 |                          | Hacker | Reattacker | Resourcer | Reviewer | Architect | Customer Manager | Admin |
-|--------------------------|:------:|:----------:|:---------:|:--------:|:---------:|:----------------:|:-----:|
-| Add drafts               |    X   |      X     |           |          |     X     |                  |   X   |
-| Add events               |    X   |      X     |     X     |          |     X     |         X        |   X   |
-| Add roots                |        |            |           |          |           |         X        |   X   |
-| Approve drafts           |        |            |           |     X    |           |                  |   X   |
-| Change treatments        |    X   |            |           |          |     X     |                  |       |
-| Confirm/Reject ZR        |        |            |           |     X    |     X     |                  |   X   |
+| ------------------------ | :----: | :--------: | :-------: | :------: | :-------: | :--------------: | :---: |
+| Add drafts               |   X    |     X      |           |          |     X     |                  |   X   |
+| Add events               |   X    |     X      |     X     |          |     X     |        X         |   X   |
+| Add roots                |        |            |           |          |           |        X         |   X   |
+| Approve drafts           |        |            |           |    X     |           |                  |   X   |
+| Change treatments        |   X    |            |           |          |     X     |                  |       |
+| Confirm/Reject ZR        |        |            |           |    X     |     X     |                  |   X   |
 | Deactivate/Activate root |        |            |           |          |           |                  |   X   |
-| Delete groups            |        |            |           |          |           |         X        |   X   |
+| Delete groups            |        |            |           |          |           |        X         |   X   |
 | Edit roots               |        |            |           |          |     X     |                  |   X   |
-| Generate a report        |    X   |            |           |          |     X     |         X        |   X   |
-| Manage evidences         |    X   |            |           |          |     X     |                  |   X   |
-| Request reattack         |    X   |      X     |     X     |     X    |     X     |         X        |   X   |
-| Request ZR               |        |            |           |          |           |         X        |   X   |
-| Solve events             |    X   |      X     |     X     |          |     X     |         X        |   X   |
-| Verify reattack          |    X   |      X     |           |          |     X     |                  |   X   |
+| Generate a report        |   X    |            |           |          |     X     |        X         |   X   |
+| Manage evidences         |   X    |            |           |          |     X     |                  |   X   |
+| Request reattack         |   X    |     X      |     X     |    X     |     X     |        X         |   X   |
+| Request ZR               |        |            |           |          |           |        X         |   X   |
+| Solve events             |   X    |     X      |     X     |          |     X     |        X         |   X   |
+| Verify reattack          |   X    |     X      |           |          |     X     |                  |   X   |
 
 :::tip free trial
 **Search for vulnerabilities in your apps for free

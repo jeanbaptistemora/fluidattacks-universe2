@@ -496,10 +496,7 @@ const Development = [
   {
     type: "category",
     label: "Values",
-    items: [
-      "development/values/daily-progress",
-      "development/values/quality"
-    ],
+    items: ["development/values/daily-progress", "development/values/quality"],
   },
   {
     type: "category",
@@ -743,7 +740,7 @@ const Machine = [
       },
       "machine/web/portfolios",
       "machine/web/stakeholders",
-      "machine/web/out-of-the-scope",
+      "machine/web/outside",
       "machine/web/global-credentials",
       "machine/web/compliance",
     ],

@@ -163,10 +163,10 @@ It will take into account the repositories that
 have had activity in the last 60 days.
 To see the list of these,
 you can do it in the
-[Out of the scope](/machine/web/out-of-the-scope)
+[Outside](/machine/web/outside)
 section.
 
-![out of the scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282098/docs/web/credentials/out_of_scope.png)
+![outside](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282098/docs/web/credentials/out_of_scope.png)
 
 > **Note:** The list of repositories that are listed
 > in this view are repositories that are not associated
@@ -186,5 +186,5 @@ button.
 
 > **Note:** The credential will be removed along with
 > its repositories listed in the
-> [Out of the scope](/machine/web/out-of-the-scope)
+> [Outside](/machine/web/outside)
 > section.

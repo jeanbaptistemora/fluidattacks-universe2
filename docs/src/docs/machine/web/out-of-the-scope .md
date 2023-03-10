@@ -1,8 +1,8 @@
 ---
-id: out-of-the-scope
-title: Out of the scope
-sidebar_label: Out of the scope
-slug: /machine/web/out-of-the-scope
+id: outside
+title: Outside
+sidebar_label: Outside
+slug: /machine/web/outside
 ---
 
 This section refers to repositories
@@ -57,7 +57,7 @@ of that organization you will add that repository.
 
 To click on the **Confirm button,**
 you can start adding a new root,
-as seen in the scope view,
+as seen in the outside view,
 having already set the URL of the
 repository I had already chosen and the branch too.
 

@@ -22,13 +22,13 @@ any browser that supports
 ECMAScript 2019 standard.
 
 | Browser    | Version                                                                                                           |
-|------------|-------------------------------------------------------------------------------------------------------------------|
+| ---------- | ----------------------------------------------------------------------------------------------------------------- | --- |
 | Firefox    | 60, 68, 78, 81, 82, 83, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105                  |
 | Chrome     | 71, 75, 80, 81, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 101, 102, 103, 104, 105, 106 |
 | Edge       | 84, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105                                      |
 | Safari     | 12.1, 13.1, 14, 14.1, 15, 15.1, 15.2, 15.3, 15.4, 15.5, 15.6,16                                                   |
 | Opera      | 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90                                                                |
-| Chrome iOS | 90, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103,  105                                                          |                                      |
+| Chrome iOS | 90, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 105                                                           |     |
 
 ## Login
 
@@ -115,7 +115,7 @@ as you want.
 
 Also,
 you can add tag
- or define a qualitative risk level.
+or define a qualitative risk level.
 
 ##### Reattack
 
@@ -363,23 +363,23 @@ in your organization.
 to define:
 
 1. Temporal acceptance:
-  maximum number
-  of days for assignment.
+   maximum number
+   of days for assignment.
 1. Temporal acceptance:
-  maximum number of assignments for a
-  single vulnerability.
+   maximum number of assignments for a
+   single vulnerability.
 1. Temporal acceptance:
-  minimum CVSS 3.1 score allowed for assignment.
+   minimum CVSS 3.1 score allowed for assignment.
 1. Temporal acceptance:
-  maximum CVSS 3.1 score allowed for assignment.
+   maximum CVSS 3.1 score allowed for assignment.
 1. DevSecOps:
-  Days before agent starts breaking the build
-  for new vulnerabilities.
+   Days before agent starts breaking the build
+   for new vulnerabilities.
 1. DevSecOps:
-  Minimum CVSS 3.1 score from which agent breaks
-  the build for open vulnerabilities.
+   Minimum CVSS 3.1 score from which agent breaks
+   the build for open vulnerabilities.
 
-### Out of Scope
+### Outside
 
 This section refers to repositories that
 are not yet associated with any group on
@@ -388,7 +388,7 @@ which can consult with the credentials
 available in the [Credentials](/machine/web/machine/web/global-credentials/)
 tab.
 to learn more about this section,
-you can enter [here.](/machine/web/out-of-the-scope)
+you can enter [here.](/machine/web/outside)
 
 ### Credentials
 

@@ -40,18 +40,18 @@ You will find the following fields:
 - **Missed autors:**
   Total number of authors who have
   made commits on the missed repositories
-  (repositories Out of Scope).
+  (repositories Outside).
 - **Missed repositories:**
   How many repositories are not
   included in the source code analysis.
   (You can find these repositories in
-  the Out of the Scope section).
+  the Outside section).
 
 Clicking on any of these four boxes
 will redirect you to the
-**Out of the Scope** section.
+**Outside** section.
 If you want to know more about this section,
-click [here](/machine/web/out-of-the-scope).
+click [here](/machine/web/outside).
 
 ## Group table
 
