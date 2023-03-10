@@ -38,6 +38,12 @@ from datetime import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from dynamodb.tables import (
+    load_tables,
+)
+from dynamodb.types import (
+    Table,
+)
 from enum import (
     Enum,
 )
@@ -62,6 +68,7 @@ from newutils.datetime import (
 from newutils.encodings import (
     safe_encode,
 )
+import os
 from settings import (
     LOGGING,
 )
@@ -95,6 +102,13 @@ class IntegratesBatchQueue(str, Enum):
     MEDIUM = "integrates_medium"
     LARGE = "integrates_large"
     CLONE = "clone"
+
+
+def load_table() -> Table:
+    filepath = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filepath, f"{TABLE_NAME}-design.json")
+    with open(filename, mode="r", encoding="utf-8") as file:
+        return load_tables(json.load(file))[0]
 
 
 def to_queue(

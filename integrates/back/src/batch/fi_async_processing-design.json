@@ -1,0 +1,33 @@
+{
+  "ModelName": "fi_async_processing-design",
+  "ModelMetadata": {
+    "Author": "development@fluidattacks.com",
+    "DateCreated": "Mar 10, 2023, 02:29 PM",
+    "DateLastModified": "Mar 10, 2023, 02:29 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "fi_async_processing",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "pk",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "sk",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [],
+      "TableFacets": [],
+      "GlobalSecondaryIndexes": [],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PAY_PER_REQUEST"
+    }
+  ]
+}
