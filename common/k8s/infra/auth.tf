@@ -71,7 +71,7 @@ resource "kubernetes_cluster_role" "main" {
     verbs = ["get"]
   }
   rule {
-    api_groups = [""]
+    api_groups = ["", "apiextensions.k8s.io"]
     resources = [
       "customresourcedefinitions",
       "secrets"
