@@ -8,7 +8,7 @@ tags: pentesting, cybersecurity, security-testing, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1666278975/blog/what-is-manual-penetration-testing/cover_manual_pentesting.webp
 alt: Photo by ian dooley on Unsplash
 description: This blog post explains what manual penetration testing is, how it works to discover vulnerabilities, and its difference from so-called "automated pentesting."
-keywords: Manual Penetration Testing, Automated Penetration Testing, Black Box, White Box, Gray Box, Vulnerability Scanning, Pentester, Pentesting, Ethical Hacking
+keywords: Manual Penetration Testing, Automated Penetration Testing, Black Box, White Box, Gray Box, Penetration Testing Vs Vulnerability Scanning, Pentester, Pentesting, Ethical Hacking
 author: Felipe Ruiz
 writer: fruiz
 name: Felipe Ruiz
@@ -396,7 +396,7 @@ and also have the support of our hackers.
 by experts
 that vulnerability scanning cannot replace.
 (If you want to take the first step in security
-by trying a scan with our automated tools,
+by trying a scan with our vulnerability scanning software,
 request our [21-day free trial](https://app.fluidattacks.com/SignUp)).
 It is striking how many believe that both are the same thing.
 But there are indeed scammers in the market,

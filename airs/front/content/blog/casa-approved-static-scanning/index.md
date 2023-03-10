@@ -170,7 +170,7 @@ Machine Plan offers continuous
 [static application security testing](../../product/sast/) (SAST),
 [dynamic application security testing](../../product/dast/) (DAST)
 and [software composition analysis](../../product/sca/) (SCA)
-with our tool only.
+with our scanning tool only.
 Squad Plan adds AI prioritization
 and continuous [manual penetration testing](../../solutions/penetration-testing/).
 Our ethical hackers find the vulnerabilities
