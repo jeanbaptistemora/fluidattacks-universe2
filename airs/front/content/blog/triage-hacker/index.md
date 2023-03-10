@@ -24,8 +24,10 @@ vulnerability discovery approach should work.
 First, what problem would this solve? I am repeating myself here but
 when one of our analysts has to audit a new [continuous
 hacking](../../services/continuous-hacking/) project, usually all they
-get is access to one or more big code repositories. And clients expect
-vulnerability reports as soon as possible. We would like our predictor
+get is access to one or more big code repositories.
+And what the client expects is a software vulnerability report
+as soon as possible.
+We would like our predictor
 to sort all the files in these repositories according to the likelihood,
 or possibility, that they contain a vulnerability so that the analyst
 can prioritize the manual inspection. Ideally, when the analyst is

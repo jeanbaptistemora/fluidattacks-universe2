@@ -365,7 +365,7 @@ So,
 for example,
 what may escape one group
 may possibly be discovered by another from a different perspective.
-We make use of our own automated tools
+We make use of our own security scanning tools
 for [SAST](../../product/sast/), [DAST](../../product/dast/)
 and [SCA-type](../../product/sca/) tests.
 However,

@@ -168,7 +168,7 @@ As he says,
 the two "cover different areas and have different strengths and applications,
 and companies should employ both."
 According to him,
-it's typical to see firms implementing vulnerability scanners
+it's typical to see firms implementing vulnerability scan tools
 from top providers
 and using them to detect security issues,
 for then,
