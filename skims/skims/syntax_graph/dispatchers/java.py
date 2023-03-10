@@ -25,7 +25,6 @@ from syntax_graph.syntax_readers.java import (
     enhanced_for_statement as java_enhanced_for_statement,
     execution_block as java_execution_block,
     expression_statement as java_expression_statement,
-    field_access as java_field_access,
     field_declaration as java_field_declaration,
     finally_clause as java_finally_clause,
     for_statement as java_for_statement,
@@ -231,12 +230,6 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "field_access",
-        },
-        syntax_reader=java_field_access.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "field_declaration",
         },
         syntax_reader=java_field_declaration.reader,
@@ -250,8 +243,9 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
-            "type_identifier",
+            "field_access",
             "scoped_type_identifier",
+            "type_identifier",
         },
         syntax_reader=java_identifier.reader,
     ),

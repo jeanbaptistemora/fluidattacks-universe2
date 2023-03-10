@@ -26,8 +26,6 @@ def concatenate_name(graph: Graph, n_id: NId, name: str | None = None) -> str:
             expr = concatenate_name(graph, next_node, expr)
     elif node_type == "SymbolLookup":
         expr = graph.nodes[n_id]["symbol"]
-    elif node_type == "FieldAccess":
-        expr = graph.nodes[n_id]["field_text"]
     else:
         expr = ""
     return expr + prev_str

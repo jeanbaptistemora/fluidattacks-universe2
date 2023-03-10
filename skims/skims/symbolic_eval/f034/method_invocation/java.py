@@ -9,7 +9,7 @@ def java_weak_random(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if (
         n_attrs["expression"] == "random"
         and (obj_id := n_attrs.get("object_id"))
-        and args.graph.nodes[obj_id].get("field_text") == "java.lang.Math"
+        and args.graph.nodes[obj_id].get("symbol") == "java.lang.Math"
     ):
         args.triggers.add("weakrandom")
 

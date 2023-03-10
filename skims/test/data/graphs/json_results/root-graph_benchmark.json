@@ -12158,8 +12158,8 @@
             "variable_id": "422"
           },
           "422": {
-            "field_text": "currentUser.userId",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "currentUser.userId"
           },
           "424": {
             "arguments_id": "428",
@@ -12349,8 +12349,8 @@
             "value_type": "string"
           },
           "518": {
-            "field_text": "currentUser.lastName",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "currentUser.lastName"
           },
           "522": {
             "block_id": "530",
@@ -12855,8 +12855,8 @@
             "variable_id": "836"
           },
           "836": {
-            "field_text": "currentUser.userId",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "currentUser.userId"
           },
           "838": {
             "expression": "createRandom",
@@ -13063,8 +13063,8 @@
             "value_type": "string"
           },
           "949": {
-            "field_text": "currentUser.lastName",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "currentUser.lastName"
           },
           "95": {
             "label_type": "ObjectCreation",
@@ -20947,8 +20947,8 @@
             "object_id": "326"
           },
           "326": {
-            "field_text": "java.net.URLDecoder",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "java.net.URLDecoder"
           },
           "328": {
             "label_type": "SymbolLookup",
@@ -21025,8 +21025,8 @@
             "right_id": "373"
           },
           "371": {
-            "field_text": "org.owasp.benchmark.helpers.Utils.testfileDir",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir"
           },
           "373": {
             "label_type": "SymbolLookup",
@@ -21165,8 +21165,8 @@
             "object_id": "440"
           },
           "440": {
-            "field_text": "org.owasp.esapi.ESAPI",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.esapi.ESAPI"
           },
           "442": {
             "label_type": "SymbolLookup",
@@ -21202,8 +21202,8 @@
             "object_id": "457"
           },
           "457": {
-            "field_text": "org.owasp.esapi.ESAPI",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.esapi.ESAPI"
           },
           "459": {
             "label_type": "SymbolLookup",
@@ -21266,8 +21266,8 @@
             "object_id": "494"
           },
           "494": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "496": {
             "label_type": "SymbolLookup",
@@ -21355,8 +21355,8 @@
             "object_id": "526"
           },
           "526": {
-            "field_text": "org.owasp.esapi.ESAPI",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.esapi.ESAPI"
           },
           "528": {
             "label_type": "SymbolLookup",
@@ -25522,8 +25522,8 @@
             "object_id": "179"
           },
           "179": {
-            "field_text": "java.net.URLDecoder",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "java.net.URLDecoder"
           },
           "181": {
             "label_type": "SymbolLookup",
@@ -25601,8 +25601,8 @@
             "object_id": "212"
           },
           "212": {
-            "field_text": "org.owasp.benchmark.helpers.DatabaseHelper",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper"
           },
           "214": {
             "label_type": "SymbolLookup",
@@ -25668,8 +25668,8 @@
             "object_id": "248"
           },
           "248": {
-            "field_text": "org.owasp.benchmark.helpers.DatabaseHelper",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper"
           },
           "250": {
             "label_type": "SymbolLookup",
@@ -25719,8 +25719,8 @@
             "true_id": "277"
           },
           "275": {
-            "field_text": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors"
           },
           "277": {
             "label_type": "ExecutionBlock"
@@ -34205,8 +34205,8 @@
             "object_id": "178"
           },
           "178": {
-            "field_text": "java.net.URLDecoder",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "java.net.URLDecoder"
           },
           "180": {
             "label_type": "SymbolLookup",
@@ -34292,8 +34292,8 @@
             "object_id": "216"
           },
           "216": {
-            "field_text": "org.apache.commons.codec.binary.Base64",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.apache.commons.codec.binary.Base64"
           },
           "218": {
             "label_type": "SymbolLookup",
@@ -34310,8 +34310,8 @@
             "object_id": "222"
           },
           "222": {
-            "field_text": "org.apache.commons.codec.binary.Base64",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "org.apache.commons.codec.binary.Base64"
           },
           "224": {
             "label_type": "SymbolLookup",
@@ -34649,8 +34649,8 @@
             "symbol": "i"
           },
           "395": {
-            "field_text": "cookies.length",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "cookies.length"
           },
           "397": {
             "expression_type": "++",
@@ -38167,8 +38167,8 @@
             "variable_id": "116"
           },
           "116": {
-            "field_text": "this.lastName",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.lastName"
           },
           "118": {
             "label_type": "SymbolLookup",
@@ -38240,8 +38240,8 @@
             "variable_id": "159"
           },
           "159": {
-            "field_text": "this.name",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.name"
           },
           "161": {
             "label_type": "SymbolLookup",
@@ -38273,8 +38273,8 @@
             "variable_type": "String"
           },
           "186": {
-            "field_text": "this.userId",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.userId"
           },
           "188": {
             "label_type": "Return",
@@ -38317,8 +38317,8 @@
             "variable_id": "208"
           },
           "208": {
-            "field_text": "this.userId",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.userId"
           },
           "210": {
             "label_type": "SymbolLookup",
@@ -38348,8 +38348,8 @@
             "variable_id": "228"
           },
           "228": {
-            "field_text": "this.lastName",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.lastName"
           },
           "230": {
             "label_type": "SymbolLookup",
@@ -38455,8 +38455,8 @@
             "variable_id": "81"
           },
           "81": {
-            "field_text": "this.lastName",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "this.lastName"
           },
           "83": {
             "label_type": "SymbolLookup",

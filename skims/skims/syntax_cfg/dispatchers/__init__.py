@@ -86,7 +86,6 @@ DISPATCHERS: Dispatchers = (
             "Debugger",
             "ElementAccess",
             "ExpressionStatement",
-            "FieldAccess",
             "FieldDeclaration",
             "FinallyClause",
             "FunctionBody",

@@ -4,11 +4,17 @@ from model.core_model import (
 from symbolic_eval.context.search import (
     search_until_def,
 )
+from symbolic_eval.f052.symbol_lookup import (
+    evaluate as evaluate_symbol_f052,
+)
 from symbolic_eval.f085.symbol_lookup import (
     evaluate as evaluate_symbol_f085,
 )
 from symbolic_eval.f343.symbol_lookup import (
     evaluate as evaluate_symbol_f343,
+)
+from symbolic_eval.f350.symbol_lookup import (
+    evaluate as evaluate_symbol_f350,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -23,8 +29,10 @@ from utils import (
 )
 
 FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
+    FindingEnum.F052: evaluate_symbol_f052,
     FindingEnum.F085: evaluate_symbol_f085,
     FindingEnum.F343: evaluate_symbol_f343,
+    FindingEnum.F350: evaluate_symbol_f350,
 }
 
 OUTSIDEPATH_TYPES = {

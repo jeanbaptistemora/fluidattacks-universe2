@@ -1,8 +1,8 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f052.field_access.java import (
-    java_insecure_connection,
+from symbolic_eval.f350.symbol_lookup.java import (
+    java_insecure_trust_manager,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -11,7 +11,7 @@ from symbolic_eval.types import (
 )
 
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JAVA_INSECURE_CONNECTION: java_insecure_connection,
+    MethodsEnum.JAVA_INSECURE_TRUST_MANAGER: java_insecure_trust_manager,
 }
 
 

@@ -3,15 +3,13 @@ from symbolic_eval.types import (
     SymbolicEvaluation,
 )
 
-DANGER_TLS = {
-    "TlsVersion.TLS_1_0",
-    "TlsVersion.TLS_1_1",
-}
 
-
-def java_insecure_connection(
+def java_insecure_trust_manager(
     args: SymbolicEvalArgs,
 ) -> SymbolicEvaluation:
-    if args.graph.nodes[args.n_id]["field_text"] in DANGER_TLS:
+    if (
+        args.graph.nodes[args.n_id]["symbol"].lower()
+        == "insecuretrustmanagerfactory.instance"
+    ):
         args.evaluation[args.n_id] = True
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

@@ -22189,8 +22189,8 @@
             "object_id": "1022"
           },
           "1022": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1024": {
             "label_type": "SymbolLookup",
@@ -22215,8 +22215,8 @@
             "object_id": "1036"
           },
           "1036": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1038": {
             "label_type": "SymbolLookup",
@@ -22291,8 +22291,8 @@
             "true_id": "122"
           },
           "1070": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1072": {
             "label_type": "SymbolLookup",
@@ -22390,8 +22390,8 @@
             "object_id": "1116"
           },
           "1116": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1118": {
             "label_type": "SymbolLookup",
@@ -22478,8 +22478,8 @@
             "object_id": "1154"
           },
           "1154": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1156": {
             "label_type": "SymbolLookup",
@@ -22546,8 +22546,8 @@
             "object_id": "1192"
           },
           "1192": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1194": {
             "label_type": "SymbolLookup",
@@ -22582,8 +22582,8 @@
             "object_id": "1215"
           },
           "1215": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1217": {
             "label_type": "SymbolLookup",
@@ -22612,8 +22612,8 @@
             "object_id": "1232"
           },
           "1232": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1234": {
             "label_type": "SymbolLookup",
@@ -22665,8 +22665,8 @@
             "value_type": "number"
           },
           "126": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1260": {
             "expression_type": "++",
@@ -22711,8 +22711,8 @@
             "object_id": "1279"
           },
           "1279": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "128": {
             "label_type": "SymbolLookup",
@@ -22744,8 +22744,8 @@
             "object_id": "1293"
           },
           "1293": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1295": {
             "label_type": "SymbolLookup",
@@ -22841,8 +22841,8 @@
             "object_id": "1336"
           },
           "1336": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1338": {
             "label_type": "SymbolLookup",
@@ -22867,8 +22867,8 @@
             "object_id": "1350"
           },
           "1350": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1352": {
             "label_type": "SymbolLookup",
@@ -23000,8 +23000,8 @@
             "symbol": "i"
           },
           "1408": {
-            "field_text": "nums.length",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "nums.length"
           },
           "1410": {
             "expression_type": "++",
@@ -23069,8 +23069,8 @@
             "object_id": "1440"
           },
           "1440": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1442": {
             "label_type": "SymbolLookup",
@@ -23231,8 +23231,8 @@
             "symbol": "i"
           },
           "1517": {
-            "field_text": "nums.length",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "nums.length"
           },
           "1519": {
             "expression_type": "++",
@@ -23272,8 +23272,8 @@
             "symbol": "j"
           },
           "1538": {
-            "field_text": "nums[i].length",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "nums[i].length"
           },
           "1540": {
             "expression_type": "++",
@@ -23335,8 +23335,8 @@
             "object_id": "1567"
           },
           "1567": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "1569": {
             "label_type": "SymbolLookup",
@@ -23817,8 +23817,8 @@
             "object_id": "214"
           },
           "214": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "216": {
             "label_type": "SymbolLookup",
@@ -23839,8 +23839,8 @@
             "object_id": "224"
           },
           "224": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "226": {
             "label_type": "SymbolLookup",
@@ -23864,8 +23864,8 @@
             "object_id": "234"
           },
           "234": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "236": {
             "label_type": "SymbolLookup",
@@ -23903,8 +23903,8 @@
             "object_id": "255"
           },
           "255": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "257": {
             "label_type": "SymbolLookup",
@@ -23968,8 +23968,8 @@
             "object_id": "286"
           },
           "286": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "288": {
             "label_type": "SymbolLookup",
@@ -24017,8 +24017,8 @@
             "object_id": "309"
           },
           "309": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "31": {
             "label_type": "VariableDeclaration",
@@ -24049,8 +24049,8 @@
             "object_id": "323"
           },
           "323": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "325": {
             "label_type": "SymbolLookup",
@@ -24108,8 +24108,8 @@
             "object_id": "351"
           },
           "351": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "353": {
             "label_type": "SymbolLookup",
@@ -24197,8 +24197,8 @@
             "object_id": "390"
           },
           "390": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "392": {
             "label_type": "SymbolLookup",
@@ -24295,8 +24295,8 @@
             "object_id": "434"
           },
           "434": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "436": {
             "label_type": "SymbolLookup",
@@ -24375,8 +24375,8 @@
             "object_id": "469"
           },
           "469": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "471": {
             "label_type": "SymbolLookup",
@@ -24422,8 +24422,8 @@
             "object_id": "492"
           },
           "492": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "494": {
             "label_type": "SymbolLookup",
@@ -24475,8 +24475,8 @@
             "object_id": "515"
           },
           "515": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "517": {
             "label_type": "SymbolLookup",
@@ -24501,8 +24501,8 @@
             "object_id": "529"
           },
           "529": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "531": {
             "label_type": "SymbolLookup",
@@ -24564,8 +24564,8 @@
             "object_id": "565"
           },
           "565": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "567": {
             "label_type": "SymbolLookup",
@@ -24600,8 +24600,8 @@
             "object_id": "585"
           },
           "585": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "587": {
             "label_type": "SymbolLookup",
@@ -24669,8 +24669,8 @@
             "object_id": "616"
           },
           "616": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "618": {
             "label_type": "SymbolLookup",
@@ -24737,8 +24737,8 @@
             "object_id": "645"
           },
           "645": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "647": {
             "label_type": "SymbolLookup",
@@ -24770,8 +24770,8 @@
             "object_id": "664"
           },
           "664": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "666": {
             "label_type": "SymbolLookup",
@@ -24803,8 +24803,8 @@
             "object_id": "681"
           },
           "681": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "683": {
             "label_type": "SymbolLookup",
@@ -24861,8 +24861,8 @@
             "object_id": "720"
           },
           "720": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "722": {
             "label_type": "SymbolLookup",
@@ -24891,8 +24891,8 @@
             "object_id": "735"
           },
           "735": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "737": {
             "label_type": "SymbolLookup",
@@ -24923,8 +24923,8 @@
             "value_type": "number"
           },
           "750": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "752": {
             "label_type": "SymbolLookup",
@@ -24950,8 +24950,8 @@
             "object_id": "764"
           },
           "764": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "766": {
             "label_type": "SymbolLookup",
@@ -25026,8 +25026,8 @@
             "object_id": "813"
           },
           "813": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "815": {
             "label_type": "SymbolLookup",
@@ -25061,8 +25061,8 @@
             "label_type": "SwitchSection"
           },
           "84": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "840": {
             "arguments_id": "844",
@@ -25072,8 +25072,8 @@
             "object_id": "841"
           },
           "841": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "843": {
             "label_type": "SymbolLookup",
@@ -25099,8 +25099,8 @@
             "object_id": "858"
           },
           "858": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "86": {
             "label_type": "SymbolLookup",
@@ -25170,8 +25170,8 @@
             "label_type": "ElementAccess"
           },
           "890": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "892": {
             "label_type": "SymbolLookup",
@@ -25240,8 +25240,8 @@
             "value_type": "number"
           },
           "920": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "922": {
             "label_type": "SymbolLookup",
@@ -25324,8 +25324,8 @@
             "object_id": "959"
           },
           "959": {
-            "field_text": "System.out",
-            "label_type": "FieldAccess"
+            "label_type": "SymbolLookup",
+            "symbol": "System.out"
           },
           "961": {
             "label_type": "SymbolLookup",
