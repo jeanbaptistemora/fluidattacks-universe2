@@ -10,13 +10,7 @@ partnersindex: yes
 ---
 
 Partners facilitate the delivery of our services to our end clients
-in a variety of geographic areas (e.g., Germany [<sup>1</sup>](#teraport),
-Australia [<sup>2</sup>](#the-missing-link) and the U.S.
-[<sup>3</sup>](#arroyo-consulting) [<sup>4</sup>](#sba))
-and sectors (e.g., Government, Defense) [<sup>5</sup>](#evolution-it).
-In addition to our services,
-they complete their portfolio
-(e.g., functional testing [<sup>6</sup>](#choucair) [<sup>7</sup>](#greensqa),
-software development)
-providing integrated solutions.
-The following are our current partners:
+in a variety of geographic areas (e.g., Germany, Australia and the U.S.)
+and sectors (e.g., Government, Defense). In addition to our services,
+they complete their portfolio (e.g., functional testing, software development)
+providing integrated solutions. The following are our current partners:
