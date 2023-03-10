@@ -47,6 +47,7 @@ from lib_root.f052.kotlin import (
     kotlin_insecure_key_ec,
     kotlin_insecure_key_rsa,
     kt_insecure_key_generator,
+    kt_insecure_parameter_spec,
 )
 from lib_root.f052.python import (
     python_insecure_cipher,
@@ -114,6 +115,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, kotlin_insecure_init_vector),
     (FINDING, kotlin_insecure_hostname_ver),
     (FINDING, kotlin_insecure_certification),
+    (FINDING, kt_insecure_parameter_spec),
     (FINDING, kt_insecure_key_generator),
     (FINDING, python_insecure_cipher),
     (FINDING, swift_insecure_cipher),

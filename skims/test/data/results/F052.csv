@@ -2005,6 +2005,19 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,
   16 | keyGen2safe.init(128) // Compliant
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_iv_parameter_spec.kt,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kt_iv_parameter_spec.kt,"
+   1 |
+   2 | val bytesIV = ""7cVgr5cbdCZVw5WY"".toByteArray(charset(""UTF-8"")) // Predictable / hardcoded IV
+   3 |
+   4 | val iv = IvParameterSpec(bytesIV)
+   5 | val skeySpec = SecretKeySpec(secretKey.toByteArray(), ""AES"")
+   6 |
+>  7 | val cipher: Cipher = Cipher.getInstance(""AES/CBC/PKCS5PADDING"")
+   8 | cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv) // Noncompliant (s3329)
+   9 |
+  10 | val encryptedBytes: ByteArray = cipher.doFinal(""foo"".toByteArray())
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/python_insecure_ciphers.py,"
    4 | )
    5 | from cryptography.hazmat.primitives.ciphers import (
@@ -3187,6 +3200,19 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kt_insecure_key_generator.kt,
   16 | keyGen2safe.init(128) // Compliant
      ^ Col 0
 ",kotlin.kt_insecure_key_gen
+F052,lines,namespace/skims/test/data/lib_root/f052/kt_iv_parameter_spec.kt,4,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kt_iv_parameter_spec.kt,"
+   1 |
+   2 | val bytesIV = ""7cVgr5cbdCZVw5WY"".toByteArray(charset(""UTF-8"")) // Predictable / hardcoded IV
+   3 |
+>  4 | val iv = IvParameterSpec(bytesIV)
+   5 | val skeySpec = SecretKeySpec(secretKey.toByteArray(), ""AES"")
+   6 |
+   7 | val cipher: Cipher = Cipher.getInstance(""AES/CBC/PKCS5PADDING"")
+   8 | cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv) // Noncompliant (s3329)
+   9 |
+  10 | val encryptedBytes: ByteArray = cipher.doFinal(""foo"".toByteArray())
+     ^ Col 0
+",kotlin.kt_insecure_parameter_spec
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
    1 | import { Router } from ""express"";
    2 | const router = Router();
