@@ -2154,7 +2154,7 @@ class MethodsEnum(Enum):
     CFN_ANYONE_ADMIN_PORTS = MethodInfo(
         file_name="cloudformation",
         name="cfn_allows_anyone_to_admin_ports",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

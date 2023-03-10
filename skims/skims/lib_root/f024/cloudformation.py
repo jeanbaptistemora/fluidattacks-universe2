@@ -172,6 +172,86 @@ def _unrestricted_cidrs(graph: Graph, nid: NId) -> Iterator[NId]:
             yield cidr_id
 
 
+def _allows_anyone_to_admin_ports(graph: Graph, nid: NId) -> Iterator[NId]:
+    admin_ports = {
+        22,  # SSH
+        1521,  # Oracle
+        1433,  # MSSQL
+        1434,  # MSSQL
+        2438,  # Oracle
+        3306,  # MySQL
+        3389,  # RDP
+        5432,  # Postgres
+        6379,  # Redis
+        7199,  # Cassandra
+        8111,  # DAX
+        8888,  # Cassandra
+        9160,  # Cassandra
+        11211,  # Memcached
+        27017,  # MongoDB
+        445,  # CIFS
+    }
+    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
+    unrestricted_ipv6 = IPv6Network("::/0")
+    unrestricted_ip = False
+    from_port, from_port_val, from_port_id = get_attribute(
+        graph, nid, "FromPort"
+    )
+    to_port, to_port_val, to_port_id = get_attribute(graph, nid, "ToPort")
+    if to_port and from_port:
+        port_range = set(range(int(from_port_val), int(to_port_val) + 1))
+        cidr, cidr_val, _ = get_attribute(graph, nid, "CidrIpv6")
+        if cidr:
+            with suppress(AddressValueError, KeyError):
+                unrestricted_ip = (
+                    IPv6Network(
+                        cidr_val,
+                        strict=False,
+                    )
+                    == unrestricted_ipv6
+                )
+        cidr, cidr_val, _ = get_attribute(graph, nid, "CidrIp")
+        if cidr:
+            with suppress(AddressValueError, KeyError):
+                unrestricted_ip = (
+                    IPv4Network(
+                        cidr_val,
+                        strict=False,
+                    )
+                    == unrestricted_ipv4
+                    or unrestricted_ip
+                )
+        if unrestricted_ip and admin_ports.intersection(port_range):
+            yield from_port_id
+            yield to_port_id
+
+
+def cfn_allows_anyone_to_admin_ports(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_ANYONE_ADMIN_PORTS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(graph, is_ingress=True):
+                for report in _allows_anyone_to_admin_ports(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024_aws.allows_anyone_to_admin_ports",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def cfn_unrestricted_cidrs(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

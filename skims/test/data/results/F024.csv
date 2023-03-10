@@ -2376,7 +2376,7 @@ F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),Fr
   21 |                 {
      ^ Col 0
 ",aws.unrestricted_ftp_access
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,18,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
    8 |           FromPort: 8888
    9 |           IpProtocol: tcp
   10 |           ToPort: 8888
@@ -2400,7 +2400,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   28 |           ToPort: 22
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,22,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,22,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
   12 |         - CidrIp: 34.229.161.227/16
   13 |           FromPort: 8080
   14 |           IpProtocol: tcp
@@ -2424,7 +2424,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   32 |       CidrIpv6: ::/0
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   16 |             ""CidrIp"": ""34.229.161.227/16"",
   17 |             ""FromPort"": 8080,
   18 |             ""IpProtocol"": ""tcp"",
@@ -2448,7 +2448,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   36 |             ""CidrIp"": ""0.0.0.0/0"",
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,32,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,32,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   22 |       },
   23 |       ""Type"": ""AWS::EC2::SecurityGroup""
   24 |     },
@@ -4559,8 +4559,8 @@ F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),Fr
   47 |         }
      ^ Col 0
 ",aws.open_all_ports_to_the_public
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -4584,8 +4584,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -4609,8 +4609,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
   18 |     Properties:
@@ -4634,8 +4634,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   36 |       GroupName: securityGroup2
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
   18 |     Properties:
   19 |       GroupDescription: groupDescription2
   20 |     Type: AWS::EC2::SecurityGroup
@@ -4659,8 +4659,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   38 |         Ref: IpInsecureProtocol
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,33,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,33,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
   23 |       GroupDescription: groupDescription1
   24 |       SecurityGroupIngress:
   25 |         - CidrIp: 0.0.0.0/0
@@ -4684,8 +4684,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   43 |       CidrIp:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
   29 |     Type: AWS::EC2::SecurityGroup
   30 |   securityGroupIngress1:
   31 |     Properties:
@@ -4709,8 +4709,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   49 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -4734,8 +4734,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -4759,8 +4759,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   27 |         ""GroupDescription"": ""groupDescription2""
   28 |       },
   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
@@ -4784,8 +4784,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   47 |         ""CidrIpv6"": ""::/0"",
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
   30 |     },
   31 |     ""securityGroup3"": {
@@ -4809,8 +4809,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   49 |         ""GroupId"": {
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,48,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,48,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   38 |             ""IpProtocol"": ""tcp"",
   39 |             ""ToPort"": 22
   40 |           }
@@ -4834,8 +4834,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   58 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json","
   46 |       ""Properties"": {
   47 |         ""CidrIpv6"": ""::/0"",
   48 |         ""FromPort"": 27017,
@@ -6559,7 +6559,7 @@ F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),Fro
   44 |             ],
      ^ Col 0
 ",aws.unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -6583,7 +6583,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
   15 |           ToPort: 8080
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
@@ -6607,7 +6607,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   35 |         Ref: securityGroup2
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"
   22 |     Properties:
   23 |       GroupDescription: groupDescription1
   24 |       SecurityGroupIngress:
@@ -6631,7 +6631,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   42 |     Properties:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -6655,7 +6655,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
   26 |       ""Properties"": {
   27 |         ""GroupDescription"": ""groupDescription2""
   28 |       },
@@ -6679,7 +6679,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admi
   46 |       ""Properties"": {
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,47,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,47,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml.json,"
   37 |             ""FromPort"": 22,
   38 |             ""IpProtocol"": ""tcp"",
   39 |             ""ToPort"": 22
