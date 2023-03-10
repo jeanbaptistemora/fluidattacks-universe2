@@ -106,9 +106,6 @@ module.exports = {
         plugins: [
           {
             resolve: "gatsby-remark-component-parent2div",
-            options: {
-              components: ["time-lapse"]
-            }
           },
           {
             resolve: `gatsby-remark-classes`,

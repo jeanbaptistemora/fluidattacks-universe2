@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-unsafe-member-access: 0*/
 /* eslint @typescript-eslint/no-unsafe-call: 0*/
 /* eslint @typescript-eslint/no-explicit-any: 0*/
-import React, { createElement } from "react";
+import React, { Fragment, createElement } from "react";
 import rehypeReact from "rehype-react";
 
 import { BlogCta } from "./components/BlogCta";
@@ -43,6 +43,9 @@ const ContentSection: React.FC<IContentProps> = ({
       "video-block": VideoBlock,
     },
     createElement,
+    options: {
+      fragment: Fragment,
+    },
   }).Compiler;
 
   return (
