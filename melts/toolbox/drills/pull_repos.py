@@ -111,9 +111,17 @@ def delete_out_of_scope_files(group: str) -> bool:
     active_roots_nicknames = [
         root["nickname"] for root in all_roots if root["state"] == "ACTIVE"
     ]
+    all_roots = sorted(
+        all_roots,
+        key=lambda x: 1 if x["state"] == "ACTIVE" else 0,
+        reverse=True,
+    )
+    processed_nicknames = []
     for root in all_roots:
         # Get the expected repo name from the URL
         nickname = root["nickname"]
+        if nickname in processed_nicknames:
+            continue
         expected_repositories.add(nickname)
 
         spec_ignore = pathspec.PathSpec.from_lines(
@@ -149,6 +157,7 @@ def delete_out_of_scope_files(group: str) -> bool:
                     os.unlink(path_to_delete)
             elif os.path.isdir(path_to_delete):
                 shutil.rmtree(path_to_delete, ignore_errors=True)
+        processed_nicknames.append(root["nickname"])
 
     # Delete cloned repositories that are not expected to be cloned
     cloned_repositories: Set[str] = set()
