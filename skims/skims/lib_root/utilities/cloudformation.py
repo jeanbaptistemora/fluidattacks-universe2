@@ -84,6 +84,63 @@ def iterate_group_resources(graph: Graph, expected_type: str) -> Iterator[NId]:
                     yield pol
 
 
+def yield_statements_from_policy(graph: Graph, nid: NId) -> Iterator[NId]:
+    statement, _, stmt_id = get_attribute(graph, nid, "Statement")
+    if statement:
+        stmt_attrs = graph.nodes[stmt_id]["value_id"]
+        for stmt in adj_ast(graph, stmt_attrs):
+            yield stmt
+
+
+def _aux_iterate_iam_policy_documents(
+    graph: Graph, nid: NId, resource: str
+) -> Iterator[NId]:
+    if resource in {
+        "AWS::IAM::ManagedPolicy",
+        "AWS::IAM::Policy",
+        "AWS::S3::BucketPolicy",
+    }:
+        _, _, pd_id = get_attribute(graph, nid, "PolicyDocument")
+        yield from yield_statements_from_policy(
+            graph, graph.nodes[pd_id]["value_id"]
+        )
+
+    if (
+        (resource in {"AWS::IAM::Role", "AWS::IAM::User"})
+        and (policies := get_attribute(graph, nid, "Policies"))
+        and policies[0]
+    ):
+        for policy in adj_ast(graph, graph.nodes[policies[2]]["value_id"]):
+            _, _, pd_id = get_attribute(graph, policy, "PolicyDocument")
+            yield from yield_statements_from_policy(
+                graph, graph.nodes[pd_id]["value_id"]
+            )
+
+    if (
+        (resource in {"AWS::IAM::Role"})
+        and (document := get_attribute(graph, nid, "AssumeRolePolicyDocument"))
+        and document[0]
+    ):
+        yield from yield_statements_from_policy(
+            graph, graph.nodes[document[2]]["value_id"]
+        )
+
+
+def iterate_iam_policy_documents(graph: Graph) -> Iterator[NId]:
+    types = ["AWS::IAM", "AWS::S3::BucketPolicy"]
+    for nid in g.matching_nodes(graph, label_type="Object"):
+        resource_type_key, resource_type_val, _ = get_attribute(
+            graph, nid, "Type"
+        )
+        for res in types:
+            if resource_type_key and res in resource_type_val:
+                _, _, prop_id = get_attribute(graph, nid, "Properties")
+                val_id = graph.nodes[prop_id]["value_id"]
+                yield from _aux_iterate_iam_policy_documents(
+                    graph, val_id, resource_type_val
+                )
+
+
 def aux_iterate_ec2_egress_ingress(
     graph: Graph, is_ingress: bool = False, is_egress: bool = False
 ) -> Iterator[NId]:
