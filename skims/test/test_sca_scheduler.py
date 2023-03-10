@@ -1,5 +1,6 @@
 import pytest
 from schedulers.update_sca_table.repositories.advisories_community import (
+    _format_ranges,
     fix_npm_gem_go_range,
     fix_pip_composer_range,
     format_range,
@@ -64,5 +65,25 @@ def test_fix_npm_gem_go_range(range_str: str, expected: str) -> None:
 )
 def test_fix_pip_composer_range(range_str: str, expected: str) -> None:
     formated_range: str = fix_pip_composer_range(range_str)
+    print(formated_range)
+    assert formated_range == expected
+
+
+@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.parametrize(
+    "parameters,expected",
+    [
+        (("pypi", ">=1.0,<=1.0.1"), ">=1.0 <=1.0.1"),
+        (
+            ("npm", "<5.2.4.4||>=6.0.0.0 <6.0.3.3"),
+            "<5.2.4.4 || >=6.0.0.0 <6.0.3.3",
+        ),
+        (("maven", "[1.1.4]"), "=1.1.4"),
+    ],
+)
+def test_format_ranges_internal(
+    parameters: tuple[str, str], expected: str
+) -> None:
+    formated_range: str = _format_ranges(*parameters)
     print(formated_range)
     assert formated_range == expected
