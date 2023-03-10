@@ -555,6 +555,7 @@ const Development = [
       "development/setup/onboarding",
       "development/setup/environment",
       "development/setup/terminal",
+      "development/setup/configuration",
       "development/setup/editor",
     ],
   },

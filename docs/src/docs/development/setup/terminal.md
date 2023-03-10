@@ -28,6 +28,12 @@ Please follow the following steps:
    - [Git](https://git-scm.com): `$ nix-env -iA nixpkgs.git`.
    - [Direnv](https://direnv.net): `$ nix-env -iA nixpkgs.direnv`.
 
+1. Access to your `~/.bashrc`:
+
+   ```bash
+   code ~/.bashrc
+   ```
+
 1. Add the following variables to your `~/.bashrc`
    or to a file at `$universe/.envrc.config`:
 
@@ -44,6 +50,12 @@ Please follow the following steps:
    ```bash
    export DIRENV_WARN_TIMEOUT=1h
    source <(direnv hook bash)
+   ```
+
+1. run the changes in your `~/.bashrc`:
+
+   ```bash
+   source ~/.bashrc
    ```
 
 Reload your terminal for changes to be loaded.
