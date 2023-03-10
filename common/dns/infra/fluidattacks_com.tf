@@ -255,7 +255,7 @@ resource "cloudflare_record" "makes" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "makes.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "yuaaxr.stackhero-network.com"
+  value   = "fluidattacks.github.io"
   proxied = false
   ttl     = 1
 }
