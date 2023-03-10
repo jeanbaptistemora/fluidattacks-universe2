@@ -16,28 +16,11 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
-
-
-def get_eval_danger(
-    graph: Graph, n_id: NId, danger_set: set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
 
 
 def is_danger_shell(
@@ -47,7 +30,7 @@ def is_danger_shell(
         if graph.nodes[_id]["argument_name"] != "shell":
             continue
         val_id = graph.nodes[_id]["value_id"]
-        return get_eval_danger(graph, val_id, set(), method)
+        return get_node_evaluation_results(method, graph, val_id, set())
     return False
 
 
@@ -61,14 +44,17 @@ def is_danger_expression(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
     if (
         expr.startswith("os.")
-        and get_eval_danger(graph, args_ids[0], {"userparams"}, method)
+        and get_node_evaluation_results(
+            method, graph, args_ids[0], {"userparams"}
+        )
     ) or (
         len(args_ids) > 1
         and is_danger_shell(graph, args_ids[1:], method)
-        and get_eval_danger(graph, args_ids[0], {"userparams"}, method)
+        and get_node_evaluation_results(
+            method, graph, args_ids[0], {"userparams"}
+        )
     ):
         return True
-
     return False
 
 

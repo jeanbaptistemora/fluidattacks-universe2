@@ -13,17 +13,16 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.utils import (
-    get_backward_paths,
     get_object_identifiers,
 )
 from utils import (
@@ -32,9 +31,11 @@ from utils import (
 
 
 def is_insecure_decoder(
-    graph: Graph, n_id: str, obj_identifiers: Iterable[str]
+    method: MethodsEnum,
+    graph: Graph,
+    n_id: str,
+    obj_identifiers: Iterable[str],
 ) -> bool:
-    method = MethodsEnum.CS_VERIFY_DECODER
     exp = graph.nodes[n_id]["expression"]
     memb = graph.nodes[n_id]["member"]
     if (
@@ -42,11 +43,9 @@ def is_insecure_decoder(
         and memb == "Decode"
         and (al_id := graph.nodes[g.pred(graph, n_id)[0]].get("arguments_id"))
         and (test_nid := g.match_ast(graph, al_id).get("__2__"))
+        and get_node_evaluation_results(method, graph, test_nid, set())
     ):
-        for path in get_backward_paths(graph, test_nid):
-            evaluation = evaluate(method, graph, path, test_nid)
-            if evaluation and evaluation.danger:
-                return True
+        return True
     return False
 
 
@@ -64,23 +63,17 @@ def check_pred(graph: Graph, depth: int = 1, elem_jwt: str = "0") -> bool:
     return signed
 
 
-def verify_decoder(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def verify_decoder(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_VERIFY_DECODER
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.CSHARP,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
             obj_jwt = get_object_identifiers(graph, {"JwtDecoder"})
-
             for member in g.matching_nodes(graph, label_type="MemberAccess"):
-                if is_insecure_decoder(graph, member, obj_jwt):
+                if is_insecure_decoder(method, graph, member, obj_jwt):
                     yield shard, member
 
     return get_vulnerabilities_from_n_ids(
@@ -91,18 +84,14 @@ def verify_decoder(
     )
 
 
-def jwt_signed(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-    c_sharp = GraphShardMetadataLanguage.CSHARP
+def jwt_signed(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_JWT_SIGNED
     object_name = {"JwtBuilder"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
-
             graph = shard.syntax_graph
 
             for member in [

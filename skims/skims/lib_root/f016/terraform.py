@@ -1,10 +1,6 @@
 from collections.abc import (
     Iterator,
 )
-from lib_root.f016.constants import (
-    VULNERABLE_MIN_PROT_VERSIONS,
-    VULNERABLE_ORIGIN_SSL_PROTOCOLS,
-)
 from lib_root.utilities.terraform import (
     get_argument,
     get_attr_from_block,
@@ -26,6 +22,14 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
+
+VULNERABLE_ORIGIN_SSL_PROTOCOLS = ["SSLv3", "TLSv1", "TLSv1.1"]
+VULNERABLE_MIN_PROT_VERSIONS = [
+    "SSLv3",
+    "TLSv1",
+    "TLSv1_2016",
+    "TLSv1.1_2016",
+]
 
 
 def _azure_serves_content_over_insecure_protocols(

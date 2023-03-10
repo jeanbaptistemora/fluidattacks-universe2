@@ -23,27 +23,11 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
-
-
-def is_insec_header(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    danger_set = {"userconnection", "userparams"}
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
 
 
 def search_member_accessed(graph: Graph, members: Set[str]) -> Iterator[NId]:
@@ -56,16 +40,14 @@ def search_member_accessed(graph: Graph, members: Set[str]) -> Iterator[NId]:
             yield parent
 
 
-def insec_addheader_write(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def insec_addheader_write(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_INSEC_ADDHEADER_WRITE
-    c_sharp = GraphLanguage.CSHARP
     danger_methods = {"AddHeader", "Write"}
     danger_members = {"StatusDescription"}
+    danger_set = {"userconnection", "userparams"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -74,7 +56,9 @@ def insec_addheader_write(
                 search_method_invocation_naive(graph, danger_methods),
                 search_member_accessed(graph, danger_members),
             ):
-                if is_insec_header(graph, n_id, method):
+                if get_node_evaluation_results(
+                    method, graph, n_id, danger_set
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

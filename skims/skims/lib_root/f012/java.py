@@ -67,24 +67,27 @@ def has_like_injection(statement: str) -> bool:
 
 
 def is_argument_vuln(
+    method: MethodsEnum,
     graph: Graph,
     n_id: NId,
 ) -> bool:
-    method = MethodsEnum.JAVA_JPA_LIKE
     for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and has_like_injection(
-            "".join(list(evaluation.triggers))
+        if (
+            (evaluation := evaluate(method, graph, path, n_id))
+            and (stmt := "".join(list(evaluation.triggers)))
+            and has_like_injection(stmt)
         ):
             return True
     return False
 
 
-def analyze_jpa_node(graph: Graph, annotation_id: str) -> bool:
+def analyze_jpa_node(
+    method: MethodsEnum, graph: Graph, annotation_id: str
+) -> bool:
     _, *c_ids = g.adj_ast(graph, annotation_id, depth=2)
     results_vuln = []
     for n_id in c_ids:
-        results_vuln.append(is_argument_vuln(graph, n_id))
+        results_vuln.append(is_argument_vuln(method, graph, n_id))
 
     if any(results_vuln):
         m_id = g.pred_ast(graph, annotation_id, depth=2)[1]
@@ -101,6 +104,7 @@ def analyze_jpa_node(graph: Graph, annotation_id: str) -> bool:
 def jpa_like(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method = MethodsEnum.JAVA_JPA_LIKE
     danger_decorators = complete_attrs_on_set(
         {
             "org.springframework.data.jpa.repository.Query",
@@ -120,7 +124,7 @@ def jpa_like(
             ):
                 identifier_text = graph.nodes[annotation_id]["name"]
                 if identifier_text in danger_decorators and analyze_jpa_node(
-                    graph, annotation_id
+                    method, graph, annotation_id
                 ):
                     yield shard, annotation_id
 
@@ -128,5 +132,5 @@ def jpa_like(
         desc_key="src.lib_path.f001_jpa.java_like.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JAVA_JPA_LIKE,
+        method=method,
     )

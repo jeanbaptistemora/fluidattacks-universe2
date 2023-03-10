@@ -12,7 +12,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
     MetadataGraphShardNode,
     NId,
@@ -22,10 +22,9 @@ from sast.query import (
     get_vulnerabilities_from_n_ids_metadata,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.utils import (
-    get_backward_paths,
     get_object_identifiers,
 )
 from utils import (
@@ -36,29 +35,20 @@ from utils.string import (
 )
 
 
-def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
-def is_point_manager_vulnerable(graph: Graph, n_id: str) -> NId | None:
-    method = MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
+def is_point_manager_vulnerable(
+    method: MethodsEnum, graph: Graph, n_id: str
+) -> NId | None:
     member_str = (
         "Switch.System.ServiceModel."
-        + "DisableUsingServicePointManagerSecurityProtocols"
+        "DisableUsingServicePointManagerSecurityProtocols"
     )
     rules = {
         member_str,
         "true",
     }
     pred = g.pred_ast(graph, n_id)[0]
-    for path in get_backward_paths(graph, pred):
-        evaluation = evaluate(method, graph, path, pred)
-        if evaluation and evaluation.danger and evaluation.triggers == rules:
-            return pred
+    if get_node_evaluation_results(method, graph, pred, rules):
+        return pred
     return None
 
 
@@ -70,42 +60,31 @@ def is_insecure_protocol(
         (split_expr := split_fr(graph.nodes[n_id].get("expression")))
         and split_expr[0] in obj_identifiers
         and split_expr[1] == "GetSharedAccessSignature"
-        and get_eval_danger(graph, n_id, method)
+        and get_node_evaluation_results(method, graph, n_id, set())
     ):
         return True
     return False
 
 
-def weak_protocol(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def weak_protocol(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_WEAK_PROTOCOL
+    weak_protocols = ["Ssl3", "Tls", "Tls11", "None"]
 
     def n_ids() -> Iterator[MetadataGraphShardNode]:
         metadata = {}
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.CSHARP,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for nid in g.matching_nodes(
-                graph,
-                label_type="MemberAccess",
-            ):
-
+            for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 protocol = graph.nodes[nid].get("member")
-                if graph.nodes[nid].get(
-                    "expression"
-                ) == "SecurityProtocolType" and protocol in [
-                    "Ssl3",
-                    "Tls",
-                    "Tls11",
-                    "None",
-                ]:
+                if (
+                    graph.nodes[nid].get("expression")
+                    == "SecurityProtocolType"
+                    and protocol in weak_protocols
+                ):
                     metadata["what"] = protocol
                     metadata["desc_params"] = {"protocol": protocol}
-
                     yield shard, nid, metadata
 
     return get_vulnerabilities_from_n_ids_metadata(
@@ -116,14 +95,11 @@ def weak_protocol(
     )
 
 
-def service_point_manager_disabled(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def service_point_manager_disabled(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
-    c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -132,7 +108,7 @@ def service_point_manager_disabled(
                 graph, {"AppContext"}
             ):
                 if graph.nodes[member]["member"] == "SetSwitch" and (
-                    nid := is_point_manager_vulnerable(graph, member)
+                    nid := is_point_manager_vulnerable(method, graph, member)
                 ):
                     yield shard, nid
 
@@ -144,26 +120,18 @@ def service_point_manager_disabled(
     )
 
 
-def insecure_shared_access_protocol(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def insecure_shared_access_protocol(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
-    c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
             obj_identifiers = get_object_identifiers(graph, {"CloudFile"})
-
-            for nid in g.matching_nodes(
-                graph,
-                label_type="MethodInvocation",
-            ):
-                if is_insecure_protocol(graph, nid, obj_identifiers):
-                    yield shard, nid
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
+                if is_insecure_protocol(graph, n_id, obj_identifiers):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f016.insecure_shared_access_protocol",
@@ -173,27 +141,22 @@ def insecure_shared_access_protocol(
     )
 
 
-def httpclient_no_revocation_list(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def httpclient_no_revocation_list(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_HTTPCLIENT_NO_REVOCATION_LIST
-    c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
-
             graph = shard.syntax_graph
 
-            for nid in g.matching_nodes(
-                graph,
-                label_type="ObjectCreation",
-            ):
-                if graph.nodes[nid].get(
+            for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
+                if graph.nodes[n_id].get(
                     "name"
-                ) == "HttpClient" and get_eval_danger(graph, nid, method):
-                    yield shard, nid
+                ) == "HttpClient" and get_node_evaluation_results(
+                    method, graph, n_id, set()
+                ):
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f016.httpclient_no_revocation_list",

@@ -4,7 +4,7 @@ from collections.abc import (
 from itertools import (
     chain,
 )
-from lib_root.f016.constants import (
+from lib_root.f016.terraform import (
     VULNERABLE_MIN_PROT_VERSIONS,
     VULNERABLE_ORIGIN_SSL_PROTOCOLS,
 )
