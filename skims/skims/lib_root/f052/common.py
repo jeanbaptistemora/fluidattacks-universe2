@@ -19,6 +19,7 @@ from model.graph_model import (
 )
 from symbolic_eval.evaluate import (
     evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.utils import (
     get_backward_paths,
@@ -38,14 +39,6 @@ def split_function_name(f_names: str) -> tuple[str, str]:
     return name_l[-2], name_l[-1]
 
 
-def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
 def is_insecure_encrypt(
     graph: Graph, al_id: NId, algo: str, method: MethodsEnum
 ) -> bool:
@@ -56,17 +49,7 @@ def is_insecure_encrypt(
         and (args := g.adj_ast(graph, al_id))
         and len(args) > 2
     ):
-        return get_eval_danger(graph, args[-1], method)
-    return False
-
-
-def get_eval_triggers(
-    graph: Graph, n_id: NId, rules: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger and evaluation.triggers == rules:
-            return True
+        return get_node_evaluation_results(method, graph, args[-1], set())
     return False
 
 
@@ -86,7 +69,7 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> list[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (args := g.adj_ast(graph, al_id))
             and len(args) > 0
-            and get_eval_danger(graph, args[0], method)
+            and get_node_evaluation_results(method, graph, args[0], set())
         ):
             vuln_nodes.append(n_id)
 
@@ -102,7 +85,7 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> list[NId]:
             graph.nodes[n_id]["expression"] in danger_methods
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (test_node := g.match_ast(graph, al_id).get("__0__"))
-            and get_eval_danger(graph, test_node, method)
+            and get_node_evaluation_results(method, graph, test_node, set())
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
@@ -136,7 +119,7 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> list[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (args := g.adj_ast(graph, al_id))
             and len(args) > 0
-            and get_eval_danger(graph, args[0], method)
+            and get_node_evaluation_results(method, graph, args[0], set())
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
@@ -155,7 +138,7 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (args := g.adj_ast(graph, al_id))
             and len(args) > 1
-            and get_eval_triggers(graph, al_id, rules, method)
+            and get_node_evaluation_results(method, graph, al_id, rules)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
@@ -174,7 +157,7 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (args := g.adj_ast(graph, al_id))
             and len(args) > 1
-            and get_eval_triggers(graph, al_id, rules, method)
+            and get_node_evaluation_results(method, graph, al_id, rules)
         ):
             vuln_nodes.append(n_id)
     return vuln_nodes
@@ -249,7 +232,7 @@ def jwt_insec_sign_async(graph: Graph, method: MethodsEnum) -> list[NId]:
         if (
             (args_n_id := nodes[n_id].get("arguments_id"))
             and (susp_n_id := next(iter(g.adj_ast(graph, args_n_id)), None))
-            and get_eval_danger(graph, susp_n_id, method)
+            and get_node_evaluation_results(method, graph, susp_n_id, set())
         ):
             vuln_nodes.append(susp_n_id)
     return vuln_nodes
@@ -290,7 +273,7 @@ def get_first_arg_eval(
     if (
         (args_n_id := graph.nodes[n_id].get("arguments_id"))
         and (first_arg_n_id := next(iter(g.adj_ast(graph, args_n_id)), None))
-        and get_eval_danger(graph, first_arg_n_id, method)
+        and get_node_evaluation_results(method, graph, first_arg_n_id, set())
     ):
         return first_arg_n_id
     return None

@@ -6,42 +6,25 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_insec_input(graph: Graph, n_id: NId) -> bool:
+def unsafe_xpath_injeciton(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_XPATH_INJECTION_EVALUATE
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.triggers == {
-            "userparameters",
-            "userconnection",
-        }:
-            return True
-    return False
-
-
-def unsafe_xpath_injeciton(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
     danger_methods = {"evaluate"}
+    danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
@@ -49,13 +32,12 @@ def unsafe_xpath_injeciton(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.matching_nodes(
-                graph,
-                label_type="MethodInvocation",
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 n_attrs = graph.nodes[n_id]
-                if n_attrs["expression"] in danger_methods and is_insec_input(
-                    graph, n_id
+                if n_attrs[
+                    "expression"
+                ] in danger_methods and get_node_evaluation_results(
+                    method, graph, n_id, danger_set, False
                 ):
                     yield shard, n_id
 
@@ -63,5 +45,5 @@ def unsafe_xpath_injeciton(
         desc_key="src.lib_path.f021.xpath_injection_evaluate",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JAVA_XPATH_INJECTION_EVALUATE,
+        method=method,
     )

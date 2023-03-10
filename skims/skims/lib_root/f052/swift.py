@@ -16,20 +16,9 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 import utils.graph as g
-
-
-def get_eval_result(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
 
 
 def get_all_imports(graph: Graph) -> list[str]:
@@ -157,8 +146,8 @@ def swift_insecure_cryptalgo(
                 ident = n_attrs.get("expression")
                 parent = g.pred_ast(graph, n_id)[0]
                 var_id = graph.nodes[parent]["value_id"]
-                if ident in danger_methods and get_eval_result(
-                    graph, var_id, method
+                if ident in danger_methods and get_node_evaluation_results(
+                    method, graph, var_id, set()
                 ):
                     yield shard, n_id
 

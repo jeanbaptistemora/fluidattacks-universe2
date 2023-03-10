@@ -1,6 +1,5 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from itertools import (
     chain,
@@ -26,36 +25,12 @@ from sast.query import (
     get_vulnerabilities_from_n_ids_metadata,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 import utils.graph as g
 from utils.string import (
     build_attr_paths,
 )
-
-
-def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
-def get_eval_triggers(
-    graph: Graph,
-    n_id: NId,
-    method: MethodsEnum,
-    rules: Set[str],
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger and evaluation.triggers == rules:
-            return True
-    return False
 
 
 def is_insecure_keys(graph: Graph, n_id: str) -> bool:
@@ -71,14 +46,12 @@ def is_insecure_keys(graph: Graph, n_id: str) -> bool:
         and (a_id := n_attrs.get("arguments_id"))
         and (test_nid := g.match_ast(graph, a_id).get("__0__"))
     ):
-        return get_eval_danger(graph, test_nid, method)
+        return get_node_evaluation_results(method, graph, test_nid, set())
 
     return False
 
 
-def get_crypto_var_names(
-    graph: Graph,
-) -> list[NId]:
+def get_crypto_var_names(graph: Graph) -> list[NId]:
     name_vars = []
     for var_id in g.matching_nodes(graph, label_type="VariableDeclaration"):
         node_var = graph.nodes[var_id]
@@ -106,10 +79,9 @@ def is_rsa_insecure(graph: Graph, n_id: NId) -> bool:
 
     if not a_id or (
         (test_nid := g.match_ast(graph, a_id).get("__0__"))
-        and get_eval_danger(graph, test_nid, method)
+        and get_node_evaluation_results(method, graph, test_nid, set())
     ):
         return True
-
     return False
 
 
@@ -125,15 +97,15 @@ def is_managed_mode_insecure(graph: Graph, n_id: NId) -> NId | None:
         members = [*yield_syntax_graph_member_access(graph, var_name)]
         test_nid = get_mode_node(graph, tuple(members), "member")
 
-    if test_nid and get_eval_danger(graph, test_nid, method):
+    if test_nid and get_node_evaluation_results(
+        method, graph, test_nid, set()
+    ):
         return test_nid
 
     return None
 
 
-def c_sharp_insecure_keys(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_insecure_keys(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_KEYS
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -156,9 +128,7 @@ def c_sharp_insecure_keys(
     )
 
 
-def c_sharp_rsa_secure_mode(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_rsa_secure_mode(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_RSA_SECURE_MODE
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -180,7 +150,9 @@ def c_sharp_rsa_secure_mode(
                     and n_attrs.get("member") == "Encrypt"
                     and (al_id := graph.nodes[parent_nid].get("arguments_id"))
                     and (test_nid := g.match_ast(graph, al_id).get("__1__"))
-                    and get_eval_danger(graph, test_nid, method)
+                    and get_node_evaluation_results(
+                        method, graph, test_nid, set()
+                    )
                 ):
                     yield shard, member
 
@@ -192,9 +164,7 @@ def c_sharp_rsa_secure_mode(
     )
 
 
-def c_sharp_managed_secure_mode(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_managed_secure_mode(graph_db: GraphDB) -> Vulnerabilities:
     insecure_objects = {"AesManaged"}
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -219,9 +189,7 @@ def c_sharp_managed_secure_mode(
     )
 
 
-def c_sharp_insecure_cipher(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_insecure_cipher(graph_db: GraphDB) -> Vulnerabilities:
     c_sharp = GraphShardMetadataLanguage.CSHARP
     insecure_ciphers = {
         "AesFastEngine",
@@ -257,9 +225,7 @@ def c_sharp_insecure_cipher(
     )
 
 
-def c_sharp_insecure_hash(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_insecure_hash(graph_db: GraphDB) -> Vulnerabilities:
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
     insecure_ciphers = {
@@ -298,9 +264,7 @@ def c_sharp_insecure_hash(
     )
 
 
-def c_sharp_disabled_strong_crypto(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_disabled_strong_crypto(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_DISABLED_STRONG_CRYPTO
     c_sharp = GraphShardMetadataLanguage.CSHARP
     rules = {"Switch.System.Net.DontEnableSchUseStrongCrypto", "true"}
@@ -317,8 +281,8 @@ def c_sharp_disabled_strong_crypto(
                 test_nid = g.pred_ast(graph, member)[0]
                 if graph.nodes[member][
                     "member"
-                ] == "SetSwitch" and get_eval_triggers(
-                    graph, test_nid, method, rules
+                ] == "SetSwitch" and get_node_evaluation_results(
+                    method, graph, test_nid, rules
                 ):
                     yield shard, test_nid
 
@@ -330,9 +294,7 @@ def c_sharp_disabled_strong_crypto(
     )
 
 
-def c_sharp_obsolete_key_derivation(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def c_sharp_obsolete_key_derivation(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_OBSOLETE_KEY_DERIVATION
     c_sharp = GraphShardMetadataLanguage.CSHARP
     possible_paths = build_attr_paths(

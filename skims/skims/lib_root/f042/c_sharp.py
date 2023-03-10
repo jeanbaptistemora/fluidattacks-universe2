@@ -20,20 +20,17 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_insecure_cookie_object(graph: Graph, object_nid: str) -> NId | None:
-    method = MethodsEnum.CS_INSEC_COOKIES
+def is_insecure_cookie_object(
+    method: MethodsEnum, graph: Graph, object_nid: str
+) -> NId | None:
     security_props = {"HttpOnly", "Secure"}
-
     pred = g.pred(graph, object_nid)[0]
     var_name = {graph.nodes[pred].get("variable")}
 
@@ -44,27 +41,20 @@ def is_insecure_cookie_object(graph: Graph, object_nid: str) -> NId | None:
         parent_id = g.pred(graph, nid)[0]
         test_nid = graph.nodes[parent_id].get("value_id")
         sec_access.append(nid)
-        for path in get_backward_paths(graph, test_nid):
-            evaluation = evaluate(method, graph, path, test_nid)
-            if evaluation and evaluation.danger:
-                return pred
+        if get_node_evaluation_results(method, graph, test_nid, set()):
+            return pred
 
     if len(sec_access) < 2:
         return pred
-
     return None
 
 
-def insecurely_generated_cookies(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def insecurely_generated_cookies(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_INSEC_COOKIES
     object_name = {"HttpCookie"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.CSHARP,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -72,7 +62,9 @@ def insecurely_generated_cookies(
             for object_nid in yield_syntax_graph_object_creation(
                 graph, object_name
             ):
-                if pred := is_insecure_cookie_object(graph, object_nid):
+                if pred := is_insecure_cookie_object(
+                    method, graph, object_nid
+                ):
                     yield shard, pred
 
     return get_vulnerabilities_from_n_ids(

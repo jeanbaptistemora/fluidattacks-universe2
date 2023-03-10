@@ -52,16 +52,6 @@ def is_danger_value(graph: Graph, n_id: NId, memb_name: str) -> bool:
     return False
 
 
-def check_no_password_argument(triggers: Set[str]) -> bool:
-    eval_str = "".join(list(triggers))
-    for arg_part in eval_str.split(";"):
-        if "=" in arg_part:
-            var, value = arg_part.split("=", maxsplit=1)
-            if var == "Password" and not value:
-                return True
-    return False
-
-
 def get_weak_policies_ids(graph: Graph, n_id: NId) -> set[NId]:
     weak_nodes: set[NId] = set()
     parent_id = g.pred(graph, n_id)[0]
@@ -86,19 +76,24 @@ def get_weak_policies_ids(graph: Graph, n_id: NId) -> set[NId]:
 def get_vuln_nodes(graph: Graph) -> set[NId]:
     config_options = "Configure<IdentityOptions>"
     vuln_nodes: set[NId] = set()
-    for nid in g.matching_nodes(
-        graph,
-        label_type="MemberAccess",
-    ):
+    for nid in g.matching_nodes(graph, label_type="MemberAccess"):
         if graph.nodes[nid].get("member") != config_options:
             continue
         vuln_nodes.update(get_weak_policies_ids(graph, nid))
-
     return vuln_nodes
 
 
-def get_eval_danger(graph: Graph, n_id: NId) -> bool:
-    method = MethodsEnum.CS_NO_PASSWORD
+def check_no_password_argument(triggers: Set[str]) -> bool:
+    eval_str = "".join(list(triggers))
+    for arg_part in eval_str.split(";"):
+        if "=" in arg_part:
+            var, value = arg_part.split("=", maxsplit=1)
+            if var == "Password" and not value:
+                return True
+    return False
+
+
+def get_eval_danger(method: MethodsEnum, graph: Graph, n_id: NId) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation and check_no_password_argument(evaluation.triggers):
@@ -107,13 +102,9 @@ def get_eval_danger(graph: Graph, n_id: NId) -> bool:
 
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
-def weak_credential_policy(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def weak_credential_policy(graph_db: GraphDB) -> Vulnerabilities:
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.CSHARP,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -129,32 +120,26 @@ def weak_credential_policy(
     )
 
 
-def no_password(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def no_password(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_NO_PASSWORD
-    c_sharp = GraphLanguage.CSHARP
     bad_types = {"Microsoft", "EntityFrameworkCore", "DbContextOptionsBuilder"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
             flagged_vars = get_object_identifiers(graph, bad_types)
 
             for n_id in g.matching_nodes(graph, label_type="MemberAccess"):
                 expr = graph.nodes[n_id].get("expression")
-                member = graph.nodes[n_id].get("member")
                 parent_id = g.pred(graph, n_id)[0]
-
                 if (
                     expr in flagged_vars
-                    and member == "UseSqlServer"
+                    and graph.nodes[n_id].get("member") == "UseSqlServer"
                     and (al_id := graph.nodes[parent_id].get("arguments_id"))
                     and (test_nid := g.match_ast(graph, al_id).get("__0__"))
-                    and get_eval_danger(graph, test_nid)
+                    and get_eval_danger(method, graph, test_nid)
                 ):
                     yield shard, n_id
 

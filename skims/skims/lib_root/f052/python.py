@@ -6,43 +6,22 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def get_eval_danger(
-    graph: Graph, n_id: NId, danger_set: set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def python_insecure_cipher(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def python_insecure_cipher(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.PYTHON_UNSAFE_CIPHER
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -59,7 +38,9 @@ def python_insecure_cipher(
                     and (al_id := n_attrs.get("arguments_id"))
                     and (args_ids := g.adj_ast(graph, al_id))
                     and len(args_ids) > 2
-                    and get_eval_danger(graph, al_id, {"unsafemode"}, method)
+                    and get_node_evaluation_results(
+                        method, graph, al_id, {"unsafemode"}
+                    )
                 ):
                     yield shard, n_id
 

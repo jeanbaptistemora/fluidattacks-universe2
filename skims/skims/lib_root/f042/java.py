@@ -1,6 +1,5 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from model.core_model import (
     MethodsEnum,
@@ -9,7 +8,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
     NId,
 )
@@ -17,7 +16,7 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.utils import (
     get_backward_paths,
@@ -27,20 +26,9 @@ from utils import (
 )
 
 
-def get_eval_results(graph: Graph, n_id: NId, danger_set: Set[str]) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_COOKIE
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def is_unsafe_cookie(graph: Graph, n_id: NId, cookie_name: str) -> bool:
+def is_unsafe_cookie(
+    method: MethodsEnum, graph: Graph, n_id: NId, cookie_name: str
+) -> bool:
     for path in get_backward_paths(graph, n_id):
         for node in path:
             n_attrs = graph.nodes[node]
@@ -51,18 +39,22 @@ def is_unsafe_cookie(graph: Graph, n_id: NId, cookie_name: str) -> bool:
                 and (obj_id := n_attrs.get("object_id"))
                 and graph.nodes[obj_id].get("symbol") == cookie_name
             ):
-                return get_eval_results(graph, al_id, set())
+                return get_node_evaluation_results(method, graph, al_id, set())
     return False
 
 
-def analyze_insecure_cookie(graph: Graph, obj_id: NId, al_id: NId) -> bool:
+def analyze_insecure_cookie(
+    method: MethodsEnum, graph: Graph, obj_id: NId, al_id: NId
+) -> bool:
     args_ids = g.adj_ast(graph, al_id)
     if (
         len(args_ids) == 1
-        and get_eval_results(graph, obj_id, {"userresponse"})
+        and get_node_evaluation_results(
+            method, graph, obj_id, {"userresponse"}
+        )
         and (cookie_name := graph.nodes[args_ids[0]].get("symbol"))
     ):
-        return is_unsafe_cookie(graph, args_ids[0], cookie_name)
+        return is_unsafe_cookie(method, graph, args_ids[0], cookie_name)
     return False
 
 
@@ -70,11 +62,10 @@ def java_insecure_cookie(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_COOKIE
-    java = GraphShardMetadataLanguage.JAVA
     danger_methods = {"addCookie"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(java):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -86,7 +77,7 @@ def java_insecure_cookie(
                     expr[-1] in danger_methods
                     and (obj_id := n_attrs.get("object_id"))
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and analyze_insecure_cookie(graph, obj_id, al_id)
+                    and analyze_insecure_cookie(method, graph, obj_id, al_id)
                 ):
                     yield shard, n_id
 

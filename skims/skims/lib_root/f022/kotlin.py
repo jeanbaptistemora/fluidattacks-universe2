@@ -21,9 +21,8 @@ from utils import (
 
 
 def is_unsafe_param(graph: Graph, n_id: NId) -> bool:
-    al_id = graph.nodes[n_id].get("arguments_id")
     if (
-        al_id
+        (al_id := graph.nodes[n_id].get("arguments_id"))
         and (childs := g.adj_ast(graph, al_id))
         and len(childs) > 0
         and (member := graph.nodes[childs[0]].get("member"))
@@ -32,9 +31,7 @@ def is_unsafe_param(graph: Graph, n_id: NId) -> bool:
     return False
 
 
-def unencrypted_channel(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def unencrypted_channel(graph_db: GraphDB) -> Vulnerabilities:
     danger_methods = {"FTPClient", "SMTPClient", "TelnetClient"}
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -43,10 +40,7 @@ def unencrypted_channel(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.matching_nodes(
-                graph,
-                label_type="MethodInvocation",
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 n_attrs = graph.nodes[n_id]
                 if n_attrs["expression"] in danger_methods or (
                     n_attrs["expression"] == "ConnectionSpec.Builder"
