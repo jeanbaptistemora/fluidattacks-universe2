@@ -575,6 +575,8 @@ async def confirm_vulnerabilities(
                     modified_by=modified_by,
                     modified_date=datetime_utils.get_utc_now(),
                     status=VulnerabilityStateStatus.VULNERABLE,
+                    reasons=None,
+                    other_reason=None,
                 ),
             )
             for vulnerability in vulnerabilities
