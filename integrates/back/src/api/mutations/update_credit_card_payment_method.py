@@ -46,7 +46,7 @@ async def mutate(
     )
 
     return SimplePayload(
-        success=await billing_domain.update_credit_card_payment_method(
+        success=billing_domain.update_credit_card_payment_method(
             org=organization,
             payment_method_id=kwargs["payment_method_id"],
             card_expiration_month=kwargs["card_expiration_month"],

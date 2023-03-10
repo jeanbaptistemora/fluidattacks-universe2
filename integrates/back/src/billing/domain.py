@@ -697,7 +697,7 @@ async def create_other_payment_method(
     )
 
 
-async def update_credit_card_payment_method(
+def update_credit_card_payment_method(
     *,
     org: Organization,
     payment_method_id: str,
