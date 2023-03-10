@@ -40,7 +40,7 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
         </Text>
         <Row>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
+            <Link to={`/orgs/${organizationName}/outside`}>
               <OverviewCard
                 content={t(
                   "organization.tabs.groups.overview.coveredAuthors.content",
@@ -56,7 +56,7 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
             </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
+            <Link to={`/orgs/${organizationName}/outside`}>
               <OverviewCard
                 content={t(
                   "organization.tabs.groups.overview.coveredRepositories.content",
@@ -72,7 +72,7 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
             </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
+            <Link to={`/orgs/${organizationName}/outside`}>
               <OverviewCard
                 content={t(
                   "organization.tabs.groups.overview.missedAuthors.content",
@@ -86,7 +86,7 @@ const OrganizationGroupOverview: React.FC<IOrganizationGroupOverviewProps> = ({
             </Link>
           </Col>
           <Col lg={25} md={50} sm={100}>
-            <Link to={`/orgs/${organizationName}/outofscope`}>
+            <Link to={`/orgs/${organizationName}/outside`}>
               <OverviewCard
                 content={t(
                   "organization.tabs.groups.overview.missedRepositories.content",

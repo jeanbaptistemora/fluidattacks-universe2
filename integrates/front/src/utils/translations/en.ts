@@ -2284,12 +2284,12 @@ export const enTranslations: ResourceKey = {
           },
           missedAuthors: {
             content: "{{missedAuthors}}",
-            info: "Number of authors of repositories out of the scope",
+            info: "Number of authors from repositories outside",
             title: "Missed authors",
           },
           missedRepositories: {
             content: "{{missedRepositories}}",
-            info: "Number of repositories out of the scope",
+            info: "Number of repositories outside",
             title: "Missed repositories",
           },
           title: {
@@ -2510,7 +2510,7 @@ export const enTranslations: ResourceKey = {
           lastCommitDate: "Last commit date",
           url: "Repository URL",
         },
-        text: "Out of the scope",
+        text: "Outside",
         tooltip: "Repositories not included in ARM",
       },
     },

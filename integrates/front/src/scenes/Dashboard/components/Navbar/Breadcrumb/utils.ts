@@ -12,8 +12,6 @@ export const stylizeBreadcrumbItem: (item: string) => string = (
       return "DevSecOps";
     case "vulns":
       return "Vulnerabilities";
-    case "outofscope":
-      return "Out of the scope";
     default:
       return _.capitalize(item);
   }

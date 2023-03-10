@@ -189,7 +189,7 @@ describe("Organization groups view", (): void => {
     expect(screen.getAllByRole("link")).toHaveLength(16);
     expect(screen.getAllByRole("link")[0]).toHaveAttribute(
       "href",
-      "/orgs/okada/outofscope"
+      "/orgs/okada/outside"
     );
 
     await userEvent.click(screen.getByRole("cell", { name: "Unittesting" }));

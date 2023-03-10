@@ -81,7 +81,7 @@ const OrganizationTabs: FC = (): JSX.Element => {
       <SideBarTab
         icon={faGear}
         tip={t("organization.tabs.weakest.text")}
-        to={`/orgs/${org}/outofscope`}
+        to={`/orgs/${org}/outside`}
       />
       <SideBarTab
         icon={faIdCard}

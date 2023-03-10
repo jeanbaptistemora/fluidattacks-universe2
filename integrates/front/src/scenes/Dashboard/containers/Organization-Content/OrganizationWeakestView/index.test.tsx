@@ -150,7 +150,7 @@ describe("OrganizationWeakestView", (): void => {
     jest.clearAllMocks();
 
     const { container } = render(
-      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
+      <MemoryRouter initialEntries={["/orgs/orgtest/outside"]}>
         <MockedProvider
           addTypename={true}
           mocks={[
@@ -161,7 +161,7 @@ describe("OrganizationWeakestView", (): void => {
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
-              <Route path={"/orgs/:organizationName/outofscope"}>
+              <Route path={"/orgs/:organizationName/outside"}>
                 <OrganizationWeakest
                   organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
                 />
@@ -231,7 +231,7 @@ describe("OrganizationWeakestView", (): void => {
     jest.clearAllMocks();
 
     render(
-      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
+      <MemoryRouter initialEntries={["/orgs/orgtest/outside"]}>
         <MockedProvider
           addTypename={true}
           mocks={[
@@ -242,7 +242,7 @@ describe("OrganizationWeakestView", (): void => {
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
-              <Route path={"/orgs/:organizationName/outofscope"}>
+              <Route path={"/orgs/:organizationName/outside"}>
                 <OrganizationWeakest
                   organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
                 />
@@ -365,7 +365,7 @@ describe("OrganizationWeakestView", (): void => {
     };
 
     render(
-      <MemoryRouter initialEntries={["/orgs/orgtest/outofscope"]}>
+      <MemoryRouter initialEntries={["/orgs/orgtest/outside"]}>
         <MockedProvider
           addTypename={true}
           mocks={[
@@ -376,7 +376,7 @@ describe("OrganizationWeakestView", (): void => {
         >
           <authzPermissionsContext.Provider value={new PureAbility<string>([])}>
             <authzGroupContext.Provider value={new PureAbility<string>([])}>
-              <Route path={"/orgs/:organizationName/outofscope"}>
+              <Route path={"/orgs/:organizationName/outside"}>
                 <OrganizationWeakest
                   organizationId={"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"}
                 />

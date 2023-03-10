@@ -198,8 +198,8 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     </Tab>
                   </Can>
                   <Tab
-                    id={"outofscopeTab"}
-                    link={`${url}/outofscope`}
+                    id={"outsideTab"}
+                    link={`${url}/outside`}
                     tooltip={translate.t("organization.tabs.weakest.tooltip")}
                   >
                     {translate.t("organization.tabs.weakest.text")}
@@ -262,7 +262,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     organizationId={basicData.organizationId.id}
                   />
                 </Route>
-                <Route exact={true} path={`${path}/outofscope`}>
+                <Route exact={true} path={`${path}/outside`}>
                   <OrganizationWeakest
                     organizationId={basicData.organizationId.id}
                   />

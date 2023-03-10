@@ -71,16 +71,16 @@ type Organization {
   the build in strict mode
   """
   minBreakingSeverity: Float
-  "Number of authors of integration repositories out of the scope"
+  "Number of authors of integration repositories outside"
   missedAuthors: Int
-  "Number of commits of integration repositories out of the scope"
+  "Number of commits of integration repositories outside"
   missedCommits: Int
     @deprecated(
       reason: """
       This field will be removed after 2023/06/02.
       """
     )
-  "Number of integration repositories out of the scope"
+  "Number of integration repositories outside"
   missedRepositories: Int
   "Name of the organization"
   name: String!
