@@ -1,5 +1,6 @@
 locals {
-  admins = ["prod_common"]
+  admins          = ["prod_common"]
+  monitoring_role = "monitoring"
   users = [
     "dev",
     "prod_integrates",
@@ -126,5 +127,68 @@ resource "kubernetes_cluster_role_binding" "main" {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Group"
     name      = each.key
+  }
+}
+
+# Monitoring cluster role
+data "aws_iam_role" "monitoring" {
+  name = local.monitoring_role
+}
+
+resource "kubernetes_service_account" "monitoring" {
+  automount_service_account_token = true
+  metadata {
+    name      = local.monitoring_role
+    namespace = local.kube_namespace
+
+    annotations = {
+      "eks.amazonaws.com/role-arn" = data.aws_iam_role.monitoring.arn
+    }
+  }
+}
+
+resource "kubernetes_cluster_role" "monitoring" {
+  metadata {
+    name = local.monitoring_role
+  }
+
+  rule {
+    api_groups = [""]
+    resources = [
+      "endpoints",
+      "nodes",
+      "nodes/metrics",
+      "nodes/proxy",
+      "pods",
+      "services"
+    ]
+    verbs = [
+      "get",
+      "list",
+      "watch"
+    ]
+  }
+
+  rule {
+    non_resource_urls = ["/metrics"]
+    verbs             = ["get"]
+  }
+}
+
+resource "kubernetes_cluster_role_binding" "monitoring" {
+  metadata {
+    name = local.monitoring_role
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = kubernetes_cluster_role.monitoring.metadata[0].name
+  }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account.monitoring.metadata[0].name
+    namespace = local.kube_namespace
   }
 }
