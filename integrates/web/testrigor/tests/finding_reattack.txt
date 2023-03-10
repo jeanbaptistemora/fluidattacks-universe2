@@ -1,6 +1,7 @@
 open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups/unittesting/vulns"
 wait 2 sec
 press "Go to the ARM platform" if exists
+wait 1 sec
 press "close-tour" if exists
 check that page contains "014. Insecure functionality"
 press "014. Insecure functionality"
