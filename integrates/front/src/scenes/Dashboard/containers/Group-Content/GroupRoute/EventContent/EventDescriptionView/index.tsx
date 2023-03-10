@@ -710,9 +710,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         <Row>
                           {data.event.solvingReason === "OTHER" ? (
                             <Col50>
-                              <EditableField
-                                alignField={"horizontalWide"}
-                                component={FormikText}
+                              <Editable
                                 currentValue={
                                   _.isNil(data.event.otherSolvingReason)
                                     ? "-"
@@ -720,13 +718,18 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                         data.event.otherSolvingReason
                                       )
                                 }
+                                isEditing={false}
                                 label={t(
                                   "searchFindings.tabEvents.solvingReason"
                                 )}
-                                name={"otherSolvingReason"}
-                                renderAsEditable={false}
-                                type={"text"}
-                              />
+                              >
+                                <Input
+                                  label={t(
+                                    "searchFindings.tabEvents.solvingReason"
+                                  )}
+                                  name={"otherSolvingReason"}
+                                />
+                              </Editable>
                             </Col50>
                           ) : (
                             <Col50>
