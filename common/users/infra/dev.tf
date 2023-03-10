@@ -72,6 +72,8 @@ locals {
               "pricing:Get*",
               "redshift:Describe*",
               "redshift-data:Describe*",
+              "redshift-serverless:Get*",
+              "redshift-serverless:List*",
               "route53:Get*",
               "route53:List*",
               "route53-recovery-control-config:Describe*",
