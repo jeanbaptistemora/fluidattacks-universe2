@@ -13,6 +13,7 @@ from custom_exceptions import (
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     StakeholderNotInOrganization,
 )
@@ -53,6 +54,8 @@ from organizations.domain import (
     validate_max_acceptance_days,
     validate_max_acceptance_severity,
     validate_max_number_acceptances,
+    validate_min_acceptance_severity,
+    validate_min_breaking_severity,
     validate_vulnerability_grace_period,
 )
 import pytest
@@ -592,8 +595,8 @@ async def test_update_policies(  # pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     [
         "organization_id",
-        "max_acceptance_severity_good",
-        "max_acceptance_severity_bad",
+        "max_acceptance_severity",
+        "max_acceptance_severity_to_raise_exception",
     ],
     [
         [
@@ -607,8 +610,8 @@ async def test_update_policies(  # pylint: disable=too-many-arguments
 async def test_validate_acceptance_severity_range(
     mock_get_organization: AsyncMock,
     organization_id: str,
-    max_acceptance_severity_good: Decimal,
-    max_acceptance_severity_bad: Decimal,
+    max_acceptance_severity: Decimal,
+    max_acceptance_severity_to_raise_exception: Decimal,
 ) -> None:
     assert set_mocks_return_values(
         mocks_args=[[organization_id]],
@@ -621,7 +624,7 @@ async def test_validate_acceptance_severity_range(
         loaders=loaders,
         organization_id=organization_id,
         values=PoliciesToUpdate(
-            max_acceptance_severity=max_acceptance_severity_good
+            max_acceptance_severity=max_acceptance_severity
         ),
     )
     assert result
@@ -632,7 +635,7 @@ async def test_validate_acceptance_severity_range(
             loaders=loaders,
             organization_id=organization_id,
             values=PoliciesToUpdate(
-                max_acceptance_severity=max_acceptance_severity_bad
+                max_acceptance_severity=max_acceptance_severity_to_raise_exception  # noqa: E501 pylint: disable=line-too-long
             ),
         )
     mock_get_organization.assert_called_with(loaders, organization_id)
@@ -663,29 +666,68 @@ def test_validate_max_acceptance_days(
 
 
 @pytest.mark.parametrize(
-    ["value_good", "value_bad"],
+    ["acceptance_severity", "acceptance_severity_to_raise_exception"],
     [[Decimal("10.0"), Decimal("-10.0")], [Decimal("5.3"), Decimal("10.1")]],
 )
 def test_validate_max_acceptance_severity(
-    value_good: Decimal,
-    value_bad: Decimal,
+    acceptance_severity: Decimal,
+    acceptance_severity_to_raise_exception: Decimal,
 ) -> None:
-    assert validate_max_acceptance_severity(value=value_good)
+    assert validate_max_acceptance_severity(value=acceptance_severity)
     with pytest.raises(InvalidAcceptanceSeverity):
-        validate_max_acceptance_severity(value=value_bad)
+        validate_max_acceptance_severity(
+            value=acceptance_severity_to_raise_exception
+        )
 
 
 @pytest.mark.parametrize(
-    ["value_good", "value_bad"],
+    ["number_acceptances", "number_acceptances_to_raise_exception"],
     [[10, -10]],
 )
 def test_validate_max_number_acceptances(
-    value_good: int,
-    value_bad: int,
+    number_acceptances: int,
+    number_acceptances_to_raise_exception: int,
 ) -> None:
-    assert validate_max_number_acceptances(value=value_good)
+    assert validate_max_number_acceptances(value=number_acceptances)
     with pytest.raises(InvalidNumberAcceptances):
-        validate_max_number_acceptances(value=value_bad)
+        validate_max_number_acceptances(
+            value=number_acceptances_to_raise_exception
+        )
+
+
+@pytest.mark.parametrize(
+    ["severity", "severity_to_raise_exception"],
+    [[Decimal("10.0"), Decimal("-10.0")], [Decimal("5.3"), Decimal("10.1")]],
+)
+def test_validate_min_acceptance_severity(
+    severity: Decimal,
+    severity_to_raise_exception: Decimal,
+) -> None:
+    assert validate_min_acceptance_severity(value=severity)
+    with pytest.raises(InvalidAcceptanceSeverity):
+        validate_min_acceptance_severity(value=severity_to_raise_exception)
+
+
+@pytest.mark.parametrize(
+    [
+        "breaking_severity",
+        "breaking_severity_to_raise_exception",
+    ],
+    [
+        [Decimal("10.0"), Decimal("-10.0")],
+        [Decimal("5.3"), Decimal("10.1")],
+    ],
+)
+def test_validate_min_breaking_severity(
+    breaking_severity: Decimal,
+    breaking_severity_to_raise_exception: Decimal,
+) -> None:
+    assert validate_min_breaking_severity(value=breaking_severity)
+
+    with pytest.raises(InvalidSeverity):
+        validate_min_breaking_severity(
+            value=breaking_severity_to_raise_exception
+        )
 
 
 @pytest.mark.parametrize(

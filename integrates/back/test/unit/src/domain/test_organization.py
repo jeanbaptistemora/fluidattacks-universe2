@@ -60,12 +60,6 @@ async def test_update_policies() -> None:
         )
 
 
-async def test_validate_negative_values() -> None:
-
-    with pytest.raises(InvalidSeverity):
-        orgs_domain.validate_min_breaking_severity(-1)  # type: ignore
-
-
 async def test_iterate_organizations() -> None:
     expected_organizations = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": "okada",
