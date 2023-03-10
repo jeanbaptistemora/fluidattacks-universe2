@@ -290,7 +290,11 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
         raise VulnNotFound()
     if (
-        vulnerability.state.status != VulnerabilityStateStatus.VULNERABLE
+        vulnerability.state.status
+        not in {
+            VulnerabilityStateStatus.VULNERABLE,
+            VulnerabilityStateStatus.SUBMITTED,
+        }
         and not include_closed_vuln
     ):
         raise InvalidRemovalVulnState.new()
