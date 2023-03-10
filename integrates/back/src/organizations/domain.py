@@ -30,6 +30,7 @@ from custom_exceptions import (
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
+    StakeholderNotFound,
     StakeholderNotInOrganization,
     TrialRestriction,
 )
@@ -567,19 +568,19 @@ async def get_stakeholders(
     loaders: Dataloaders,
     organization_id: str,
     user_email: str | None = None,
-) -> list[Stakeholder | None]:
+) -> list[Stakeholder]:
     emails = await get_stakeholders_emails(loaders, organization_id)
-
-    if user_email and not validations_utils.is_fluid_staff(user_email):
-        return await loaders.stakeholder.load_many(
-            [
-                email
-                for email in emails
-                if not validations_utils.is_fluid_staff(email)
-            ]
-        )
-
-    return await loaders.stakeholder.load_many(emails)
+    stakeholders: list[Stakeholder] = []
+    for email in emails:
+        try:
+            stakeholder = await stakeholders_domain.get_stakeholder(
+                loaders, email, user_email
+            )
+            stakeholders.append(stakeholder)
+        except StakeholderNotFound:
+            if not validations_utils.is_fluid_staff(email):
+                stakeholders.append(Stakeholder(email=email))
+    return stakeholders
 
 
 async def has_group(
