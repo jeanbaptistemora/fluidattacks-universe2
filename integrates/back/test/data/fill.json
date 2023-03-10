@@ -1,0 +1,249 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "fillfillfillfillfillfillfillfillfillfillfillfillfillfillfillfil2"
+          },
+          "sk": {
+            "S": "fillfillfillfillfillfillfillfillfillfillfillfillfillfillfillfil2"
+          },
+          "snippet": {
+            "S": "fillfillfillfillfillfillfillfillfillfillfillfillfillfillfillfil2"
+          },
+          "custom_severity": {
+            "S": "foo"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "pk": {
+            "S": "fillfillfillfillfillfillfillfillfillfillfillfillfillfillfillfill"
+          },
+          "sk": {
+            "S": "fillfillfillfillfillfillfillfillfillfillfillfillfillfillfillfill"
+          },
+          "unreliable_is_verified": {
+            "BOOL": false
+          },
+          "unreliable_indicators": {
+            "M": {
+              "unreliable_code_languages": {
+                "SS": [
+                  "foo"
+                ]
+              },
+              "unreliable_languages": {
+                "M": {
+                  "Plain Text": {
+                    "N": "0"
+                  },
+                  "BASH": {
+                    "N": "0"
+                  },
+                  "Shell": {
+                    "N": "0"
+                  },
+                  "Markdown": {
+                    "N": "0"
+                  },
+                  "Dockerfile": {
+                    "N": "0"
+                  },
+                  "JavaScript": {
+                    "N": "0"
+                  },
+                  "JSON": {
+                    "N": "0"
+                  },
+                  "HTML": {
+                    "N": "0"
+                  },
+                  "Sass": {
+                    "N": "0"
+                  },
+                  "SVG": {
+                    "N": "0"
+                  },
+                  "XML": {
+                    "N": "0"
+                  },
+                  "CSS": {
+                    "N": "0"
+                  },
+                  "Python": {
+                    "N": "0"
+                  },
+                  "TypeScript": {
+                    "N": "0"
+                  },
+                  "Java": {
+                    "N": "0"
+                  },
+                  "YAML": {
+                    "N": "0"
+                  }
+                }
+              }
+            }
+          },
+          "snippet": {
+            "M": {
+              "column": {
+                "N": "0"
+              },
+              "show_line_numbers": {
+                "BOOL": false
+              },
+              "wrap": {
+                "BOOL": false
+              },
+              "line": {
+                "N": "0"
+              },
+              "highlight_line_number": {
+                "BOOL": false
+              },
+              "line_context": {
+                "N": "0"
+              },
+              "offset": {
+                "N": "0"
+              },
+              "columns_per_line": {
+                "N": "0"
+              }
+            }
+          },
+          "trial": {
+            "M": {
+              "start_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "extension_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "completed": {
+                "BOOL": false
+              }
+            }
+          },
+          "custom_severity": {
+            "N": "0"
+          },
+          "unreliable_status": {
+            "S": "foo"
+          },
+          "action_after_blocking": {
+            "S": "foo"
+          },
+          "developer": {
+            "S": ""
+          },
+          "other": {
+            "S": ""
+          },
+          "compromised_records": {
+            "N": "0"
+          },
+          "last_commit": {
+            "S": "foo"
+          },
+          "action_before_blocking": {
+            "S": "foo"
+          },
+          "last_author": {
+            "S": ""
+          },
+          "cloud_name": {
+            "S": "foo"
+          },
+          "skims_technique": {
+            "S": "foo"
+          },
+          "user": {
+            "S": "foo"
+          },
+          "last_commit_date": {
+            "S": "2018-02-28T16:54:12+00:00"
+          },
+          "use_vpn": {
+            "BOOL": false
+          },
+          "billing_customer": {
+            "S": "foo"
+          },
+          "skims_method": {
+            "S": "foo"
+          },
+          "git_commit": {
+            "S": ""
+          },
+          "attacked_lines": {
+            "N": "0"
+          },
+          "unreliable_treatment_summary": {
+            "M": {
+              "accepted_undefined": {
+                "N": "0"
+              },
+              "accepted": {
+                "N": "0"
+              },
+              "new": {
+                "N": "0"
+              },
+              "in_progress": {
+                "N": "0"
+              }
+            }
+          },
+          "covered_repositories": {
+            "N": "0"
+          },
+          "covered_authors": {
+            "N": "0"
+          },
+          "max_severity": {
+            "N": "123.45"
+          },
+          "expiration_time": {
+            "N": "0"
+          },
+          "loc": {
+            "N": "0"
+          },
+          "compromised_attributes": {
+            "S": ""
+          },
+          "covered_commits": {
+            "N": "0"
+          },
+          "sorts_risk_level": {
+            "N": "0"
+          },
+          "severity_score": {
+            "M": {
+              "cvssf": {
+                "N" : "0.1"
+              },
+              "base_score": {
+                "N" : "0.1"
+              },
+              "temporal_score": {
+                "N" : "0.1"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
