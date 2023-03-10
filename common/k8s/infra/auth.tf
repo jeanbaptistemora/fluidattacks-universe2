@@ -58,15 +58,23 @@ resource "kubernetes_cluster_role" "main" {
   }
 
   rule {
-    api_groups = ["", "rbac.authorization.k8s.io"]
+    api_groups = [
+      "",
+      "apps",
+      "opentelemetry.io",
+      "rbac.authorization.k8s.io"
+    ]
     resources = [
       "clusterrolebindings",
       "clusterroles",
       "configmaps",
+      "daemonsets",
       "namespaces",
+      "opentelemetrycollectors",
       "rolebindings",
       "roles",
       "serviceaccounts",
+      "services",
     ]
     verbs = ["get"]
   }
