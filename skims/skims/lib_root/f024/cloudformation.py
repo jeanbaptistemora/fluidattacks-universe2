@@ -1,6 +1,14 @@
 from collections.abc import (
     Iterator,
 )
+from contextlib import (
+    suppress,
+)
+from ipaddress import (
+    AddressValueError,
+    IPv4Network,
+    IPv6Network,
+)
 from itertools import (
     chain,
 )
@@ -137,6 +145,57 @@ def _ec2_has_security_groups_ip_ranges_in_rfc1918(
         cidr, cidr_val, cidr_id = get_attribute(graph, nid, "CidrIpv6")
     if is_cidr(cidr_val) and cidr_val in rfc1918:
         yield cidr_id
+
+
+def _unrestricted_cidrs(graph: Graph, nid: NId) -> Iterator[NId]:
+    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
+    unrestricted_ipv6 = IPv6Network("::/0")
+    cidr, cidr_val, cidr_id = get_attribute(graph, nid, "CidrIp")
+    with suppress(AddressValueError, KeyError):
+        if cidr and (
+            IPv4Network(
+                cidr_val,
+                strict=False,
+            )
+            == unrestricted_ipv4
+        ):
+            yield cidr_id
+    cidr, cidr_val, cidr_id = get_attribute(graph, nid, "CidrIpv6")
+    with suppress(AddressValueError, KeyError):
+        if cidr and (
+            IPv6Network(
+                cidr_val,
+                strict=False,
+            )
+            == unrestricted_ipv6
+        ):
+            yield cidr_id
+
+
+def cfn_unrestricted_cidrs(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_UNRESTRICTED_CIDRS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in chain(
+            graph_db.shards_by_language(GraphLanguage.YAML),
+            graph_db.shards_by_language(GraphLanguage.JSON),
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_ec2_egress_ingress(graph, is_ingress=True):
+                for report in _unrestricted_cidrs(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024_aws.unrestricted_cidrs",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def cfn_ec2_has_security_groups_ip_ranges_in_rfc1918(

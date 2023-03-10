@@ -1,6 +1,3 @@
-from aws.model import (
-    AWSEC2,
-)
 from collections.abc import (
     Iterator,
 )
@@ -15,7 +12,6 @@ from ipaddress import (
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-    is_cidr,
 )
 from metaloaders.model import (
     Node,
@@ -92,51 +88,6 @@ def _cfn_iter_vulnerable_admin_ports(
             yield rule.inner["ToPort"]
 
 
-def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
-    ec2_iterator: Iterator[Node],
-) -> Iterator[AWSEC2 | Node]:
-    for ec2_res in ec2_iterator:
-        rfc1918 = {
-            "10.0.0.0/8",
-            "172.16.0.0/12",
-            "192.168.0.0/16",
-        }
-        cidr = ec2_res.inner.get("CidrIp", None) or ec2_res.inner.get(
-            "CidrIpv6", None
-        )
-        if not cidr or (hasattr(cidr, "raw") and not is_cidr(cidr.raw)):
-            continue
-        if hasattr(cidr, "raw") and cidr.raw in rfc1918:
-            yield cidr
-
-
-def _cidr_iter_vulnerabilities(
-    rules_iterator: Iterator[Node],
-) -> Iterator[Node]:
-    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
-    unrestricted_ipv6 = IPv6Network("::/0")
-    for rule in rules_iterator:
-        rule_raw = rule.raw if hasattr(rule, "raw") else {}
-        with suppress(AddressValueError, KeyError):
-            if (
-                IPv4Network(
-                    rule_raw["CidrIp"],
-                    strict=False,
-                )
-                == unrestricted_ipv4
-            ):
-                yield rule.inner["CidrIp"]
-        with suppress(AddressValueError, KeyError):
-            if (
-                IPv6Network(
-                    rule_raw["CidrIpv6"],
-                    strict=False,
-                )
-                == unrestricted_ipv6
-            ):
-                yield rule.inner["CidrIpv6"]
-
-
 def cfn_allows_anyone_to_admin_ports(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -153,24 +104,4 @@ def cfn_allows_anyone_to_admin_ports(
         ),
         path=path,
         method=MethodsEnum.CFN_ANYONE_ADMIN_PORTS,
-    )
-
-
-def cfn_unrestricted_cidrs(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024_aws.unrestricted_cidrs",
-        iterator=get_cloud_iterator(
-            _cidr_iter_vulnerabilities(
-                rules_iterator=iter_ec2_ingress_egress(
-                    template=template,
-                    ingress=True,
-                    egress=False,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_UNRESTRICTED_CIDRS,
     )

@@ -2290,7 +2290,7 @@ class MethodsEnum(Enum):
     CFN_UNRESTRICTED_CIDRS = MethodInfo(
         file_name="cloudformation",
         name="cfn_unrestricted_cidrs",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,

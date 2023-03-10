@@ -7,7 +7,6 @@ from lib_path.common import (
 )
 from lib_path.f024.cloudformation import (
     cfn_allows_anyone_to_admin_ports,
-    cfn_unrestricted_cidrs,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -18,18 +17,6 @@ from parse_cfn.loader import (
 from typing import (
     Any,
 )
-
-
-@SHIELD_BLOCKING
-def run_cfn_unrestricted_cidrs(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag W2 Security Groups found with cidr open to world on ingress
-    # cfn_nag W5 Security Groups found with cidr open to world on egress
-    # cfn_nag W9 Security Groups found with ingress cidr that is not /32
-    return cfn_unrestricted_cidrs(
-        content=content, path=path, template=template
-    )
 
 
 @SHIELD_BLOCKING
@@ -59,10 +46,7 @@ def analyze(
                 *results,
                 *(
                     fun(content, path, template)
-                    for fun in (
-                        run_cfn_unrestricted_cidrs,
-                        run_cfn_allows_anyone_to_admin_ports,
-                    )
+                    for fun in (run_cfn_allows_anyone_to_admin_ports,)
                 ),
             )
 

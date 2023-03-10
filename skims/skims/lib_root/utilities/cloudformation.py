@@ -68,7 +68,7 @@ def iterate_resource(graph: Graph, expected_type: str) -> Iterator[NId]:
 
 
 def aux_iterate_ec2_egress_ingress(
-    graph: Graph, is_ingress: bool, is_egress: bool
+    graph: Graph, is_ingress: bool = False, is_egress: bool = False
 ) -> Iterator[NId]:
     if is_ingress:
         for nid in iterate_resource(graph, "AWS::EC2::SecurityGroupIngress"):
@@ -83,7 +83,7 @@ def aux_iterate_ec2_egress_ingress(
 
 
 def iterate_ec2_egress_ingress(
-    graph: Graph, is_ingress: bool, is_egress: bool
+    graph: Graph, is_ingress: bool = False, is_egress: bool = False
 ) -> Iterator[NId]:
     for nid in iterate_resource(graph, "AWS::EC2::SecurityGroup"):
         _, _, prop_id = get_attribute(graph, nid, "Properties")
