@@ -37,7 +37,6 @@ import {
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
-import { EditableField, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
@@ -756,19 +755,20 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                             </Col50>
                           )}
                           <Col50>
-                            <EditableField
-                              alignField={"horizontalWide"}
-                              component={FormikText}
+                            <Editable
                               currentValue={
                                 _.isNil(data.event.closingDate)
                                   ? "-"
                                   : data.event.closingDate
                               }
+                              isEditing={false}
                               label={t("searchFindings.tabEvents.dateClosed")}
-                              name={"dateClosed"}
-                              renderAsEditable={false}
-                              type={"text"}
-                            />
+                            >
+                              <Input
+                                label={t("searchFindings.tabEvents.dateClosed")}
+                                name={"dateClosed"}
+                              />
+                            </Editable>
                           </Col50>
                         </Row>
                       )
