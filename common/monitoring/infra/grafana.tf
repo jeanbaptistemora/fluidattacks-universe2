@@ -51,7 +51,6 @@ data "grafana_dashboard" "monitoring" {
   uid = each.value
 }
 
-
 resource "aws_s3_object" "grafana_backups" {
   for_each = data.grafana_dashboard.monitoring
 

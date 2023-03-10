@@ -1,6 +1,11 @@
-resource "aws_cloudwatch_log_stream" "compute_jobs" {
-  name           = "compute-jobs"
-  log_group_name = aws_cloudwatch_log_group.monitoring.name
+# CloudWatch rule that will listen for every state change in Batch jobs
+resource "aws_cloudwatch_event_rule" "compute_jobs" {
+  name = "monitoring-compute-jobs"
+
+  event_pattern = jsonencode({
+    source      = ["aws.batch"]
+    detail-type = ["Batch Job State Change"]
+  })
 
   lifecycle {
     prevent_destroy = true
@@ -20,19 +25,7 @@ resource "aws_kinesis_stream" "compute_jobs" {
   }
 }
 
-resource "aws_cloudwatch_event_rule" "compute_jobs" {
-  name = "monitoring-compute-jobs"
-
-  event_pattern = jsonencode({
-    source      = ["aws.batch"]
-    detail-type = ["Batch Job State Change"]
-  })
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
+# Sends all the events to be processed by Kinesis
 resource "aws_cloudwatch_event_target" "compute_jobs" {
   rule     = aws_cloudwatch_event_rule.compute_jobs.name
   arn      = aws_kinesis_stream.compute_jobs.arn
@@ -47,27 +40,13 @@ resource "aws_cloudwatch_event_target" "compute_jobs" {
   }
 }
 
-data "aws_iam_policy_document" "lambda_sts_role" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-  }
-}
-
+# Lambda function that ensures theres a newline separation
+# between every record so Athena parses the information correctly
 data "archive_file" "lambda_package" {
   type             = "zip"
   source_file      = "src/newline.py"
   output_file_mode = "0666"
   output_path      = "newline.zip"
-}
-
-resource "aws_iam_role" "lambda_role" {
-  name               = "firehose_lambda_role"
-  assume_role_policy = data.aws_iam_policy_document.lambda_sts_role.json
 }
 
 resource "aws_lambda_function" "firehose_transform" {
@@ -127,70 +106,6 @@ resource "aws_kinesis_firehose_delivery_stream" "compute_jobs" {
       enabled         = true
       log_group_name  = aws_cloudwatch_log_group.monitoring.name
       log_stream_name = aws_cloudwatch_log_stream.compute_jobs.name
-    }
-  }
-}
-
-resource "aws_glue_catalog_table" "compute_jobs" {
-  database_name = aws_athena_database.monitoring.name
-  name          = "compute_jobs"
-
-  table_type = "EXTERNAL_TABLE"
-
-  storage_descriptor {
-    location      = "s3://${aws_s3_bucket.monitoring.bucket}/compute-jobs"
-    input_format  = "org.apache.hadoop.mapred.TextInputFormat"
-    output_format = "org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat"
-
-    ser_de_info {
-      serialization_library = "org.openx.data.jsonserde.JsonSerDe"
-      parameters = {
-        "serialization.format" = 1
-      }
-    }
-
-    sort_columns {
-      column     = "time"
-      sort_order = 0
-    }
-
-    columns {
-      name = "detail"
-      type = replace(
-        <<-EOF
-          struct<
-            container:struct<
-              command:array<string>,
-              environment:array<struct<name:string>>,
-              exitCode:bigint,
-              image:string,
-              logStreamName:string,
-              memory:bigint,
-              resourceRequirements:array<struct<type:string, value:string>>,
-              vcpus:bigint
-            >,
-            createdAt:timestamp,
-            jobId:string,
-            jobName:string,
-            jobQueue:string,
-            startedAt:timestamp,
-            status:string,
-            statusReason:string,
-            stoppedAt:timestamp
-          >
-        EOF
-        ,
-      "/[\n ]+/", "")
-    }
-
-    columns {
-      name = "id"
-      type = "string"
-    }
-
-    columns {
-      name = "time"
-      type = "timestamp"
     }
   }
 }
