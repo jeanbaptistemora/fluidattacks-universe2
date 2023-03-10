@@ -10,17 +10,9 @@ terraform {
       source  = "grafana/grafana"
       version = "~> 1.33.0"
     }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.8.0"
-    }
     local = {
       source  = "hashicorp/local"
       version = "~> 2.3.0"
-    }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.16.1"
     }
     okta = {
       source  = "okta/okta"
@@ -44,29 +36,6 @@ provider "aws" {
 provider "grafana" {
   url  = "https://${aws_grafana_workspace.monitoring.endpoint}"
   auth = aws_grafana_workspace_api_key.monitoring.key
-}
-
-provider "helm" {
-  kubernetes {
-    host                   = data.aws_eks_cluster.k8s_cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.k8s_cluster.certificate_authority[0].data)
-
-    exec {
-      api_version = "client.authentication.k8s.io/v1beta1"
-      command     = "aws"
-      args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.k8s_cluster.name]
-    }
-  }
-}
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.k8s_cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.k8s_cluster.certificate_authority[0].data)
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.k8s_cluster.name]
-  }
 }
 
 provider "okta" {
