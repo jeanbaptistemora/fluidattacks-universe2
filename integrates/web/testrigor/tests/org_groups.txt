@@ -1,2 +1,3 @@
 open URL "https://{CI_COMMIT_REF_NAME}.app.fluidattacks.com/orgs/okada/groups"
+wait 2 sec
 check that page contains "Group name"
