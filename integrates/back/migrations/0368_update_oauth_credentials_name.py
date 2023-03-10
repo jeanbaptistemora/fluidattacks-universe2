@@ -2,8 +2,8 @@
 """
 Update credentials name to a new format
 
-Execution Time:
-Finalization Time:
+Execution Time:    2023-03-10 at 22:18:59 UTC
+Finalization Time: 2023-03-10 at 22:19:26 UTC
 """
 
 from aioextensions import (
@@ -20,6 +20,7 @@ from datetime import (
 from db_model.credentials.types import (
     Credentials,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -38,7 +39,7 @@ from typing import (
 )
 
 
-async def exist_new_name(
+def exist_new_name(
     organization_credentials: list[Credentials], new_name: str
 ) -> bool:
     return any(
@@ -59,7 +60,11 @@ async def process_oauth_credential(
         else "Azure"
         if isinstance(oauth_credential.state.secret, OauthAzureSecret)
         else "Bitbucket"
+        if isinstance(oauth_credential.state.secret, OauthBitbucketSecret)
+        else None
     )
+    if not credential_provider:
+        return None
 
     new_credential_name = (
         f'{str(oauth_credential.owner).split("@", maxsplit=1)[0]}'
@@ -70,7 +75,7 @@ async def process_oauth_credential(
         organization_credentials=organization_credentials,
         new_name=new_credential_name,
     ):
-        raise Exception("Duplicated name found")
+        print("[ERROR] Duplicated name found")
 
     print(f"changing {oauth_credential.state.name} to {new_credential_name}")
 
