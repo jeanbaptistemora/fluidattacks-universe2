@@ -1,4 +1,5 @@
 from lib_root.f259.cloudformation import (
+    cfn_dynamo_has_not_deletion_protection,
     cfn_has_not_point_in_time_recovery,
 )
 from lib_root.f259.terraform import (
@@ -11,6 +12,7 @@ from model import (
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F259
 QUERIES: graph_model.Queries = (
+    (FINDING, cfn_dynamo_has_not_deletion_protection),
     (FINDING, cfn_has_not_point_in_time_recovery),
     (FINDING, tfm_db_no_point_in_time_recovery),
 )

@@ -3,6 +3,7 @@ Resources:
   table1:
     Type: AWS::DynamoDB::Table
     Properties:
+      DeletionProtectionEnabled: true
       KeySchema:
         - AttributeName: attr1
           KeyType: String
@@ -13,6 +14,7 @@ Resources:
   table2:
     Type: AWS::DynamoDB::Table
     Properties:
+      DeletionProtectionEnabled: true
       KeySchema:
         - AttributeName: attr1
           KeyType: String
@@ -23,6 +25,7 @@ Resources:
   table3:
     Type: AWS::DynamoDB::Table
     Properties:
+      DeletionProtectionEnabled: true
       KeySchema:
         - AttributeName: attr1
           KeyType: String

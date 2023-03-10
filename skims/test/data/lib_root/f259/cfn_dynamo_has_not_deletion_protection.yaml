@@ -1,0 +1,48 @@
+---
+SampleTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: "my-delete-resilient-db"
+    BillingMode: PAY_PER_REQUEST
+    DeletionProtectionEnabled: false
+    SSESpecification:
+      SSEEnabled: true
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+SampleTable2:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: "my-delete-resilient-db"
+    BillingMode: PAY_PER_REQUEST
+    DeletionProtectionEnabled: true
+    SSESpecification:
+      SSEEnabled: true
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+SampleTable3:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: "my-delete-resilient-db"
+    BillingMode: PAY_PER_REQUEST
+    SSESpecification:
+      SSEEnabled: true
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true

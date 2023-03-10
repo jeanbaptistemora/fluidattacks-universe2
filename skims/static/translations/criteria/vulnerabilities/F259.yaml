@@ -4,3 +4,6 @@ src.lib_path.f259.has_not_point_in_time_recovery:
     PointInTimeRecoveryEnabled property is not enabled
   es: >-
     La propiedad PointInTimeRecoveryEnabled no está habilitada
+src.lib_root.f259.dynamo_has_not_deletion_protection:
+  en: DeletionProtectionEnabled property should be enabled
+  es: La propiedad DeletionProtectionEnabled deberia estar habilitada

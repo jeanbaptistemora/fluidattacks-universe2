@@ -1,102 +1,198 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml,25,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml,7,463,skims,259. Lack of protection against deletion - DynamoDB,DeletionProtectionEnabled property should be enabled in namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml,"
+   1 | ---
+   2 | SampleTable:
+   3 |   Type: AWS::DynamoDB::Table
+   4 |   Properties:
+   5 |     TableName: ""my-delete-resilient-db""
+   6 |     BillingMode: PAY_PER_REQUEST
+>  7 |     DeletionProtectionEnabled: false
+   8 |     SSESpecification:
+   9 |       SSEEnabled: true
+  10 |     AttributeDefinitions:
+  11 |       - AttributeName: id
+  12 |         AttributeType: S
+  13 |     KeySchema:
+  14 |       - AttributeName: id
+  15 |         KeyType: HASH
+  16 |     PointInTimeRecoverySpecification:
+  17 |         PointInTimeRecoveryEnabled: true
+  18 | SampleTable2:
+  19 |   Type: AWS::DynamoDB::Table
+  20 |   Properties:
+  21 |     TableName: ""my-delete-resilient-db""
+     ^ Col 0
+",cloudformation.cfn_dynamo_has_not_deletion_protection
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml,36,463,skims,259. Lack of protection against deletion - DynamoDB,DeletionProtectionEnabled property should be enabled in namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml,"
+  26 |     AttributeDefinitions:
+  27 |       - AttributeName: id
+  28 |         AttributeType: S
+  29 |     KeySchema:
+  30 |       - AttributeName: id
+  31 |         KeyType: HASH
+  32 |     PointInTimeRecoverySpecification:
+  33 |         PointInTimeRecoveryEnabled: true
+  34 | SampleTable3:
+  35 |   Type: AWS::DynamoDB::Table
+> 36 |   Properties:
+  37 |     TableName: ""my-delete-resilient-db""
+  38 |     BillingMode: PAY_PER_REQUEST
+  39 |     SSESpecification:
+  40 |       SSEEnabled: true
+  41 |     AttributeDefinitions:
+  42 |       - AttributeName: id
+  43 |         AttributeType: S
+  44 |     KeySchema:
+  45 |       - AttributeName: id
+  46 |         KeyType: HASH
+     ^ Col 0
+",cloudformation.cfn_dynamo_has_not_deletion_protection
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml.json,7,463,skims,259. Lack of protection against deletion - DynamoDB,DeletionProtectionEnabled property should be enabled in namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml.json,"
+   1 | {
+   2 |   ""SampleTable"": {
+   3 |     ""Type"": ""AWS::DynamoDB::Table"",
+   4 |     ""Properties"": {
+   5 |       ""TableName"": ""my-delete-resilient-db"",
+   6 |       ""BillingMode"": ""PAY_PER_REQUEST"",
+>  7 |       ""DeletionProtectionEnabled"": false,
+   8 |       ""SSESpecification"": {
+   9 |         ""SSEEnabled"": true
+  10 |       },
+  11 |       ""AttributeDefinitions"": [
+  12 |         {
+  13 |           ""AttributeName"": ""id"",
+  14 |           ""AttributeType"": ""S""
+  15 |         }
+  16 |       ],
+  17 |       ""KeySchema"": [
+  18 |         {
+  19 |           ""AttributeName"": ""id"",
+  20 |           ""KeyType"": ""HASH""
+  21 |         }
+     ^ Col 0
+",cloudformation.cfn_dynamo_has_not_deletion_protection
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml.json,56,463,skims,259. Lack of protection against deletion - DynamoDB,DeletionProtectionEnabled property should be enabled in namespace/skims/test/data/lib_root/f259/cfn_dynamo_has_not_deletion_protection.yaml.json,"
+  46 |           ""KeyType"": ""HASH""
+  47 |         }
+  48 |       ],
+  49 |       ""PointInTimeRecoverySpecification"": {
+  50 |         ""PointInTimeRecoveryEnabled"": true
+  51 |       }
+  52 |     }
+  53 |   },
+  54 |   ""SampleTable3"": {
+  55 |     ""Type"": ""AWS::DynamoDB::Table"",
+> 56 |     ""Properties"": {
+  57 |       ""TableName"": ""my-delete-resilient-db"",
+  58 |       ""BillingMode"": ""PAY_PER_REQUEST"",
+  59 |       ""SSESpecification"": {
+  60 |         ""SSEEnabled"": true
+  61 |       },
+  62 |       ""AttributeDefinitions"": [
+  63 |         {
+  64 |           ""AttributeName"": ""id"",
+  65 |           ""AttributeType"": ""S""
+  66 |         }
+     ^ Col 0
+",cloudformation.cfn_dynamo_has_not_deletion_protection
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml,27,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml","
-  10 |           KeyType: String
-  11 |       PointInTimeRecoverySpecification:
-  12 |         PointInTimeRecoveryEnabled: true
-  13 |   table2:
-  14 |     Type: AWS::DynamoDB::Table
-  15 |     Properties:
-  16 |       KeySchema:
-  17 |         - AttributeName: attr1
-  18 |           KeyType: String
-  19 |         - AttributeName: attr2
+  13 |         PointInTimeRecoveryEnabled: true
+  14 |   table2:
+  15 |     Type: AWS::DynamoDB::Table
+  16 |     Properties:
+  17 |       DeletionProtectionEnabled: true
+  18 |       KeySchema:
+  19 |         - AttributeName: attr1
   20 |           KeyType: String
-  21 |       PointInTimeRecoverySpecification:
-  22 |         PointInTimeRecoveryEnabled: false
-  23 |   table3:
-  24 |     Type: AWS::DynamoDB::Table
-> 25 |     Properties:
-  26 |       KeySchema:
-  27 |         - AttributeName: attr1
-  28 |           KeyType: String
-  29 |         - AttributeName: attr2
-  30 |           KeyType: String
+  21 |         - AttributeName: attr2
+  22 |           KeyType: String
+  23 |       PointInTimeRecoverySpecification:
+  24 |         PointInTimeRecoveryEnabled: false
+  25 |   table3:
+  26 |     Type: AWS::DynamoDB::Table
+> 27 |     Properties:
+  28 |       DeletionProtectionEnabled: true
+  29 |       KeySchema:
+  30 |         - AttributeName: attr1
+  31 |           KeyType: String
+  32 |         - AttributeName: attr2
+  33 |           KeyType: String
      ^ Col 0
 ",cloudformation.cfn_has_not_point_in_time_recovery
-F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml,22,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml,24,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml","
-  10 |           KeyType: String
-  11 |       PointInTimeRecoverySpecification:
-  12 |         PointInTimeRecoveryEnabled: true
-  13 |   table2:
-  14 |     Type: AWS::DynamoDB::Table
-  15 |     Properties:
-  16 |       KeySchema:
-  17 |         - AttributeName: attr1
-  18 |           KeyType: String
-  19 |         - AttributeName: attr2
+  13 |         PointInTimeRecoveryEnabled: true
+  14 |   table2:
+  15 |     Type: AWS::DynamoDB::Table
+  16 |     Properties:
+  17 |       DeletionProtectionEnabled: true
+  18 |       KeySchema:
+  19 |         - AttributeName: attr1
   20 |           KeyType: String
-  21 |       PointInTimeRecoverySpecification:
-> 22 |         PointInTimeRecoveryEnabled: false
-  23 |   table3:
-  24 |     Type: AWS::DynamoDB::Table
-  25 |     Properties:
-  26 |       KeySchema:
-  27 |         - AttributeName: attr1
-  28 |           KeyType: String
-  29 |         - AttributeName: attr2
-  30 |           KeyType: String
+  21 |         - AttributeName: attr2
+  22 |           KeyType: String
+  23 |       PointInTimeRecoverySpecification:
+> 24 |         PointInTimeRecoveryEnabled: false
+  25 |   table3:
+  26 |     Type: AWS::DynamoDB::Table
+  27 |     Properties:
+  28 |       DeletionProtectionEnabled: true
+  29 |       KeySchema:
+  30 |         - AttributeName: attr1
+  31 |           KeyType: String
+  32 |         - AttributeName: attr2
+  33 |           KeyType: String
      ^ Col 0
 ",cloudformation.cfn_has_not_point_in_time_recovery
-F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json,35,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json,37,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json","
-  25 |           {
-  26 |             ""AttributeName"": ""attr1"",
-  27 |             ""KeyType"": ""String""
-  28 |           },
-  29 |           {
-  30 |             ""AttributeName"": ""attr2"",
-  31 |             ""KeyType"": ""String""
-  32 |           }
-  33 |         ],
-  34 |         ""PointInTimeRecoverySpecification"": {
-> 35 |           ""PointInTimeRecoveryEnabled"": false
-  36 |         }
-  37 |       }
-  38 |     },
-  39 |     ""table3"": {
-  40 |       ""Type"": ""AWS::DynamoDB::Table"",
-  41 |       ""Properties"": {
-  42 |         ""KeySchema"": [
-  43 |           {
-  44 |             ""AttributeName"": ""attr1"",
-  45 |             ""KeyType"": ""String""
+  27 |           {
+  28 |             ""AttributeName"": ""attr1"",
+  29 |             ""KeyType"": ""String""
+  30 |           },
+  31 |           {
+  32 |             ""AttributeName"": ""attr2"",
+  33 |             ""KeyType"": ""String""
+  34 |           }
+  35 |         ],
+  36 |         ""PointInTimeRecoverySpecification"": {
+> 37 |           ""PointInTimeRecoveryEnabled"": false
+  38 |         }
+  39 |       }
+  40 |     },
+  41 |     ""table3"": {
+  42 |       ""Type"": ""AWS::DynamoDB::Table"",
+  43 |       ""Properties"": {
+  44 |         ""DeletionProtectionEnabled"": true,
+  45 |         ""KeySchema"": [
+  46 |           {
+  47 |             ""AttributeName"": ""attr1"",
      ^ Col 0
 ",cloudformation.cfn_has_not_point_in_time_recovery
-F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+F259,lines,namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json,43,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
  in namespace/skims/test/data/lib_root/f259/cfn_has_not_point_in_time_recovery.yaml.json","
-  31 |             ""KeyType"": ""String""
-  32 |           }
-  33 |         ],
-  34 |         ""PointInTimeRecoverySpecification"": {
-  35 |           ""PointInTimeRecoveryEnabled"": false
-  36 |         }
-  37 |       }
-  38 |     },
-  39 |     ""table3"": {
-  40 |       ""Type"": ""AWS::DynamoDB::Table"",
-> 41 |       ""Properties"": {
-  42 |         ""KeySchema"": [
-  43 |           {
-  44 |             ""AttributeName"": ""attr1"",
-  45 |             ""KeyType"": ""String""
-  46 |           },
-  47 |           {
-  48 |             ""AttributeName"": ""attr2"",
-  49 |             ""KeyType"": ""String""
-  50 |           }
-  51 |         ]
+  33 |             ""KeyType"": ""String""
+  34 |           }
+  35 |         ],
+  36 |         ""PointInTimeRecoverySpecification"": {
+  37 |           ""PointInTimeRecoveryEnabled"": false
+  38 |         }
+  39 |       }
+  40 |     },
+  41 |     ""table3"": {
+  42 |       ""Type"": ""AWS::DynamoDB::Table"",
+> 43 |       ""Properties"": {
+  44 |         ""DeletionProtectionEnabled"": true,
+  45 |         ""KeySchema"": [
+  46 |           {
+  47 |             ""AttributeName"": ""attr1"",
+  48 |             ""KeyType"": ""String""
+  49 |           },
+  50 |           {
+  51 |             ""AttributeName"": ""attr2"",
+  52 |             ""KeyType"": ""String""
+  53 |           }
      ^ Col 0
 ",cloudformation.cfn_has_not_point_in_time_recovery
 F259,lines,namespace/skims/test/data/lib_root/f259/tfm_db_test.tf,10,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled

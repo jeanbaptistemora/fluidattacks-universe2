@@ -4767,6 +4767,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_DYNAMO_NOT_DEL_PROTEC = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_dynamo_has_not_deletion_protection",
+        module="lib_root",
+        finding=FindingEnum.F259,
+        developer=DeveloperEnum.JULIAN_GOMEZ,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     TFM_DB_NO_DELETION_PROTEC = MethodInfo(
         file_name="terraform",
         name="tfm_db_no_deletion_protection",
