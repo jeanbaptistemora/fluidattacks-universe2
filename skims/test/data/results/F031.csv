@@ -383,7 +383,7 @@ F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),/Statement/3
   31 | }
      ^ Col 0
 ",aws.negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -397,7 +397,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
 > 11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -411,7 +411,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
   11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -425,7 +425,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
   11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -444,7 +444,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -463,7 +463,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {

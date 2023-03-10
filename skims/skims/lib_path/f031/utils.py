@@ -4,7 +4,6 @@ from aws.iam.structure import (
     is_resource_permissive,
 )
 from aws.model import (
-    AWSIamManagedPolicyArns,
     AWSIamPolicyStatement,
     AWSS3BucketPolicy,
 )
@@ -104,28 +103,3 @@ def negative_statement_iterate_vulnerabilities(
                 )
             ):
                 yield stmt
-
-
-def admin_policies_attached_iterate_vulnerabilities(
-    managed_policies_iterator: Iterator[Node | AWSIamManagedPolicyArns],
-) -> Iterator[Node | AWSIamManagedPolicyArns]:
-    elevated_policies = {
-        "PowerUserAccess",
-        "IAMFullAccess",
-        "AdministratorAccess",
-    }
-    for policies in managed_policies_iterator:
-        if isinstance(policies, Node):
-            yield from (
-                policy
-                for policy in policies.data
-                if hasattr(policy, "raw")
-                and hasattr(policy.raw, "split")
-                and policy.raw.split("/")[-1] in elevated_policies
-            )
-        elif any(
-            policy.split("/")[-1] in elevated_policies
-            for policy in policies.data or []
-            if hasattr(policy, "split")
-        ):
-            yield policies

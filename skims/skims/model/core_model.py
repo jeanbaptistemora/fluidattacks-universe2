@@ -2514,7 +2514,7 @@ class MethodsEnum(Enum):
     CFN_ADMIN_POLICY_ATTACHED = MethodInfo(
         file_name="cloudformation",
         name="cfn_admin_policy_attached",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

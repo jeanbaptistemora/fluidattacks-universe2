@@ -9,7 +9,6 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from lib_path.f031.utils import (
-    admin_policies_attached_iterate_vulnerabilities,
     bucket_policy_allows_public_access_iterate_vulnerabilities,
     negative_statement_iterate_vulnerabilities,
 )
@@ -22,7 +21,6 @@ from model.core_model import (
 )
 from parse_cfn.structure import (
     iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
-    iterate_managed_policy_arns as cnf_iterate_managed_policy_arns,
 )
 from typing import (
     Any,
@@ -54,24 +52,6 @@ def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
             and effect.raw == "Allow"
         ):
             yield from _iam_yield_full_access_ssm_vuln(action)
-
-
-def cfn_admin_policy_attached(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f031_aws.permissive_policy",
-        iterator=get_cloud_iterator(
-            admin_policies_attached_iterate_vulnerabilities(
-                managed_policies_iterator=cnf_iterate_managed_policy_arns(
-                    template=template,
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_ADMIN_POLICY_ATTACHED,
-    )
 
 
 def cfn_bucket_policy_allows_public_access(

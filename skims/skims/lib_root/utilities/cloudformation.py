@@ -67,6 +67,23 @@ def iterate_resource(graph: Graph, expected_type: str) -> Iterator[NId]:
             yield nid
 
 
+def iterate_group_resources(graph: Graph, expected_type: str) -> Iterator[NId]:
+    for nid in g.matching_nodes(graph, label_type="Object"):
+        resource_type_key, resource_type_val, _ = get_attribute(
+            graph, nid, "Type"
+        )
+        if resource_type_key and expected_type in resource_type_val:
+            _, _, prop_id = get_attribute(graph, nid, "Properties")
+            val_id = graph.nodes[prop_id]["value_id"]
+            policies, _, policies_id = get_attribute(
+                graph, val_id, "ManagedPolicyArns"
+            )
+            if policies:
+                policies_attrs = graph.nodes[policies_id]["value_id"]
+                for pol in adj_ast(graph, policies_attrs):
+                    yield pol
+
+
 def aux_iterate_ec2_egress_ingress(
     graph: Graph, is_ingress: bool = False, is_egress: bool = False
 ) -> Iterator[NId]:

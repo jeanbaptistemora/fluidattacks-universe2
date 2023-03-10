@@ -6,7 +6,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f031.cloudformation import (
-    cfn_admin_policy_attached,
     cfn_bucket_policy_allows_public_access,
     cfn_iam_has_full_access_to_ssm,
     cfn_negative_statement,
@@ -20,16 +19,6 @@ from parse_cfn.loader import (
 from typing import (
     Any,
 )
-
-
-@SHIELD_BLOCKING
-def run_cfn_admin_policy_attached(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag W43 IAM role should not have AdministratorAccess policy
-    return cfn_admin_policy_attached(
-        content=content, path=path, template=template
-    )
 
 
 @SHIELD_BLOCKING
@@ -84,7 +73,6 @@ def analyze(
                 *(
                     fun(content, path, template)
                     for fun in (
-                        run_cfn_admin_policy_attached,
                         run_cfn_bucket_policy_allows_public_access,
                         run_cfn_negative_statement,
                         run_cfn_iam_has_full_access_to_ssm,
