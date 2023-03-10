@@ -1,6 +1,7 @@
 import pytest
 from schedulers.update_sca_table.repositories.advisories_community import (
     fix_npm_gem_go_range,
+    fix_pip_composer_range,
     format_range,
     RE_RANGES,
 )
@@ -49,4 +50,19 @@ def test_advs_format_range(range_str: str, expected: str) -> None:
 )
 def test_fix_npm_gem_go_range(range_str: str, expected: str) -> None:
     formated_range: str = fix_npm_gem_go_range(range_str)
+    assert formated_range == expected
+
+
+@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.parametrize(
+    "range_str,expected",
+    [
+        (">=4.0,<4.3||>=5.0,<5.2", ">=4.0 <4.3 || >=5.0 <5.2"),
+        ("==3.1||>=4.0.0,<=4.0.2", "=3.1 || >=4.0.0 <=4.0.2"),
+        (">=1.0,<=1.0.1", ">=1.0 <=1.0.1"),
+    ],
+)
+def test_fix_pip_composer_range(range_str: str, expected: str) -> None:
+    formated_range: str = fix_pip_composer_range(range_str)
+    print(formated_range)
     assert formated_range == expected

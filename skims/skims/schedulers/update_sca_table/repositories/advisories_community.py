@@ -50,9 +50,9 @@ def fix_pip_composer_range(str_range: str) -> str:
     vals_to_change: dict[str, str] = {"||": " || ", ",": " ", "==": "="}
 
     for target, replacement in vals_to_change.items():
-        fixed_range = str_range.replace(target, replacement)
+        str_range = str_range.replace(target, replacement)
 
-    return fixed_range
+    return str_range
 
 
 def _format_ranges(platform: str, range_str: str) -> str:
