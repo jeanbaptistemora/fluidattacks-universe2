@@ -700,40 +700,6 @@ async def update_evidence(
     )
 
 
-async def update_solving_reason(
-    loaders: Dataloaders,
-    event_id: str,
-    stakeholder_email: str,
-    reason: EventSolutionReason,
-    other: str | None,
-) -> None:
-    event = await get_event(loaders, event_id)
-    group_name = event.group_name
-    if reason == EventSolutionReason.OTHER and not other:
-        raise InvalidParameter("other")
-    other_reason: str | None = (
-        other if reason == EventSolutionReason.OTHER else None
-    )
-
-    if event.state.status != EventStateStatus.SOLVED:
-        raise EventHasNotBeenSolved()
-
-    if reason not in SOLUTION_REASON_BY_EVENT_TYPE[event.type]:
-        raise InvalidEventSolvingReason()
-
-    await events_model.update_state(
-        current_value=event,
-        group_name=group_name,
-        state=EventState(
-            modified_by=stakeholder_email,
-            modified_date=datetime_utils.get_utc_now(),
-            other=other_reason,
-            reason=reason,
-            status=event.state.status,
-        ),
-    )
-
-
 @validations.validate_file_name_deco("file.filename")
 @validations.validate_fields_deco(["file.content_type"])
 async def validate_evidence(

@@ -1085,21 +1085,6 @@ type Mutation {
     file: Upload!
   ): SimplePayload!
 
-  "Updates an Event's solving reason"
-  updateEventSolvingReason(
-    "Identifier of the Event to update"
-    eventId: String!
-    "Reason for solving the event"
-    reason: SolveEventReason!
-    "Custom reason provided"
-    other: String
-  ): SimplePayload!
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/03/09.
-      """
-    )
-
   "Updates a Finding's evidence"
   updateEvidence(
     "Evidence file to upload"

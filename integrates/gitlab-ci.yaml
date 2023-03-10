@@ -3309,35 +3309,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
-/integrates/back/test/functional__update_event_solving_reason:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - integrates/.coverage*
-      - provenance-*
-    when: on_success
-  image: ghcr.io/fluidattacks/makes:23.04
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
-  script:
-    - m . /integrates/back/test/functional 'update_event_solving_reason'
-  stage: test-code
-  tags:
-    - integrates-small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__update_evidence:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4698,7 +4669,6 @@
     - /integrates/back/test/functional__update_description
     - /integrates/back/test/functional__update_event
     - /integrates/back/test/functional__update_event_evidence
-    - /integrates/back/test/functional__update_event_solving_reason
     - /integrates/back/test/functional__update_evidence
     - /integrates/back/test/functional__update_evidence_description
     - /integrates/back/test/functional__update_forces_access_token
@@ -4711,6 +4681,7 @@
     - /integrates/back/test/functional__update_group_managed
     - /integrates/back/test/functional__update_group_policies
     - /integrates/back/test/functional__update_group_stakeholder
+    - /integrates/back/test/functional__update_ip_root
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4739,7 +4710,6 @@
   image: ghcr.io/fluidattacks/makes:23.04
   interruptible: true
   needs:
-    - /integrates/back/test/functional__update_ip_root
     - /integrates/back/test/functional__update_notification_preferences
     - /integrates/back/test/functional__update_organization_policies
     - /integrates/back/test/functional__update_organization_stakeholder

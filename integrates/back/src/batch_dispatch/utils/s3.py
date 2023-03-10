@@ -130,7 +130,15 @@ async def download_repo(
 ) -> bool:
     download_url = await get_download_url(group_name, git_root.state.nickname)
     if not download_url:
-        LOGGER.error("can not find download url")
+        LOGGER.warning(
+            "can not find download url",
+            extra={
+                "extra": {
+                    "group_name": group_name,
+                    "repository": git_root.state.nickname,
+                }
+            },
+        )
         return False
     repo_path = path.join(path_to_extract, git_root.state.nickname)
     with tempfile.TemporaryDirectory() as tmpdir:
