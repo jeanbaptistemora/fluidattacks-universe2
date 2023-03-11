@@ -205,6 +205,12 @@ MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
+    newsletter=dict(
+        email_preferences=Notification.GROUP_INFORMATION,
+        exclude_trial=True,
+        only_fluid_staff=True,
+        roles=dict(group={}, org={}),
+    ),
     numerator_digest=dict(
         email_preferences=Notification.GROUP_INFORMATION,
         exclude_trial=True,
