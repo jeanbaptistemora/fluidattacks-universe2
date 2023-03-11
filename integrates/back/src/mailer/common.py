@@ -233,3 +233,23 @@ async def send_mail_confirm_deletion(
         subject="Confirm account deletion",
         template_name="confirm_deletion",
     )
+
+
+async def send_mail_newsletter(
+    *,
+    loaders: Dataloaders,
+    context: dict[str, Any],
+    email_to: str,
+    email_cc: list[str],
+) -> None:
+    user_login = str(email_to).split("@", maxsplit=1)[0]
+    month = datetime_utils.get_now().strftime("%B")
+    await send_mails_async(
+        loaders=loaders,
+        email_to=[email_to],
+        email_cc=email_cc,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] {month} newsletter [{user_login}]",
+        context=context,
+        template_name="newsletter",
+    )

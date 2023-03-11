@@ -206,10 +206,16 @@ MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     newsletter=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=True,
-        only_fluid_staff=True,
-        roles=dict(group={}, org={}),
+        email_preferences=Notification.UPDATED_TREATMENT,
+        exclude_trial=False,
+        only_fluid_staff=False,
+        roles=dict(
+            group={
+                "user_manager",
+                "vulnerability_manager",
+            },
+            org={},
+        ),
     ),
     numerator_digest=dict(
         email_preferences=Notification.GROUP_INFORMATION,
