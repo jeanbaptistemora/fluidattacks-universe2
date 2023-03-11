@@ -637,11 +637,6 @@ F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),Action: ['ss
      ^ Col 0
 ",aws.permissive_policy
 F031,inputs,arn:aws:iam::aws:user/user1 (namespace),/AccessKeyMetadata: {'Status': True},250,skims,031. Excessive privileges - AWS,IAM Group is granted privileges but not through a Role,"
-  50 |     ""PolicyDocument"": {
-  51 |         ""Statement"": ""[{\""Effect\"":\""Allow\"",\""Action\"":[\""*\""],\""Resource\"":\""*\"",},]""
-  52 |     },
-  53 |     ""Users"": [
-  54 |         {
   55 |             ""UserName"": ""bucket-018de572ae43404d8"",
   56 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
   57 |         }
@@ -656,8 +651,13 @@ F031,inputs,arn:aws:iam::aws:user/user1 (namespace),/AccessKeyMetadata: {'Status
   66 |         {
   67 |             ""Status"": true
   68 |         }
-  69 |     ]
-  70 | }
+  69 |     ],
+  70 |     ""VpcEndpoints"": [
+  71 |         {
+  72 |             ""VpcEndpointId"": ""vpcEndPoint1"",
+  73 |             ""VpcEndpointType"": ""GatewayLoadBalancer"",
+  74 |             ""VpcId"": ""vpcEndPoint1"",
+  75 |             ""PolicyDocument"": ""{\""Version\"":\""2008-10-17\"",\""Statement\"":[{\""Principal\"": {\""AWS\"":\""*\""}, \""Resource\"":
      ^ Col 0
 ",aws.users_with_password_and_access_keys
 F031,inputs,rol-018de572ae43404d8 (namespace),Effect: Allow; Action: ['*'],250,skims,031. Excessive privileges - AWS,IAM Role Policy grants wildcard privileges.,"
@@ -1317,9 +1317,23 @@ F031,inputs,arn:aws:iam::aws:user/user1 (namespace),"/AttachedPolicies: [{'Polic
   66 |         {
   67 |             ""Status"": true
   68 |         }
-  69 |     ]
+  69 |     ],
      ^ Col 0
 ",aws.policies_attached_to_users
+F031,inputs,arn:aws:ec2::VpcEndpointId:vpcEndPoint1 (namespace),/Statement/0/Principal: {'AWS': '*'},250,skims,031. Excessive privileges - AWS,Users or IAM service must not have access to the VPC endpoint.,"
+   1 | {
+   2 |     ""Version"": ""2008-10-17"",
+   3 |     ""Statement"": [
+   4 |         {
+>  5 |             ""Principal"": {
+   6 |                 ""AWS"": ""*""
+   7 |             },
+   8 |             ""Resource"": ""*""
+   9 |         }
+  10 |     ]
+  11 | }
+     ^ Col 0
+",aws.vpc_endpoints_exposed
 F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_open_passrole.tf,5,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_root/f031/hcl2_open_passrole.tf,"
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""

@@ -13,6 +13,12 @@ def mock_data() -> dict[str, Any]:
         '{"Effect":"Allow","NotAction":"*","NotResource":["iam:bucket",],},'
         "],}"
     )
+    vpc_policy = (
+        '{"Version":"2008-10-17",'
+        '"Statement":['
+        '{"Principal": {"AWS":"*"}, "Resource": "*"}'
+        "]}"
+    )
     statement = '[{"Effect":"Allow","Action":["*"],"Resource":"*",},]'
     return {
         "Policies": [
@@ -76,5 +82,13 @@ def mock_data() -> dict[str, Any]:
             {
                 "Status": True,
             },
+        ],
+        "VpcEndpoints": [
+            {
+                "VpcEndpointId": "vpcEndPoint1",
+                "VpcEndpointType": "GatewayLoadBalancer",
+                "VpcId": "vpcEndPoint1",
+                "PolicyDocument": vpc_policy,
+            }
         ],
     }

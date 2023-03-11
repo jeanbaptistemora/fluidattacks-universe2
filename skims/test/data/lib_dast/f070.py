@@ -44,4 +44,32 @@ def mock_data() -> dict[str, Any]:
                 "SslPolicy": "ELBSecurityPolicy-TLS13-1-2-Res-2021-06",
             },
         ],
+        "clusters": [
+            "fluidcluster",
+        ],
+        "cluster": {
+            "name": "fluidcluster",
+            "arn": "arn:aws:iam::123456789012:cluster/fluidcl1",
+            "resourcesVpcConfig": {
+                "securityGroupIds": [
+                    "fluidsecuritygroup1",
+                ],
+                "endpointPublicAccess": True,
+                "endpointPrivateAccess": True,
+            },
+        },
+        "SecurityGroups": [
+            {
+                "Description": "fluidsecgroup1",
+                "GroupName": "fluidsecuritygroup1",
+                "OwnerId": "fluid",
+                "GroupId": "secgroup1",
+                "IpPermissions": [
+                    {
+                        "FromPort": 88,
+                        "ToPort": 8808,
+                    },
+                ],
+            },
+        ],
     }

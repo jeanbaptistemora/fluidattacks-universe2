@@ -326,4 +326,35 @@ def mock_data() -> dict[str, Any]:
                 "OwnerId": "fluid_234",
             }
         ],
+        "NetworkAcls": [
+            {
+                "Entries": [
+                    {
+                        "CidrBlock": "0.0.0.0/0",
+                        "Egress": False,
+                        "Ipv6CidrBlock": "::/0",
+                        "Protocol": "-1",
+                        "RuleAction": "allow",
+                        "RuleNumber": 123,
+                    },
+                    {
+                        "CidrBlock": "127.0.0.1",
+                        "Egress": False,
+                        "Ipv6CidrBlock": "::/0",
+                        "Protocol": "-1",
+                        "RuleAction": "allow",
+                        "RuleNumber": 123,
+                    },
+                    {
+                        "Egress": True,
+                        "PortRange": {"From": 123, "To": 123},
+                        "Protocol": "https",
+                        "RuleAction": "allow",
+                        "RuleNumber": 123,
+                    },
+                ],
+                "IsDefault": True,
+                "NetworkAclId": "fluidnetacls1",
+            },
+        ],
     }

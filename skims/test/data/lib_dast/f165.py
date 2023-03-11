@@ -47,4 +47,18 @@ def mock_data() -> dict[str, Any]:
                 "KMSMasterKeyArn": "arn:aws:iam::aws:key/fuildKey",
             },
         },
+        "clusters": [
+            "fluidcluster",
+        ],
+        "cluster": {
+            "name": "fluidcluster",
+            "arn": "arn:aws:iam::123456789012:cluster/fluidcl1",
+            "resourcesVpcConfig": {
+                "securityGroupIds": [
+                    "fluidsecuritygroup1",
+                ],
+                "endpointPublicAccess": True,
+                "endpointPrivateAccess": False,
+            },
+        },
     }

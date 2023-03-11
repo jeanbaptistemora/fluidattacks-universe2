@@ -284,6 +284,20 @@ F165,inputs,arn:aws:iam::aws:table/fluidTable (namespace),/SSEDescription/SSETyp
   9 | }
     ^ Col 0
 ",aws.dynamob_encrypted_with_aws_master_keys
+F165,inputs,arn:aws:iam::123456789012:cluster/fluidcl1 (namespace),endpointPrivateAccess: False; endpointPublicAccess: True,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.dynamob_encrypted_with_aws_master_keys,"
+   1 | {
+   2 |     ""name"": ""fluidcluster"",
+   3 |     ""arn"": ""arn:aws:iam::123456789012:cluster/fluidcl1"",
+   4 |     ""resourcesVpcConfig"": {
+   5 |         ""securityGroupIds"": [
+   6 |             ""fluidsecuritygroup1""
+   7 |         ],
+>  8 |         ""endpointPublicAccess"": true,
+   9 |         ""endpointPrivateAccess"": false
+  10 |     }
+  11 | }
+     ^ Col 0
+",aws.eks_has_endpoints_publicly_accessible
 F165,inputs,arn:aws:iam::aws:policy/AWSSupportAccess (namespace),src.lib_path.f165.has_not_support_role,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.has_not_support_role,"
    1 | {
    2 |     ""Users"": [

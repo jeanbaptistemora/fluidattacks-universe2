@@ -306,11 +306,10 @@ async def eks_has_endpoints_publicly_accessible(
         )
         cluster_description = cluster_desc["cluster"]
         vulnerable = (
-            cluster_description["resourcesVpcConfig"]["endpointPrivateAccess"]
-            is False
-        ) and (
             cluster_description["resourcesVpcConfig"]["endpointPublicAccess"]
-            is True
+            and not cluster_description["resourcesVpcConfig"][
+                "endpointPrivateAccess"
+            ]
         )
         if vulnerable:
             locations = [

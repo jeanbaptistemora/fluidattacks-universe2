@@ -248,6 +248,21 @@ F070,lines,namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,3,266
   6 | }
     ^ Col 0
 ",terraform.tfm_lb_target_group_insecure_port
+F070,inputs,arn:aws:ec2::fluid:security-group/secgroup1 (namespace),FromPort: 88; ToPort: 8808,266,skims,070. Insecure service configuration - ELB,lib_path.f070.eks_allows_insecure_inbound_traffic,"
+   1 | {
+   2 |     ""Description"": ""fluidsecgroup1"",
+   3 |     ""GroupName"": ""fluidsecuritygroup1"",
+   4 |     ""OwnerId"": ""fluid"",
+   5 |     ""GroupId"": ""secgroup1"",
+   6 |     ""IpPermissions"": [
+   7 |         {
+   8 |             ""FromPort"": 88,
+>  9 |             ""ToPort"": 8808
+  10 |         }
+  11 |     ]
+  12 | }
+     ^ Col 0
+",aws.eks_allows_insecure_inbound_traffic
 F070,inputs,arn:aws:iam::123456789012:tg/noport (namespace),/TargetGroups/1/TargetType: instance,266,skims,070. Insecure service configuration - ELB,src.lib_path.f070.elb2_target_group_insecure_port,"
    1 | {
    2 |     ""TargetGroups"": [
@@ -297,7 +312,6 @@ F070,inputs,arn:aws:iam::123456789012:tg/wrongport (namespace),/TargetGroups/0/P
      ^ Col 0
 ",aws.target_group_insecure_port
 F070,inputs,arn:aws:iam::123456789012:list/unsafelistener (namespace),/Listeners/0/SslPolicy: ELBSecurityPolicy_FS_1_2_Res_2019_08,266,skims,070. Insecure service configuration - ELB,src.lib_path.f070.elb2_uses_insecure_security_policy,"
-  21 |     ],
   22 |     ""LoadBalancers"": [
   23 |         {
   24 |             ""LoadBalancerArn"": ""arn:aws:iam::123456789012:lb/mylb1""
@@ -316,7 +330,8 @@ F070,inputs,arn:aws:iam::123456789012:list/unsafelistener (namespace),/Listeners
   37 |             ""Port"": 123,
   38 |             ""SslPolicy"": ""ELBSecurityPolicy-TLS13-1-2-Res-2021-06""
   39 |         }
-  40 |     ]
-  41 | }
+  40 |     ],
+  41 |     ""clusters"": [
+  42 |         ""fluidcluster""
      ^ Col 0
 ",aws.uses_insecure_security_policy
