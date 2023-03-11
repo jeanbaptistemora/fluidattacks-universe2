@@ -733,6 +733,48 @@
     };
     timeout = 86400;
   };
+  integrates_newsletter = {
+    attempts = 3;
+    awsRole = "prod_integrates";
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.newsletter.main"
+    ];
+    enable = true;
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+    meta = {
+      description = ''
+        Send monthly newsletter email.
+      '';
+      lastReview = "11-03-2023";
+      maintainers = [
+        "asaldarriaga"
+        "jhurtado"
+        "faristizabal"
+      ];
+      requiredBy = [
+        ''
+          ARM sending newsletter to effectively communicate feature changes.
+        ''
+      ];
+    };
+    parallel = 1;
+    scheduleExpression = "cron(30 0 12 * ? *)";
+    size = "integrates_nano";
+    tags = {
+      "Name" = "integrates_newsletter";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+    timeout = 86400;
+  };
   integrates_numerator_report_digest = {
     attempts = 1;
     awsRole = "prod_integrates";
