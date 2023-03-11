@@ -1518,7 +1518,7 @@ OKTA_DATA_RAW_APPS:
       preconfigured_app: null
       credentials_scheme: ENC[AES256_GCM,data:eDBrfNPLNMltMj/jGjhiNckuYhLbB5B+j/qE6w==,iv:c2/52xbqtXtfzEJUkBn3dRJEg9rIfKfr8PGlYw2/ykE=,tag:D7BOSJr3Ky8pu5+PM6+FUw==,type:str]
       shared_username: ENC[AES256_GCM,data:XN/OrQjdn3M=,iv:m6S1zZjCNYkJkQHKJ+h26ArzVIzyLpAp7fILqqQA/mU=,tag:otUeMyCorv7/FVw3BSPcpg==,type:int]
-      shared_password: ENC[AES256_GCM,data:NtXX7SOulbD3jg==,iv:JvYmgmVIcfRNe3BOh4bZq7lg1yCbfwoa8eg12JUoH20=,tag:nbdQDYDnJPplN3eTl/+ADQ==,type:str]
+      shared_password: ENC[AES256_GCM,data:1TCRf0sBep7rzg==,iv:pIwFKI36TnoAkQhj5KIs7vhs/5SksQF7ZzvwDVsIecs=,tag:rraP5SLnRIKhVhNGaVAQVg==,type:str]
       sign_on_url: ENC[AES256_GCM,data:fhr3mo1iF4fYhWqQ/w8A9//Ww0IC85OC35scbR4J1q+iiLryWzm82AhY2bPgbMk=,iv:Ku75bMRZCHrf2xHsUTLLta2zyBPj45DZtK5QIEXBs0A=,tag:XI7Y+MT5Ec1q9oJqYTVETQ==,type:str]
       app_settings_json: {}
     - id: ENC[AES256_GCM,data:jS68YnlJaG15vQ==,iv:7RucCv9nEoA52iIajfahEOv70zbJzQCgwOjVSiNp32o=,tag:EcnUAE7NrvoKDpz+3B+fVQ==,type:str]
@@ -1634,16 +1634,6 @@ OKTA_DATA_RAW_APPS:
       shared_username: ENC[AES256_GCM,data:fP82oJWdEXpLOKohDS+h5lT8YArx,iv:2Plcg4zqVCsnBja+ZXhGySFY2usy5wRNxeC6AwtyuSs=,tag:lIJ/AaXKdmxLdf6fJQ9OUw==,type:str]
       shared_password: ENC[AES256_GCM,data:NUmt9RDgs2Y8CanaI0M/eC/yBfJkVxaMxQ==,iv:BgJ7tf6H25TuwieIYDEgOMoe/IP/rm0qBntM/pNTLeE=,tag:/49fd4Sr3FaYqscb/Mje3g==,type:str]
       url: ENC[AES256_GCM,data:sBWAJPv76sYbh0uGx22tAqY/byFW6rewWg==,iv:+u32dPUaaY1Op3LSOaB6UwL4IzzUYPoxJloXAQokEXk=,tag:R6MqGCYtPg1F4W3JM1G2rQ==,type:str]
-    - id: ENC[AES256_GCM,data:9P6i/XlHrjnlOw==,iv:jTz0BYLloNdbihs1I73+1VNE8kftbjtSk3wKa4uN/qI=,tag:+QsTLYb5jcGh2wXYGx+UwQ==,type:str]
-      type: ENC[AES256_GCM,data:HdYyD36D8WGEqA==,iv:RP5dOypmoW65oXjyXH0qSYBW38m8aqxZGdhNeNv4cW8=,tag:cFJ82Ky/HyPTUTRUUle0gw==,type:str]
-      label: ENC[AES256_GCM,data:MR+F1YjLOdZLJQ==,iv:dwzt1mk+YR74hesYSaP/V2/JN8A/3aRO9A4yXkWbcRc=,tag:6XCc80GCyVOqABf9KqelBg==,type:str]
-      status: ENC[AES256_GCM,data:orOKYzX8,iv:ooRdEEExuPV1qWaNT4gktkGGNFgnrPJnYjIyYj3UVd4=,tag:jeOKhxqwGn3OukQPKN/HsA==,type:str]
-      preconfigured_app: null
-      credentials_scheme: ENC[AES256_GCM,data:eDBrfNPLNMltMj/jGjhiNckuYhLbB5B+j/qE6w==,iv:c2/52xbqtXtfzEJUkBn3dRJEg9rIfKfr8PGlYw2/ykE=,tag:D7BOSJr3Ky8pu5+PM6+FUw==,type:str]
-      shared_username: ENC[AES256_GCM,data:oOusmvNXhzw=,iv:uqgNNNQzn/qVrFptLIh7UdlfkjucNGu3Bh3Vbertpcs=,tag:aFscjzQBiDmrhUIYUlI3yQ==,type:str]
-      shared_password: ENC[AES256_GCM,data:3iK2cpowADIhEufo9WM1eA==,iv:RHXT7kvTBmJymf4KUvJDnzmw1ikY1I7Me7qxcfGu6wk=,tag:MkYorqE/Pv9YDfaEZVG5qQ==,type:str]
-      sign_on_url: ENC[AES256_GCM,data:hrepWF2uJtNkU9ShXFr3h12ImH6qNGmBNCKO0RXY489tcMH3nI/eu9mqX+SmiRU4LpILIShvSiASef33PoRJldb3fB1nhp65RVXK+Zotkd2yXyQbImMW1j/wIhclB/NWuw5TNveT+OI=,iv:ceDhGPV+r8mBw7x1zIeyo193Te26P8aCi/PPlBF4zqM=,tag:ZwByv5vyXzTY50NwtQgG6A==,type:str]
-      app_settings_json: {}
     - id: ENC[AES256_GCM,data:VD3fPponqf2C,iv:nXe17bAIlHF4s4+ZvjMekKlyA9sBXnoUAux8UPzdXYs=,tag:iUBCA+UspcsARmy1X/E43w==,type:str]
       type: ENC[AES256_GCM,data:HdYyD36D8WGEqA==,iv:RP5dOypmoW65oXjyXH0qSYBW38m8aqxZGdhNeNv4cW8=,tag:cFJ82Ky/HyPTUTRUUle0gw==,type:str]
       label: ENC[AES256_GCM,data:7cr1fjU1TquO,iv:yipD1uwtZXZBJw7BA/pQ8YoLlSzP2oAsHtnG5ct9TIo=,tag:6ZBsJvsls5Lpdf1rMnswpw==,type:str]
@@ -3538,8 +3528,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-03-09T21:41:16Z"
-    mac: ENC[AES256_GCM,data:4Z4EMTu8m9i4n138QfRge0UQscCFMjdODpkcsLKLYoo5ifxL0w6O79PV8aN0Vp34UXobyhx05zkZKYmaLI3GRU5WWxmUUJbY8IGVGRr9SrkafrP4t8FUwtZrjh4YGVL/GYjjFgmHxhS4jdHcQ9FZjXur3R5YhxxlrDQmZ4cAUwI=,iv:Zjb3563Pvz0OCrxtLKk6M2V8YvNcayIRR65GsbT6iTE=,tag:l5FJICwidvpkwp8E58vgCQ==,type:str]
+    lastmodified: "2023-03-11T00:33:04Z"
+    mac: ENC[AES256_GCM,data:z9tUAbW1eujCh2dZF6sDn26uyPv9yjQWl5hglN6GzBVkIbYqp2QJbWE95iA4UMAawKQ7taV//AP5bbYRzsK5SYQOLTZExU1nFUZJMFKPKv8ymhRuBVvrQXBss+FvbRkwo3a0XwXaeu3fvFpovxIX9bzywlcPSxHNLLajvG+AWtU=,iv:iCoV0fr9u6IvYODQwUH2d4vB0+A0Ih6BtEuTGSdXgqc=,tag:ZLQoz3CphsYjBXjl4uY/yg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.3
