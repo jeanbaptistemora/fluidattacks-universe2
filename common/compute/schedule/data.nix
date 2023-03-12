@@ -765,7 +765,7 @@
       ];
     };
     parallel = 1;
-    scheduleExpression = "cron(30 0 12 * ? *)";
+    scheduleExpression = "cron(0 19 12 * ? *)";
     size = "integrates_nano";
     tags = {
       "Name" = "integrates_newsletter";
