@@ -265,7 +265,11 @@ async def get_stakeholders_email_by_preferences(
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders_data
-        if notification in stakeholder.state.notifications_preferences.email
+        if (
+            not notification
+            or notification
+            in stakeholder.state.notifications_preferences.email
+        )
         and not (exclude_trial and is_trial)
         and not (
             only_fluid_staff

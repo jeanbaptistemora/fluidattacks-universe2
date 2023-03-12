@@ -206,7 +206,7 @@ MAIL_PREFERENCES: dict[str, dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     newsletter=dict(
-        email_preferences=Notification.UPDATED_TREATMENT,
+        email_preferences=None,
         exclude_trial=False,
         only_fluid_staff=False,
         roles=dict(

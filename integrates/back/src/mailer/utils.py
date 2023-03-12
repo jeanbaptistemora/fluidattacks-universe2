@@ -27,13 +27,16 @@ async def get_available_notifications(
     available_notifications_by_template = [
         template["email_preferences"]
         for template in MAIL_PREFERENCES.values()
-        if any(
-            item in template["roles"]["group"]
-            for item in stakeholder_roles["group"]
-        )
-        or any(
-            item in template["roles"]["org"]
-            for item in stakeholder_roles["org"]
+        if template["email_preferences"]
+        and (
+            any(
+                item in template["roles"]["group"]
+                for item in stakeholder_roles["group"]
+            )
+            or any(
+                item in template["roles"]["org"]
+                for item in stakeholder_roles["org"]
+            )
         )
     ]
     return sorted(set(available_notifications_by_template))

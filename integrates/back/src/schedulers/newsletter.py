@@ -3,7 +3,6 @@ from aioextensions import (
 )
 from context import (
     FI_ENVIRONMENT,
-    FI_MAIL_CUSTOMER_EXPERIENCE,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -104,12 +103,12 @@ async def send_newsletter() -> None:
         },
     )
 
-    for email in FI_MAIL_CUSTOMER_EXPERIENCE.split(","):
+    for email in unique_emails(dict(groups_data), ()):
         try:
             await mail_newsletter(
                 loaders=loaders,
                 context={},
-                email_to=email,
+                email_to=[],
                 email_cc=[],
             )
             LOGGER.info(
