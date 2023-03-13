@@ -8,7 +8,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
     NId,
 )
@@ -41,15 +41,11 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def java_insecure_parser(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def java_insecure_parser(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_XML_PARSER
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVA,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

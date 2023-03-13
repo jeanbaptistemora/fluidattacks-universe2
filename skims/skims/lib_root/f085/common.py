@@ -1,6 +1,3 @@
-from collections.abc import (
-    Set,
-)
 from model.core_model import (
     MethodsEnum,
 )
@@ -29,7 +26,7 @@ def could_be_boolean(key: str) -> bool:
     return False
 
 
-def is_smell_dangerous(values: Set[str]) -> bool:
+def is_smell_dangerous(values: set[str]) -> bool:
     conditions = {
         "auth",
         "credential",
@@ -72,10 +69,10 @@ def is_insecure_storage(graph: Graph, nid: NId, method: MethodsEnum) -> bool:
         return False
 
     for path in get_backward_paths(graph, test_node):
-        evaluation = evaluate(method, graph, path, test_node)
-        if evaluation:
-            return is_smell_dangerous(evaluation.triggers)
-
+        if (
+            evaluation := evaluate(method, graph, path, test_node)
+        ) and is_smell_dangerous(evaluation.triggers):
+            return True
     return False
 
 

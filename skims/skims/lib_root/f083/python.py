@@ -16,10 +16,7 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
@@ -33,10 +30,7 @@ def get_eval_danger(
         if graph.nodes[_id]["argument_name"] != "resolve_entities":
             continue
         val_id = graph.nodes[_id]["value_id"]
-        for path in get_backward_paths(graph, val_id):
-            evaluation = evaluate(method, graph, path, val_id)
-            if evaluation and evaluation.danger:
-                return True
+        return get_node_evaluation_results(method, graph, val_id, set())
     return False
 
 
@@ -50,15 +44,11 @@ def is_xml_parser_vuln(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def python_xml_parser(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def python_xml_parser(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.PYTHON_XML_PARSER
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.PYTHON,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.PYTHON):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

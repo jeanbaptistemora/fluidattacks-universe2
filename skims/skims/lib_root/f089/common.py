@@ -9,7 +9,7 @@ from utils import (
 
 def json_parse_unval_data(graph: Graph) -> list[NId]:
     vuln_nodes: list[NId] = []
-    danger_expressions: set[str] = {
+    danger_expressions = {
         "localStorage.getItem",
         "sessionStorage.getItem",
     }

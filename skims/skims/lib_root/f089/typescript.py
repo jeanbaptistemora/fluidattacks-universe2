@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def json_parse_unvalidated_data(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def json_parse_unvalidated_data(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.TS_JSON_PARSE_UNVALIDATED_DATA
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.TYPESCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.TYPESCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

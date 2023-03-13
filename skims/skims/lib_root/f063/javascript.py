@@ -22,15 +22,11 @@ from sast.query import (
 )
 
 
-def javascript_insecure_path_traversal(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def javascript_insecure_path_traversal(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_PATH_TRAVERSAL
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -46,16 +42,12 @@ def javascript_insecure_path_traversal(
     )
 
 
-def zip_slip_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def zip_slip_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_ZIP_SLIP
     danger_methods = {"createWriteStream"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

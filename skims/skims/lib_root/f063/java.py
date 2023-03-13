@@ -17,6 +17,7 @@ from sast.query import (
 )
 from symbolic_eval.evaluate import (
     evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.types import (
     Path,
@@ -45,9 +46,8 @@ def has_cannonical_check(graph: Graph, file_name: str, path: Path) -> bool:
 def is_argument_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     symbol = graph.nodes[n_id].get("symbol")
     for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
         if (
-            evaluation
+            (evaluation := evaluate(method, graph, path, n_id))
             and evaluation.danger
             and evaluation.triggers == {"ZipFile"}
             and not has_cannonical_check(graph, symbol, path)
@@ -56,21 +56,7 @@ def is_argument_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def is_file_injection(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == {"userparameters", "userconnection"}
-        ):
-            return True
-    return False
-
-
-def zip_slip_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def zip_slip_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_ZIP_SLIP_PATH_INJECTION
     danger_methods = {"readFileToString"}
 
@@ -99,9 +85,7 @@ def zip_slip_injection(
     )
 
 
-def unsafe_path_traversal(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def unsafe_path_traversal(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_UNSAFE_PATH_TRAVERSAL
     danger_obj = {
         "java.io.File",
@@ -126,7 +110,12 @@ def unsafe_path_traversal(
                     and (args_id := n_attrs.get("arguments_id"))
                     and (al_id := g.adj_ast(graph, args_id))
                     and len(al_id) >= 1
-                    and is_file_injection(graph, al_id[0], method)
+                    and get_node_evaluation_results(
+                        method,
+                        graph,
+                        al_id[0],
+                        {"userparameters", "userconnection"},
+                    )
                 ):
                     yield shard, nid
 

@@ -1,56 +1,33 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_trust_violation(
-    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, nid):
-        evaluation = evaluate(method, graph, path, nid)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def trust_boundary_violation(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def trust_boundary_violation(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_TRUST_BOUNDARY_VIOLATION
-    java = GraphShardMetadataLanguage.JAVA
     danger_methods = {"setAttribute", "putValue"}
     danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(java):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -63,7 +40,9 @@ def trust_boundary_violation(
                     and (obj_id := n_attrs.get("object_id"))
                     and graph.nodes[obj_id].get("expression") == "getSession"
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and is_trust_violation(graph, al_id, danger_set, method)
+                    and get_node_evaluation_results(
+                        method, graph, al_id, danger_set
+                    )
                 ):
                     yield shard, n_id
 

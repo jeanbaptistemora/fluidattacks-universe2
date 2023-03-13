@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def js_xml_parser(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def js_xml_parser(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_XML_PARSER
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             for n_id in get_vuln_nodes(shard.syntax_graph, method):

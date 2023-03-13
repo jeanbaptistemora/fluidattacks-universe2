@@ -1,6 +1,5 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
@@ -24,6 +23,7 @@ from sast.query import (
 )
 from symbolic_eval.evaluate import (
     evaluate,
+    get_node_evaluation_results,
 )
 from symbolic_eval.utils import (
     get_backward_paths,
@@ -34,7 +34,7 @@ from utils import (
 
 
 def is_node_vuln(
-    graph: Graph, n_id: NId, method: MethodsEnum, danger_set: Set[str]
+    graph: Graph, n_id: NId, method: MethodsEnum, danger_set: set[str]
 ) -> bool:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
@@ -47,14 +47,11 @@ def is_node_vuln(
     return False
 
 
-def open_redirect(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-    c_sharp = GraphLanguage.CSHARP
+def open_redirect(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_OPEN_REDIRECT
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -65,7 +62,7 @@ def open_redirect(
                 if (
                     graph.nodes[member].get("member") == "Redirect"
                     and (pred := g.pred_ast(graph, member)[0])
-                    and is_node_vuln(graph, pred, method, set())
+                    and get_node_evaluation_results(method, graph, pred, set())
                 ):
                     yield shard, pred
 
@@ -77,11 +74,8 @@ def open_redirect(
     )
 
 
-def unsafe_path_traversal(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def unsafe_path_traversal(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_UNSAFE_PATH_TRAVERSAL
-    c_sharp = GraphLanguage.CSHARP
     danger_methods = {
         "File.Copy",
         "File.Create",
@@ -94,7 +88,7 @@ def unsafe_path_traversal(
     danger_set = {"userconnection", "userparameters"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

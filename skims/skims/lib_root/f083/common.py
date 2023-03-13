@@ -3,13 +3,9 @@ from model.core_model import (
 )
 from model.graph_model import (
     Graph,
-    NId,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
@@ -17,14 +13,6 @@ from utils import (
 from utils.string import (
     split_on_last_dot,
 )
-
-
-def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
 
 
 def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> list[str]:
@@ -36,8 +24,8 @@ def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> list[str]:
         if f_name[-1] == "parseXmlString":
             if args := g.match_ast_d(graph, nid, "ArgumentList"):
                 childs = g.adj_ast(graph, args)
-                if len(childs) > 1 and get_eval_danger(
-                    graph, childs[1], method
+                if len(childs) > 1 and get_node_evaluation_results(
+                    method, graph, childs[1], set()
                 ):
                     vuln_nodes.append(nid)
 

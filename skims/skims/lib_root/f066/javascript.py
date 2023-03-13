@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def js_uses_console_log(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def js_uses_console_log(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_USES_CONSOLE_LOG
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

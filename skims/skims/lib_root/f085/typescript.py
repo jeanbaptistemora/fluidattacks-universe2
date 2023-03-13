@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def typescript_client_storage(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def typescript_client_storage(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.TS_CLIENT_STORAGE
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.TYPESCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.TYPESCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

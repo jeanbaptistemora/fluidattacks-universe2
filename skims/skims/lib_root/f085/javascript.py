@@ -18,19 +18,14 @@ from sast.query import (
 )
 
 
-def javascript_client_storage(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def javascript_client_storage(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_CLIENT_STORAGE
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-
             for nid in client_storage(graph, method):
                 yield shard, nid
 

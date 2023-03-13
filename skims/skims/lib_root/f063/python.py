@@ -16,28 +16,11 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
-
-
-def get_eval_danger(
-    graph: Graph, n_id: NId, danger_set: set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
 
 
 def is_danger_attachment(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
@@ -52,19 +35,15 @@ def is_danger_attachment(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
         if n_attrs["argument_name"] != "as_attachment":
             continue
         val_id = n_attrs["value_id"]
-        return get_eval_danger(graph, val_id, set(), method)
+        return get_node_evaluation_results(method, graph, val_id, set())
     return False
 
 
-def python_io_path_traversal(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def python_io_path_traversal(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.PYTHON_IO_PATH_TRAVERSAL
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.PYTHON,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.PYTHON):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -74,7 +53,9 @@ def python_io_path_traversal(
                     n_attrs["expression"] == "send_file"
                     and (al_id := n_attrs.get("arguments_id"))
                     and is_danger_attachment(graph, al_id, method)
-                    and get_eval_danger(graph, al_id, {"userparams"}, method)
+                    and get_node_evaluation_results(
+                        method, graph, al_id, {"userparams"}
+                    )
                 ):
                     yield shard, n_id
 

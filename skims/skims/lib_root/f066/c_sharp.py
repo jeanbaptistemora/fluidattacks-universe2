@@ -7,7 +7,7 @@ from model.core_model import (
 )
 from model.graph_model import (
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
@@ -18,15 +18,11 @@ from utils import (
 )
 
 
-def has_console_functions(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def has_console_functions(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_HAS_CONSOLE_FUNCTIONS
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.CSHARP,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

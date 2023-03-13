@@ -16,34 +16,20 @@ from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return True
-    return False
-
-
 def is_lambda_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     block_id = graph.nodes[n_id]["block_id"]
-    n_attrs = graph.nodes[block_id]
-    test_nid = block_id
-    if n_attrs["label_type"] == "ExecutionBlock" and (
-        test_id := g.match_ast_d(graph, block_id, "Return")
+    if graph.nodes[block_id]["label_type"] == "ExecutionBlock" and (
+        return_id := g.match_ast_d(graph, block_id, "Return")
     ):
-        return get_eval_danger(graph, test_id, method)
-
-    return get_eval_danger(graph, test_nid, method)
+        return get_node_evaluation_results(method, graph, return_id, set())
+    return get_node_evaluation_results(method, graph, block_id, set())
 
 
 def is_validation_dangerous(
@@ -60,15 +46,12 @@ def is_validation_dangerous(
     return False
 
 
-def insecure_certificate_validation(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-    c_sharp = GraphLanguage.CSHARP
+def insecure_certificate_validation(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_CERTIFICATE_VALIDATION
     danger_m = "ServerCertificateValidationCallback"
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
