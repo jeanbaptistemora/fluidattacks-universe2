@@ -37,7 +37,7 @@ from utils.logs import (
     log_blocking,
 )
 
-MAX_FILE_SIZE: int = 102400  # 100KiB
+MAX_FILE_SIZE: int = 10240000  # 100KiB
 
 
 class FileTooLarge(Exception):
