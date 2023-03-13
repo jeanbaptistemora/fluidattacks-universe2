@@ -18,18 +18,15 @@ from sast.query import (
 )
 
 
-def has_reverse_tabnabbing(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def has_reverse_tabnabbing(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_HAS_REVERSE_TABNABBING
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
+
             for n_id in get_vulns_n_ids(graph):
                 yield shard, n_id
 

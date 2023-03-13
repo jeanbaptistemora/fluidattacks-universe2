@@ -1,8 +1,8 @@
 from collections.abc import (
     Iterator,
 )
-from lib_root.f112.common import (
-    sql_injection,
+from lib_root.f128.common import (
+    insecure_cookies,
 )
 from model.core_model import (
     MethodsEnum,
@@ -18,20 +18,20 @@ from sast.query import (
 )
 
 
-def unsafe_sql_injection(graph_db: GraphDB) -> Vulnerabilities:
-    method = MethodsEnum.TS_SQL_API_INJECTION
+def javascript_insecure_cookies(graph_db: GraphDB) -> Vulnerabilities:
+    method = MethodsEnum.JS_INSECURE_COOKIE
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(GraphLanguage.TYPESCRIPT):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
 
-            for n_id in sql_injection(graph, method):
+            for n_id in insecure_cookies(graph):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.F112.user_controled_param",
+        desc_key="lib_root.f128.set_cookie_missing_httponly",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

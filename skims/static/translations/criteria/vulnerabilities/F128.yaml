@@ -2,3 +2,6 @@
 lib_http.analyze_headers.set_cookie_httponly.missing_httponly:
   en: '{cookie_name} is missing HttpOnly'
   es: '{cookie_name} sin HttpOnly'
+lib_root.f128.set_cookie_missing_httponly:
+  en: 'The cookie service used is missing HttpOnly'
+  es: 'The cookie service used is missing HttpOnly'

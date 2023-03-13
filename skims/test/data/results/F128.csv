@@ -1,5 +1,27 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,cookieService is missing HttpOnly in namespace/skims/test/data/lib_root/f128/ts_http_only.ts,"
+F128,lines,namespace/skims/test/data/lib_root/f128/js_http_only.js,15,1004,skims,128. Insecurely generated cookies - HttpOnly,The cookie service used is missing HttpOnly in namespace/skims/test/data/lib_root/f128/js_http_only.js,"
+   1 | import { OnInit} from '@angular/core';
+   2 | import { ActivatedRoute} from '@angular/router';
+   3 | import { CookieService } from 'ngx-cookie-service';
+   4 |
+   5 | export const SESSION_OBJECT_ID = 'OficinaSession';
+   6 |
+   7 | export class AsistenciaComponent {
+   8 |   constructor(route, cookieService){
+   9 |     return
+  10 |   }
+  11 |
+  12 |   ngOnInit(){
+  13 |     this.route.params.subscribe(params => {
+  14 |       this.token = params.token;
+> 15 |       this.CookieService.set(SESSION_OBJECT_ID, this.token);
+  16 |     });
+  17 |   }
+  18 |
+  19 | }
+     ^ Col 0
+",javascript.javascript_insecure_cookie
+F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,The cookie service used is missing HttpOnly in namespace/skims/test/data/lib_root/f128/ts_http_only.ts,"
    2 | import { ActivatedRoute} from '@angular/router';
    3 | import { CookieService } from 'ngx-cookie-service';
    4 |

@@ -10,7 +10,7 @@ from model.core_model import (
 )
 from model.graph_model import (
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def javascript_insecure_logging(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def javascript_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_LOGGING
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVASCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVASCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

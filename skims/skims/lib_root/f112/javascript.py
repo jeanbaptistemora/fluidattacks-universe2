@@ -18,9 +18,7 @@ from sast.query import (
 )
 
 
-def unsafe_sql_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def unsafe_sql_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JS_SQL_API_INJECTION
 
     def n_ids() -> Iterator[GraphShardNode]:
@@ -28,6 +26,7 @@ def unsafe_sql_injection(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
+
             for n_id in sql_injection(graph, method):
                 yield shard, n_id
 

@@ -6,39 +6,22 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
     GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
+    get_node_evaluation_results,
 )
-from symbolic_eval.utils import (
-    get_backward_paths,
+from utils import (
+    graph as g,
 )
-import utils.graph as g
 
 
-def get_eval_result(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == {"userconnection"}
-        ):
-            return True
-    return False
-
-
-def go_insecure_query_float(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def go_insecure_query_float(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.GO_INSECURE_QUERY_FLOAT
     danger_methods = {
         "Exec",
@@ -55,15 +38,14 @@ def go_insecure_query_float(
                 continue
             graph = shard.syntax_graph
 
-            for n_id in g.matching_nodes(
-                graph,
-                label_type="MethodInvocation",
-            ):
+            for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 m_name = graph.nodes[n_id]["expression"].split(".")
                 if (
                     m_name[-1] in danger_methods
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
-                    and get_eval_result(graph, al_id, method)
+                    and get_node_evaluation_results(
+                        method, graph, al_id, {"userconnection"}
+                    )
                 ):
                     yield shard, n_id
 

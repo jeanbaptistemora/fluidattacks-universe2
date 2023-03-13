@@ -11,7 +11,7 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
@@ -44,16 +44,12 @@ def is_logger_unsafe(graph: Graph, n_id: str) -> bool:
     return False
 
 
-def insecure_logging(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_LOGGING
     danger_methods = {"logger.info", "log.debug", "log.info"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVA,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

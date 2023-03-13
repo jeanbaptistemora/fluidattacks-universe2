@@ -1,64 +1,44 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_ldap_injection(
-    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, nid):
-        evaluation = evaluate(method, graph, path, nid)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def ldap_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def ldap_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.CS_LDAP_INJECTION
-    csharp = GraphShardMetadataLanguage.CSHARP
     danger_methods = {"FindOne", "FindAll"}
     danger_params = {"directorysearcher", "userparameters", "userconnection"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(csharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
 
             for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
                 expr = graph.nodes[n_id]["expression"].split(".")
-                if expr[-1] in danger_methods and is_ldap_injection(
-                    graph, n_id, danger_params, method
+                if expr[-1] in danger_methods and get_node_evaluation_results(
+                    method,
+                    graph,
+                    n_id,
+                    danger_params,
                 ):
                     yield shard, n_id
 

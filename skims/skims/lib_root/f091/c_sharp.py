@@ -78,10 +78,7 @@ def is_insecure_logging(graph: Graph, n_id: NId) -> bool:
     return False
 
 
-def insecure_logging(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
-    c_sharp = GraphLanguage.CSHARP
+def insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
     logging_methods = {
         "Info",
         "Log",
@@ -92,12 +89,12 @@ def insecure_logging(
     }
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(c_sharp):
+        for shard in graph_db.shards_by_language(GraphLanguage.CSHARP):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            insecure_vars = get_insecure_vars(graph)
 
+            insecure_vars = get_insecure_vars(graph)
             for nid in g.matching_nodes(graph, label_type="MemberAccess"):
                 if (
                     graph.nodes[nid].get("member") in logging_methods

@@ -1,56 +1,33 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_sql_injection(
-    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, nid):
-        evaluation = evaluate(method, graph, path, nid)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def sql_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def sql_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_SQL_INJECTION
-    java = GraphShardMetadataLanguage.JAVA
     danger_methods = {"addBatch", "execute", "executeQuery", "executeUpdate"}
     danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(java):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -66,7 +43,9 @@ def sql_injection(
                         and graph.nodes[obj_id].get("symbol")
                         == "applicationJdbcTemplate"
                     )
-                ) and is_sql_injection(graph, n_id, danger_set, method):
+                ) and get_node_evaluation_results(
+                    method, graph, n_id, danger_set
+                ):
                     yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

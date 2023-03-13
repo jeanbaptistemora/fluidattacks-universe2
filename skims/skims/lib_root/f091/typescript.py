@@ -10,7 +10,7 @@ from model.core_model import (
 )
 from model.graph_model import (
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
@@ -18,15 +18,11 @@ from sast.query import (
 )
 
 
-def typescript_insecure_logging(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def typescript_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_LOGGING
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.TYPESCRIPT,
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.TYPESCRIPT):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph

@@ -6,40 +6,23 @@ from model.core_model import (
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_logger_unsafe(graph: Graph, n_id: str) -> bool:
-    method = MethodsEnum.DART_INSECURE_LOGGING
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == {"usesLogger"}
-        ):
-            return True
-
-    return False
-
-
 def dart_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
+    method = MethodsEnum.DART_INSECURE_LOGGING
     log_members = {"log", "logger"}
     log_methods = {
         "fine",
@@ -52,9 +35,7 @@ def dart_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
     }
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.DART
-        ):
+        for shard in graph_db.shards_by_language(GraphLanguage.DART):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -64,7 +45,9 @@ def dart_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
                 if (
                     n_expr[0] in log_members
                     and (len(n_expr) == 1 or n_expr[1] in log_methods)
-                    and is_logger_unsafe(graph, nid)
+                    and get_node_evaluation_results(
+                        method, graph, nid, {"usesLogger"}
+                    )
                 ):
                     yield shard, nid
 
@@ -72,5 +55,5 @@ def dart_insecure_logging(graph_db: GraphDB) -> Vulnerabilities:
         desc_key="lib_root.f237.has_print_statements",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.DART_INSECURE_LOGGING,
+        method=method,
     )

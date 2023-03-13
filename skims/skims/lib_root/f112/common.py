@@ -1,6 +1,3 @@
-from collections.abc import (
-    Set,
-)
 from lib_root.utilities.javascript import (
     file_imports_module,
 )
@@ -12,28 +9,11 @@ from model.graph_model import (
     NId,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
-
-
-def get_eval_danger(
-    graph: Graph, n_id: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, n_id):
-        evaluation = evaluate(method, graph, path, n_id)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
 
 
 def has_create_pool(graph: Graph) -> bool:
@@ -62,7 +42,7 @@ def sql_injection(graph: Graph, method: MethodsEnum) -> list[NId]:
             and (al_id := graph.nodes[n_id].get("arguments_id"))
             and (args_ids := g.adj_ast(graph, al_id))
             and len(args_ids) >= 1
-            and get_eval_danger(graph, n_id, danger_set, method)
+            and get_node_evaluation_results(method, graph, n_id, danger_set)
         ):
             vuln_nodes.append(n_id)
 

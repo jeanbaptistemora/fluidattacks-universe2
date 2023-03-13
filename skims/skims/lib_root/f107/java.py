@@ -1,55 +1,32 @@
 from collections.abc import (
     Iterator,
-    Set,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
 from model.graph_model import (
-    Graph,
     GraphDB,
-    GraphShardMetadataLanguage,
+    GraphShardMetadataLanguage as GraphLanguage,
     GraphShardNode,
-    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
 from symbolic_eval.evaluate import (
-    evaluate,
-)
-from symbolic_eval.utils import (
-    get_backward_paths,
+    get_node_evaluation_results,
 )
 from utils import (
     graph as g,
 )
 
 
-def is_ldap_injection(
-    graph: Graph, nid: NId, danger_set: Set[str], method: MethodsEnum
-) -> bool:
-    for path in get_backward_paths(graph, nid):
-        evaluation = evaluate(method, graph, path, nid)
-        if (
-            evaluation
-            and evaluation.danger
-            and evaluation.triggers == danger_set
-        ):
-            return True
-    return False
-
-
-def ldap_injection(
-    graph_db: GraphDB,
-) -> Vulnerabilities:
+def ldap_injection(graph_db: GraphDB) -> Vulnerabilities:
     method = MethodsEnum.JAVA_LDAP_INJECTION
-    java = GraphShardMetadataLanguage.JAVA
     danger_set = {"userparameters", "userconnection"}
 
     def n_ids() -> Iterator[GraphShardNode]:
-        for shard in graph_db.shards_by_language(java):
+        for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
@@ -63,7 +40,9 @@ def ldap_injection(
                     and "NamingEnumeration" in var_type
                     and (al_id := graph.nodes[n_id].get("arguments_id"))
                     and (arg_id := g.match_ast(graph, al_id).get("__1__"))
-                    and is_ldap_injection(graph, arg_id, danger_set, method)
+                    and get_node_evaluation_results(
+                        method, graph, arg_id, danger_set
+                    )
                 ):
                     yield shard, n_id
 
